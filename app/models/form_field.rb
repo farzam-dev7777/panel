@@ -1,6 +1,7 @@
 class FormField < ApplicationRecord
   
   belongs_to :formable, polymorphic: true
+  belongs_to :form
 
   validates :type, presence: true
 
