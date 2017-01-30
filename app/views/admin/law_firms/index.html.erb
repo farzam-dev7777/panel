@@ -1,0 +1,52 @@
+<% content_for :page_title do %>
+	<span>Law Firms</span>
+<% end %>
+
+
+<% content_for :page_buttons do %>
+	<%= link_to "Create New Law Form", new_admin_law_firm_path, class: "btn btn-primary btn-md pull-right" %>
+<% end %>
+
+<div class="clearfix"></div>
+
+<div class="col-lg-8 col-md-8 col-sm-12">
+
+	<div class="table-responsive">
+		<table class="table table-bordered">
+
+			<tr>
+				<th>Name</th>
+				<th>Email</th>
+				<th>Phone</th>
+				<th>Action</th>
+			</tr>
+
+			<% @law_firms.each do |firm| %>
+				<tr>
+					<td><%= firm.name %></td>
+					<td><%= firm.email %></td>
+					<td><%= firm.phone %></td>
+					<td><%= link_to "Edit", edit_admin_law_firm_path(firm), class: "btn btn-primary" %></td>
+				</tr>
+				
+			<% end %>
+
+		</table>
+		<div class="clearfix"></div>
+
+		<%= will_paginate @law_firms, renderer: BootstrapPagination::Rails %>
+	</div>
+</div>
+
+<div class="col-lg-4">
+	<div class="well">
+		<%= simple_form_for @q, url: :admin_law_firms, method: :get do |f| %>
+		  <%= f.input :name_cont, class: 'form-control' %>
+		  <%= f.input :email_cont, class: 'form-control' %>
+		  <%= f.input :phone_cont, class: 'form-control' %>
+		  <%= f.input :description_cont, class: 'form-control' %>
+		  <%= f.button :submit, "Search", class: "btn btn-primary" %>
+		<% end %>
+	</div>
+</div>
+

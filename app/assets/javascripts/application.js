@@ -12,7 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= active_admin/base
-//= active_material
+// active_material
 //= require turbolinks
-//= require_tree .
+//= require app.config.seed
+//= require bootstrap/bootstrap.min
+//= require app.seed
+// require_tree .

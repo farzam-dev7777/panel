@@ -1,14 +1,16 @@
 class User < ApplicationRecord
+  acts_as_messageable
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable,#, :registerable,
-         # :recoverable,
+         :recoverable,
          # :rememberable,
          :trackable,
          :validatable,
          :authentication_keys => [:username]
 
   has_one :law_firm
+  has_many :activity_logs, as: :loggable
 
   validates :username,
     :presence => true,
@@ -41,5 +43,13 @@ class User < ApplicationRecord
     elsif conditions.has_key?(:username)
       where(conditions.to_h).first
     end
+  end
+
+  def mailboxer_email(object)
+    #Check if an email should be sent for that object
+    #if true
+    return "define_email@on_your.model"
+    #if false
+    #return nil
   end
 end

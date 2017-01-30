@@ -1,0 +1,31 @@
+/*
+ * It is advised not to edit the smartadmin_production.css
+ * as this will override any changes you make in the 
+ * later versions of this theme. 
+ * 
+ * We advise that you use use this CSS to override 
+ * SmartAdmin styles. 
+ * 
+ * Rename the stylesheet to whatever your liking so it will stay
+ * unique to you with each update of SmartAdmin.
+ */
+
+/*
+ * INDEX
+ * 
+ * - HTML
+ * - BODY
+ * - CUSTOM STYLES
+ */
+
+ .login-page{ 
+ 		background: #0079C1 !important;
+    background-image: url('/assets/bg.png') !important;
+    background-image: url('/assets/bg.png'), linear-gradient(#0079C1, #0079C1) !important;
+    background-size: cover !important;
+    height: 100vh
+ }
+
+ .white-text *{ color: #fff !important }
+
+ .login-form-wrapper { margin-top: 45px; }
