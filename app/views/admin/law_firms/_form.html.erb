@@ -1,0 +1,47 @@
+<% content_for :page_title do %>
+	<% if @law_firm.new_record? %>
+		<span>Create new law firm</span>
+	<% else %>
+		<span>Edit <%= @law_firm.name %></span>
+	<% end %>
+<% end %>
+<div class="table-responsive">
+	<table class="table table-bordered">
+
+		<%= simple_form_for([:admin, @law_firm]) do |f| %>
+			<tr>
+				<td>Name</td>
+				<td><%= f.input :name, autofocus: true, label: false %></td>
+			</tr>
+
+			<tr>
+				<td>Description</td>
+				<td><%= f.input :description, label: false %></td>
+			</tr>
+
+			<tr>
+				<td>Email</td>
+				<td><%= f.input :email, label: false %></td>
+			</tr>
+
+			<tr>
+				<td>Phone</td>
+				<td><%= f.input :phone, label: false %></td>
+			</tr>
+
+			<% if f.object.new_record? %>
+				<tr>
+					<td>Temp. Password</td>
+					<td><%= f.input :temp_password, label: false %></td>
+				</tr>
+			<% end %>
+
+			<tr>
+				<td colspan="2">
+					<%= f.button :submit, f.object.new_record? ? 'Create' : 'Update', class: "btn btn-primary" %>
+				</td>
+			</tr>
+		<% end %>
+
+	</table>
+</div>

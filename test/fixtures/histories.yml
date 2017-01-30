@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  law_firm_id: 1
+  event_type: MyString
+  custom_message: MyString
+  associated_to: MyString
+  association_id: 1
+
+two:
+  law_firm_id: 1
+  event_type: MyString
+  custom_message: MyString
+  associated_to: MyString
+  association_id: 1

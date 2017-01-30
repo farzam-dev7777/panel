@@ -24,6 +24,10 @@ gem 'will_paginate'
 gem 'activeadmin', '~> 1.0.0.pre4'
 gem 'inherited_resources', github: 'activeadmin/inherited_resources'
 
+gem 'ransack'
+
+gem 'rails-assets-fontawesome', source: 'https://rails-assets.org'
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 
@@ -41,6 +45,11 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+gem "paranoia", "~> 1.0"
+gem 'simple_form'
+gem 'will_paginate-bootstrap'
+gem 'mailboxer'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
@@ -53,6 +62,7 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'letter_opener'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
