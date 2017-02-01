@@ -27,6 +27,8 @@ gem 'inherited_resources', github: 'activeadmin/inherited_resources'
 gem 'ransack'
 
 gem 'rails-assets-fontawesome', source: 'https://rails-assets.org'
+gem 'rails-assets-JustGage', source: 'https://rails-assets.org'
+gem 'rails-assets-raphael', source: 'https://rails-assets.org'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

@@ -14,5 +14,14 @@
     <p class="alert"><%= alert %></p> -->
     <%= yield %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <script>
+      var g = new JustGage({
+        id: "gauge",
+        value: 137,
+        min: 0,
+        max: 300
+      });
+    </script>
   </body>
 </html>

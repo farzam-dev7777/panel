@@ -15,6 +15,15 @@
 // active_material
 //= require turbolinks
 //= require app.config.seed
+//= require plugin/jquery-touch/jquery.ui.touch-punch.min
 //= require bootstrap/bootstrap.min
 //= require app.seed
+//= require plugin/moment/moment.min
+//= require plugin/fullcalendar/jquery.fullcalendar.min
+//= require plugin/flot/jquery.flot.cust.min
+//= require plugin/flot/jquery.flot.resize.min
+//= require plugin/flot/jquery.flot.time.min
+//= require plugin/flot/jquery.flot.tooltip.min
+//= require JustGage
+//= require raphael
 // require_tree .

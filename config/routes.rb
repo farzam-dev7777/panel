@@ -3,7 +3,8 @@ Rails.application.routes.draw do
 
   namespace :admin do
   	devise_for :admin_users, controllers: { sessions: 'admin/internal_sessions' }
-  	resources :law_firms
+    resources :law_firms
+  	resources :activity_logs
   	# devise_scope :admin_users do 
   	# 	resources :sessions
   	# end

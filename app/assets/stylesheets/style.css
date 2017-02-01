@@ -1,31 +1,29 @@
-/*
- * It is advised not to edit the smartadmin_production.css
- * as this will override any changes you make in the 
- * later versions of this theme. 
- * 
- * We advise that you use use this CSS to override 
- * SmartAdmin styles. 
- * 
- * Rename the stylesheet to whatever your liking so it will stay
- * unique to you with each update of SmartAdmin.
- */
+.login-page{ 
+		background: #0079C1 !important;
+  background-image: url('/assets/bg.png') !important;
+  background-image: url('/assets/bg.png'), linear-gradient(#0079C1, #0079C1) !important;
+  background-size: cover !important;
+  height: 100vh
+}
 
-/*
- * INDEX
- * 
- * - HTML
- * - BODY
- * - CUSTOM STYLES
- */
+.white-text *{ color: #fff !important }
 
- .login-page{ 
- 		background: #0079C1 !important;
-    background-image: url('/assets/bg.png') !important;
-    background-image: url('/assets/bg.png'), linear-gradient(#0079C1, #0079C1) !important;
-    background-size: cover !important;
-    height: 100vh
- }
+.login-form-wrapper { margin-top: 45px; }
 
- .white-text *{ color: #fff !important }
+.#sparks li { text-align: center }
+.#sparks li h5 { width: 100% !important }
 
- .login-form-wrapper { margin-top: 45px; }
+.no-padding { padding: 0px !important }
+
+.jarviswidget .widget-body { padding-bottom: 0px; }
+
+.col-md-8.data {
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.fa.timeline-icon {
+	padding: 18px 19px;
+	color: #fff;
+}

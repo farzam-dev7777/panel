@@ -3,7 +3,7 @@
 			<div id="logo-group">
 
 				<!-- PLACE YOUR LOGO HERE -->
-				<span id="logo"> <img src="/assets/logo.png" alt="SmartAdmin"> </span>
+				<span id="logo"> <img src="/assets/bluehound-logo.png" alt="SmartAdmin"> </span>
 				<!-- END LOGO PLACEHOLDER -->
 
 				<!-- Note: The activity badge color changes when clicked and resets the number to 0
@@ -51,30 +51,6 @@
 			</div>
 
 			<!-- #PROJECTS: projects dropdown -->
-			<div class="project-context hidden-xs">
-
-				<span class="label">Projects:</span>
-				<span class="project-selector dropdown-toggle" data-toggle="dropdown">Recent projects <i class="fa fa-angle-down"></i></span>
-
-				<!-- Suggestion: populate this list with fetch and push technique -->
-				<ul class="dropdown-menu">
-					<li>
-						<a href="javascript:void(0);">Online e-merchant management system - attaching integration with the iOS</a>
-					</li>
-					<li>
-						<a href="javascript:void(0);">Notes on pipeline upgradee</a>
-					</li>
-					<li>
-						<a href="javascript:void(0);">Assesment Report for merchant account</a>
-					</li>
-					<li class="divider"></li>
-					<li>
-						<a href="javascript:void(0);"><i class="fa fa-power-off"></i> Clear</a>
-					</li>
-				</ul>
-				<!-- end dropdown-menu-->
-
-			</div>
 			<!-- end projects dropdown -->
 			
 			<!-- #TOGGLE LAYOUT BUTTONS -->
@@ -165,7 +141,7 @@
 
 				<ul>
 					<li class="">
-						<a href="index.html" title="blank_"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Blank</span></a>
+						<a href="index.html" title="blank_"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Dashboard</span></a>
 					</li>
 				</ul>
 			</nav>
@@ -176,7 +152,7 @@
 		<!-- END NAVIGATION -->
 		
 		<!-- #MAIN PANEL -->
-		<div id="main" role="main">
+		<div id="main" role="main" style="padding-bottom: 0px">
 
 			<!-- RIBBON -->
 			<div id="ribbon">
@@ -211,14 +187,615 @@
 						
 						<!-- PAGE HEADER -->
 						<i class="fa-fw fa fa-home"></i> 
-							Page Header 
-						<span>>  
-							Subtitle
+							Dashboard
+						<span>
 						</span>
 					</h1>
 				</div>
 				<!-- end col -->
 				
+				<div class="clearfix"></div>
+
+				<div class="row">
+
+					
+
+		<div class="col-md-12">
+			<article class="col-sm-12">
+				<!-- new widget -->
+				<div class="jarviswidget" id="wid-id-0" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-fullscreenbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false">
+						<!-- widget options:
+						usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+						data-widget-colorbutton="false"
+						data-widget-editbutton="false"
+						data-widget-togglebutton="false"
+						data-widget-deletebutton="false"
+						data-widget-fullscreenbutton="false"
+						data-widget-custombutton="false"
+						data-widget-collapsed="true"
+						data-widget-sortable="false"
+
+					-->
+					<header>
+						<span class="widget-icon"> <i class="fa fa-bar-chart"></i> </span>
+						<h2><strong>S.E.A.L</strong> Score </h2>
+
+					</header>
+
+					<!-- widget div-->
+					<div class="no-padding">
+						<!-- widget edit box -->
+						<div class="jarviswidget-editbox">
+
+							test
+						</div>
+						<!-- end widget edit box -->
+
+						<div class="widget-body">
+							<!-- content -->
+							<div id="myTabContent" class="tab-content">
+								<div class="tab-pane fade active in padding-10 no-padding-bottom" id="s1">
+									<div class="row no-space">
+										<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-top: -55px !important; position: relative; top: 15px;">
+											<div id="gauge" class="200x160px"></div>
+										</div>
+										
+												</div>
+
+
+											</div>
+											<!-- end s1 tab pane -->
+
+											<div class="tab-pane fade" id="s2">
+												<div class="widget-body-toolbar bg-color-white">
+
+													<form class="form-inline" role="form">
+
+														<div class="form-group">
+															<label class="sr-only" for="s123">Show From</label>
+															<input type="email" class="form-control input-sm" id="s123" placeholder="Show From">
+														</div>
+														<div class="form-group">
+															<input type="email" class="form-control input-sm" id="s124" placeholder="To">
+														</div>
+
+														<div class="btn-group hidden-phone pull-right">
+															<a class="btn dropdown-toggle btn-xs btn-default" data-toggle="dropdown"><i class="fa fa-cog"></i> More <span class="caret"> </span> </a>
+															<ul class="dropdown-menu pull-right">
+																<li>
+																	<a href="javascript:void(0);"><i class="fa fa-file-text-alt"></i> Export to PDF</a>
+																</li>
+																<li>
+																	<a href="javascript:void(0);"><i class="fa fa-question-sign"></i> Help</a>
+																</li>
+															</ul>
+														</div>
+
+													</form>
+
+												</div>
+												<div class="padding-10">
+													<div id="statsChart" class="chart-large has-legend-unique"></div>
+												</div>
+
+											</div>
+											<!-- end s2 tab pane -->
+
+											<div class="tab-pane fade" id="s3">
+
+												<div class="widget-body-toolbar bg-color-white smart-form" id="rev-toggles">
+
+													<div class="inline-group">
+
+														<label for="gra-0" class="checkbox">
+															<input type="checkbox" name="gra-0" id="gra-0" checked="checked">
+															<i></i> Target </label>
+															<label for="gra-1" class="checkbox">
+																<input type="checkbox" name="gra-1" id="gra-1" checked="checked">
+																<i></i> Actual </label>
+																<label for="gra-2" class="checkbox">
+																	<input type="checkbox" name="gra-2" id="gra-2" checked="checked">
+																	<i></i> Signups </label>
+																</div>
+
+																<div class="btn-group hidden-phone pull-right">
+																	<a class="btn dropdown-toggle btn-xs btn-default" data-toggle="dropdown"><i class="fa fa-cog"></i> More <span class="caret"> </span> </a>
+																	<ul class="dropdown-menu pull-right">
+																		<li>
+																			<a href="javascript:void(0);"><i class="fa fa-file-text-alt"></i> Export to PDF</a>
+																		</li>
+																		<li>
+																			<a href="javascript:void(0);"><i class="fa fa-question-sign"></i> Help</a>
+																		</li>
+																	</ul>
+																</div>
+
+															</div>
+
+															<div class="padding-10">
+																<div id="flotcontainer" class="chart-large has-legend-unique"></div>
+															</div>
+														</div>
+														<!-- end s3 tab pane -->
+													</div>
+
+													<!-- end content -->
+												</div>
+
+											</div>
+											<!-- end widget div -->
+										</div>
+										<!-- end widget -->
+
+									</article>
+								</div>
+							</div>
+
+
+
+<div class="clearfix"></div>
+
+
+
+
+<div class="col-md-6">
+<div class="jarviswidget jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+
+
+	<header>
+		<span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
+		<h2 class="font-md"><strong>ToDo List </strong></h2>				
+	</header>
+
+	<div>
+
+		<div>
+									<!-- widget edit box -->
+									<div class="jarviswidget-editbox">
+										<div>
+											<label>Title:</label>
+											<input type="text" />
+										</div>
+									</div>
+									<!-- end widget edit box -->
+
+									<div class="widget-body no-padding smart-form">
+										<!-- content goes here -->
+										<h5 class="todo-group-title"><i class="fa fa-warning"></i> Critical Tasks (<small class="num-of-tasks">1</small>)</h5>
+										<ul id="sortable1" class="todo">
+											<li>
+												<span class="handle"> <label class="checkbox">
+														<input type="checkbox" name="checkbox-inline">
+														<i></i> </label> </span>
+												<p>
+													<strong>Ticket #17643</strong> - Hotfix for WebApp interface issue [<a href="javascript:void(0);" class="font-xs">More Details</a>] <span class="text-muted">Sea deep blessed bearing under darkness from God air living isn't. </span>
+													<span class="date">Jan 1, 2014</span>
+												</p>
+											</li>
+										</ul>
+										<h5 class="todo-group-title"><i class="fa fa-exclamation"></i> Important Tasks (<small class="num-of-tasks">3</small>)</h5>
+										<ul id="sortable2" class="todo">
+											<li>
+												<span class="handle"> <label class="checkbox">
+														<input type="checkbox" name="checkbox-inline">
+														<i></i> </label> </span>
+												<p>
+													<strong>Ticket #1347</strong> - Inbox email is being sent twice <small>(bug fix)</small> [<a href="javascript:void(0);" class="font-xs">More Details</a>] <span class="date">Nov 22, 2013</span>
+												</p>
+											</li>
+											<li>
+												<span class="handle"> <label class="checkbox">
+														<input type="checkbox" name="checkbox-inline">
+														<i></i> </label> </span>
+												<p>
+													<strong>Ticket #1314</strong> - Call customer support re: Issue <a href="javascript:void(0);" class="font-xs">#6134</a><small>(code review)</small>
+													<span class="date">Nov 22, 2013</span>
+												</p>
+											</li>
+											<li>
+												<span class="handle"> <label class="checkbox">
+														<input type="checkbox" name="checkbox-inline">
+														<i></i> </label> </span>
+												<p>
+													<strong>Ticket #17643</strong> - Hotfix for WebApp interface issue [<a href="javascript:void(0);" class="font-xs">More Details</a>] <span class="text-muted">Sea deep blessed bearing under darkness from God air living isn't. </span>
+													<span class="date">Jan 1, 2014</span>
+												</p>
+											</li>
+										</ul>
+
+										<h5 class="todo-group-title"><i class="fa fa-check"></i> Completed Tasks (<small class="num-of-tasks">1</small>)</h5>
+										<ul id="sortable3" class="todo">
+											<li class="complete">
+												<span class="handle" style="display:none"> <label class="checkbox state-disabled">
+														<input type="checkbox" name="checkbox-inline" checked="checked" disabled="disabled">
+														<i></i> </label> </span>
+												<p>
+													<strong>Ticket #17643</strong> - Hotfix for WebApp interface issue [<a href="javascript:void(0);" class="font-xs">More Details</a>] <span class="text-muted">Sea deep blessed bearing under darkness from God air living isn't. </span>
+													<span class="date">Jan 1, 2014</span>
+												</p>
+											</li>
+										</ul>
+
+										<!-- end content -->
+									</div>
+
+								</div>
+
+	</div>
+
+
+</div>
+
+</div>
+
+<div class="col-md-6">
+	
+	<div class="jarviswidget jarviswidget-color-blue" id="wid-id-4" data-widget-editbutton="false" data-widget-colorbutton="false">
+
+						<!-- widget options:
+						usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+						data-widget-colorbutton="false"
+						data-widget-editbutton="false"
+						data-widget-togglebutton="false"
+						data-widget-deletebutton="false"
+						data-widget-fullscreenbutton="false"
+						data-widget-custombutton="false"
+						data-widget-collapsed="true"
+						data-widget-sortable="false"
+
+						-->
+
+						<header>
+							<span class="widget-icon"> <i class="fa fa-check txt-color-white"></i> </span>
+							<h2> News </h2>
+							<!-- <div class="widget-toolbar">
+							add: non-hidden - to disable auto hide
+
+							</div>-->
+						</header>
+
+						<!-- widget div-->
+						<div>
+							<!-- widget edit box -->
+							<div class="jarviswidget-editbox">
+								<div>
+									<label>Title:</label>
+									<input type="text" />
+								</div>
+							</div>
+							<!-- end widget edit box -->
+
+							<div class="widget-body no-padding smart-form">
+								<div class="col-sm-12 col-md-12 col-lg-12">
+										<div style="padding: 0px 20px !important;">
+				
+											<div class="">
+				
+												<div class="col-sm-12">
+				
+													<div class="padding-10">
+				
+														<div class="tab-content padding-top-10">
+															<div class="tab-pane fade in active" id="a1">
+				
+																<div class="row">
+				
+																	<div class="col-xs-2 col-sm-1">
+																		<time datetime="2014-09-20" class="icon">
+																			<strong>Jan</strong>
+																			<span>22</span>
+																		</time>
+																	</div>
+				
+																	<div class="col-xs-10 col-sm-11">
+																		<h6 class="no-margin"><a href="javascript:void(0);">Security Alert!</a></h6>
+																		<p>
+																			Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+																		</p>
+																	</div>
+				
+																	<div class="col-sm-12 padding-10">
+																		<hr>
+																	</div>
+				
+																	<div class="col-xs-2 col-sm-1">
+																		<time datetime="2014-09-20" class="icon">
+																			<strong>Jan</strong>
+																			<span>10</span>
+																		</time>
+																	</div>
+				
+																	<div class="col-xs-10 col-sm-11">
+																		<h6 class="no-margin"><a href="javascript:void(0);">World Report</a></h6>
+																		<p>
+																			Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+																		</p>
+																	</div>
+				
+																	<div class="col-sm-12 padding-10">
+																		<hr>
+																	</div>
+				
+																	<div class="col-xs-2 col-sm-1">
+																		<time datetime="2014-09-20" class="icon">
+																			<strong>Jan</strong>
+																			<span>10</span>
+																		</time>
+																	</div>
+				
+																	<div class="col-xs-10 col-sm-11">
+																		<h6 class="no-margin"><a href="javascript:void(0);">World Report</a></h6>
+																		<p>
+																			Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+																		</p>
+																	</div>
+				
+																	<div class="col-sm-12 padding-10">
+																		<hr>
+																	</div>
+				
+																	<div class="col-xs-2 col-sm-1">
+																		<time datetime="2014-09-20" class="icon">
+																			<strong>Jan</strong>
+																			<span>10</span>
+																		</time>
+																	</div>
+				
+																	<div class="col-xs-10 col-sm-11">
+																		<h6 class="no-margin"><a href="javascript:void(0);">World Report</a></h6>
+																		<p>
+																			Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+																		</p>
+																	</div>
+				
+																	<div class="col-sm-12">
+				
+																		<br>
+				
+																	</div>
+				
+																</div>
+				
+															</div>
+															<div class="tab-pane fade" id="a2">
+				
+																<div class="alert alert-info fade in">
+																	<button class="close" data-dismiss="alert">
+																		×
+																	</button>
+																	<i class="fa-fw fa fa-info"></i>
+																	<strong>51 new members </strong>joined today!
+																</div>
+				
+																<div class="user" title="email@company.com">
+																	<img src="img/avatars/female.png" alt="demo user"><a href="javascript:void(0);">Jenn Wilson</a>
+																	<div class="email">
+																		travis@company.com
+																	</div>
+																</div>
+																<div class="user" title="email@company.com">
+																	<img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Marshall Hitt</a>
+																	<div class="email">
+																		marshall@company.com
+																	</div>
+																</div>
+																<div class="user" title="email@company.com">
+																	<img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Joe Cadena</a>
+																	<div class="email">
+																		joe@company.com
+																	</div>
+																</div>
+																<div class="user" title="email@company.com">
+																	<img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Mike McBride</a>
+																	<div class="email">
+																		mike@company.com
+																	</div>
+																</div>
+																<div class="user" title="email@company.com">
+																	<img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Travis Wilson</a>
+																	<div class="email">
+																		travis@company.com
+																	</div>
+																</div>
+																<div class="user" title="email@company.com">
+																	<img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Marshall Hitt</a>
+																	<div class="email">
+																		marshall@company.com
+																	</div>
+																</div>
+																<div class="user" title="Joe Cadena joe@company.com">
+																	<img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Joe Cadena</a>
+																	<div class="email">
+																		joe@company.com
+																	</div>
+																</div>
+																<div class="user" title="email@company.com">
+																	<img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Mike McBride</a>
+																	<div class="email">
+																		mike@company.com
+																	</div>
+																</div>
+																<div class="user" title="email@company.com">
+																	<img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Marshall Hitt</a>
+																	<div class="email">
+																		marshall@company.com
+																	</div>
+																</div>
+																<div class="user" title="email@company.com">
+																	<img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Joe Cadena</a>
+																	<div class="email">
+																		joe@company.com
+																	</div>
+																</div>
+																<div class="user" title="email@company.com">
+																	<img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);"> Mike McBride</a>
+																	<div class="email">
+																		mike@company.com
+																	</div>
+																</div>
+				
+																<div class="text-center">
+																	<ul class="pagination pagination-sm">
+																		<li class="disabled">
+																			<a href="javascript:void(0);">Prev</a>
+																		</li>
+																		<li class="active">
+																			<a href="javascript:void(0);">1</a>
+																		</li>
+																		<li>
+																			<a href="javascript:void(0);">2</a>
+																		</li>
+																		<li>
+																			<a href="javascript:void(0);">3</a>
+																		</li>
+																		<li>
+																			<a href="javascript:void(0);">...</a>
+																		</li>
+																		<li>
+																			<a href="javascript:void(0);">99</a>
+																		</li>
+																		<li>
+																			<a href="javascript:void(0);">Next</a>
+																		</li>
+																	</ul>
+																</div>
+				
+															</div><!-- end tab -->
+														</div>
+				
+													</div>
+				
+												</div>
+				
+											</div>
+											<!-- end row -->
+				
+										</div>
+				
+									</div>
+								<!-- end content -->
+							</div>
+
+						</div>
+						<!-- end widget div -->
+					</div>
+
+</div>
+
+
+
+
+
+<div class="col-md-12">
+<div class="jarviswidget jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+
+	<header>
+		<span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
+		<h2 class="font-md"><strong>Activity Log </strong></h2>				
+	</header>
+
+	<div>
+		<!-- MAIN PANEL -->
+		<div role="main">
+
+			<!-- MAIN CONTENT -->
+			<div style="height: 500px; overflow: scroll">
+
+				<!-- row -->
+				<div class="row">
+
+					<section id="cd-timeline" class="cd-container">
+							<div class="cd-timeline-block">
+								<div class="cd-timeline-img cd-picture">
+									<i class="fa fa-edit fa-2x timeline-icon"></i>
+								</div> <!-- cd-timeline-img -->
+
+								<div class="cd-timeline-content">
+									<h2>History Title</h2>
+									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde? Iste voluptatibus minus veritatis qui ut.</p>
+									<span class="cd-date">Jan 14</span>
+								</div> <!-- cd-timeline-content -->
+							</div> <!-- cd-timeline-block -->
+
+							<div class="cd-timeline-block">
+								<div class="cd-timeline-img cd-movie">
+									<i class="fa fa-edit fa-2x timeline-icon"></i>
+								</div> <!-- cd-timeline-img -->
+
+								<div class="cd-timeline-content">
+									<h2>History Title</h2>
+									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde?</p>
+									<span class="cd-date">Jan 18</span>
+								</div> <!-- cd-timeline-content -->
+							</div> <!-- cd-timeline-block -->
+
+							<div class="cd-timeline-block">
+								<div class="cd-timeline-img cd-picture">
+									<i class="fa fa-edit fa-2x timeline-icon"></i>
+								</div> <!-- cd-timeline-img -->
+
+								<div class="cd-timeline-content">
+									<h2>History Title</h2>
+									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi, obcaecati, quisquam id molestias eaque asperiores voluptatibus cupiditate error assumenda delectus odit similique earum voluptatem doloremque dolorem ipsam quae rerum quis. Odit, itaque, deserunt corporis vero ipsum nisi eius odio natus ullam provident pariatur temporibus quia eos repellat consequuntur perferendis enim amet quae quasi repudiandae sed quod veniam dolore possimus rem voluptatum eveniet eligendi quis fugiat aliquam sunt similique aut adipisci.</p>
+									<span class="cd-date">Jan 24</span>
+								</div> <!-- cd-timeline-content -->
+							</div> <!-- cd-timeline-block -->
+
+							<div class="cd-timeline-block">
+								<div class="cd-timeline-img cd-location">
+									<i class="fa fa-edit fa-2x timeline-icon"></i>
+								</div> <!-- cd-timeline-img -->
+
+								<div class="cd-timeline-content">
+									<h2>History Title</h2>
+									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde? Iste voluptatibus minus veritatis qui ut.</p>
+									<span class="cd-date">Feb 14</span>
+								</div> <!-- cd-timeline-content -->
+							</div> <!-- cd-timeline-block -->
+
+							<div class="cd-timeline-block">
+								<div class="cd-timeline-img cd-location">
+									<i class="fa fa-edit fa-2x timeline-icon"></i>
+								</div> <!-- cd-timeline-img -->
+
+								<div class="cd-timeline-content">
+									<h2>History Title</h2>
+									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum.</p>
+									<span class="cd-date">Feb 18</span>
+								</div> <!-- cd-timeline-content -->
+							</div> <!-- cd-timeline-block -->
+
+							<div class="cd-timeline-block">
+								<div class="cd-timeline-img cd-movie">
+									<i class="fa fa-edit fa-2x timeline-icon"></i>
+								</div> <!-- cd-timeline-img -->
+
+								<div class="cd-timeline-content">
+									<h2>Final Section</h2>
+									<p>This is the content of the last section</p>
+									<span class="cd-date">Feb 26</span>
+								</div> <!-- cd-timeline-content -->
+							</div> <!-- cd-timeline-block -->
+						</section> <!-- cd-timeline -->
+
+				</div>
+
+				<!-- end row -->
+
+			</div>
+			<!-- END MAIN CONTENT -->
+
+		</div>
+		<!-- END MAIN PANEL -->
+	</div>
+
+</div>
+</div>
+
+
+<div class="clearfix"></div>
 
 			<!-- end row -->
 			
@@ -227,27 +804,6 @@
 		</div>
 		<!-- END #MAIN PANEL -->
 
-		<!-- #PAGE FOOTER -->
-		<div class="page-footer">
-			<div class="row">
-				<div class="col-xs-12 col-sm-6">
-					<span class="txt-color-white">SmartAdmin 1.8.x <span class="hidden-xs"> - Web Application Framework</span> © 2014-2016</span>
-				</div>
-			</div>
-			<!-- end row -->
-		</div>
-		<!-- END FOOTER -->
-
-		<!-- #SHORTCUT AREA : With large tiles (activated via clicking user name tag)
-			 Note: These tiles are completely responsive, you can add as many as you like -->
-		<div id="shortcut">
-			<ul>
-				<li>
-					<a href="index.html" class="jarvismetro-tile big-cubes bg-color-blue"> <span class="iconbox"> <i class="fa fa-envelope fa-4x"></i> <span>Mail <span class="label pull-right bg-color-darken">14</span></span> </span> </a>
-				</li>
-			</ul>
-		</div>
-		<!-- END SHORTCUT AREA -->
 
 		<!--================================================== -->
 
