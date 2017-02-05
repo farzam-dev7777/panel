@@ -26,7 +26,10 @@
 					<td><%= firm.name %></td>
 					<td><%= firm.email %></td>
 					<td><%= firm.phone %></td>
-					<td><%= link_to "Edit", edit_admin_law_firm_path(firm), class: "btn btn-primary" %></td>
+					<td class="text-center">
+						<%= link_to "Edit", edit_admin_law_firm_path(firm), class: "btn btn-primary" %>	
+						<%= link_to "View", admin_law_firm_path(firm), class: "btn btn-primary" %>	
+					</td>
 				</tr>
 				
 			<% end %>

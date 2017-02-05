@@ -1,8 +1,14 @@
 class Admin::LawFirmsController < Admin::BaseController
 
+  layout 'admin'
+
   def index
   	@q = LawFirm.ransack(params[:q])
     @law_firms = @q.result(distinct: true).paginate(page: params[:page])
+  end
+
+  def show
+    @law_firm = LawFirm.find(params[:id])
   end
 
   def create
