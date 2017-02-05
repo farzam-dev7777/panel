@@ -1,0 +1,22 @@
+<%= f.input :label %>
+
+<%= f.simple_fields_for :options do |option| %>
+  <% f.object.options.each do |opt| %>
+    <div class="well">
+      <div class="row">
+        <div class="col-md-6">
+          <%= option.input :key, input_html: { value: opt.first[0] } %>
+        </div>
+        <div class="col-md-6">
+          <%= option.input :value, input_html: { value: opt.first[1] } %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="row">
+  <div class="col-md-12">
+    <a href="#" class="btn btn-primary pull-right">Add More Options</a>
+  </div>
+</div>

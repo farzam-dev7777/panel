@@ -1,0 +1,12 @@
+<% if resource.errors.any? %>
+  There were some problems with your submission:
+  <ul>
+    <% resource.form_value_errors.each do |error| %>
+      <li><%= error %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= simple_fields_for user_program do |u| %>
+  <%= render 'form_values', f: u %>
+<% end %>

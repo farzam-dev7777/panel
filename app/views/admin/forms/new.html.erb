@@ -1,0 +1,4 @@
+<%= simple_form_for [:admin, @form] do |f| %>
+  <%= render 'new_form', f: f %>
+  <%= f.submit "Save", class: "btn btn-primary" %>
+<% end %>

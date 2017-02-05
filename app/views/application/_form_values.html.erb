@@ -1,0 +1,12 @@
+<%= f.simple_fields_for :form_values, f.object.built_values do |v| %>
+  <% field = v.object.form_field %>
+    <%= v.input :form_field_id, as: :hidden, value: field.id %>
+    <%= v.input :value, {
+      label: field.display_label,
+      input_html: field.input_html,
+      required: field.required_html(v.object.file_cache.present?),
+      wrapper: field.wrapper,
+      wrapper_html: field.wrapper_html
+    }, &field.input_block(v) %>
+  <% end %>
+<% end %>

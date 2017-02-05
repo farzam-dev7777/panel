@@ -1,5 +1,6 @@
 class FormField < ApplicationRecord
-  
+  # serialize :options
+
   belongs_to :formable, polymorphic: true
   belongs_to :form
 

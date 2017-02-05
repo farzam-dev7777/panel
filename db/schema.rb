@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170205005432) do
+ActiveRecord::Schema.define(version: 20170205020445) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,9 +63,13 @@ ActiveRecord::Schema.define(version: 20170205005432) do
     t.boolean  "required"
     t.string   "label"
     t.string   "type"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.integer  "form_id"
+    t.integer  "formable_id"
+    t.string   "formable_type"
+    t.text     "options",       default: [],              array: true
+    t.index ["options"], name: "index_form_fields_on_options", using: :gin
   end
 
   create_table "form_submissions", force: :cascade do |t|
