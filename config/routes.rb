@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   	# devise_scope :admin_users do 
   	# 	resources :sessions
   	# end
+    get '/internal_dashboard/notifications', to: 'internal_dashboard#show'
 	  root to: "internal_dashboard#index"
   end
 
