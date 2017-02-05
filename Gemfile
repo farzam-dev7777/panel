@@ -47,6 +47,7 @@ gem 'jbuilder', '~> 2.5'
 
 gem "paranoia", "~> 1.0"
 gem 'simple_form'
+gem "cocoon"
 gem 'will_paginate-bootstrap'
 gem 'mailboxer'
 
