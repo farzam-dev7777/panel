@@ -1,24 +1,41 @@
 class Admin::FormsController < Admin::BaseController
   include FormBehaviors
 
-  def program_params
+  def form_params
     form_attributes = [:id, :name]
     params.require(:form).permit(form_attributes + form_fields_attributes)
   end
 
+  def index
+    @q = Form.ransack(params[:q])
+    @forms = @q.result(distinct: true).paginate(page: params[:page])
+  end
+
+  def edit
+    @form = Form.find(params[:id])
+  end
 
   def create
-    binding.pry
+    @form = Form.new(form_params)
+    if @form.save
+      redirect_to edit_admin_form_path(@form)
+    else
+      flash[:error] = "error"
+      redirect_to :back
+    end
+  end
+
+  def update
+    @form = Form.find(params[:id])
+    if @form.update_attributes(form_params)
+      redirect_to edit_admin_form_path(@form)
+    else
+      flash[:error] = "error"
+      redirect_back fallback_location: admin_forms_path
+    end
   end
 
   def new
     @form = Form.new
-    fields = []
-    dropdown_field = DropdownField.new(label: 'Gender')
-    dropdown_field.options << {"Male" => "male"}
-    dropdown_field.options << {"Female" => "female"}
-    fields << dropdown_field
-    fields << DateField.new(label: 'Date of Birth', min: '1910-10-10', max: '1910-10-10')
-    @form.form_fields = fields
   end
 end

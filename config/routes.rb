@@ -6,10 +6,16 @@ Rails.application.routes.draw do
     resources :activity_logs
     resources :forms
     resources :form_submissions
+    resources :form_fields, :only => [:index] do
+      member do
+        post :move
+      end
+    end
     # devise_scope :admin_users do 
     #   resources :sessions
     # end
-    root to: "internal_dashboard#index"
+    get '/internal_dashboard/notifications', to: 'internal_dashboard#show'
+	  root to: "internal_dashboard#index"
   end
 
   devise_for :users, controllers: { sessions: 'users/sessions' }

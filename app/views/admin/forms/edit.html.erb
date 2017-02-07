@@ -1,0 +1,5 @@
+<% content_for :page_title do %>
+  <span><%= link_to("Forms", admin_forms_path) %></span>
+  <span> > Edit <%= @form.name   %></span>
+<% end %>
+<%= render "form" %>

@@ -12,6 +12,10 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui-sortable
+//= require sortable
+//= require app
+//= require cocoon
 // active_material
 //= require turbolinks
 //= require app.config.seed
@@ -24,6 +28,8 @@
 //= require plugin/flot/jquery.flot.resize.min
 //= require plugin/flot/jquery.flot.time.min
 //= require plugin/flot/jquery.flot.tooltip.min
+//= require plugin/flot/jquery.flot.orderBar.min
 //= require JustGage
 //= require raphael
 // require_tree .
+

@@ -1,151 +1,70 @@
 <div class="row">
+	<div class="col-xs-12 col-sm-5 col-md-5 col-lg-12">
+		<ul id="sparks" class="pull-right">
+			<li class="sparks-info">
+				<h5 class="current-month-info"> Sealed Firms 
+					<span class="txt-color-green">- 171 -</span>
+				</h5>
+			</li>
+			<li class="sparks-info">
+				<h5 class="current-month-info"> Under Process 
+					<span class="txt-color-yellow">- 47 -</span>
+				</h5>
+			</li>
+			<li class="sparks-info">
+				<h5 class="current-month-info"> Not Sealed 
+					<span class="txt-color-red">- 4 -</span>
+				</h5>
+			</li>
+		</ul>
+	</div>
+</div>
+<div class="row">
 		<div class="col-md-12">
 			<article class="col-sm-12">
 				<!-- new widget -->
-				<div class="jarviswidget" id="wid-id-0" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-fullscreenbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false">
-						<!-- widget options:
-						usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+				<div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+					<!-- widget options:
+					usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
 
-						data-widget-colorbutton="false"
-						data-widget-editbutton="false"
-						data-widget-togglebutton="false"
-						data-widget-deletebutton="false"
-						data-widget-fullscreenbutton="false"
-						data-widget-custombutton="false"
-						data-widget-collapsed="true"
-						data-widget-sortable="false"
+					data-widget-colorbutton="false"
+					data-widget-editbutton="false"
+					data-widget-togglebutton="false"
+					data-widget-deletebutton="false"
+					data-widget-fullscreenbutton="false"
+					data-widget-custombutton="false"
+					data-widget-collapsed="true"
+					data-widget-sortable="false"
 
 					-->
 					<header>
-						<span class="widget-icon"> <i class="fa fa-bar-chart"></i> </span>
-						<h2><strong>S.E.A.L</strong> Stats </h2>
+						<span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
+						<h2>S.E.A.L Stats</h2>
 
 					</header>
 
 					<!-- widget div-->
-					<div class="no-padding">
+					<div>
+
 						<!-- widget edit box -->
 						<div class="jarviswidget-editbox">
+							<!-- This area used as dropdown edit box -->
 
-							test
 						</div>
 						<!-- end widget edit box -->
 
-						<div class="widget-body">
-							<!-- content -->
-							<div id="myTabContent" class="tab-content">
-								<div class="tab-pane fade active in padding-10 no-padding-bottom" id="s1">
-									<div class="row no-space">
-										<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-											<div id="updating-chart" class="chart-large txt-color-blue"></div>
+						<!-- widget content -->
+						<div class="widget-body no-padding">
 
-										</div>
-										<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 show-stats">
+							<div id="bar-chart" class="chart"></div>
 
-											<div class="row">
-												<div class="col-xs-6 col-sm-6 col-md-12 col-lg-12"> <span class="text"> Sealed Firms <span class="pull-right">171</span> </span>
-													<div class="progress">
-														<div class="progress-bar bg-color-green" style="width: 65%;"></div>
-													</div> </div>
-													<div class="col-xs-6 col-sm-6 col-md-12 col-lg-12"> <span class="text"> Under Process <span class="pull-right">47</span> </span>
-														<div class="progress">
-															<div class="progress-bar bg-color-yellow" style="width: 34%;"></div>
-														</div> </div>
-														<div class="col-xs-6 col-sm-6 col-md-12 col-lg-12"> <span class="text"> Firms Engaged Without Seal<span class="pull-right">4</span> </span>
-															<div class="progress">
-																<div class="progress-bar bg-color-red" style="width: 7%;"></div>
-															</div> </div>
+						</div>
+						<!-- end widget content -->
 
+					</div>
+					<!-- end widget div -->
 
-														</div>
-
-													</div>
-												</div>
-
-
-											</div>
-											<!-- end s1 tab pane -->
-
-											<div class="tab-pane fade" id="s2">
-												<div class="widget-body-toolbar bg-color-white">
-
-													<form class="form-inline" role="form">
-
-														<div class="form-group">
-															<label class="sr-only" for="s123">Show From</label>
-															<input type="email" class="form-control input-sm" id="s123" placeholder="Show From">
-														</div>
-														<div class="form-group">
-															<input type="email" class="form-control input-sm" id="s124" placeholder="To">
-														</div>
-
-														<div class="btn-group hidden-phone pull-right">
-															<a class="btn dropdown-toggle btn-xs btn-default" data-toggle="dropdown"><i class="fa fa-cog"></i> More <span class="caret"> </span> </a>
-															<ul class="dropdown-menu pull-right">
-																<li>
-																	<a href="javascript:void(0);"><i class="fa fa-file-text-alt"></i> Export to PDF</a>
-																</li>
-																<li>
-																	<a href="javascript:void(0);"><i class="fa fa-question-sign"></i> Help</a>
-																</li>
-															</ul>
-														</div>
-
-													</form>
-
-												</div>
-												<div class="padding-10">
-													<div id="statsChart" class="chart-large has-legend-unique"></div>
-												</div>
-
-											</div>
-											<!-- end s2 tab pane -->
-
-											<div class="tab-pane fade" id="s3">
-
-												<div class="widget-body-toolbar bg-color-white smart-form" id="rev-toggles">
-
-													<div class="inline-group">
-
-														<label for="gra-0" class="checkbox">
-															<input type="checkbox" name="gra-0" id="gra-0" checked="checked">
-															<i></i> Target </label>
-															<label for="gra-1" class="checkbox">
-																<input type="checkbox" name="gra-1" id="gra-1" checked="checked">
-																<i></i> Actual </label>
-																<label for="gra-2" class="checkbox">
-																	<input type="checkbox" name="gra-2" id="gra-2" checked="checked">
-																	<i></i> Signups </label>
-																</div>
-
-																<div class="btn-group hidden-phone pull-right">
-																	<a class="btn dropdown-toggle btn-xs btn-default" data-toggle="dropdown"><i class="fa fa-cog"></i> More <span class="caret"> </span> </a>
-																	<ul class="dropdown-menu pull-right">
-																		<li>
-																			<a href="javascript:void(0);"><i class="fa fa-file-text-alt"></i> Export to PDF</a>
-																		</li>
-																		<li>
-																			<a href="javascript:void(0);"><i class="fa fa-question-sign"></i> Help</a>
-																		</li>
-																	</ul>
-																</div>
-
-															</div>
-
-															<div class="padding-10">
-																<div id="flotcontainer" class="chart-large has-legend-unique"></div>
-															</div>
-														</div>
-														<!-- end s3 tab pane -->
-													</div>
-
-													<!-- end content -->
-												</div>
-
-											</div>
-											<!-- end widget div -->
-										</div>
-										<!-- end widget -->
+				</div>
 
 									</article>
 								</div>
@@ -187,6 +106,7 @@
 					<th>Name</th>
 					<th>Email</th>
 					<th>Phone</th>
+					<th>Score</th>
 					<th>Action</th>
 				</tr>
 
@@ -195,6 +115,13 @@
 						<td><%= firm.name %></td>
 						<td><%= firm.email %></td>
 						<td><%= firm.phone %></td>
+						<td class="text-center">
+							<div> 
+								<span class="percent txt-color-blue font-xl semi-bold">
+									<%= rand(120...300) %>
+								</span> 
+							</div>
+						</td>
 						<td class="text-center" width="150px">
 							<%= link_to "Edit", edit_admin_law_firm_path(firm), class: "btn btn-primary" %>	
 							<%= link_to "Mail", edit_admin_law_firm_path(firm), class: "btn btn-primary" %>	
@@ -595,53 +522,6 @@
 
 	</tbody>
 </table>
-
-<script>
-	
-	//Gets tooltips activated
-	$("#inbox-table [rel=tooltip]").tooltip();
-
-	$("#inbox-table input[type='checkbox']").change(function() {
-		$(this).closest('tr').toggleClass("highlight", this.checked);
-	});
-
-	$("#inbox-table .inbox-data-message").click(function() {
-		$this = $(this);
-		getMail($this);
-	})
-	$("#inbox-table .inbox-data-from").click(function() {
-		$this = $(this);
-		getMail($this);
-	})
-	function getMail($this) {
-		//console.log($this.closest("tr").attr("id"));
-		loadURL("ajax/email-opened.html", $('#inbox-content > .table-wrap'));
-	}
-
-
-	$('.inbox-table-icon input:checkbox').click(function() {
-		enableDeleteButton();
-	})
-
-	$(".deletebutton").click(function() {
-		$('#inbox-table td input:checkbox:checked').parents("tr").rowslide();
-		//$(".inbox-checkbox-triggered").removeClass('visible');
-		//$("#compose-mail").show();
-	});
-
-	function enableDeleteButton() {
-		var isChecked = $('.inbox-table-icon input:checkbox').is(':checked');
-
-		if (isChecked) {
-			$(".inbox-checkbox-triggered").addClass('visible');
-			//$("#compose-mail").hide();
-		} else {
-			$(".inbox-checkbox-triggered").removeClass('visible');
-			//$("#compose-mail").show();
-		}
-	}
-	
-</script>
 
 								<!-- end content -->
 							</div>

@@ -1,0 +1,137 @@
+<div class="jarviswidget jarviswidget-sortable" id="wid-id-6" data-widget-editbutton="false" data-widget-custombutton="false" role="widget">
+				<!-- widget options:
+					usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+					
+					data-widget-colorbutton="false"	
+					data-widget-editbutton="false"
+					data-widget-togglebutton="false"
+					data-widget-deletebutton="false"
+					data-widget-fullscreenbutton="false"
+					data-widget-custombutton="false"
+					data-widget-collapsed="true" 
+					data-widget-sortable="false"
+					
+				-->
+				<header role="heading">
+					<h2><strong>Send Notification </strong></h2>				
+				</header>
+
+				<!-- widget div-->
+				<div role="content">
+					
+					<!-- widget edit box -->
+					<div class="jarviswidget-editbox">
+						<!-- This area used as dropdown edit box -->
+						
+					</div>
+					<!-- end widget edit box -->
+					
+					<!-- widget content -->
+					<div class="widget-body no-padding">
+						
+						<form action="php/demo-comment.php" method="post" id="comment-form" class="smart-form" novalidate="novalidate">
+							
+
+							<fieldset>
+								<div class="row">
+									<section class="col col-4">
+										<label class="label">Platform</label>
+										<label class="input"> <i class="icon-append fa fa-user"></i>
+											<input type="text" name="name">
+										</label>
+									</section>
+									<section class="col col-4">
+										<label class="label">Version</label>
+										<label class="input"> <i class="icon-append fa fa-envelope-o"></i>
+											<input type="email" name="email">
+										</label>
+									</section>
+									<section class="col col-4">
+										<label class="label">Patch</label>
+										<label class="input"> <i class="icon-append fa fa-globe"></i>
+											<input type="url" name="url">
+										</label>
+									</section>
+								</div>
+
+								<section>
+									<div class="table-responsive">
+										<table class="table table-bordered">
+
+											<tr>
+												<th></th>
+												<th>Name</th>
+												<th>Email</th>
+												<th>Phone</th>
+												<th>Score</th>
+											</tr>
+
+											<% @law_firms.each do |firm| %>
+												<tr>
+													<td width="20px">
+														<input type="checkbox" name="subscription" id="subscription">
+													</td>
+													<td><%= firm.name %></td>
+													<td><%= firm.email %></td>
+													<td><%= firm.phone %></td>
+													<td class="text-center">
+														<div> 
+															<span class="percent txt-color-blue font-xl semi-bold">
+																<%= rand(120...300) %>
+															</span> 
+														</div>
+													</td>
+												</tr>
+												
+											<% end %>
+
+										</table>
+										<div class="clearfix"></div>
+
+									</div>
+								</section>
+
+
+							</fieldset>
+
+							<fieldset>					
+								
+								<section>
+									<label class="label">Subject</label>
+									<label class="input">
+										<i class="icon-append fa fa-tag"></i>
+										<input type="text" name="subject" id="subject">
+									</label>
+								</section>
+								
+								<section>
+									<label class="label">Message</label>
+									<label class="textarea">
+										<i class="icon-append fa fa-comment"></i>
+										<textarea rows="4" name="message" id="message"></textarea>
+									</label>
+								</section>
+
+							</fieldset>
+
+							<footer>
+								<button type="submit" name="submit" class="btn btn-primary">
+									Send
+								</button>
+							</footer>
+
+							<div class="message">
+								<i class="fa fa-check fa-lg"></i>
+								<p>
+									Your comment was successfully added!
+								</p>
+							</div>
+						</form>
+						
+					</div>
+					<!-- end widget content -->
+					
+				</div>
+				<!-- end widget div -->
+				
+			</div>

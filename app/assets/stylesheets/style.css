@@ -6,6 +6,16 @@
   height: 100vh
 }
 
+*[data-role=activerecord_sortable]{
+  list-style: none;
+  padding: 0px;  
+}
+
+span.sub-fields-arrow:before {
+  content: "\2937";
+  font-size: 100px;
+}
+
 .white-text *{ color: #fff !important }
 
 .login-form-wrapper { margin-top: 45px; }
@@ -26,4 +36,23 @@
 .fa.timeline-icon {
 	padding: 18px 19px;
 	color: #fff;
+}
+
+.current-month-info{
+  font-size: 16px !important;
+  line-height: 25px;
+  letter-spacing: 5px;
+  color: #bbb !important;
+}
+
+.current-month-info span {
+  font-size: 25px;
+}
+
+#sparks {
+  padding-right: 10px;
+}
+
+.login-info a span{
+  text-transform: lowercase;
 }

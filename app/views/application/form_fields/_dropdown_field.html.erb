@@ -1,22 +1,15 @@
-<%= f.input :label %>
-
-<%= f.simple_fields_for :options do |option| %>
-  <% f.object.options.each do |opt| %>
-    <div class="well">
+<div class="dropwdown_options_wrapper">
+  <%= f.simple_fields_for :dropdown_options do |option| %>
+    <%= render "dropdown_option_fields", f: option %>
+    <div class="add_more_options_wrapper">
       <div class="row">
-        <div class="col-md-6">
-          <%= option.input :key, input_html: { value: opt.first[0] } %>
-        </div>
-        <div class="col-md-6">
-          <%= option.input :value, input_html: { value: opt.first[1] } %>
+        <div class="col-md-12">
         </div>
       </div>
     </div>
   <% end %>
-<% end %>
-
-<div class="row">
-  <div class="col-md-12">
-    <a href="#" class="btn btn-primary pull-right">Add More Options</a>
+  <div id="links">
+    <p><strong><%= link_to_add_association 'Add Options', f, :dropdown_options, class: "btn btn-primary" %></strong></p>
   </div>
+  <br />
 </div>

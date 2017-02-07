@@ -7,4 +7,8 @@ class Admin::InternalDashboardController < Admin::BaseController
     @law_firms = @q.result(distinct: true).limit(5)
   end
 
+  def show
+  	@law_firms = LawFirm.all.limit(4)
+  end
+
 end

@@ -29,11 +29,13 @@ gem 'ransack'
 gem 'rails-assets-fontawesome', source: 'https://rails-assets.org'
 gem 'rails-assets-JustGage', source: 'https://rails-assets.org'
 gem 'rails-assets-raphael', source: 'https://rails-assets.org'
+gem 'activerecord-sortable'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 
-gem 'jquery-ui-rails', '~> 4.2.1'
+gem 'jquery-ui-rails'
+gem 'rails-jquery-ui-sortable'
 
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'

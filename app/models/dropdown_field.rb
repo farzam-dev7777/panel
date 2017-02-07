@@ -1,5 +1,5 @@
 class DropdownField < FormField
-  serialize :options, Array
+  
   def add_validation_errors(value)
     unless value.blank? || value.match(/\A[+-]?\d+\Z/)
       form_value.errors.add :value, 'must be an integer'

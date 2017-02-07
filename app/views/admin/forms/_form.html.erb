@@ -1,0 +1,13 @@
+<%= simple_form_for [:admin, @form] do |f| %>
+  <%- @step = 0 %>
+  <div class="row">
+    <div class="col-md-12">
+      <%= f.input :name %>
+    </div>
+  </div>
+  <%= render 'new_form', f: f, form_fields: f.object.form_fields.top_form_fields %>
+  <div id="links">
+    <p><strong><%= link_to_add_association 'Add Field', f, :form_fields, class: "btn btn-primary" %></strong></p>
+  </div>
+  <%= f.submit "Save", class: "btn btn-primary" %>
+<% end %>

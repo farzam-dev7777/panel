@@ -18,6 +18,7 @@
 				<th>Name</th>
 				<th>Email</th>
 				<th>Phone</th>
+				<th>Score</th>
 				<th>Action</th>
 			</tr>
 
@@ -26,6 +27,13 @@
 					<td><%= firm.name %></td>
 					<td><%= firm.email %></td>
 					<td><%= firm.phone %></td>
+					<td class="text-center">
+						<div> 
+							<span class="percent txt-color-blue font-xl semi-bold">
+								<%= rand(120...300) %>
+							</span> 
+						</div>
+					</td>
 					<td class="text-center">
 						<%= link_to "Edit", edit_admin_law_firm_path(firm), class: "btn btn-primary" %>	
 						<%= link_to "View", admin_law_firm_path(firm), class: "btn btn-primary" %>	
