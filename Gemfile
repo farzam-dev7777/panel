@@ -18,7 +18,6 @@ gem 'coffee-rails', '~> 4.2'
 
 # gem "active_material", github: "vigetlabs/active_material"
 gem 'flattened_active_admin'
-gem 'pry'
 gem 'devise'
 gem 'will_paginate'
 gem 'activeadmin', '~> 1.0.0.pre4'
@@ -58,6 +57,7 @@ gem 'mailboxer'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
+  gem 'pry'
 end
 
 group :development do
