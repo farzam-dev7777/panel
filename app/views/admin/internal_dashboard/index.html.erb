@@ -80,7 +80,7 @@
 
 
 <% content_for :page_buttons do %>
-<%= link_to "Create New Law Form", new_admin_law_firm_path, class: "btn btn-primary btn-md pull-right" %>
+<%= link_to "Create New Law Firm", new_admin_law_firm_path, class: "btn btn-primary btn-md pull-right" %>
 <% end %>
 
 <div class="clearfix"></div>
@@ -150,7 +150,7 @@
 
 	<header>
 		<span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
-		<h2 class="font-md"><strong>Send Notification </strong></h2>				
+		<h2 class="font-md"><strong>Send Message </strong></h2>				
 	</header>
 
 	<div>
@@ -170,15 +170,24 @@
 			<!-- widget content -->
 			<div class="widget-body no-padding">
 				
-				<form action="demo-contacts.php" method="post" id="contact-form" class="smart-form">
+				<!-- <form action="/admin" method="post" id="message-form" class="smart-form"> -->
+				<%= form_tag '/admin/messages', class: 'smart-form', id: 'message-form' do %>
 					
+					<div class="alert adjusted alert-success fade in hidden">
+						<button class="close" data-dismiss="alert">
+							×
+						</button>
+						<i class="fa-fw fa-lg fa fa-exclamation"></i>
+						<strong>Message sent successfully!</strong>
+					</div>
+
 					<fieldset>
 						
 						<section>
 							<label class="label">Law Firm</label>
 							<label class="input">
 								<i class="icon-append fa fa-tag"></i>
-								<input type="text" name="subject" id="subject">
+								<%= collection_select :message, :law_firm_id, @law_firms, :id, :name, {}, style: "width: 100%" %>							
 							</label>
 						</section>
 						
@@ -186,7 +195,7 @@
 							<label class="label">Subject</label>
 							<label class="input">
 								<i class="icon-append fa fa-tag"></i>
-								<input type="text" name="subject" id="subject">
+								<%= text_field_tag 'message[subject]' %>
 							</label>
 						</section>
 						
@@ -194,7 +203,7 @@
 							<label class="label">Message</label>
 							<label class="textarea">
 								<i class="icon-append fa fa-comment"></i>
-								<textarea rows="4" name="message" id="message"></textarea>
+								<%= text_area_tag 'message[body]' %>
 							</label>
 						</section>
 
@@ -203,12 +212,8 @@
 					<footer>
 						<button type="submit" class="btn btn-primary">Send</button>
 					</footer>
-					
-					<div class="message">
-						<i class="fa fa-thumbs-up"></i>
-						<p>Your message was successfully sent!</p>
-					</div>
-				</form>						
+
+				<% end %>
 				
 			</div>
 			<!-- end widget content -->

@@ -4,7 +4,8 @@ class Admin::InternalDashboardController < Admin::BaseController
 
   def index
     @q = LawFirm.ransack(params[:q])
-    @conversations = ConversationDecorator.decorate_collection(current_admin_user.mailbox.conversations)
+    conversations = current_admin_user.mailbox.conversations.order('created_at DESC').limit(10)
+    @conversations = ConversationDecorator.decorate_collection(conversations)
     @law_firms = @q.result(distinct: true).limit(5)
   end
 
