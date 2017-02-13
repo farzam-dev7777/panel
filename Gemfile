@@ -22,7 +22,7 @@ gem 'devise'
 gem 'will_paginate'
 gem 'activeadmin', '~> 1.0.0.pre4'
 gem 'inherited_resources', github: 'activeadmin/inherited_resources'
-
+gem 'draper'
 gem 'ransack'
 
 gem 'rails-assets-fontawesome', source: 'https://rails-assets.org'
