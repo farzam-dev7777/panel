@@ -4,7 +4,11 @@ Rails.application.routes.draw do
     devise_for :admin_users, controllers: { sessions: 'admin/internal_sessions' }
     resources :law_firms
     resources :activity_logs
-    resources :forms
+    resources :forms do
+      collection do
+        get :group_form_fields
+      end
+    end
     resources :form_submissions
     resources :form_fields, :only => [:index] do
       member do

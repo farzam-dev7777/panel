@@ -3,6 +3,7 @@
   <div class="row">
     <div class="col-md-12">
       <%= f.input :name %>
+      <%= f.input :group_form %>
     </div>
   </div>
   <%= render 'new_form', f: f, form_fields: f.object.form_fields.top_form_fields %>

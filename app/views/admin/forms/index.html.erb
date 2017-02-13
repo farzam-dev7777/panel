@@ -2,46 +2,51 @@
   <span>Forms</span>
 <% end %>
 
-
 <% content_for :page_buttons do %>
   <%= link_to "Create New Form", new_admin_form_path, class: "btn btn-primary btn-md pull-right" %>
 <% end %>
 
 <div class="clearfix"></div>
 
-<div class="col-lg-8 col-md-8 col-sm-12">
+<div class="clearfix"></div>
 
-  <div class="table-responsive">
-    <table class="table table-bordered">
+<div class="row">
+  
+  <div class="col-lg-8 col-md-8 col-sm-12">
 
-      <tr>
-        <th>Name</th>
-        <th>Action</th>
-      </tr>
+    <div class="table-responsive">
+      <table class="table table-bordered">
 
-      <% @forms.each do |form| %>
         <tr>
-          <td><%= form.name %></td>
-          <td class="text-center">
-            <%= link_to "Edit", edit_admin_form_path(form), class: "btn btn-primary" %> 
-          </td>
+          <th>Name</th>
+          <th>Action</th>
         </tr>
-        
+
+        <% @forms.each do |form| %>
+          <tr>
+            <td><%= form.name %></td>
+            <td class="text-center">
+              <%= link_to "Edit", edit_admin_form_path(form), class: "btn btn-primary" %> 
+            </td>
+          </tr>
+          
+        <% end %>
+
+      </table>
+      <div class="clearfix"></div>
+
+      <%= will_paginate @forms, renderer: BootstrapPagination::Rails %>
+    </div>
+  </div>
+
+  <div class="col-lg-4">
+    <div class="well">
+      <%= simple_form_for @q, url: :admin_forms, method: :get do |f| %>
+        <%= f.input :name_cont, class: 'form-control' %>
+        <%= f.input :group_form_eq, collection: [true, false], class: 'form-control' %>
+        <%= f.button :submit, "Search", class: "btn btn-primary" %>
       <% end %>
-
-    </table>
-    <div class="clearfix"></div>
-
-    <%= will_paginate @forms, renderer: BootstrapPagination::Rails %>
+    </div>
   </div>
-</div>
 
-<div class="col-lg-4">
-  <div class="well">
-    <%= simple_form_for @q, url: :admin_forms, method: :get do |f| %>
-      <%= f.input :name_cont, class: 'form-control' %>
-      <%= f.button :submit, "Search", class: "btn btn-primary" %>
-    <% end %>
-  </div>
 </div>
-

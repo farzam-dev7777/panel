@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170206015632) do
+ActiveRecord::Schema.define(version: 20170213022054) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,6 +78,8 @@ ActiveRecord::Schema.define(version: 20170206015632) do
     t.string   "formable_type"
     t.integer  "parent_id"
     t.integer  "position"
+    t.integer  "group_form_id"
+    t.boolean  "repeater"
     t.index ["position"], name: "index_form_fields_on_position", using: :btree
   end
 
@@ -91,14 +93,17 @@ ActiveRecord::Schema.define(version: 20170206015632) do
     t.integer  "form_field_id"
     t.integer  "submittable_id"
     t.string   "value"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.string   "submittable_type"
+    t.string   "form_field_label"
   end
 
   create_table "forms", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean  "group_form"
   end
 
   create_table "law_firms", force: :cascade do |t|

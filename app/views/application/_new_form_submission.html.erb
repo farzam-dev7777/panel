@@ -7,6 +7,6 @@
   </ul>
 <% end %>
 
-<%= simple_fields_for user_program do |u| %>
+<%= simple_fields_for @form do |u| %>
   <%= render 'form_values', f: u %>
 <% end %>

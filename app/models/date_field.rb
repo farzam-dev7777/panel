@@ -22,10 +22,10 @@ class DateField < FormField
   private
 
   def valid_date?(date_string)
-    date_components = date_string.split('-').first(3).map(&:to_i)
-    return false unless date_components.size == 3 && date_components.all?
+    # date_components = date_string.split('-').first(3).map(&:to_i)
+    # return false unless date_components.size == 3 && date_components.all?
 
-    Date.valid_date?(*date_components)
+    # Date.valid_date?(*date_components)
   end
 
 end

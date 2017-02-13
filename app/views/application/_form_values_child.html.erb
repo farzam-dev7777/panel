@@ -1,0 +1,24 @@
+<div class="row">
+  <div class="col-md-<%= step %>"></div>
+  <div class="col-md-<%= 12 - step %>">
+    <%= f.simple_fields_for :form_values, form_values do |v| %>
+      <% field = v.object.form_field %>
+      <% if field.group_form_id %>
+        <%= v.input :form_field_id, as: :hidden, value: field.id %>
+        <%= render "form_values_child", f: f, form_values: field.group_form.build_values, step: step %>  
+      <% else %>
+        <%= v.input :form_field_id, as: :hidden, value: field.id %>
+        <%= v.input :value, {
+          label: field.label,
+          collection: field.collection,
+          # input_html: field.input_html,
+          # required: field.required_html(v.object.file_cache.present?),
+          # wrapper: field.wrapper,
+          # wrapper_html: field.wrapper_html
+          as: field.as
+        }, &field.input_block(v) %>
+        <%= render "form_values_child", f: f, form_values: v.object.build_nested_form_values, step: step + 1 %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

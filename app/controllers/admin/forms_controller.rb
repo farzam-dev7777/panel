@@ -2,7 +2,7 @@ class Admin::FormsController < Admin::BaseController
   include FormBehaviors
 
   def form_params
-    form_attributes = [:id, :name]
+    form_attributes = [:id, :name, :group_form]
     params.require(:form).permit(form_attributes + form_fields_attributes)
   end
 
@@ -12,6 +12,10 @@ class Admin::FormsController < Admin::BaseController
   end
 
   def edit
+    @form = Form.find(params[:id])
+  end
+
+  def show
     @form = Form.find(params[:id])
   end
 

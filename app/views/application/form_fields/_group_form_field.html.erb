@@ -1,0 +1,10 @@
+<div class="group_form_fields_wrapper">
+  <div class="row">
+    <div class="col-md-12">
+      <%= f.input :group_form_id, collection: Form.where(group_form: true) %>
+    </div>
+    <div class="col-md-12">
+      <%= f.input :repeater %>
+    </div>
+  </div>
+</div>

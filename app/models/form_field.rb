@@ -10,6 +10,7 @@ class FormField < ApplicationRecord
   belongs_to :parent, :class_name => 'FormField'
   has_many   :children, ->{ordered_by_position_asc}, :class_name => 'FormField', :foreign_key => 'parent_id'
   has_many   :dropdown_options
+  has_many   :form_values
 
   validates :type, presence: true
 
@@ -25,6 +26,33 @@ class FormField < ApplicationRecord
     form_value
   end
 
+  def input_block(v)
+  end
+
+  def input_html
+
+  end
+
+  def required_html(v)
+
+  end
+
+  def wrapper
+
+  end
+
+  def wrapper_html
+
+  end
+
+  def as
+    :text
+  end
+
+  def collection
+    []
+  end
+
   def get_step
     step = 0
     obj = self
@@ -36,7 +64,7 @@ class FormField < ApplicationRecord
   end
 
   def add_validation_errors(form_value)
-    fail NotImplementedError
+    # fail NotImplementedError
   end
 
 end
