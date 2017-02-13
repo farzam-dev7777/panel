@@ -254,9 +254,42 @@
 
 						<!-- widget div-->
 						<div>
-						
-
 							<div class="widget-body no-padding smart-form">
+								<table id="inbox-table" class="table table-striped table-hover">
+									<tbody>
+										<% @conversations.each do |conversation| %>
+											<% receipt = conversation.receipts.where(receiver_type: 'LawFirm').first %>
+											<tr>
+												<td class="inbox-table-icon">
+													
+												</td>
+												<td class="inbox-data-from hidden-xs hidden-sm">
+													<div>
+														<%= receipt.receiver.name %>
+													</div>
+												</td>
+												<td class="inbox-data-message">
+													<div>
+														<span><%= conversation.subject %>.</span> <%= receipt.message.body %>
+													</div>
+												</td>
+												<td class="inbox-data-attachment hidden-xs">
+													<div>
+														<a href="javascript:void(0);" rel="tooltip" data-placement="left" data-original-title="FILES: rocketlaunch.jpg, timelogs.xsl" class="txt-color-darken"></a>
+													</div>
+												</td>
+												<td class="inbox-data-date hidden-xs">
+													<div>
+														10:23 am
+													</div>
+												</td>
+											</tr>
+										<% end %>
+									</tbody>
+								</table>
+							</div>					
+	
+<!-- 							<div class="widget-body no-padding smart-form">
 								<table id="inbox-table" class="table table-striped table-hover">
 	<tbody>
 
@@ -521,7 +554,7 @@
 		</tr>
 
 	</tbody>
-</table>
+</table> -->
 
 								<!-- end content -->
 							</div>
