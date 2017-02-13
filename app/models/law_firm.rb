@@ -4,6 +4,7 @@ class LawFirm < ApplicationRecord
   has_many :activity_logs
 
   after_create :generate_a_new_user
+  acts_as_messageable
 
   attr_accessor :temp_password
 

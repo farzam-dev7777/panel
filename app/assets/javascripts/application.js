@@ -29,6 +29,7 @@
 //= require plugin/flot/jquery.flot.time.min
 //= require plugin/flot/jquery.flot.tooltip.min
 //= require plugin/flot/jquery.flot.orderBar.min
+//= require plugin/select2/select2.min
 //= require JustGage
 //= require raphael
 // require_tree .

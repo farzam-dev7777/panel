@@ -5,4 +5,33 @@ $(document).ready(function(){
     $(this).parent().prepend(html);
   })
   $('*[data-role=activerecord_sortable]').activerecord_sortable();
+
+  $('select').select2();
+
+  $('form#message-form').submit(function(e) {
+    e.preventDefault()
+    var values = $(this).serializeArray()
+    var data = {}
+    values.forEach(function(elem) {
+      data[elem.name] = elem.value
+    })
+    $.ajax({
+      method: 'POST',
+      url: '/admin/messages',
+      data: data,
+      success: function(response) {
+        $('form#message-form')[0].reset()
+        var message = $('form#message-form .alert.alert-success')
+        message.removeClass('hidden')
+        message.show()
+        setTimeout(function() {
+          message.hide()
+        }, 4000)
+      },
+      complete: function(response) {
+
+      }
+    })
+  })
+
 });

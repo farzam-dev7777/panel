@@ -18,13 +18,13 @@ gem 'coffee-rails', '~> 4.2'
 
 # gem "active_material", github: "vigetlabs/active_material"
 gem 'flattened_active_admin'
-gem 'pry'
 gem 'devise'
 gem 'will_paginate'
 gem 'activeadmin', '~> 1.0.0.pre4'
 gem 'inherited_resources', github: 'activeadmin/inherited_resources'
-
+gem 'draper', '~> 3.0.0.pre1'
 gem 'ransack'
+gem 'activemodel-serializers-xml'
 
 gem 'rails-assets-fontawesome', source: 'https://rails-assets.org'
 gem 'rails-assets-JustGage', source: 'https://rails-assets.org'
@@ -58,6 +58,7 @@ gem 'mailboxer'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
+  gem 'pry'
 end
 
 group :development do

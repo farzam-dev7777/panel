@@ -80,7 +80,7 @@
 
 
 <% content_for :page_buttons do %>
-<%= link_to "Create New Law Form", new_admin_law_firm_path, class: "btn btn-primary btn-md pull-right" %>
+<%= link_to "Create New Law Firm", new_admin_law_firm_path, class: "btn btn-primary btn-md pull-right" %>
 <% end %>
 
 <div class="clearfix"></div>
@@ -150,7 +150,7 @@
 
 	<header>
 		<span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
-		<h2 class="font-md"><strong>Send Notification </strong></h2>				
+		<h2 class="font-md"><strong>Send Message </strong></h2>				
 	</header>
 
 	<div>
@@ -170,15 +170,24 @@
 			<!-- widget content -->
 			<div class="widget-body no-padding">
 				
-				<form action="demo-contacts.php" method="post" id="contact-form" class="smart-form">
+				<!-- <form action="/admin" method="post" id="message-form" class="smart-form"> -->
+				<%= form_tag '/admin/messages', class: 'smart-form', id: 'message-form' do %>
 					
+					<div class="alert adjusted alert-success fade in hidden">
+						<button class="close" data-dismiss="alert">
+							×
+						</button>
+						<i class="fa-fw fa-lg fa fa-exclamation"></i>
+						<strong>Message sent successfully!</strong>
+					</div>
+
 					<fieldset>
 						
 						<section>
 							<label class="label">Law Firm</label>
 							<label class="input">
 								<i class="icon-append fa fa-tag"></i>
-								<input type="text" name="subject" id="subject">
+								<%= collection_select :message, :law_firm_id, @law_firms, :id, :name, {}, style: "width: 100%" %>							
 							</label>
 						</section>
 						
@@ -186,7 +195,7 @@
 							<label class="label">Subject</label>
 							<label class="input">
 								<i class="icon-append fa fa-tag"></i>
-								<input type="text" name="subject" id="subject">
+								<%= text_field_tag 'message[subject]' %>
 							</label>
 						</section>
 						
@@ -194,7 +203,7 @@
 							<label class="label">Message</label>
 							<label class="textarea">
 								<i class="icon-append fa fa-comment"></i>
-								<textarea rows="4" name="message" id="message"></textarea>
+								<%= text_area_tag 'message[body]' %>
 							</label>
 						</section>
 
@@ -203,12 +212,8 @@
 					<footer>
 						<button type="submit" class="btn btn-primary">Send</button>
 					</footer>
-					
-					<div class="message">
-						<i class="fa fa-thumbs-up"></i>
-						<p>Your message was successfully sent!</p>
-					</div>
-				</form>						
+
+				<% end %>
 				
 			</div>
 			<!-- end widget content -->
@@ -254,274 +259,40 @@
 
 						<!-- widget div-->
 						<div>
-						
-
 							<div class="widget-body no-padding smart-form">
 								<table id="inbox-table" class="table table-striped table-hover">
-	<tbody>
-
-		<tr id="msg1" class="unread">
-			<td class="inbox-table-icon">
-				
-			</td>
-			<td class="inbox-data-from hidden-xs hidden-sm">
-				<div>
-					Alex Jones
-				</div>
-			</td>
-			<td class="inbox-data-message">
-				<div>
-					<span>Security Alert.</span> Sed ut perspiciatis unde omnis iste natus error...
-				</div>
-			</td>
-			<td class="inbox-data-attachment hidden-xs">
-				<div>
-					<a href="javascript:void(0);" rel="tooltip" data-placement="left" data-original-title="FILES: rocketlaunch.jpg, timelogs.xsl" class="txt-color-darken"></a>
-				</div>
-			</td>
-			<td class="inbox-data-date hidden-xs">
-				<div>
-					10:23 am
-				</div>
-			</td>
-		</tr>
-
-		<tr id="msg2" class="unread">
-			<td class="inbox-table-icon">
-				
-			</td>
-			<td class="inbox-data-from hidden-xs hidden-sm">
-				<div>
-					Sadi Orlaf
-				</div>
-			</td>
-			<td class="inbox-data-message">
-				<div>
-					<span>Security Alert.</span> Sed ut perspiciatis unde omnis iste natus error...
-				</div>
-			</td>
-			<td class="inbox-data-attachment hidden-xs">
-				<div>
-					<a href="javascript:void(0);" rel="tooltip" data-placement="left" data-original-title="rocketlaunch.jpg, timelogs.xsl" class="txt-color-darken"></a>
-				</div>
-			</td>
-			<td class="inbox-data-date hidden-xs">
-				<div>
-					10:23 am
-				</div>
-			</td>
-		</tr>
-
-		<tr id="msg3">
-			<td class="inbox-table-icon">
-				
-			</td>
-			<td class="inbox-data-from hidden-xs hidden-sm">
-				<div>
-					Arik Lamora
-				</div>
-			</td>
-			<td class="inbox-data-message">
-				<div>
-					<span>Security Alert.</span> Sed ut perspiciatis unde omnis iste natus error...
-				</div>
-			</td>
-			<td class="inbox-data-attachment hidden-xs">
-				<div>
-					
-				</div>
-			</td>
-			<td class="inbox-data-date hidden-xs">
-				<div>
-					10:23 am
-				</div>
-			</td>
-		</tr>
-
-		<tr id="msg4">
-			<td class="inbox-table-icon">
-				
-			</td>
-			<td class="inbox-data-from hidden-xs hidden-sm">
-				<div>
-					Robin Hood
-				</div>
-			</td>
-			<td class="inbox-data-message">
-				<div>
-					<span>10 Jobs</span> Sed ut perspiciatis unde omnis iste natus error...
-				</div>
-			</td>
-			<td class="inbox-data-attachment hidden-xs">
-				<div>
-					
-				</div>
-			</td>
-			<td class="inbox-data-date hidden-xs">
-				<div>
-					10:23 am
-				</div>
-			</td>
-		</tr>
-
-		<tr id="msg5">
-			<td class="inbox-table-icon">
-				
-			</td>
-			<td class="inbox-data-from hidden-xs hidden-sm">
-				<div>
-					John Limar
-				</div>
-			</td>
-			<td class="inbox-data-message">
-				<div>
-					<span>Project Date</span> Sed ut perspiciatis unde omnis iste natus...
-				</div>
-			</td>
-			<td class="inbox-data-attachment hidden-xs">
-				<div>
-					<a href="javascript:void(0);" rel="tooltip" data-placement="left" data-original-title="payscale-changes.pdf" class="txt-color-darken"></a>
-				</div>
-			</td>
-			<td class="inbox-data-date hidden-xs">
-				<div>
-					10:23 am
-				</div>
-			</td>
-		</tr>
-
-		<tr id="msg6">
-			<td class="inbox-table-icon">
-				
-			</td>
-			<td class="inbox-data-from hidden-xs hidden-sm">
-				<div>
-					Jeff Hopkin
-				</div>
-			</td>
-			<td class="inbox-data-message">
-				<div>
-					<span>Hey John!</span> Sed ut perspiciatis unde omnis...
-				</div>
-			</td>
-			<td class="inbox-data-attachment hidden-xs">
-				<div>
-					
-				</div>
-			</td>
-			<td class="inbox-data-date hidden-xs">
-				<div>
-					10:23 am
-				</div>
-			</td>
-		</tr>
-
-		<tr id="msg7">
-			<td class="inbox-table-icon">
-				
-			</td>
-			<td class="inbox-data-from hidden-xs hidden-sm">
-				<div>
-					Toronto News
-				</div>
-			</td>
-			<td class="inbox-data-message">
-				<div>
-					<span>Mayor Rod Fierd!</span> Sed ut perspiciatis unde sit...
-				</div>
-			</td>
-			<td class="inbox-data-attachment hidden-xs">
-				<div>
-					
-				</div>
-			</td>
-			<td class="inbox-data-date hidden-xs">
-				<div>
-					10:23 am
-				</div>
-			</td>
-		</tr>
-
-		<tr id="msg8">
-			<td class="inbox-table-icon">
-				
-			</td>
-			<td class="inbox-data-from hidden-xs hidden-sm">
-				<div>
-					Michael Bleigh
-				</div>
-			</td>
-			<td class="inbox-data-message">
-				<div>
-					<span>Past due</span> Sed ut perspiciatis unde omnis iste na
-				</div>
-			</td>
-			<td class="inbox-data-attachment hidden-xs">
-				<div>
-					
-				</div>
-			</td>
-			<td class="inbox-data-date hidden-xs">
-				<div>
-					10:23 am
-				</div>
-			</td>
-		</tr>
-
-		<tr id="msg10">
-			<td class="inbox-table-icon">
-				
-			</td>
-			<td class="inbox-data-from hidden-xs hidden-sm">
-				<div>
-					Trello Laka
-				</div>
-			</td>
-			<td class="inbox-data-message">
-				<div>
-					<span>Project development</span> @Sed ut perspiciatis unde omnis...
-				</div>
-			</td>
-			<td class="inbox-data-attachment hidden-xs">
-				<div>
-					
-				</div>
-			</td>
-			<td class="inbox-data-date hidden-xs">
-				<div>
-					10:23 am
-				</div>
-			</td>
-		</tr>
-
-		<tr id="msg11">
-			<td class="inbox-table-icon">
-				
-			</td>
-			<td class="inbox-data-from hidden-xs hidden-sm">
-				<div>
-					Doug Baird 
-				</div>
-			</td>
-			<td class="inbox-data-message">
-				<div>
-					<span>Pora korta casta ricka?</span> Sed ut perspiciatis unde omnis iste...
-				</div>
-			</td>
-			<td class="inbox-data-attachment hidden-xs">
-				<div>
-					
-				</div>
-			</td>
-			<td class="inbox-data-date hidden-xs">
-				<div>
-					10:23 am
-				</div>
-			</td>
-		</tr>
-
-	</tbody>
-</table>
+									<tbody>
+										<% @conversations.each do |conversation| %>
+											<% receipt = ReceiptDecorator.decorate(conversation.receipts.object.where(receiver_type: 'LawFirm').first) %>
+											<tr>
+												<td class="inbox-table-icon">
+													
+												</td>
+												<td class="inbox-data-from hidden-xs hidden-sm">
+													<div>
+														<%= receipt.receiver.name %>
+													</div>
+												</td>
+												<td class="inbox-data-message">
+													<div>
+														<span><%= conversation.subject %>.</span> <%= receipt.message.body %>
+													</div>
+												</td>
+												<td class="inbox-data-attachment hidden-xs">
+													<div>
+														<a href="javascript:void(0);" rel="tooltip" data-placement="left" data-original-title="FILES: rocketlaunch.jpg, timelogs.xsl" class="txt-color-darken"></a>
+													</div>
+												</td>
+												<td class="inbox-data-date hidden-xs">
+													<div>
+														<%= receipt.message.humanized_created_at %>
+													</div>
+												</td>
+											</tr>
+										<% end %>
+									</tbody>
+								</table>
+							</div>
 
 								<!-- end content -->
 							</div>

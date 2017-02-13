@@ -15,6 +15,7 @@ Rails.application.routes.draw do
         post :move
       end
     end
+    resources :messages
     # devise_scope :admin_users do 
     #   resources :sessions
     # end
