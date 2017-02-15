@@ -1,0 +1,9 @@
+<%= v.input :value, {
+  label: field.label,
+  collection: field.collection,
+  # input_html: field.input_html,
+  # required: field.required_html(v.object.file_cache.present?),
+  # wrapper: field.wrapper,
+  # wrapper_html: field.wrapper_html
+  as: field.as
+}, &field.input_block(v) %>

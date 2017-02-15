@@ -25,6 +25,7 @@ gem 'inherited_resources', github: 'activeadmin/inherited_resources'
 gem 'draper', '~> 3.0.0.pre1'
 gem 'ransack'
 gem 'activemodel-serializers-xml'
+gem 'simple-form-datepicker'
 
 gem 'rails-assets-fontawesome', source: 'https://rails-assets.org'
 gem 'rails-assets-JustGage', source: 'https://rails-assets.org'
