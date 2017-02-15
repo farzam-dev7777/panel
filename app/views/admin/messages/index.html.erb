@@ -1,44 +1,13 @@
 <% content_for :page_title, "Messages" %>
 
 <div id="inbox-content" class="inbox-body no-content-padding">
-  <div class="inbox-side-bar">
-    <a href="javascript:void(0);" id="compose-mail" class="btn btn-primary btn-block"> <strong>Compose</strong> </a>
-
-    <h6> Folder <a href="javascript:void(0);" rel="tooltip" title="" data-placement="right" data-original-title="Refresh" class="pull-right txt-color-darken"><i class="fa fa-refresh"></i></a></h6>
-
-    <ul class="inbox-menu-lg">
-      <li class="active">
-        <a class="inbox-load" href="javascript:void(0);"> Inbox (14) </a>
-      </li>
-      <li>
-        <a href="javascript:void(0);">Sent</a>
-      </li>
-      <li>
-        <a href="javascript:void(0);">Draft</a>
-      </li>
-      <li>
-        <a href="javascript:void(0);">Trash</a>
-      </li>
-    </ul>
-
-    <h6> Quick Access <a href="javascript:void(0);" rel="tooltip" title="" data-placement="right" data-original-title="Add Another" class="pull-right txt-color-darken"><i class="fa fa-plus"></i></a></h6>
-
-    <ul class="inbox-menu-sm">
-      <li>
-        <a href="javascript:void(0);"> Images (476)</a>
-      </li>
-      <li>
-        <a href="javascript:void(0);">Documents (4)</a>
-      </li>
-    </ul>
-
-  </div>
+  <%= render partial: 'sidebar' %>
   <div class="table-wrap custom-scroll animated fast fadeInRight">
     <table id="inbox-table" class="table table-striped table-hover">
       <tbody>
         <% @conversations.each do |conversation| %>
           <% receipt = ReceiptDecorator.decorate(conversation.receipts.object.where(mailbox_type: 'sentbox').last) %>
-          <tr id="msg1" class="unread">
+          <tr class="unread" >
             <td class="inbox-table-icon">
               <div class="checkbox">
                 <label>
@@ -53,7 +22,12 @@
             </td>
             <td class="inbox-data-message">
               <div>
-                <%= sanitize receipt.message.subject_line %>
+                <span>
+                  <a href="/admin/messages/<%= conversation.id %>">
+                    <%= receipt.message.subject %>
+                  </a>
+                </span>
+                <%= receipt.message.body_excerpt %>
               </div>
             </td>
             <!-- <td class="inbox-data-attachment hidden-xs">

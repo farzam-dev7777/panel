@@ -9,6 +9,12 @@ class Admin::MessagesController < Admin::BaseController
     @conversations = ConversationDecorator.decorate_collection(conversations)
   end
 
+  def show
+    add_breadcrumb "Messages"
+    @conversation = current_admin_user.mailbox.inbox.find(params[:id])
+    add_breadcrumb @conversation.subject
+  end
+
   def create
     law_firm = LawFirm.find_by(id: params[:message][:law_firm_id])
     receipt = current_admin_user.send_message(law_firm, params[:message][:body], params[:message][:subject])

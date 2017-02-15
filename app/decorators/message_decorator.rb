@@ -20,4 +20,8 @@ class MessageDecorator < Draper::Decorator
     truncate(subject_line.html_safe, length: 110)
   end
 
+  def body_excerpt
+    truncate object.body, length: 80
+  end
+
 end
