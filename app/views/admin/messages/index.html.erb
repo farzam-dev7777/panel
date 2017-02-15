@@ -37,7 +37,7 @@
     <table id="inbox-table" class="table table-striped table-hover">
       <tbody>
         <% @conversations.each do |conversation| %>
-          <% receipt = ReceiptDecorator.decorate(conversation.receipts.object.where(receiver_type: 'LawFirm').first) %>
+          <% receipt = ReceiptDecorator.decorate(conversation.receipts.object.where(mailbox_type: 'sentbox').last) %>
           <tr id="msg1" class="unread">
             <td class="inbox-table-icon">
               <div class="checkbox">
@@ -53,10 +53,7 @@
             </td>
             <td class="inbox-data-message">
               <div>
-                <span>
-                  <%= conversation.subject %>
-                </span> 
-                <%= receipt.message.body_excerpt %>
+                <%= sanitize receipt.message.subject_line %>
               </div>
             </td>
             <!-- <td class="inbox-data-attachment hidden-xs">

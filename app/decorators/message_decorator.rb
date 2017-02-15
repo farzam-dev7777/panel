@@ -1,6 +1,8 @@
 class MessageDecorator < Draper::Decorator
 
   include ActionView::Helpers::TextHelper
+  include ActionView::Helpers::TagHelper
+
   delegate_all
 
   def humanized_created_at
@@ -11,8 +13,11 @@ class MessageDecorator < Draper::Decorator
     end
   end
 
-  def body_excerpt
-    truncate(object.body, length: 70)
+  def subject_line
+    subject = content_tag(:span, object.subject)
+    body = object.body
+    subject_line = "#{subject.html_safe} #{body}"
+    truncate(subject_line.html_safe, length: 110)
   end
 
 end
