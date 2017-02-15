@@ -56,3 +56,7 @@ span.sub-fields-arrow:before {
 .login-info a span{
   text-transform: lowercase;
 }
+
+.inbox-info-bar, .inbox-message {
+  margin-right: 20px !important;
+}

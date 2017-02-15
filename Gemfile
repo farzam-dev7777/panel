@@ -31,6 +31,7 @@ gem 'rails-assets-fontawesome', source: 'https://rails-assets.org'
 gem 'rails-assets-JustGage', source: 'https://rails-assets.org'
 gem 'rails-assets-raphael', source: 'https://rails-assets.org'
 gem 'activerecord-sortable'
+gem 'breadcrumbs_on_rails'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

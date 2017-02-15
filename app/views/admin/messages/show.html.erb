@@ -1,0 +1,62 @@
+<div id="inbox-content" class="inbox-body no-content-padding">
+  <%= render partial: 'sidebar' %>
+  <div class="table-wrap custom-scroll animated fast fadeInRight" style="opacity: 1;">
+    <h2 class="email-open-header">
+      <%= @conversation.subject %>
+      <!-- <span class="label txt-color-white">inbox</span> -->
+      <a onClick="window.print();" rel="tooltip" data-placement="left" data-original-title="Print" class="txt-color-darken pull-right"><i class="fa fa-print"></i></a>
+    </h2>
+    
+    <% @conversation.receipts.where(mailbox_type: 'sentbox').each do |receipt| %>
+      <div class="inbox-info-bar">
+        <div class="row">
+          <div class="col-sm-9">
+            <strong><%= receipt.message.sender.name %></strong>
+            <span class="hidden-mobile">
+              &lt;<%= receipt.message.sender.email %>&gt;to <strong>me</strong> on 
+              <i>
+                <%= receipt.message.created_at.to_s(:long) %>  
+              </i>
+            </span> 
+          </div>
+          <div class="col-sm-3 text-right">
+            
+            <div class="btn-group text-left">
+              <button class="btn btn-primary btn-sm replythis">
+                <i class="fa fa-reply"></i> Reply
+              </button>
+              <button class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-angle-down"></i>
+              </button>
+              <ul class="dropdown-menu pull-right">
+                <li>
+                  <a href="javascript:void(0);" class="replythis"><i class="fa fa-reply"></i> Reply</a>
+                </li>
+                <li>
+                  <a href="javascript:void(0);" class="replythis"><i class="fa fa-mail-forward"></i> Forward</a>
+                </li>
+                <li>
+                  <a onClick="window.print();"><i class="fa fa-print"></i> Print</a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                  <a href="javascript:void(0);"><i class="fa fa-ban"></i> Mark as spam!</a>
+                </li>
+                <li>
+                  <a href="javascript:void(0);"><i class="fa fa-trash-o"></i> Delete forever</a>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="inbox-message">
+        <%= receipt.message.body %>
+        <br>
+      </div>
+    <% end %>
+
+  </div>
+</div>

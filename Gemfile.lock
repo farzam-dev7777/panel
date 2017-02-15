@@ -78,6 +78,7 @@ GEM
     bourbon (4.2.7)
       sass (~> 3.4)
       thor (~> 0.19)
+    breadcrumbs_on_rails (3.0.1)
     builder (3.2.3)
     byebug (9.0.6)
     carrierwave (1.0.0)
@@ -269,6 +270,7 @@ DEPENDENCIES
   activeadmin (~> 1.0.0.pre4)
   activemodel-serializers-xml
   activerecord-sortable
+  breadcrumbs_on_rails
   byebug
   cocoon
   coffee-rails (~> 4.2)

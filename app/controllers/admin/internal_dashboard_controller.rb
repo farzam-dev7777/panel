@@ -2,6 +2,8 @@ class Admin::InternalDashboardController < Admin::BaseController
 
   layout 'admin'
 
+  add_breadcrumb "Admin", :root_path
+
   def index
     @q = LawFirm.ransack(params[:q])
     conversations = current_admin_user.mailbox.conversations.order('created_at DESC').limit(10)
