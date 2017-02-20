@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170213022054) do
+ActiveRecord::Schema.define(version: 20170220211519) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,8 +61,9 @@ ActiveRecord::Schema.define(version: 20170213022054) do
     t.string   "key"
     t.string   "value"
     t.integer  "form_field_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.float    "score",         default: 0.0
   end
 
   create_table "form_fields", force: :cascade do |t|
@@ -71,8 +72,8 @@ ActiveRecord::Schema.define(version: 20170213022054) do
     t.boolean  "required"
     t.string   "label"
     t.string   "type"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.integer  "form_id"
     t.integer  "formable_id"
     t.string   "formable_type"
@@ -80,6 +81,11 @@ ActiveRecord::Schema.define(version: 20170213022054) do
     t.integer  "position"
     t.integer  "group_form_id"
     t.boolean  "repeater"
+    t.boolean  "custom_logic"
+    t.integer  "show_when_form_field_id"
+    t.string   "show_when_form_field_value"
+    t.boolean  "scored"
+    t.float    "score"
     t.index ["position"], name: "index_form_fields_on_position", using: :btree
   end
 

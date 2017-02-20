@@ -34,6 +34,8 @@ $(document).ready(function(){
     })
   })
 
+  $('.form_form_fields_custom_logic').on('click', initializeCustomLogic);
+
   $("input.datepicker").each(function(input) {
     $(this).datepicker({
       dateFormat: "yy-mm-dd",
@@ -44,4 +46,17 @@ $(document).ready(function(){
     $(this).datepicker("option", $.datepicker.regional['en']);
   })
 
+  $('.form_form_fields_custom_logic').each(initializeCustomLogic);
+
 });
+
+
+function initializeCustomLogic(){
+  if($(this).find('input:checked').length > 0){
+    $(this).siblings('.form_form_fields_show_when_form_field_id').show();
+    $(this).siblings('.form_form_fields_show_when_form_field_value').show();
+  }else{
+    $(this).siblings('.form_form_fields_show_when_form_field_id').hide();
+    $(this).siblings('.form_form_fields_show_when_form_field_value').hide();
+  }
+}

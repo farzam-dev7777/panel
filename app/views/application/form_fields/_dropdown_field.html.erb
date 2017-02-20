@@ -1,15 +1,17 @@
-<div class="dropwdown_options_wrapper">
-  <%= f.simple_fields_for :dropdown_options do |option| %>
-    <%= render "dropdown_option_fields", f: option %>
-    <div class="add_more_options_wrapper">
-      <div class="row">
-        <div class="col-md-12">
+<div class="well">
+  <div class="dropwdown_options_wrapper">
+    <%= f.simple_fields_for :dropdown_options do |option| %>
+      <%= render "dropdown_option_fields", f: option %>
+      <div class="add_more_options_wrapper">
+        <div class="row">
+          <div class="col-md-12">
+          </div>
         </div>
       </div>
+    <% end %>
+    <div id="links">
+      <p><strong><%= link_to_add_association 'Add Options', f, :dropdown_options, class: "btn btn-primary" %></strong></p>
     </div>
-  <% end %>
-  <div id="links">
-    <p><strong><%= link_to_add_association 'Add Options', f, :dropdown_options, class: "btn btn-primary" %></strong></p>
+    <br />
   </div>
-  <br />
 </div>

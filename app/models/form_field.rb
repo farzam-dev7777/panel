@@ -12,6 +12,8 @@ class FormField < ApplicationRecord
   has_many   :dropdown_options
   has_many   :form_values
 
+  belongs_to :show_when_form_field, class_name: 'FormField'
+
   validates :type, presence: true
 
   scope :top_form_fields, -> { where(parent_id: nil).ordered_by_position_asc }

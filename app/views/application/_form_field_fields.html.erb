@@ -2,6 +2,17 @@
   <%= f.input :type, as: :select, collection: FormField.descendants %>
   <%= f.input :label %>
   <%= render "application/form_fields/#{f.object.type.try(:underscore)}", f: f if f.object.type %>
+  <div class="well">
+    <%= f.input :custom_logic %>
+    <div class="row">
+      <div class="col-md-6">
+        <%= f.input :show_when_form_field_id, collection: @form.form_fields.map{|form_field| ["#{form_field.label}(#{form_field.type})", form_field.id]}, label: "Show when" %>
+      </div>
+      <div class="col-md-6">
+        <%= f.input :show_when_form_field_value, label: "Is" %>
+      </div>
+    </div>
+  </div>
   <%= f.input :parent_id, collection: @form.form_fields.map{|form_field| ["#{form_field.label}(#{form_field.type})", form_field.id]} %>
   <%= link_to_remove_association "Remove Field", f, { wrapper_class: 'form-field', class: "btn btn-danger" } %>
 </div>
