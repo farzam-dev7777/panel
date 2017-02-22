@@ -18,7 +18,7 @@ class LawFirm < ApplicationRecord
     self.create_user!(email: "#{SecureRandom.uuid}#{EMAIL_PREFIX}", username: SecureRandom.uuid, password: self.temp_password)
   end
 
-  def log_activity(event_type, notify: false)
+  def log_activity(event_type, notify = false)
   	object = {
   		law_firm_id: id,
   		event_type: event_type,
