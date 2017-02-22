@@ -1,0 +1,13 @@
+<div class="well">
+  <div class="row">
+    <div class="col-md-12">
+      <%= f.input :file, {
+          as: :file,
+          input_html: { :multiple => true }
+        } %>
+      <%= link_to f.object.file.try(:original_filename), f.object.file.try(:url) if f.object.file_url %><br />
+
+      <%= link_to_remove_association "<i class='fa fa-minus'></i> Remove file".html_safe, f, { wrapper_class: 'well', class: "btn btn-primary btn-xs" } %>
+    </div>
+  </div>
+</div>

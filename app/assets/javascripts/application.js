@@ -18,7 +18,7 @@
 //= require app
 //= require cocoon
 // active_material
-//= require turbolinks
+// require turbolinks
 //= require app.config.seed
 //= require plugin/jquery-touch/jquery.ui.touch-punch.min
 //= require bootstrap/bootstrap.min

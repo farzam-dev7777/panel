@@ -1,4 +1,8 @@
 $(document).ready(function(){
+  $("*[data-custom-logic='true']").each(function(){
+    prepareForCustomLogic($(this).find('.form_submission_form_values_value input, .form_submission_form_values_value select'));
+  });
+
   $(".add_more_options").click(function(e){
     e.preventDefault();
     html = $(this).data("association-insertion-template");
@@ -48,6 +52,32 @@ $(document).ready(function(){
 
   $('.form_form_fields_custom_logic').each(initializeCustomLogic);
 
+  $("input, select").change(function(){
+    prepareForCustomLogic($(this));
+  });
+
+  if($('#gauge').length){
+    var g = new JustGage({
+      id: "gauge",
+      value: 137,
+      min: 0,
+      max: 300
+    });
+  }
+
+  $('.submit-form').click(function(e){
+    e.preventDefault();
+    $(this).find('.loader').removeClass('hidden');
+    window.link_to_redirect_to = $(this).attr('href');
+    $('form').submit();
+  })
+
+  $("form").bind("ajax:success", function(response){
+    $('.submit-form').find('.loader').addClass('hidden');
+    link = window.link_to_redirect_to;
+    window.location.href = link;
+  })
+
 });
 
 
@@ -58,5 +88,16 @@ function initializeCustomLogic(){
   }else{
     $(this).siblings('.form_form_fields_show_when_form_field_id').hide();
     $(this).siblings('.form_form_fields_show_when_form_field_value').hide();
+  }
+}
+
+
+function prepareForCustomLogic(currentField){
+  targetFieldId = currentField.parent().parent().siblings('.form_submission_form_values_form_field_id').find('input').val();
+  targetField = $('.field-wrapper-'+targetFieldId);
+  if(currentField.val() == targetField.find("*[data-custom-logic='true']").data('show-when-value')){
+    targetField.find("*[data-custom-logic='true']").show();
+  }else{
+    targetField.find("*[data-custom-logic='true']").hide();
   }
 }

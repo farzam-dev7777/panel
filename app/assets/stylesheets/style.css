@@ -6,6 +6,12 @@
   height: 100vh
 }
 
+ .hasDatepicker{
+  width: 100%;
+  height: 35px;
+  clear: both;
+}
+
 *[data-role=activerecord_sortable]{
   list-style: none;
   padding: 0px;  

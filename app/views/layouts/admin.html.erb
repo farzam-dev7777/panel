@@ -243,6 +243,8 @@
 			<!-- end col -->
 
 			<div class="col-lg-12 table-striped table-hover">
+				<p class="notice"><%= notice %></p>
+		    <p class="alert"><%= alert %></p>
 		    <%= yield %>
 			</div>
 			
@@ -274,7 +276,7 @@
 		</ul>
 	</div> -->
 	<!-- END SHORTCUT AREA -->
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application' %>
 
 
 		<script>
@@ -530,15 +532,6 @@
 			/* end flot charts */
 
 		</script>
-
-		<script>
-      var g = new JustGage({
-        id: "gauge",
-        value: 137,
-        min: 0,
-        max: 300
-      });
-    </script>
 
   </body>
 </html>

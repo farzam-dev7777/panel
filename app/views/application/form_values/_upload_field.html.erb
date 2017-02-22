@@ -1,5 +1,6 @@
-<%= v.input :value, {
+<%= v.input :file_value, {
   label: field.label,
-  collection: field.collection,
-  as: :field
+  required: field.required
 }, &field.input_block(v) %>
+
+<%= link_to v.object.file_value.get_file_name, v.object.file_value.url if v.object.file_value.url %>

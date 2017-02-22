@@ -3,13 +3,17 @@ module Submittable
 
   included do
     has_many :form_values, as: :submittable
-    accepts_nested_attributes_for :form_values, allow_destroy: true
+    belongs_to :form
+    accepts_nested_attributes_for :form_values, allow_destroy: false
   end
 
-  def build_values(form_fields = self.form_fields.top_form_fields, form = self)
-    @form_values = form_fields.map do |form_field|
-      form_field.form_values.build(form_field_label: form_field.label, submittable: form)
+  def build_values(form_fields = self.form.form_fields.top_form_fields)
+    form_fields.map do |form_field|
+      self.form_values.find_or_initialize_by(form_field_label: form_field.label, form_field: form_field, submittable_id: self.id)
     end
-    self.form_values = @form_values
+  end
+
+  def form_value_errors
+    self.errors.full_messages
   end
 end

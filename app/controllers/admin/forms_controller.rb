@@ -2,7 +2,7 @@ class Admin::FormsController < Admin::BaseController
   include FormBehaviors
 
   def form_params
-    form_attributes = [:id, :name, :group_form]
+    form_attributes = [:id, :name, :group_form, :step]
     params.require(:form).permit(form_attributes + form_fields_attributes)
   end
 
@@ -17,6 +17,17 @@ class Admin::FormsController < Admin::BaseController
 
   def show
     @form = Form.find(params[:id])
+    @form_submission = FormSubmission.new(form: @form)
+  end
+
+  def duplicate
+    @form = Form.find(params[:id])
+    @new_form = @form.amoeba_dup
+    if @new_form.save
+      redirect_to edit_admin_form_path(@new_form), notice: "Form Duplicated!"
+    else
+      redirect_back fallback_location: admin_forms_path
+    end
   end
 
   def create
@@ -24,7 +35,7 @@ class Admin::FormsController < Admin::BaseController
     if @form.save
       redirect_to edit_admin_form_path(@form)
     else
-      flash[:error] = "error"
+      flash[:alert] = "error"
       redirect_to :back
     end
   end
@@ -34,7 +45,7 @@ class Admin::FormsController < Admin::BaseController
     if @form.update_attributes(form_params)
       redirect_to edit_admin_form_path(@form)
     else
-      flash[:error] = "error"
+      flash[:alert] = "error"
       redirect_back fallback_location: admin_forms_path
     end
   end

@@ -1,5 +1,9 @@
 class Form < ApplicationRecord
   include Formable
-  include Submittable
+  amoeba do
+    enable
+  end
+
+  STEPS = ['policy', 'process']
 
 end

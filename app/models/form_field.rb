@@ -11,6 +11,7 @@ class FormField < ApplicationRecord
   has_many   :children, ->{ordered_by_position_asc}, :class_name => 'FormField', :foreign_key => 'parent_id'
   has_many   :dropdown_options
   has_many   :form_values
+  has_many   :file_attachments
 
   belongs_to :show_when_form_field, class_name: 'FormField'
 
@@ -32,10 +33,6 @@ class FormField < ApplicationRecord
   end
 
   def input_html
-
-  end
-
-  def required_html(v)
 
   end
 

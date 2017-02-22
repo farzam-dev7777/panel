@@ -5,20 +5,25 @@ Rails.application.routes.draw do
     resources :law_firms
     resources :activity_logs
     resources :forms do
+      resources :form_submissions do
+        collection do
+          post :generate
+        end
+        member do
+          get :policy_step
+          get :process_step
+          get :technology_step
+          get :history_step
+        end
+      end
       collection do
         get :group_form_fields
       end
-    end
-    resources :form_submissions
-    resources :form_fields, :only => [:index] do
       member do
-        post :move
+        post :duplicate
       end
     end
     resources :messages
-    # devise_scope :admin_users do 
-    #   resources :sessions
-    # end
     get '/internal_dashboard/notifications', to: 'internal_dashboard#show'
 	  root to: "internal_dashboard#index"
   end

@@ -7,6 +7,7 @@
   </ul>
 <% end %>
 
-<%= simple_fields_for @form do |u| %>
+<%= simple_fields_for @form_submission do |u| %>
+  <%= u.input :form_id, as: :hidden %>
   <%= render 'form_values', f: u %>
 <% end %>

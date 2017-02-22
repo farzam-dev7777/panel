@@ -4,6 +4,7 @@
     <div class="col-md-12">
       <%= f.input :name %>
       <%= f.input :group_form %>
+      <%= f.input :step, collection: Form::STEPS %>
     </div>
   </div>
   <%= render 'new_form', f: f, form_fields: f.object.form_fields.top_form_fields %>

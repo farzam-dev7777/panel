@@ -27,6 +27,9 @@
             <td><%= form.name %></td>
             <td class="text-center">
               <%= link_to "Edit", edit_admin_form_path(form), class: "btn btn-primary" %> 
+              <%= link_to "Duplicate", duplicate_admin_form_path(form), class: "btn btn-primary", method: :post %>
+              <%= link_to "Preview", edit_admin_form_form_submission_path(form_id: form.id, id: FormSubmission.find_by(form_id: form.id)), class: "btn btn-primary" if FormSubmission.find_by(form_id: form.id) %> 
+              <%= link_to "Generate a new form", generate_admin_form_form_submissions_path(form_id: form.id), class: "btn btn-primary", method: :post unless FormSubmission.find_by(form_id: form.id) %> 
             </td>
           </tr>
           
