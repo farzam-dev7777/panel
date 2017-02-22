@@ -8,13 +8,16 @@
 
 				<!-- Note: The activity badge color changes when clicked and resets the number to 0
 					 Suggestion: You may want to set a flag when this happens to tick off all checked messages / notifications -->
-				<span id="activity" class="activity-dropdown"> <i class="fa fa-user"></i> <b class="badge"> 21 </b> </span>
+				<span id="activity" class="activity-dropdown"> 
+					<i class="fa fa-user"></i> 
+					<b class="badge"> <%= unread_notifications_count %> </b> 
+				</span>
 
 				<!-- AJAX-DROPDOWN : control this dropdown height, look and feel from the LESS variable file -->
 				<div class="ajax-dropdown">
 
 					<!-- the ID links are fetched via AJAX to the ajax container "ajax-notifications" -->
-					<div class="btn-group btn-group-justified" data-toggle="buttons">
+					<!-- <div class="btn-group btn-group-justified" data-toggle="buttons">
 						<label class="btn btn-default">
 							<input type="radio" name="activity" id="ajax/notify/mail.html">
 							Msgs (14) </label>
@@ -24,27 +27,23 @@
 						<label class="btn btn-default">
 							<input type="radio" name="activity" id="ajax/notify/tasks.html">
 							Tasks (4) </label>
-					</div>
+					</div> -->
 
 					<!-- notification content -->
-					<div class="ajax-notifications custom-scroll">
+					<div class="ajax-notifications custom-scroll no-padding">
 
-						<div class="alert alert-transparent">
-							<h4>Click a button to show messages here</h4>
-							This blank page message helps protect your privacy, or you can show the first message here automatically.
-						</div>
-
-						<i class="fa fa-lock fa-4x fa-border"></i>
+						<ul class="notifications">
+							<%- notifications.each do |notification| %>
+								<li class="<%= notification.read ? 'read' : 'unread' %>">
+									<strong><%= notification.event_type.titleize %></strong>
+									<p><%= notification.custom_message %></p>
+									<p class="date"><%= notification.created_at.strftime('%a, %d %b %Y') %></p>
+								</li>
+							<%- end %>
+						</ul>
 
 					</div>
 					<!-- end notification content -->
-
-					<!-- footer: refresh area -->
-					<span> Last updated on: 12/12/2013 9:43AM
-						<button type="button" data-loading-text="<i class='fa fa-refresh fa-spin'></i> Loading..." class="btn btn-xs btn-default pull-right">
-							<i class="fa fa-refresh"></i>
-						</button> </span>
-					<!-- end footer -->
 
 				</div>
 				<!-- END AJAX-DROPDOWN -->
@@ -238,7 +237,7 @@
 								<div class="tab-pane fade active in padding-10 no-padding-bottom" id="s1">
 									<div class="row no-space">
 										<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-top: -55px !important; position: relative; top: 15px;">
-											<div id="gauge" class="200x160px"></div>
+											<div id="gauge"></div>
 										</div>
 										
 												</div>
@@ -707,78 +706,83 @@
 				<div class="row">
 
 					<section id="cd-timeline" class="cd-container">
-							<div class="cd-timeline-block">
-								<div class="cd-timeline-img cd-picture">
-									<i class="fa fa-edit fa-2x timeline-icon"></i>
-								</div> <!-- cd-timeline-img -->
+							
+							<%- activities.each do |activity| %>
+								<div class="cd-timeline-block">
+									<div class="cd-timeline-img cd-picture">
+										<i class="fa fa-edit fa-2x timeline-icon"></i>
+									</div>
 
-								<div class="cd-timeline-content">
-									<h2>History Title</h2>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde? Iste voluptatibus minus veritatis qui ut.</p>
-									<span class="cd-date">Jan 14</span>
-								</div> <!-- cd-timeline-content -->
-							</div> <!-- cd-timeline-block -->
+									<div class="cd-timeline-content">
+										<h2>
+											<strong><%= activity.event_type.titleize %></strong>
+										</h2>
+										<p><%= activity.custom_message %></p>
+										<span class="cd-date"><%= activity.created_at.strftime('%d %b') %></span>
+									</div>
+								</div>
+							<%- end %>
 
-							<div class="cd-timeline-block">
+							<!-- <div class="cd-timeline-block">
 								<div class="cd-timeline-img cd-movie">
 									<i class="fa fa-edit fa-2x timeline-icon"></i>
-								</div> <!-- cd-timeline-img -->
+								</div>
 
 								<div class="cd-timeline-content">
 									<h2>History Title</h2>
 									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde?</p>
 									<span class="cd-date">Jan 18</span>
-								</div> <!-- cd-timeline-content -->
-							</div> <!-- cd-timeline-block -->
+								</div>
+							</div>
 
 							<div class="cd-timeline-block">
 								<div class="cd-timeline-img cd-picture">
 									<i class="fa fa-edit fa-2x timeline-icon"></i>
-								</div> <!-- cd-timeline-img -->
+								</div>
 
 								<div class="cd-timeline-content">
 									<h2>History Title</h2>
 									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi, obcaecati, quisquam id molestias eaque asperiores voluptatibus cupiditate error assumenda delectus odit similique earum voluptatem doloremque dolorem ipsam quae rerum quis. Odit, itaque, deserunt corporis vero ipsum nisi eius odio natus ullam provident pariatur temporibus quia eos repellat consequuntur perferendis enim amet quae quasi repudiandae sed quod veniam dolore possimus rem voluptatum eveniet eligendi quis fugiat aliquam sunt similique aut adipisci.</p>
 									<span class="cd-date">Jan 24</span>
-								</div> <!-- cd-timeline-content -->
-							</div> <!-- cd-timeline-block -->
+								</div>
+							</div>
 
 							<div class="cd-timeline-block">
 								<div class="cd-timeline-img cd-location">
 									<i class="fa fa-edit fa-2x timeline-icon"></i>
-								</div> <!-- cd-timeline-img -->
+								</div>
 
 								<div class="cd-timeline-content">
 									<h2>History Title</h2>
 									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde? Iste voluptatibus minus veritatis qui ut.</p>
 									<span class="cd-date">Feb 14</span>
-								</div> <!-- cd-timeline-content -->
-							</div> <!-- cd-timeline-block -->
+								</div>
+							</div>
 
 							<div class="cd-timeline-block">
 								<div class="cd-timeline-img cd-location">
 									<i class="fa fa-edit fa-2x timeline-icon"></i>
-								</div> <!-- cd-timeline-img -->
+								</div>
 
 								<div class="cd-timeline-content">
 									<h2>History Title</h2>
 									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum.</p>
 									<span class="cd-date">Feb 18</span>
-								</div> <!-- cd-timeline-content -->
-							</div> <!-- cd-timeline-block -->
+								</div>
+							</div>
 
 							<div class="cd-timeline-block">
 								<div class="cd-timeline-img cd-movie">
 									<i class="fa fa-edit fa-2x timeline-icon"></i>
-								</div> <!-- cd-timeline-img -->
+								</div>
 
 								<div class="cd-timeline-content">
 									<h2>Final Section</h2>
 									<p>This is the content of the last section</p>
 									<span class="cd-date">Feb 26</span>
-								</div> <!-- cd-timeline-content -->
-							</div> <!-- cd-timeline-block -->
-						</section> <!-- cd-timeline -->
+								</div>
+							</div> -->
+						</section>
 
 				</div>
 

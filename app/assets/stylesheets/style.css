@@ -66,3 +66,34 @@ span.sub-fields-arrow:before {
 .inbox-info-bar, .inbox-message {
   margin-right: 20px !important;
 }
+
+.no-padding-bottom { padding-bottom: 0px !important; }
+.no-padding { padding: 0px !important; }
+
+ul.notifications {
+  list-style-type: none;
+  padding: 0px;
+}
+
+ul.notifications li {
+  border-bottom: 1px solid #ccc;
+  padding: 10px;
+}
+
+ul.notifications li:hover,
+ul.notifications li.unread {
+  background: #fafafa;
+}
+
+ul.notifications li p {
+  margin: 0px !important;
+}
+
+ul.notifications li p.date {
+  font-size: 10px;
+  color: #8c8c8c;
+  text-align: right;
+}
+
+.ajax-dropdown { height: auto; background: #e9e9e9; }
+.ajax-notifications { background-color: #fff; }

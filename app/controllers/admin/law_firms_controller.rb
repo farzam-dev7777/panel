@@ -14,7 +14,7 @@ class Admin::LawFirmsController < Admin::BaseController
   def create
   	@law_firm = LawFirm.new(law_firms_params)
   	if @law_firm.save
-      @law_firm.log_activity('account_created')
+      @law_firm.log_activity('account_created', true)
       @law_firm.user.send_reset_password_instructions
   		redirect_to admin_law_firms_path, notice: "The law firm was created successfully"
   	else

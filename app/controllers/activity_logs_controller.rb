@@ -1,0 +1,3 @@
+class ActivityLogsController < BaseController
+
+end

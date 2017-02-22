@@ -393,7 +393,19 @@ var calc_navbar_height = function() {
 		
 				if ($this.find('.badge').hasClass('bg-color-red')) {
 					$this.find('.badge').removeClassPrefix('bg-color-');
-					$this.find('.badge').text("0");
+
+					if( parseInt($(this).find('.badge').text()) > 0 ){
+						$.ajax({
+						  url: "/admin/activity_logs/mark_as_read"
+						})
+						  .done(function( data ) {
+								$('#activity').find('.badge').text("0");
+								setTimeout(function() {
+							    $('.notifications li').animate({backgroundColor: '#FFF'}).css("background-color", "").removeClass('unread');
+								}, 2000);
+								
+						  });
+					}
 				}
 		
 				if (!$this.next('.ajax-dropdown').is(':visible')) {
