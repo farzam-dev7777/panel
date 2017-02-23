@@ -1,10 +1,9 @@
 class Admin::ActivityLogsController < Admin::BaseController
-# before_action :configure_sign_in_params, only: [:create]
 
   layout 'admin'
 
   def mark_as_read
-  	notifications.update_all(read: true)
+  	notifications.unread.update_all(read: true)
   	head :ok
   end
 

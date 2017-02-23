@@ -2,6 +2,8 @@ class ActivityLog < ApplicationRecord
 	belongs_to :loggable, polymorphic: true
 
 	scope :notifications,  -> { where(notify: true) }
+	scope :unread,  -> { where("notify = ? AND read != ?", true, true) }
+	scope :read,  -> { where("notify = ? AND read = ?", true, true) }
 
 	ACTION_TYPE_REASON = {
     account_created: 'Firm\'s account was created'
