@@ -25,8 +25,11 @@ Rails.application.routes.draw do
     end
     resources :messages
     get '/internal_dashboard/notifications', to: 'internal_dashboard#show'
-	  root to: "internal_dashboard#index"
+    root to: "internal_dashboard#index"
   end
+  
+  resources :requests
+
 
   devise_for :users, controllers: { sessions: 'users/sessions' }
   namespace :users do

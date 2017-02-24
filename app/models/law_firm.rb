@@ -2,6 +2,7 @@ class LawFirm < ApplicationRecord
   self.per_page = 10
   belongs_to :user
   has_many :activity_logs
+  has_many :requests
 
   after_create :generate_a_new_user
   acts_as_messageable
