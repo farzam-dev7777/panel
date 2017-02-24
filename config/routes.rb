@@ -3,7 +3,11 @@ Rails.application.routes.draw do
   namespace :admin do
     devise_for :admin_users, controllers: { sessions: 'admin/internal_sessions' }
     resources :law_firms
-    resources :activity_logs
+    resources :activity_logs do
+      collection do
+        get :mark_as_read
+      end
+    end
     resources :forms do
       resources :form_submissions do
         collection do
