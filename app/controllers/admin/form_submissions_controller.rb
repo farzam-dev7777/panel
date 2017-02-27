@@ -1,12 +1,17 @@
 class Admin::FormSubmissionsController < Admin::BaseController
   include SubmissionBehaviors
 
-  before_action :before_steps
+  before_action :before_steps, only: [:policy_step, :process_step]
+  before_action :before_non_dynamic_forms, only: [:technology_step, :history_step]
 
   helper_method :next_step_path, :current_step_path, :steps, :previous_step_path, :current_step, :wizard_path
 
   def before_steps
-    @form = Form.find(params[:form_id])
+    @form_submission = FormSubmission.find(params[:id])
+    @form = @form_submission.send("form_#{current_step}")
+  end
+
+  def before_non_dynamic_forms
     @form_submission = FormSubmission.find(params[:id])
   end
 
@@ -33,9 +38,8 @@ class Admin::FormSubmissionsController < Admin::BaseController
 
   def update
     @form_submission = FormSubmission.find(params[:id])
-    @form = Form.find(params[:form_id])
     if @form_submission.update(form_submissions_params)
-      redirect_to next_step_path, alert: 'Form submitted'
+      render json: :ok
     else
       render :edit
     end
@@ -61,7 +65,7 @@ private
   end
 
   def wizard_path(step)
-    eval("#{step}_step_admin_form_form_submission_path")
+    eval("#{step}_step_admin_form_submission_path")
   end
 
   def next_step_path

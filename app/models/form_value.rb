@@ -14,8 +14,8 @@ class FormValue < ApplicationRecord
 
   end
 
-  def build_nested_form_values
-    self.submittable.build_values(self.form_field.children)
+  def build_nested_form_values(step)
+    self.submittable.build_values(self.form_field.children, step)
   end
 
   private

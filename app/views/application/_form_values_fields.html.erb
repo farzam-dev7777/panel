@@ -9,7 +9,7 @@
           <%= v.input :submittable_id, as: :hidden %>
           <%= v.input :submittable_type, as: :hidden %>
           <% if field.group_form_id %>
-            <%= render "form_values_fields", f: f, form_values: @form_submission.build_values(field.group_form.form_fields), step: step, group_form: true, sub_fields: false %>
+            <%= render "form_values_fields", f: f, form_values: @form_submission.build_values(field.group_form.form_fields, current_step), step: step, group_form: true, sub_fields: false %>
           <% else %>
             <div class="wrapper field-wrapper-<%= field.id %>">
               <% begin %>
@@ -18,7 +18,7 @@
                 <%= render "/application/form_values/general", v: v, f: f, field: field %>
               <% end %>
             </div>
-            <%= render "form_values_fields", f: f, form_values: v.object.build_nested_form_values, step: step + 1, group_form: false, sub_fields: true  %>
+            <%= render "form_values_fields", f: f, form_values: v.object.build_nested_form_values(current_step), step: step + 1, group_form: false, sub_fields: true  %>
           <% end %>
         </div>
       </div>

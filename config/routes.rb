@@ -4,18 +4,15 @@ Rails.application.routes.draw do
     devise_for :admin_users, controllers: { sessions: 'admin/internal_sessions' }
     resources :law_firms
     resources :activity_logs
-    resources :forms do
-      resources :form_submissions do
-        collection do
-          post :generate
-        end
-        member do
-          get :policy_step
-          get :process_step
-          get :technology_step
-          get :history_step
-        end
+    resources :form_submissions do
+      member do
+        get :policy_step
+        get :process_step
+        get :technology_step
+        get :history_step
       end
+    end
+    resources :forms do
       collection do
         get :group_form_fields
       end

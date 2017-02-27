@@ -9,5 +9,6 @@
 
 <%= simple_fields_for @form_submission do |u| %>
   <%= u.input :form_id, as: :hidden %>
-  <%= render 'form_values', f: u %>
+  <%= u.input :form_process_id, as: :hidden %>
+  <%= render 'form_values', f: u if @form %>
 <% end %>
