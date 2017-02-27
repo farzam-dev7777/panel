@@ -1,0 +1,2 @@
+class HistoryForm < ApplicationRecord
+end

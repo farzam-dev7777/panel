@@ -237,15 +237,8 @@
 								<div class="tab-pane fade active in padding-10 no-padding-bottom" id="s1">
 									<div class="row no-space text-center">
 										
-										<%- if (certification_requests.map(&:status).include? 'pending') %>
 
-										<%= link_to "Request Certification", 
-												requests_path(id: law_firm.id, request_type: 'certification_request'), 
-												method: :post, class: "btn btn-primary btn-lg" %>
-
-										<%- else %>
-											Your certification request is under processing.
-										<%- end %>
+			
 										<!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-top: -55px !important; position: relative; top: 15px;">
 											<div id="gauge"></div>
 										</div> -->

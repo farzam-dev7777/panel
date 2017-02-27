@@ -1,0 +1,14 @@
+class TechnologiesController < BaseController
+
+	def index
+		@technologies = Technology.select(params[:field].to_s).where(technology_filter_params).uniq
+		render json: @technologies.map{ |technology| { id: technology.send(params[:field]), text: technology.send(params[:field]) } }
+	end
+
+	private
+
+	def technology_filter_params
+		params.require(:filter).permit(:vendor, :platform, :version, :service_pack).reject { |key,value| value.empty? }
+	end
+
+end

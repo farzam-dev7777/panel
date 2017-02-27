@@ -1,0 +1,16 @@
+<div class="row technology-field-<%= platform_category %>-<%= type %>">
+	<%= f.input :platform_category, as: :hidden, input_html: { value: platform_category }  %>
+	<%= f.input :platform_type, as: :hidden, input_html: { value: type } %>
+	<div class="col-md-1"></div>
+	<div class="col-md-2 vendor-wrapper"><%= f.input :vendor, collection: Technology.all.pluck(:vendor).uniq, 
+																		input_html: {class: 'dynamic-select', data: { field: 'vendor' } } %>
+	</div>
+	<div class="col-md-2 platform-wrapper"><%= f.input :platform, collection: [], input_html: {class: 'dynamic-select', data: {field: 'platform'}} %></div>
+	<div class="col-md-2 version-wrapper"><%= f.input :version, collection: [], input_html: {class: 'dynamic-select', data: {field: 'version'} } %></div>
+	<div class="col-md-2 service_pack-wrapper"><%= f.input :service_pack, collection: [], input_html: { data: {field: 'service_pack'} } %></div>
+	<div class="col-md-2"><%= f.input :supported, collection: ['Yes', 'No'] %></div>
+	<div class="col-md-1 text-right" style="line-height: 84px;">
+		<%= link_to_remove_association "<i class='fa fa-minus-circle fa-2x'></i>".html_safe, f, { wrapper_class: "technology-field-#{platform_category}-#{type}" }  %>
+	</div>
+</div>
+<div class="clearfix"></div>

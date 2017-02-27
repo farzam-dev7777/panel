@@ -163,6 +163,7 @@ GEM
     mini_portile2 (2.1.0)
     minitest (5.10.1)
     multi_json (1.12.1)
+    nested_form (0.3.2)
     nio4r (1.2.1)
     nokogiri (1.7.0.1)
       mini_portile2 (~> 2.1.0)
@@ -291,6 +292,7 @@ DEPENDENCIES
   letter_opener
   listen (~> 3.0.5)
   mailboxer
+  nested_form
   paranoia (~> 1.0)
   pg (~> 0.18)
   pry

@@ -97,3 +97,20 @@ ul.notifications li p.date {
 
 .ajax-dropdown { height: auto; background: #e9e9e9; }
 .ajax-notifications { background-color: #fff; }
+
+.seperator{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.m-b-20{
+  margin-bottom: 20px;
+}
+
+div.link-to-add {
+  width: 100px;
+}
+div.link-to-add > * {
+  color: #fff
+  
+}

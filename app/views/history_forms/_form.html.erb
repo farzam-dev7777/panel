@@ -1,0 +1,26 @@
+<%= simple_nested_form_for @history_form do |f| %>
+  <div class="row">
+  	<h3 class="text-center">History</h3>
+    
+    <div class="col-md-12 no-padding">
+	  	<h4 class="m-b-20">OPERATING SYSTEMS</h4>
+
+    	<div class="col-md-11 no-padding" id="operating_system_servers">
+	      <%= f.fields_for :history_forms, f do |field| %>
+	      	<%= render partial: "history_fields", 
+	      						 locals: {field: field}  %>
+			  <% end %>
+    	</div>
+			<%= f.link_to_add "Add a Server", :history_forms, data: { target: "#operating_system_servers" } %>
+
+    	<div class="clearfix"></div>
+    	<hr class="seperator">
+
+    </div>
+
+    <p>&nbsp;</p><hr><p>&nbsp;</p>
+
+  </div>
+
+  <%= f.submit "Save", class: "btn btn-primary" %>
+<% end %>

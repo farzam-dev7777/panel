@@ -1,0 +1,84 @@
+<%= simple_nested_form_for @technology do |f| %>
+  <div class="row">
+  	<h3 class="text-center">Technology Platforms</h3>
+    
+    <div class="col-md-12 no-padding">
+	  	<h4 class="m-b-20">OPERATING SYSTEMS</h4>
+
+    	<div class="col-md-11 no-padding" id="operating_system_servers">
+	      <%= f.fields_for :technologies, f do |field| %>
+	      	<%= render partial: "technology_fields", 
+	      						 locals: {field: field, platform_category: 'operating_systems', type: 'server'}  %>
+			  <% end %>
+    	</div>
+			<%= f.link_to_add "Add a Server", :technologies, data: { target: "#operating_system_servers" } %>
+
+    	<div class="clearfix"></div>
+    	<hr class="seperator">
+
+    	<div class="col-md-12 no-padding">
+	      <%= f.fields_for :technologies, f do |field| %>
+	      	<%= render partial: "technology_fields", 
+	      						 locals: {field: field, platform_category: 'operating_systems', type: 'client'}  %>
+			  <% end %>
+				<%= f.link_to_add "Add a Client", :technologies %>
+    	</div>
+
+    </div>
+
+    <p>&nbsp;</p><hr><p>&nbsp;</p>
+
+    <div class="col-md-12 no-padding">
+	  	<h4 class="m-b-20">WEB PLATFORMS</h4>
+
+    	<div class="col-md-12 no-padding">
+	      <%= f.fields_for :technologies, f do |field| %>
+	      	<%= render partial: "technology_fields", 
+	      						 locals: {field: field, platform_category: 'operating_systems', type: 'server'}  %>
+			  <% end %>
+				<%= f.link_to_add "Add a Server", :technologies %>
+    	</div>
+
+    	<div class="clearfix"></div>
+    	<hr class="seperator">
+
+    	<div class="col-md-12 no-padding">
+	      <%= f.fields_for :technologies, f do |field| %>
+	      	<%= render partial: "technology_fields", 
+	      						 locals: {field: field, platform_category: 'operating_systems', type: 'client'}  %>
+			  <% end %>
+				<%= f.link_to_add "Add a Client", :technologies %>
+    	</div>
+
+    </div>
+
+    <p>&nbsp;</p><hr><p>&nbsp;</p>
+
+    <div class="col-md-12 no-padding">
+	  	<h4 class="m-b-20">STORAGE & ARCHIVAL</h4>
+
+    	<div class="col-md-12 no-padding">
+	      <%= f.fields_for :technologies, f do |field| %>
+	      	<%= render partial: "technology_fields", 
+	      						 locals: {field: field, platform_category: 'operating_systems', type: 'server'}  %>
+			  <% end %>
+				<%= f.link_to_add "Add a Server", :technologies %>
+    	</div>
+
+    	<div class="clearfix"></div>
+    	<hr class="seperator">
+
+    	<div class="col-md-12 no-padding">
+	      <%= f.fields_for :technologies, f do |field| %>
+	      	<%= render partial: "technology_fields", 
+	      						 locals: {field: field, platform_category: 'operating_systems', type: 'client'}  %>
+			  <% end %>
+				<%= f.link_to_add "Add a Client", :technologies %>
+    	</div>
+
+    </div>
+
+  </div>
+
+  <%= f.submit "Save", class: "btn btn-primary" %>
+<% end %>

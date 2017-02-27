@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  law_firm_id: 1
+  title: MyString
+  description: MyString
+  severity: MyString
+
+two:
+  law_firm_id: 1
+  title: MyString
+  description: MyString
+  severity: MyString

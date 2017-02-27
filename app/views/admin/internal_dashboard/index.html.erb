@@ -262,33 +262,35 @@
 							<div class="widget-body no-padding smart-form">
 								<table id="inbox-table" class="table table-striped table-hover">
 									<tbody>
-										<% @conversations.each do |conversation| %>
-											<% receipt = ReceiptDecorator.decorate(conversation.receipts.object.where(receiver_type: 'LawFirm').first) %>
-											<tr>
-												<td class="inbox-table-icon">
-													
-												</td>
-												<td class="inbox-data-from hidden-xs hidden-sm">
-													<div>
-														<%= receipt.receiver.name %>
-													</div>
-												</td>
-												<td class="inbox-data-message">
-													<div>
-														<span><%= conversation.subject %>.</span> <%= receipt.message.body %>
-													</div>
-												</td>
-												<td class="inbox-data-attachment hidden-xs">
-													<div>
-														<a href="javascript:void(0);" rel="tooltip" data-placement="left" data-original-title="FILES: rocketlaunch.jpg, timelogs.xsl" class="txt-color-darken"></a>
-													</div>
-												</td>
-												<td class="inbox-data-date hidden-xs">
-													<div>
-														<%= receipt.message.humanized_created_at %>
-													</div>
-												</td>
-											</tr>
+										<% if @conversations.any? %>
+											<% @conversations.each do |conversation| %>
+												<% receipt = ReceiptDecorator.decorate(conversation.receipts.object.where(receiver_type: 'LawFirm').first) %>
+												<tr>
+													<td class="inbox-table-icon">
+														
+													</td>
+													<td class="inbox-data-from hidden-xs hidden-sm">
+														<div>
+															<%= receipt.try(:receiver).try(:name) %>
+														</div>
+													</td>
+													<td class="inbox-data-message">
+														<div>
+															<span><%= conversation.subject %>.</span> <%= receipt.message.body %>
+														</div>
+													</td>
+													<td class="inbox-data-attachment hidden-xs">
+														<div>
+															<a href="javascript:void(0);" rel="tooltip" data-placement="left" data-original-title="FILES: rocketlaunch.jpg, timelogs.xsl" class="txt-color-darken"></a>
+														</div>
+													</td>
+													<td class="inbox-data-date hidden-xs">
+														<div>
+															<%= receipt.message.humanized_created_at %>
+														</div>
+													</td>
+												</tr>
+											<% end %>
 										<% end %>
 									</tbody>
 								</table>

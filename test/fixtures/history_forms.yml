@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  incident_type: MyString
+  impact: MyString
+  discovery_time: MyString
+  source: MyString
+  data_loss: MyString
+  incident_details: MyText
+
+two:
+  incident_type: MyString
+  impact: MyString
+  discovery_time: MyString
+  source: MyString
+  data_loss: MyString
+  incident_details: MyText

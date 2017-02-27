@@ -78,8 +78,56 @@ $(document).ready(function(){
     window.location.href = link;
   })
 
+
+  $('.dynamic-select').select2().on('change', function() {
+    field = $(this).data('field');
+    
+    if (field == 'vendor'){
+      vendor = $(this).val();
+      target = $(this).parent().parent().next('div.platform-wrapper').find('select');
+      fetchTechnology(vendor, null, null, target)
+    } else if (field == 'platform'){
+      vendor = $(this).parent().parent().prev('.vendor-wrapper').find('select').val();
+      platform = $(this).val();
+      target = $(this).parent().parent().next('div.version-wrapper').find('select');
+      fetchTechnology(vendor, platform, null, target)
+    } else if (field == 'version') {
+      vendor = $(this).parent().parent().prev('.vendor-wrapper').find('select').val();
+      platform = $(this).parent().parent().prev('.platform-wrapper').find('select').val();
+      version = $(this).val();
+      target = $(this).parent().parent().next('div.service_pack-wrapper').find('select');
+      fetchTechnology(vendor, platform, version, target);
+    }
+
+    platform = $(this).data('platform');
+    version = $(this).data('version');
+  })
+
+
 });
 
+function fetchTechnology(vendor, platform, version, target){
+  data = {
+    field: target.data('field'),
+    filter: {
+      vendor: vendor,
+      platform: platform,
+      version: version,
+    }
+  }
+
+  $.get('/technologies', data, function(response){
+    html = "";
+
+    $(target).select2('destroy').empty().select2({data: response}).trigger('change');
+    // $(target).select2({data: response}).trigger('change');
+    // response.forEach(function(value){
+      // html += '<option value="' + value + '">' + value + "</option>";
+    // })
+    // target.html(html);
+    // $(target).select2();
+  })
+}
 
 function initializeCustomLogic(){
   if($(this).find('input:checked').length > 0){

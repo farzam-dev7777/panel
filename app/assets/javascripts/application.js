@@ -33,5 +33,9 @@
 //= require plugin/select2/select2.min
 //= require JustGage
 //= require raphael
+//= require jquery_nested_form
+//= require plugin/jquery.toast.min.js
+//= require admin.js
+//= require main.js
 // require_tree .
 

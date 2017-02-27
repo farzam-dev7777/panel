@@ -59,6 +59,7 @@ gem 'simple_form'
 gem "cocoon"
 gem 'will_paginate-bootstrap'
 gem 'mailboxer'
+gem 'nested_form'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

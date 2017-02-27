@@ -7,11 +7,12 @@ class ActivityLog < ApplicationRecord
 
 	ACTION_OBJECT_TYPES = {
     account_created: User,
-    certification_request: Request
+    todo_task_created: TodoTask
 	}
 
 	ACTION_TYPE_REASON = {
-    account_created: 'Firm\'s account was created'
+    account_created: 'Firm\'s account was created',
+    todo_task_created: 'A Todo task was created'
   }.freeze
 
 	def self.log(object)
