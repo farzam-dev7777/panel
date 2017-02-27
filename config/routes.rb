@@ -28,11 +28,21 @@ Rails.application.routes.draw do
       end
     end
     resources :messages
-    get '/internal_dashboard/notifications', to: 'internal_dashboard#show'
+    get '/internal_dashboard/notifications', to: 'internal_dashboard#notifications'
     root to: "internal_dashboard#index"
   end
   
-  resources :requests
+  resources :technologies do
+    member do
+      get :vendors
+      get :platforms
+      get :versions
+      get :service_packs
+    end
+  end
+  resources :technology_forms
+  resources :history_forms
+  resources :todo_tasks
 
 
   devise_for :users, controllers: { sessions: 'users/sessions' }
