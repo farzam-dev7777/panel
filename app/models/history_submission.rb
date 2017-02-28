@@ -1,0 +1,2 @@
+class HistorySubmission < ApplicationRecord
+end

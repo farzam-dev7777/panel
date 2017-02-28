@@ -1,0 +1,26 @@
+<%= simple_fields_for @form_submission do |f| %>
+  <div class="container">
+    
+    <div class="col-md-12 no-padding">
+	  	<h4 class="m-b-20">SECURITY INCIDENT LOG</h4>
+
+    	<div class=" col-md-12 no-padding">
+	      <%= f.simple_fields_for :history_submissions do |field| %>
+	      	<%= render partial: "history_submission_fields", 
+	      						 locals: {f: field}  %>
+			  <% end %>
+    	</div>
+			<div class="clearfix"></div>
+			<div class="link-to-add">
+				<%= link_to_add_association '<span style="width: 110px" href="javascript:void(0);" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Add More</span>'.html_safe, f, :history_submissions %>
+			</div>
+
+    	<div class="clearfix"></div>
+    	<hr class="seperator">
+
+    </div>
+
+  </div>
+
+<% end %>
+

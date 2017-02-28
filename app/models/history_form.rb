@@ -1,2 +1,0 @@
-class HistoryForm < ApplicationRecord
-end

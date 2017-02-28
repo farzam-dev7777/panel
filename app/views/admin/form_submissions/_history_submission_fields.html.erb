@@ -1,0 +1,12 @@
+<div class="row history-field">
+	<div class="col-md-2"><%= f.input :incident_type %></div>
+	<div class="col-md-2"><%= f.input :impact %></div>
+	<div class="col-md-2"><%= f.input :discovery_time %></div>
+	<div class="col-md-2"><%= f.input :source %></div>
+	<div class="col-md-2"><%= f.input :data_loss, collection: ['yes', 'no'] %></div>
+	<div class="col-md-1 text-right" style="line-height: 84px;">
+		<%= link_to_remove_association "<i class='fa fa-minus-circle fa-2x'></i>".html_safe, f, { wrapper_class: "history-field" }  %>
+	</div>
+	<div class="col-md-10"><%= f.input :incident_details %></div>
+</div>
+<div class="clearfix"></div>

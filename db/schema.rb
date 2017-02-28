@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170227204330) do
+ActiveRecord::Schema.define(version: 20170228180835) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -125,15 +125,16 @@ ActiveRecord::Schema.define(version: 20170227204330) do
     t.string   "step"
   end
 
-  create_table "history_forms", force: :cascade do |t|
+  create_table "history_submissions", force: :cascade do |t|
     t.string   "incident_type"
     t.string   "impact"
     t.string   "discovery_time"
     t.string   "source"
     t.string   "data_loss"
     t.text     "incident_details"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.integer  "form_submission_id"
   end
 
   create_table "law_firms", force: :cascade do |t|

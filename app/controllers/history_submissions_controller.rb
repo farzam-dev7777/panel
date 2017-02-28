@@ -1,4 +1,4 @@
-class HistoryFormsController < BaseController
+class HistorySubmissionsController < BaseController
 
   def create
   end

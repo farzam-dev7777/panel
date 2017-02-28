@@ -28,11 +28,11 @@
       </div>
       <%= render 'wizard' %>
     </div>
-    <div class="col-md-2 col-md-offset-5">
+    <div class="col-md-12 text-center">
       <div class="btn-group">
-        <%= link_to "<i class='fa fa-caret-left'></i> Previous <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, previous_step_path, class: 'btn btn-default submit-form' %>
-        <%= link_to "<i class='fa fa-disk'></i> Save".html_safe, current_step_path, class: 'btn btn-primary submit-form' %>
-        <%= link_to "Next <i class='fa fa-caret-right'></i> <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, next_step_path, class: 'btn btn-primary submit-form' %>
+        <%= link_to "<i class='fa fa-caret-left'></i> Prev <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, previous_step_path, class: 'btn btn-default submit-form' %>
+        <%= link_to "<i class='fa fa-floppy-o'></i> Save".html_safe, current_step_path, class: 'btn btn-primary submit-form' %>
+        <%= link_to "Next <i class='fa fa-caret-right'></i> <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, next_step_path, class: 'btn btn-default submit-form' %>
       </div>
     </div>
     <br />
