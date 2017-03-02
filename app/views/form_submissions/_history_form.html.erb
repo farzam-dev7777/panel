@@ -12,7 +12,9 @@
     	</div>
 			<div class="clearfix"></div>
     	<hr class="seperator">
-			<div class="link-to-add"></div>
+			<div class="link-to-add">
+				<%= link_to_add_association '<span style="width: 110px" href="javascript:void(0);" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Add More</span>'.html_safe, f, :history_submissions %>
+			</div>
 
 			<p>&nbsp;</p>
 
@@ -21,3 +23,4 @@
   </div>
 
 <% end %>
+

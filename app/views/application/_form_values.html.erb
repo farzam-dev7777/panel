@@ -1,2 +1,6 @@
 <% step = 0 %>
-<%= render "form_values_fields", f: f, form_values: f.object.build_values(nil, current_step), step: step, group_form: false, sub_fields: false %>
+<div class="col-md-10 col-md-offset-1">
+	<div class="col-md-12">
+		<%= render "form_values_fields", f: f, form_values: f.object.build_values(nil, current_step), step: step, group_form: false, sub_fields: false %>
+	</div>
+</div>

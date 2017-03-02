@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170228180835) do
+ActiveRecord::Schema.define(version: 20170301234627) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -100,10 +100,14 @@ ActiveRecord::Schema.define(version: 20170228180835) do
 
   create_table "form_submissions", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.integer  "form_id"
     t.integer  "form_process_id"
+    t.boolean  "submitted",       default: false
+    t.datetime "submitted_on"
+    t.integer  "law_firm_id"
+    t.float    "score"
   end
 
   create_table "form_values", force: :cascade do |t|
@@ -198,6 +202,18 @@ ActiveRecord::Schema.define(version: 20170228180835) do
     t.string   "message_id"
     t.index ["notification_id"], name: "index_mailboxer_receipts_on_notification_id", using: :btree
     t.index ["receiver_id", "receiver_type"], name: "index_mailboxer_receipts_on_receiver_id_and_receiver_type", using: :btree
+  end
+
+  create_table "notes", force: :cascade do |t|
+    t.integer  "law_firm_id"
+    t.string   "message_type"
+    t.text     "message"
+    t.string   "step"
+    t.integer  "admin_user_id"
+    t.string   "sender"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.integer  "form_submission_id"
   end
 
   create_table "technologies", force: :cascade do |t|

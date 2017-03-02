@@ -4,6 +4,7 @@ class LawFirm < ApplicationRecord
   has_many :activity_logs
   has_many :requests
   has_many :todo_tasks
+  has_many :form_submissions
 
   after_create :generate_a_new_user
   acts_as_messageable

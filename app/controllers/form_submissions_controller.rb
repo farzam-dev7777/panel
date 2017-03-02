@@ -1,18 +1,11 @@
-class Admin::FormSubmissionsController < Admin::BaseController
+class FormSubmissionsController < BaseController
+  include SubmissionBehaviors
 
-	layout false
-  layout 'admin', :except => :show
-
-  before_action :notes
   before_action :before_steps, only: [:policy_step, :process_step]
   before_action :before_non_dynamic_forms, only: [:technology_step, :history_step]
 
   helper_method :next_step_path, :current_step_path, :steps, :previous_step_path, 
                 :current_step, :wizard_path, :last_step
-  
-  def index
-  	@form_submissions = FormSubmission.where(submitted: true)
-  end
 
   def before_steps
     @form_submission = FormSubmission.find(params[:id])
@@ -21,6 +14,11 @@ class Admin::FormSubmissionsController < Admin::BaseController
 
   def before_non_dynamic_forms
     @form_submission = FormSubmission.find(params[:id])
+  end
+
+  def new
+    @form = Form.find(params[:form_id])
+    @form_submission = FormSubmission.new(form: @form)
   end
 
   def policy_step
@@ -48,11 +46,6 @@ class Admin::FormSubmissionsController < Admin::BaseController
     end
   end
 
-  def notes
-    @form_submission = FormSubmission.find_by(id: params[:id])
-    @notes = @form_submission.notes
-  end
-
   def create
     @form_submission = FormSubmission.new(form_submissions_params)
     if @form_submission.save
@@ -63,15 +56,16 @@ class Admin::FormSubmissionsController < Admin::BaseController
     end
   end
 
-  def update_score
-    return unless params[:form_submission][:score].present?
-    @form_submission = FormSubmission.find_by(id: params[:id])
-    @form_submission.score = params[:form_submission][:score]
-    @form_submission.save
-    redirect_to :admin_form_submissions_path
+  def submit_forms
+    @form_submission = FormSubmission.find(params[:id])
+    @form_submission.submitted = true
+    @form_submission.submitted_on = Time.now
+    if (@form_submission.save)
+      redirect_to :root_url
+    end
   end
 
-  private
+private
 
   def current_step
     step = params[:action].split("_").first.to_sym
@@ -83,7 +77,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
   end
 
   def wizard_path(step)
-    eval("#{step}_step_admin_form_submission_path")
+    eval("#{step}_step_form_submission_path")
   end
 
   def next_step_path
@@ -120,5 +114,4 @@ class Admin::FormSubmissionsController < Admin::BaseController
     form_submission_attributes = [:id, :form_id]
     params.require(:form_submission).permit(form_submission_attributes + form_values_attributes)
   end
-
 end

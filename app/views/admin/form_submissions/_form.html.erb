@@ -1,12 +1,7 @@
 <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
-  <header>
-    <span class="widget-icon"> <i class="fa fa-certificate"></i> </span>
-    <h2>Certification Submission</h2>
-
-  </header>
 
   <!-- widget div-->
-  <div>
+  <div class="no-border">
 
     <!-- widget edit box -->
     <div class="jarviswidget-editbox">
@@ -21,18 +16,32 @@
       <div class="clearfix"></div>
       <div class="row">
         <div class="col-md-12">
-          <%= simple_form_for [:admin, @form_submission], validate: true, :html => {:multipart => true, remote: true, authenticity_token: true} do |f| %>
+          <%= simple_form_for @form_submission, validate: true, :html => {:multipart => true, remote: true, authenticity_token: true} do |f| %>
             <%= yield :form %>
           <% end %>
         </div>
       </div>
-      <%= render 'wizard' %>
     </div>
+
+
+    <% if(last_step) %>
+      <div class="col-md-10 col-md-offset-1">
+        <%= simple_form_for @form_submission, url: update_score_admin_form_submission_path, validate: true, :html => {remote: true, authenticity_token: true, class: 'score-form'} do |f| %>
+          <%= f.input :score, as: :integer, required: true %>
+          <%= f.submit 'Update Score', class: 'btn btn-primary force-center' %>
+        <% end %>
+      </div>
+    <% end %>
+
+
+
     <div class="col-md-12 text-center">
       <div class="btn-group">
         <%= link_to "<i class='fa fa-caret-left'></i> Prev <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, previous_step_path, class: 'btn btn-default submit-form' %>
-        <%= link_to "<i class='fa fa-floppy-o'></i> Save".html_safe, current_step_path, class: 'btn btn-primary submit-form' %>
-        <%= link_to "Next <i class='fa fa-caret-right'></i> <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, next_step_path, class: 'btn btn-default submit-form' %>
+
+        <% if(!last_step) %>
+          <%= link_to "Next <i class='fa fa-caret-right'></i> <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, next_step_path, class: 'btn btn-default submit-form' %>
+        <% end %>
       </div>
     </div>
     <br />
@@ -43,4 +52,35 @@
   </div>
   <!-- end widget div -->
 
+</div>
+
+<div id="notes-modal">
+  <div class="notes">
+    <% @notes.each do |note| %>
+      <div class="message">
+        <%= note.message %>
+        <p><%= note.created_at %></p>
+      </div>
+    <% end %>
+  </div>
+  <form id="notes-form" action="#" method="post">
+    <%= hidden_field_tag :form_submission_id, params[:id] %>
+    <div class="input">
+      <div class="col-md-10">
+        <textarea name="message" placeholder="Enter your message here..."></textarea>
+        <div class="type">
+          <label class="radio-inline">
+            <input checked="checked" type="radio" name="message_type" value="internal">Internal
+          </label>
+          <label class="radio-inline">
+            <input type="radio" name="message_type" value="request_information">Request Information
+          </label>
+        </div>
+      </div> 
+      <div class="col-md-2 send-wrapper text-center">
+        <i class="fa fa-paper-plane fa-2x" aria-hidden="true"></i>
+        <p>Send</p>
+      </div>
+    </div>
+  </form>
 </div>

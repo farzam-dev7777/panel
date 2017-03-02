@@ -31,6 +31,7 @@
 //= require plugin/flot/jquery.flot.tooltip.min
 //= require plugin/flot/jquery.flot.orderBar.min
 //= require plugin/select2/select2.min
+//= require plugin/jquery.dockmodal.js
 //= require JustGage
 //= require raphael
 //= require jquery_nested_form

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  law_firm_id: 1
+  type: 
+  message: MyText
+  step: MyString
+  admin_user_id: 1
+  sender: MyString
+
+two:
+  law_firm_id: 1
+  type: 
+  message: MyText
+  step: MyString
+  admin_user_id: 1
+  sender: MyString

@@ -1,0 +1,39 @@
+<% content_for :page_title do %>
+	<span>Law Firm Submissions</span>
+<% end %>
+
+<div class="clearfix"></div>
+
+<div class="col-lg-8 col-md-8 col-sm-12">
+
+	<div class="table-responsive">
+		<table class="table table-bordered text-center">
+
+			<tr>
+				<th class="text-center">Law Firm</th>
+				<th class="text-center">Score</th>
+				<th class="text-center">Submitted On</th>
+				<th class="text-center">Action</th>
+			</tr>
+
+			<% @form_submissions.each do |submission| %>
+				<tr>
+					<td><%= submission.law_firm.name %></td>
+					<td><%= submission.score || '-' %></td>
+					<td><%= submission.submitted_on.strftime('%d %b %Y at %I:%M %p') %></td>
+					<td class="text-center">
+
+						<%= link_to "Review", policy_step_admin_form_submission_path(submission), class: "btn btn-xs btn-primary" %>
+
+					</td>
+				</tr>
+				
+			<% end %>
+
+		</table>
+		<div class="clearfix"></div>
+
+
+	</div>
+</div>
+

@@ -1,0 +1,51 @@
+<div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+  <header>
+    <span class="widget-icon"> <i class="fa fa-certificate"></i> </span>
+    <h2>Certification Submission</h2>
+
+  </header>
+
+  <!-- widget div-->
+  <div>
+
+    <!-- widget edit box -->
+    <div class="jarviswidget-editbox">
+      <!-- This area used as dropdown edit box -->
+
+    </div>
+    <!-- end widget edit box -->
+
+    <!-- widget content -->
+    <div class="widget-body fuelux">
+      <%= render 'wizard' %>
+      <div class="clearfix"></div>
+      <div class="row">
+        <div class="col-md-12">
+          <%= simple_form_for @form_submission, validate: true, :html => {:multipart => true, remote: true, authenticity_token: true} do |f| %>
+            <%= yield :form %>
+          <% end %>
+        </div>
+      </div>
+      <%= render 'wizard' %>
+    </div>
+    <div class="col-md-12 text-center">
+      <div class="btn-group">
+        <%= link_to "<i class='fa fa-caret-left'></i> Prev <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, previous_step_path, class: 'btn btn-default submit-form' %>
+        <%= link_to "<i class='fa fa-floppy-o'></i> Save".html_safe, current_step_path, class: 'btn btn-primary submit-form' %>
+
+        <% if(last_step) %>
+          <%= link_to "Submit <i class='fa fa-caret-right'></i> <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, submit_forms_form_submission_path, data: {confirm: 'Are you sure you want to submit? You won\'t be able to make any changes later.'}, class: 'btn btn-default submit-form' %>
+        <% else %>
+          <%= link_to "Next <i class='fa fa-caret-right'></i> <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, next_step_path, class: 'btn btn-default submit-form' %>
+        <% end %>
+      </div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <!-- end widget content -->
+
+  </div>
+  <!-- end widget div -->
+
+</div>

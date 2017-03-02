@@ -112,5 +112,89 @@ div.link-to-add {
 }
 div.link-to-add > * {
   color: #fff
-  
 }
+
+.turn-to-text {
+  font-size: 11px;
+  position: relative;
+  bottom: 15px;
+  cursor: pointer;
+}
+
+.score-form {
+  background: #eeeeee;
+  padding: 30px;
+  margin-bottom: 10px;
+}
+
+.force-center {
+  margin: 0 auto;
+  display: block;
+}
+
+.no-border { border: 0px !important; }
+
+#notes-modal { height: 100%; }
+
+#notes-modal .notes {
+  height: 80%;
+  padding: 10px;
+  background: #e5e5e5;
+}
+
+#notes-modal .notes .message {
+  max-width: 40%;
+  background: #fff;
+  padding: 10px 15px;
+  border-radius: 8px;
+  box-shadow: -1px 2px 0px #D4D4D4;
+  margin-bottom: 15px;
+}
+
+#notes-modal .notes .message p {
+  margin: 0;
+  font-size: 10px;
+  text-align: right;
+  margin-top: 10px;
+  color: #ccc;
+}
+
+#notes-modal .input {
+  height: 20%;
+}
+
+#notes-modal .input > div.col-md-10 {
+  padding: 0;
+  height: 100%;
+}
+
+#notes-modal .input > div.col-md-10 textarea {
+  width: 100%;
+  height: 100%;
+  border: 0px;
+  border-right: 1px solid #e1e1e1;
+  padding: 10px 10px 30px 10px;
+  resize: none;
+}
+
+#notes-modal .input > div.col-md-10 .type {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+.send-wrapper {
+  height: 100%;
+  background: #0091d9;
+  padding: 25px 20px;
+  color: #fff;
+  cursor: pointer;
+}
+.send-wrapper:hover {
+  background: #026a9e;
+}
+.send-wrapper p {
+  font-size: 18px;
+}
+
+

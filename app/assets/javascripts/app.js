@@ -103,8 +103,54 @@ $(document).ready(function(){
     version = $(this).data('version');
   })
 
+  hideTextFields();
+
+  $(document).on( 'click','a.turn-to-text', function () {
+    $(this).parent().parent().hide();
+    $(this).parent().parent().next('.text-only-fields').removeClass('hidden').show();
+  });
+
+
+  if(window.location.pathname.indexOf("/admin/form_submissions/") > -1){
+    $('select').attr('disabled', 'true');
+    $('input[type="text"]').attr('disabled', 'true');
+    $('textarea').attr('disabled', 'true');
+    $('.score-form input').removeAttr('disabled');
+    $('#notes-modal .input > div textarea').removeAttr('disabled');
+  }
+
+  $("#notes-modal").dockmodal({
+    title: 'Notes',
+    width: 600,
+    initialState: "minimized",
+    showClose: false,
+    showPopout: false
+  });
+
+  $('.send-wrapper').click(function(){
+    $('#notes-form').submit();  
+  })
+
+  $('#notes-form').on('submit', function(e){
+    e.preventDefault();
+    $.ajax({
+      url: "/admin/notes",
+      method: 'post',
+      data: $(this).serialize()
+    })
+      .done(function( data ) {
+        $('#notes-modal .notes').append('<div class="message">' + data.message + '<p>' + data.created_at + '</p></div>');
+      });
+  })
+
 
 });
+
+function hideTextFields(){
+  setTimeout(function(){
+    $('.text-only-fields').hide();
+  }, 100)
+}
 
 function fetchTechnology(vendor, platform, version, target){
   data = {

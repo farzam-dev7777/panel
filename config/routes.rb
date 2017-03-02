@@ -9,14 +9,6 @@ Rails.application.routes.draw do
         get :mark_as_read
       end
     end
-    resources :form_submissions do
-      member do
-        get :policy_step
-        get :process_step
-        get :technology_step
-        get :history_step
-      end
-    end
     resources :forms do
       collection do
         get :group_form_fields
@@ -26,6 +18,16 @@ Rails.application.routes.draw do
       end
     end
     resources :messages
+    resources :notes
+    resources :form_submissions do
+      member do
+        get :policy_step
+        get :process_step
+        get :technology_step
+        get :history_step
+        patch :update_score
+      end
+    end
     get '/internal_dashboard/notifications', to: 'internal_dashboard#notifications'
     root to: "internal_dashboard#index"
   end
@@ -38,10 +40,20 @@ Rails.application.routes.draw do
       get :service_packs
     end
   end
+  
   resources :technology_forms
   resources :history_forms
   resources :todo_tasks
 
+  resources :form_submissions do
+    member do
+      get :policy_step
+      get :process_step
+      get :technology_step
+      get :history_step
+      get :submit_forms
+    end
+  end
 
   devise_for :users, controllers: { sessions: 'users/sessions' }
   namespace :users do
