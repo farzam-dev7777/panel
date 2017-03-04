@@ -1,0 +1,7 @@
+<p>
+	<%= @security_alert.description %>
+</p>
+
+<% if @security_alert.link %>
+<a class="btn btn-primary" target="_blank" href="<%= @security_alert.link %>">Learn More</a>
+<% end %>

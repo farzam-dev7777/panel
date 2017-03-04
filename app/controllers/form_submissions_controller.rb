@@ -1,6 +1,8 @@
 class FormSubmissionsController < BaseController
   include SubmissionBehaviors
 
+
+  before_action :follow_ups, except: :index
   before_action :before_steps, only: [:policy_step, :process_step]
   before_action :before_non_dynamic_forms, only: [:technology_step, :history_step]
 
@@ -22,6 +24,10 @@ class FormSubmissionsController < BaseController
   end
 
   def policy_step
+    @form_submission = FormSubmission.find(params[:id])
+    log = ActivityLog.find_by(loggable_id: @form_submission.id, loggable_type: 'FormSubmission', law_firm_id: current_law_firm.id)
+    
+    FormSubmission.log_activity('seal_certification_process_initiated', true, @form_submission) if @form_submission && !log
   end
 
   def process_step
@@ -61,8 +67,23 @@ class FormSubmissionsController < BaseController
     @form_submission.submitted = true
     @form_submission.submitted_on = Time.now
     if (@form_submission.save)
+      FormSubmission.log_activity('information_security_policy_submitted', true, @form_submission)
       redirect_to :root_url
     end
+  end
+
+  def follow_ups
+    @form_submission = FormSubmission.find_by(id: params[:id])
+
+    @follow_ups = case current_step
+                  when :policy
+                    @form_submission.follow_ups.policy.decorate
+                  when :technology
+                    @form_submission.follow_ups.technology.decorate
+                  when :history
+                    @form_submission.follow_ups.history.decorate
+                  end
+      
   end
 
 private

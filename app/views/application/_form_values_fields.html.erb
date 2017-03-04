@@ -1,7 +1,7 @@
 <div class="row">
   <div class="<%= get_form_value_class(sub_fields, group_form) %>">
     <%= f.simple_fields_for :form_values, form_values do |v| %>
-      <div class="<%= get_form_value_field_wrapper_class(sub_fields, group_form, form_values, v.index) %>" data-show-when-field-id="<%= show_when_field_id(v.object) %>" data-show-when-value="<%= show_when_value(v.object) %>" data-custom-logic="<%= custom_logic(v.object) %>">
+      <div class="<%= get_form_value_field_wrapper_class(sub_fields, group_form, form_values, v.index) %> <%= follow_up_class(params[:id], v.object.id, 'FormValue') %>" data-show-when-field-id="<%= show_when_field_id(v.object) %>" data-show-when-value="<%= show_when_value(v.object) %>" data-custom-logic="<%= custom_logic(v.object) %>">
         <div class="<%= get_form_value_field_class(sub_fields, group_form, form_values) %>">
           <% field = v.object.form_field %>
           <%= v.input :form_field_id, as: :hidden, value: field.id %>
@@ -21,7 +21,13 @@
             <%= render "form_values_fields", f: f, form_values: v.object.build_nested_form_values(current_step), step: step + 1, group_form: false, sub_fields: true  %>
           <% end %>
         </div>
+        <div class="note-wrapper">
+          <%= render partial: 'note', locals: { loggable: f.object, follow_ups: @follow_ups, 
+                                                  wrapper_class: note_class('policy'),
+                                                  form_type: 'FormValue'} %>
+        </div>
       </div>
     <% end %>
   </div>
+
 </div>

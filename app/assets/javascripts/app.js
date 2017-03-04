@@ -117,15 +117,8 @@ $(document).ready(function(){
     $('textarea').attr('disabled', 'true');
     $('.score-form input').removeAttr('disabled');
     $('#notes-modal .input > div textarea').removeAttr('disabled');
+    $('textarea.note').removeAttr('disabled');
   }
-
-  $("#notes-modal").dockmodal({
-    title: 'Notes',
-    width: 600,
-    initialState: "minimized",
-    showClose: false,
-    showPopout: false
-  });
 
   $('.send-wrapper').click(function(){
     $('#notes-form').submit();  
@@ -140,6 +133,74 @@ $(document).ready(function(){
     })
       .done(function( data ) {
         $('#notes-modal .notes').append('<div class="message">' + data.message + '<p>' + data.created_at + '</p></div>');
+      });
+  })
+
+
+  $('.follow-up').each(function() {
+    $(this).qtip({
+      content: {
+        title: 'Add Note',
+        text: $(this).parent().parent().children('.note-box'),
+        button: 'Close'
+      },
+      show: {
+        event: 'click'
+      },
+      hide: {
+          event: false
+      },
+      position: {
+        my: 'bottom right'
+      },
+      style: {
+        width: 1000,
+        classes: 'qtip-blue qtip-shadow'
+      }
+    });
+  });
+
+  $('.add-note').on('click', function(e){
+    e.preventDefault();
+
+    data = $(this).data();
+    message = $(this).parent().parent().find('textarea.note').val();
+    data.message = message;
+    $.ajax({
+      url: "/admin/follow_ups",
+      method: 'post',
+      data: data,
+      context: $(this).parent().parent().parent()
+    })
+      .done(function( data ) {
+        $(this).find('div.note').prepend(data)
+
+      });
+  })
+
+  $('form.resolve-note-form').on('submit', function(e){
+    e.preventDefault();
+    $.ajax({
+      url: "/admin/follow_ups/resolve",
+      method: 'post',
+      data: $(this).serialize(),
+      context: $(this).parent().parent().children()
+    })
+      .done(function( data ) {
+        $(this).children('form.resolve-note-form').find('.resolve-btn').val('Resolved').attr('disabled', 'true')
+      });
+  })
+
+  $(document).on('click', 'a.check-field-value', function(e){
+    e.preventDefault();
+    $.ajax({
+      url: "/admin/form_submissions/mark_as_checked",
+      method: 'post',
+      data: $(this).data(),
+      context: $(this).parent()
+    })
+      .done(function( data ) {
+        $(this).html(data);
       });
   })
 

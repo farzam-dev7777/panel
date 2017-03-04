@@ -1,0 +1,51 @@
+<% content_for :page_title do %>
+	<span>Security Alerts</span>
+<% end %>
+
+
+<% content_for :page_buttons do %>
+	<%= link_to "Create New Security Alert", new_admin_security_alert_path, class: "btn btn-primary btn-md pull-right m-b-20" %>
+<% end %>
+
+<div class="clearfix"></div>
+
+<div class="col-lg-8 col-md-8 col-sm-12">
+
+	<div class="table-responsive">
+		<table class="table table-bordered">
+
+			<tr>
+				<th>Title</th>
+				<th>Severity</th>
+				<th>Submitted</th>
+				<th>Action</th>
+			</tr>
+
+			<% @security_alerts.each do |alert| %>
+				<tr>
+					<td><%= alert.title %></td>
+					<td><%= alert.severity %></td>
+					<td><%= "#{time_ago_in_words(alert.created_at)} ago" %></td>
+					<td class="text-center">
+						<%= link_to "Edit", edit_admin_security_alert_path(alert), class: "btn btn-primary" %>	
+					</td>
+				</tr>
+				
+			<% end %>
+
+		</table>
+		<div class="clearfix"></div>
+
+		<%= will_paginate @security_alerts, renderer: BootstrapPagination::Rails %>
+	</div>
+</div>
+
+<div class="col-lg-4">
+	<div class="well">
+		<%= simple_form_for @q, url: :admin_law_firms, method: :get do |f| %>
+		  <%= f.input :title_cont, label: "Title", class: 'form-control' %>
+		  <%= f.button :submit, "Search", class: "btn btn-primary" %>
+		<% end %>
+	</div>
+</div>
+

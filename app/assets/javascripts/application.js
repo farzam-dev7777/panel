@@ -10,7 +10,7 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
+//= require jquery2
 //= require jquery_ujs
 //= require jquery-ui
 //= require jquery-ui-sortable
@@ -20,9 +20,9 @@
 // active_material
 // require turbolinks
 //= require app.config.seed
-//= require plugin/jquery-touch/jquery.ui.touch-punch.min
 //= require bootstrap/bootstrap.min
 //= require app.seed
+//= require plugin/jquery-touch/jquery.ui.touch-punch.min
 //= require plugin/moment/moment.min
 //= require plugin/fullcalendar/jquery.fullcalendar.min
 //= require plugin/flot/jquery.flot.cust.min
@@ -31,12 +31,12 @@
 //= require plugin/flot/jquery.flot.tooltip.min
 //= require plugin/flot/jquery.flot.orderBar.min
 //= require plugin/select2/select2.min
-//= require plugin/jquery.dockmodal.js
+//= require qTip2
 //= require JustGage
 //= require raphael
 //= require jquery_nested_form
 //= require plugin/jquery.toast.min.js
 //= require admin.js
-//= require main.js
+// require main.js
 // require_tree .
 

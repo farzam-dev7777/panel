@@ -12,7 +12,7 @@
 			<tr>
 				<th class="text-center">Law Firm</th>
 				<th class="text-center">Score</th>
-				<th class="text-center">Submitted On</th>
+				<th class="text-center">Status</th>
 				<th class="text-center">Action</th>
 			</tr>
 
@@ -20,7 +20,7 @@
 				<tr>
 					<td><%= submission.law_firm.name %></td>
 					<td><%= submission.score || '-' %></td>
-					<td><%= submission.submitted_on.strftime('%d %b %Y at %I:%M %p') %></td>
+					<td><span class="label label-<%= submission_status_class(submission) %>"><%= submission.status %></span></td>
 					<td class="text-center">
 
 						<%= link_to "Review", policy_step_admin_form_submission_path(submission), class: "btn btn-xs btn-primary" %>

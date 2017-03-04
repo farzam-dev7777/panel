@@ -1,25 +1,32 @@
-<div class="row technology-field-<%= platform_category %>-<%= type %> select-fields">
+<div class="row technology-field-<%= platform_category %>-<%= type %> select-fields <%= follow_up_class_for_law_firm(f.object.id, 'TechnologyValue') %>">
 	<%= f.input :platform_category, as: :hidden, input_html: { value: platform_category }  %>
 	<%= f.input :platform_type, as: :hidden, input_html: { value: type } %>
 	<div class="col-md-3 vendor-wrapper">
-		<%= f.input :vendor, collection: Technology.all.pluck(:vendor).uniq, 
+		<%= f.input :vendor, collection: Technology.all.pluck(:vendor).uniq, include_blank: false,
 												 input_html: {class: 'dynamic-select', data: { field: 'vendor' } } %>
 		<a class="turn-to-text">Can't find what you're looking for?</a>
 	</div>
 	<div class="col-md-2 platform-wrapper">
-		<%= f.input :platform, collection: [], input_html: {class: 'dynamic-select', data: {field: 'platform'}} %>
+		<%= f.input :platform, collection: [], include_blank: false, input_html: {class: 'dynamic-select', data: {field: 'platform'}} %>
 	</div>
 	<div class="col-md-2 version-wrapper">
-		<%= f.input :version, collection: [], input_html: {class: 'dynamic-select', data: {field: 'version'} } %>
+		<%= f.input :version, collection: [], include_blank: false, input_html: {class: 'dynamic-select', data: {field: 'version'} } %>
 	</div>
 	<div class="col-md-2 service_pack-wrapper">
-		<%= f.input :service_pack, collection: [], input_html: { data: {field: 'service_pack'} } %>
+		<%= f.input :service_pack, collection: [], include_blank: false, input_html: { data: {field: 'service_pack'} } %>
 	</div>
 	<div class="col-md-2">
-		<%= f.input :supported, collection: ['Yes', 'No'] %>
+		<%= f.input :supported, collection: ['Yes', 'No'], include_blank: false %>
 	</div>
-	<div class="col-md-1 text-right" style="line-height: 84px; padding-right: 40px;">
+	<div class="col-md-1 text-right" style="line-height: 84px;">
 		<%= link_to_remove_association "<i class='fa fa-minus-circle fa-2x'></i>".html_safe, f, { wrapper_class: "technology-field-#{platform_category}-#{type}" }  %>
+
+
+		<%  if (follow_up_class(params[:id], f.object.id, 'TechnologyValue') == 'need-follow-up'   || follow_up_class(params[:id], f.object.id, 'TechnologyValue') == 'follow-up-success') %>
+			<%= render partial: 'note', locals: { loggable: f.object, follow_ups: @follow_ups, 
+																						 wrapper_class: note_class('technology'),
+																						 form_type: 'TechnologyValue'} %>
+		<% end %>
 	</div>
 </div>
 

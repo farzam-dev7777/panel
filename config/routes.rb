@@ -18,6 +18,13 @@ Rails.application.routes.draw do
       end
     end
     resources :messages
+    resources :security_alerts
+    resources :follow_ups do
+      collection do
+        post :resolve
+        post :review
+      end
+    end
     resources :notes
     resources :form_submissions do
       member do
@@ -26,6 +33,12 @@ Rails.application.routes.draw do
         get :technology_step
         get :history_step
         patch :update_score
+        post :save_and_follow_up
+      end
+      collection do
+        post :mark_as_checked
+        post :approve
+        post :decline
       end
     end
     get '/internal_dashboard/notifications', to: 'internal_dashboard#notifications'

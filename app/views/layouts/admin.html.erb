@@ -9,13 +9,13 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body class="smart-style-6">
   <!-- #HEADER -->
 	<header id="header">
 		<div id="logo-group">
 
 			<!-- PLACE YOUR LOGO HERE -->
-			<span id="logo"> <img src="/assets/seal-cropped.png" alt="SmartAdmin"> </span>
+			<span id="logo"> <img src="/assets/seal-white.png" alt="SmartAdmin"> </span>
 			<!-- END LOGO PLACEHOLDER -->
 
 			<!-- Note: The activity badge color changes when clicked and resets the number to 0
@@ -113,9 +113,9 @@
 		<div class="login-info">
 			<span> <!-- User image size is adjusted inside CSS, it should stay as is --> 
 				
-				<a href="javascript:void(0);" id="show-shortcut" data-action="toggleShortcut">
-					<img src="/assets/avatars/sunny.png" alt="me" class="online" /> 
-					<span>
+				<a style="padding-top: 0" href="javascript:void(0);" id="show-shortcut" data-action="toggleShortcut">
+					<!-- <img src="/assets/avatars/sunny.png" alt="me" class="online" />  -->
+					<span style="margin-top: 0px">
 						<%= current_admin_admin_user.email %>
 					</span>
 					<!-- <i class="fa fa-angle-down"></i> -->
@@ -146,7 +146,7 @@
 					<a href="/admin/law_firms" title="blank_"><i class="fa fa-lg fa-fw fa-shield"></i> <span class="menu-item-parent">Law Firms</span></a>
 				</li>
 				<li class="">
-					<a href="/admin/law_firms" title="blank_"><i class="fa fa-lg fa-fw fa-book"></i> <span class="menu-item-parent">Submissions</span></a>
+					<a href="/admin/form_submissions" title="blank_"><i class="fa fa-lg fa-fw fa-book"></i> <span class="menu-item-parent">Submissions</span></a>
 				</li>
 				<li class="">
 					<a href="/admin/internal_dashboard/notifications" title="blank_"><i class="fa fa-lg fa-fw fa-bell"></i> <span class="menu-item-parent">Send Notifications</span></a>
@@ -167,7 +167,7 @@
 
 			<!-- breadcrumb -->
 			<ol class="breadcrumb">
-				<%= render_breadcrumbs :separator => ' / ' %>
+
 			</ol>
 			<!-- end breadcrumb -->
 
@@ -190,27 +190,17 @@
 			
 			<!-- col -->
 			<div class="col-xs-12 col-lg-12">
-				<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
-					<h1 class="page-title txt-color-blueDark">
-						
-						<!-- PAGE HEADER -->
-						<i class="fa-fw fa fa-home"></i> 
-							Admin
-						<span>>  
-							<%= yield :page_title %>
-						</span>
-					</h1>
-
-				</div>
+				
 				<div class="col-xs-12 col-sm-7 col-md-7 col-lg-8 page-title">
 					<%= yield :page_buttons %>
 				</div>
 			</div>
 			<!-- end col -->
-
 			<div class="col-lg-12 table-striped table-hover">
-				<p class="notice"><%= notice %></p>
-		    <p class="alert"><%= alert %></p>
+				<% if (notice || alert) %>
+					<p class="notice"><%= notice %></p>
+			    <p class="alert"><%= alert %></p>
+				<% end %>
 		    <%= yield %>
 			</div>
 			

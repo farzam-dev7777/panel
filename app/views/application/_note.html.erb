@@ -1,0 +1,32 @@
+<% follow_up = follow_ups.select{ |follow_up| follow_up.loggable_id == loggable.id }.first %>
+<div class="tip-wrapper">
+	<div class="col text-right <%= wrapper_class %>">
+		<% if(current_admin_admin_user) %>
+			<%= render partial: 'check_mark', locals: {loggable: loggable, form_type: form_type} %>
+		<% end %>
+		<a class="btn btn-default btn-xs follow-up pull-right"><i class="fa fa-envelope"></i></a>
+	</div>
+	<div class="col-md-12 note-box">
+		<div class="note-controls">
+			<div class="note">
+
+				<% if (follow_up) %>
+					<% follow_up.messages.reverse.each do |message| %>
+						<%= render partial: 'follow_up_note', locals: {message: message} %>
+					<% end %>
+				<% end %>
+			</div>
+			<div class="col-md-12 no-padding">
+				<label>Add Note:</label>
+				<textarea name="message" class="note"></textarea>
+			</div>
+			<div class="col-md-12 text-right no-padding">
+		    <input class="btn btn-default add-note" type="submit" value="Add Note" data-form_submission_id=<%= params[:id] %> data-loggable_id=<%= loggable.id %> data-loggable_type=<%= form_type %>>
+		  </div>
+	  </div>
+
+		<% if current_admin_admin_user && follow_up_needed?(params[:id], loggable.id, form_type) %>
+	    <input class="btn btn-default resolve-btn" type="submit" value="Resolve" data-follow_up_id=<%= follow_up.id %>>
+		<% end %>
+	</div>
+</div>

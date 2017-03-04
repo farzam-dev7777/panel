@@ -1,0 +1,2 @@
+class SecurityAlert < ApplicationRecord
+end

@@ -1,0 +1,8 @@
+
+<p><strong><%= message.message %></strong></p>
+<span class="pull-right">
+	<em><%= "#{message.created_at} ago" %> 
+	by <%= "#{message.sender}" unless message.sender.blank? %></em>
+</span>	
+<div class="clearfix"></div>
+<hr class="note-seperator" />

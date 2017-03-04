@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170301234627) do
+ActiveRecord::Schema.define(version: 20170303203525) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,6 +75,16 @@ ActiveRecord::Schema.define(version: 20170301234627) do
     t.datetime "updated_at",    null: false
   end
 
+  create_table "follow_ups", force: :cascade do |t|
+    t.integer  "form_submission_id"
+    t.string   "loggable_type"
+    t.integer  "loggable_id"
+    t.string   "status"
+    t.integer  "note_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
   create_table "form_fields", force: :cascade do |t|
     t.string   "min"
     t.string   "max"
@@ -108,17 +118,19 @@ ActiveRecord::Schema.define(version: 20170301234627) do
     t.datetime "submitted_on"
     t.integer  "law_firm_id"
     t.float    "score"
+    t.string   "status"
   end
 
   create_table "form_values", force: :cascade do |t|
     t.integer  "form_field_id"
     t.integer  "submittable_id"
     t.string   "value"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.string   "submittable_type"
     t.string   "form_field_label"
     t.string   "file_value"
+    t.boolean  "checked",          default: false
   end
 
   create_table "forms", force: :cascade do |t|
@@ -136,9 +148,10 @@ ActiveRecord::Schema.define(version: 20170301234627) do
     t.string   "source"
     t.string   "data_loss"
     t.text     "incident_details"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.integer  "form_submission_id"
+    t.boolean  "checked",            default: false
   end
 
   create_table "law_firms", force: :cascade do |t|
@@ -214,6 +227,16 @@ ActiveRecord::Schema.define(version: 20170301234627) do
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
     t.integer  "form_submission_id"
+    t.integer  "follow_up_id"
+  end
+
+  create_table "security_alerts", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.string   "severity"
+    t.string   "link"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "technologies", force: :cascade do |t|
@@ -234,11 +257,12 @@ ActiveRecord::Schema.define(version: 20170301234627) do
     t.string   "version"
     t.string   "service_pack"
     t.string   "supported"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.integer  "law_firm_id"
     t.integer  "form_submission_id"
     t.integer  "technology_id"
+    t.boolean  "checked",            default: false
   end
 
   create_table "todo_tasks", force: :cascade do |t|

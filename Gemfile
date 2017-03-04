@@ -30,6 +30,7 @@ gem 'simple-form-datepicker'
 gem 'rails-assets-fontawesome', source: 'https://rails-assets.org'
 gem 'rails-assets-JustGage', source: 'https://rails-assets.org'
 gem 'rails-assets-raphael', source: 'https://rails-assets.org'
+gem 'rails-assets-qTip2', source: 'https://rails-assets.org'
 gem 'activerecord-sortable'
 gem 'breadcrumbs_on_rails'
 
@@ -60,6 +61,8 @@ gem "cocoon"
 gem 'will_paginate-bootstrap'
 gem 'mailboxer'
 gem 'nested_form'
+
+gem 'rails-breadcrumbs'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

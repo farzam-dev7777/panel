@@ -9,14 +9,14 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body class="smart-style-6">
 
         <!-- #HEADER -->
     <header id="header">
       <div id="logo-group">
 
         <!-- PLACE YOUR LOGO HERE -->
-        <span id="logo"> <img src="/assets/seal-cropped.png" alt="SmartAdmin"> </span>
+        <span id="logo"> <img src="/assets/seal-white.png" alt="SmartAdmin"> </span>
         <!-- END LOGO PLACEHOLDER -->
 
         <!-- Note: The activity badge color changes when clicked and resets the number to 0
@@ -46,7 +46,7 @@
           <div class="ajax-notifications custom-scroll no-padding">
 
             <ul class="notifications">
-              <%- notifications.each do |notification| %>
+              <%- notifications.reverse.each do |notification| %>
                 <li class="<%= notification.read ? 'read' : 'unread' %>">
                   <strong><%= notification.event_type.titleize %></strong>
                   <p><%= notification.custom_message %></p>
@@ -73,9 +73,9 @@
         <!-- Top menu profile link : this shows only when top menu is active -->
         <ul id="mobile-profile-img" class="header-dropdown-list hidden-xs padding-5">
           <li class="">
-            <a href="#" class="dropdown-toggle no-margin userdropdown" data-toggle="dropdown"> 
+            <!-- <a href="#" class="dropdown-toggle no-margin userdropdown" data-toggle="dropdown"> 
               <img src="/assets/avatars/sunny.png" alt="John Doe" class="online" />  
-            </a>
+            </a> -->
             <ul class="dropdown-menu pull-right">
               <li>
                 <a href="javascript:void(0);" class="padding-10 padding-top-0 padding-bottom-0"><i class="fa fa-cog"></i> Setting</a>
@@ -127,8 +127,8 @@
         <span> <!-- User image size is adjusted inside CSS, it should stay as is --> 
           
           <a href="javascript:void(0);" id="show-shortcut" data-action="toggleShortcut">
-            <img src="/assets/avatars/sunny.png" alt="me" class="online" /> 
-            <span>
+            <!-- <img src="/assets/avatars/sunny.png" alt="me" class="online" />  -->
+            <span style="padding-top: 0; margin-top: 0">
               john.doe 
             </span>
             <i class="fa fa-angle-down"></i>

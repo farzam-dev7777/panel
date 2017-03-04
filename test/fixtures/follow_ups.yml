@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  form_submission_id: 1
+  loggable_type: MyString
+  loggable_id: 1
+  status: MyString
+  note_id: 1
+
+two:
+  form_submission_id: 1
+  loggable_type: MyString
+  loggable_id: 1
+  status: MyString
+  note_id: 1

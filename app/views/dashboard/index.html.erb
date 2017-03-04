@@ -1,202 +1,58 @@
-
-		<!-- col -->
-		<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
-			<h1 class="page-title txt-color-blueDark">
-				
-				<!-- PAGE HEADER -->
-				<i class="fa-fw fa fa-home"></i> 
-					Dashboard
-				<span>
-				</span>
-			</h1>
-		</div>
-		<!-- end col -->
-		
-		<div class="clearfix"></div>
-
-		<div class="row">
-
-			
-
-<div class="col-md-12">
-	<article class="col-sm-12">
-		<!-- new widget -->
-		<div class="jarviswidget" id="wid-id-0" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-fullscreenbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false">
-
-			<header>
-				<span class="widget-icon"> <i class="fa fa-bar-chart"></i> </span>
-				<h2><strong>SEAL</strong> Score </h2>
-
-			</header>
-
-			<!-- widget div-->
-			<div class="no-padding">
-				<!-- widget edit box -->
-				<div class="jarviswidget-editbox">
-
-					test
-				</div>
-				<!-- end widget edit box -->
-
-				<div class="widget-body">
-					<!-- content -->
-					<div id="myTabContent" class="tab-content">
-						<div class="tab-pane fade active in padding-10 no-padding-bottom" id="s1">
-							<div class="row no-space text-center">
-								
-
-	
-								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-									<%= certification_status(current_law_firm) %>
-								</div>
-
-							</div>
-
-
-									</div>
-									<!-- end s1 tab pane -->
-
-									<div class="tab-pane fade" id="s2">
-										<div class="widget-body-toolbar bg-color-white">
-
-											<form class="form-inline" role="form">
-
-												<div class="form-group">
-													<label class="sr-only" for="s123">Show From</label>
-													<input type="email" class="form-control input-sm" id="s123" placeholder="Show From">
-												</div>
-												<div class="form-group">
-													<input type="email" class="form-control input-sm" id="s124" placeholder="To">
-												</div>
-
-												<div class="btn-group hidden-phone pull-right">
-													<a class="btn dropdown-toggle btn-xs btn-default" data-toggle="dropdown"><i class="fa fa-cog"></i> More <span class="caret"> </span> </a>
-													<ul class="dropdown-menu pull-right">
-														<li>
-															<a href="javascript:void(0);"><i class="fa fa-file-text-alt"></i> Export to PDF</a>
-														</li>
-														<li>
-															<a href="javascript:void(0);"><i class="fa fa-question-sign"></i> Help</a>
-														</li>
-													</ul>
-												</div>
-
-											</form>
-
-										</div>
-										<div class="padding-10">
-											<div id="statsChart" class="chart-large has-legend-unique"></div>
-										</div>
-
-									</div>
-									<!-- end s2 tab pane -->
-
-									<div class="tab-pane fade" id="s3">
-
-										<div class="widget-body-toolbar bg-color-white smart-form" id="rev-toggles">
-
-											<div class="inline-group">
-
-												<label for="gra-0" class="checkbox">
-													<input type="checkbox" name="gra-0" id="gra-0" checked="checked">
-													<i></i> Target </label>
-													<label for="gra-1" class="checkbox">
-														<input type="checkbox" name="gra-1" id="gra-1" checked="checked">
-														<i></i> Actual </label>
-														<label for="gra-2" class="checkbox">
-															<input type="checkbox" name="gra-2" id="gra-2" checked="checked">
-															<i></i> Signups </label>
-														</div>
-
-														<div class="btn-group hidden-phone pull-right">
-															<a class="btn dropdown-toggle btn-xs btn-default" data-toggle="dropdown"><i class="fa fa-cog"></i> More <span class="caret"> </span> </a>
-															<ul class="dropdown-menu pull-right">
-																<li>
-																	<a href="javascript:void(0);"><i class="fa fa-file-text-alt"></i> Export to PDF</a>
-																</li>
-																<li>
-																	<a href="javascript:void(0);"><i class="fa fa-question-sign"></i> Help</a>
-																</li>
-															</ul>
-														</div>
-
-													</div>
-
-													<div class="padding-10">
-														<div id="flotcontainer" class="chart-large has-legend-unique"></div>
-													</div>
-												</div>
-												<!-- end s3 tab pane -->
-											</div>
-
-											<!-- end content -->
-										</div>
-
-									</div>
-									<!-- end widget div -->
-								</div>
-								<!-- end widget -->
-
-							</article>
-						</div>
-					</div>
-
-
+<div class="row">
+	<%= certification_status(current_law_firm) %>
+</div>
 
 <div class="clearfix"></div>
 
-
-
-
 <div class="col-md-6">
-<div class="jarviswidget jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+	<div class="jarviswidget jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
 
 
-<header>
-<span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
-<h2 class="font-md"><strong>ToDo List </strong></h2>				
-</header>
+		<header>
+			<span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
+			<h2 class="font-md"><strong>ToDo List </strong></h2>				
+		</header>
 
-<div>
+		<div>
 
-<div>
-							<!-- widget edit box -->
-							<div class="jarviswidget-editbox">
-								<div>
-									<label>Title:</label>
-									<input type="text" />
-								</div>
-							</div>
-							<!-- end widget edit box -->
+			<div>
+				<!-- widget edit box -->
+				<div class="jarviswidget-editbox">
+					<div>
+						<label>Title:</label>
+						<input type="text" />
+					</div>
+				</div>
+				<!-- end widget edit box -->
 
-							<div class="widget-body no-padding smart-form">
-								<!-- content goes here -->
-								<h5 class="todo-group-title"><i class="fa fa-warning"></i> Critical Tasks (<small class="num-of-tasks">1</small>)</h5>
-								<ul id="sortable1" class="todo">
-									<li>
-										<span class="handle"> <label class="checkbox">
-												<input type="checkbox" name="checkbox-inline">
-												<i></i> </label> </span>
-										<p>
-											<strong>Ticket #17643</strong> - Hotfix for WebApp interface issue [<a href="javascript:void(0);" class="font-xs">More Details</a>] <span class="text-muted">Sea deep blessed bearing under darkness from God air living isn't. </span>
-											<span class="date">Jan 1, 2014</span>
-										</p>
-									</li>
-								</ul>
-								<h5 class="todo-group-title"><i class="fa fa-exclamation"></i> Important Tasks (<small class="num-of-tasks">3</small>)</h5>
-								<ul id="sortable2" class="todo">
-									<li>
-										<span class="handle"> <label class="checkbox">
-												<input type="checkbox" name="checkbox-inline">
-												<i></i> </label> </span>
-										<p>
-											<strong>Ticket #1347</strong> - Inbox email is being sent twice <small>(bug fix)</small> [<a href="javascript:void(0);" class="font-xs">More Details</a>] <span class="date">Nov 22, 2013</span>
-										</p>
-									</li>
-									<li>
-										<span class="handle"> <label class="checkbox">
-												<input type="checkbox" name="checkbox-inline">
-												<i></i> </label> </span>
+				<div class="widget-body no-padding smart-form">
+					<!-- content goes here -->
+					<h5 class="todo-group-title"><i class="fa fa-warning"></i> Critical Tasks (<small class="num-of-tasks">1</small>)</h5>
+					<ul id="sortable1" class="todo">
+						<li>
+							<span class="handle"> <label class="checkbox">
+								<input type="checkbox" name="checkbox-inline">
+								<i></i> </label> </span>
+								<p>
+									<strong>Ticket #17643</strong> - Hotfix for WebApp interface issue [<a href="javascript:void(0);" class="font-xs">More Details</a>] <span class="text-muted">Sea deep blessed bearing under darkness from God air living isn't. </span>
+									<span class="date">Jan 1, 2014</span>
+								</p>
+							</li>
+						</ul>
+						<h5 class="todo-group-title"><i class="fa fa-exclamation"></i> Important Tasks (<small class="num-of-tasks">3</small>)</h5>
+						<ul id="sortable2" class="todo">
+							<li>
+								<span class="handle"> <label class="checkbox">
+									<input type="checkbox" name="checkbox-inline">
+									<i></i> </label> </span>
+									<p>
+										<strong>Ticket #1347</strong> - Inbox email is being sent twice <small>(bug fix)</small> [<a href="javascript:void(0);" class="font-xs">More Details</a>] <span class="date">Nov 22, 2013</span>
+									</p>
+								</li>
+								<li>
+									<span class="handle"> <label class="checkbox">
+										<input type="checkbox" name="checkbox-inline">
+										<i></i> </label> </span>
 										<p>
 											<strong>Ticket #1314</strong> - Call customer support re: Issue <a href="javascript:void(0);" class="font-xs">#6134</a><small>(code review)</small>
 											<span class="date">Nov 22, 2013</span>
@@ -204,43 +60,43 @@
 									</li>
 									<li>
 										<span class="handle"> <label class="checkbox">
-												<input type="checkbox" name="checkbox-inline">
-												<i></i> </label> </span>
-										<p>
-											<strong>Ticket #17643</strong> - Hotfix for WebApp interface issue [<a href="javascript:void(0);" class="font-xs">More Details</a>] <span class="text-muted">Sea deep blessed bearing under darkness from God air living isn't. </span>
-											<span class="date">Jan 1, 2014</span>
-										</p>
-									</li>
-								</ul>
+											<input type="checkbox" name="checkbox-inline">
+											<i></i> </label> </span>
+											<p>
+												<strong>Ticket #17643</strong> - Hotfix for WebApp interface issue [<a href="javascript:void(0);" class="font-xs">More Details</a>] <span class="text-muted">Sea deep blessed bearing under darkness from God air living isn't. </span>
+												<span class="date">Jan 1, 2014</span>
+											</p>
+										</li>
+									</ul>
 
-								<h5 class="todo-group-title"><i class="fa fa-check"></i> Completed Tasks (<small class="num-of-tasks">1</small>)</h5>
-								<ul id="sortable3" class="todo">
-									<li class="complete">
-										<span class="handle" style="display:none"> <label class="checkbox state-disabled">
+									<h5 class="todo-group-title"><i class="fa fa-check"></i> Completed Tasks (<small class="num-of-tasks">1</small>)</h5>
+									<ul id="sortable3" class="todo">
+										<li class="complete">
+											<span class="handle" style="display:none"> <label class="checkbox state-disabled">
 												<input type="checkbox" name="checkbox-inline" checked="checked" disabled="disabled">
 												<i></i> </label> </span>
-										<p>
-											<strong>Ticket #17643</strong> - Hotfix for WebApp interface issue [<a href="javascript:void(0);" class="font-xs">More Details</a>] <span class="text-muted">Sea deep blessed bearing under darkness from God air living isn't. </span>
-											<span class="date">Jan 1, 2014</span>
-										</p>
-									</li>
-								</ul>
+												<p>
+													<strong>Ticket #17643</strong> - Hotfix for WebApp interface issue [<a href="javascript:void(0);" class="font-xs">More Details</a>] <span class="text-muted">Sea deep blessed bearing under darkness from God air living isn't. </span>
+													<span class="date">Jan 1, 2014</span>
+												</p>
+											</li>
+										</ul>
 
-								<!-- end content -->
+										<!-- end content -->
+									</div>
+
+								</div>
+
 							</div>
+
 
 						</div>
 
-</div>
+					</div>
 
+					<div class="col-md-6">
 
-</div>
-
-</div>
-
-<div class="col-md-6">
-
-<div class="jarviswidget jarviswidget-color-blue" id="wid-id-4" data-widget-editbutton="false" data-widget-colorbutton="false">
+						<div class="jarviswidget jarviswidget-color-blue" id="wid-id-4" data-widget-editbutton="false" data-widget-colorbutton="false">
 
 				<!-- widget options:
 				usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
@@ -254,284 +110,242 @@
 				data-widget-collapsed="true"
 				data-widget-sortable="false"
 
-				-->
+			-->
 
-				<header>
-					<span class="widget-icon"> <i class="fa fa-check txt-color-white"></i> </span>
-					<h2> News </h2>
+			<header>
+				<span class="widget-icon"> <i class="fa fa-check txt-color-white"></i> </span>
+				<h2> News </h2>
 					<!-- <div class="widget-toolbar">
 					add: non-hidden - to disable auto hide
 
-					</div>-->
-				</header>
+				</div>-->
+			</header>
 
-				<!-- widget div-->
-				<div>
-					<!-- widget edit box -->
-					<div class="jarviswidget-editbox">
-						<div>
-							<label>Title:</label>
-							<input type="text" />
-						</div>
+			<!-- widget div-->
+			<div class="security-alerts">
+				<!-- widget edit box -->
+				<div class="jarviswidget-editbox">
+					<div>
+						<label>Title:</label>
+						<input type="text" />
 					</div>
-					<!-- end widget edit box -->
-
-					<div class="widget-body no-padding smart-form">
-						<div class="col-sm-12 col-md-12 col-lg-12">
-								<div style="padding: 0px 20px !important;">
-		
-									<div class="">
-		
-										<div class="col-sm-12">
-		
-											<div class="padding-10">
-		
-												<div class="tab-content padding-top-10">
-													<div class="tab-pane fade in active" id="a1">
-		
-														<div class="row">
-		
-															<div class="col-xs-2 col-sm-1">
-																<time datetime="2014-09-20" class="icon">
-																	<strong>Jan</strong>
-																	<span>22</span>
-																</time>
-															</div>
-		
-															<div class="col-xs-10 col-sm-11">
-																<h6 class="no-margin"><a href="javascript:void(0);">Security Alert!</a></h6>
-																<p>
-																	Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
-																</p>
-															</div>
-		
-															<div class="col-sm-12 padding-10">
-																<hr>
-															</div>
-		
-															<div class="col-xs-2 col-sm-1">
-																<time datetime="2014-09-20" class="icon">
-																	<strong>Jan</strong>
-																	<span>10</span>
-																</time>
-															</div>
-		
-															<div class="col-xs-10 col-sm-11">
-																<h6 class="no-margin"><a href="javascript:void(0);">World Report</a></h6>
-																<p>
-																	Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
-																</p>
-															</div>
-		
-															<div class="col-sm-12 padding-10">
-																<hr>
-															</div>
-		
-															<div class="col-xs-2 col-sm-1">
-																<time datetime="2014-09-20" class="icon">
-																	<strong>Jan</strong>
-																	<span>10</span>
-																</time>
-															</div>
-		
-															<div class="col-xs-10 col-sm-11">
-																<h6 class="no-margin"><a href="javascript:void(0);">World Report</a></h6>
-																<p>
-																	Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
-																</p>
-															</div>
-		
-															<div class="col-sm-12 padding-10">
-																<hr>
-															</div>
-		
-															<div class="col-xs-2 col-sm-1">
-																<time datetime="2014-09-20" class="icon">
-																	<strong>Jan</strong>
-																	<span>10</span>
-																</time>
-															</div>
-		
-															<div class="col-xs-10 col-sm-11">
-																<h6 class="no-margin"><a href="javascript:void(0);">World Report</a></h6>
-																<p>
-																	Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
-																</p>
-															</div>
-		
-															<div class="col-sm-12">
-		
-																<br>
-		
-															</div>
-		
-														</div>
-		
-													</div>
-													<div class="tab-pane fade" id="a2">
-		
-														<div class="alert alert-info fade in">
-															<button class="close" data-dismiss="alert">
-																×
-															</button>
-															<i class="fa-fw fa fa-info"></i>
-															<strong>51 new members </strong>joined today!
-														</div>
-		
-														<div class="user" title="email@company.com">
-															<img src="img/avatars/female.png" alt="demo user"><a href="javascript:void(0);">Jenn Wilson</a>
-															<div class="email">
-																travis@company.com
-															</div>
-														</div>
-														<div class="user" title="email@company.com">
-															<img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Marshall Hitt</a>
-															<div class="email">
-																marshall@company.com
-															</div>
-														</div>
-														<div class="user" title="email@company.com">
-															<img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Joe Cadena</a>
-															<div class="email">
-																joe@company.com
-															</div>
-														</div>
-														<div class="user" title="email@company.com">
-															<img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Mike McBride</a>
-															<div class="email">
-																mike@company.com
-															</div>
-														</div>
-														<div class="user" title="email@company.com">
-															<img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Travis Wilson</a>
-															<div class="email">
-																travis@company.com
-															</div>
-														</div>
-														<div class="user" title="email@company.com">
-															<img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Marshall Hitt</a>
-															<div class="email">
-																marshall@company.com
-															</div>
-														</div>
-														<div class="user" title="Joe Cadena joe@company.com">
-															<img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Joe Cadena</a>
-															<div class="email">
-																joe@company.com
-															</div>
-														</div>
-														<div class="user" title="email@company.com">
-															<img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Mike McBride</a>
-															<div class="email">
-																mike@company.com
-															</div>
-														</div>
-														<div class="user" title="email@company.com">
-															<img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Marshall Hitt</a>
-															<div class="email">
-																marshall@company.com
-															</div>
-														</div>
-														<div class="user" title="email@company.com">
-															<img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Joe Cadena</a>
-															<div class="email">
-																joe@company.com
-															</div>
-														</div>
-														<div class="user" title="email@company.com">
-															<img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);"> Mike McBride</a>
-															<div class="email">
-																mike@company.com
-															</div>
-														</div>
-		
-														<div class="text-center">
-															<ul class="pagination pagination-sm">
-																<li class="disabled">
-																	<a href="javascript:void(0);">Prev</a>
-																</li>
-																<li class="active">
-																	<a href="javascript:void(0);">1</a>
-																</li>
-																<li>
-																	<a href="javascript:void(0);">2</a>
-																</li>
-																<li>
-																	<a href="javascript:void(0);">3</a>
-																</li>
-																<li>
-																	<a href="javascript:void(0);">...</a>
-																</li>
-																<li>
-																	<a href="javascript:void(0);">99</a>
-																</li>
-																<li>
-																	<a href="javascript:void(0);">Next</a>
-																</li>
-															</ul>
-														</div>
-		
-													</div><!-- end tab -->
-												</div>
-		
-											</div>
-		
-										</div>
-		
-									</div>
-									<!-- end row -->
-		
-								</div>
-		
-							</div>
-						<!-- end content -->
-					</div>
-
 				</div>
-				<!-- end widget div -->
-			</div>
+				<!-- end widget edit box -->
 
-</div>
+				<div class="widget-body no-padding smart-form">
+					<div class="col-sm-12 col-md-12 col-lg-12">
+						<div style="padding: 0px 20px !important;">
 
+							<div class="">
 
+								<div class="col-sm-12">
 
+									<div class="padding-10">
 
+										<div class="tab-content padding-top-10">
+											<div class="tab-pane fade in active" id="a1">
 
-<div class="col-md-12">
-<div class="jarviswidget jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+												<div class="row">
 
-<header>
-<span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
-<h2 class="font-md"><strong>Activity Log </strong></h2>				
-</header>
+													<% @security_alerts.each do |alert| %>
+														<div class="col-xs-2 col-sm-1">
+															<time datetime="2014-09-20" class="icon">
+																<strong><%= alert.created_at.strftime("%b") %></strong>
+																<span><%= alert.created_at.strftime("%d") %></span>
+															</time>
+														</div>
 
-<div>
-<!-- MAIN PANEL -->
-<div role="main">
+														<div class="col-xs-10 col-sm-11">
+															
 
-	<!-- MAIN CONTENT -->
-	<div style="height: 500px; overflow-y: scroll">
+															<h6 class="no-margin"><%= link_to alert.title, admin_security_alert_path(alert), :class => "", :remote => true, "data-toggle" => "modal", "data-target" => "securityAlert" %></h6>
+															<p>
+																<%= truncate(alert.description, length: 150) %>
+															</p>
+														</div>
 
-		<!-- row -->
-		<div class="row">
+														<% unless @security_alerts.last %>
+															<div class="col-sm-12 padding-10">
+																<hr>
+															</div>
+														<% end %>
+													<% end %>
 
-			<section id="cd-timeline" class="cd-container">
-					
-					<%- activities.each do |activity| %>
-						<div class="cd-timeline-block">
-							<div class="cd-timeline-img cd-picture">
-								<i class="fa fa-edit fa-2x timeline-icon"></i>
+													
+
+													<div class="col-sm-12">
+
+														<br>
+
+													</div>
+
+												</div>
+
+											</div>
+											<div class="tab-pane fade" id="a2">
+
+												<div class="alert alert-info fade in">
+													<button class="close" data-dismiss="alert">
+														×
+													</button>
+													<i class="fa-fw fa fa-info"></i>
+													<strong>51 new members </strong>joined today!
+												</div>
+
+												<div class="user" title="email@company.com">
+													<img src="img/avatars/female.png" alt="demo user"><a href="javascript:void(0);">Jenn Wilson</a>
+													<div class="email">
+														travis@company.com
+													</div>
+												</div>
+												<div class="user" title="email@company.com">
+													<img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Marshall Hitt</a>
+													<div class="email">
+														marshall@company.com
+													</div>
+												</div>
+												<div class="user" title="email@company.com">
+													<img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Joe Cadena</a>
+													<div class="email">
+														joe@company.com
+													</div>
+												</div>
+												<div class="user" title="email@company.com">
+													<img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Mike McBride</a>
+													<div class="email">
+														mike@company.com
+													</div>
+												</div>
+												<div class="user" title="email@company.com">
+													<img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Travis Wilson</a>
+													<div class="email">
+														travis@company.com
+													</div>
+												</div>
+												<div class="user" title="email@company.com">
+													<img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Marshall Hitt</a>
+													<div class="email">
+														marshall@company.com
+													</div>
+												</div>
+												<div class="user" title="Joe Cadena joe@company.com">
+													<img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Joe Cadena</a>
+													<div class="email">
+														joe@company.com
+													</div>
+												</div>
+												<div class="user" title="email@company.com">
+													<img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Mike McBride</a>
+													<div class="email">
+														mike@company.com
+													</div>
+												</div>
+												<div class="user" title="email@company.com">
+													<img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Marshall Hitt</a>
+													<div class="email">
+														marshall@company.com
+													</div>
+												</div>
+												<div class="user" title="email@company.com">
+													<img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Joe Cadena</a>
+													<div class="email">
+														joe@company.com
+													</div>
+												</div>
+												<div class="user" title="email@company.com">
+													<img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);"> Mike McBride</a>
+													<div class="email">
+														mike@company.com
+													</div>
+												</div>
+
+												<div class="text-center">
+													<ul class="pagination pagination-sm">
+														<li class="disabled">
+															<a href="javascript:void(0);">Prev</a>
+														</li>
+														<li class="active">
+															<a href="javascript:void(0);">1</a>
+														</li>
+														<li>
+															<a href="javascript:void(0);">2</a>
+														</li>
+														<li>
+															<a href="javascript:void(0);">3</a>
+														</li>
+														<li>
+															<a href="javascript:void(0);">...</a>
+														</li>
+														<li>
+															<a href="javascript:void(0);">99</a>
+														</li>
+														<li>
+															<a href="javascript:void(0);">Next</a>
+														</li>
+													</ul>
+												</div>
+
+											</div><!-- end tab -->
+										</div>
+
+									</div>
+
+								</div>
+
 							</div>
+							<!-- end row -->
 
-							<div class="cd-timeline-content">
-								<h2>
-									<strong><%= activity.event_type.titleize %></strong>
-								</h2>
-								<p><%= activity.custom_message %></p>
-								<span class="cd-date"><%= activity.created_at.strftime('%d %b') %></span>
-							</div>
 						</div>
-					<%- end %>
+
+					</div>
+					<!-- end content -->
+				</div>
+
+			</div>
+			<!-- end widget div -->
+		</div>
+
+	</div>
+
+
+
+
+
+	<div class="col-md-12">
+		<div class="jarviswidget jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+
+			<header>
+				<span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
+				<h2 class="font-md"><strong>Activity Log </strong></h2>				
+			</header>
+
+			<div>
+				<!-- MAIN PANEL -->
+				<div role="main">
+
+					<!-- MAIN CONTENT -->
+					<div style="height: 500px; overflow-y: scroll">
+
+						<!-- row -->
+						<div class="row">
+
+							<section id="cd-timeline" class="cd-container">
+
+								<%- activities.reverse.each do |activity| %>
+								<div class="cd-timeline-block">
+									<div class="cd-timeline-img cd-picture">
+										<i class="fa fa-edit fa-2x timeline-icon"></i>
+									</div>
+
+									<div class="cd-timeline-content">
+										<h2>
+											<strong><%= activity.event_type.titleize %></strong>
+										</h2>
+										<p><%= activity.custom_message %></p>
+										<span class="cd-date"><%= activity.created_at.strftime('%d %b') %></span>
+									</div>
+								</div>
+								<%- end %>
 
 					<!-- <div class="cd-timeline-block">
 						<div class="cd-timeline-img cd-movie">
@@ -594,15 +408,15 @@
 					</div> -->
 				</section>
 
-		</div>
+			</div>
 
-		<!-- end row -->
+			<!-- end row -->
+
+		</div>
+		<!-- END MAIN CONTENT -->
 
 	</div>
-	<!-- END MAIN CONTENT -->
-
-</div>
-<!-- END MAIN PANEL -->
+	<!-- END MAIN PANEL -->
 </div>
 
 </div>
@@ -612,8 +426,23 @@
 
 <!-- END #MAIN PANEL -->
 
+<!-- Modal -->
+<div id="securityAlert" class="modal fade" role="dialog">
+  <div class="modal-dialog">
 
-<!--================================================== -->
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modal Header</h4>
+      </div>
+      <div class="modal-body news">
+        <p>Some text in the modal.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
 
-<!-- PACE LOADER - turn this on if you want ajax loading to show (caution: uses lots of memory on iDevices)
-<script data-pace-options='{ "restartOnRequestAfter": true }' src="js/plugin/pace/pace.min.js"></script>-->
+  </div>
+</div>

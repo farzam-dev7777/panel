@@ -3,7 +3,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
 	layout false
   layout 'admin', :except => :show
 
-  before_action :notes
+  before_action :follow_ups, except: :index
   before_action :before_steps, only: [:policy_step, :process_step]
   before_action :before_non_dynamic_forms, only: [:technology_step, :history_step]
 
@@ -11,7 +11,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
                 :current_step, :wizard_path, :last_step
   
   def index
-  	@form_submissions = FormSubmission.where(submitted: true)
+  	@form_submissions = FormSubmission.all.decorate
   end
 
   def before_steps
@@ -24,6 +24,10 @@ class Admin::FormSubmissionsController < Admin::BaseController
   end
 
   def policy_step
+    @form_submission = FormSubmission.find(params[:id])
+    log = ActivityLog.find_by(loggable_id: @form_submission.id, loggable_type: 'FormSubmission', law_firm_id: current_law_firm.id)
+    
+    FormSubmission.log_activity('information_security_policy_review_started', true, @form_submission) if @form_submission && !log
   end
 
   def process_step
@@ -53,6 +57,20 @@ class Admin::FormSubmissionsController < Admin::BaseController
     @notes = @form_submission.notes
   end
 
+  def follow_ups
+    @form_submission = FormSubmission.find_by(id: params[:id])
+
+    @follow_ups = case current_step
+                  when :policy
+                    @form_submission.follow_ups.policy.decorate
+                  when :technology
+                    @form_submission.follow_ups.technology.decorate
+                  when :history
+                    @form_submission.follow_ups.history.decorate
+                  end
+      
+  end
+
   def create
     @form_submission = FormSubmission.new(form_submissions_params)
     if @form_submission.save
@@ -68,7 +86,43 @@ class Admin::FormSubmissionsController < Admin::BaseController
     @form_submission = FormSubmission.find_by(id: params[:id])
     @form_submission.score = params[:form_submission][:score]
     @form_submission.save
-    redirect_to :admin_form_submissions_path
+    redirect_to :admin_form_submissions
+  end
+
+  def save_and_follow_up
+    @form_submission = FormSubmission.find(params[:id])
+    @form_submission.submitted = false
+    @form_submission.submitted_on = nil
+    @form_submission.follow_ups.pending.update_all(status: 'review')
+    if (@form_submission.save)
+      FormSubmission.log_activity('follow_up', true, @form_submission)
+      redirect_to :admin_form_submissions
+    end
+  end
+
+  def mark_as_checked
+    @field_value = params[:loggable_type].constantize.find_by(id: params[:loggable_id]) 
+    @field_value.update_attributes(checked: !@field_value.checked) if @field_value
+
+    render partial: 'check_mark', locals: {loggable: @field_value, form_type: params[:loggable_type]}, layout: false
+  end
+
+  def approve
+    @form_submission = FormSubmission.find(params[:id])
+    @form_submission.status = 'approved'
+    if (@form_submission.save)
+      FormSubmission.log_activity('approved', true, @form_submission)
+      redirect_to :admin_form_submissions
+    end
+  end
+
+  def decline
+    @form_submission = FormSubmission.find(params[:id])
+    @form_submission.status = 'decline'
+    if (@form_submission.save)
+      FormSubmission.log_activity('approved', true, @form_submission)
+      redirect_to :admin_form_submissions
+    end
   end
 
   private

@@ -13,10 +13,6 @@ class LawFirm < ApplicationRecord
 
   EMAIL_PREFIX = "@check.com"
 
-	ACTION_OBJECT_TYPES = {
-    account_created: User
-  }.freeze
-
   def generate_a_new_user
     self.create_user!(email: "#{SecureRandom.uuid}#{EMAIL_PREFIX}", username: SecureRandom.uuid, password: self.temp_password)
   end
@@ -25,7 +21,7 @@ class LawFirm < ApplicationRecord
   	object = {
   		law_firm_id: id,
   		event_type: event_type,
-  		loggable: self.send(ACTION_OBJECT_TYPES[event_type.to_sym].to_s.downcase.to_sym),
+      loggable: self.send(ActivityLog::ACTION_OBJECT_TYPES[event_type.to_sym].to_s.downcase.to_sym),
       notify: notify
   	}
   	ActivityLog.log(object)

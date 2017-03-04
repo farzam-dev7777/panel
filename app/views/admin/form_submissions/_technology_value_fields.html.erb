@@ -1,6 +1,7 @@
-<div class="row technology-field-<%= platform_category %>-<%= type %> select-fields">
+<div class="row technology-field-<%= platform_category %>-<%= type %> select-fields <%= follow_up_class(params[:id], f.object.id, 'TechnologyValue') %>">
 	<%= f.input :platform_category, as: :hidden, input_html: { value: platform_category }  %>
 	<%= f.input :platform_type, as: :hidden, input_html: { value: type } %>
+
 	<div class="col-md-3 vendor-wrapper">
 		<%= f.input :vendor, collection: Technology.all.pluck(:vendor).uniq, 
 												 input_html: {class: 'dynamic-select', data: { field: 'vendor' } } %>
@@ -17,6 +18,10 @@
 	<div class="col-md-2">
 		<%= f.input :supported, collection: ['Yes', 'No'] %>
 	</div>
+
+	<%= render partial: 'note', locals: { loggable: f.object, follow_ups: @follow_ups, 
+																							wrapper_class: note_class('technology'),
+																							form_type: 'TechnologyValue'} %>
 </div>
 
 <div class="row technology-field-<%= platform_category %>-<%= type %>-text text-only-fields hidden">
