@@ -82,3 +82,26 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+
+group :production, :staging do
+  gem 'unicorn'
+  # gem 'puma'
+end
+
+group :development, :test do
+  # gem 'capistrano-unicorn-nginx', '~> 3.2.0'
+  # gem 'thin'
+  gem 'capistrano-rails'
+  gem 'capistrano-rvm'
+  gem 'capistrano3-unicorn'
+  # gem 'capistrano3-delayed-job', '~> 1.0'
+  # gem 'capistrano3-puma', github: "seuros/capistrano-puma"
+  # gem 'byebug'
+  # gem 'quiet_assets'
+  # gem 'web-console', '~> 2.0'
+  # gem 'spring'
+  # gem 'better_errors'
+  # gem "binding_of_caller"
+  # gem 'letter_opener'
+end

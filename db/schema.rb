@@ -249,7 +249,7 @@ ActiveRecord::Schema.define(version: 20170303203525) do
     t.datetime "updated_at",   null: false
   end
 
-  create_table "technology_values", id: :integer, default: -> { "nextval('technology_forms_id_seq'::regclass)" }, force: :cascade do |t|
+  create_table "technology_values", force: :cascade do |t|
     t.string   "platform_category"
     t.string   "platform_type"
     t.string   "vendor"
