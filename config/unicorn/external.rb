@@ -10,7 +10,7 @@ worker_processes 4
 timeout 30
 preload_app true
 
-listen '/var/www/bluehound/unicorn.pands.sock', backlog: 64
+listen '/var/www/bluehound/unicorn.bluehound.sock', backlog: 64
 
 before_fork do |server, worker|
   Signal.trap 'TERM' do
