@@ -37,7 +37,7 @@ gem 'breadcrumbs_on_rails'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 
-gem 'jquery-ui-rails'
+gem 'jquery-ui-rails', '~> 5.0.5'
 gem 'rails-jquery-ui-sortable'
 
 gem 'carrierwave', github: 'carrierwaveuploader/carrierwave', branch: :master
