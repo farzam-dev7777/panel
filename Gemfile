@@ -27,12 +27,14 @@ gem 'ransack'
 gem 'activemodel-serializers-xml'
 gem 'simple-form-datepicker'
 
-gem 'rails-assets-fontawesome', source: 'https://rails-assets.org'
+# gem 'rails-assets-fontawesome', source: 'https://rails-assets.org'
 gem 'rails-assets-JustGage', source: 'https://rails-assets.org'
 gem 'rails-assets-raphael', source: 'https://rails-assets.org'
 gem 'rails-assets-qTip2', source: 'https://rails-assets.org'
 gem 'activerecord-sortable'
 gem 'breadcrumbs_on_rails'
+
+gem 'font-awesome-rails', '~> 4.5'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

@@ -141,6 +141,8 @@ GEM
     ffi (1.9.14)
     flattened_active_admin (0.0.7)
       rails (>= 3.2.0)
+    font-awesome-rails (4.7.0.1)
+      railties (>= 3.2, < 5.1)
     formtastic (3.1.4)
       actionpack (>= 3.2.13)
     formtastic_i18n (0.6.0)
@@ -221,7 +223,6 @@ GEM
     rails-assets-JustGage (1.0.0)
       rails-assets-raphael (~> 2.1.2)
     rails-assets-ev-emitter (1.0.3)
-    rails-assets-fontawesome (4.7.0)
     rails-assets-imagesloaded (4.1.1)
       rails-assets-ev-emitter (~> 1.0.0)
     rails-assets-jquery (3.1.1)
@@ -328,6 +329,7 @@ DEPENDENCIES
   devise
   draper (~> 3.0.0.pre1)
   flattened_active_admin
+  font-awesome-rails (~> 4.5)
   inherited_resources!
   jbuilder (~> 2.5)
   jquery-rails
@@ -342,7 +344,6 @@ DEPENDENCIES
   puma (~> 3.0)
   rails (~> 5.0.0, >= 5.0.0.1)
   rails-assets-JustGage!
-  rails-assets-fontawesome!
   rails-assets-qTip2!
   rails-assets-raphael!
   rails-breadcrumbs
