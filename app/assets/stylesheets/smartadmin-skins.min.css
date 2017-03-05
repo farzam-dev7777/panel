@@ -474,7 +474,6 @@
     background: -o-linear-gradient(top, #04070c 0, #2e3e57 66%);
     background: -ms-linear-gradient(top, #04070c 0, #2e3e57 66%);
     background: linear-gradient(to bottom, #04070c, #2e3e57 66%);
-    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#04070C', endColorstr='#2E3E57', GradientType=0)
 }
 
 .smart-style-1.menu-on-top aside#left-panel nav>ul>li:hover>a {
@@ -1533,7 +1532,6 @@ body.smart-style-4 {
     background: -ms-linear-gradient(bottom, #5a8354, #8fb489);
     background: -moz-linear-gradient(center bottom, #5a8354 0, #8fb489 100%);
     background: -o-linear-gradient(#8fb489, #5a8354);
-    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#8fb489', endColorstr='#5a8354', GradientType=0);
     border-color: #5a8354;
     color: #e8efe7
 }
@@ -3148,7 +3146,6 @@ body.smart-style-4 {
     background: -ms-linear-gradient(bottom, rgba(81, 165, 177, .6), rgba(68, 85, 139, .6));
     background: -moz-linear-gradient(center bottom, rgba(81, 165, 177, .6)0, rgba(68, 85, 139, .6)100%);
     background: -o-linear-gradient(rgba(68, 85, 139, .6), rgba(81, 165, 177, .6));
-    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='rgba(68, 85, 139, 0.6)', endColorstr='rgba(81, 165, 177, 0.6)', GradientType=0)
 }
 
 .smart-style-5 .ui-state-focus+.ui-widget-content {
@@ -3157,7 +3154,6 @@ body.smart-style-4 {
     background: -ms-linear-gradient(bottom, rgba(68, 85, 139, .9), rgba(68, 85, 139, .9));
     background: -moz-linear-gradient(center bottom, rgba(68, 85, 139, .9)0, rgba(68, 85, 139, .9)100%);
     background: -o-linear-gradient(rgba(68, 85, 139, .9), rgba(68, 85, 139, .9));
-    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='rgba(68, 85, 139, 0.9)', endColorstr='rgba(68, 85, 139, 0.9)', GradientType=0)
 }
 
 .smart-style-5 .ui-chatbox-content>.alert-msg {
