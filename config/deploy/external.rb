@@ -12,7 +12,7 @@ set :branch, :external
 # set :nginx_server_name, 'pns-staging.in'
 
 ask(:password, nil, echo: false)
-server '159.203.21.120', user: 'admin', port: 22, password: fetch(:password), roles: %w{web app db}
+server '159.203.21.120', user: 'root', port: 22, password: fetch(:password), roles: %w{web app db}
 # server '162.208.50.227', user: 'admin', roles: %w{app db web}
 
 set :deploy_via, :remote_cache
@@ -23,7 +23,7 @@ set :ssh_options, {
   config: false,
   # forward_agent: true,
   # auth_methods: %w(publickey),
-  user: 'admin'
+  user: 'root'
 }
 
 set :conditionally_migrate, true    
