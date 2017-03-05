@@ -1,1 +1,0 @@
-function toast(t){$.toast({heading:"Information",text:t,icon:"info",loader:!0,loaderBg:"#9EC600"})}$(document).ready(function(){$("#todo-task-form").submit(function(t){t.preventDefault(),$.ajax({url:"/todo_tasks/",method:"post",data:$("#todo-task-form").serialize()}).done(function(t){t&&toast("A task has been created")})})});

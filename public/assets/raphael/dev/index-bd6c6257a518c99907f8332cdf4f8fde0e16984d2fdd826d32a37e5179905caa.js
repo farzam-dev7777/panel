@@ -1,1 +1,0 @@
-var core=require("./raphael.core");core.svg&&require("./raphael.svg"),core.vml&&require("./raphael.vml"),module.exports=core;
