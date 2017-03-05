@@ -17,10 +17,10 @@ gem 'coffee-rails', '~> 4.2'
 # gem 'therubyracer', platforms: :ruby
 
 # gem "active_material", github: "vigetlabs/active_material"
-gem 'flattened_active_admin'
+# gem 'flattened_active_admin'
 gem 'devise'
 gem 'will_paginate'
-gem 'activeadmin', '~> 1.0.0.pre4'
+# gem 'activeadmin', '~> 1.0.0.pre4'
 gem 'inherited_resources', github: 'activeadmin/inherited_resources'
 gem 'draper', '~> 3.0.0.pre1'
 gem 'ransack'
