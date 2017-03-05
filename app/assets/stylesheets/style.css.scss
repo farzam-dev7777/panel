@@ -10,8 +10,8 @@ html, #main {
 
 .login-page{ 
 		background: #0079C1 !important;
-  background-image: url(image-path('bg.png')) !important;
-  background-image: url(image-path('bg.png')) !important;
+  background-image: url('/assets/bg.png') !important;
+  background-image: url('/assets/bg.png'), linear-gradient(#0079C1, #0079C1) !important;
   background-size: cover !important;
   height: 100vh
 }
