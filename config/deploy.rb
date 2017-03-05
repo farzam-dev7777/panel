@@ -30,7 +30,7 @@ namespace :deploy do
       # invoke 'nginx:restart'
       # invoke 'elasticsearch:start'
       invoke 'unicorn:legacy_restart'
-      invoke 'delayed_job:restart'
+      # invoke 'delayed_job:restart'
     end
   end
 
