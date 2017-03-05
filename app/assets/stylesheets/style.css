@@ -36,8 +36,8 @@ span.sub-fields-arrow:before {
 
 .login-form-wrapper { margin-top: 45px; }
 
-.#sparks li { text-align: center }
-.#sparks li h5 { width: 100% !important }
+#sparks li { text-align: center }
+#sparks li h5 { width: 100% !important }
 
 .no-padding { padding: 0px !important }
 
