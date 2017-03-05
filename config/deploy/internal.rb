@@ -7,23 +7,23 @@
 # server 'example.com', user: 'deploy', roles: %w{app web}, other_property: :other_value
 # server 'db.example.com', user: 'deploy', roles: %w{db}
 
-set :rails_env, :production
-set :branch, :production
+set :rails_env, :external
+set :branch, :external
 # set :nginx_server_name, 'pns-staging.in'
 
 ask(:password, nil, echo: false)
-server '34.192.236.64', user: 'admin', port: 22, password: fetch(:password), roles: %w{web app db}
+server '159.203.21.120', user: 'root', port: 22, password: fetch(:password), roles: %w{web app db}
 # server '162.208.50.227', user: 'admin', roles: %w{app db web}
 
 set :deploy_via, :remote_cache
 
-set :unicorn_rack_env, :production
+set :unicorn_rack_env, :external
 
 set :ssh_options, {
   config: false,
   # forward_agent: true,
   # auth_methods: %w(publickey),
-  user: 'admin'
+  user: 'root'
 }
 
 set :conditionally_migrate, true    
