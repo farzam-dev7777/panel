@@ -83,3 +83,10 @@ production:
   database: bluehound_production
   username: bluehound
   password: <%= ENV['BLUEHOUND_DATABASE_PASSWORD'] %>
+
+
+external:
+  <<: *default
+  database: bluehound_production
+  username: bluehound
+  password: <%= ENV['BLUEHOUND_DATABASE_PASSWORD'] %>
