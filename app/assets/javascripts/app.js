@@ -76,8 +76,13 @@ $(document).ready(function(){
     window.location.href = link;
   })
 
+  $(document).on('DOMNodeInserted', function(e) {
+    if($(e.target).hasClass('select-fields')){
+      $(e.target).find('.dynamic-select').first().trigger('change');
+    }
+  });
 
-  $('.dynamic-select').select2().on('change', function() {
+  $(document).on('change', '.dynamic-select', function() {
     field = $(this).data('field');
     
     if (field == 'vendor'){
@@ -223,8 +228,7 @@ function fetchTechnology(vendor, platform, version, target){
 
   $.get('/technologies', data, function(response){
     html = "";
-
-    $(target).select2('destroy').empty().select2({data: response}).trigger('change');
+    $(target).select2().empty().select2({data: response}).trigger('change');
     // $(target).select2({data: response}).trigger('change');
     // response.forEach(function(value){
       // html += '<option value="' + value + '">' + value + "</option>";
