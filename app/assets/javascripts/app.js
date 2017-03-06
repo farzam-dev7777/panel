@@ -3,7 +3,7 @@ $(document).ready(function(){
   //   prepareForCustomLogic($(this).find('.form_submission_form_values_value input, .form_submission_form_values_value select'));
   // });
   
-  $('.dynamic-select').trigger('change');
+  // $('.dynamic-select').trigger('change');
 
   $('.form_submission_form_values_value input, .form_submission_form_values_value select').each(function(){
      prepareForCustomLogic($(this));
@@ -112,8 +112,8 @@ $(document).ready(function(){
   hideTextFields();
 
   $(document).on( 'click','a.turn-to-text', function () {
-    $(this).parent().parent().hide();
-    $(this).parent().parent().next('.text-only-fields').removeClass('hidden').show();
+    $(this).parent().parent().prev('.text-only-fields').removeClass('hidden').show();
+    $(this).parent().parent().remove();
   });
 
 
