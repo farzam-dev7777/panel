@@ -9,7 +9,7 @@ class FormSubmission < ApplicationRecord
 	accepts_nested_attributes_for :history_submissions
 
   scope :approved, -> { where(status: 'approved') }
-  scope :latest,   -> { order(:created_at).last }
+  scope :latest,   -> { order(:id).last }
 
 	def self.log_activity(event_type, notify, submission)
 

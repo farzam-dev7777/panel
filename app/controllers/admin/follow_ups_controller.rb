@@ -1,6 +1,5 @@
 class Admin::FollowUpsController < Admin::BaseController
 
-
 	before_action :find_follow_up, only: [:create, :resolve, :reviewed]
 	skip_before_filter :authenticate_admin_admin_user!, only: [:create]
 
@@ -23,6 +22,7 @@ class Admin::FollowUpsController < Admin::BaseController
 	end
 
 	def resolve
+		@follow_up = FollowUp.find(params[:follow_up_id])
 		if @follow_up
 			@follow_up.update_attributes(status: 'resolved')
 			head :ok

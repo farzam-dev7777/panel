@@ -9,11 +9,13 @@ module ButtonHelper
           gauge(submissions.latest)
         elsif submissions.latest.submitted
           link_to 'Your submission is being reviewed', '#', html_options = {class: 'btn btn-primary btn-lg dashboard-certificate-button text-center', disabled: true}  
-        elsif submissions.latest.status > 'started'
+        elsif submissions.latest.status == 'started'
           link_to 'Continue Certification Process', policy_step_form_submission_path(submissions.latest), html_options = {class: 'btn btn-primary btn-lg dashboard-certificate-button'}  
         end
       elsif(submissions.latest.status == 'sent')
-        link_to 'Start Certification Process', policy_step_form_submission_path(submissions.last), html_options = {class: 'btn btn-primary btn-lg dashboard-certificate-button'}
+        link_to 'Start Certification Process', policy_step_form_submission_path(submissions.latest), html_options = {class: 'btn btn-primary btn-lg dashboard-certificate-button'}
+      elsif(submissions.latest.status == 'started')
+        link_to 'Continue Certification Process', policy_step_form_submission_path(submissions.latest), html_options = {class: 'btn btn-primary btn-lg dashboard-certificate-button'}
       end
     end
   end
