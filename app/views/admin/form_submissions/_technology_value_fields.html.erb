@@ -7,13 +7,13 @@
 												 input_html: {class: 'dynamic-select', data: { field: 'vendor' } } %>
 	</div>
 	<div class="col-md-2 platform-wrapper">
-		<%= f.input :platform, collection: [], input_html: {class: 'dynamic-select', data: {field: 'platform'}} %>
+		<%= f.input :platform, collection: Technology.all.pluck(:platform).uniq, input_html: {class: 'dynamic-select', data: {field: 'platform'}} %>
 	</div>
 	<div class="col-md-2 version-wrapper">
-		<%= f.input :version, collection: [], input_html: {class: 'dynamic-select', data: {field: 'version'} } %>
+		<%= f.input :version, collection: Technology.all.pluck(:version).uniq, input_html: {class: 'dynamic-select', data: {field: 'version'} } %>
 	</div>
 	<div class="col-md-2 service_pack-wrapper">
-		<%= f.input :service_pack, collection: [], input_html: { data: {field: 'service_pack'} } %>
+		<%= f.input :service_pack, collection: Technology.all.pluck(:service_pack).uniq, input_html: { data: {field: 'service_pack'} } %>
 	</div>
 	<div class="col-md-2">
 		<%= f.input :supported, collection: ['Yes', 'No'] %>
@@ -22,29 +22,6 @@
 	<%= render partial: 'note', locals: { loggable: f.object, follow_ups: @follow_ups, 
 																							wrapper_class: note_class('technology'),
 																							form_type: 'TechnologyValue'} %>
-</div>
-
-<div class="row technology-field-<%= platform_category %>-<%= type %>-text text-only-fields hidden">
-	<%= f.input :platform_category, as: :hidden, input_html: { value: platform_category }  %>
-	<%= f.input :platform_type, as: :hidden, input_html: { value: type } %>
-	<div class="col-md-3 vendor-wrapper">
-		<%= f.input :vendor %>
-	</div>
-	<div class="col-md-2 platform-wrapper">
-		<%= f.input :platform %>
-	</div>
-	<div class="col-md-2 version-wrapper">
-		<%= f.input :version %>
-	</div>
-	<div class="col-md-2 service_pack-wrapper">
-		<%= f.input :service_pack %>
-	</div>
-	<div class="col-md-2">
-		<%= f.input :supported, collection: ['Yes', 'No'], input_html: { style: 'width: 100%' } %>
-	</div>
-	<div class="col-md-1 text-right" style="line-height: 84px; padding-right: 40px;">
-		<%= link_to_remove_association "<i class='fa fa-minus-circle fa-2x'></i>".html_safe, f, { wrapper_class: "technology-field-#{platform_category}-#{type}-text" }  %>
-	</div>
 </div>
 
 <div class="clearfix"></div>

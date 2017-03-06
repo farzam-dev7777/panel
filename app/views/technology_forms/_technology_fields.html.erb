@@ -1,9 +1,9 @@
 <%= field.input :platform_category, as: :hidden, :input_html => { value: platform_category }  %>
 <%= field.input :platform_type, as: :hidden, :input_html => { value: type } %>
-<div class="col-md-2"><%= field.input :vendor %></div>
-<div class="col-md-2"><%= field.input :platform %></div>
-<div class="col-md-2"><%= field.input :version %></div>
-<div class="col-md-2"><%= field.input :service_pack %></div>
+<div class="col-md-2"><%= field.input :vendor, collection: Technology.pluck(:vendor) %></div>
+<div class="col-md-2"><%= field.input :platform, collection: Technology.pluck(:platform) %></div>
+<div class="col-md-2"><%= field.input :version, collection: Technology.pluck(:version) %></div>
+<div class="col-md-2"><%= field.input :service_pack, collection: Technology.pluck(:service_pack) %></div>
 <div class="col-md-2"><%= field.input :supported, collection: ['yes', 'no'] %></div>
 <div class="col-md-1 text-right" style="line-height: 84px;">
 	<%= field.link_to_remove(raw('<i class="fa fa-minus-circle fa-2x"></i>'),{ :class => 'delete-icon'})  %>

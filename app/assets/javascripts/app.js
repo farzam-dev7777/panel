@@ -2,6 +2,9 @@ $(document).ready(function(){
   // $("*[data-custom-logic='true']").each(function(){
   //   prepareForCustomLogic($(this).find('.form_submission_form_values_value input, .form_submission_form_values_value select'));
   // });
+  
+  // $('.dynamic-select').trigger('change');
+
   $('.form_submission_form_values_value input, .form_submission_form_values_value select').each(function(){
      prepareForCustomLogic($(this));
   })
@@ -109,8 +112,8 @@ $(document).ready(function(){
   hideTextFields();
 
   $(document).on( 'click','a.turn-to-text', function () {
-    $(this).parent().parent().hide();
-    $(this).parent().parent().next('.text-only-fields').removeClass('hidden').show();
+    $(this).parent().parent().prev('.text-only-fields').removeClass('hidden').show();
+    $(this).parent().parent().remove();
   });
 
 
@@ -181,13 +184,13 @@ $(document).ready(function(){
       });
   })
 
-  $('form.resolve-note-form').on('submit', function(e){
+  $('.resolve-btn').on('click', function(e){
     e.preventDefault();
     $.ajax({
       url: "/admin/follow_ups/resolve",
       method: 'post',
-      data: $(this).serialize(),
-      context: $(this).parent().parent().children()
+      data: $(this).data(),
+      context: $(this).parent()
     })
       .done(function( data ) {
         $(this).children('form.resolve-note-form').find('.resolve-btn').val('Resolved').attr('disabled', 'true')
@@ -280,6 +283,9 @@ function initializeCustomLogic(){
 
 
 function showIfCustomLogicMatched(currentField){
+  if(window.location.href.includes("admin")){
+    return false;
+  }
   targetFieldId = currentField.parent().parent().siblings('.form_submission_form_values_form_field_id').find('input').val();
   $("*[data-show-when-field-id='"+ targetFieldId +"']").each(function(){
     if($(this).data("show-when-value") == currentField.val()){

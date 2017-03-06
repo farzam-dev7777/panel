@@ -4,17 +4,27 @@
 
 
 <% content_for :page_buttons do %>
-	<%= link_to "Create New Law Form", new_admin_law_firm_path, class: "btn btn-primary btn-md pull-right" %>
+	<%= link_to "Add".html_safe, new_admin_law_firm_path, class: "btn btn-primary pull-right" %>
 <% end %>
 
 <div class="clearfix"></div>
+<div class="col-lg-12">
+	<div class="well">
+		<%= simple_form_for @q, url: :admin_law_firms, method: :get do |f| %>
+		  <%= f.input :name_or_email_or_phone_or_description_cont, label: "Search", class: 'form-control' %>
+		  <%= f.button :submit, "Search", class: "btn btn-primary" %>
+		<% end %>
+	</div>
+</div>
 
-<div class="col-lg-8 col-md-8 col-sm-12">
+
+<div class="col-lg-12 col-md-12 col-sm-12">
 
 	<div class="table-responsive">
 		<table class="table table-bordered">
-
-			<tr>
+			<thead>
+			<tr style="background: #007ac3;color: #fff;">
+				<th>ID</th>
 				<th>Name</th>
 				<th>Email</th>
 				<th>Phone</th>
@@ -22,29 +32,31 @@
 				<th>Certification Status</th>
 				<th>Action</th>
 			</tr>
+			</thead>
 
 			<% @law_firms.each do |firm| %>
 				<tr>
+					<td><%= firm.id %></td>
 					<td><%= firm.name %></td>
 					<td><%= firm.email %></td>
 					<td><%= firm.phone %></td>
 					<td class="text-center">
 						<div> 
-							<span class="percent txt-color-blue font-xl semi-bold">
-								<%= rand(120...300) %>
+							<span class="percent txt-color-blue bold">
+								<b><%= rand(120...300) %></b>
 							</span> 
 						</div>
 					</td>
 					<td class="text-center">
 						
 						<% if !firm.form_submissions.any? %>	
-							<%= link_to "Begin Certification Process", begin_certification_process_admin_law_firm_path(firm), class: "btn btn-primary btn-xs" %>	
+							<%= link_to "Start", begin_certification_process_admin_law_firm_path(firm), class: "btn btn-primary btn-xs" %>	
 						<% elsif firm.form_submissions.approved.latest.try(:status) == 'approved' %>	
 							<%= link_to "Begin Recertification Process", begin_certification_process_admin_law_firm_path(firm), class: "btn btn-primary btn-xs" %>	
 						<% elsif firm.form_submissions.latest.try(:status) == 'sent' %>
 							<%= link_to "Waiting for Law Firm", '#', class: "btn btn-primary btn-xs", disabled: true %>		
 						<% elsif firm.form_submissions.latest.try(:status) == 'started' %>
-							<%= link_to "Law Firm has started Certification Process", admin_law_firm_path(firm), class: "btn btn-primary btn-xs", disabled: true %>		
+							<%= link_to "Started", "#", class: "btn btn-default btn-xs", disabled: true %>
 						<% elsif firm.form_submissions.latest.try(:status) == 'submitted' %>
 							<%= link_to "Review Submission", policy_step_admin_form_submission_path(firm.form_submissions.latest), class: "btn btn-primary btn-xs" %>	
 						<% end %>
@@ -64,16 +76,3 @@
 		<%= will_paginate @law_firms, renderer: BootstrapPagination::Rails %>
 	</div>
 </div>
-
-<div class="col-lg-4">
-	<div class="well">
-		<%= simple_form_for @q, url: :admin_law_firms, method: :get do |f| %>
-		  <%= f.input :name_cont, class: 'form-control' %>
-		  <%= f.input :email_cont, class: 'form-control' %>
-		  <%= f.input :phone_cont, class: 'form-control' %>
-		  <%= f.input :description_cont, class: 'form-control' %>
-		  <%= f.button :submit, "Search", class: "btn btn-primary" %>
-		<% end %>
-	</div>
-</div>
-
