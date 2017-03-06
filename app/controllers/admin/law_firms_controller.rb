@@ -19,7 +19,7 @@ class Admin::LawFirmsController < Admin::BaseController
 
       @law_firm.user.send_reset_password_instructions
 
-  		redirect_to admin_law_firms_path, notice: "The law firm was created successfully"
+  		redirect_to :admin_law_firms
   	else
   		flash[:alert] = "There was an error creating the law firm"
   		render :new
@@ -29,7 +29,7 @@ class Admin::LawFirmsController < Admin::BaseController
   def update
   	@law_firm = LawFirm.find(params[:id])
   	if @law_firm.update_attributes(law_firms_params)
-  		redirect_to admin_law_firms_path, notice: "The law firm was updated successfully"
+  		redirect_to :admin_law_firms
   	else
   		flash[:alert] = "There was an error updating the law firm"
   		render :new
