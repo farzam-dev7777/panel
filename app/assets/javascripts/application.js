@@ -34,6 +34,7 @@
 //= require qTip2
 //= require JustGage
 //= require raphael
+//= require sweetalert
 //= require jquery_nested_form
 //= require plugin/jquery.toast.min.js
 //= require admin.js

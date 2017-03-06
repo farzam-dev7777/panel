@@ -28,7 +28,9 @@
             <%= link_to "<i class='fa fa-floppy-o'></i> Save".html_safe, current_step_path, class: 'btn btn-primary submit-form' %>
 
             <% if(last_step) %>
-              <%= link_to "Submit <i class='fa fa-caret-right'></i> <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, submit_forms_form_submission_path, data: {confirm: 'Are you sure you want to submit? You won\'t be able to make any changes later.'}, class: 'btn btn-default submit-form' %>
+              <a href="#" class="btn btn-default submit-form finalize-submission" data-form_id=<%= params[:id] %>>
+                <i class='fa fa-caret-right'></i> Submit
+              </a>
             <% else %>
               <%= link_to "Next <i class='fa fa-caret-right'></i> <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, next_step_path, class: 'btn btn-default submit-form' %>
             <% end %>

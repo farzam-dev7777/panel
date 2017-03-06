@@ -71,8 +71,8 @@ class FormSubmissionsController < BaseController
     @form_submission.status = 'submitted'
     if (@form_submission.save)
       FormSubmission.log_activity('information_security_policy_submitted', true, @form_submission)
-      redirect_to :root
     end
+    head :ok
   end
 
   def follow_ups

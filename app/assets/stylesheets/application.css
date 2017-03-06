@@ -14,5 +14,6 @@
  *= require font-awesome
  *= require jquery-ui
  *= require qTip2
+ *= require sweetalert
  * require_self
  */

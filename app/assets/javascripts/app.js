@@ -207,6 +207,36 @@ $(document).ready(function(){
       });
   })
 
+  $('a.finalize-submission').on('click', function(e){
+    e.preventDefault();
+
+    var data = $(this).data();
+    swal({
+      title: "Are you sure you want to submit?",
+      text: "You won't be able to make any changes later on.",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "Yes, submit it!",
+      cancelButtonText: "No, don't submit!",
+      closeOnConfirm: false,
+      closeOnCancel: true
+    },
+    function(isConfirm){
+      if (isConfirm) {
+        $.ajax({
+          url: "/form_submissions/" + data.form_id + "/submit_forms",
+          method: 'get'
+        })
+        .done(function( data ) {
+          window.location.href = '/';
+        });
+      }
+    });
+
+    
+  })
+
 
 });
 
