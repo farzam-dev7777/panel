@@ -8,7 +8,7 @@ module SubmissionBehaviors
     													file_attachments_attributes: [:id, :file] ],
     	technology_values_attributes: [:id, :platform_category, :platform_type, 
 																		 :vendor, :platform, :version, :service_pack, 
-																		 :supported, :_destroy],
+																		 :supported, :_destroy, :new_value],
       history_submissions_attributes: [:id, :incident_type, :impact, :discovery_time, :source, 
                                        :data_loss, :incident_details, :_destroy]     									  
 		]

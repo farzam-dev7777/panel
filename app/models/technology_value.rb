@@ -1,5 +1,7 @@
 class TechnologyValue < ApplicationRecord
 
+	attr_accessor :new_value
+
 	scope :operating_systems,  		-> { where(platform_category: 'operating_systems') }
 	scope :web_platforms,  				-> { where(platform_category: 'web_platforms') }
 	scope :infosec_technologies,  -> { where(platform_category: 'infosec_technologies') }
@@ -15,5 +17,16 @@ class TechnologyValue < ApplicationRecord
 	scope :intranet,  -> { where(platform_type: 'intranet') }
 
 	validates_presence_of :vendor, :platform, :version, :service_pack, :supported
+
+	before_save :create_technology
+
+	def create_technology
+		Technology.create!(
+			vendor: self.vendor,
+		 	platform: self.platform,
+		 	version: self.version,
+		 	service_pack: self.service_pack
+		 ) if self.new_value
+	end
 
 end

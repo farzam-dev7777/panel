@@ -32,6 +32,7 @@
 
 <div class="row technology-field-<%= platform_category %>-<%= type %>-text text-only-fields hidden">
 	<%= f.input :platform_category, as: :hidden, input_html: { value: platform_category }  %>
+	<%= f.input :new_value, as: :hidden, input_html: { value: true }  %>
 	<%= f.input :platform_type, as: :hidden, input_html: { value: type } %>
 	<div class="col-md-3 vendor-wrapper">
 		<%= f.input :vendor %>
