@@ -81,6 +81,8 @@ class FormSubmissionsController < BaseController
     @follow_ups = case current_step
                   when :policy
                     @form_submission.follow_ups.policy.decorate
+                  when :process
+                    @form_submission.follow_ups.policy.decorate
                   when :technology
                     @form_submission.follow_ups.technology.decorate
                   when :history
