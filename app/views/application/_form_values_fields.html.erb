@@ -22,9 +22,13 @@
           <% end %>
         </div>
         <div class="note-wrapper">
-          <%= render partial: 'note', locals: { loggable: f.object, follow_ups: @follow_ups, 
+
+          <% follow_up = @follow_ups.select{ |follow_up| follow_up.loggable_id == loggable.id }.first %>
+          <% if follow_up %>
+            <%= render partial: 'note', locals: { loggable: f.object, follow_ups: @follow_ups, 
                                                   wrapper_class: note_class('policy'),
                                                   form_type: 'FormValue'} %>
+          <% end %>
         </div>
       </div>
     <% end %>

@@ -186,13 +186,15 @@
     </div>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
-    <script>
-      var g = new JustGage({
-        id: "gauge",
-        value: 137,
-        min: 0,
-        max: 300
-      });
-    </script>
+    <% if current_law_firm.form_submissions.latest.score %>
+      <script>
+        var g = new JustGage({
+          id: 'gauge',
+          value: <%= current_law_firm.form_submissions.latest.score %>,
+          min: 0,
+          max: 300
+        });
+      </script>
+    <% end %>
   </body>
 </html>

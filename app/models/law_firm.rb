@@ -14,10 +14,13 @@ class LawFirm < ApplicationRecord
   EMAIL_PREFIX = "@check.com"
 
   def generate_a_new_user
-    self.create_user!(email: "#{SecureRandom.uuid}#{EMAIL_PREFIX}", username: SecureRandom.uuid, password: self.temp_password)
+    self.create_user!(email: "#{SecureRandom.hex(4)}#{EMAIL_PREFIX}", 
+                      username: SecureRandom.hex(4), 
+                      password: self.temp_password)
   end
 
   def log_activity(event_type, notify = false)
+
   	object = {
   		law_firm_id: id,
   		event_type: event_type,

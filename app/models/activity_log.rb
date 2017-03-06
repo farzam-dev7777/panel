@@ -1,6 +1,8 @@
 class ActivityLog < ApplicationRecord
 	belongs_to :loggable, polymorphic: true
 
+    belongs_to :law_firm
+
 	scope :notifications,  -> { where(notify: true) }
 	scope :unread,  -> { where("notify = ? AND read != ?", true, true) }
 	scope :read,  -> { where("notify = ? AND read = ?", true, true) }

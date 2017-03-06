@@ -13,7 +13,6 @@ module FormSubmissionHelper
     follow_up = find_follow_up(filter(form_submission_id: form_submission_id, 
                                       loggable_id: loggable_id, 
                                       loggable_type: loggable_type))
-
     if follow_up
       case follow_up.status
       when 'pending'
@@ -29,10 +28,12 @@ module FormSubmissionHelper
   def follow_up_class_for_law_firm(loggable_id, loggable_type)
     follow_up = find_follow_up(filter(loggable_id: loggable_id, 
                                       loggable_type: loggable_type))
-    if (follow_up.status == 'review')
-      'need-follow-up'
-    elsif (follow_up.status == 'resolved')
-      'follow-up-success'
+    if follow_up
+      if (follow_up.status == 'review')
+        'need-follow-up'
+      elsif (follow_up.status == 'resolved')
+        'follow-up-success'
+      end
     end
   end
 
@@ -51,7 +52,7 @@ module FormSubmissionHelper
       'warning'
     elsif (submission.follow_ups.map(&:status).count('review') > 0)
       'info'
-    elsif (submission.submitted && submission.submited_on)
+    elsif (submission.submitted && submission.submitted_on)
       'success'
     else
       'default'

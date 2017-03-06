@@ -2,7 +2,11 @@ Rails.application.routes.draw do
 
   namespace :admin do
     devise_for :admin_users, controllers: { sessions: 'admin/internal_sessions' }
-    resources :law_firms
+    resources :law_firms do 
+      member do
+        get :begin_certification_process
+      end
+    end
 
     resources :activity_logs do
       collection do
@@ -34,11 +38,11 @@ Rails.application.routes.draw do
         get :history_step
         patch :update_score
         post :save_and_follow_up
+        post :approve
+        post :decline
       end
       collection do
         post :mark_as_checked
-        post :approve
-        post :decline
       end
     end
     get '/internal_dashboard/notifications', to: 'internal_dashboard#notifications'

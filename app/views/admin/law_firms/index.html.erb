@@ -19,6 +19,7 @@
 				<th>Email</th>
 				<th>Phone</th>
 				<th>Score</th>
+				<th>Certification Status</th>
 				<th>Action</th>
 			</tr>
 
@@ -33,6 +34,21 @@
 								<%= rand(120...300) %>
 							</span> 
 						</div>
+					</td>
+					<td class="text-center">
+						
+						<% if !firm.form_submissions.any? %>	
+							<%= link_to "Begin Certification Process", begin_certification_process_admin_law_firm_path(firm), class: "btn btn-primary btn-xs" %>	
+						<% elsif firm.form_submissions.approved.latest.try(:status) == 'approved' %>	
+							<%= link_to "Begin Recertification Process", admin_law_firm_path(firm), class: "btn btn-primary btn-xs" %>	
+						<% elsif firm.form_submissions.latest.try(:status) == 'sent' %>
+							<%= link_to "Waiting for Law Firm", '#', class: "btn btn-primary btn-xs", disabled: true %>		
+						<% elsif firm.form_submissions.latest.try(:status) == 'started' %>
+							<%= link_to "Law Firm has started Certification Process", admin_law_firm_path(firm), class: "btn btn-primary btn-xs", disabled: true %>		
+						<% elsif firm.form_submissions.latest.try(:status) == 'submitted' %>
+							<%= link_to "Review Submission", policy_step_admin_form_submission_path(firm.form_submissions.latest), class: "btn btn-primary btn-xs" %>	
+						<% end %>
+
 					</td>
 					<td class="text-center">
 						<%= link_to "Edit", edit_admin_law_firm_path(firm), class: "btn btn-primary" %>	

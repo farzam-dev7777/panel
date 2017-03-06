@@ -429,4 +429,14 @@ body.smart-style-6 .minifyme {
   overflow: scroll;
 }
 
+.jarviswidget>div {
+  padding: 13px !important
+}
+
+.login-info span {
+  margin-top: 0px !important;
+  color: #000 !important;
+  line-height: 28px;
+}
+
 

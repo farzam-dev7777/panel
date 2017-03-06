@@ -16,8 +16,6 @@ class Admin::LawFirmsController < Admin::BaseController
   	if @law_firm.save
       # Pass true as a 2nd arg if admin wants to send the activity as notification as well
       @law_firm.log_activity('account_created', true)
-      
-      FormSubmission.generate_initial_submissions(@law_firm)
 
       @law_firm.user.send_reset_password_instructions
 
@@ -44,6 +42,12 @@ class Admin::LawFirmsController < Admin::BaseController
 
   def edit
   	@law_firm = LawFirm.find(params[:id])
+  end
+
+  def begin_certification_process
+    @law_firm = LawFirm.find(params[:id])
+    FormSubmission.generate_initial_submissions(@law_firm)
+    redirect_to :admin_law_firms
   end
 
   private

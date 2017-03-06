@@ -1,4 +1,4 @@
-.smart-style-1 a {
+body.smart-style-6 #sparks.smart-style-1 a {
     transition: color .1s linear 0s, background-color .1s linear 0s!important
 }
 
@@ -4297,5 +4297,5 @@ body.smart-style-6 .superbox-imageinfo span {
 }
 
 body.smart-style-6 #sparks {
-    display: none
+    /*display: none*/
 }

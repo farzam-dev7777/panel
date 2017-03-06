@@ -9,6 +9,7 @@ class Admin::InternalDashboardController < Admin::BaseController
     conversations = current_admin_admin_user.mailbox.conversations.order('created_at DESC').limit(10)
     @conversations = ConversationDecorator.decorate_collection(conversations)
     @law_firms = @q.result(distinct: true)
+    @activity_logs = ActivityLog.all
   end
 
   def show

@@ -2,20 +2,19 @@ module ButtonHelper
 	
   def certification_status(law_firm)
     submissions = law_firm.form_submissions
+
     if (submissions.any?)
-      if (submissions.last.submitted)
-        if submissions.last.score
-          gauge(submissions.last)
-        elsif submissions.last.submitted
-          'Your submission is being reviewed.'
-        elsif submissions.last.follow_ups.map(&:status).count('review') > 0
-          link_to 'Continue Certification Process', policy_step_form_submission_path(submissions.last), html_options = {class: 'btn btn-primary btn-lg dashboard-certificate-button'}  
+      if (submissions.latest.submitted)
+        if submissions.latest.score
+          gauge(submissions.latest)
+        elsif submissions.latest.submitted
+          link_to 'Your submission is being reviewed', '#', html_options = {class: 'btn btn-primary btn-lg dashboard-certificate-button text-center', disabled: true}  
+        elsif submissions.latest.status > 'started'
+          link_to 'Continue Certification Process', policy_step_form_submission_path(submissions.latest), html_options = {class: 'btn btn-primary btn-lg dashboard-certificate-button'}  
         end
-      else
-        link_to 'Continue Certification Process', policy_step_form_submission_path(submissions.last), html_options = {class: 'btn btn-primary btn-lg dashboard-certificate-button'}
+      elsif(submissions.latest.status == 'sent')
+        link_to 'Start Certification Process', policy_step_form_submission_path(submissions.last), html_options = {class: 'btn btn-primary btn-lg dashboard-certificate-button'}
       end
-    else
-      link_to 'Start Certification Process', new_form_submission_path, html_options = {class: 'btn btn-primary btn-lg dashboard-certificate-button'}
     end
   end
 
@@ -44,15 +43,6 @@ module ButtonHelper
           </div>
         </article>
       </div>'.html_safe
-
-    "<script>
-      var g = new JustGage({
-        id: 'gauge',
-        value: #{submission.score},
-        min: 0,
-        max: 300
-      });
-    </script>".html_safe
   end
 
 end

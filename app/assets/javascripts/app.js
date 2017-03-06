@@ -56,15 +56,6 @@ $(document).ready(function(){
     prepareForCustomLogic($(this));
   });
 
-  if($('#gauge').length){
-    var g = new JustGage({
-      id: "gauge",
-      value: 137,
-      min: 0,
-      max: 300
-    });
-  }
-
   $('.submit-form').click(function(e){
     e.preventDefault();
     $(this).find('.loader').removeClass('hidden');

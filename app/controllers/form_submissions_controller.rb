@@ -25,6 +25,8 @@ class FormSubmissionsController < BaseController
 
   def policy_step
     @form_submission = FormSubmission.find(params[:id])
+    @form_submission.status = 'started'
+    @form_submission.save
     log = ActivityLog.find_by(loggable_id: @form_submission.id, loggable_type: 'FormSubmission', law_firm_id: current_law_firm.id)
     
     FormSubmission.log_activity('seal_certification_process_initiated', true, @form_submission) if @form_submission && !log
@@ -66,9 +68,10 @@ class FormSubmissionsController < BaseController
     @form_submission = FormSubmission.find(params[:id])
     @form_submission.submitted = true
     @form_submission.submitted_on = Time.now
+    @form_submission.status = 'submitted'
     if (@form_submission.save)
       FormSubmission.log_activity('information_security_policy_submitted', true, @form_submission)
-      redirect_to :root_url
+      redirect_to :root
     end
   end
 
