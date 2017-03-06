@@ -1,7 +1,10 @@
 $(document).ready(function(){
-  $("*[data-custom-logic='true']").each(function(){
-    prepareForCustomLogic($(this).find('.form_submission_form_values_value input, .form_submission_form_values_value select'));
-  });
+  // $("*[data-custom-logic='true']").each(function(){
+  //   prepareForCustomLogic($(this).find('.form_submission_form_values_value input, .form_submission_form_values_value select'));
+  // });
+  $('.form_submission_form_values_value input, .form_submission_form_values_value select').each(function(){
+     prepareForCustomLogic($(this));
+  })
 
   $(".add_more_options").click(function(e){
     e.preventDefault();
@@ -52,8 +55,12 @@ $(document).ready(function(){
 
   $('.form_form_fields_custom_logic').each(initializeCustomLogic);
 
-  $("input, select").change(function(){
-    prepareForCustomLogic($(this));
+  $("select").on("change", function(){
+    showIfCustomLogicMatched($(this));
+  });
+
+  $("input[type='text']").on("change paste keyup", function(){
+    showIfCustomLogicMatched($(this));
   });
 
   $('.submit-form').click(function(e){
@@ -238,12 +245,20 @@ function initializeCustomLogic(){
 }
 
 
-function prepareForCustomLogic(currentField){
+function showIfCustomLogicMatched(currentField){
   targetFieldId = currentField.parent().parent().siblings('.form_submission_form_values_form_field_id').find('input').val();
-  targetField = $('.field-wrapper-'+targetFieldId);
-  if(currentField.val() == targetField.find("*[data-custom-logic='true']").data('show-when-value')){
-    targetField.find("*[data-custom-logic='true']").show();
-  }else{
-    targetField.find("*[data-custom-logic='true']").hide();
-  }
+  $("*[data-show-when-field-id='"+ targetFieldId +"']").each(function(){
+    if($(this).data("show-when-value") == currentField.val()){
+      $(this).show();
+      $(this).find("select").select2();
+    }else{
+      $(this).find("select").val('')
+      $(this).find("select").trigger('change')
+      $(this).hide();
+    }
+  })
+}
+
+function prepareForCustomLogic(currentField){
+  showIfCustomLogicMatched(currentField);
 }
