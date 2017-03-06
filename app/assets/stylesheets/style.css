@@ -439,4 +439,28 @@ body.smart-style-6 .minifyme {
   line-height: 28px;
 }
 
+.fuelux .wizard ul li.active {
+  color: #ffffff;
+  background: #007ac3;
+}
 
+.fuelux .wizard ul li.active .chevron:before {
+  border-right-color: #f1f6fc;
+}
+
+.fuelux .wizard ul li a {
+  border-right-color: #007ac3;
+  font-weight: bold;
+}
+
+.fuelux .wizard ul li.active a {
+  color: #fff;
+}
+
+.fuelux .wizard ul li.active .chevron:before {
+  border-left: 14px solid #007ac3;
+}
+
+.fuelux .wizard ul li .chevron {
+  border-left: 14px solid #007ac3;
+}

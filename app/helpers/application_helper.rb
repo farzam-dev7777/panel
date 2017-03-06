@@ -3,7 +3,7 @@ module ApplicationHelper
     if !group_form && !sub_fields
       'col-md-12 form_value_class'
     elsif !group_form && sub_fields
-      'col-md-offset-6 col-md-6 form_value_class'
+      'col-md-offset-4 col-md-8 form_value_class'
     elsif group_form && !sub_fields
       'col-md-12 form_value_class no-padding'
     end
