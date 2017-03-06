@@ -18,7 +18,7 @@
 
 			<% @form_submissions.each do |submission| %>
 				<tr>
-					<td><%= submission.law_firm.name %></td>
+					<td><%= submission.law_firm.try(:name) %></td>
 					<td><%= submission.score || '-' %></td>
 					<td><span class="label label-<%= submission_status_class(submission) %>"><%= submission.status %></span></td>
 					<td class="text-center">
