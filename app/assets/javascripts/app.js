@@ -2,6 +2,9 @@ $(document).ready(function(){
   // $("*[data-custom-logic='true']").each(function(){
   //   prepareForCustomLogic($(this).find('.form_submission_form_values_value input, .form_submission_form_values_value select'));
   // });
+  
+  $('.dynamic-select').trigger('change');
+
   $('.form_submission_form_values_value input, .form_submission_form_values_value select').each(function(){
      prepareForCustomLogic($(this));
   })
