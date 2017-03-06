@@ -40,7 +40,7 @@
 						<% if !firm.form_submissions.any? %>	
 							<%= link_to "Begin Certification Process", begin_certification_process_admin_law_firm_path(firm), class: "btn btn-primary btn-xs" %>	
 						<% elsif firm.form_submissions.approved.latest.try(:status) == 'approved' %>	
-							<%= link_to "Begin Recertification Process", admin_law_firm_path(firm), class: "btn btn-primary btn-xs" %>	
+							<%= link_to "Begin Recertification Process", begin_certification_process_admin_law_firm_path(firm), class: "btn btn-primary btn-xs" %>	
 						<% elsif firm.form_submissions.latest.try(:status) == 'sent' %>
 							<%= link_to "Waiting for Law Firm", '#', class: "btn btn-primary btn-xs", disabled: true %>		
 						<% elsif firm.form_submissions.latest.try(:status) == 'started' %>
