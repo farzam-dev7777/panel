@@ -63,6 +63,8 @@
 								<%= link_to "Started", "#", class: "btn btn-default btn-xs", disabled: true %>
 							<% elsif firm.form_submissions.latest.try(:status) == 'submitted' %>
 								<%= link_to "Review Submission", policy_step_admin_form_submission_path(firm.form_submissions.latest), class: "btn btn-primary btn-xs" %>	
+							<% else %>
+								<%= link_to form_submissions.latest.try(:status).humanize, "#", class: "btn btn-default btn-xs", disabled: true %>
 							<% end %>
 						</td>
 					</tr>
