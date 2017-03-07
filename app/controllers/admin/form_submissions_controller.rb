@@ -87,8 +87,11 @@ class Admin::FormSubmissionsController < Admin::BaseController
     return unless params[:form_submission][:score].present?
     @form_submission = FormSubmission.find_by(id: params[:id])
     @form_submission.score = params[:form_submission][:score]
-    @form_submission.save
-    redirect_to :admin_form_submissions
+    if @form_submission.save
+      redirect_to :admin_law_firms
+    else
+      redirect_to :back
+    end
   end
 
   def save_and_follow_up
@@ -98,7 +101,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
     @form_submission.follow_ups.pending.update_all(status: 'review')
     if (@form_submission.update_attributes(status: :follow_up))
       FormSubmission.log_activity('follow_up', true, @form_submission)
-      redirect_to :admin_form_submissions
+      redirect_to :admin_law_firms
     end
   end
 
@@ -114,7 +117,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
     @form_submission.status = 'approved'
     if (@form_submission.save)
       FormSubmission.log_activity('approved', true, @form_submission)
-      redirect_to :admin_form_submissions
+      redirect_to :admin_law_firms
     end
   end
 
@@ -123,7 +126,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
     @form_submission.status = 'decline'
     if (@form_submission.save)
       FormSubmission.log_activity('approved', true, @form_submission)
-      redirect_to :admin_form_submissions
+      redirect_to :admin_law_firms
     end
   end
 

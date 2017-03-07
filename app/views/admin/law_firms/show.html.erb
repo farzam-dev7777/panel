@@ -112,7 +112,7 @@
 											<td><%= submission.score || '-' %></td>
 											<td><span class="label label-<%= submission_status_class(submission) %>"><%= submission.status %></span></td>
 											<td class="text-center">
-												<%= link_to "Review", policy_step_admin_form_submission_path(submission), class: "btn btn-xs btn-primary" if submission.status != 'approved' %>
+												<%= link_to "Review", policy_step_admin_form_submission_path(submission), class: "btn btn-xs btn-primary" %>
 
 											</td>
 										</tr>

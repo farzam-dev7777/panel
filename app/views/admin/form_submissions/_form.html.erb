@@ -30,7 +30,7 @@
 
     <% if(last_step && !save_and_follow_up?(@form_submission.id)) %>
       <div class="col-md-10 col-md-offset-1">
-        <%= simple_form_for @form_submission, url: update_score_admin_form_submission_path, validate: true, :html => {remote: true, authenticity_token: true, class: 'score-form'} do |f| %>
+        <%= simple_form_for @form_submission, url: update_score_admin_form_submission_path, validate: true, :html => { authenticity_token: true, class: 'score-form'} do |f| %>
           <%= f.input :score, as: :integer, required: true %>
           <%= f.submit 'Update Score', class: 'btn btn-primary force-center' %>
         <% end %>
@@ -48,7 +48,7 @@
         <% end %>
 
         <% if(last_step) %>
-          <%= link_to "<i class='fa fa-ban'></i> Decline <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, decline_admin_form_submission_path(@form_submission), class: 'btn btn-danger' %>
+          <%= link_to "<i class='fa fa-ban'></i> Decline <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, decline_admin_form_submission_path(@form_submission), method: :post, class: 'btn btn-danger' %>
 
           <%= link_to "Save & Follow Up <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, save_and_follow_up_admin_form_submission_path(@form_submission), method: :post, class: 'btn btn-warning', disabled: !save_and_follow_up?(@form_submission.id) %>
 
