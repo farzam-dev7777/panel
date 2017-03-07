@@ -64,7 +64,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
                   when :policy
                     @form_submission.follow_ups.policy.decorate
                   when :process
-                    @form_submission.follow_ups.policy.decorate
+                    @form_submission.follow_ups.process.decorate
                   when :technology
                     @form_submission.follow_ups.technology.decorate
                   when :history
@@ -96,7 +96,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
     @form_submission.submitted = false
     @form_submission.submitted_on = nil
     @form_submission.follow_ups.pending.update_all(status: 'review')
-    if (@form_submission.save)
+    if (@form_submission.update_attributes(status: :follow_up))
       FormSubmission.log_activity('follow_up', true, @form_submission)
       redirect_to :admin_form_submissions
     end

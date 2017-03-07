@@ -1,5 +1,5 @@
 class Admin::BaseController < ApplicationController
-  before_action :authenticate_admin_admin_user!
+  before_action :authenticate_admin_admin_user!, raise: false
 	layout 'admin'
 
   def current_admin_user

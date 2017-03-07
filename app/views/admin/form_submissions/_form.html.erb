@@ -41,18 +41,18 @@
 
     <div class="col-md-12 text-center" style="margin: 20px 0px">
       <div class="btn-group">
-        <%= link_to "<i class='fa fa-caret-left'></i> Prev <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, previous_step_path, class: 'btn btn-default submit-form' %>
+        <%= link_to "<i class='fa fa-caret-left'></i> Prev <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, previous_step_path, class: 'btn btn-default' %>
 
         <% if(!last_step) %>
-          <%= link_to "Next <i class='fa fa-caret-right'></i> <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, next_step_path, class: 'btn btn-default submit-form' %>
+          <%= link_to "Next <i class='fa fa-caret-right'></i> <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, next_step_path, class: 'btn btn-default' %>
         <% end %>
 
         <% if(last_step) %>
           <%= link_to "<i class='fa fa-ban'></i> Decline <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, decline_admin_form_submission_path(@form_submission), class: 'btn btn-danger' %>
 
-          <%= link_to "Save & Follow Up <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, save_and_follow_up_admin_form_submission_path(@form_submission), method: :post, class: 'btn btn-warning submit-form', disabled: !save_and_follow_up?(@form_submission.id) %>
+          <%= link_to "Save & Follow Up <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, save_and_follow_up_admin_form_submission_path(@form_submission), method: :post, class: 'btn btn-warning', disabled: !save_and_follow_up?(@form_submission.id) %>
 
-          <%= link_to "<i class='fa fa-check'></i> Approve <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, approve_admin_form_submission_path(@form_submission), method: :post, disabled: save_and_follow_up?(@form_submission.id), class: 'btn btn-success submit-form' %>
+          <%= link_to "<i class='fa fa-check'></i> Approve <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, approve_admin_form_submission_path(@form_submission), method: :post, disabled: save_and_follow_up?(@form_submission.id), class: 'btn btn-success' %>
         <% end %>
       </div>
     </div>
