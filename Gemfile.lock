@@ -204,6 +204,8 @@ GEM
       rails-assets-jquery (>= 1.6.0)
     rails-assets-raphael (2.1.4)
     rails-assets-sweetalert (1.1.3)
+    rails-assets-toastr (2.1.2)
+      rails-assets-jquery (>= 1.6.3)
     rails-breadcrumbs (1.0.0)
       rails (>= 3.0.0)
     rails-dom-testing (2.0.2)
@@ -319,6 +321,7 @@ DEPENDENCIES
   rails-assets-qTip2!
   rails-assets-raphael!
   rails-assets-sweetalert!
+  rails-assets-toastr!
   rails-breadcrumbs
   rails-jquery-ui-sortable
   ransack

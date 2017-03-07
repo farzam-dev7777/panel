@@ -29,6 +29,7 @@ gem 'rails-assets-JustGage', source: 'https://rails-assets.org'
 gem 'rails-assets-raphael', source: 'https://rails-assets.org'
 gem 'rails-assets-qTip2', source: 'https://rails-assets.org'
 gem 'rails-assets-sweetalert', source: 'https://rails-assets.org'
+gem 'rails-assets-toastr', source: 'https://rails-assets.org'
 gem 'activerecord-sortable'
 gem 'breadcrumbs_on_rails'
 

@@ -7,6 +7,10 @@ class Admin::FollowUpsController < Admin::BaseController
 		username = current_admin_admin_user.try(:email) || current_user.try(:username)
 		if (@follow_up)
 			@note = @follow_up.add_note(params[:message], current_step, username)
+			# CASE: If a follow up has been resolve and the assessor adds another note,
+			# should the follow up be updated to pending/review again?
+
+			# @follow_up.update_attributes(status: 'pending')
 		else
 			@follow_up = FollowUp.new
 			@follow_up.form_submission_id = params[:form_submission_id]

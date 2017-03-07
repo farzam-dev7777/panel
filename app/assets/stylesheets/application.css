@@ -15,5 +15,6 @@
  *= require jquery-ui
  *= require qTip2
  *= require sweetalert
+ *= require toastr
  * require_self
  */

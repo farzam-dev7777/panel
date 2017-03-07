@@ -36,7 +36,7 @@
 //= require raphael
 //= require sweetalert
 //= require jquery_nested_form
-//= require plugin/jquery.toast.min.js
+//= require toastr
 //= require admin.js
 // require main.js
 // require_tree .

@@ -193,7 +193,9 @@ $(document).ready(function(){
       context: $(this).parent()
     })
       .done(function( data ) {
-        $(this).children('form.resolve-note-form').find('.resolve-btn').val('Resolved').attr('disabled', 'true')
+        $(this).children('.resolve-btn').val('Resolved').attr('disabled', 'true')
+        // https://github.com/johnpapa/toastr-bower
+        toastr.success('The follow up has been marked as resolved', 'Resolved')
       });
   })
 

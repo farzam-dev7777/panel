@@ -26,8 +26,13 @@
 		  </div>
 	  </div>
 
-		<% if current_admin_admin_user && follow_up_needed?(params[:id], loggable.id, form_type) && follow_up %>
-	    <input class="btn btn-default resolve-btn" type="submit" value="Resolve" data-follow_up_id=<%= follow_up.id %>>
+		<% if current_admin_admin_user && follow_up && follow_up_needed?(params[:id], loggable.id, form_type) %>
+
+	    <input class="btn btn-default resolve-btn" 
+	    			 type="submit" 
+	    			 value="<%= follow_up.status == 'resolved' ? 'Resolved' : 'Resolve' %>" 
+	    			 data-follow_up_id=<%= follow_up.id %> 
+	    			 <%= follow_up.status == 'resolved' ? 'disabled' : '' %>>
 		<% end %>
 	</div>
 </div>
