@@ -10,10 +10,16 @@
 <div class="clearfix"></div>
 <div class="col-lg-12">
 	<div class="well">
-		<%= simple_form_for @q, url: :admin_law_firms, method: :get do |f| %>
-		  <%= f.input :name_or_email_or_phone_or_description_cont, label: "Search", class: 'form-control' %>
-		  <%= f.button :submit, "Search", class: "btn btn-primary" %>
-		<% end %>
+		<div class="row">
+			<%= simple_form_for @q, url: :admin_law_firms, method: :get do |f| %>
+				<div class="col-md-11">
+				  <%= f.input :name_or_email_or_phone_or_description_cont, label: "Search", class: 'form-control' %>
+				</div>
+				<div class="col-md-1" style="line-height: 75px">
+				  <%= f.button :submit, "Search", class: "btn btn-primary" %>
+				</div>
+			<% end %>
+		</div>
 	</div>
 </div>
 
@@ -30,45 +36,41 @@
 				<th>Phone</th>
 				<th>Score</th>
 				<th>Certification Status</th>
-				<th>Action</th>
 			</tr>
 			</thead>
+			<tbody>
+				<% @law_firms.each do |firm| %>
+					<tr class="law-firm-row" data-id="<%= firm.id %>">
+						<td><%= firm.id %></td>
+						<td><%= firm.name %></td>
+						<td><%= firm.email %></td>
+						<td><%= firm.phone %></td>
+						<td class="text-center">
+							<div> 
+								<span class="percent txt-color-blue bold">
+									<b><%= firm.form_submissions.latest.try(:score) || '-' %></b>
+								</span> 
+							</div>
+						</td>
+						<td class="text-center">
+							
+							<% if !firm.form_submissions.any? %>	
+								<%= link_to "Start", begin_certification_process_admin_law_firm_path(firm), class: "btn btn-primary btn-xs" %>	
+							<% elsif firm.form_submissions.approved.latest.try(:status) == 'approved' %>	
+								<%= link_to "Begin Recertification Process", begin_certification_process_admin_law_firm_path(firm), class: "btn btn-primary btn-xs" %>	
+							<% elsif firm.form_submissions.latest.try(:status) == 'sent' %>
+								<%= link_to "Waiting for Law Firm", '#', class: "btn btn-primary btn-xs", disabled: true %>		
+							<% elsif firm.form_submissions.latest.try(:status) == 'started' %>
+								<%= link_to "Started", "#", class: "btn btn-default btn-xs", disabled: true %>
+							<% elsif firm.form_submissions.latest.try(:status) == 'submitted' %>
+								<%= link_to "Review Submission", policy_step_admin_form_submission_path(firm.form_submissions.latest), class: "btn btn-primary btn-xs" %>	
+							<% end %>
 
-			<% @law_firms.each do |firm| %>
-				<tr>
-					<td><%= firm.id %></td>
-					<td><%= firm.name %></td>
-					<td><%= firm.email %></td>
-					<td><%= firm.phone %></td>
-					<td class="text-center">
-						<div> 
-							<span class="percent txt-color-blue bold">
-								<b><%= rand(120...300) %></b>
-							</span> 
-						</div>
-					</td>
-					<td class="text-center">
-						
-						<% if !firm.form_submissions.any? %>	
-							<%= link_to "Start", begin_certification_process_admin_law_firm_path(firm), class: "btn btn-primary btn-xs" %>	
-						<% elsif firm.form_submissions.approved.latest.try(:status) == 'approved' %>	
-							<%= link_to "Begin Recertification Process", begin_certification_process_admin_law_firm_path(firm), class: "btn btn-primary btn-xs" %>	
-						<% elsif firm.form_submissions.latest.try(:status) == 'sent' %>
-							<%= link_to "Waiting for Law Firm", '#', class: "btn btn-primary btn-xs", disabled: true %>		
-						<% elsif firm.form_submissions.latest.try(:status) == 'started' %>
-							<%= link_to "Started", "#", class: "btn btn-default btn-xs", disabled: true %>
-						<% elsif firm.form_submissions.latest.try(:status) == 'submitted' %>
-							<%= link_to "Review Submission", policy_step_admin_form_submission_path(firm.form_submissions.latest), class: "btn btn-primary btn-xs" %>	
-						<% end %>
-
-					</td>
-					<td class="text-center">
-						<%= link_to "Edit", edit_admin_law_firm_path(firm), class: "btn btn-primary" %>	
-						<%= link_to "View", admin_law_firm_path(firm), class: "btn btn-primary" %>	
-					</td>
-				</tr>
-				
-			<% end %>
+						</td>
+					</tr>
+					
+				<% end %>
+			</tbody>
 
 		</table>
 		<div class="clearfix"></div>

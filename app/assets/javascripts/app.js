@@ -240,6 +240,10 @@ $(document).ready(function(){
     
   })
 
+  $('.law-firm-row').on('click', function(){
+    window.location.href = "/admin/law_firms/" + $(this).data().id;
+  })
+
 
 });
 

@@ -464,3 +464,11 @@ body.smart-style-6 .minifyme {
 .fuelux .wizard ul li .chevron {
   border-left: 14px solid #007ac3;
 }
+
+tr.law-firm-row {
+  cursor: pointer;
+}
+
+tr.law-firm-row:hover {
+  background: #efefef;
+}
