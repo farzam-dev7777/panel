@@ -60,7 +60,7 @@
 						<% elsif firm.form_submissions.latest.try(:status) == 'submitted' %>
 							<%= link_to "Review Submission", policy_step_admin_form_submission_path(firm.form_submissions.latest), class: "btn btn-primary btn-xs" %>
 						<% else %>
-							<%= firm.form_submissions.latest.try(:status) %>
+							<%= firm.form_submissions.try(:latest).try(:status) %>
 						<% end %>
 
 					</td>
