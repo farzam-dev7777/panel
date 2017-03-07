@@ -30,4 +30,12 @@ module ApplicationHelper
     form_value.form_field.custom_logic
   end
 
+  def admin_panel?
+    params[:controller].include?('admin')
+  end
+
+  def build_fields(form_submission, scope, platform_category, type)
+    scope.size == 0 ? form_submission.technology_values.build(platform_category: platform_category, platform_type: type) : scope
+  end
+
 end

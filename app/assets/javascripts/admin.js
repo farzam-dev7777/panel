@@ -3,7 +3,6 @@ $(document).ready(function(){
 	// Create a new todo task
 	$("#todo-task-form").submit(function(e){
 		e.preventDefault();
-		debugger;
 		$.ajax({
 		  url: "/todo_tasks/",
 		  method: "post",

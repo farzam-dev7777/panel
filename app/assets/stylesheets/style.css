@@ -337,6 +337,8 @@ span.select2-selection__arrow{
   border-radius: 5px !important;
   padding-top: 10px !important;
   margin-bottom: 10px;
+  min-height: 75px;
+  padding: 5px;
 }
 
 .follow-up-success {
@@ -344,6 +346,8 @@ span.select2-selection__arrow{
   border: 1px solid #25ab05 !important;
   border-radius: 5px !important;
   padding-top: 10px !important;
+  min-height: 75px;
+  padding: 5px;
 }
 
 .resolve-btn {

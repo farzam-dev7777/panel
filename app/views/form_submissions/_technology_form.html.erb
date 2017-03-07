@@ -7,9 +7,10 @@
 	  	<p class="m-b-20 text-center">SERVER</p>
 
     	<div class=" col-md-12 no-padding" id="operating_system_servers">
-	      <%= f.simple_fields_for :technology_values, @form_submission.technology_values.operating_systems.server do |field| %>
+        <% platform_category = 'operating_systems'; type = 'server' %>
+	      <%= f.simple_fields_for :technology_values, build_fields(@form_submission, @form_submission.technology_values.operating_systems.server, platform_category, type) do |field| %>
 	      	<%= render partial: "technology_value_fields", 
-	      						 locals: {f: field, platform_category: 'operating_systems', type: 'server'}  %>
+	      						 locals: {f: field, platform_category: platform_category, type: type}  %>
 			  <% end %>
     	</div>
 			<div class="clearfix"></div>
@@ -23,10 +24,11 @@
 	  	<p class="m-b-20 text-center">CLIENT</p>
 
     	<div class=" col-md-12 no-padding">
-	      <%= f.simple_fields_for :technology_values, @form_submission.technology_values.operating_systems.client do |field| %>
-	      	<%= render partial: "technology_value_fields", 
-	      						 locals: {f: field, platform_category: 'operating_systems', type: 'client'}  %>
-			  <% end %>
+        <% platform_category = 'operating_systems'; type = 'client' %>
+        <%= f.simple_fields_for :technology_values, build_fields(@form_submission, @form_submission.technology_values.operating_systems.client, platform_category, type) do |field| %>
+          <%= render partial: "technology_value_fields", 
+                     locals: {f: field, platform_category: platform_category, type: type}  %>
+        <% end %>
     	</div>
 			<div class="clearfix"></div>
 			<div class="link-to-add">
@@ -42,10 +44,11 @@
 	  	<p class="m-b-20 text-center">INTERNET</p>
 
     	<div class=" col-md-12 no-padding">
-	      <%= f.simple_fields_for :technology_values, @form_submission.technology_values.web_platforms.internet do |field| %>
-	      	<%= render partial: "technology_value_fields", 
-	      						 locals: {f: field, platform_category: 'web_platforms', type: 'internet'}  %>
-			  <% end %>
+        <% platform_category = 'web_platforms'; type = 'internet' %>
+        <%= f.simple_fields_for :technology_values, build_fields(@form_submission, @form_submission.technology_values.web_platforms.internet, platform_category, type) do |field| %>
+          <%= render partial: "technology_value_fields", 
+                     locals: {f: field, platform_category: platform_category, type: type}  %>
+        <% end %>
     	</div>
 			<div class="clearfix"></div>
 			<div class="link-to-add">
@@ -58,10 +61,11 @@
 	  	<p class="m-b-20 text-center">INTRANET</p>
 
     	<div class=" col-md-12 no-padding">
-	      <%= f.simple_fields_for :technology_values, @form_submission.technology_values.web_platforms.intranet do |field| %>
-	      	<%= render partial: "technology_value_fields", 
-	      						 locals: {f: field, platform_category: 'web_platforms', type: 'intranet'}  %>
-			  <% end %>
+  	    <% platform_category = 'web_platforms'; type = 'intranet' %>
+        <%= f.simple_fields_for :technology_values, build_fields(@form_submission, @form_submission.technology_values.web_platforms.intranet, platform_category, type) do |field| %>
+          <%= render partial: "technology_value_fields", 
+                     locals: {f: field, platform_category: platform_category, type: type}  %>
+        <% end %>
     	</div>
 			<div class="clearfix"></div>
 			<div class="link-to-add">
@@ -77,10 +81,11 @@
 	  	<p class="m-b-20 text-center">HARDWARE</p>
 
     	<div class=" col-md-12 no-padding">
-	      <%= f.simple_fields_for :technology_values, @form_submission.technology_values.infosec_technologies.hardware do |field| %>
-	      	<%= render partial: "technology_value_fields", 
-	      						 locals: {f: field, platform_category: 'infosec_technologies', type: 'hardware'}  %>
-			  <% end %>
+	      <% platform_category = 'infosec_technologies'; type = 'hardware' %>
+        <%= f.simple_fields_for :technology_values, build_fields(@form_submission, @form_submission.technology_values.infosec_technologies.hardware, platform_category, type) do |field| %>
+          <%= render partial: "technology_value_fields", 
+                     locals: {f: field, platform_category: platform_category, type: type}  %>
+        <% end %>
     	</div>
 			<div class="clearfix"></div>
 			<div class="link-to-add">
@@ -93,10 +98,11 @@
 	  	<p class="m-b-20 text-center">SOFTWARE</p>
 
     	<div class=" col-md-12 no-padding">
-	      <%= f.simple_fields_for :technology_values, @form_submission.technology_values.infosec_technologies.software do |field| %>
-	      	<%= render partial: "technology_value_fields", 
-	      						 locals: {f: field, platform_category: 'infosec_technologies', type: 'software'}  %>
-			  <% end %>
+	      <% platform_category = 'infosec_technologies'; type = 'software' %>
+        <%= f.simple_fields_for :technology_values, build_fields(@form_submission, @form_submission.technology_values.infosec_technologies.software, platform_category, type) do |field| %>
+          <%= render partial: "technology_value_fields", 
+                     locals: {f: field, platform_category: platform_category, type: type}  %>
+        <% end %>
     	</div>
 			<div class="clearfix"></div>
 			<div class="link-to-add">
@@ -112,10 +118,11 @@
 	  	<p class="m-b-20 text-center">HARDWARE</p>
 
     	<div class=" col-md-12 no-padding">
-	      <%= f.simple_fields_for :technology_values, @form_submission.technology_values.storage_archival.hardware do |field| %>
-	      	<%= render partial: "technology_value_fields", 
-	      						 locals: {f: field, platform_category: 'storage_archival', type: 'hardware'}  %>
-			  <% end %>
+        <% platform_category = 'storage_archival'; type = 'hardware' %>
+        <%= f.simple_fields_for :technology_values, build_fields(@form_submission, @form_submission.technology_values.storage_archival.hardware, platform_category, type) do |field| %>
+          <%= render partial: "technology_value_fields", 
+                     locals: {f: field, platform_category: platform_category, type: type}  %>
+        <% end %>
     	</div>
 			<div class="clearfix"></div>
 			<div class="link-to-add">
@@ -128,10 +135,11 @@
 	  	<p class="m-b-20 text-center">SOFTWARE</p>
 
     	<div class=" col-md-12 no-padding">
-	      <%= f.simple_fields_for :technology_values, @form_submission.technology_values.storage_archival.software do |field| %>
-	      	<%= render partial: "technology_value_fields", 
-	      						 locals: {f: field, platform_category: 'storage_archival', type: 'software'}  %>
-			  <% end %>
+	      <% platform_category = 'storage_archival'; type = 'software' %>
+        <%= f.simple_fields_for :technology_values, build_fields(@form_submission, @form_submission.technology_values.storage_archival.software, platform_category, type) do |field| %>
+          <%= render partial: "technology_value_fields", 
+                     locals: {f: field, platform_category: platform_category, type: type}  %>
+        <% end %>
     	</div>
 			<div class="clearfix"></div>
 			<div class="link-to-add">

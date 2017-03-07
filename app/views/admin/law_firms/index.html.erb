@@ -53,7 +53,6 @@
 							</div>
 						</td>
 						<td class="text-center">
-							
 							<% if !firm.form_submissions.any? %>	
 								<%= link_to "Start", begin_certification_process_admin_law_firm_path(firm), class: "btn btn-primary btn-xs" %>	
 							<% elsif firm.form_submissions.approved.latest.try(:status) == 'approved' %>	
@@ -65,10 +64,8 @@
 							<% elsif firm.form_submissions.latest.try(:status) == 'submitted' %>
 								<%= link_to "Review Submission", policy_step_admin_form_submission_path(firm.form_submissions.latest), class: "btn btn-primary btn-xs" %>	
 							<% end %>
-
 						</td>
 					</tr>
-					
 				<% end %>
 			</tbody>
 
