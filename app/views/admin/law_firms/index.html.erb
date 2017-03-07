@@ -43,7 +43,7 @@
 					<td class="text-center">
 						<div> 
 							<span class="percent txt-color-blue bold">
-								<b><%= rand(120...300) %></b>
+								<b><%= firm.form_submissions.try(:latest).try(:score) || '-' %></b>
 							</span> 
 						</div>
 					</td>
