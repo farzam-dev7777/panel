@@ -4,9 +4,9 @@ module ButtonHelper
     submissions = law_firm.form_submissions
 
     if (submissions.any?)
-      return "" if submissions.latest.status == "approved"
+      # return "" if submissions.latest.status == "approved"
       if (submissions.latest.submitted)
-        if submissions.latest.score
+        if submissions.latest.score && submissions.latest.status == 'approved'
           gauge(submissions.latest)
         elsif submissions.latest.submitted
           link_to 'Your submission is being reviewed', '#', html_options = {class: 'btn btn-primary btn-lg dashboard-certificate-button text-center', disabled: true}  
