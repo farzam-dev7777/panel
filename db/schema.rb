@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170306011258) do
+ActiveRecord::Schema.define(version: 20170310211743) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -140,6 +140,8 @@ ActiveRecord::Schema.define(version: 20170306011258) do
     t.string   "file_value"
     t.boolean  "checked",          default: false
     t.integer  "internal_id"
+    t.string   "form_value_iv"
+    t.string   "form_value_key"
   end
 
   create_table "forms", force: :cascade do |t|

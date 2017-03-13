@@ -8,6 +8,18 @@ class FileUploader < CarrierWave::Uploader::Base
   storage :file
   # storage :fog
 
+  process :encrypt_file
+
+  def encrypt_file
+    file = File.open(self.file.file, 'wb')
+    encrypted_entity = Underlock::Base.encrypt(file)
+    self.model.form_value_key = encrypted_entity.key
+    self.model.form_value_iv = encrypted_entity.iv
+    self.model.file_value = encrypted_entity.encrypted_file
+    self.model.save
+    encrypted_entity.encrypted_file
+  end
+
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir

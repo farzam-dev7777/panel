@@ -16,6 +16,8 @@ gem 'coffee-rails', '~> 4.2'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
+gem 'underlock'
+
 gem 'devise'
 gem 'will_paginate'
 gem 'inherited_resources', github: 'activeadmin/inherited_resources'
