@@ -1,0 +1,56 @@
+<div class="col-md-12 pull-right">
+	<%= link_to "Create New Security Threat", new_admin_security_threat_path, class: "btn btn-primary btn-md pull-right" %>
+</div>
+
+<p>&nbsp;</p>
+
+<div class="col-lg-12 col-md-12 col-sm-12">
+
+<div class="table-responsive">
+	<table class="table table-bordered">
+		<thead>
+		<tr style="background: #007ac3;color: #fff;">
+			<th>Title</th>
+			<th>Description</th>
+			<th>Severity</th>
+			<th>Status</th>
+		</tr>
+		</thead>
+		<tbody>
+			<% @security_threats.each do |threat| %>
+				<tr class="security-threat-row" data-id="<%= threat.id %>">
+					<td><%= threat.title %></td>
+					<td><%= truncate(threat.description, length: 150) %></td>
+					<td><%= threat.severity_level.name %></td>
+					<td><%= link_to "More Details", admin_security_threat_path(threat), :class => "", :remote => true, "data-toggle" => "modal", "data-target" => "securityAlert" %></td>
+				</tr>
+			<% end %>
+		</tbody>
+
+	</table>
+	<div class="clearfix"></div>
+
+	<%= will_paginate @security_threats, renderer: BootstrapPagination::Rails %>
+</div>
+</div>
+
+
+<div id="securityThreat" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modal Header</h4>
+      </div>
+      <div class="modal-body news">
+        <p>Some text in the modal.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>

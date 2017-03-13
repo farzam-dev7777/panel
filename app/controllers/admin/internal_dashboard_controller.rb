@@ -17,9 +17,7 @@ class Admin::InternalDashboardController < Admin::BaseController
   end
 
   def notifications
-    render locals: {
-      vendors: Technology.all.decorate
-    }
+    @law_firms = LawFirm.distinct.joins(:form_submissions).where("form_submissions.status = 'approved'")
   end
 
 end

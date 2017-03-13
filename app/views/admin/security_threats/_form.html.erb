@@ -1,0 +1,38 @@
+<%= f.simple_fields_for :technology do |t| %>
+<div class="row">
+	<div class="col-md-3 vendor-wrapper">
+		<%= t.input :vendor, collection: Technology.all.pluck(:vendor).uniq, include_blank: 'None',
+												 input_html: {id: 'dynamic-select', data: { field: 'vendor' } } %>
+	</div>
+	<div class="col-md-3 platform-wrapper">
+		<%= t.input :platform, collection: Technology.all.pluck(:platform).uniq, include_blank: 'None', input_html: {id: 'dynamic-select', data: {field: 'platform'}} %>
+	</div>
+	<div class="col-md-3 version-wrapper">
+		<%= t.input :version, collection: Technology.all.pluck(:version).uniq, include_blank: 'None', input_html: {id: 'dynamic-select', data: {field: 'version'} } %>
+	</div>
+	<div class="col-md-3 service_pack-wrapper">
+		<%= t.input :service_pack, collection: Technology.all.pluck(:service_pack).uniq, include_blank: 'None', input_html: { id: 'dynamic-select', data: {field: 'service_pack'} } %>
+	</div>
+</div>
+<% end %>
+<p id="law-firms-count"></p>
+<select name="[law_firm_ids][]" id="law-firms" multiple="multiple"></select>
+
+<hr>
+
+<div class="row">
+	<div class="col-md-8">
+		<%= f.input :title %>
+	</div>
+	<div class="col-md-4">
+		<%= f.input :severity_level, 
+								input_html: { name: '[security_threat][severity_level_id]' },
+								collection: SeverityLevel.all.map{ |severity| [severity.name.humanize, severity.id] },
+								prompt: "Select severity level" %>
+	</div>
+	<div class="col-md-12">
+		<%= f.input :description, input_html: { class: 'h-300' } %>
+	</div>
+</div>
+
+<%= f.submit	 %>

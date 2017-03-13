@@ -1,12 +1,15 @@
-class TodoTasksController < BaseController
-
-  before_filter :find_law_firm, only: [:create, :index]
+class Admin::TodoTasksController < Admin::BaseController
 
   def create
-    task = TodoTask.new(todo_task_params)
-    if (task.save)
-      head :ok
-    end
+    
+  end
+
+  def new
+    @todo_task = TodoTask.new
+  end
+
+  def filter_law_firms
+    LawFirm
   end
 
   private

@@ -22,7 +22,7 @@
 	</div>
 </div>
 
-<div class="row technology-field-<%= platform_category %>-<%= type %> select-fields <%= follow_up_class_for_law_firm(f.object.id, 'TechnologyValue') %>">
+<div class="row technology-field-<%= platform_category %>-<%= type %> select-fields <%= follow_up_class_for_law_firm(f.object.id, 'TechnologyValue', params[:id]) %>">
 	<%= f.input :platform_category, as: :hidden, input_html: { value: platform_category }  %>
 	<%= f.input :platform_type, as: :hidden, input_html: { value: type } %>
 	<div class="col-md-3 vendor-wrapper">

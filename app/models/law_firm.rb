@@ -5,6 +5,7 @@ class LawFirm < ApplicationRecord
   has_many :requests
   has_many :todo_tasks
   has_many :form_submissions
+  has_many :action_items
 
   after_create :generate_a_new_user
   acts_as_messageable
@@ -12,6 +13,10 @@ class LawFirm < ApplicationRecord
   attr_accessor :temp_password
 
   EMAIL_PREFIX = "@check.com"
+
+  def approved_and_scored
+    LawFirm.joins(:form_submissions).where("form_submissions.status = 'approved' AND form_submissions.score IS NOT NULL")
+  end
 
   def generate_a_new_user
     self.create_user!(email: "#{SecureRandom.hex(4)}#{EMAIL_PREFIX}", 

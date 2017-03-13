@@ -22,14 +22,22 @@ Rails.application.routes.draw do
       end
     end
     resources :messages
+
     resources :security_alerts
+    
     resources :follow_ups do
       collection do
         post :resolve
         post :review
       end
     end
+
     resources :notes
+
+    resources :security_threats do
+      get :find_law_firms
+    end
+
     resources :form_submissions do
       member do
         get :policy_step
@@ -60,7 +68,11 @@ Rails.application.routes.draw do
   
   resources :technology_forms
   resources :history_forms
-  resources :todo_tasks
+  resources :action_items do 
+    collection do
+      post :mark_as_complete
+    end
+  end
 
   resources :form_submissions do
     member do

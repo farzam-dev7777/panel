@@ -434,7 +434,8 @@ body.smart-style-6 .minifyme {
 }
 
 .jarviswidget>div {
-  padding: 13px !important
+  padding: 13px !important;
+  min-height: 366px;
 }
 
 .login-info span {
@@ -476,3 +477,9 @@ tr.law-firm-row {
 tr.law-firm-row:hover {
   background: #efefef;
 }
+
+.h-300 { height: 300px !important; }
+
+.no-resize { resize: none }
+
+#law-firms + span.select2 { width: 100% !important; }

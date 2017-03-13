@@ -85,6 +85,32 @@ $(document).ready(function(){
     }
   });
 
+
+
+  $(document).on('change', '#dynamic-select', function() {
+    field = $(this).data('field');
+    
+    if (field == 'vendor'){
+      vendor = $(this).val();
+      target = $(this).parent().parent().next('div.platform-wrapper').find('select');
+      fetchLawFirms(vendor, null, null, target)
+    } else if (field == 'platform'){
+      vendor = $(this).parent().parent().prev('.vendor-wrapper').find('select').val();
+      platform = $(this).val();
+      target = $(this).parent().parent().next('div.version-wrapper').find('select');
+      fetchLawFirms(vendor, platform, null, target)
+    } else if (field == 'version') {
+      vendor = $(this).parent().parent().prev('.vendor-wrapper').find('select').val();
+      platform = $(this).parent().parent().prev('.platform-wrapper').find('select').val();
+      version = $(this).val();
+      target = $(this).parent().parent().next('div.service_pack-wrapper').find('select');
+      fetchLawFirms(vendor, platform, version, target);
+    }
+
+    platform = $(this).data('platform');
+    version = $(this).data('version');
+  })
+
   $(document).on('change', '.dynamic-select', function() {
     field = $(this).data('field');
     
@@ -246,6 +272,69 @@ $(document).ready(function(){
     window.location.href = "/admin/law_firms/" + $(this).data().id;
   })
 
+  // initialize sortable
+  $(function() {
+    $("#sortable1, #sortable2").sortable({
+      handle : '.handle',
+      connectWith : ".todo",
+      update : countTasks
+    }).disableSelection();
+  });
+
+  // check and uncheck
+  $('.todo .checkbox > input[type="checkbox"]').click(function() {
+    var $this = $(this).parent().parent().parent();
+
+    if ($(this).prop('checked')) {
+
+      var data = $(this).data();
+      var checkbox = $(this);
+      swal({
+        title: "Are you sure you've completed this task?",
+        text: "You won't be able to make any changes later on.",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Yes, submit it!",
+        cancelButtonText: "No, don't submit!",
+        closeOnConfirm: true,
+        closeOnCancel: true
+      },
+      function(isConfirm){
+        if (isConfirm) {
+          $.ajax({
+            method: 'POST',
+            url: '/action_items/mark_as_complete',
+            data: data,
+            context: $(this).parent(),
+            success: function(response) {
+              $this.addClass("complete");
+              $(this).parent().hide();
+              $this.slideUp(500, function() {
+                $this.clone().prependTo("#sortable3").effect("highlight", {}, 800);
+                $this.remove();
+                countTasks();
+              });
+            }
+          })
+        } else {
+          checkbox.trigger('click');
+        }
+      });
+
+    }
+
+  })
+  // count tasks
+  function countTasks() {
+
+    $('.todo-group-title').each(function() {
+      var $this = $(this);
+      $this.find(".num-of-tasks").text($this.next().find("li").size());
+    });
+
+  }
+
 
 });
 
@@ -274,6 +363,23 @@ function fetchTechnology(vendor, platform, version, target){
     // })
     // target.html(html);
     // $(target).select2();
+  })
+}
+
+function fetchLawFirms(vendor, platform, version, target){
+  data = {
+    field: target.data('field'),
+    filter: {
+      vendor: vendor,
+      platform: platform,
+      version: version,
+    }
+  }
+
+  $.get('/admin/security_threats/0/find_law_firms', data, function(response){
+    $('#law-firms').select2().empty().select2({data: response});
+    $('#law-firms option').attr('selected', true).parent().trigger('change');
+    $('#law-firms-count').html(response.length + " Firm(s) found")
   })
 }
 

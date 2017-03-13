@@ -1,7 +1,7 @@
 class ActivityLog < ApplicationRecord
 	belongs_to :loggable, polymorphic: true
 
-    belongs_to :law_firm
+  belongs_to :law_firm
 
 	scope :notifications,  -> { where(notify: true) }
 	scope :unread,  -> { where("notify = ? AND read != ?", true, true) }
@@ -30,7 +30,10 @@ class ActivityLog < ApplicationRecord
     follow_up: 'The assessor requested follow up question(s)',
     approved: 'The SEAL Certification has been approved',
     declined: 'The SEAL Certification has been declined',
-    recertification_process_initiated: 'The assessor initiated a recertification process'
+    recertification_process_initiated: 'The assessor initiated a recertification process',
+    critical_security_alert: 'There is a critical security alert',
+    high_security_alert: 'There is a high priority security threat',
+    low_security_alert: 'There is a security threat'
   }.freeze
 
 	def self.log(object)

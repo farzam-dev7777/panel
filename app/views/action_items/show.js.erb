@@ -1,0 +1,3 @@
+$("#securityThreat .modal-title").html('<%= @security_threat.title %>')
+$("#securityThreat .modal-body").html('<%= j render "action_items/alert" %>')
+$("#securityThreat").modal();

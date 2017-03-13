@@ -1,4 +1,4 @@
-<div class="row history-field <%= follow_up_class_for_law_firm( f.object.id, 'HistorySubmission') %>">
+<div class="row history-field <%= follow_up_class_for_law_firm( f.object.id, 'HistorySubmission', params[:id]) %>">
 	<div class="col-md-2"><%= f.input :incident_type, collection: ['Incident Type 1', 'Incident Type 2'] %></div>
 	<div class="col-md-2"><%= f.input :impact %></div>
 	<div class="col-md-2"><%= f.input :discovery_time %></div>
@@ -9,7 +9,7 @@
 	</div>
 	<div class="col-md-10"><%= f.input :incident_details %></div>
 
-	<% if (follow_up_class_for_law_firm( f.object.id, 'HistorySubmission') == 'need-follow-up' ||follow_up_class_for_law_firm( f.object.id, 'HistorySubmission') == 'follow-up-success') %>
+	<% if (follow_up_class_for_law_firm( f.object.id, 'HistorySubmission', params[:id]) == 'need-follow-up' ||follow_up_class_for_law_firm( f.object.id, 'HistorySubmission', params[:id]) == 'follow-up-success') %>
 			<div class="col-md-1">
 				<%= render partial: 'note', locals: { loggable: f.object, follow_ups: @follow_ups, 
 																						 wrapper_class: note_class('history'),

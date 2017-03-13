@@ -33,6 +33,8 @@ gem 'rails-assets-toastr', source: 'https://rails-assets.org'
 gem 'activerecord-sortable'
 gem 'breadcrumbs_on_rails'
 
+gem 'whenever', :require => false
+
 gem 'font-awesome-rails', '~> 4.5'
 
 # Use jquery as the JavaScript library
@@ -56,7 +58,7 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem "paranoia", "~> 1.0"
+gem "paranoia", "~> 2.2"
 gem 'simple_form'
 gem "cocoon"
 gem 'will_paginate-bootstrap'

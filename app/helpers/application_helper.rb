@@ -35,7 +35,7 @@ module ApplicationHelper
   end
 
   def build_fields(form_submission, scope, platform_category, type)
-    scope.size == 0 ? form_submission.technology_values.build(platform_category: platform_category, platform_type: type) : scope
+    scope.size == 0 ? [] : scope
   end
 
 end
