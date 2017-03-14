@@ -322,7 +322,7 @@ DEPENDENCIES
   mailboxer
   nested_form
   paranoia (~> 2.2)
-  pg (~> 0.18)
+  pg (~> 0.19)
   pry
   puma (~> 3.0)
   rails (~> 5.0.0, >= 5.0.0.1)
