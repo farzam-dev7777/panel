@@ -2,13 +2,17 @@ class Admin::LawFirmsController < Admin::BaseController
 
   layout 'admin'
 
+  add_breadcrumb "Dashboard", :root_path
+
   def index
-  	@q = LawFirm.ransack(params[:q])
+    @q = LawFirm.ransack(params[:q])
     @law_firms = @q.result(distinct: true).paginate(page: params[:page])
+    add_breadcrumb "Law Firms", :admin_law_firms_path
   end
 
   def show
     @law_firm = LawFirm.find(params[:id])
+    add_breadcrumb @law_firm.name, :admin_law_firm_path
   end
 
   def create
@@ -38,10 +42,14 @@ class Admin::LawFirmsController < Admin::BaseController
 
   def new
   	@law_firm = LawFirm.new
+
+    add_breadcrumb "Create Law Firm", :new_admin_law_firm_path 
   end
 
   def edit
   	@law_firm = LawFirm.find(params[:id])
+
+    add_breadcrumb "#{@law_firm.name}", :admin_law_firm_path 
   end
 
   def begin_certification_process

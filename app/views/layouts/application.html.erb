@@ -186,11 +186,14 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <% if current_law_firm && current_law_firm.try(:form_submissions).try(:latest).try(:score) %>
       <script>
-        var g = new JustGage({
-          id: 'gauge',
-          value: <%= current_law_firm.try(:form_submissions).try(:latest).try(:score) %>,
-          min: 0,
-          max: 300
+        $('#law-firm-rating').rateYo({
+          halfStar: true,
+          rating: <%= current_law_firm.try(:form_submissions).try(:latest).try(:score) %>,
+          readOnly: true,
+          multiColor: {
+            "startColor": "#FF0000",
+            "endColor"  : "#f39c12"
+          }
         });
       </script>
     <% end %>

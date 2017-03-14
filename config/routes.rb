@@ -59,6 +59,7 @@ Rails.application.routes.draw do
       end
     end
     get '/internal_dashboard/notifications', to: 'internal_dashboard#notifications'
+    resources :internal_dashboard
     root to: "internal_dashboard#index"
   end
   

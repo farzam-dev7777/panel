@@ -141,8 +141,14 @@
 
 			<!-- breadcrumb -->
 			<ol class="breadcrumb">
-		    <li>Home</li>
-		    <li>Dashboard</li>
+		    <!-- <li>Home</li>
+		    <li>Dashboard</li> -->
+
+		    <% if breadcrumbs.any? %>
+			    <% breadcrumbs.each do |b| %>
+				    <li><%= b.first %></li>
+			    <% end %>
+		    <% end %>
 		  </ol>
 			<!-- end breadcrumb -->
 

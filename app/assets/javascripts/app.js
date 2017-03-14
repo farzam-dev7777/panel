@@ -416,6 +416,69 @@ $(document).ready(function(){
     })
   })
 
+  $('.score-rating').rateYo({
+    numStars: 10,
+    halfStar: true,
+    maxValue: 10,
+    rating: 5,
+    multiColor: {
+      "startColor": "#FF0000", //RED
+      "endColor"  : "#f39c12"  //GREEN
+    },
+    onChange: function (rating, rateYoInstance) {
+
+      if(rating < 5 && rating > 0){
+        rating = rating - 5;
+      } else if (rating == 5){
+        rating = 0;
+      } else {
+        rating = rating - 5
+      }
+      
+      $(this).attr("data-original-title", rating).tooltip('show');
+      $(this).data('bs.tooltip').options.placement = 'right';
+
+
+      $('.score-rating').click(function(){
+        $(this).next().children('input').val(rating);
+      })
+    },
+    onInit: function (rating, rateYoInstance) {
+      rating = parseFloat($(this).next().children('input').val())
+      if (rating < 0){
+        rating = Math.abs(rating);
+      } else if (rating == 0){
+        rating = 5;
+      } else {
+        rating = rating + 5
+      }
+      $(this).rateYo("rating", rating);
+    }
+  });
+
+  $('.average-score-rating').rateYo({
+    halfStar: true,
+    rating: 0,
+    multiColor: {
+      "startColor": "#FF0000",
+      "endColor"  : "#f39c12"
+    },
+    onChange: function (rating, rateYoInstance) {
+      $(this).attr("data-original-title", rating).tooltip('show');
+      $(this).data('bs.tooltip').options.placement = 'right';
+
+      $(this).click(function(){
+        $(this).parent().find('input.form-submission-score').val(rating);
+      })
+      
+    },
+    onInit: function (rating, rateYoInstance) {
+      rating = $(this).next().children('input').val();
+      $(this).rateYo("rating", rating);
+    }
+  });
+  
+
 
 });
 

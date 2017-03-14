@@ -31,7 +31,8 @@
     <% if(last_step && !save_and_follow_up?(@form_submission.id)) %>
       <div class="col-md-10 col-md-offset-1">
         <%= simple_form_for @form_submission, url: update_score_admin_form_submission_path, validate: true, :html => { authenticity_token: true, class: 'score-form'} do |f| %>
-          <%= f.input :score, as: :integer, required: true %>
+          <div class="average-score-rating force-center"></div>
+          <%= f.input :score, as: :hidden, required: true, input_html: { value: @average_score, class: 'form-submission-score' } %>
           <%= f.submit 'Update Score', class: 'btn btn-primary force-center' %>
         <% end %>
       </div>

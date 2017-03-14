@@ -37,6 +37,18 @@ class Admin::FormSubmissionsController < Admin::BaseController
   end
 
   def history_step
+    @total_score = 0
+    score_counter = 0
+    @form_submission = FormSubmission.find(params[:id])
+    
+    @form_submission.form_values.each do |form_value|
+      if !form_value.value.blank? && form_value.form_field.scored
+        @total_score = @total_score + form_value.form_field.score 
+        score_counter = score_counter + 1
+      end
+    end
+
+    @average_score = score_counter > 0 ? @total_score/score_counter : 0
   end
 
   def edit

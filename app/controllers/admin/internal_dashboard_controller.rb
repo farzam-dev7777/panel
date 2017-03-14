@@ -2,7 +2,7 @@ class Admin::InternalDashboardController < Admin::BaseController
 
   layout 'admin'
 
-  add_breadcrumb "Admin", :root_path
+  add_breadcrumb "Dashboard", :root_path
 
   def index
     @law_firms = LawFirm.distinct.joins(:form_submissions).where('form_submissions.status = ?', 'approved').limit(5)

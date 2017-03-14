@@ -13,6 +13,9 @@ class FormSubmission < ApplicationRecord
 
   amoeba do
     enable
+    include_association :form_values
+    include_association :technology_values
+    include_association :history_submissions
   end
 
 	def self.log_activity(event_type, notify, submission)
