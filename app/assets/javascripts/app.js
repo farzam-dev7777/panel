@@ -400,6 +400,22 @@ $(document).ready(function(){
     });
   })
 
+  $('#internal-note-form').on('submit', function(e){
+    e.preventDefault();
+    var data = $(this).serialize();
+    var context = $(this).parent();
+    
+    $.ajax({
+      method: 'POST',
+      url: '/admin/law_firms/add_internal_note',
+      data: data,
+      context: context,
+      success: function(response) {
+        $('ul.internal-notes').prepend(response)
+      }
+    })
+  })
+
 
 });
 

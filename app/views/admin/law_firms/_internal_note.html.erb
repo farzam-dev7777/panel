@@ -1,0 +1,7 @@
+<li>
+  <div class="rotate-1 <%= %w{lazur red yellow}.sample %>-bg">
+    <small><%= "#{time_ago_in_words(note.created_at)} ago" %></small>
+    <p><%= note.message %></p>
+    <a href="#" class="text-danger pull-right delete-btn"><i class="fa fa-trash-o "></i></a>
+  </div>
+</li>

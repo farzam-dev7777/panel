@@ -6,6 +6,7 @@ class LawFirm < ApplicationRecord
   has_many :todo_tasks
   has_many :form_submissions
   has_many :action_items
+  has_many :internal_notes
 
   after_create :generate_a_new_user
   acts_as_messageable
@@ -32,5 +33,10 @@ class LawFirm < ApplicationRecord
       notify: notify
   	}
   	ActivityLog.log(object)
+  end
+
+  def add_internal_note(message, admin)
+    internal_note = InternalNote.new(message: message, sender_id: admin.id, law_firm_id: self.id)
+    internal_note if internal_note.save
   end
 end

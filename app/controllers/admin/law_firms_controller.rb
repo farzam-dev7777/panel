@@ -78,6 +78,12 @@ class Admin::LawFirmsController < Admin::BaseController
     end
   end
 
+  def add_internal_note
+    @law_firm = LawFirm.find_by(id: params[:id])
+    internal_note = @law_firm.add_internal_note(params[:message], current_admin_admin_user)
+    render partial: 'internal_note', locals: {note: internal_note}
+  end
+
   private
 
   def law_firms_params

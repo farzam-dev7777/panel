@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       end
       collection do
         post :decertify
+        post :add_internal_note
       end
     end
 
