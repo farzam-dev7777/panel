@@ -16,6 +16,8 @@ gem 'coffee-rails', '~> 4.2'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
+gem 'underlock'
+
 gem 'devise'
 gem 'will_paginate'
 gem 'inherited_resources', github: 'activeadmin/inherited_resources'
@@ -45,6 +47,7 @@ gem 'rails-jquery-ui-sortable'
 
 gem 'carrierwave', github: 'carrierwaveuploader/carrierwave', branch: :master
 gem 'amoeba'
+gem "cancan"
 
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 # gem 'turbolinks', '~> 5'

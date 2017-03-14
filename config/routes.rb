@@ -5,6 +5,10 @@ Rails.application.routes.draw do
     resources :law_firms do 
       member do
         get :begin_certification_process
+        get :begin_recertification_process
+      end
+      collection do
+        post :decertify
       end
     end
 

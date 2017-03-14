@@ -5,14 +5,14 @@
 			<li class="sparks-info">
 				<h5 class="current-month-info"> Sealed Firms 
 					<span class="txt-color-green">
-						<% @fs = FormSubmission.where(law_firm_id: @law_firms.pluck(:id)) %>
+						<% @fs = FormSubmission.where(law_firm_id: LawFirm.all.pluck(:id)) %>
 						- <%= @fs.map(&:status).count('approved') %> -
 					</span>
 				</h5>
 			</li>
 			<li class="sparks-info">
 				<h5 class="current-month-info"> Under Process 
-					<span class="txt-color-yellow">- <%= @fs.map(&:status).count('review') %> -</span>
+					<span class="txt-color-yellow">- <%= @fs.map(&:status).count('sent') + @fs.map(&:status).count('review') + @fs.map(&:status).count('follow_up') %> -</span>
 				</h5>
 			</li>
 			<li class="sparks-info">

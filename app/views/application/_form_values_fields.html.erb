@@ -1,7 +1,7 @@
 <div class="row">
   <div class="<%= get_form_value_class(sub_fields, group_form) %>">
     <%= f.simple_fields_for :form_values, form_values do |v| %>
-      <div class="<%= get_form_value_field_wrapper_class(sub_fields, group_form, form_values, v.index) %> <%= follow_up_class(params[:id], v.object.id, 'FormValue') %>" data-show-when-field-id="<%= show_when_field_id(v.object) %>" data-show-when-value="<%= show_when_value(v.object) %>" data-custom-logic="<%= custom_logic(v.object) %>">
+      <div class="<%= get_form_value_field_wrapper_class(sub_fields, group_form, form_values, v.index) %>" data-show-when-field-id="<%= show_when_field_id(v.object) %>" data-show-when-value="<%= show_when_value(v.object) %>" data-custom-logic="<%= custom_logic(v.object) %>">
         <div class="<%= get_form_value_field_class(sub_fields, group_form, form_values) %>">
           <% field = v.object.form_field %>
           <%= v.input :form_field_id, as: :hidden, value: field.id %>
@@ -12,7 +12,7 @@
             <label><strong><%= field.group_form.try(:name) %></strong></label>
             <%= render "form_values_fields", f: f, form_values: @form_submission.build_values(field.group_form.form_fields, current_step), step: step, group_form: true, sub_fields: false %>
           <% else %>
-            <div class="wrapper field-wrapper-<%= field.id %>">
+            <div class="wrapper  <%= follow_up_class(params[:id], v.object.id, 'FormValue') %> field-wrapper-<%= field.id %>">
               <% begin %>
                 <%= render "/application/form_values/#{field.type.underscore}", v: v, f: f, field: field %>
               <% rescue ActionView::MissingTemplate => e %>

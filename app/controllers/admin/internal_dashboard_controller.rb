@@ -5,10 +5,7 @@ class Admin::InternalDashboardController < Admin::BaseController
   add_breadcrumb "Admin", :root_path
 
   def index
-    @q = LawFirm.ransack(params[:q])
-    conversations = current_admin_admin_user.mailbox.conversations.order('created_at DESC').limit(10)
-    @conversations = ConversationDecorator.decorate_collection(conversations)
-    @law_firms = @q.result(distinct: true)
+    @law_firms = LawFirm.distinct.joins(:form_submissions).where('form_submissions.status = ?', 'approved').limit(5)
     @activity_logs = ActivityLog.all
   end
 

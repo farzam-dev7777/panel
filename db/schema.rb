@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170309163558) do
+ActiveRecord::Schema.define(version: 20170313205547) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -127,6 +127,7 @@ ActiveRecord::Schema.define(version: 20170309163558) do
     t.integer  "law_firm_id"
     t.float    "score"
     t.string   "status"
+    t.string   "reason"
   end
 
   create_table "form_values", force: :cascade do |t|
@@ -139,6 +140,8 @@ ActiveRecord::Schema.define(version: 20170309163558) do
     t.string   "form_field_label"
     t.string   "file_value"
     t.boolean  "checked",          default: false
+    t.string   "form_value_iv"
+    t.string   "form_value_key"
   end
 
   create_table "forms", force: :cascade do |t|
@@ -331,6 +334,7 @@ ActiveRecord::Schema.define(version: 20170309163558) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.datetime "deactivated_at"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end

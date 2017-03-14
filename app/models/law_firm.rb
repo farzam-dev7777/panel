@@ -25,11 +25,10 @@ class LawFirm < ApplicationRecord
   end
 
   def log_activity(event_type, notify = false)
-
   	object = {
   		law_firm_id: id,
   		event_type: event_type,
-      loggable: self.send(ActivityLog::ACTION_OBJECT_TYPES[event_type.to_sym].to_s.downcase.to_sym),
+      loggable: self,
       notify: notify
   	}
   	ActivityLog.log(object)

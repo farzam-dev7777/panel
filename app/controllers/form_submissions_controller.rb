@@ -1,7 +1,8 @@
 class FormSubmissionsController < BaseController
   include SubmissionBehaviors
 
-
+  load_and_authorize_resource
+  
   before_action :follow_ups, except: :index
   before_action :before_steps, only: [:policy_step, :process_step]
   before_action :before_non_dynamic_forms, only: [:technology_step, :history_step]

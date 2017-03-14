@@ -125,7 +125,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
     @form_submission = FormSubmission.find(params[:id])
     @form_submission.status = 'decline'
     if (@form_submission.save)
-      FormSubmission.log_activity('approved', true, @form_submission)
+      FormSubmission.log_activity('declined', true, @form_submission)
       redirect_to :admin_law_firms
     end
   end

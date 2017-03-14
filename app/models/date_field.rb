@@ -1,11 +1,11 @@
 class DateField < FormField
 
   def parse_date(form_value)
-    Date.strptime(form_value.value, "%m/%d/%Y") if form_value.value
+    Date.strptime(form_value.value, "%m/%d/%Y") if form_value.value && !form_value.value.blank?
   end
 
   def add_validation_errors(form_value)
-    return if form_value.blank?
+    return if form_value.value.blank?
 
     unless valid_date?(form_value)
       form_value.errors.add :value, 'must be a valid date'

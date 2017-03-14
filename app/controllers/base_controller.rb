@@ -4,6 +4,10 @@ class BaseController < ApplicationController
 
   helper_method :current_law_firm, :activities, :notifications, :unread_notifications_count
 
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to root_url, :alert => exception.message
+  end
+
   protected
 
   def configure_permitted_parameters

@@ -50,6 +50,34 @@ class Admin::LawFirmsController < Admin::BaseController
     redirect_to :admin_law_firms
   end
 
+  def begin_recertification_process
+    @law_firm = LawFirm.find(params[:id])
+    last_form_submission = @law_firm.form_submissions.latest
+
+    # TODO: Check if we want to copy the notes and follow ups of the old form submission
+    new_form_submission = last_form_submission.amoeba_dup
+    new_form_submission.status = 'sent'
+
+    if new_form_submission.save
+      @law_firm.log_activity('recertification_process_initiated', true)
+      redirect_to :admin_law_firms
+    end
+  end
+
+  def decertify
+    @law_firm = LawFirm.find_by(id: params[:id])
+    @law_firm.user.update_attributes(deactivated_at: Time.now)
+
+    form_submission = @law_firm.form_submissions.latest
+    form_submission.status = 'decertified'
+    form_submission.reason = params[:reason]
+
+    if form_submission.save!
+      @law_firm.log_activity('decertified', true)
+      head :ok
+    end
+  end
+
   private
 
   def law_firms_params

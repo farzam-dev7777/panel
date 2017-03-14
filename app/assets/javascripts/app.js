@@ -336,6 +336,71 @@ $(document).ready(function(){
   }
 
 
+  $('.decertify-btn').on('click', function(){
+
+    var context = $(this).parent();
+    var data = $(this).data();
+
+    swal({
+      title: "Decertify " + data.name,
+      text: "Please specify a reason to decertify",
+      type: "input",
+      showCancelButton: true,
+      closeOnConfirm: true,
+      animation: "slide-from-top",
+      inputPlaceholder: ""
+    },
+    function(inputValue){
+      if (inputValue === false) return false;
+      
+      if (inputValue === "") {
+        swal.showInputError("You need to write something!");
+        return false
+      }
+
+      data.reason = inputValue;
+      
+      $.ajax({
+        method: 'POST',
+        url: '/admin/law_firms/decertify',
+        data: data,
+        context: context,
+        success: function(response) {
+          window.location.reload();
+        }
+      })
+    });
+  })
+
+
+  $('.certify-btn').on('click', function(){
+
+    var context = $(this).parent();
+    var data = $(this).data();
+
+    swal({
+      title: "Are you sure?",
+      text: "Clicking yes will trigger the recertification process for " + data.name,
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "Yes",
+      closeOnConfirm: true
+    },
+    function(){
+      $.ajax({
+        method: 'GET',
+        url: '/admin/law_firms/' + data.id + '/begin_recertification_process',
+        data: data,
+        context: context,
+        success: function(response) {
+          window.location.reload();
+        }
+      })
+    });
+  })
+
+
 });
 
 function hideTextFields(){

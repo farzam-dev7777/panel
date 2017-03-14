@@ -18,6 +18,8 @@ class User < ApplicationRecord
       :case_sensitive => false
     } # etc.
 
+  default_scope { where("deactivated_at IS NULL") }
+
 
   attr_accessor :login
 

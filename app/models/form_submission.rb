@@ -11,6 +11,10 @@ class FormSubmission < ApplicationRecord
   scope :approved, -> { where(status: 'approved') }
   scope :latest,   -> { order(:id).last }
 
+  amoeba do
+    enable
+  end
+
 	def self.log_activity(event_type, notify, submission)
 
 		object = {
