@@ -417,41 +417,39 @@ $(document).ready(function(){
   })
 
   $('.score-rating').rateYo({
-    numStars: 10,
     halfStar: true,
-    maxValue: 10,
     rating: 5,
     multiColor: {
       "startColor": "#FF0000", //RED
-      "endColor"  : "#f39c12"  //GREEN
+      "endColor"  : "#369e36"  //GREEN
     },
     onChange: function (rating, rateYoInstance) {
 
-      if(rating < 5 && rating > 0){
-        rating = rating - 5;
-      } else if (rating == 5){
-        rating = 0;
-      } else {
-        rating = rating - 5
-      }
+      // if(rating < 5 && rating > 0){
+      //   rating = rating - 5;
+      // } else if (rating == 5){
+      //   rating = 0;
+      // } else {
+      //   rating = rating - 5
+      // }
       
       $(this).attr("data-original-title", rating).tooltip('show');
       $(this).data('bs.tooltip').options.placement = 'right';
 
 
       $('.score-rating').click(function(){
-        $(this).next().children('input').val(rating);
+        $(this).parent().children('.form_form_fields_dropdown_options_score').children('.score-holder').val(rating);
       })
     },
     onInit: function (rating, rateYoInstance) {
       rating = parseFloat($(this).next().children('input').val())
-      if (rating < 0){
-        rating = Math.abs(rating);
-      } else if (rating == 0){
-        rating = 5;
-      } else {
-        rating = rating + 5
-      }
+      // if (rating < 0){
+      //   rating = Math.abs(rating);
+      // } else if (rating == 0){
+      //   rating = 5;
+      // } else {
+      //   rating = rating + 5
+      // }
       $(this).rateYo("rating", rating);
     }
   });
@@ -461,19 +459,50 @@ $(document).ready(function(){
     rating: 0,
     multiColor: {
       "startColor": "#FF0000",
-      "endColor"  : "#f39c12"
+      "endColor"  : "#369e36"
     },
     onChange: function (rating, rateYoInstance) {
-      $(this).attr("data-original-title", rating).tooltip('show');
-      $(this).data('bs.tooltip').options.placement = 'right';
-
-      $(this).click(function(){
-        $(this).parent().find('input.form-submission-score').val(rating);
+      var data = $(this).data();
+      data.score = rating;
+      $('.average-score-rating').click(function(){
+        update_assessor_score(data);
       })
-      
     },
     onInit: function (rating, rateYoInstance) {
-      rating = $(this).next().children('input').val();
+      $(this).rateYo("rating", $(this).data().assessor_score)
+      if($(this).data().readonly){
+        $(this).rateYo("readonly", readonly);
+      }
+    }
+  });
+
+  $('.system-score').rateYo({
+    rating: 0,
+    precision: 1,
+    multiColor: {
+      "startColor": "#FF0000",
+      "endColor"  : "#369e36"
+    },
+    readOnly: true,
+    onInit: function (rating, rateYoInstance) {
+      rating = $(this).data().score;
+      $(this).rateYo("rating", rating);
+    }
+  });
+
+  $('.system-score-threshold').rateYo({
+    rating: 0,
+    precision: 1,
+    multiColor: {
+      "startColor": "#FF0000",
+      "endColor"  : "#369e36"
+    },
+    onChange: function(rating, instance){
+      $(this).attr("data-original-title", rating).tooltip('show');
+      $(this).data('bs.tooltip').options.placement = 'right';
+    },
+    onInit: function (rating, rateYoInstance) {
+      rating = $(this).data().score;
       $(this).rateYo("rating", rating);
     }
   });
@@ -481,6 +510,28 @@ $(document).ready(function(){
 
 
 });
+
+var ajaxReqestSent = false;
+function update_assessor_score(data){
+  if(!ajaxReqestSent){
+    $.ajax({
+      method: 'POST',
+      url: '/admin/form_submissions/update_assessor_score',
+      data: data,
+      beforeSend: function(){
+        ajaxReqestSent = true;
+      },
+      success: function(response) {
+        ajaxReqestSent = false;
+        toastr.success("", "Score Updated")
+        // TODO: if total score is below threshold, disable approval
+        // if(response.total_score){
+        //   $('.approve-btn').attr("disabled", "disabled")
+        // }
+      }
+    })
+  }
+}
 
 function hideTextFields(){
   setTimeout(function(){

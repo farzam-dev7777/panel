@@ -30,11 +30,21 @@
 
     <% if(last_step && !save_and_follow_up?(@form_submission.id)) %>
       <div class="col-md-10 col-md-offset-1">
-        <%= simple_form_for @form_submission, url: update_score_admin_form_submission_path, validate: true, :html => { authenticity_token: true, class: 'score-form'} do |f| %>
-          <div class="average-score-rating force-center"></div>
-          <%= f.input :score, as: :hidden, required: true, input_html: { value: @average_score, class: 'form-submission-score' } %>
-          <%= f.submit 'Update Score', class: 'btn btn-primary force-center' %>
-        <% end %>
+
+        <div class="score-form">
+          <div class="col-md-6 text-center" style="border-right: 1px solid #ccc">
+            <p class="rating-label">SYSTEM SCORE (<%= @system_score %>)</p>
+            <div class="system-score force-center" data-score=<%= @system_score %>></div>
+          </div>
+          <div class="col-md-6 text-center">
+            <p class="rating-label">ASSESSOR SCORE</p>
+            <div class="average-score-rating force-center" 
+                 data-id=<%= params[:id] %> 
+                 data-readonly=<%= save_and_follow_up?(@form_submission.id) %> 
+                 data-assessor_score=<%= @form_submission.assessor_score || 0 %>></div>
+          </div>
+        </div>
+
       </div>
     <% end %>
 
@@ -53,7 +63,7 @@
 
           <%= link_to "Save & Follow Up <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, save_and_follow_up_admin_form_submission_path(@form_submission), method: :post, class: 'btn btn-warning', disabled: !save_and_follow_up?(@form_submission.id) %>
 
-          <%= link_to "<i class='fa fa-check'></i> Approve <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, approve_admin_form_submission_path(@form_submission), method: :post, disabled: save_and_follow_up?(@form_submission.id), class: 'btn btn-success' %>
+          <%= link_to "<i class='fa fa-check'></i> Approve <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, approve_admin_form_submission_path(@form_submission), method: :post, disabled: save_and_follow_up?(@form_submission.id), class: 'btn btn-success approve-btn' %>
         <% end %>
       </div>
     </div>

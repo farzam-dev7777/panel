@@ -37,18 +37,18 @@ class Admin::FormSubmissionsController < Admin::BaseController
   end
 
   def history_step
-    @total_score = 0
+    total_score = 0
     score_counter = 0
     @form_submission = FormSubmission.find(params[:id])
     
     @form_submission.form_values.each do |form_value|
       if !form_value.value.blank? && form_value.form_field.scored
-        @total_score = @total_score + form_value.form_field.score 
+        total_score = total_score + form_value.form_field.score 
         score_counter = score_counter + 1
       end
     end
-
-    @average_score = score_counter > 0 ? @total_score/score_counter : 0
+    @system_score = score_counter > 0 ? total_score/score_counter : 0
+    @form_submission.update_attributes(system_score: @system_score)
   end
 
   def edit
@@ -96,7 +96,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
   end
 
   def update_score
-    return unless params[:form_submission][:score].present?
+    # return unless params[:form_submission][:score].present?
     @form_submission = FormSubmission.find_by(id: params[:id])
     @form_submission.score = params[:form_submission][:score]
     if @form_submission.save
@@ -139,6 +139,21 @@ class Admin::FormSubmissionsController < Admin::BaseController
     if (@form_submission.save)
       FormSubmission.log_activity('declined', true, @form_submission)
       redirect_to :admin_law_firms
+    end
+  end
+
+  def update_assessor_score
+    @form_submission = FormSubmission.find(params[:id])
+    @form_submission.assessor_score = params[:score]
+    if(@form_submission.save)
+      calculate_total_score
+      render json: @form_submission
+    end
+  end
+
+  def calculate_total_score
+    if (@form_submission.assessor_score && @form_submission.system_score)
+      @form_submission.update_attributes(total_score: (@form_submission.system_score + @form_submission.assessor_score)/2)
     end
   end
 

@@ -40,4 +40,8 @@ class FormSubmission < ApplicationRecord
     log_activity('information_security_policy_request_initiated', true, submission) if submission.save
   end
 
+  def can_be_approved?
+    self.total_score >= SystemSetting.score_threshold
+  end
+
 end

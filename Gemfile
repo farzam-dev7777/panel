@@ -40,6 +40,7 @@ gem 'breadcrumbs_on_rails'
 gem 'whenever', :require => false
 
 gem 'font-awesome-rails', '~> 4.5'
+gem 'paper_trail'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

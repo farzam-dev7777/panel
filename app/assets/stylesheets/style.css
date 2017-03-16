@@ -134,7 +134,8 @@ div.link-to-add > * {
 .score-form {
   background: #eeeeee;
   padding: 30px;
-  margin-bottom: 10px;
+  margin-bottom: 10px;    
+  height: 115px;
 }
 
 .force-center {
@@ -624,3 +625,9 @@ ul.internal-notes li div {
 .average-score-rating{ margin-bottom: 20px }
 
 .seal-score { height: 100px; }
+
+.rating-label {
+  letter-spacing: 5px;
+  font-size: 10px;
+  color: #808080;
+}

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170314081103) do
+ActiveRecord::Schema.define(version: 20170315223705) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -125,9 +125,11 @@ ActiveRecord::Schema.define(version: 20170314081103) do
     t.boolean  "submitted",       default: false
     t.datetime "submitted_on"
     t.integer  "law_firm_id"
-    t.float    "score"
+    t.float    "total_score"
     t.string   "status"
     t.string   "reason"
+    t.float    "assessor_score"
+    t.float    "system_score"
   end
 
   create_table "form_values", force: :cascade do |t|
@@ -284,6 +286,12 @@ ActiveRecord::Schema.define(version: 20170314081103) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "system_settings", force: :cascade do |t|
+    t.float    "score_threshold"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
   create_table "technologies", force: :cascade do |t|
     t.string   "vendor"
     t.string   "platform"
@@ -345,6 +353,16 @@ ActiveRecord::Schema.define(version: 20170314081103) do
     t.datetime "deactivated_at"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  end
+
+  create_table "versions", force: :cascade do |t|
+    t.string   "item_type",  null: false
+    t.integer  "item_id",    null: false
+    t.string   "event",      null: false
+    t.string   "whodunnit"
+    t.text     "object"
+    t.datetime "created_at"
+    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
   end
 
   add_foreign_key "mailboxer_conversation_opt_outs", "mailboxer_conversations", column: "conversation_id", name: "mb_opt_outs_on_conversations_id"

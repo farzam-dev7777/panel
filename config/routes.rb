@@ -38,6 +38,7 @@ Rails.application.routes.draw do
     end
 
     resources :notes
+    resources :system_settings, only: [:index]
 
     resources :security_threats do
       get :find_law_firms
@@ -56,6 +57,7 @@ Rails.application.routes.draw do
       end
       collection do
         post :mark_as_checked
+        post :update_assessor_score
       end
     end
     get '/internal_dashboard/notifications', to: 'internal_dashboard#notifications'

@@ -6,7 +6,7 @@ module ButtonHelper
     if (submissions.any?)
       # return "" if submissions.latest.status == "approved"
       if (submissions.latest.submitted)
-        if submissions.latest.score && submissions.latest.status == 'approved'
+        if submissions.latest.total_score && submissions.latest.status == 'approved'
           gauge(submissions.latest)
         elsif(submissions.latest.status == 'decline')
           link_to 'Your submission has been declined', '#', html_options = {class: 'btn btn-danger btn-lg dashboard-certificate-button text-center', disabled: true}  
