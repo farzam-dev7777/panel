@@ -24,12 +24,18 @@
 	<div class="col-md-8">
 		<%= f.input :title %>
 	</div>
-	<div class="col-md-4">
+	<div class="col-md-2">
 		<%= f.input :severity_level, 
-								input_html: { name: '[security_threat][severity_level_id]' },
+								input_html: { name: '[security_threat][severity_level_id]', class: 'severity-level' },
 								collection: SeverityLevel.all.map{ |severity| [severity.name.humanize, severity.id] },
 								prompt: "Select severity level" %>
 	</div>
+	<div class="col-md-2">
+		<%= f.input :severity_negative_factor, as: :float %>
+	</div>
+
+	<%= render partial: 'severity_negative_factor', locals: { triggers: @triggers } %>
+
 	<div class="col-md-12">
 		<%= f.input :description, input_html: { class: 'h-300' } %>
 	</div>

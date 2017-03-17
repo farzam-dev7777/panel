@@ -6,10 +6,13 @@ class QueuedNotification < ApplicationRecord
 	scope :pending,  -> { where(triggered: false) }
 	# default_scope { where("deleted_at IS NULL") }
 
-	def self.generate_notifications(action_item)
+	def self.generate_notifications(action_item, params)
 		triggers = action_item.security_threat.severity_level.triggers
-		triggers.each do |trigger|
-			q = QueuedNotification.new(trigger_at: trigger.hours.hours.from_now, trigger_id: trigger.id, action_item_id: action_item.id)
+		triggers.each_with_index do |trigger, i|
+			q = QueuedNotification.new(trigger_at: trigger.hours.hours.from_now, 
+																 trigger_id: trigger.id, 
+																 action_item_id: action_item.id,
+																 severity_negative_factor: params[:snf]["snf_#{i}"])
 			q.save
 		end
 

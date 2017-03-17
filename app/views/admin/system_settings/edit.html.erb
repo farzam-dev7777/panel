@@ -1,0 +1,15 @@
+<%= simple_form_for [:admin, @settings], validate: true, :html => {:multipart => true, remote: true, authenticity_token: true} do |f| %>
+	
+	<div class="col-md-2">
+		System Score Threshold
+	</div>
+	<div class="col-md-4">
+	<div class="system-score-threshold" data-threshold_score=<%= @settings.score_threshold %>></div>
+		<%= f.input :score_threshold, as: :hidden %>
+	</div>
+
+	<div class="col-md-12">
+		<%= f.submit 'Save', class: 'btn btn-primary' %>
+	</div>
+
+<% end %>

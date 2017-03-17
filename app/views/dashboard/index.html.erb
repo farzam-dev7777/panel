@@ -25,7 +25,7 @@
 				</div>
 				<!-- end widget edit box -->
 
-				<% if @action_items.select{|a| a.status != 'complete'}.any? %>
+				<% if @action_items.any? %>
 				<div class="widget-body no-padding smart-form">
 					<!-- content goes here -->
 					

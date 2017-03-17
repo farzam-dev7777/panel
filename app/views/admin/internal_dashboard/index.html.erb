@@ -3,7 +3,7 @@
 	<div class="col-xs-12 col-sm-5 col-md-7 col-lg-7">
 		<ul id="sparks" class="text-left">
 			<li class="sparks-info">
-				<h5 class="current-month-info"> Sealed Firms 
+				<h5 class="current-month-info"> Certified 
 					<span class="txt-color-green">
 						<% @fs = FormSubmission.where(law_firm_id: LawFirm.all.pluck(:id)) %>
 						- <%= @fs.map(&:status).count('approved') %> -
@@ -11,7 +11,7 @@
 				</h5>
 			</li>
 			<li class="sparks-info">
-				<h5 class="current-month-info"> Under Process 
+				<h5 class="current-month-info"> In Process 
 					<span class="txt-color-yellow">- <%= @fs.map(&:status).count('sent') + @fs.map(&:status).count('review') + @fs.map(&:status).count('follow_up') %> -</span>
 				</h5>
 			</li>
@@ -31,7 +31,7 @@
 
 
 <div class="row">
-	<div class="col-md-12">
+	<div class="col-md-6">
 		<article class="col-sm-12">
 			<!-- new widget -->
 			<div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
@@ -79,6 +79,55 @@
 
 		</article>
 	</div>
+
+	<div class="col-md-6">
+		<article class="col-sm-12">
+			<!-- new widget -->
+			<div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+					<!-- widget options:
+					usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+					data-widget-colorbutton="false"
+					data-widget-editbutton="false"
+					data-widget-togglebutton="false"
+					data-widget-deletebutton="false"
+					data-widget-fullscreenbutton="false"
+					data-widget-custombutton="false"
+					data-widget-collapsed="true"
+					data-widget-sortable="false"
+
+				-->
+				<header>
+					<span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
+					<h2>HEAT Map</h2>
+
+				</header>
+
+				<!-- widget div-->
+				<div>
+
+					<!-- widget edit box -->
+					<div class="jarviswidget-editbox">
+						<!-- This area used as dropdown edit box -->
+
+					</div>
+					<!-- end widget edit box -->
+
+					<!-- widget content -->
+					<div class="widget-body no-padding" style="background-image: url('http://codeflow.org/entries/2013/feb/04/high-performance-js-heatmaps/heatmap.png'); height: 250px;">
+
+
+
+					</div>
+					<!-- end widget content -->
+
+				</div>
+				<!-- end widget div -->
+
+			</div>
+
+		</article>
+	</div>
 </div>
 
 
@@ -91,6 +140,55 @@
 
 
 
+
+<div class="clearfix"></div>
+
+<div class="col-lg-12 col-md-12 col-sm-12">
+
+
+
+	<div class="jarviswidget jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+		<header>
+			<span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
+			<h2 class="font-md"><strong>Current Threats </strong></h2>				
+		</header>
+		<div class="no-padding">
+			<div class="jarviswidget-editbox"></div>
+			<!-- widget content -->
+			<div class="widget-body">
+
+				<div class="table-responsive">
+					<table class="table table-bordered">
+						<thead>
+						<tr>
+							<th>Title</th>
+							<th>Description</th>
+							<th>Severity</th>
+							<th>Status</th>
+						</tr>
+						</thead>
+						<tbody>
+							<% @security_threats.each do |threat| %>
+								<tr class="security-threat-row" data-id="<%= threat.id %>">
+									<td><%= threat.title %></td>
+									<td><%= truncate(threat.description, length: 150) %></td>
+									<td><%= threat.severity_level.name.humanize %></td>
+									<td><%= link_to "More Details", admin_security_threat_path(threat), :class => "", :remote => true, "data-toggle" => "modal", "data-target" => "securityAlert" %></td>
+								</tr>
+							<% end %>
+						</tbody>
+
+					</table>
+					<div class="clearfix"></div>
+
+				</div>		
+
+			</div>
+		</div>
+	</div>
+
+
+</div>
 
 <div class="clearfix"></div>
 
@@ -241,40 +339,22 @@
 					<div role="main">
 
 						<!-- MAIN CONTENT -->
-						<div>
+						<div style="height: 500px;overflow: scroll;">
 
 							<!-- row -->
 							<div class="row">
 
 								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
+
+									<input class="search-query" type="text" name="search_query" placeholder="Type your search query here." style="width: 100%; padding: 10px">
+
 									<div class="well well-sm">
 										<!-- Timeline Content -->
 										<div class="smart-timeline">
 											<ul class="smart-timeline-list">
 
-												<% ActivityLog.all.each do |activity| %>
-													<% if activity.law_firm_id %>
-													
-														<li>
-															<div class="smart-timeline-icon">
-																<i class="fa fa-file-text"></i>
-															</div>
-															<div class="smart-timeline-time">
-																<small><%= "#{time_ago_in_words(activity.created_at)} ago" %></small>
-															</div>
-															<div class="smart-timeline-content">
-																<p>
-																	<%= link_to "<strong>#{activity.try(:law_firm).try(:name)}<strong>".html_safe, admin_law_firm_path(activity.law_firm) %>
-																</p>
-																<p>
-																	<%= activity.event_type.humanize %>
-																</p>
-															</div>
-														</li>
-
-													<% end %>
-												<% end %>
+												<%= render partial: 'activity_log', locals: {activity_logs: @activity_logs} %>
 											</ul>
 										</div>
 										<!-- END Timeline Content -->

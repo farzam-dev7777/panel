@@ -35,7 +35,8 @@ class ActivityLog < ApplicationRecord
     high_security_alert: 'There is a high priority security threat',
     low_security_alert: 'There is a security threat',
     decertify: 'The firm has been decertified',
-    recertification_process_initiated: 'The recertification process has been initiated'
+    recertification_process_initiated: 'The recertification process has been initiated',
+    decrease_score: 'Your score has been effected'
   }.freeze
 
 	def self.log(object)

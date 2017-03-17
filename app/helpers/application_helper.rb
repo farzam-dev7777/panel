@@ -38,4 +38,12 @@ module ApplicationHelper
     scope.size == 0 ? [] : scope
   end
 
+  def ajax_redirect_to(redirect_uri)
+    { js: "window.location.replace('#{redirect_uri}');" }
+  end
+
+  def render_security_threat_link(action_item)
+    "<a data-toggle='modal' data-target='securityThreat' data-remote='true' href='/action_items/#{action_item.id}'>Security Threat</a>"
+  end
+
 end

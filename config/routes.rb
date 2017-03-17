@@ -38,10 +38,13 @@ Rails.application.routes.draw do
     end
 
     resources :notes
-    resources :system_settings, only: [:index]
+    resources :system_settings
 
     resources :security_threats do
-      get :find_law_firms
+      member do
+        get :find_law_firms
+        get :severity_negative_factors_for_triggers
+      end
     end
 
     resources :form_submissions do
@@ -61,7 +64,11 @@ Rails.application.routes.draw do
       end
     end
     get '/internal_dashboard/notifications', to: 'internal_dashboard#notifications'
-    resources :internal_dashboard
+    resources :internal_dashboard do
+      collection do
+        get :search_activity_logs
+      end
+    end
     root to: "internal_dashboard#index"
   end
   

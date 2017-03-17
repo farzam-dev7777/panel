@@ -500,18 +500,51 @@ $(document).ready(function(){
     onChange: function(rating, instance){
       $(this).attr("data-original-title", rating).tooltip('show');
       $(this).data('bs.tooltip').options.placement = 'right';
+      
+      $('.system-score-threshold').click(function(){
+        $(this).parent().children('.system_setting_score_threshold').children('input').val(rating);
+      })
     },
     onInit: function (rating, rateYoInstance) {
-      rating = $(this).data().score;
+      rating = $(this).data().threshold_score;
       $(this).rateYo("rating", rating);
     }
   });
+
+  $('.severity-level').change(function(){
+    var data = {};
+    data.id = $(this).val();
+
+    $.ajax({
+      method: 'GET',
+      url: '/admin/security_threats/' + data.id + '/severity_negative_factors_for_triggers',
+      data: data,
+      success: function(response) {
+        $('.snf').html(response)
+      }
+    })
+  })
+
+  $('.search-query').on('change', function(){
+    var data = $(this).val();
+    if(data.length > 2){
+      $.ajax({
+        method: 'GET',
+        url: '/admin/internal_dashboard/search_activity_logs?query=' + data,
+        success: function(response) {
+          debugger;
+          $('.smart-timeline-list').html(response)
+        }
+      })
+    }
+  })
   
 
 
 });
 
 var ajaxReqestSent = false;
+
 function update_assessor_score(data){
   if(!ajaxReqestSent){
     $.ajax({

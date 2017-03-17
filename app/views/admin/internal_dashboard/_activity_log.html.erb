@@ -1,0 +1,20 @@
+<% activity_logs.each do |activity| %>
+<% if activity.law_firm_id %>
+	<li>
+		<div class="smart-timeline-icon">
+			<i class="fa fa-file-text"></i>
+		</div>
+		<div class="smart-timeline-time">
+			<small><%= "#{time_ago_in_words(activity.created_at)} ago" %></small>
+		</div>
+		<div class="smart-timeline-content">
+			<p>
+				<%= link_to "<strong>#{activity.try(:law_firm).try(:name)}<strong>".html_safe, admin_law_firm_path(activity.law_firm) %>
+			</p>
+			<p>
+				<%= activity.event_type.humanize %>
+			</p>
+		</div>
+	</li>
+<% end %>
+<% end %>

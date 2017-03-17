@@ -8,12 +8,13 @@ class Admin::SecurityThreatsController < Admin::BaseController
 
   def new
   	@security_threat = SecurityThreat.new
+    @triggers = []
   end
 
   def create
     @security_threat = SecurityThreat.new(security_threat_params)
     if (@security_threat.save)
-    	@security_threat.generate_action_items(params[:law_firm_ids])
+    	@security_threat.generate_action_items(params)
     end
     redirect_to admin_security_threats_path
   end
@@ -31,6 +32,11 @@ class Admin::SecurityThreatsController < Admin::BaseController
     respond_to do |format|
       format.js
     end
+  end
+
+  def severity_negative_factors_for_triggers
+    triggers = SeverityLevel.find_by(id: params[:id]).try(:triggers)
+    render partial: 'severity_negative_factor', locals: { triggers: triggers }
   end
 
   private
