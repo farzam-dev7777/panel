@@ -5,8 +5,8 @@ class Admin::LawFirmsController < Admin::BaseController
   add_breadcrumb "Dashboard", :root_path
 
   def index
-    @q = LawFirm.ransack(params[:q])
-    @law_firms = @q.result(distinct: true).paginate(page: params[:page])
+    @q = law_firms.ransack(params[:q])
+    @law_firms = @q.result(distinct: true)
     add_breadcrumb "Law Firms", :admin_law_firms_path
   end
 
@@ -90,6 +90,19 @@ class Admin::LawFirmsController < Admin::BaseController
     @law_firm = LawFirm.find_by(id: params[:id])
     internal_note = @law_firm.add_internal_note(params[:message], current_admin_admin_user)
     render partial: 'internal_note', locals: {note: internal_note}
+  end
+
+  def law_firms
+    case params[:filter]
+    when 'certified'
+      LawFirm.joins(:form_submissions).where("form_submissions.created_at = (SELECT MAX(form_submissions.created_at) FROM form_submissions WHERE form_submissions.law_firm_id = law_firms.id) AND form_submissions.status='approved'")
+    when 'under_process'
+      LawFirm.joins(:form_submissions).where("form_submissions.created_at = (SELECT MAX(form_submissions.created_at) FROM form_submissions WHERE form_submissions.law_firm_id = law_firms.id) AND form_submissions.status='sent'")
+    when 'decertified'
+      LawFirm.joins(:form_submissions).where("form_submissions.created_at = (SELECT MAX(form_submissions.created_at) FROM form_submissions WHERE form_submissions.law_firm_id = law_firms.id) AND form_submissions.status='decertified'")
+    else
+      LawFirm
+    end
   end
 
   private

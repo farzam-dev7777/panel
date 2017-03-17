@@ -16,7 +16,7 @@ class LawFirm < ApplicationRecord
   EMAIL_PREFIX = "@check.com"
 
   def approved_and_scored
-    LawFirm.joins(:form_submissions).where("form_submissions.status = 'approved' AND form_submissions.score IS NOT NULL")
+    LawFirm.joins(:form_submissions).where("form_submissions.status = 'approved' AND form_submissions.total_score IS NOT NULL")
   end
 
   def generate_a_new_user

@@ -10,7 +10,7 @@
 		<tr>
 			<td><%= item.law_firm.name %></td>
 			<td><%= item.status.try(:humanize) %></td>
-			<td><%= item.queued_notifications.pending.first.try(:trigger_at) %></td>
+			<td><%= item.queued_notifications.pending.first.try(:trigger_at).strftime("%d %b %Y") %></td>
 		</tr>
 		<% end %>
 	</table>

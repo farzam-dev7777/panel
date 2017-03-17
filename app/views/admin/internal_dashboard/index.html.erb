@@ -3,22 +3,27 @@
 	<div class="col-xs-12 col-sm-5 col-md-7 col-lg-7">
 		<ul id="sparks" class="text-left">
 			<li class="sparks-info">
-				<h5 class="current-month-info"> Certified 
-					<span class="txt-color-green">
-						<% @fs = FormSubmission.where(law_firm_id: LawFirm.all.pluck(:id)) %>
-						- <%= @fs.map(&:status).count('approved') %> -
-					</span>
-				</h5>
+				<a href="/admin/law_firms?filter=certified">
+					<h5 class="current-month-info"> Certified 
+						<span class="txt-color-green">
+							- <%= LawFirm.joins(:form_submissions).where("form_submissions.created_at = (SELECT MAX(form_submissions.created_at) FROM form_submissions WHERE form_submissions.law_firm_id = law_firms.id) AND form_submissions.status='approved'").count %> -
+						</span>
+					</h5>
+				</a>
 			</li>
 			<li class="sparks-info">
-				<h5 class="current-month-info"> In Process 
-					<span class="txt-color-yellow">- <%= @fs.map(&:status).count('sent') + @fs.map(&:status).count('review') + @fs.map(&:status).count('follow_up') %> -</span>
-				</h5>
+				<a href="/admin/law_firms?filter=under_process">
+					<h5 class="current-month-info"> In Process 
+						<span class="txt-color-yellow">- <%= LawFirm.joins(:form_submissions).where("form_submissions.created_at = (SELECT MAX(form_submissions.created_at) FROM form_submissions WHERE form_submissions.law_firm_id = law_firms.id) AND form_submissions.status='sent'").count %> -</span>
+					</h5>
+				</a>
 			</li>
 			<li class="sparks-info">
-				<h5 class="current-month-info"> Decertified 
-					<span class="txt-color-red">- <%= @fs.map(&:status).count('declined') %> -</span>
-				</h5>
+				<a href="/admin/law_firms?filter=decertified">
+					<h5 class="current-month-info"> Decertified 
+						<span class="txt-color-red">- <%= LawFirm.joins(:form_submissions).where("form_submissions.created_at = (SELECT MAX(form_submissions.created_at) FROM form_submissions WHERE form_submissions.law_firm_id = law_firms.id) AND form_submissions.status='decertified'").count %> -</span>
+					</h5>
+				</a>
 			</li>
 		</ul>
 	</div>
@@ -31,6 +36,55 @@
 
 
 <div class="row">
+<div class="col-md-6">
+		<article class="col-sm-12">
+			<!-- new widget -->
+			<div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+					<!-- widget options:
+					usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+					data-widget-colorbutton="false"
+					data-widget-editbutton="false"
+					data-widget-togglebutton="false"
+					data-widget-deletebutton="false"
+					data-widget-fullscreenbutton="false"
+					data-widget-custombutton="false"
+					data-widget-collapsed="true"
+					data-widget-sortable="false"
+
+				-->
+				<header>
+					<span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
+					<h2>HEAT Map</h2>
+
+				</header>
+
+				<!-- widget div-->
+				<div>
+
+					<!-- widget edit box -->
+					<div class="jarviswidget-editbox">
+						<!-- This area used as dropdown edit box -->
+
+					</div>
+					<!-- end widget edit box -->
+
+					<!-- widget content -->
+					<div class="widget-body no-padding" style="height: 250px;">
+
+					<div id="chartContainer" style="height: 250px; width: 100%;">
+
+					</div>
+					<!-- end widget content -->
+
+				</div>
+				<!-- end widget div -->
+
+			</div>
+
+		</article>
+	</div>
+
 	<div class="col-md-6">
 		<article class="col-sm-12">
 			<!-- new widget -->
@@ -80,54 +134,7 @@
 		</article>
 	</div>
 
-	<div class="col-md-6">
-		<article class="col-sm-12">
-			<!-- new widget -->
-			<div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
-					<!-- widget options:
-					usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
-
-					data-widget-colorbutton="false"
-					data-widget-editbutton="false"
-					data-widget-togglebutton="false"
-					data-widget-deletebutton="false"
-					data-widget-fullscreenbutton="false"
-					data-widget-custombutton="false"
-					data-widget-collapsed="true"
-					data-widget-sortable="false"
-
-				-->
-				<header>
-					<span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
-					<h2>HEAT Map</h2>
-
-				</header>
-
-				<!-- widget div-->
-				<div>
-
-					<!-- widget edit box -->
-					<div class="jarviswidget-editbox">
-						<!-- This area used as dropdown edit box -->
-
-					</div>
-					<!-- end widget edit box -->
-
-					<!-- widget content -->
-					<div class="widget-body no-padding" style="background-image: url('http://codeflow.org/entries/2013/feb/04/high-performance-js-heatmaps/heatmap.png'); height: 250px;">
-
-
-
-					</div>
-					<!-- end widget content -->
-
-				</div>
-				<!-- end widget div -->
-
-			</div>
-
-		</article>
-	</div>
+	
 </div>
 
 
@@ -199,7 +206,7 @@
 	<div class="jarviswidget jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
 		<header>
 			<span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
-			<h2 class="font-md"><strong>Recently SEAL'ed Firms </strong></h2>				
+			<h2 class="font-md"><strong>Active Law Firms </strong></h2>				
 		</header>
 		<div class="no-padding">
 			<div class="jarviswidget-editbox"></div>
@@ -211,20 +218,23 @@
 
 						<tr>
 							<th>Name</th>
-							<th>Email</th>
-							<th>Phone</th>
+							<th>Status</th>
+							<th>Created At</th>
 							<th>Score</th>
 						</tr>
 
 						<% @law_firms.each do |firm| %>
 						<tr>
 							<td><%= link_to firm.name, admin_law_firm_path(firm) %>	</td>
-							<td><%= firm.email %></td>
-							<td><%= firm.phone %></td>
+							<td><%= firm.form_submissions.latest.try(:status).try(:humanize) %></td>
+							<td><%= time_ago_in_words(firm.created_at) %> ago</td>
 							<td class="text-center">
 								<div> 
 									<span class="percent txt-color-blue semi-bold">
-										<%= firm.form_submissions.try(:latest).try(:score) || '-' %>
+										<% if firm.form_submissions.try(:latest).try(:total_score) %>
+										<div class="total-score" data-score=<%= firm.form_submissions.try(:latest).try(:total_score) %>></div>
+										<% end %>
+										
 									</span> 
 								</div>
 							</td>
@@ -339,7 +349,7 @@
 					<div role="main">
 
 						<!-- MAIN CONTENT -->
-						<div style="height: 500px;overflow: scroll;">
+						<div style="height: 500px;overflow-y: scroll;">
 
 							<!-- row -->
 							<div class="row">

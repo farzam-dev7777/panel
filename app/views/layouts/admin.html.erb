@@ -117,22 +117,19 @@
 					<a href="/admin" title="blank_"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Dashboard</span></a>
 				</li>
 				<li class="">
-					<a href="/admin/law_firms" title="blank_"><i class="fa fa-lg fa-fw fa-shield"></i> <span class="menu-item-parent">Law Firms</span></a>
+					<a href="/admin/law_firms" title="blank_"><i class="fa fa-lg fa-fw fa-briefcase"></i> <span class="menu-item-parent">Law Firms</span></a>
 				</li>
 				<!-- <li class="">
 					<a href="/admin/form_submissions" title="blank_"><i class="fa fa-lg fa-fw fa-book"></i> <span class="menu-item-parent">Submissions</span></a>
 				</li> -->
 				<li class="">
-					<a href="/admin/internal_dashboard/notifications" title="blank_"><i class="fa fa-lg fa-fw fa-bell"></i> <span class="menu-item-parent">Send Notifications</span></a>
-				</li>
-				<li class="">
 					<a href="/admin/security_threats" title="blank_"><i class="fa fa-lg fa-fw fa-shield"></i> <span class="menu-item-parent">Security Threats</span></a>
 				</li>
 				<li class="">
-					<a href="/admin/security_alerts" title="blank_"><i class="fa fa-lg fa-fw fa-shield"></i> <span class="menu-item-parent">Security Alerts</span></a>
+					<a href="/admin/security_alerts" title="blank_"><i class="fa fa-lg fa-fw fa-newspaper-o"></i> <span class="menu-item-parent">Security News Alerts</span></a>
 				</li>
 				<li class="">
-					<a href="/admin/system_settings/0/edit" title="blank_"><i class="fa fa-lg fa-fw fa-shield"></i> <span class="menu-item-parent">System Settings</span></a>
+					<a href="/admin/system_settings/0/edit" title="blank_"><i class="fa fa-lg fa-fw fa-cog"></i> <span class="menu-item-parent">System Settings</span></a>
 				</li>
 			</ul>
 		</nav>
@@ -281,63 +278,103 @@
 				if ($("#bar-chart").length) {
 
 					var data1 = [];
-					for (var i = 1; i <= 12; i += 1)
-						data1.push([i, parseInt(Math.random() * 30)]);
-
 					var data2 = [];
-					for (var i = 1; i <= 12; i += 1)
-						data2.push([i, parseInt(Math.random() * 30)]);
-
 					var data3 = [];
-					for (var i = 1; i <= 12; i += 1)
-						data3.push([i, parseInt(Math.random() * 30)]);
+					var monthNames = ["January", "February", "March", "April", "May", "June",
+														  "July", "August", "September", "October", "November", "December"
+													 ];
 
-					var ds = new Array();
+					$.ajax({
+			      url: "/admin/internal_dashboard/seal_stats",
+			      method: 'GET',
+			    })
+			      .done(function( data ) {
+			      	$.each( data.certified, function( key, value ) {
+							  data1.push([Date.parse(key), parseInt(value)])
+							});
 
-					ds.push({
-						data : data1,
-						bars : {
-							show : true,
-							barWidth : 0.2,
-							order : 1,
-						}
-					});
-					ds.push({
-						data : data2,
-						bars : {
-							show : true,
-							barWidth : 0.2,
-							order : 2
-						}
-					});
-					ds.push({
-						data : data3,
-						bars : {
-							show : true,
-							barWidth : 0.2,
-							order : 3
-						}
-					});
 
-					//Display graph
-					$.plot($("#bar-chart"), ds, {
-						colors : [$chrt_second, $chrt_fourth, "#b09b5b", "#b09b5b"],
-						grid : {
-							show : true,
-							hoverable : true,
-							clickable : true,
-							tickColor : $chrt_border_color,
-							borderWidth : 0,
-							borderColor : $chrt_border_color,
-						},
-						legend : true,
-						tooltip : true,
-						tooltipOpts : {
-							content : "<b>%x</b> = <span>%y</span>",
-							defaultTheme : false
-						}
+			      	$.each( data.decertified, function( key, value ) {
+							  data2.push([Date.parse(key), parseInt(value)])
+							});
 
-					});
+			      	$.each( data.under_process, function( key, value ) {
+							  data3.push([Date.parse(key), parseInt(value)])
+							});
+
+
+							var ds = new Array();
+
+							if(data1.length > 0 ){
+								ds.push({
+									data : data1,
+									bars : {
+										show : true,
+										barWidth : 0.2,
+										order : 1,
+									}
+								});
+							}
+
+							if(data2.length > 0 ){
+								ds.push({
+									data : data2,
+									bars : {
+										show : true,
+										barWidth : 0.2,
+										order : 2
+									}
+								});
+							}
+							if(data3.length > 0 ){
+								ds.push({
+									data : data3,
+									bars : {
+										show : true,
+										barWidth : 0.2,
+										order : 3
+									}
+								});
+							}
+
+							//Display graph
+							$.plot($("#bar-chart"), ds, {
+								colors : [$chrt_second, $chrt_fourth, "#b09b5b", "#b09b5b"],
+								grid : {
+									show : true,
+									hoverable : true,
+									clickable : true,
+									tickColor : $chrt_border_color,
+									borderWidth : 0,
+									borderColor : $chrt_border_color,
+								},
+								legend : true,
+								tooltip : true,
+								tooltipOpts : {
+									content : "<b>%x</b> = <span>%y</span>",
+									defaultTheme : false
+								}, 
+								xaxis: {
+									show: true,
+									mode: "time",
+								  timeformat: "%m %y"
+								}
+
+							});
+
+			      });
+
+					// for (var i = 1; i <= 12; i += 1)
+					// 	data1.push([i, parseInt(Math.random() * 30)]);
+
+					// for (var i = 1; i <= 12; i += 1)
+					// 	data2.push([i, parseInt(Math.random() * 30)]);
+
+					// var data3 = [];
+					// for (var i = 1; i <= 12; i += 1)
+					// 	data3.push([i, parseInt(Math.random() * 30)]);
+
+					
 
 				}
 

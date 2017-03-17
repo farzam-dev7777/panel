@@ -67,6 +67,7 @@ Rails.application.routes.draw do
     resources :internal_dashboard do
       collection do
         get :search_activity_logs
+        get :seal_stats
       end
     end
     root to: "internal_dashboard#index"

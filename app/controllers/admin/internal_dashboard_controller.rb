@@ -5,7 +5,7 @@ class Admin::InternalDashboardController < Admin::BaseController
   add_breadcrumb "Dashboard", :root_path
 
   def index
-    @law_firms = LawFirm.distinct.joins(:form_submissions).where('form_submissions.status = ?', 'approved').limit(5)
+    @law_firms = LawFirm.distinct.joins(:form_submissions).where('form_submissions.status = ?', 'approved').order('law_firms.updated_at').limit(5)
     @activity_logs = ActivityLog.all
     @security_threats = SecurityThreat.distinct.joins('INNER JOIN action_items ON action_items.security_threat_id =  security_threats.id').joins('INNER JOIN queued_notifications ON queued_notifications.action_item_id = action_items.id').where('queued_notifications.triggered = false').limit(5)
   end
@@ -19,9 +19,16 @@ class Admin::InternalDashboardController < Admin::BaseController
   end
 
   def search_activity_logs
-    query = params[:query].blank? ? "" : "%#{params[:query]}%"
-    @activity_logs = ActivityLog.joins('INNER JOIN law_firms ON law_firms.id = activity_logs.law_firm_id').where('law_firms.name LIKE ? OR custom_message LIKE ?', query, query)
+    query = params[:query].blank? ? "% %" : "%#{params[:query].downcase}%"
+    @activity_logs = ActivityLog.joins('INNER JOIN law_firms ON law_firms.id = activity_logs.law_firm_id').where('lower(law_firms.name) LIKE ? OR lower(custom_message) LIKE ? OR lower(event_type) LIKE ?', query, query, query)
     render partial: 'activity_log', locals: {activity_logs: @activity_logs}
+  end
+
+  def seal_stats
+    certified = LawFirm.joins(:form_submissions).where("form_submissions.created_at = (SELECT MAX(form_submissions.created_at) FROM form_submissions WHERE form_submissions.law_firm_id = law_firms.id) AND form_submissions.status='approved'").group("DATE_TRUNC('month', form_submissions.created_at)").count
+    decertified = LawFirm.joins(:form_submissions).where("form_submissions.created_at = (SELECT MAX(form_submissions.created_at) FROM form_submissions WHERE form_submissions.law_firm_id = law_firms.id) AND form_submissions.status='decertified'").group("DATE_TRUNC('month', form_submissions.created_at)").count
+    under_process = LawFirm.joins(:form_submissions).where("form_submissions.created_at = (SELECT MAX(form_submissions.created_at) FROM form_submissions WHERE form_submissions.law_firm_id = law_firms.id) AND form_submissions.status='sent'").group("DATE_TRUNC('month', form_submissions.created_at)").count
+    render json: {certified: certified, decertified: decertified, under_process: under_process}
   end
 
 end
