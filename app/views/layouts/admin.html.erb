@@ -129,7 +129,7 @@
 					<a href="/admin/security_alerts" title="blank_"><i class="fa fa-lg fa-fw fa-newspaper-o"></i> <span class="menu-item-parent">Security News Alerts</span></a>
 				</li>
 				<li class="">
-					<a href="/admin/system_settings/0/edit" title="blank_"><i class="fa fa-lg fa-fw fa-cog"></i> <span class="menu-item-parent">System Settings</span></a>
+					<a href="<%= edit_admin_system_setting_path(SystemSetting.last || SystemSetting.create) %>" title="blank_"><i class="fa fa-lg fa-fw fa-cog"></i> <span class="menu-item-parent">System Settings</span></a>
 				</li>
 			</ul>
 		</nav>
@@ -186,10 +186,12 @@
 
 			<!-- end col -->
 			<div class="col-lg-12 table-striped table-hover">
-				<% if (notice || alert) %>
-					<p class="notice"><%= notice %></p>
-			    <p class="alert"><%= alert %></p>
+				<% if notice %>
+					<p class="alert alert-success"><%= notice %></p>
 				<% end %>
+		    <% if alert %>
+		    	<p class="alert alert-warning"><%= alert %></p>
+		    <% end %>
 		    <%= yield %>
 			</div>
 			

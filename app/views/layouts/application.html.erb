@@ -176,8 +176,12 @@
       </div>
     <!-- END NAVIGATION -->
     
-    <!-- <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p> -->
+    <% if notice %>
+      <p class="alert alert-success"><%= notice %></p>
+    <% end %>
+    <% if alert %>
+      <p class="alert alert-warning"><%= alert %></p>
+    <% end %>
     <%= yield %>
 
       <div class="clearfix"></div>

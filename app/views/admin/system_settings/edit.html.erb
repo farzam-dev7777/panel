@@ -1,4 +1,4 @@
-<%= simple_form_for [:admin, @settings], validate: true, :html => {:multipart => true, remote: true, authenticity_token: true} do |f| %>
+<%= simple_form_for [:admin, @settings], validate: true, :html => {authenticity_token: true} do |f| %>
 	
 	<div class="col-md-2">
 		System Score Threshold

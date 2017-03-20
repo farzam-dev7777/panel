@@ -146,7 +146,7 @@
 									<% @law_firm.form_submissions.each do |submission| %>
 										<tr>
 											<td><%= submission.law_firm.name %></td>
-											<td><%= submission.score || '-' %></td>
+											<td><%= submission.total_score || '-' %></td>
 											<td><span class="label label-<%= submission_status_class(submission) %>"><%= submission.status %></span></td>
 											<td class="text-center">
 												<%= link_to "Review", policy_step_admin_form_submission_path(submission), class: "btn btn-xs btn-primary" %>

@@ -6,7 +6,6 @@ class ActionItem < ApplicationRecord
 	scope :complete, -> { where(status: 'complete') }
 
 	def self.create_action_items(security_threat_id, params)
-		binding.pry
 		params[:law_firm_ids].each do |id|
 			action_item = ActionItem.new(security_threat_id: security_threat_id, law_firm_id: id)
 			QueuedNotification.generate_notifications(action_item, params) if action_item.save

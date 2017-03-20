@@ -1,6 +1,6 @@
 class ActionItemsController < BaseController
 
-	before_filter :find_action_item, only: [:mark_as_complete, :show]
+	before_action :find_action_item, only: [:mark_as_complete, :show]
 
   def mark_as_complete
   	@action_item.status = 'complete'
