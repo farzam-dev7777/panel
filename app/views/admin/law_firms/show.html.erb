@@ -12,7 +12,7 @@
 	<%= link_to "<i class='fa fa-pencil-square-o'></i> Edit".html_safe, edit_admin_law_firm_path, class: "btn btn-primary" %>
 </div>
 
-<% if (@law_firm.form_submissions.latest.status == 'decertified') %>
+<% if (@law_firm.form_submissions.any? && @law_firm.form_submissions.latest.status == 'decertified') %>
 	
 	<div class="col-lg-1 text-right">
 		<a class="btn btn-success certify-btn" data-id='<%= @law_firm.id %>' data-name='<%= @law_firm.name %>'>Certify</a>
