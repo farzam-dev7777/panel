@@ -23,6 +23,7 @@ class QueuedNotification < ApplicationRecord
 	    custom_message: "A #{triggers.last.severity_level.name.humanize} security threat needs your attention.",
 	    notify: true
 	  }
+	  ActivityLog.log(object)
 	end
 
 	def self.send_notifications

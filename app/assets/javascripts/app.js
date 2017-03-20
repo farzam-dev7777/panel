@@ -268,10 +268,6 @@ $(document).ready(function(){
     
   })
 
-  $('.law-firm-row').on('click', function(){
-    window.location.href = "/admin/law_firms/" + $(this).data().id;
-  })
-
   // initialize sortable
   $(function() {
     $("#sortable1, #sortable2").sortable({
@@ -699,4 +695,10 @@ $(document).ready(function(){
       ]
     });
     chart.render();
+})
+
+
+
+$('.law-firm-row').on('click', function(){
+  window.location.href = "/admin/law_firms/" + $(this).data().id;
 })

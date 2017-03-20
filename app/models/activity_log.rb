@@ -23,7 +23,7 @@ class ActivityLog < ApplicationRecord
 	ACTION_TYPE_REASON = {
     account_created: 'Firm\'s account was created',
     todo_task_created: 'A Todo task was created',
-    information_security_policy_request_initiated: 'Request for information security policy initiated',
+    information_security_policy_request_initiated: 'Certification process started',
     seal_certification_process_initiated: 'SEAL Certification process started',
     information_security_policy_submitted: 'Information security policy submitted',
     information_security_policy_review_started: 'Review for information security policy started',
@@ -40,8 +40,8 @@ class ActivityLog < ApplicationRecord
   }.freeze
 
 	def self.log(object)
-		activity_log = ActivityLog.new(object)
-		object = object.merge(custom_reason: ACTION_TYPE_REASON[object[:event_type].to_sym]) unless object[:custom_reason]
+		object = object.merge(custom_message: ACTION_TYPE_REASON[object[:event_type].to_sym]) if object[:custom_message]
+        activity_log = ActivityLog.new(object)
 		activity_log.save
 	end
 	

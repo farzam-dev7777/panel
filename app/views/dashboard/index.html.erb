@@ -330,7 +330,7 @@
 
 									<div class="cd-timeline-content">
 										<h2>
-											<strong><%= activity.event_type.titleize %></strong>
+											<strong><%= activity.custom_message || activity.event_type.titleize %></strong>
 										</h2>
 										<p><%= activity.custom_message %></p>
 										<span class="cd-date"><%= activity.created_at.strftime('%d %b at %I:%M %p') %></span>
