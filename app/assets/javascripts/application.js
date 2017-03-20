@@ -31,6 +31,11 @@
 //= require plugin/flot/jquery.flot.tooltip.min
 //= require plugin/flot/jquery.flot.orderBar.min
 //= require plugin/select2/select2.min
+//= require plugin/datatables/jquery.dataTables.min.js
+//= require plugin/datatables/dataTables.colVis.min.js
+//= require plugin/datatables/dataTables.tableTools.min.js
+//= require plugin/datatables/dataTables.bootstrap.min.js
+//= require plugin/datatable-responsive/datatables.responsive.min.js
 //= require plugin/canvasjs.min
 //= require rateyo
 //= require qTip2
