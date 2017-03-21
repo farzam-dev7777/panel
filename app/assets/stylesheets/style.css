@@ -8,6 +8,23 @@ html, #main {
   font-family: 'Roboto', sans-serif;
 }
 
+table.dataTable thead .sorting_asc, table.dataTable thead .sorting_desc {
+  background-color: #404040 !important;
+}
+
+.dataTables_filter .input-group-addon{
+  border: 0px;
+  border-bottom: 1px solid #ccc;
+}
+
+div#dt_basic_length .select2 {
+  display: none;
+}
+
+.well input {
+  background: #fbfbfb;
+}
+
 .login-page{ 
 		background: #0079C1 !important;
   background-image: url('/assets/bg.png') !important;
