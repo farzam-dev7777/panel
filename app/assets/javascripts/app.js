@@ -4,6 +4,7 @@ $(document).ready(function(){
   // });
   
   // $('.dynamic-select').trigger('change');
+  $('i.log-icon').tooltip();
 
   $('.form_submission_form_values_value input, .form_submission_form_values_value select').each(function(){
      prepareForCustomLogic($(this));
@@ -702,3 +703,23 @@ $(document).ready(function(){
 $('.law-firm-row').on('click', function(){
   window.location.href = "/admin/law_firms/" + $(this).data().id;
 })
+
+$(document).on('click', '#load-more-activities', function(){
+  var data = $(this).data();
+  context = $(this).parent();
+  $.ajax({
+    method: 'GET',
+    url: '/admin/internal_dashboard/load_more_activities',
+    data: data,
+    context: context,
+    success: function(response) {
+      if(response == ""){
+        $('#load-more-activities').hide();
+      } else {
+        $('#load-more-activities').remove();
+        $('ul.smart-timeline-list').append(response)
+      }
+    }
+  })
+})
+

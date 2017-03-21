@@ -46,4 +46,16 @@ module ApplicationHelper
     "<a data-toggle='modal' data-target='securityThreat' data-remote='true' href='/action_items/#{action_item.id}'>Security Threat</a>"
   end
 
+  def activity_source(activity)
+    return "<i class='fa fa-question log-icon' data-original-title='Source not available'></i>".html_safe unless activity.source
+    user = activity.source.constantize.find_by(email: activity.email)
+    if(user.class.to_s == 'User')
+      source = activity.source.constantize.find_by(email: activity.email).try(:law_firm).try(:name)
+      "<i class='fa fa-graduation-cap log-icon law-firm' data-toggle='tooltip' data-original-title='#{source}' title='#{source}'></i>".html_safe
+    elsif(user.class.to_s == 'AdminUser')
+      source = 'Admin'
+      "<i class='fa fa-shield log-icon admin' data-toggle='tooltip' data-original-title='#{source}' title='#{source}'></i>".html_safe
+    end
+  end
+
 end

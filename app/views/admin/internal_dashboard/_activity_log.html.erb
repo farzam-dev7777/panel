@@ -1,20 +1,24 @@
-<% activity_logs.each do |activity| %>
-<% if activity.law_firm_id %>
-	<li>
-		<div class="smart-timeline-icon">
-			<i class="fa fa-file-text"></i>
-		</div>
-		<div class="smart-timeline-time">
-			<small><%= activity.created_at.strftime('%d %b at %I:%M %p') %></small>
-		</div>
-		<div class="smart-timeline-content">
-			<p>
-				<%= link_to "<strong>#{activity.try(:law_firm).try(:name)}<strong>".html_safe, admin_law_firm_path(activity.law_firm) %>
-			</p>
-			<p>
-				<%= activity.event_type.humanize %>
-			</p>
-		</div>
-	</li>
-<% end %>
+<% if activity_logs.any? %>
+	<% last_timestamp = activity_logs.last.created_at %>
+		<% activity_logs.each do |activity| %>
+			<% if activity.law_firm_id %>
+				<li data-id="<%= activity.id %>">
+					<div class="smart-timeline-icon">
+					<%= activity_source(activity) %>
+					</div>
+					<div class="smart-timeline-time">
+						<small><%= activity.created_at.strftime('%d %b at %I:%M %p') %></small>
+					</div>
+					<div class="smart-timeline-content">
+						<p>
+							<%= link_to "<strong>#{activity.try(:law_firm).try(:name)}<strong>".html_safe, admin_law_firm_path(activity.law_firm) %>
+						</p>
+						<p>
+							<%= activity.custom_message || activity.event_type.humanize %>
+						</p>
+					</div>
+				</li>
+			<% end %>
+		<% end %>
+	<button class="btn btn-primary force-center" id="load-more-activities" data-last_timestamp=<%= last_timestamp %>>Load More</button>
 <% end %>
