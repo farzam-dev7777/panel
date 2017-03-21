@@ -64,7 +64,7 @@ module FormSubmissionHelper
     FollowUp.find_by(filters)
   end
 
-  def filter(form_submission_id: form_submission_id, loggable_id: loggable_id, loggable_type: loggable_type, status: status)
+  def filter(form_submission_id:, loggable_id:, loggable_type:, status:)
     filter = {}
     filter[:form_submission_id] = form_submission_id if form_submission_id
     filter[:loggable_id] = loggable_id if loggable_id
