@@ -19,7 +19,7 @@ class Admin::LawFirmsController < Admin::BaseController
   	@law_firm = LawFirm.new(law_firms_params)
   	if @law_firm.save
       # Pass true as a 2nd arg if admin wants to send the activity as notification as well
-      @law_firm.log_activity('account_created', true, current_user)
+      @law_firm.log_activity('account_created', true, current_admin_user)
 
       @law_firm.user.send_reset_password_instructions
 
@@ -67,7 +67,7 @@ class Admin::LawFirmsController < Admin::BaseController
     new_form_submission.status = 'sent'
 
     if new_form_submission.save
-      @law_firm.log_activity('recertification_process_initiated', true, current_user)
+      @law_firm.log_activity('recertification_process_initiated', true, current_admin_user)
       redirect_to :admin_law_firms
     end
   end
@@ -81,7 +81,7 @@ class Admin::LawFirmsController < Admin::BaseController
     form_submission.reason = params[:reason]
 
     if form_submission.save!
-      @law_firm.log_activity('decertified', true, current_user)
+      @law_firm.log_activity('decertified', true, current_admin_user)
       head :ok
     end
   end

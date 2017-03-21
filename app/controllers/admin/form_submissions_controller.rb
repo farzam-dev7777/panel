@@ -27,7 +27,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
     @form_submission = FormSubmission.find(params[:id])
     log = ActivityLog.find_by(loggable_id: @form_submission.id, loggable_type: 'FormSubmission', law_firm_id: @form_submission.law_firm_id)
     
-    FormSubmission.log_activity('information_security_policy_review_started', true, @form_submission, current_user) if @form_submission && !log
+    FormSubmission.log_activity('information_security_policy_review_started', true, @form_submission, current_admin_user) if @form_submission && !log
   end
 
   def process_step
@@ -112,7 +112,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
     @form_submission.submitted_on = nil
     @form_submission.follow_ups.pending.update_all(status: 'review')
     if (@form_submission.update_attributes(status: :follow_up))
-      FormSubmission.log_activity('follow_up', true, @form_submission, current_user)
+      FormSubmission.log_activity('follow_up', true, @form_submission, current_admin_user)
       redirect_to :admin_law_firms
     end
   end
@@ -128,7 +128,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
     @form_submission = FormSubmission.find(params[:id])
     @form_submission.status = 'approved'
     if (@form_submission.save)
-      FormSubmission.log_activity('approved', true, @form_submission, current_user)
+      FormSubmission.log_activity('approved', true, @form_submission, current_admin_user)
       redirect_to :admin_law_firms
     end
   end
@@ -137,7 +137,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
     @form_submission = FormSubmission.find(params[:id])
     @form_submission.status = 'decline'
     if (@form_submission.save)
-      FormSubmission.log_activity('declined', true, @form_submission, current_user)
+      FormSubmission.log_activity('declined', true, @form_submission, current_admin_user)
       redirect_to :admin_law_firms
     end
   end
