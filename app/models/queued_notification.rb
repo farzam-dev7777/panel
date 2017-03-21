@@ -6,7 +6,7 @@ class QueuedNotification < ApplicationRecord
 	scope :pending,  -> { where(triggered: false) }
 	# default_scope { where("deleted_at IS NULL") }
 
-	def self.generate_notifications(action_item, params)
+	def self.generate_notifications(action_item, params, current_user)
 		triggers = action_item.security_threat.severity_level.triggers
 		triggers.each_with_index do |trigger, i|
 			q = QueuedNotification.new(trigger_at: trigger.hours.hours.from_now, 
@@ -21,7 +21,9 @@ class QueuedNotification < ApplicationRecord
 	    event_type: "#{action_item.security_threat.severity_level.name}_security_alert",
 	    loggable: action_item,
 	    custom_message: "A #{triggers.last.severity_level.name.humanize} security threat needs your attention.",
-	    notify: true
+	    notify: true,
+	    source: current_user.class,
+	    email: current_user.email
 	  }
 	  ActivityLog.log(object)
 	end

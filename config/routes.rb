@@ -68,6 +68,7 @@ Rails.application.routes.draw do
       collection do
         get :search_activity_logs
         get :seal_stats
+        get :load_more_activities
       end
     end
     root to: "internal_dashboard#index"

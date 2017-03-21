@@ -8,7 +8,7 @@ class FileUploader < CarrierWave::Uploader::Base
   storage :file
   # storage :fog
 
-  process :encrypt_file
+  # process :encrypt_file
 
   def encrypt_file
     file = File.open(self.file.file, 'wb')
@@ -18,6 +18,7 @@ class FileUploader < CarrierWave::Uploader::Base
     self.model.file_value = encrypted_entity.encrypted_file
     self.model.save
     encrypted_entity.encrypted_file
+    # self
   end
 
   # Override the directory where uploaded files will be stored.

@@ -25,12 +25,14 @@ class LawFirm < ApplicationRecord
                       password: self.temp_password)
   end
 
-  def log_activity(event_type, notify = false)
+  def log_activity(event_type, notify = false, current_user)
   	object = {
   		law_firm_id: id,
   		event_type: event_type,
       loggable: self,
-      notify: notify
+      notify: notify,
+      source: current_user.class,
+      email: current_user.email
   	}
   	ActivityLog.log(object)
   end
