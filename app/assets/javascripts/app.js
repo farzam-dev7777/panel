@@ -244,8 +244,8 @@ $(document).ready(function(){
 
     var data = $(this).data();
     swal({
-      title: "Are you sure you want to submit?",
-      text: "You won't be able to make any changes later on.",
+      title: "Are you sure?",
+      text: "",
       type: "warning",
       showCancelButton: true,
       confirmButtonColor: "#DD6B55",
@@ -660,17 +660,17 @@ $(document).ready(function(){
     {
       title:{
         text: "Law Firms Compliance/Risk Analysis",      
-        fontFamily: "arial black",
+        fontFamily: '"Roboto",Arial,Helvetica,Sans-Serif',
         fontColor: "DarkSlateGrey"
       },
       animationEnabled: true,
       axisX: {
         title:"Risk",
-        titleFontFamily: "arial"
+        titleFontFamily: '"Roboto",Arial,Helvetica,Sans-Serif'
       },
       axisY:{
         title: "Compliance",
-        titleFontFamily: "arial",
+        titleFontFamily: '"Roboto",Arial,Helvetica,Sans-Serif',
         valueFormatString:"0",
         titleFontSize: 12
       },

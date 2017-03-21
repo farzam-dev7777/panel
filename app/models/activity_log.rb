@@ -1,43 +1,43 @@
 class ActivityLog < ApplicationRecord
 	belongs_to :loggable, polymorphic: true
 
-  belongs_to :law_firm
+    belongs_to :law_firm, touch: true
 
 	scope :notifications,  -> { where(notify: true) }
 	scope :unread,  -> { where("notify = ? AND read != ?", true, true) }
 	scope :read,  -> { where("notify = ? AND read = ?", true, true) }
 
 	ACTION_OBJECT_TYPES = {
-    account_created: User,
-    todo_task_created: TodoTask,
-    information_security_policy_request_initiated: FormSubmission,
-    seal_certification_process_initiated: FormSubmission,
-    information_security_policy_submitted: FormSubmission,
-    information_security_policy_review_started: FormSubmission,
-    follow_up: FormSubmission,
-    approved: FormSubmission,
-    declined: FormSubmission,
-    recertification_process_initiated: FormSubmission
+        account_created: User,
+        todo_task_created: TodoTask,
+        information_security_policy_request_initiated: FormSubmission,
+        seal_certification_process_initiated: FormSubmission,
+        information_security_policy_submitted: FormSubmission,
+        information_security_policy_review_started: FormSubmission,
+        follow_up: FormSubmission,
+        approved: FormSubmission,
+        declined: FormSubmission,
+        recertification_process_initiated: FormSubmission
 	}
 
 	ACTION_TYPE_REASON = {
-    account_created: 'Firm\'s account was created',
-    todo_task_created: 'A Todo task was created',
-    information_security_policy_request_initiated: 'Certification process started',
-    seal_certification_process_initiated: 'SEAL Certification process started',
-    information_security_policy_submitted: 'Information security policy submitted',
-    information_security_policy_review_started: 'Review for information security policy started',
-    follow_up: 'The assessor requested follow up question(s)',
-    approved: 'The SEAL Certification has been approved',
-    declined: 'The SEAL Certification has been declined',
-    recertification_process_initiated: 'The assessor initiated a recertification process',
-    critical_security_alert: 'There is a critical security alert',
-    high_security_alert: 'There is a high priority security threat',
-    low_security_alert: 'There is a security threat',
-    decertify: 'The firm has been decertified',
-    recertification_process_initiated: 'The recertification process has been initiated',
-    decrease_score: 'Your score has been effected'
-  }.freeze
+        account_created: 'Onboarded',
+        todo_task_created: 'A Todo task was created',
+        information_security_policy_request_initiated: 'SEAL process started (Bank)',
+        seal_certification_process_initiated: 'SEAL process started (LawFirm)',
+        information_security_policy_submitted: 'SEAL form submitted',
+        information_security_policy_review_started: 'SEAL form under review',
+        follow_up: 'Follow up requested',
+        approved: 'SEAL Certification approved',
+        declined: 'SEAL Certification declined',
+        recertification_process_initiated: 'Recertication started',
+        critical_security_alert: 'Critical Alert',
+        high_security_alert: 'High Priority Alert',
+        low_security_alert: 'Low Priority Alert',
+        decertify: 'Decertified',
+        recertification_process_initiated: 'Recertification process started',
+        decrease_score: 'SEAL score impacted'
+      }.freeze
 
 	def self.log(object)
 		object = object.merge(custom_message: ACTION_TYPE_REASON[object[:event_type].to_sym]) if object[:custom_message]

@@ -31,7 +31,7 @@ class FormSubmission < ApplicationRecord
   	ActivityLog.log(object)
 	end
 
-  def self.generate_initial_submissions(law_firm)
+  def self.generate_initial_submissions(law_firm, current_user)
     submission = FormSubmission.new
     submission.form_id = Form.where(step: 'policy').last.try(:id)
     submission.form_process_id = Form.where(step: 'process').last.try(:id)
@@ -39,7 +39,7 @@ class FormSubmission < ApplicationRecord
     submission.status = 'sent'
     submission.save
 
-    log_activity('information_security_policy_request_initiated', true, submission) if submission.save
+    log_activity('information_security_policy_request_initiated', true, submission, current_user) if submission.save
   end
 
   def can_be_approved?

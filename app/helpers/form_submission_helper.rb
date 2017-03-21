@@ -12,7 +12,7 @@ module FormSubmissionHelper
   def follow_up_class(form_submission_id, loggable_id, loggable_type)
     follow_up = find_follow_up(filter(form_submission_id: form_submission_id, 
                                       loggable_id: loggable_id, 
-                                      loggable_type: loggable_type))
+                                      loggable_type: loggable_type, status: nil))
     if follow_up
       case follow_up.status
       when 'pending'
@@ -28,7 +28,7 @@ module FormSubmissionHelper
   def follow_up_class_for_law_firm(loggable_id, loggable_type, form_submission_id)
     follow_up = find_follow_up(filter(loggable_id: loggable_id, 
                                       loggable_type: loggable_type,
-                                      form_submission_id: form_submission_id))
+                                      form_submission_id: form_submission_id, status: nil))
     if follow_up
       if (follow_up.status == 'review')
         'need-follow-up'
@@ -41,7 +41,7 @@ module FormSubmissionHelper
   def follow_up_needed?(form_submission_id, loggable_id, loggable_type)
     find_follow_up(filter(form_submission_id: form_submission_id, 
                           loggable_id: loggable_id, 
-                          loggable_type: loggable_type)) ? true : false
+                          loggable_type: loggable_type, status: nil)) ? true : false
   end
 
   def save_and_follow_up?(form_submission_id)

@@ -29,7 +29,10 @@
 	</div>
 
 	<div class="col-md-4 pull-right">
-		<%= link_to "Onboard a law firm", new_admin_law_firm_path, class: "btn btn-primary btn-md pull-right" %>
+		<%= link_to new_admin_law_firm_path, class: "btn-onboard btn-green pull-right" do %>
+			<i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
+			<p>Onboard</p>
+		<% end %>
 	</div>
 
 </div>
@@ -142,7 +145,7 @@
 
 
 <% content_for :page_title do %>
-<span>Law Firms</span>
+	<span>Law Firms</span>
 <% end %>
 
 
@@ -219,7 +222,7 @@
 						<tr>
 							<th>Name</th>
 							<th>Status</th>
-							<th>Created At</th>
+							<th>Last Updated At</th>
 							<th>Score</th>
 						</tr>
 
@@ -227,7 +230,7 @@
 						<tr>
 							<td><%= link_to firm.name, admin_law_firm_path(firm) %>	</td>
 							<td><%= firm.form_submissions.latest.try(:status).try(:humanize) %></td>
-							<td><%= time_ago_in_words(firm.created_at) %> ago</td>
+							<td><%= firm.updated_at.strftime(LawFirm::TIME_FORMAT) %></td>
 							<td class="text-center">
 								<div> 
 									<span class="percent txt-color-blue semi-bold">
