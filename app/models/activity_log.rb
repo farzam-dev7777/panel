@@ -30,7 +30,6 @@ class ActivityLog < ApplicationRecord
     follow_up: 'Follow up requested',
     approved: 'SEAL Certification approved',
     declined: 'SEAL Certification declined',
-    recertification_process_initiated: 'Recertication started',
     critical_security_alert: 'Critical Alert',
     high_security_alert: 'High Priority Alert',
     low_security_alert: 'Low Priority Alert',
@@ -41,9 +40,9 @@ class ActivityLog < ApplicationRecord
   }.freeze
 
 	def self.log(object)
-		object = object.merge(custom_message: ACTION_TYPE_REASON[object[:event_type].to_sym]) if object[:custom_message]
-    activity_log = ActivityLog.new(object)
-    LawFirm.find_by(id: object[:law_firm_id]).try(:touch) if activity_log.save
+    	object = object.merge(custom_message: ACTION_TYPE_REASON[object[:event_type].to_sym]) if !object[:custom_message]
+        activity_log = ActivityLog.new(object)
+        LawFirm.find_by(id: object[:law_firm_id]).try(:touch) if activity_log.save
 	end
 	
 end
