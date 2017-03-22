@@ -4,3 +4,27 @@
 <div class="col-md-4">
 	<div class="system-score-threshold"></div>
 </div>
+
+<div class="col-md-12">
+	Severity Levels
+</div>
+
+<div class="col-md-12">
+	<% SeverityLevel.all.each do |level| %>
+
+		<div class="col-md-2">
+			Name
+		</div>
+		<div class="col-md-4">
+			<input type="name" name="" value="<%= level.name %>">
+		</div>
+
+		<div class="col-md-2">
+			Color
+		</div>
+		<div class="col-md-4">
+			<input type="name" name="" value="<%= level.color %>">
+		</div>
+
+	<% end %>
+</div>

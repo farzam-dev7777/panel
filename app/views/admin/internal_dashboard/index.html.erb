@@ -6,7 +6,7 @@
 				<a href="/admin/law_firms?filter=onboarded">
 					<h5 class="current-month-info"> Onboarded 
 						<span class="txt-color">
-							- <%= LawFirm.where('id NOT IN (SELECT DISTINCT(law_firm_id) FROM form_submissions)').count %> -
+							- <%= LawFirm.onboarded.count %> -
 						</span>
 					</h5>
 				</a>
@@ -14,7 +14,7 @@
 			<li class="sparks-info">
 				<a href="/admin/law_firms?filter=under_process">
 					<h5 class="current-month-info"> In Process 
-						<span class="txt-color-yellow">- <%= LawFirm.joins(:form_submissions).where("form_submissions.created_at = (SELECT MAX(form_submissions.created_at) FROM form_submissions WHERE form_submissions.law_firm_id = law_firms.id) AND form_submissions.status='sent' OR  form_submissions.status='submitted' OR  form_submissions.status='started'").count %> -</span>
+						<span class="txt-color-yellow">- <%= LawFirm.in_process.count %> -</span>
 					</h5>
 				</a>
 			</li>
@@ -22,7 +22,7 @@
 				<a href="/admin/law_firms?filter=certified">
 					<h5 class="current-month-info"> Certified 
 						<span class="txt-color-green">
-							- <%= LawFirm.joins(:form_submissions).where("form_submissions.created_at = (SELECT MAX(form_submissions.created_at) FROM form_submissions WHERE form_submissions.law_firm_id = law_firms.id) AND form_submissions.status='approved'").count %> -
+							- <%= LawFirm.certified.count %> -
 						</span>
 					</h5>
 				</a>
@@ -30,18 +30,11 @@
 			<li class="sparks-info">
 				<a href="/admin/law_firms?filter=decertified">
 					<h5 class="current-month-info"> Decertified 
-						<span class="txt-color-red">- <%= LawFirm.joins(:form_submissions).where("form_submissions.created_at = (SELECT MAX(form_submissions.created_at) FROM form_submissions WHERE form_submissions.law_firm_id = law_firms.id) AND form_submissions.status='decertified' OR form_submissions.status='decline'").count %> -</span>
+						<span class="txt-color-red">- <%= LawFirm.decertified.count %> -</span>
 					</h5>
 				</a>
 			</li>
 		</ul>
-	</div>
-
-	<div class="col-md-4 pull-right">
-		<%= link_to new_admin_law_firm_path, class: "btn-onboard btn-green pull-right" do %>
-			<i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
-			<p>Onboard</p>
-		<% end %>
 	</div>
 
 </div>
@@ -367,18 +360,18 @@
 							<div class="col-md-3">
 								<%= select("event_type", "", ActivityLog::ACTION_TYPE_REASON.map { |k,v| [k.to_s.humanize, k] }, { include_blank: 'All' }) %>
 							</div>
-							<div class="col-md-2">
-								<input type="text" name="startdate" placeholder="From Date" class="datepicker">
+							<div class="col-md-3">
+								<input type="text" name="fromdate" placeholder="From Date" class="datepicker">
 							</div>
-							<div class="col-md-2">
+							<div class="col-md-3">
 								<input type="text" name="todate" placeholder="To Date" class="datepicker">
 							</div>
-							<div class="col-md-1 no-padding text-right">
+							<div class="col-md-1 no-padding text-right hidden">
 								<button id="search-activity-log-btn" class="btn btn-primary">
 									<i class="fa fa-search"></i> Search
 								</button>
 							</div>
-							<div class="col-md-1 no-padding text-right">
+							<div class="col-md-1 no-padding text-right hidden">
 								<button id="reset-activity-log-btn" class="btn btn-danger">
 									<i class="fa fa-times"></i> Reset
 								</button>

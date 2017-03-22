@@ -24,6 +24,7 @@ class Admin::SystemSettingsController < Admin::BaseController
   private
 
   def find_system_settings
+    @severity_levels = SeverityLevel.all
     @settings = SystemSetting.last || SystemSetting.create
   end
 

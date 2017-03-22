@@ -12,6 +12,14 @@ body.smart-style-6 .table>tbody>tr>td, body.smart-style-6 .table>tbody>tr>th, bo
   text-align: center;
 }
 
+.onboard-btn{
+  color: #fff;
+  font-size: 16px;
+  line-height: 48px;
+  background: #3b723b;
+  padding: 0px 10px;
+}
+
 .btn-onboard{
   border-radius: 136px;
   width: 55px;
@@ -477,7 +485,7 @@ body.smart-style-6 .minifyme {
 
 .security-alerts{
   height: 367px;
-  overflow: scroll;
+  overflow: scroll !important;
 }
 
 .security-threats.jarviswidget>div {
@@ -687,3 +695,22 @@ ul.internal-notes li div {
 }
 
 .no-padding-left { padding-left: 0px !important; }
+
+#db_lfs_wrapper .dt-toolbar {
+  padding: 0 !important;
+}
+
+#db_lfs_wrapper .dt-toolbar-footer {
+  padding: 0 !important;
+}
+
+.portal-type{ 
+  line-height: 50px;
+  color: #a0c3d8;
+  text-transform: uppercase;
+  letter-spacing: 30px;
+  font-weight: bold; }
+
+  .severity-level-wrapper {
+    min-height: 400px; background-color: #f1f1f1; padding: 20px; border: 1px; border-bottom: 1px solid #ccc
+  }

@@ -43,4 +43,17 @@ class LawFirm < ApplicationRecord
     internal_note = InternalNote.new(message: message, sender_id: admin.id, law_firm_id: self.id)
     internal_note if internal_note.save
   end
+
+  def self.certified
+    LawFirm.joins(:form_submissions).where("form_submissions.created_at = (SELECT MAX(form_submissions.created_at) FROM form_submissions WHERE form_submissions.law_firm_id = law_firms.id) AND form_submissions.status='approved'")
+  end
+  def self.in_process
+    LawFirm.joins(:form_submissions).where("form_submissions.created_at = (SELECT MAX(form_submissions.created_at) FROM form_submissions WHERE form_submissions.law_firm_id = law_firms.id) AND form_submissions.status='sent' OR  form_submissions.status='submitted' OR  form_submissions.status='started'")
+  end
+  def self.decertified
+    LawFirm.joins(:form_submissions).where("form_submissions.created_at = (SELECT MAX(form_submissions.created_at) FROM form_submissions WHERE form_submissions.law_firm_id = law_firms.id) AND form_submissions.status='decertified' OR form_submissions.status='decline'")
+  end
+  def self.onboarded
+    LawFirm.where('id NOT IN (SELECT DISTINCT(law_firm_id) FROM form_submissions)')
+  end
 end

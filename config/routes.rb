@@ -29,6 +29,7 @@ Rails.application.routes.draw do
       end
     end
     resources :messages
+    resources :severity_levels
 
     resources :security_alerts
     

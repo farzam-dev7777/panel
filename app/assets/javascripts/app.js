@@ -6,6 +6,10 @@ $(document).ready(function(){
   // $('.dynamic-select').trigger('change');
   $('i.log-icon').tooltip();
 
+  $( function() {
+    $( "#accordion" ).accordion();
+  } );
+
   $('.form_submission_form_values_value input, .form_submission_form_values_value select, .form_submission_form_values_value textarea').each(function(){
      prepareForCustomLogic($(this));
   })
@@ -728,6 +732,10 @@ $(document).on('click', '#load-more-activities', function(){
 
 $('#search-activity-log-btn').on('click', function(){
   $("#search_activity_log").submit();
+})
+
+$("#search-activity-log").find("input[type=text], select").on('change', function(){
+  $('#search-activity-log-btn').trigger('click');
 })
 
 $('#reset-activity-log-btn').on('click', function(){

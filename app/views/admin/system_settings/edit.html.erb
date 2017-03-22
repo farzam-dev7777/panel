@@ -1,15 +1,70 @@
-<%= simple_form_for [:admin, @settings], validate: true, :html => {authenticity_token: true} do |f| %>
+<div id="tabs">
+	<ul>
+		<li>
+			<a href="#tabs-a">Score Threshold</a>
+		</li>
+		<li>
+			<a href="#tabs-b">Severity Levels</a>
+		</li>
+	</ul>
+	<div id="tabs-a">
+		<%= simple_form_for [:admin, @settings], validate: true, :html => {authenticity_token: true} do |f| %>
+			<div class="col-md-2">
+				System Score Threshold
+			</div>
+			<div class="col-md-4">
+			<div class="system-score-threshold" data-threshold_score=<%= @settings.score_threshold %>></div>
+				<%= f.input :score_threshold, as: :hidden %>
+			</div>
+
+			<div class="col-md-12">
+				<%= f.submit 'Save', class: 'btn btn-primary' %>
+			</div>
+
+		<% end %>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+	</div>
+	<div id="tabs-b">
+		<div class="well well-sm well-light">
+			<div id="accordion">
+				
+				<% @severity_levels.each do |severity_level| %>
+				<div>
+					<h4><%= severity_level.name.titleize %></h4>
+					<div class="row padding-10">
+						<%= simple_form_for [:admin, severity_level], validate: true, :html => {authenticity_token: true} do |f| %>
+						<div class="col-md-12 severity-level-wrapper">
+							<div class="col-md-12">
+								<div class="col-md-12">
+									<%= f.input :name %>
+								</div>
+							</div>
+							<div class="col-md-11 col-md-offset-1 trigger-fields">
+								<%= f.simple_fields_for :triggers, severity_level.triggers do |field| %>
+									<%= render partial: 'trigger_fields', locals: {f: field} %>
+									<div class="clearfix"></div>
+								<% end %>
+								<div>
+									<%= link_to_add_association '<span href="javascript:void(0);" class="btn btn-primary btn-sm"><i class="fa fa-plus-circle"></i> Add Trigger</span>'.html_safe, f, :triggers %>
+								</div>
+							</div>
+							<div class="clearfix"></div>
+							<%= f.submit 'Update', class: 'btn btn-primary' %>
+						</div>
+				<% end %>
+					</div>
+				</div>
+				<% end %>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="clearfix"></div>
+
+
+
+
 	
-	<div class="col-md-2">
-		System Score Threshold
-	</div>
-	<div class="col-md-4">
-	<div class="system-score-threshold" data-threshold_score=<%= @settings.score_threshold %>></div>
-		<%= f.input :score_threshold, as: :hidden %>
-	</div>
-
-	<div class="col-md-12">
-		<%= f.submit 'Save', class: 'btn btn-primary' %>
-	</div>
-
-<% end %>

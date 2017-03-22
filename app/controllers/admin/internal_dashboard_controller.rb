@@ -24,8 +24,8 @@ class Admin::InternalDashboardController < Admin::BaseController
 
     if (params[:action_type] == 'form_search')
       query = ActivityLog.joins('INNER JOIN law_firms ON law_firms.id = activity_logs.law_firm_id').where( search_filter )
-      @activity_logs =  query if params[:search_query].blank?
-      @activity_logs = query.where( 'law_firms.name LIKE ?', "%#{params[:search_query]}%" ) if !params[:search_query].blank?
+      @activity_logs =  query.order('created_at DESC') if params[:search_query].blank?
+      @activity_logs = query.where( 'law_firms.name LIKE ?', "%#{params[:search_query]}%" ).order('created_at DESC') if !params[:search_query].blank?
     else
       query = params[:query].blank? ? "% %" : "%#{params[:query].downcase}%"
       @activity_logs = ActivityLog.joins('INNER JOIN law_firms ON law_firms.id = activity_logs.law_firm_id').where('lower(law_firms.name) LIKE ? OR lower(custom_message) LIKE ? OR lower(event_type) LIKE ?', query, query, query)
@@ -50,9 +50,9 @@ class Admin::InternalDashboardController < Admin::BaseController
 
   def search_filter
     filter = {}
-    filter[:created_at] = Date.parse(params[:fromdate]) if params[:fromdate] && !params[:fromdate].blank?
-    filter[:created_at] = Date.parse(params[:todate]) if params[:todate] && !params[:todate].blank?
-    filter[:created_at] = Date.parse(params[:fromdate])..Date.parse(params[:todate]) if !params[:fromdate].blank? && !params[:todate].blank?
+    filter[:created_at] = DateTime.strptime(params[:fromdate], '%m/%d/%Y')..(DateTime.strptime(params[:fromdate], '%m/%d/%Y') + 23.hours + 59.minutes) if params[:fromdate] && !params[:fromdate].blank?
+    filter[:created_at] = DateTime.strptime(params[:todate], '%m/%d/%Y')..(DateTime.strptime(params[:todate], '%m/%d/%Y') + 23.hours + 59.minutes) if params[:todate] && !params[:todate].blank?
+    filter[:created_at] = DateTime.strptime(params[:fromdate], '%m/%d/%Y')..(DateTime.strptime(params[:todate], '%m/%d/%Y') + 23.hours + 59.minutes) if !params[:fromdate].blank? && !params[:todate].blank?
     filter[:event_type] = params[:event_type].first if params[:event_type] && !params[:event_type].first.blank?
     filter
   end

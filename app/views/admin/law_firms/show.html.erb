@@ -8,7 +8,7 @@
 	<%= link_to "<i class='fa fa-long-arrow-left'></i> Back".html_safe, admin_law_firms_path, class: "btn btn-default" %>
 </div>
 <div class="col-md-4"></div>
-	<div class="col-lg-1 text-right">
+	<div class="col-lg-1 pull-right text-right">
 		<%= link_to "<i class='fa fa-pencil-square-o'></i> Edit".html_safe, edit_admin_law_firm_path, class: "btn btn-primary" %>
 	</div>
 <% if (@law_firm.form_submissions.any? && @law_firm.form_submissions.latest.status == 'decertified') %>
@@ -33,9 +33,11 @@
 		<a class="btn btn-danger decertify-btn" data-id='<%= @law_firm.id %>' data-name='<%= @law_firm.name %>'>Decertify</a>
 	</div>
 <% end %>
-	<p>&nbsp;</p>
 
 <% end %>
+
+<div class="clearfix"></div>
+<p>&nbsp;</p>
 
 <div class="col-lg-12">
 	<div class="jarviswidget" id="wid-id-11" data-widget-colorbutton="false" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false">
@@ -148,10 +150,21 @@
 										<tr>
 											<td><%= submission.law_firm.name %></td>
 											<td><%= submission.total_score || '-' %></td>
-											<td><span class="label label-<%= submission_status_class(submission) %>"><%= submission.status %></span></td>
 											<td class="text-center">
-												<%= link_to "Review", policy_step_admin_form_submission_path(submission), class: "btn btn-xs btn-primary" %>
-
+											<span class="label label-<%= submission_status_class(submission) %>"><%= submission.try(:status).titleize %></span>
+											</td>
+											<td>
+												<% if submission.try(:status) == 'approved' %>	
+													<%= link_to "Begin Recertification Process", begin_certification_process_admin_law_firm_path(firm), class: "btn btn-primary btn-xs" %>	
+												<% elsif submission.try(:status) == 'sent' %>
+													<%= link_to "Waiting for Law Firm", '#', class: "btn btn-primary btn-xs", disabled: true %>		
+												<% elsif submission.try(:status) == 'started' %>
+													<%= link_to "Started", "#", class: "btn btn-default btn-xs", disabled: true %>
+												<% elsif submission.try(:status) == 'submitted' %>
+													<%= link_to "Review Submission", policy_step_admin_form_submission_path(submission), class: "btn btn-primary btn-xs" %>	
+												<% else %>
+													<%= link_to submission.try(:status).try(:humanize) || '-', "#", class: "btn btn-default btn-xs", disabled: true %>
+												<% end %>
 											</td>
 										</tr>
 										
