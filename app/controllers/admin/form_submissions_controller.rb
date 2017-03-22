@@ -118,7 +118,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
   end
 
   def mark_as_checked
-    @field_value = params[:loggable_type].constantize.find_by(id: params[:loggable_id]) 
+    @field_value = params[:loggable_type].constantize.find_by(id: params[:loggable_id])
     @field_value.update_attributes(checked: !@field_value.checked) if @field_value
 
     render partial: 'check_mark', locals: {loggable: @field_value, form_type: params[:loggable_type]}, layout: false

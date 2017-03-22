@@ -385,6 +385,7 @@ span.select2-selection__arrow{
   margin-bottom: 10px;
   min-height: 75px;
   padding: 5px;
+  margin-top: 5px;
 }
 
 .follow-up-success {
@@ -394,6 +395,7 @@ span.select2-selection__arrow{
   padding-top: 10px !important;
   min-height: 75px;
   padding: 5px;
+  margin-top: 5px;
 }
 
 .resolve-btn {
@@ -426,11 +428,10 @@ hr.note-seperator {
 }
 
 .note-wrapper{
-  width: 52px;
-  float: right;
+  width: 50px;
   position: absolute;
-  right: -60px;
-  top: 33px;
+  right: -50px;
+  margin-top: 50px;
 }
 
 .qtip-blue {
