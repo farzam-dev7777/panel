@@ -345,6 +345,34 @@
 				</header>
 
 				<div>
+					<div class="col-md-12 no-padding activity-search-bar">
+						<form id="search-activity-log" method="GET" action="#">
+							<div class="col-md-3 no-padding-left">
+								<input type="text" name="search_query" placeholder="Type your search query here." style="width: 100%;">
+							</div>
+							<div class="col-md-3">
+								<%= select("event_type", "", ActivityLog::ACTION_TYPE_REASON.map { |k,v| [k.to_s.humanize, k] }, { include_blank: 'All' }) %>
+							</div>
+							<div class="col-md-2">
+								<input type="text" name="startdate" placeholder="From Date" class="datepicker">
+								<input type="hidden" name="action_type" value="form_search">
+							</div>
+							<div class="col-md-2">
+								<input type="text" name="todate" placeholder="To Date" class="datepicker">
+							</div>
+							<div class="col-md-1 no-padding text-right">
+								<button id="search-activity-log-btn" class="btn btn-primary">
+									<i class="fa fa-search"></i> Search
+								</button>
+							</div>
+							<div class="col-md-1 no-padding text-right">
+								<button id="search-activity-log-btn" class="btn btn-danger">
+									<i class="fa fa-times"></i> Reset
+								</button>
+							</div>
+						</form>
+					</div>
+					<div class="clearfix"></div>
 					<!-- MAIN PANEL -->
 					<div role="main">
 

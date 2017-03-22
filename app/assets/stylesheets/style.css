@@ -631,3 +631,13 @@ ul.internal-notes li div {
   font-size: 10px;
   color: #808080;
 }
+
+.activity-search-bar { margin-bottom: 10px; }
+
+.activity-search-bar input[type="text"] {
+  border: 0;
+  border-bottom: 1px solid #ccc;
+  height: 32px;
+}
+
+.no-padding-left { padding-left: 0px !important; }

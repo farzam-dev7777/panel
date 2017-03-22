@@ -36,13 +36,14 @@ class ActivityLog < ApplicationRecord
     low_security_alert: 'There is a security threat',
     decertify: 'The firm has been decertified',
     recertification_process_initiated: 'The recertification process has been initiated',
-    decrease_score: 'Your score has been effected'
+    decrease_score: 'Your score has been effected',
+    action_item_marked_as_complete: 'The Firm has marked the security threat action item complete'
   }.freeze
 
 	def self.log(object)
 		object = object.merge(custom_message: ACTION_TYPE_REASON[object[:event_type].to_sym]) if object[:custom_message]
-        activity_log = ActivityLog.new(object)
-		activity_log.save
+    activity_log = ActivityLog.new(object)
+    law_firm.find_by(id: object[:law_firm_id]).try(:touch) if activity_log.save
 	end
 	
 end

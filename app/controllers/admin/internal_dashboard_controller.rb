@@ -21,8 +21,12 @@ class Admin::InternalDashboardController < Admin::BaseController
   end
 
   def search_activity_logs
-    query = params[:query].blank? ? "% %" : "%#{params[:query].downcase}%"
-    @activity_logs = ActivityLog.joins('INNER JOIN law_firms ON law_firms.id = activity_logs.law_firm_id').where('lower(law_firms.name) LIKE ? OR lower(custom_message) LIKE ? OR lower(event_type) LIKE ?', query, query, query)
+    if (params[:action_type] == 'form_search')
+      @activity_logs = ActivityLog.joins('INNER JOIN law_firms ON law_firms.id = activity_logs.law_firm_id').where( search_filter )
+    else
+      query = params[:query].blank? ? "% %" : "%#{params[:query].downcase}%"
+      @activity_logs = ActivityLog.joins('INNER JOIN law_firms ON law_firms.id = activity_logs.law_firm_id').where('lower(law_firms.name) LIKE ? OR lower(custom_message) LIKE ? OR lower(event_type) LIKE ?', query, query, query)
+    end
     render partial: 'activity_log', locals: {activity_logs: @activity_logs}
   end
 
@@ -37,6 +41,17 @@ class Admin::InternalDashboardController < Admin::BaseController
     last_timestamp = Date.parse(params[:last_timestamp])
     activity_logs = ActivityLog.where('created_at < ?', last_timestamp).order('created_at DESC')
     render partial: 'activity_log', locals: {activity_logs: activity_logs}
+  end
+
+  private
+
+  def search_filter
+    filter = {}
+    filter[:created_at] = Date.parse(params[:fromdate]) if params[:fromdate] && !params[:fromdate].blank?
+    filter[:created_at] = Date.parse(params[:todate]) if params[:todate] && !params[:todate].blank?
+    filter[:created_at] = Date.parse(params[:fromdate])..Date.parse(params[:todate]) if !params[:fromdate].blank? && !params[:todate].blank?
+    filter[:event_type] = params[:event_type].first if !params[:event_type].first.blank?
+    filter
   end
 
 end
