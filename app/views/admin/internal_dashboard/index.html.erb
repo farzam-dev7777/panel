@@ -30,7 +30,7 @@
 			<li class="sparks-info">
 				<a href="/admin/law_firms?filter=decertified">
 					<h5 class="current-month-info"> Decertified 
-						<span class="txt-color-red">- <%= LawFirm.joins(:form_submissions).where("form_submissions.created_at = (SELECT MAX(form_submissions.created_at) FROM form_submissions WHERE form_submissions.law_firm_id = law_firms.id) AND form_submissions.status='decertified'").count %> -</span>
+						<span class="txt-color-red">- <%= LawFirm.joins(:form_submissions).where("form_submissions.created_at = (SELECT MAX(form_submissions.created_at) FROM form_submissions WHERE form_submissions.law_firm_id = law_firms.id) AND form_submissions.status='decertified' OR form_submissions.status='decline'").count %> -</span>
 					</h5>
 				</a>
 			</li>
