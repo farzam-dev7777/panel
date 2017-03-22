@@ -8,6 +8,51 @@ html, #main {
   font-family: 'Roboto', sans-serif;
 }
 
+body.smart-style-6 .table>tbody>tr>td, body.smart-style-6 .table>tbody>tr>th, body.smart-style-6 .table>tfoot>tr>td, body.smart-style-6 .table>tfoot>tr>th, body.smart-style-6 .table>thead>tr>td, body.smart-style-6 .table>thead>tr>th {
+  text-align: center;
+}
+
+.btn-onboard{
+  border-radius: 136px;
+  width: 55px;
+  height: 55px;
+  padding: 20px 0px;
+  font-size: 14px;
+  background-color: transparent !important;
+  border: 0px;
+  margin-bottom: 15px;
+  color: #407640;
+  text-align: center;
+  font-weight: bold;
+  padding: 0px;
+  margin: 0px;
+}
+
+.dataTables_filter .input-group-addon+.form-control{
+  background: #fafafa;
+}
+
+.btn-onboard i{
+  font-size: 40px;
+}
+
+table.dataTable thead .sorting_asc, table.dataTable thead .sorting_desc {
+  background-color: #cccccc !important;
+}
+
+.dataTables_filter .input-group-addon{
+  border: 0px;
+  border-bottom: 1px solid #ccc;
+}
+
+div#dt_basic_length .select2 {
+  display: none;
+}
+
+/*.well input {
+  background: #fbfbfb;
+}*/
+
 .login-page{ 
 		background: #0079C1 !important;
   background-image: url('/assets/bg.png') !important;

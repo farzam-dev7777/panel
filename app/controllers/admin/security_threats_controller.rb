@@ -14,7 +14,7 @@ class Admin::SecurityThreatsController < Admin::BaseController
   def create
     @security_threat = SecurityThreat.new(security_threat_params)
     if (@security_threat.save)
-    	@security_threat.generate_action_items(params)
+    	@security_threat.generate_action_items(params, current_admin_user)
     end
     redirect_to admin_security_threats_path
   end

@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
 
   namespace :admin do
-    devise_for :admin_users, controllers: { sessions: 'admin/internal_sessions' }
+    devise_for :admin_users, controllers: {
+      sessions: 'admin/internal_sessions'
+    }
     resources :law_firms do 
       member do
         get :begin_certification_process
@@ -101,7 +103,10 @@ Rails.application.routes.draw do
     end
   end
 
-  devise_for :users, controllers: { sessions: 'users/sessions' }
+  devise_for :users, controllers: { 
+    sessions: 'users/sessions',
+    passwords: 'users/passwords' 
+  }
   namespace :users do
   end
   root to: "dashboard#index"

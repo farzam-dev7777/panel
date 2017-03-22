@@ -54,7 +54,7 @@ class Admin::LawFirmsController < Admin::BaseController
 
   def begin_certification_process
     @law_firm = LawFirm.find(params[:id])
-    FormSubmission.generate_initial_submissions(@law_firm)
+    FormSubmission.generate_initial_submissions(@law_firm, current_admin_user)
     redirect_to :admin_law_firms
   end
 

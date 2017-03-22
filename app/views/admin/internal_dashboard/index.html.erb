@@ -1,12 +1,12 @@
 <div>
 
-	<div class="col-xs-12 col-sm-5 col-md-7 col-lg-7">
+	<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
 		<ul id="sparks" class="text-left">
 			<li class="sparks-info">
 				<a href="/admin/law_firms?filter=certified">
-					<h5 class="current-month-info"> Certified 
-						<span class="txt-color-green">
-							- <%= LawFirm.joins(:form_submissions).where("form_submissions.created_at = (SELECT MAX(form_submissions.created_at) FROM form_submissions WHERE form_submissions.law_firm_id = law_firms.id) AND form_submissions.status='approved'").count %> -
+					<h5 class="current-month-info"> Onboarded 
+						<span class="txt-color">
+							- <%= LawFirm.where('id NOT IN (SELECT DISTINCT(law_firm_id) FROM form_submissions)').count %> -
 						</span>
 					</h5>
 				</a>
@@ -15,6 +15,15 @@
 				<a href="/admin/law_firms?filter=under_process">
 					<h5 class="current-month-info"> In Process 
 						<span class="txt-color-yellow">- <%= LawFirm.joins(:form_submissions).where("form_submissions.created_at = (SELECT MAX(form_submissions.created_at) FROM form_submissions WHERE form_submissions.law_firm_id = law_firms.id) AND form_submissions.status='sent'").count %> -</span>
+					</h5>
+				</a>
+			</li>
+			<li class="sparks-info">
+				<a href="/admin/law_firms?filter=certified">
+					<h5 class="current-month-info"> Certified 
+						<span class="txt-color-green">
+							- <%= LawFirm.joins(:form_submissions).where("form_submissions.created_at = (SELECT MAX(form_submissions.created_at) FROM form_submissions WHERE form_submissions.law_firm_id = law_firms.id) AND form_submissions.status='approved'").count %> -
+						</span>
 					</h5>
 				</a>
 			</li>
@@ -29,7 +38,10 @@
 	</div>
 
 	<div class="col-md-4 pull-right">
-		<%= link_to "Create New Law Firm", new_admin_law_firm_path, class: "btn btn-primary btn-md pull-right" %>
+		<%= link_to new_admin_law_firm_path, class: "btn-onboard btn-green pull-right" do %>
+			<i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
+			<p>Onboard</p>
+		<% end %>
 	</div>
 
 </div>
@@ -142,7 +154,7 @@
 
 
 <% content_for :page_title do %>
-<span>Law Firms</span>
+	<span>Law Firms</span>
 <% end %>
 
 
@@ -214,33 +226,34 @@
 			<div class="widget-body">
 
 				<div class="table-responsive">
-					<table class="table table-bordered">
+					<table id="db_lfs" class="table table-striped table-bordered table-hover">
 
-						<tr>
+						<thead>
 							<th>Name</th>
 							<th>Status</th>
-							<th>Created At</th>
+							<th>Last Updated At</th>
 							<th>Score</th>
-						</tr>
+						</thead>
 
-						<% @law_firms.each do |firm| %>
-						<tr>
-							<td><%= link_to firm.name, admin_law_firm_path(firm) %>	</td>
-							<td><%= firm.form_submissions.latest.try(:status).try(:humanize) %></td>
-							<td><%= time_ago_in_words(firm.created_at) %> ago</td>
-							<td class="text-center">
-								<div> 
-									<span class="percent txt-color-blue semi-bold">
-										<% if firm.form_submissions.try(:latest).try(:total_score) %>
-										<div class="total-score" data-score=<%= firm.form_submissions.try(:latest).try(:total_score) %>></div>
-										<% end %>
-										
-									</span> 
-								</div>
-							</td>
-						</tr>
-
-						<% end %>
+						<tbody>
+							<% @law_firms.each do |firm| %>
+								<tr>
+									<td><%= link_to firm.name, admin_law_firm_path(firm) %>	</td>
+									<td><%= firm.form_submissions.latest.try(:status).try(:humanize) %></td>
+									<td><%= firm.updated_at.strftime(LawFirm::TIME_FORMAT) %></td>
+									<td class="text-center">
+										<div> 
+											<span class="percent txt-color-blue semi-bold">
+												<% if firm.form_submissions.try(:latest).try(:total_score) %>
+												<div class="total-score" data-score=<%= firm.form_submissions.try(:latest).try(:total_score) %>></div>
+												<% end %>
+												
+											</span> 
+										</div>
+									</td>
+								</tr>
+							<% end %>
+						</tbody>
 
 					</table>
 					<div class="clearfix"></div>

@@ -177,7 +177,7 @@
 			
 			<!-- col -->
 			<div class="col-xs-12 col-lg-12">
-				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 page-title">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 page-title no-margin">
 					<%= yield :page_buttons %>
 				</div>
 			</div>
@@ -564,6 +564,28 @@
 				},
 				"drawCallback" : function(oSettings) {
 					responsiveHelper_dt_basic.respond();
+				}
+			});
+
+			var responsiveHelper_dashboard_lf = undefined;
+			$('#db_lfs').dataTable({
+				"sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'><'col-sm-6 col-xs-12 hidden-xs'>r>"+
+					"t"+
+					"<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'><'col-xs-12 col-sm-6'>>",
+				"autoWidth" : true,
+		        "oLanguage": {
+				    "sSearch": '<span class="input-group-addon"><i class="fa fa-search"></i></span>'
+				},
+				"preDrawCallback" : function() {
+					if (!responsiveHelper_dashboard_lf) {
+						responsiveHelper_dashboard_lf = new ResponsiveDatatablesHelper($('#db_lfs'), breakpointDefinition);
+					}
+				},
+				"rowCallback" : function(nRow) {
+					responsiveHelper_dashboard_lf.createExpandIcon(nRow);
+				},
+				"drawCallback" : function(oSettings) {
+					responsiveHelper_dashboard_lf.respond();
 				}
 			});
 

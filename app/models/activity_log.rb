@@ -1,7 +1,7 @@
 class ActivityLog < ApplicationRecord
 	belongs_to :loggable, polymorphic: true
 
-  belongs_to :law_firm
+    belongs_to :law_firm, touch: true
 
 	scope :notifications,  -> { where(notify: true) }
 	scope :unread,  -> { where("notify = ? AND read != ?", true, true) }
@@ -21,29 +21,29 @@ class ActivityLog < ApplicationRecord
 	}
 
 	ACTION_TYPE_REASON = {
-    account_created: 'Firm\'s account was created',
+    account_created: 'Onboarded',
     todo_task_created: 'A Todo task was created',
-    information_security_policy_request_initiated: 'Certification process started',
-    seal_certification_process_initiated: 'SEAL Certification process started',
-    information_security_policy_submitted: 'Information security policy submitted',
-    information_security_policy_review_started: 'Review for information security policy started',
-    follow_up: 'The assessor requested follow up question(s)',
-    approved: 'The SEAL Certification has been approved',
-    declined: 'The SEAL Certification has been declined',
-    recertification_process_initiated: 'The assessor initiated a recertification process',
-    critical_security_alert: 'There is a critical security alert',
-    high_security_alert: 'There is a high priority security threat',
-    low_security_alert: 'There is a security threat',
-    decertify: 'The firm has been decertified',
-    recertification_process_initiated: 'The recertification process has been initiated',
-    decrease_score: 'Your score has been effected',
+    information_security_policy_request_initiated: 'SEAL process started (Bank)',
+    seal_certification_process_initiated: 'SEAL process started (LawFirm)',
+    information_security_policy_submitted: 'SEAL form submitted',
+    information_security_policy_review_started: 'SEAL form under review',
+    follow_up: 'Follow up requested',
+    approved: 'SEAL Certification approved',
+    declined: 'SEAL Certification declined',
+    recertification_process_initiated: 'Recertication started',
+    critical_security_alert: 'Critical Alert',
+    high_security_alert: 'High Priority Alert',
+    low_security_alert: 'Low Priority Alert',
+    decertify: 'Decertified',
+    recertification_process_initiated: 'Recertification process started',
+    decrease_score: 'SEAL score impacted',
     action_item_marked_as_complete: 'The Firm has marked the security threat action item complete'
   }.freeze
 
 	def self.log(object)
 		object = object.merge(custom_message: ACTION_TYPE_REASON[object[:event_type].to_sym]) if object[:custom_message]
     activity_log = ActivityLog.new(object)
-    law_firm.find_by(id: object[:law_firm_id]).try(:touch) if activity_log.save
+    LawFirm.find_by(id: object[:law_firm_id]).try(:touch) if activity_log.save
 	end
 	
 end

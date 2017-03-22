@@ -23,7 +23,7 @@
            Suggestion: You may want to set a flag when this happens to tick off all checked messages / notifications -->
         <span id="activity" class="activity-dropdown"> 
           <i class="fa fa-user"></i> 
-          <b class="badge"> <%= unread_notifications_count %> </b> 
+          <b class="badge"> <%= unread_notifications_count if current_user %> </b>
         </span>
 
         <!-- AJAX-DROPDOWN : control this dropdown height, look and feel from the LESS variable file -->
@@ -46,12 +46,14 @@
           <div class="ajax-notifications custom-scroll no-padding">
 
             <ul class="notifications">
-              <%- notifications.reverse.each do |notification| %>
-                <li class="<%= notification.read ? 'read' : 'unread' %>">
-                  <strong><%= notification.event_type.titleize %></strong>
-                  <p><%= notification.custom_message %></p>
-                  <p class="date"><%= notification.created_at.strftime('%a, %d %b %Y') %></p>
-                </li>
+              <%- if current_user %>
+                <%- notifications.reverse.each do |notification| %>
+                  <li class="<%= notification.read ? 'read' : 'unread' %>">
+                    <strong><%= notification.event_type.titleize %></strong>
+                    <p><%= notification.custom_message %></p>
+                    <p class="date"><%= notification.created_at.strftime('%a, %d %b %Y') %></p>
+                  </li>
+                <%- end %>
               <%- end %>
             </ul>
 
