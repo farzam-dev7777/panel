@@ -8,11 +8,9 @@
 	<%= link_to "<i class='fa fa-long-arrow-left'></i> Back".html_safe, admin_law_firms_path, class: "btn btn-default" %>
 </div>
 <div class="col-md-4"></div>
-<% if(@law_firm.form_submissions.any? && @law_firm.form_submissions.latest.status == 'approved') %>
 	<div class="col-lg-1 text-right">
 		<%= link_to "<i class='fa fa-pencil-square-o'></i> Edit".html_safe, edit_admin_law_firm_path, class: "btn btn-primary" %>
 	</div>
-<% end %>
 <% if (@law_firm.form_submissions.any? && @law_firm.form_submissions.latest.status == 'decertified') %>
 	
 	<div class="col-lg-1 text-right">
@@ -30,9 +28,11 @@
 
 <% else %>
 
+<% if(@law_firm.form_submissions.any? && @law_firm.form_submissions.latest.status == 'approved') %>
 	<div class="col-lg-1 text-right">
 		<a class="btn btn-danger decertify-btn" data-id='<%= @law_firm.id %>' data-name='<%= @law_firm.name %>'>Decertify</a>
 	</div>
+<% end %>
 	<p>&nbsp;</p>
 
 <% end %>

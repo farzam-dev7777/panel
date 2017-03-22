@@ -727,6 +727,7 @@ $('#search-activity-log-btn').on('click', function(){
   $("#search_activity_log").submit();
 })
 $("#search-activity-log").on('submit', function(e){
+  debugger;
   e.preventDefault();
   $.ajax({
     method: 'GET',
