@@ -21,8 +21,10 @@ class Admin::InternalDashboardController < Admin::BaseController
   end
 
   def search_activity_logs
+
     if (params[:action_type] == 'form_search')
-      @activity_logs = ActivityLog.joins('INNER JOIN law_firms ON law_firms.id = activity_logs.law_firm_id').where( search_filter )
+      @activity_logs = ActivityLog.joins('INNER JOIN law_firms ON law_firms.id = activity_logs.law_firm_id').where( search_filter ) if params[:search_query].blank?
+      @activity_logs = ActivityLog.joins('INNER JOIN law_firms ON law_firms.id = activity_logs.law_firm_id').where( 'law_firms.name LIKE ?', "%#{params[:search_query]}%" ) if !params[:search_query].blank?
     else
       query = params[:query].blank? ? "% %" : "%#{params[:query].downcase}%"
       @activity_logs = ActivityLog.joins('INNER JOIN law_firms ON law_firms.id = activity_logs.law_firm_id').where('lower(law_firms.name) LIKE ? OR lower(custom_message) LIKE ? OR lower(event_type) LIKE ?', query, query, query)

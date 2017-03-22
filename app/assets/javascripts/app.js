@@ -727,14 +727,13 @@ $('#search-activity-log-btn').on('click', function(){
   $("#search_activity_log").submit();
 })
 $("#search-activity-log").on('submit', function(e){
-  debugger
   e.preventDefault();
   $.ajax({
     method: 'GET',
     url: '/admin/internal_dashboard/search_activity_logs',
     data: $(this).serialize(),
     success: function(response) {
-      if(response == ""){
+      if(response != ""){
         $('ul.smart-timeline-list').html(response);
       }
     }
