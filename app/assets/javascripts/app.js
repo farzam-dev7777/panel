@@ -726,8 +726,14 @@ $(document).on('click', '#load-more-activities', function(){
 $('#search-activity-log-btn').on('click', function(){
   $("#search_activity_log").submit();
 })
+
+$('#reset-activity-log-btn').on('click', function(){
+  $("#search-activity-log").find("input[type=text], textarea").val("");
+  $("#search-activity-log").find("select").val("All");
+  $("#search-activity-log").find("select").select2();
+  $("#search-activity-log").submit();
+})
 $("#search-activity-log").on('submit', function(e){
-  debugger;
   e.preventDefault();
   $.ajax({
     method: 'GET',
@@ -736,6 +742,8 @@ $("#search-activity-log").on('submit', function(e){
     success: function(response) {
       if(response != ""){
         $('ul.smart-timeline-list').html(response);
+      } else {
+        toastr.info("Your search query didn't yield any results");
       }
     }
   })

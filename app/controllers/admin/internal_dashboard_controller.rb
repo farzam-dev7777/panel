@@ -7,7 +7,7 @@ class Admin::InternalDashboardController < Admin::BaseController
   ACTIVITY_LOG_DAYS = 10
 
   def index
-    @law_firms = LawFirm.distinct.joins(:form_submissions).order('law_firms.updated_at').limit(5)
+    @law_firms = LawFirm.distinct.joins(:form_submissions).order('law_firms.updated_at DESC').limit(5)
     @activity_logs = ActivityLog.where('created_at > ?', ACTIVITY_LOG_DAYS.days.ago).order('created_at DESC')
     @security_threats = SecurityThreat.distinct.joins('INNER JOIN action_items ON action_items.security_threat_id =  security_threats.id').joins('INNER JOIN queued_notifications ON queued_notifications.action_item_id = action_items.id').where('queued_notifications.triggered = false').limit(5)
   end
@@ -23,8 +23,9 @@ class Admin::InternalDashboardController < Admin::BaseController
   def search_activity_logs
 
     if (params[:action_type] == 'form_search')
-      @activity_logs = ActivityLog.joins('INNER JOIN law_firms ON law_firms.id = activity_logs.law_firm_id').where( search_filter ) if params[:search_query].blank?
-      @activity_logs = ActivityLog.joins('INNER JOIN law_firms ON law_firms.id = activity_logs.law_firm_id').where( 'law_firms.name LIKE ?', "%#{params[:search_query]}%" ) if !params[:search_query].blank?
+      query = ActivityLog.joins('INNER JOIN law_firms ON law_firms.id = activity_logs.law_firm_id').where( search_filter )
+      @activity_logs =  query if params[:search_query].blank?
+      @activity_logs = query.where( 'law_firms.name LIKE ?', "%#{params[:search_query]}%" ) if !params[:search_query].blank?
     else
       query = params[:query].blank? ? "% %" : "%#{params[:query].downcase}%"
       @activity_logs = ActivityLog.joins('INNER JOIN law_firms ON law_firms.id = activity_logs.law_firm_id').where('lower(law_firms.name) LIKE ? OR lower(custom_message) LIKE ? OR lower(event_type) LIKE ?', query, query, query)
@@ -52,7 +53,7 @@ class Admin::InternalDashboardController < Admin::BaseController
     filter[:created_at] = Date.parse(params[:fromdate]) if params[:fromdate] && !params[:fromdate].blank?
     filter[:created_at] = Date.parse(params[:todate]) if params[:todate] && !params[:todate].blank?
     filter[:created_at] = Date.parse(params[:fromdate])..Date.parse(params[:todate]) if !params[:fromdate].blank? && !params[:todate].blank?
-    filter[:event_type] = params[:event_type].first if !params[:event_type].first.blank?
+    filter[:event_type] = params[:event_type].first if params[:event_type] && !params[:event_type].first.blank?
     filter
   end
 

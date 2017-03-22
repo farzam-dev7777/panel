@@ -359,7 +359,8 @@
 
 				<div>
 					<div class="col-md-12 no-padding activity-search-bar">
-						<form id="search-activity-log" method="GET" action="">
+						<form id="search-activity-log" method="GET">
+							<input type="hidden" name="action_type" value="form_search">
 							<div class="col-md-3 no-padding-left">
 								<input type="text" name="search_query" placeholder="Type your search query here." style="width: 100%;">
 							</div>
@@ -368,7 +369,6 @@
 							</div>
 							<div class="col-md-2">
 								<input type="text" name="startdate" placeholder="From Date" class="datepicker">
-								<input type="hidden" name="action_type" value="form_search">
 							</div>
 							<div class="col-md-2">
 								<input type="text" name="todate" placeholder="To Date" class="datepicker">
@@ -379,7 +379,7 @@
 								</button>
 							</div>
 							<div class="col-md-1 no-padding text-right">
-								<button id="search-activity-log-btn" class="btn btn-danger">
+								<button id="reset-activity-log-btn" class="btn btn-danger">
 									<i class="fa fa-times"></i> Reset
 								</button>
 							</div>
