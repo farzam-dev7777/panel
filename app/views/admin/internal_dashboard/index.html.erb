@@ -14,7 +14,7 @@
 			<li class="sparks-info">
 				<a href="/admin/law_firms?filter=under_process">
 					<h5 class="current-month-info"> In Process 
-						<span class="txt-color-yellow">- <%= LawFirm.joins(:form_submissions).where("form_submissions.created_at = (SELECT MAX(form_submissions.created_at) FROM form_submissions WHERE form_submissions.law_firm_id = law_firms.id) AND form_submissions.status='sent' OR  form_submissions.status='submitted'").count %> -</span>
+						<span class="txt-color-yellow">- <%= LawFirm.joins(:form_submissions).where("form_submissions.created_at = (SELECT MAX(form_submissions.created_at) FROM form_submissions WHERE form_submissions.law_firm_id = law_firms.id) AND form_submissions.status='sent' OR  form_submissions.status='submitted' OR  form_submissions.status='started'").count %> -</span>
 					</h5>
 				</a>
 			</li>
