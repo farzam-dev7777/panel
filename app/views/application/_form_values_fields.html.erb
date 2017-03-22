@@ -9,10 +9,10 @@
           <%= v.input :submittable_id, as: :hidden %>
           <%= v.input :submittable_type, as: :hidden %>
           <% if field.group_form_id %>
-            <label><strong><%= field.group_form.try(:name) %></strong></label>
+            <label class=" <%= follow_up_class(params[:id], v.object.id, 'FormValue') %> "><strong><%= field.group_form.try(:name) %></strong></label>
             <%= render "form_values_fields", f: f, form_values: @form_submission.build_values(field.group_form.form_fields, current_step), step: step, group_form: true, sub_fields: false %>
           <% else %>
-            <div class="wrapper field-wrapper-<%= field.id %>">
+            <div class="wrapper field-wrapper-<%= field.id %>  <%= follow_up_class(params[:id], v.object.id, 'FormValue') %> ">
               <% begin %>
                 <%= render "/application/form_values/#{field.type.underscore}", v: v, f: f, field: field %>
               <% rescue ActionView::MissingTemplate => e %>

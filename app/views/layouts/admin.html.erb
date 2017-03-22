@@ -1,4 +1,4 @@
-	<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en-us">
   <head>
     <title><%= params[:controller] %> Bluehound</title>
@@ -23,6 +23,16 @@
 
 			<!-- AJAX-DROPDOWN : control this dropdown height, look and feel from the LESS variable file -->
 			<!-- END AJAX-DROPDOWN -->
+		</div>
+
+		<div class="col-md-7 col-md-offset-1 text-center portal-type">
+			<p>Bank Portal</p>
+		</div>
+
+		<div class="onboard-btn white-text">
+			<%= link_to new_admin_law_firm_path, class: "white-text pull-right" do %>
+				<i class="fa fa-arrow-circle-up" aria-hidden="true"></i> Onboard
+			<% end %>
 		</div>
 
 		
@@ -60,11 +70,6 @@
 					</ul>
 				</li>
 			</ul>
-			
-			<!-- collapse menu button -->
-			<!-- <div id="hide-menu" class="btn-header pull-right hidden-lg">
-				<span> <a href="javascript:void(0);" data-action="toggleMenu" title="Collapse Menu"><i class="fa fa-reorder"></i></a> </span>
-			</div> -->
 
 			<!-- logout button -->
 			<div id="logout" class="btn-header transparent pull-right">
@@ -181,8 +186,6 @@
 					<%= yield :page_buttons %>
 				</div>
 			</div>
-
-			<p>&nbsp;</p>
 
 			<!-- end col -->
 			<div class="col-lg-12 table-striped table-hover">
@@ -588,6 +591,22 @@
 					responsiveHelper_dashboard_lf.respond();
 				}
 			});
+
+			var accordionIcons = {
+			   header: "fa fa-plus",    // custom icon class
+			   activeHeader: "fa fa-minus" // custom icon class
+			};
+		     
+			$("#accordion").accordion({
+				autoHeight : true,
+				heightStyle : "content",
+				collapsible : true,
+				animate : 300,
+				icons: accordionIcons,
+				header : "h4",
+			})
+
+			$('#tabs').tabs();
 
 		</script>
 

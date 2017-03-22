@@ -57,7 +57,7 @@
 													<th>Phone</th>
 													<th>Score</th>
 													<th>Onboarded</th>
-													<th>Certification Status</th>
+													<th>Status</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -77,18 +77,11 @@
 														</td>
 														<td><%= firm.created_at.strftime(LawFirm::TIME_FORMAT) %></td>
 														<td class="text-center">
-															<% if !firm.form_submissions.any? %>	
-																<%= link_to "Start", begin_certification_process_admin_law_firm_path(firm), class: "btn btn-primary btn-xs" %>	
-															<% elsif firm.form_submissions.approved.latest.try(:status) == 'approved' %>	
-																<%= link_to "Begin Recertification Process", begin_certification_process_admin_law_firm_path(firm), class: "btn btn-primary btn-xs" %>	
-															<% elsif firm.form_submissions.latest.try(:status) == 'sent' %>
-																<%= link_to "Waiting for Law Firm", '#', class: "btn btn-primary btn-xs", disabled: true %>		
-															<% elsif firm.form_submissions.latest.try(:status) == 'started' %>
-																<%= link_to "Started", "#", class: "btn btn-default btn-xs", disabled: true %>
-															<% elsif firm.form_submissions.latest.try(:status) == 'submitted' %>
-																<%= link_to "Review Submission", policy_step_admin_form_submission_path(firm.form_submissions.latest), class: "btn btn-primary btn-xs" %>	
+															<% if firm.form_submissions.any? %>
+																<span class="label label-<%= submission_status_class(firm.form_submissions.latest) %>"><%= firm.form_submissions.latest.try(:status).titleize %></span>
+																<%=  %>
 															<% else %>
-																<%= link_to firm.form_submissions.latest.try(:status).try(:humanize) || '-', "#", class: "btn btn-default btn-xs", disabled: true %>
+																-
 															<% end %>
 														</td>
 													</tr>

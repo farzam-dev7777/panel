@@ -6,7 +6,7 @@ class Admin::LawFirmsController < Admin::BaseController
 
   def index
     @q = law_firms.ransack(params[:q])
-    @law_firms = @q.result(distinct: true)
+    @law_firms = @q.result(distinct: true).order('created_at ASC')
     add_breadcrumb "Law Firms", :admin_law_firms_path
   end
 
