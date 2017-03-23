@@ -10,7 +10,7 @@ $(document).ready(function(){
     $( "#accordion" ).accordion();
   } );
 
-  $('.form_submission_form_values_value input, .form_submission_form_values_value select').each(function(){
+  $('.form_submission_form_values_value input, .form_submission_form_values_value select, .form_submission_form_values_value textarea').each(function(){
      prepareForCustomLogic($(this));
   })
 
@@ -151,6 +151,7 @@ $(document).ready(function(){
   if(window.location.pathname.indexOf("/admin/form_submissions/") > -1){
     $('select').attr('disabled', 'true');
     $('input[type="text"]').attr('disabled', 'true');
+    $('input[type="number"]').attr('disabled', 'true');
     $('textarea').attr('disabled', 'true');
     $('.score-form input').removeAttr('disabled');
     $('#notes-modal .input > div textarea').removeAttr('disabled');
@@ -500,7 +501,6 @@ $(document).ready(function(){
     },
     readOnly: true,
     onInit: function (rating, rateYoInstance) {
-      debugger;
       rating = $(this).data().score;
       $(this).rateYo("rating", rating);
     }
@@ -644,7 +644,7 @@ function showIfCustomLogicMatched(currentField){
   }
   targetFieldId = currentField.parent().parent().siblings('.form_submission_form_values_form_field_id').find('input').val();
   $("*[data-show-when-field-id='"+ targetFieldId +"']").each(function(){
-    if($(this).data("show-when-value") == currentField.val()){
+    if($(this).data("show-when-value") == currentField.val() || ($(this).data("show-when-value") == "" && currentField.val() != "")){
       $(this).show();
       $(this).find("select").select2();
     }else{
@@ -660,46 +660,49 @@ function prepareForCustomLogic(currentField){
 }
 
 $(document).ready(function(){
-  var chart = new CanvasJS.Chart("chartContainer",
-    {
-      title:{
-        text: "Law Firms Compliance/Risk Analysis",      
-        fontFamily: '"Roboto",Arial,Helvetica,Sans-Serif',
-        fontColor: "DarkSlateGrey"
-      },
-      animationEnabled: true,
-      axisX: {
-        title:"Risk",
-        titleFontFamily: '"Roboto",Arial,Helvetica,Sans-Serif'
-      },
-      axisY:{
-        title: "Compliance",
-        titleFontFamily: '"Roboto",Arial,Helvetica,Sans-Serif',
-        valueFormatString:"0",
-        titleFontSize: 12
-      },
+  if($("#chartContainer").length > 0){
 
-      data: [
-      {        
-        type: "scatter",  
-        toolTipContent: "<span style='\"'color: {color};'\"'><strong>{name}</strong></span> <br/> <strong>Compliance</strong> {y} <br/> <strong>Risk</strong> {x} ",
-        dataPoints: [
+    var chart = new CanvasJS.Chart("chartContainer",
+      {
+        title:{
+          text: "Law Firms Compliance/Risk Analysis",      
+          fontFamily: '"Roboto",Arial,Helvetica,Sans-Serif',
+          fontColor: "DarkSlateGrey"
+        },
+        animationEnabled: true,
+        axisX: {
+          title:"Risk",
+          titleFontFamily: '"Roboto",Arial,Helvetica,Sans-Serif'
+        },
+        axisY:{
+          title: "Compliance",
+          titleFontFamily: '"Roboto",Arial,Helvetica,Sans-Serif',
+          valueFormatString:"0",
+          titleFontSize: 12
+        },
 
-        { y: 4,   x: 1070,name:"Preszler Law Firm" },
-        { y: 4.1, x: 2275,name:"Niren & Associates Immigration Law Firm" },
-        { y: 4.2, x: 1265,name:"E&A Law Firm - Toronto Family Law Attorney" },
-        { y: 3.9, x: 755,name:"Shulman Law Firm" },
-        { y: 4.5, x: 1800,name:"Kahler Personal Injury Law Firm" },
-        { y: 4,   x: 545,name:"Worsoff Law Firm" },    
-        { y: 4,   x: 1245,name:"Borders Law Firm Immigration Lawyers" },
-        { y: 3.8, x: 1221,name:"Wires Law" },
-        { y: 2.1, x: 801,name:"The Law Firm of Ted Yoannou" },
-        { y: 2.5, x: 435,name:"Kruse Law" }
+        data: [
+        {        
+          type: "scatter",  
+          toolTipContent: "<span style='\"'color: {color};'\"'><strong>{name}</strong></span> <br/> <strong>Compliance</strong> {y} <br/> <strong>Risk</strong> {x} ",
+          dataPoints: [
+
+          { y: 4,   x: 1070,name:"Preszler Law Firm" },
+          { y: 4.1, x: 2275,name:"Niren & Associates Immigration Law Firm" },
+          { y: 4.2, x: 1265,name:"E&A Law Firm - Toronto Family Law Attorney" },
+          { y: 3.9, x: 755,name:"Shulman Law Firm" },
+          { y: 4.5, x: 1800,name:"Kahler Personal Injury Law Firm" },
+          { y: 4,   x: 545,name:"Worsoff Law Firm" },    
+          { y: 4,   x: 1245,name:"Borders Law Firm Immigration Lawyers" },
+          { y: 3.8, x: 1221,name:"Wires Law" },
+          { y: 2.1, x: 801,name:"The Law Firm of Ted Yoannou" },
+          { y: 2.5, x: 435,name:"Kruse Law" }
+          ]
+        }
         ]
-      }
-      ]
-    });
-    chart.render();
+      });
+      chart.render();
+    }
 })
 
 
