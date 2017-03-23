@@ -619,6 +619,7 @@ ul.internal-notes li div {
   -moz-transition: -moz-transform 0.15s linear;
   -o-transition: -o-transform 0.15s linear;
   -webkit-transition: -webkit-transform 0.15s linear;
+  overflow: scroll;
 }
 
 #new-note {
@@ -631,8 +632,12 @@ ul.internal-notes li div {
   resize: none;
 }
 
+#internal-note-form {
+  margin-bottom: 110px !important;
+}
+
 #internal-note-form input[type="submit"] {
-  padding: 35px;
+  padding: 35px 29px;
   font-size: 20px;
 }
 
@@ -701,6 +706,11 @@ ul.internal-notes li div {
 
 #db_lfs_wrapper .dt-toolbar-footer {
   padding: 0 !important;
+}
+
+.content-in-jarvis {
+  margin-bottom: 20px !important;
+  margin-top: 10px !important;
 }
 
 .portal-type{ 

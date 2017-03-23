@@ -49,15 +49,23 @@ module FormSubmissionHelper
   end
 
   def submission_status_class(submission)
-    if (submission.follow_ups.map(&:status).count('pending') > 0)
-      'warning'
-    elsif (submission.follow_ups.map(&:status).count('review') > 0)
-      'info'
-    elsif (submission.submitted && submission.submitted_on)
+    if (submission.status == 'approved')
       'success'
+    elsif (submission.status == 'declined')
+      'warning'
     else
-      'default'
+      'info'
     end
+          
+    # if (submission.follow_ups.map(&:status).count('pending') > 0)
+    #   'warning'
+    # elsif (submission.follow_ups.map(&:status).count('review') > 0)
+    #   'info'
+    # elsif (submission.submitted && submission.submitted_on)
+    #   'success'
+    # else
+    #   'default'
+    # end
   end
 
   def find_follow_up(filters)
