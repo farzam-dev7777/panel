@@ -380,6 +380,10 @@ span.select2-selection__arrow{
   border: none;
 }
 
+#ribbon{
+  padding: 0 26px !important;
+}
+
 .qtip-icon .ui-icon {
   font: normal bold 12px/16px Tahoma,sans-serif;
 }
