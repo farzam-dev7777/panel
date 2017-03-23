@@ -155,13 +155,13 @@
 											</td>
 											<td>
 												<% if submission.try(:status) == 'approved' %>	
-													<%= link_to "Begin Recertification Process", begin_certification_process_admin_law_firm_path(firm), class: "btn btn-primary btn-xs" %>	
+													<%= link_to "Begin Recertification Process", begin_certification_process_admin_law_firm_path(submission.law_firm), class: "btn btn-primary btn-xs" %>	
 												<% elsif submission.try(:status) == 'sent' %>
 													<%= link_to "Waiting for Law Firm", '#', class: "btn btn-primary btn-xs", disabled: true %>		
 												<% elsif submission.try(:status) == 'started' %>
 													<%= link_to "Started", "#", class: "btn btn-default btn-xs", disabled: true %>
 												<% elsif submission.try(:status) == 'submitted' %>
-													<%= link_to "Review Submission", policy_step_admin_form_submission_path(submission), class: "btn btn-primary btn-xs" %>	
+													<%= link_to "Review Submission", policy_step_admin_form_submission_path(submission.law_firm), class: "btn btn-primary btn-xs" %>	
 												<% else %>
 													<%= link_to submission.try(:status).try(:humanize) || '-', "#", class: "btn btn-default btn-xs", disabled: true %>
 												<% end %>

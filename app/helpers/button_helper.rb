@@ -27,30 +27,8 @@ module ButtonHelper
   end
 
   def gauge(submission)
-    ('<div class="col-md-12">
-          <article class="col-sm-12">
-            <div class="jarviswidget">
-                <header>
-                  <span class="widget-icon"> <i class="fa fa-bar-chart"></i> </span>
-                  <h2><strong>SEAL</strong> Rating </h2>
-                </header>
-                <div class="no-padding">
-                  <div class="widget-body">
-                    <div id="myTabContent" class="tab-content">
-                      <div class="tab-pane fade active in padding-10 no-padding-bottom" id="s1">
-                        <div class="row no-space text-center">
-                          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                            <div id="law-firm-rating" class="force-center"></div>
-                            <p><b>' + submission.status.try(:humanize) + ' (' + submission.total_score.try(:to_s) + ' star rating)</b></p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </article>
-          </div>').html_safe
+    '<div id="law-firm-rating" class="force-center"></div>'.html_safe
+    submission.status.try(:humanize) + ' (' + submission.total_score.try(:to_s)
   end
 
 end
