@@ -9,43 +9,52 @@
 
 <div class="clearfix"></div>
 
-<div class="col-lg-8 col-md-8 col-sm-12">
 
-	<div class="table-responsive">
-		<table class="table table-bordered">
 
-			<tr>
-				<th>Title</th>
-				<th>Severity</th>
-				<th>Submitted</th>
-				<th>Action</th>
-			</tr>
 
-			<% @security_alerts.each do |alert| %>
-				<tr>
-					<td><%= alert.title %></td>
-					<td><%= alert.severity %></td>
-					<td><%= "#{time_ago_in_words(alert.created_at)} ago" %></td>
-					<td class="text-center">
-						<%= link_to "Edit", edit_admin_security_alert_path(alert), class: "btn btn-primary" %>	
-					</td>
-				</tr>
-				
-			<% end %>
+<div class="jarviswidget jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+	<header>
+		<span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
+		<h2 class="font-md"><strong>Current Alerts </strong></h2>				
+	</header>
+	<div class="no-padding">
+		<div class="jarviswidget-editbox"></div>
+		<!-- widget content -->
+		<div class="widget-body">
 
-		</table>
-		<div class="clearfix"></div>
+			<div class="col-lg-12 col-md-12 col-sm-12">
 
-		<%= will_paginate @security_alerts, renderer: BootstrapPagination::Rails %>
+				<div class="table-responsive">
+					<table class="table table-bordered" id="sec-alert">
+						<thead>
+							<tr style="background: #007ac3;color: #fff;">
+								<th>Title</th>
+								<th>Severity</th>
+								<th>Submitted</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<% @security_alerts.each do |alert| %>
+								<tr>
+									<td><%= alert.title %></td>
+									<td><%= alert.severity %></td>
+									<td><%= "#{time_ago_in_words(alert.created_at)} ago" %></td>
+									<td class="text-center">
+										<%= link_to "Edit", edit_admin_security_alert_path(alert), class: "btn btn-primary" %>	
+									</td>
+								</tr>
+							<% end %>
+						</tbody>
+
+					</table>
+					<div class="clearfix"></div>
+
+					<%= will_paginate @security_alerts, renderer: BootstrapPagination::Rails %>
+				</div>
+			</div>	
+
+		</div>
 	</div>
 </div>
-
-<div class="col-lg-4">
-	<div class="well">
-		<%= simple_form_for @q, url: :admin_law_firms, method: :get do |f| %>
-		  <%= f.input :title_cont, label: "Title", class: 'form-control' %>
-		  <%= f.button :submit, "Search", class: "btn btn-primary" %>
-		<% end %>
-	</div>
-</div>
-

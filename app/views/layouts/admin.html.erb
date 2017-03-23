@@ -572,6 +572,50 @@
 				}
 			});
 
+			var responsiveHelper_sec_threat = undefined;
+			$('#sec-threat').dataTable({
+				"sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-12 hidden-xs'l>r>"+
+					"t"+
+					"<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-xs-12 col-sm-6'p>>",
+				"autoWidth" : true,
+		        "oLanguage": {
+				    "sSearch": '<span class="input-group-addon"><i class="fa fa-search"></i></span>'
+				},
+				"preDrawCallback" : function() {
+					if (!responsiveHelper_sec_threat) {
+						responsiveHelper_sec_threat = new ResponsiveDatatablesHelper($('#sec-threat'), breakpointDefinition);
+					}
+				},
+				"rowCallback" : function(nRow) {
+					responsiveHelper_sec_threat.createExpandIcon(nRow);
+				},
+				"drawCallback" : function(oSettings) {
+					responsiveHelper_sec_threat.respond();
+				}
+			});
+
+			var responsiveHelper_sec_alert = undefined;
+			$('#sec-alert').dataTable({
+				"sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-12 hidden-xs'l>r>"+
+					"t"+
+					"<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-xs-12 col-sm-6'p>>",
+				"autoWidth" : true,
+		        "oLanguage": {
+				    "sSearch": '<span class="input-group-addon"><i class="fa fa-search"></i></span>'
+				},
+				"preDrawCallback" : function() {
+					if (!responsiveHelper_sec_alert) {
+						responsiveHelper_sec_alert = new ResponsiveDatatablesHelper($('#sec-alert'), breakpointDefinition);
+					}
+				},
+				"rowCallback" : function(nRow) {
+					responsiveHelper_sec_alert.createExpandIcon(nRow);
+				},
+				"drawCallback" : function(oSettings) {
+					responsiveHelper_sec_alert.respond();
+				}
+			});
+
 			var responsiveHelper_dashboard_lf = undefined;
 			$('#db_lfs').dataTable({
 				"sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'><'col-sm-6 col-xs-12 hidden-xs'>r>"+
