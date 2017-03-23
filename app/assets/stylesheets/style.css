@@ -704,7 +704,8 @@ ul.internal-notes li div {
 
 .no-padding-left { padding-left: 0px !important; }
 
-#db_lfs_wrapper .dt-toolbar {
+#db_lfs_wrapper .dt-toolbar, 
+#db-curr-threats .dt-toolbar {
   padding: 0 !important;
 }
 

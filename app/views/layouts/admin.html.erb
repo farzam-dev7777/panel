@@ -594,6 +594,28 @@
 				}
 			});
 
+			var responsiveHelper_db_curr_threats = undefined;
+			$('#db-curr-threats').dataTable({
+				"sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'><'col-sm-6 col-xs-12 hidden-xs'>r>"+
+					"t"+
+					"<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'><'col-xs-12 col-sm-6'>>",
+				"autoWidth" : true,
+		        "oLanguage": {
+				    "sSearch": '<span class="input-group-addon"><i class="fa fa-search"></i></span>'
+				},
+				"preDrawCallback" : function() {
+					if (!responsiveHelper_db_curr_threats) {
+						responsiveHelper_db_curr_threats = new ResponsiveDatatablesHelper($('#db-curr-threats'), breakpointDefinition);
+					}
+				},
+				"rowCallback" : function(nRow) {
+					responsiveHelper_db_curr_threats.createExpandIcon(nRow);
+				},
+				"drawCallback" : function(oSettings) {
+					responsiveHelper_db_curr_threats.respond();
+				}
+			});
+
 			var responsiveHelper_sec_alert = undefined;
 			$('#sec-alert').dataTable({
 				"sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-12 hidden-xs'l>r>"+
