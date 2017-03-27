@@ -4,7 +4,7 @@ class FormValue < ApplicationRecord
   belongs_to :submittable, polymorphic: true
   has_many   :file_attachments
 
-  mount_uploader :file_value, FileUploader
+  # mount_uploader :file_value, FileUploader
 
   validate :value_is_valid
 
