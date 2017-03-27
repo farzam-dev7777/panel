@@ -6,8 +6,6 @@ class TwoFactorAuthenticationController < ApplicationController
 	def new
     if session[:authorized]
       redirect_to root_path
-    else
-      current_user.set_google_secret
     end
   end
 

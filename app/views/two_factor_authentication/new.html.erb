@@ -57,10 +57,6 @@
 					</div>
 				</div>
 
-				<!-- <div class="col-lg-4 col-lg-offset-4 col-xs-12 col-sm-12"> -->
-				<!-- <div class="col-lg-6 col-md-offset-3 qrcodeimage text-center">
-					<%= image_tag current_user.google_qr_uri %>
-				</div> -->
 
 				
 				<div class="col-lg-6 col-md-offset-3 no-padding">
@@ -69,6 +65,7 @@
 						<div class="col-md-12">
 							<div class="col-md-11 no-padding">
 								<input type="text" name="code" class="form-control">
+								<p style="color: #fff;"><i> Don't know what this is? <a href="/google-authenticator.png" style="color: #ccc">Click here</a> to learn more</i></p>
 							</div>
 							<div class="col-md-1 no-padding">
 								<input class="btn btn-primary" type="submit" value="Verify">
@@ -86,11 +83,6 @@
 		</div>
 
 	</div>
-
-
-
-
-
 
 
 	<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
