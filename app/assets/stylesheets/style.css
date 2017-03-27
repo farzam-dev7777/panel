@@ -723,8 +723,26 @@ ul.internal-notes li div {
   color: #a0c3d8;
   text-transform: uppercase;
   letter-spacing: 30px;
-  font-weight: bold; }
+  font-weight: bold; 
+}
 
-  .severity-level-wrapper {
-    min-height: 400px; background-color: #f1f1f1; padding: 20px; border: 1px; border-bottom: 1px solid #ccc
-  }
+.severity-level-wrapper {
+  min-height: 400px; background-color: #f1f1f1; padding: 20px; border: 1px; border-bottom: 1px solid #ccc
+}
+
+.current-stats {
+  background-color: #007ac3;
+  padding: 10px 0px;
+}
+
+.current-stats ul#sparks {
+  margin: 0 auto;
+  width: 60% !important;
+}
+
+.current-stats ul#sparks li span{
+  color: #fff !important
+}
+
+
+

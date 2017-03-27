@@ -1,25 +1,21 @@
 class User < ApplicationRecord
   acts_as_messageable
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable,#, :registerable,
-         :recoverable,
-         # :rememberable,
-         :trackable,
-         :validatable,
-         :authentication_keys => [:username]
+  acts_as_google_authenticated :column => :username
 
-  has_one :law_firm
-  has_many :activity_logs, as: :loggable
+  devise :database_authenticatable,
+         :recoverable, :trackable, 
+         :validatable, :authentication_keys => [:username]
 
   validates :username,
     :presence => true,
     :uniqueness => {
       :case_sensitive => false
-    } # etc.
+    }
+
+  has_one :law_firm
+  has_many :activity_logs, as: :loggable
 
   default_scope { where("deactivated_at IS NULL") }
-
 
   attr_accessor :login
 
@@ -54,4 +50,26 @@ class User < ApplicationRecord
     #if false
     #return nil
   end
+
+  Warden::Manager.after_authentication do |user,auth,opts|
+    activity_object(user, 'login', 'in') if user && user.class.to_s != 'AdminUser'
+  end
+
+  Warden::Manager.before_logout do |user,auth,opts|
+    activity_object(user, 'logout', 'out') if user && user.class.to_s != 'AdminUser'
+  end
+
+  def self.activity_object(user, event_type, task_string)
+    object = {
+      law_firm_id: user.law_firm.id,
+      event_type: event_type,
+      loggable: user,
+      notify: false,
+      source: user.class.to_s,
+      email: user.email,
+      custom_message: "You last logged #{task_string} on #{Time.now.strftime('%d %b at %I:%M %p')}"
+    }
+    ActivityLog.log(object)
+  end
+
 end

@@ -53,12 +53,12 @@ $(document).ready(function(){
 
   $("input.datepicker").each(function(input) {
     $(this).datepicker({
-      dateFormat: "yy-mm-dd",
+      dateFormat: "dd-mm-yy",
       altField: $(this).next()
     })
 
     // If you use i18n-js you can set the locale like that
-    $(this).datepicker("option", $.datepicker.regional['en']);
+    // $(this).datepicker("option", $.datepicker.regional['en']);
   })
 
   $('.form_form_fields_custom_logic').each(initializeCustomLogic);
@@ -485,7 +485,6 @@ $(document).ready(function(){
       "startColor": "#FF0000",
       "endColor"  : "#369e36"
     },
-    readOnly: true,
     onInit: function (rating, rateYoInstance) {
       rating = $(this).data().score;
       $(this).rateYo("rating", rating);
@@ -499,10 +498,10 @@ $(document).ready(function(){
       "startColor": "#FF0000",
       "endColor"  : "#369e36"
     },
-    readOnly: true,
     onInit: function (rating, rateYoInstance) {
       rating = $(this).data().score;
       $(this).rateYo("rating", rating);
+      $(this).rateYo("option", "readonly", true);
     }
   });
 
@@ -621,9 +620,10 @@ function fetchLawFirms(vendor, platform, version, target){
   }
 
   $.get('/admin/security_threats/0/find_law_firms', data, function(response){
-    $('#law-firms').select2().empty().select2({data: response});
+    $('#law-firms').select2().empty().select2({data: response.selected});
     $('#law-firms option').attr('selected', true).parent().trigger('change');
-    $('#law-firms-count').html(response.length + " Firm(s) found")
+    $('#law-firms').select2({data: response.all});
+    $('#law-firms-count').html(response.selected.length + " Firm(s) found")
   })
 }
 
@@ -730,26 +730,31 @@ $(document).on('click', '#load-more-activities', function(){
   })
 })
 
-$('#search-activity-log-btn').on('click', function(){
-  $("#search_activity_log").submit();
-})
+// $('#search-activity-log-btn').on('click', function(e){
+//   e.preventDefault();
+//   $("#search_activity_log").submit();
+// })
 
-$("#search-activity-log").find("input[type=text], select").on('change', function(){
-  $('#search-activity-log-btn').trigger('click');
-})
+// $("#search-activity-log").find("input[type=text], select").on('change', function(e){
+//   // $('#search-activity-log-btn').trigger('click');
+//   e.preventDefault();
+//   $("#search_activity_log").submit();
+// })
 
-$('#reset-activity-log-btn').on('click', function(){
+$('#reset-activity-log-btn').on('click', function(e){
   $("#search-activity-log").find("input[type=text], textarea").val("");
   $("#search-activity-log").find("select").val("All");
   $("#search-activity-log").find("select").select2();
   $("#search-activity-log").submit();
+  e.preventDefault();
 })
-$("#search-activity-log").on('submit', function(e){
+
+$("#search-activity-log").find("input[type=text], select").on('change', function(e){
   e.preventDefault();
   $.ajax({
     method: 'GET',
     url: '/admin/internal_dashboard/search_activity_logs',
-    data: $(this).serialize(),
+    data: $("#search-activity-log").serialize(),
     success: function(response) {
       if(response != ""){
         $('ul.smart-timeline-list').html(response);

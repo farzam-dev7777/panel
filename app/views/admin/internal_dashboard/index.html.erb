@@ -1,40 +1,42 @@
 <div>
 
-	<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-		<ul id="sparks" class="text-left">
-			<li class="sparks-info">
-				<a href="/admin/law_firms?filter=onboarded">
-					<h5 class="current-month-info"> Onboarded 
-						<span class="txt-color">
-							- <%= LawFirm.onboarded.count %> -
-						</span>
-					</h5>
-				</a>
-			</li>
-			<li class="sparks-info">
-				<a href="/admin/law_firms?filter=under_process">
-					<h5 class="current-month-info"> In Process 
-						<span class="txt-color-yellow">- <%= LawFirm.in_process.count %> -</span>
-					</h5>
-				</a>
-			</li>
-			<li class="sparks-info">
-				<a href="/admin/law_firms?filter=certified">
-					<h5 class="current-month-info"> Certified 
-						<span class="txt-color-green">
-							- <%= LawFirm.certified.count %> -
-						</span>
-					</h5>
-				</a>
-			</li>
-			<li class="sparks-info">
-				<a href="/admin/law_firms?filter=decertified">
-					<h5 class="current-month-info"> Decertified 
-						<span class="txt-color-red">- <%= LawFirm.decertified.count %> -</span>
-					</h5>
-				</a>
-			</li>
-		</ul>
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 current-stats">
+			<ul id="sparks" class="text-left">
+				<li class="sparks-info">
+					<a href="/admin/law_firms?filter=onboarded">
+						<h5 class="current-month-info"> Onboarded 
+							<span class="txt-color">
+								- <%= LawFirm.onboarded.count %> -
+							</span>
+						</h5>
+					</a>
+				</li>
+				<li class="sparks-info">
+					<a href="/admin/law_firms?filter=under_process">
+						<h5 class="current-month-info"> In Process 
+							<span>- <%= LawFirm.in_process.count %> -</span>
+						</h5>
+					</a>
+				</li>
+				<li class="sparks-info">
+					<a href="/admin/law_firms?filter=certified">
+						<h5 class="current-month-info"> Certified 
+							<span>
+								- <%= LawFirm.certified.count %> -
+							</span>
+						</h5>
+					</a>
+				</li>
+				<li class="sparks-info">
+					<a href="/admin/law_firms?filter=decertified">
+						<h5 class="current-month-info"> Decertified 
+							<span>- <%= LawFirm.decertified.count %> -</span>
+						</h5>
+					</a>
+				</li>
+			</ul>
+		</div>
 	</div>
 
 </div>
@@ -240,7 +242,7 @@
 										<div> 
 											<span class="percent txt-color-blue semi-bold">
 												<% if firm.form_submissions.try(:latest).try(:total_score) %>
-												<div class="total-score" data-score=<%= firm.form_submissions.try(:latest).try(:total_score) %>></div>
+													<div class="total-score" data-score=<%= firm.form_submissions.try(:latest).try(:total_score) %>></div>
 												<% end %>
 												
 											</span> 
@@ -349,37 +351,33 @@
 
 				<header>
 					<span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
-					<h2 class="font-md"><strong>Activity Log </strong></h2>				
+					<h2 class="font-md"><strong>Activity Log </strong></h2>	
+					<div class="widget-toolbar">
+						<%= button_to "Download Activity Log", activity_logs_admin_pdf_index_path, method: :get, class: 'btn btn-success btn-xs' %>
+					</div>			
 				</header>
 
 				<div>
 					<div class="col-md-12 no-padding activity-search-bar">
-						<form id="search-activity-log" method="GET">
-							<input type="hidden" name="action_type" value="form_search">
-							<div class="col-md-3 no-padding-left">
-								<input type="text" name="search_query" placeholder="Type your search query here." style="width: 100%;">
-							</div>
-							<div class="col-md-3">
-								<%= select("event_type", "", ActivityLog::ACTION_TYPE_REASON.map { |k,v| [k.to_s.humanize, k] }, { include_blank: 'All' }) %>
-							</div>
-							<div class="col-md-3">
-								<input type="text" name="fromdate" placeholder="From Date" class="datepicker">
-							</div>
-							<div class="col-md-3">
-								<input type="text" name="todate" placeholder="To Date" class="datepicker">
-							</div>
-							<div class="col-md-1 no-padding text-right hidden">
-								<button id="search-activity-log-btn" class="btn btn-primary">
-									<i class="fa fa-search"></i> Search
-								</button>
-							</div>
-							<div class="col-md-1 no-padding text-right hidden">
-								<button id="reset-activity-log-btn" class="btn btn-danger">
-									<i class="fa fa-times"></i> Reset
-								</button>
-							</div>
-						</form>
+
+						<%= simple_form_for @q, url: '', html: { method: :get, id: 'search-activity-log' } do |f| %>
+                <div class="col-md-5 no-padding-left">
+	                <%= f.input :law_firm_name_or_event_type_cont, placeholder: "Search", label: false, class: 'form-control' %>
+                </div>
+                <div class="col-md-3">
+									<%= f.text_field :created_at_gteq, label: false, placeholder: 'From Date', class: 'form-control datepicker' %>
+								</div>
+                <div class="col-md-3">
+									<%= f.text_field :created_at_lteq, label: false, placeholder: 'To Date', class: 'form-control datepicker' %>
+								</div>
+								<div class="col-md-1 no-padding text-right">
+									<button id="reset-activity-log-btn" class="btn btn-danger">
+										<i class="fa fa-times"></i> Reset
+									</button>
+								</div>
+            <% end %>
 					</div>
+
 					<div class="clearfix"></div>
 					<!-- MAIN PANEL -->
 					<div role="main">

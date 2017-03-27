@@ -17,14 +17,18 @@ gem 'coffee-rails', '~> 4.2'
 # gem 'therubyracer', platforms: :ruby
 
 gem 'underlock'
-
 gem 'devise'
+gem 'rqrcode-rails3'
+gem 'mini_magick'
 gem 'will_paginate'
 gem 'inherited_resources', github: 'activeadmin/inherited_resources'
 gem 'draper', '~> 3.0.0.pre1'
 gem 'ransack'
 gem 'activemodel-serializers-xml'
 gem 'simple-form-datepicker'
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
+gem 'google-authenticator-rails'
 
 # gem 'rails-assets-fontawesome', source: 'https://rails-assets.org'
 gem 'rails-assets-JustGage', source: 'https://rails-assets.org'

@@ -29,6 +29,13 @@ Rails.application.routes.draw do
       end
     end
     resources :messages
+
+    resources :pdf do
+      collection do
+        get :activity_logs
+      end
+    end
+
     resources :severity_levels
 
     resources :security_alerts
@@ -104,10 +111,17 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :pdf do
+    collection do
+      get :activity_logs
+    end
+  end
+
   devise_for :users, controllers: { 
     sessions: 'users/sessions',
     passwords: 'users/passwords' 
   }
+  resources :two_factor_authentication
   namespace :users do
   end
   root to: "dashboard#index"

@@ -1,24 +1,11 @@
 class ActivityLog < ApplicationRecord
 	belongs_to :loggable, polymorphic: true
 
-    belongs_to :law_firm, touch: true
+  belongs_to :law_firm, touch: true
 
 	scope :notifications,  -> { where(notify: true) }
 	scope :unread,  -> { where("notify = ? AND read != ?", true, true) }
 	scope :read,  -> { where("notify = ? AND read = ?", true, true) }
-
-	ACTION_OBJECT_TYPES = {
-    account_created: User,
-    todo_task_created: TodoTask,
-    information_security_policy_request_initiated: FormSubmission,
-    seal_certification_process_initiated: FormSubmission,
-    information_security_policy_submitted: FormSubmission,
-    information_security_policy_review_started: FormSubmission,
-    follow_up: FormSubmission,
-    approved: FormSubmission,
-    declined: FormSubmission,
-    recertification_process_initiated: FormSubmission
-	}
 
 	ACTION_TYPE_REASON = {
     account_created: 'Onboarded',
@@ -36,13 +23,21 @@ class ActivityLog < ApplicationRecord
     decertify: 'Decertified',
     recertification_process_initiated: 'Recertification process started',
     decrease_score: 'SEAL score impacted',
-    action_item_marked_as_complete: 'The Firm has marked the security threat action item complete'
+    action_item_marked_as_complete: 'The Firm has marked the security threat action item complete',
+    login: "You last logged in at ",
+    logout: "You last logged out at ",
   }.freeze
 
 	def self.log(object)
-    	object = object.merge(custom_message: ACTION_TYPE_REASON[object[:event_type].to_sym]) if !object[:custom_message]
-        activity_log = ActivityLog.new(object)
-        LawFirm.find_by(id: object[:law_firm_id]).try(:touch) if activity_log.save
+      object = object.merge(custom_message: ACTION_TYPE_REASON[object[:event_type].to_sym]) if !object[:custom_message]
+      activity_log = ActivityLog.new(object)
+      LawFirm.find_by(id: object[:law_firm_id]).try(:touch) if activity_log.save
 	end
+
+  def logs_between(from, to)
+    where(created_at: DateTime.strptime(from, '%m/%d/%Y')..(DateTime.strptime(from, '%m/%d/%Y') + 23.hours + 59.minutes)) if from && !from.blank?
+    where(created_at: DateTime.strptime(to, '%m/%d/%Y')..(DateTime.strptime(to, '%m/%d/%Y') + 23.hours + 59.minutes)) if to && !to.blank?
+    where(created_at: DateTime.strptime(params[:fromdate], '%m/%d/%Y')..(DateTime.strptime(params[:todate], '%m/%d/%Y') + 23.hours + 59.minutes)) if !from.blank? && !to.blank?
+  end
 	
 end

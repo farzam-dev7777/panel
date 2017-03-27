@@ -3,6 +3,7 @@ class Admin::InternalDashboardController < Admin::BaseController
   layout 'admin'
 
   add_breadcrumb "Dashboard", :root_path
+  before_filter :set_search
 
   ACTIVITY_LOG_DAYS = 10
 
@@ -20,23 +21,21 @@ class Admin::InternalDashboardController < Admin::BaseController
     @law_firms = LawFirm.distinct.joins(:form_submissions).where("form_submissions.status = 'approved'")
   end
 
-  def search_activity_logs
+  def set_search
+    @q = ActivityLog.search(params[:q])
+  end
 
-    if (params[:action_type] == 'form_search')
-      query = ActivityLog.joins('INNER JOIN law_firms ON law_firms.id = activity_logs.law_firm_id').where( search_filter )
-      @activity_logs =  query.order('created_at DESC') if params[:search_query].blank?
-      @activity_logs = query.where( 'law_firms.name LIKE ?', "%#{params[:search_query]}%" ).order('created_at DESC') if !params[:search_query].blank?
-    else
-      query = params[:query].blank? ? "% %" : "%#{params[:query].downcase}%"
-      @activity_logs = ActivityLog.joins('INNER JOIN law_firms ON law_firms.id = activity_logs.law_firm_id').where('lower(law_firms.name) LIKE ? OR lower(custom_message) LIKE ? OR lower(event_type) LIKE ?', query, query, query)
-    end
+  def search_activity_logs
+    @q = ActivityLog.ransack(params[:q])
+    @activity_logs = @q.result.includes(:law_firm)
+
     render partial: 'activity_log', locals: {activity_logs: @activity_logs}
   end
 
   def seal_stats
-    certified = LawFirm.joins(:form_submissions).where("form_submissions.created_at = (SELECT MAX(form_submissions.created_at) FROM form_submissions WHERE form_submissions.law_firm_id = law_firms.id) AND form_submissions.status='approved'").group("DATE_TRUNC('month', form_submissions.created_at)").count
-    decertified = LawFirm.joins(:form_submissions).where("form_submissions.created_at = (SELECT MAX(form_submissions.created_at) FROM form_submissions WHERE form_submissions.law_firm_id = law_firms.id) AND form_submissions.status='decertified'").group("DATE_TRUNC('month', form_submissions.created_at)").count
-    under_process = LawFirm.joins(:form_submissions).where("form_submissions.created_at = (SELECT MAX(form_submissions.created_at) FROM form_submissions WHERE form_submissions.law_firm_id = law_firms.id) AND form_submissions.status='sent'").group("DATE_TRUNC('month', form_submissions.created_at)").count
+    certified = LawFirm.certified.group("DATE_TRUNC('month', form_submissions.created_at)").count
+    decertified = LawFirm.decertified.group("DATE_TRUNC('month', form_submissions.created_at)").count
+    under_process = LawFirm.in_process.group("DATE_TRUNC('month', form_submissions.created_at)").count
     render json: {certified: certified, decertified: decertified, under_process: under_process}
   end
 
@@ -44,17 +43,6 @@ class Admin::InternalDashboardController < Admin::BaseController
     last_timestamp = Date.parse(params[:last_timestamp])
     activity_logs = ActivityLog.where('created_at < ?', last_timestamp).order('created_at DESC')
     render partial: 'activity_log', locals: {activity_logs: activity_logs}
-  end
-
-  private
-
-  def search_filter
-    filter = {}
-    filter[:created_at] = DateTime.strptime(params[:fromdate], '%m/%d/%Y')..(DateTime.strptime(params[:fromdate], '%m/%d/%Y') + 23.hours + 59.minutes) if params[:fromdate] && !params[:fromdate].blank?
-    filter[:created_at] = DateTime.strptime(params[:todate], '%m/%d/%Y')..(DateTime.strptime(params[:todate], '%m/%d/%Y') + 23.hours + 59.minutes) if params[:todate] && !params[:todate].blank?
-    filter[:created_at] = DateTime.strptime(params[:fromdate], '%m/%d/%Y')..(DateTime.strptime(params[:todate], '%m/%d/%Y') + 23.hours + 59.minutes) if !params[:fromdate].blank? && !params[:todate].blank?
-    filter[:event_type] = params[:event_type].first if params[:event_type] && !params[:event_type].first.blank?
-    filter
   end
 
 end
