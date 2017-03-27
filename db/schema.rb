@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170321135241) do
+ActiveRecord::Schema.define(version: 20170324170653) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -197,6 +197,17 @@ ActiveRecord::Schema.define(version: 20170321135241) do
     t.datetime "updated_at",  null: false
     t.integer  "user_id"
     t.integer  "internal_id"
+  end
+
+  create_table "logics", force: :cascade do |t|
+    t.integer  "listen_field_id"
+    t.integer  "change_field_id"
+    t.integer  "form_id"
+    t.string   "logic_to_be_applied"
+    t.string   "values"
+    t.string   "perform_action"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
   end
 
   create_table "mailboxer_conversation_opt_outs", force: :cascade do |t|
