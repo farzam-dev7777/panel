@@ -1,7 +1,7 @@
 <%- file_attachments.each do |file_attachment| %>
   <p id="delete_file-<%= file_attachment.id %>">
-    <%- if current_admin_user %>
-      <span><%= decrypt_file_attachment_path(file_attachment) %> </span>
+    <%- if current_admin_admin_user %>
+      <span><%= link_to file_attachment.try(:file).try(:file).try(:filename), decrypt_admin_file_attachment_path(file_attachment) %> </span>
     <% else %>
       <span><%= file_attachment.try(:file).try(:file).try(:filename) %> </span>
     <% end %>

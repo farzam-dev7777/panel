@@ -16,12 +16,6 @@ class FileAttachmentsController < BaseController
     render json: @file_attachment.id
   end
 
-  def decrypt
-    @file_attachment = FileAttachment.find(params[:id])
-    authorize! :destroy, @file_attachment
-    send_file @file_attachment.decrypt
-  end
-
   private
 
   def build_file_attachment(file, obj)
