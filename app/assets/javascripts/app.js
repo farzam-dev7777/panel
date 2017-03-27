@@ -6,6 +6,58 @@ $(document).ready(function(){
   // $('.dynamic-select').trigger('change');
   $('i.log-icon').tooltip();
 
+  //File Upload
+  $('.fileupload').fileupload({
+    dataType: 'html',
+    done: function (e, data) {
+      container = $(this);
+      container.parent().append(data.result);
+    },
+    progressall: function (e, data) {
+      container = $(this);
+      var progress = parseInt(data.loaded / data.total * 100, 10);
+      container.parent().find('#progress .bar').css(
+          'width',
+          progress + '%'
+      )
+      .css('display', 'block')
+      .text(progress + '%');
+    }
+  });
+
+  $(document).on('click', ".delete_file", function(e){
+    e.preventDefault();
+    href = $(this).attr('href');
+    swal({
+      title: "Are you sure?",
+      text: "",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "No, don't delete!",
+      closeOnConfirm: true,
+      closeOnCancel: true
+    },
+    function(isConfirm){
+      if (isConfirm) {
+        $.ajax({
+          method: 'DELETE',
+          url: href,
+          success: function(file_id) {
+            $("#delete_file-" + file_id).remove();
+          },
+          error: function(response) {
+            debugger;
+          }
+        })
+      }
+    });
+  });
+
+
+  //File upload ends
+
   $( function() {
     $( "#accordion" ).accordion();
   } );
@@ -256,7 +308,7 @@ $(document).ready(function(){
       confirmButtonColor: "#DD6B55",
       confirmButtonText: "Yes, submit it!",
       cancelButtonText: "No, don't submit!",
-      closeOnConfirm: false,
+      closeOnConfirm: true,
       closeOnCancel: true
     },
     function(isConfirm){

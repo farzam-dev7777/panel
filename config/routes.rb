@@ -94,6 +94,12 @@ Rails.application.routes.draw do
     end
   end
 
+  patch "file_attachments/:id/:type" => "file_attachments#create", :as => "file_attachments_uploader"
+  resources :file_attachments do
+    member do
+      post :decrypt
+    end
+  end
   resources :form_submissions do
     member do
       get :policy_step
