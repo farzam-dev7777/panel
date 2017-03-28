@@ -2,16 +2,16 @@
 <div class="row">
 	<div class="col-md-3 vendor-wrapper">
 		<%= t.input :vendor, collection: TechnologyValue.pluck(:vendor).uniq, include_blank: 'None',
-												 input_html: {id: 'dynamic-select', data: { field: 'vendor' } } %>
+												 input_html: {class: 'threat-lf-dynamic-select', data: { field: 'vendor' } } %>
 	</div>
 	<div class="col-md-3 platform-wrapper">
-		<%= t.input :platform, collection: TechnologyValue.pluck(:platform).uniq, include_blank: 'None', input_html: {id: 'dynamic-select', data: {field: 'platform'}} %>
+		<%= t.input :platform, collection: TechnologyValue.pluck(:platform).uniq, include_blank: 'None', input_html: {class: 'threat-lf-dynamic-select', data: {field: 'platform'}} %>
 	</div>
 	<div class="col-md-3 version-wrapper">
-		<%= t.input :version, collection: TechnologyValue.pluck(:version).uniq, include_blank: 'None', input_html: {id: 'dynamic-select', data: {field: 'version'} } %>
+		<%= t.input :version, collection: TechnologyValue.pluck(:version).uniq, include_blank: 'None', input_html: {class: 'threat-lf-dynamic-select', data: {field: 'version'} } %>
 	</div>
 	<div class="col-md-3 service_pack-wrapper">
-		<%= t.input :service_pack, collection: TechnologyValue.pluck(:service_pack).uniq, include_blank: 'None', input_html: { id: 'dynamic-select', data: {field: 'service_pack'} } %>
+		<%= t.input :service_pack, collection: TechnologyValue.pluck(:service_pack).uniq, include_blank: 'None', input_html: { class: 'threat-lf-dynamic-select', data: {field: 'service_pack'} } %>
 	</div>
 </div>
 <% end %>
