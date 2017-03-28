@@ -6,11 +6,13 @@
   <div class="well">
     <%= f.input :custom_logic %>
     <div class="row">
-      <div class="col-md-6">
-        <%= f.input :show_when_form_field_id, collection: @form.form_fields.map{|form_field| ["#{form_field.label}(#{form_field.type})", form_field.id]}, label: "Show when" %>
+      <div class="col-md-12 logics">
+        <%= f.simple_fields_for :logics do |field| %>
+          <%= render partial: "logic_fields", locals: {f: field}  %>
+        <% end %>
       </div>
-      <div class="col-md-6">
-        <%= f.input :show_when_form_field_value, label: "Is" %>
+      <div class="col-md-12">
+        <%= link_to_add_association '<span href="javascript:void(0);" class="btn btn-primary btn-sm"><i class="fa fa-plus-circle"></i> Custom logic</span>'.html_safe, f, :logics %>
       </div>
     </div>
   </div>

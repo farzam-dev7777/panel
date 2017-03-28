@@ -41,6 +41,7 @@ class Admin::FormsController < Admin::BaseController
   end
 
   def update
+    binding.pry
     @form = Form.find(params[:id])
     if @form.update_attributes(form_params)
       redirect_to edit_admin_form_path(@form)
