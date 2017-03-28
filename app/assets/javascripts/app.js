@@ -501,7 +501,6 @@ $(document).ready(function(){
     onInit: function (rating, rateYoInstance) {
       rating = $(this).data().score;
       $(this).rateYo("rating", rating);
-      $(this).rateYo("option", "readonly", true);
     }
   });
 
