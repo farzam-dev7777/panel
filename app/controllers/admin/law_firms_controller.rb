@@ -12,6 +12,9 @@ class Admin::LawFirmsController < Admin::BaseController
 
   def show
     @law_firm = LawFirm.find(params[:id])
+    if !@law_firm.user.google_secret
+      @law_firm.user.set_google_secret
+    end
     add_breadcrumb @law_firm.name, :admin_law_firm_path
   end
 

@@ -16,7 +16,10 @@ gem 'coffee-rails', '~> 4.2'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
-gem 'underlock'
+gem 'underlock', github: 'metaware/underlock', branch: 'encoding-issue'
+
+gem 'jquery-fileupload-rails'
+
 gem 'devise'
 gem 'rqrcode-rails3'
 gem 'mini_magick'

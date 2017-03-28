@@ -12,7 +12,7 @@ module Submittable
   def build_values(form_fields, step = 'policy')
     form_fields = form_fields || self.send("form_#{step}").form_fields.top_form_fields
     form_fields.map do |form_field|
-      self.form_values.find_or_initialize_by(form_field_label: form_field.label, form_field: form_field, submittable_id: self.id)
+      self.form_values.find_or_create_by(form_field_label: form_field.label, form_field: form_field, submittable_id: self.id)
     end
   end
 

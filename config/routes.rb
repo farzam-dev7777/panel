@@ -4,6 +4,11 @@ Rails.application.routes.draw do
     devise_for :admin_users, controllers: {
       sessions: 'admin/internal_sessions'
     }
+    resources :file_attachments do
+      member do
+        get :decrypt
+      end
+    end
     resources :law_firms do 
       member do
         get :begin_certification_process
@@ -101,6 +106,8 @@ Rails.application.routes.draw do
     end
   end
 
+  patch "file_attachments/:id/:type" => "file_attachments#create", :as => "file_attachments_uploader"
+  resources :file_attachments
   resources :form_submissions do
     member do
       get :policy_step

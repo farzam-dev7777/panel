@@ -1,6 +1,25 @@
-<%= v.input :file_value, {
-  label: field.label,
-  required: field.required
-}, &field.input_block(v) %>
+<style type="text/css">
+  .bar {
+    background: green;
+    color: #fff;
+    padding: 2px;
+    display: none;
+  }
+  #progress{
+    padding: 10px 0px;
+  }
+  .file-field{
+    border: 3px dotted #ccc;
+    padding: 10px;
+  }
+</style>
 
-<% link_to v.object.file_value.get_file_name, v.object.file_value.url if v.object.file_value.url %>
+<div class="file-field">
+  <input class="fileupload" type="file" name="files[]" data-url="/file_attachments/<%= v.object.id %>/<%= v.object.class.name %>" multiple>
+
+  <div id="progress">
+    <div class="bar" style="width: 0%;"></div>
+  </div>
+
+  <%= render(partial: 'file_attachment', locals: { file_attachments: v.object.file_attachments }) %>
+</div>

@@ -17,6 +17,7 @@
 //= require sortable
 //= require app
 //= require cocoon
+//= require jquery-fileupload/basic
 // active_material
 // require turbolinks
 //= require app.config.seed

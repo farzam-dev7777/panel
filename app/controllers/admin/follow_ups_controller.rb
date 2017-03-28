@@ -1,7 +1,7 @@
 class Admin::FollowUpsController < Admin::BaseController
 
 	before_action :find_follow_up, only: [:create, :resolve, :reviewed]
-	skip_before_filter :authenticate_admin_admin_user!, only: [:create]
+	skip_before_action :authenticate_admin_admin_user!, only: [:create]
 
 	def create
 		username = current_admin_admin_user.try(:email) || current_user.try(:username)
