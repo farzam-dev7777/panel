@@ -12,7 +12,7 @@ class Form < ApplicationRecord
     @all_logics = nil if reload
     @all_logics ||= (
       @all_logics = self.logics
-      @all_logics.merge(self.group_forms.map(&:logics).flatten)
+      @all_logics += (self.group_forms.map(&:logics).flatten)
     )
   end
 
@@ -28,7 +28,7 @@ class Form < ApplicationRecord
     @all_form_fields = nil if reload
     @all_form_fields ||= (
       @all_form_fields = self.form_fields
-      @all_form_fields.merge(self.group_forms.map(&:form_fields).flatten)
+      @all_form_fields += (self.group_forms.map(&:form_fields).flatten)
     )
   end
 

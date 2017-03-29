@@ -8,7 +8,7 @@ class FormSubmissionsController < BaseController
   before_action :before_non_dynamic_forms, only: [:technology_step, :history_step]
 
   helper_method :next_step_path, :current_step_path, :steps, :previous_step_path, 
-                :current_step, :wizard_path, :last_step
+                :current_step, :wizard_path, :last_step, :logics
 
   def before_steps
     @form_submission = FormSubmission.find(params[:id])
@@ -40,6 +40,10 @@ class FormSubmissionsController < BaseController
   end
 
   def history_step
+  end
+
+  def logics
+    @logics ||= @form_submission.form.all_logics
   end
 
   def edit
