@@ -34,10 +34,4 @@ class ActivityLog < ApplicationRecord
       LawFirm.find_by(id: object[:law_firm_id]).try(:touch) if activity_log.save
 	end
 
-  def logs_between(from, to)
-    where(created_at: DateTime.strptime(from, '%m/%d/%Y')..(DateTime.strptime(from, '%m/%d/%Y') + 23.hours + 59.minutes)) if from && !from.blank?
-    where(created_at: DateTime.strptime(to, '%m/%d/%Y')..(DateTime.strptime(to, '%m/%d/%Y') + 23.hours + 59.minutes)) if to && !to.blank?
-    where(created_at: DateTime.strptime(params[:fromdate], '%m/%d/%Y')..(DateTime.strptime(params[:todate], '%m/%d/%Y') + 23.hours + 59.minutes)) if !from.blank? && !to.blank?
-  end
-	
 end
