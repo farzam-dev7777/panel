@@ -1,4 +1,4 @@
 <%= v.input :value, {
   label: field.label,
-  input_html: { value: field.parse_date(v.object), class: 'datepicker' }
+  input_html: { value: v.object.try(:value), class: 'datepicker' }
 }, &field.input_block(v) %>
