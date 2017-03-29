@@ -1,14 +1,14 @@
 <div class="logic-wrapper-<%= f.object.id %>">
 	<div class="col-md-2">
 	  <%= f.input :form_id, as: :hidden, input_html: { value: @form.id } %>
-	  <%= f.input :change_field_id, as: :hidden, input_html: { value: f.object.id } %>
+	  <%= f.input :change_field_id, as: :hidden, input_html: { value: form_field.id } %>
 	  <%= f.input :perform_action, collection: Logic::PERFORM_ACTION.map{|action| [action.titleize, action]}, label: "Action" %>
 	</div>
 	<div class="col-md-2">
 	  <%= f.input :logic_to_be_applied, collection: Logic::LOGIC_TO_BE_APPLIED.map{|logic| [logic.titleize, logic]}, label: "Logic" %>
 	</div>
 	<div class="col-md-4">
-	  <%= f.input :listen_field_id, collection: @form.form_fields.map{|form_field| ["#{form_field.label}(#{form_field.type})", form_field.id]}, label: "Show when" %>
+	  <%= f.input :listen_field_id, collection: @form.all_form_fields.map{|form_field| ["#{form_field.label}(#{form_field.type})", form_field.id]}, label: "Show when" %>
 	</div>
 	<div class="col-md-3">
 	  <%= f.input :values %>

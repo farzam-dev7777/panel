@@ -1,7 +1,6 @@
-<ul data-role="activerecord_sortable" id="accordion">
+<ul data-role="activerecord_sortable" class="accordion">
   <%= f.simple_fields_for :form_fields, form_fields do |form_field| %>
     <li class="form-field" data-role="form_field<%= form_field.object.id.to_s %>" data-position="<%= form_field.object.position %>">
-      <!-- <h3>header</h3> -->
       <div>
         <% step = form_field.object.get_step %>
         <div class="row">
@@ -12,7 +11,6 @@
           <% end %>
           <div class="<%= 'col-md-' + (12 - step).to_s  %>">
             <%= render 'form_field_fields', f: form_field %>
-            <%= form_field.input :position, as: :integer, input_html: {:data => { :role => 'position' }} %>
           </div>
         </div>
         <%= render 'new_form', f: f, form_fields: form_field.object.children %>

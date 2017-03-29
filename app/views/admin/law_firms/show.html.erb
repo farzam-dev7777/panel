@@ -112,22 +112,22 @@
 							<div class="col-md-8 data"><%= @law_firm.phone %></div>	
 
 							<div class="col-md-4 column">Username</div>		
-							<div class="col-md-8 data"><%= @law_firm.user.try(:username) %></div>	
-							<div class="col-md-4 column">2 Factor Auth</div>		
-							<div class="col-lg-8 column">
+							<div class="col-md-8 data"><%= @law_firm.user.try(:username) %></div>		
+						</div>
+
+						<div class="col-lg-4 column">
+							<% if @law_firm.user %>
 								<%= image_tag @law_firm.user.google_qr_uri %><br/>
 								<p>Account: <%= @law_firm.user.username %> </p>
 							  <p>Key: <%= @law_firm.user.google_secret %></p>
-							</div>
+						  <% end %>
 						</div>
-						<div class="col-md-4">
-							<div id="gauge" style="position: relative; height: 128px;" class="200x160px"></div>
-						</div>
+
 						<div class="clearfix"></div>
 					</div>
 					<div class="tab-pane fade" id="hr2">
 						
-						<%= button_to "Download Activity Log", activity_logs_admin_pdf_index_path, method: :get, params: { id: @law_firm.id }, class: 'btn btn-success btn-xs pull-right' %>
+						<%= link_to "<i class='fa fa-download'></i>".html_safe, activity_logs_admin_pdf_index_path, method: :get, params: { id: @law_firm.id }, class: 'btn btn-success btn-xs pull-right' %>
 
 						<div class="clearfix"></div>
 						<section id="cd-timeline" class="cd-container">

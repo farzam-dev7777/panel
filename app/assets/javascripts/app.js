@@ -25,6 +25,27 @@ $(document).ready(function(){
     }
   });
 
+
+  $(document).on('click', '.form-field-header', function(){
+    $(this).next('.form-field-content').slideToggle();
+    $(this).next('.form-field-content').find('select').select2();
+    $( ".tabs" ).tabs();
+  })
+
+  $(document).on('DOMNodeInserted', function(e) {
+    if($(e.target).hasClass('form-field-wrapper')){
+      $(e.target).find('.form-field-content').slideToggle();
+      $('.tabs').tabs();
+      setTimeout(function(){
+        $('html, body').animate({ 
+         scrollTop: $(document).height()-$(window).height()}, 
+         1400, 
+         "easeOutQuint"
+        );
+      }, 300)
+    }
+  });
+
   $(document).on('click', ".delete_file", function(e){
     e.preventDefault();
     href = $(this).attr('href');
@@ -60,6 +81,11 @@ $(document).ready(function(){
 
   $( function() {
     $( "#accordion" ).accordion();
+    $( ".tabs" ).tabs();
+    // $( ".accordion" ).accordion({
+    //   heightStyle: "content",
+    //   collapsible: true,
+    // });
   } );
 
   $('.form_submission_form_values_value input, .form_submission_form_values_value select, .form_submission_form_values_value textarea').each(function(){
@@ -119,8 +145,9 @@ $(document).ready(function(){
     showIfCustomLogicMatched($(this));
   });
 
-  $("input[type='text']").on("change paste keyup", function(){
-    showIfCustomLogicMatched($(this));
+  $("input[type='text'], input[type='email'], input[type='file'], input[type='number']")
+    .on("change paste keyup", function(){
+      showIfCustomLogicMatched($(this));
   });
 
   $('.submit-form').click(function(e){
@@ -473,43 +500,38 @@ $(document).ready(function(){
     })
   })
 
-  $('.score-rating').rateYo({
-    halfStar: true,
-    rating: 5,
-    multiColor: {
-      "startColor": "#FF0000", //RED
-      "endColor"  : "#369e36"  //GREEN
-    },
-    onChange: function (rating, rateYoInstance) {
-
-      // if(rating < 5 && rating > 0){
-      //   rating = rating - 5;
-      // } else if (rating == 5){
-      //   rating = 0;
-      // } else {
-      //   rating = rating - 5
-      // }
-      
-      $(this).attr("data-original-title", rating).tooltip('show');
-      $(this).data('bs.tooltip').options.placement = 'right';
+  function score_rating(){
+    $('.score-rating').rateYo({
+      halfStar: true,
+      rating: 5,
+      multiColor: {
+        "startColor": "#FF0000", //RED
+        "endColor"  : "#369e36"  //GREEN
+      },
+      onChange: function (rating, rateYoInstance) {
+        
+        $(this).attr("data-original-title", rating).tooltip('show');
+        $(this).data('bs.tooltip').options.placement = 'right';
 
 
-      $('.score-rating').click(function(){
-        $(this).parent().children('.form_form_fields_dropdown_options_score').children('.score-holder').val(rating);
-      })
-    },
-    onInit: function (rating, rateYoInstance) {
-      rating = parseFloat($(this).next().children('input').val())
-      // if (rating < 0){
-      //   rating = Math.abs(rating);
-      // } else if (rating == 0){
-      //   rating = 5;
-      // } else {
-      //   rating = rating + 5
-      // }
-      $(this).rateYo("rating", rating);
-    }
-  });
+        $('.score-rating').click(function(){
+          $(this).parent().children('.form_form_fields_dropdown_options_score').children('.score-holder').val(rating);
+        })
+      },
+      onInit: function (rating, rateYoInstance) {
+        rating = parseFloat($(this).next().children('input').val())
+        $(this).rateYo("rating", rating);
+      }
+    });
+  }
+
+  score_rating();
+
+  $(document).on('click', '#links a.add_fields', function(){
+    score_rating();
+
+  })
+
 
   $('.average-score-rating').rateYo({
     halfStar: true,
@@ -701,7 +723,7 @@ function showIfCustomLogicMatched(currentField){
     currentFieldLogics.forEach(function(logic) {
       targetField = $('.field-wrapper-' + logic.change_field_id)
 
-      if(currentField.val() == logic.values){
+      if((currentField.val() == logic.values && currentField.val().length != 0) || (logic.values == "" && currentField.val().length > 0)){
         switch(logic.perform_action){
           case 'show':
             targetField.show();
@@ -710,17 +732,21 @@ function showIfCustomLogicMatched(currentField){
           case 'hide':
             targetField.hide();
             targetField.find("select").val('').trigger('change');
+            targetField.find("input[type!=hidden]").val('').trigger('change');
             break;
         }
       } else {
+
         switch(logic.perform_action){
           case 'show':
             targetField.hide();
             targetField.find("select").val('').trigger('change');
+            targetField.find("input[type!=hidden]").val('').trigger('change');
             break;
           case 'hide':
             targetField.show();
             targetField.find("select").select2();
+            targetField.find("input[type!=hidden]").val('').trigger('change');
             break;
         }
       }
