@@ -144,24 +144,27 @@ $(document).ready(function(){
 
 
 
-  $(document).on('change', '#dynamic-select', function() {
+  $(document).on('change', '.threat-lf-dynamic-select', function() {
     field = $(this).data('field');
     
     if (field == 'vendor'){
       vendor = $(this).val();
       target = $(this).parent().parent().next('div.platform-wrapper').find('select');
       fetchLawFirms(vendor, null, null, target)
+      fetchTechnology(vendor, null, null, target)
     } else if (field == 'platform'){
       vendor = $(this).parent().parent().prev('.vendor-wrapper').find('select').val();
       platform = $(this).val();
       target = $(this).parent().parent().next('div.version-wrapper').find('select');
       fetchLawFirms(vendor, platform, null, target)
+      fetchTechnology(vendor, platform, null, target)
     } else if (field == 'version') {
       vendor = $(this).parent().parent().prev('.vendor-wrapper').find('select').val();
       platform = $(this).parent().parent().prev('.platform-wrapper').find('select').val();
       version = $(this).val();
       target = $(this).parent().parent().next('div.service_pack-wrapper').find('select');
       fetchLawFirms(vendor, platform, version, target);
+      fetchTechnology(vendor, platform, version, target)
     }
 
     platform = $(this).data('platform');
@@ -553,7 +556,6 @@ $(document).ready(function(){
     onInit: function (rating, rateYoInstance) {
       rating = $(this).data().score;
       $(this).rateYo("rating", rating);
-      $(this).rateYo("option", "readonly", true);
     }
   });
 
