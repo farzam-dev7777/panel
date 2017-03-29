@@ -639,20 +639,40 @@ function initializeCustomLogic(){
 
 
 function showIfCustomLogicMatched(currentField){
-  if(window.location.href.includes("admin")){
-    return false;
+  logics = $('.logics').data('logics');
+  currentFieldId = currentField.parent().parent().siblings('.form_submission_form_values_form_field_id').find('input').val();
+  currentFieldLogics = _.where(logics, { listen_field_id: parseInt(currentFieldId) })
+  
+  if( currentFieldLogics.length > 0 ) {
+    currentFieldLogics.forEach(function(logic) {
+      targetField = $('.field-wrapper-' + logic.change_field_id)
+
+      if(currentField.val() == logic.values){
+        switch(logic.perform_action){
+          case 'show':
+            targetField.show();
+            targetField.find("select").select2();
+            break;
+          case 'hide':
+            targetField.hide();
+            targetField.find("select").val('').trigger('change');
+            break;
+        }
+      } else {
+        switch(logic.perform_action){
+          case 'show':
+            targetField.hide();
+            targetField.find("select").val('').trigger('change');
+            break;
+          case 'hide':
+            targetField.show();
+            targetField.find("select").select2();
+            break;
+        }
+      }
+
+    })
   }
-  targetFieldId = currentField.parent().parent().siblings('.form_submission_form_values_form_field_id').find('input').val();
-  $("*[data-show-when-field-id='"+ targetFieldId +"']").each(function(){
-    if($(this).data("show-when-value") == currentField.val() || ($(this).data("show-when-value") == "" && currentField.val() != "")){
-      $(this).show();
-      $(this).find("select").select2();
-    }else{
-      $(this).find("select").val('')
-      $(this).find("select").trigger('change')
-      $(this).hide();
-    }
-  })
 }
 
 function prepareForCustomLogic(currentField){

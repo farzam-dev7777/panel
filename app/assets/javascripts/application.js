@@ -37,6 +37,7 @@
 //= require plugin/datatables/dataTables.bootstrap.min.js
 //= require plugin/datatable-responsive/datatables.responsive.min.js
 //= require plugin/canvasjs.min
+//= require underscore
 //= require rateyo
 //= require qTip2
 //= require JustGage
