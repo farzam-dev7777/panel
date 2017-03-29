@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  listen_field_id: 1
+  change_field_id: 1
+  logic_to_be_applied: MyString
+  values: MyString
+  perform_action: MyString
+
+two:
+  listen_field_id: 1
+  change_field_id: 1
+  logic_to_be_applied: MyString
+  values: MyString
+  perform_action: MyString
