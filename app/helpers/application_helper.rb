@@ -51,7 +51,7 @@ module ApplicationHelper
     user = activity.source.constantize.find_by(email: activity.email)
     if(user.class.to_s == 'User')
       source = activity.source.constantize.find_by(email: activity.email).try(:law_firm).try(:name)
-      "<i class='fa fa-graduation-cap log-icon law-firm' data-toggle='tooltip' data-original-title='#{source}' title='#{source}'></i>".html_safe
+      "<i class='fa fa-university log-icon law-firm' data-toggle='tooltip' data-original-title='#{source}' title='#{source}'></i>".html_safe
     elsif(user.class.to_s == 'AdminUser')
       source = 'Admin'
       "<i class='fa fa-shield log-icon admin' data-toggle='tooltip' data-original-title='#{source}' title='#{source}'></i>".html_safe

@@ -83,6 +83,8 @@ ActiveRecord::Schema.define(version: 20170327204204) do
     t.integer  "form_value_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.text     "iv"
+    t.text     "key"
   end
 
   create_table "follow_ups", force: :cascade do |t|

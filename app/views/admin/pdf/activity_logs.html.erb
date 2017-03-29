@@ -1,0 +1,23 @@
+<style>
+	table tr td,
+	table tr th, {
+		font-size: 24px !important;
+	}
+</style>
+
+<table style="width: 100%">
+	<tr>
+		<th style="font-size: 55px;">Law Firm</th>
+		<th style="font-size: 55px;">Event</th>
+		<th style="font-size: 55px;">Source</th>
+		<th style="font-size: 55px;">Logged At</th>
+	</tr>
+	<% @activity_logs.each do |activity| %>
+		<tr>
+			<td style="font-size: 55px;"><%= activity.law_firm.try(:name) %></td>
+			<td style="font-size: 55px;"><%= activity.custom_message || activity.event_type.humanize %></td>
+			<td style="font-size: 55px;"><%= activity.source %></td>
+			<td style="font-size: 55px;"><%= activity.created_at.strftime('%d %b at %I:%M %p') %></td>
+		</tr>
+	<% end %>
+</table>

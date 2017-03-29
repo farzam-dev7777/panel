@@ -2,7 +2,7 @@ class Users::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
 
   layout 'login'
-  skip_before_filter :verify_authenticity_token
+  skip_before_action :verify_authenticity_token
 
   # GET /resource/sign_in
   # def new

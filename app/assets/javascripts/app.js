@@ -6,6 +6,58 @@ $(document).ready(function(){
   // $('.dynamic-select').trigger('change');
   $('i.log-icon').tooltip();
 
+  //File Upload
+  $('.fileupload').fileupload({
+    dataType: 'html',
+    done: function (e, data) {
+      container = $(this);
+      container.parent().append(data.result);
+    },
+    progressall: function (e, data) {
+      container = $(this);
+      var progress = parseInt(data.loaded / data.total * 100, 10);
+      container.parent().find('#progress .bar').css(
+          'width',
+          progress + '%'
+      )
+      .css('display', 'block')
+      .text(progress + '%');
+    }
+  });
+
+  $(document).on('click', ".delete_file", function(e){
+    e.preventDefault();
+    href = $(this).attr('href');
+    swal({
+      title: "Are you sure?",
+      text: "",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "No, don't delete!",
+      closeOnConfirm: true,
+      closeOnCancel: true
+    },
+    function(isConfirm){
+      if (isConfirm) {
+        $.ajax({
+          method: 'DELETE',
+          url: href,
+          success: function(file_id) {
+            $("#delete_file-" + file_id).remove();
+          },
+          error: function(response) {
+            debugger;
+          }
+        })
+      }
+    });
+  });
+
+
+  //File upload ends
+
   $( function() {
     $( "#accordion" ).accordion();
   } );
@@ -53,12 +105,12 @@ $(document).ready(function(){
 
   $("input.datepicker").each(function(input) {
     $(this).datepicker({
-      dateFormat: "yy-mm-dd",
+      dateFormat: "dd-mm-yy",
       altField: $(this).next()
     })
 
     // If you use i18n-js you can set the locale like that
-    $(this).datepicker("option", $.datepicker.regional['en']);
+    // $(this).datepicker("option", $.datepicker.regional['en']);
   })
 
   $('.form_form_fields_custom_logic').each(initializeCustomLogic);
@@ -92,24 +144,27 @@ $(document).ready(function(){
 
 
 
-  $(document).on('change', '#dynamic-select', function() {
+  $(document).on('change', '.threat-lf-dynamic-select', function() {
     field = $(this).data('field');
     
     if (field == 'vendor'){
       vendor = $(this).val();
       target = $(this).parent().parent().next('div.platform-wrapper').find('select');
       fetchLawFirms(vendor, null, null, target)
+      fetchTechnology(vendor, null, null, target)
     } else if (field == 'platform'){
       vendor = $(this).parent().parent().prev('.vendor-wrapper').find('select').val();
       platform = $(this).val();
       target = $(this).parent().parent().next('div.version-wrapper').find('select');
       fetchLawFirms(vendor, platform, null, target)
+      fetchTechnology(vendor, platform, null, target)
     } else if (field == 'version') {
       vendor = $(this).parent().parent().prev('.vendor-wrapper').find('select').val();
       platform = $(this).parent().parent().prev('.platform-wrapper').find('select').val();
       version = $(this).val();
       target = $(this).parent().parent().next('div.service_pack-wrapper').find('select');
       fetchLawFirms(vendor, platform, version, target);
+      fetchTechnology(vendor, platform, version, target)
     }
 
     platform = $(this).data('platform');
@@ -256,7 +311,7 @@ $(document).ready(function(){
       confirmButtonColor: "#DD6B55",
       confirmButtonText: "Yes, submit it!",
       cancelButtonText: "No, don't submit!",
-      closeOnConfirm: false,
+      closeOnConfirm: true,
       closeOnCancel: true
     },
     function(isConfirm){
@@ -485,7 +540,6 @@ $(document).ready(function(){
       "startColor": "#FF0000",
       "endColor"  : "#369e36"
     },
-    readOnly: true,
     onInit: function (rating, rateYoInstance) {
       rating = $(this).data().score;
       $(this).rateYo("rating", rating);
@@ -499,7 +553,6 @@ $(document).ready(function(){
       "startColor": "#FF0000",
       "endColor"  : "#369e36"
     },
-    readOnly: true,
     onInit: function (rating, rateYoInstance) {
       rating = $(this).data().score;
       $(this).rateYo("rating", rating);
@@ -621,9 +674,10 @@ function fetchLawFirms(vendor, platform, version, target){
   }
 
   $.get('/admin/security_threats/0/find_law_firms', data, function(response){
-    $('#law-firms').select2().empty().select2({data: response});
+    $('#law-firms').select2().empty().select2({data: response.selected});
     $('#law-firms option').attr('selected', true).parent().trigger('change');
-    $('#law-firms-count').html(response.length + " Firm(s) found")
+    $('#law-firms').select2({data: response.all});
+    $('#law-firms-count').html(response.selected.length + " Firm(s) found")
   })
 }
 
@@ -750,26 +804,31 @@ $(document).on('click', '#load-more-activities', function(){
   })
 })
 
-$('#search-activity-log-btn').on('click', function(){
-  $("#search_activity_log").submit();
-})
+// $('#search-activity-log-btn').on('click', function(e){
+//   e.preventDefault();
+//   $("#search_activity_log").submit();
+// })
 
-$("#search-activity-log").find("input[type=text], select").on('change', function(){
-  $('#search-activity-log-btn').trigger('click');
-})
+// $("#search-activity-log").find("input[type=text], select").on('change', function(e){
+//   // $('#search-activity-log-btn').trigger('click');
+//   e.preventDefault();
+//   $("#search_activity_log").submit();
+// })
 
-$('#reset-activity-log-btn').on('click', function(){
+$('#reset-activity-log-btn').on('click', function(e){
   $("#search-activity-log").find("input[type=text], textarea").val("");
   $("#search-activity-log").find("select").val("All");
   $("#search-activity-log").find("select").select2();
   $("#search-activity-log").submit();
+  e.preventDefault();
 })
-$("#search-activity-log").on('submit', function(e){
+
+$("#search-activity-log").find("input[type=text], select").on('change', function(e){
   e.preventDefault();
   $.ajax({
     method: 'GET',
     url: '/admin/internal_dashboard/search_activity_logs',
-    data: $(this).serialize(),
+    data: $("#search-activity-log").serialize(),
     success: function(response) {
       if(response != ""){
         $('ul.smart-timeline-list').html(response);
