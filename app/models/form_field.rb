@@ -8,6 +8,8 @@ class FormField < ApplicationRecord
   belongs_to :form
 
   has_many :logics, foreign_key: 'change_field_id', class_name: Logic
+  has_many :listen_fields, foreign_key: 'listen_field_id', class_name: Logic
+  has_many :change_fields, foreign_key: 'change_field_id', class_name: Logic
   accepts_nested_attributes_for :logics
 
   belongs_to :parent, :class_name => 'FormField'

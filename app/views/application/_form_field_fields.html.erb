@@ -4,7 +4,7 @@
   <%= render "application/form_fields/#{f.object.type.try(:underscore)}", f: f if f.object.type %>
   <%= f.input :required %>
   <div class="well">
-    <%= f.input :custom_logic %>
+    <%= f.input :custom_logic, input_html: { class: 'custom-logic-checkbox' } %>
     <div class="row">
       <div class="col-md-12 logics">
         <%= f.simple_fields_for :logics do |field| %>

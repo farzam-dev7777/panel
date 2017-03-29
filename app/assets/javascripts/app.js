@@ -8,7 +8,6 @@ $(document).ready(function(){
 
   $( function() {
     $( "#accordion" ).accordion();
-    $( "#accordion:nth-child(1n)" ).accordion();
   } );
 
   $('.form_submission_form_values_value input, .form_submission_form_values_value select, .form_submission_form_values_value textarea').each(function(){
