@@ -27,7 +27,7 @@ class Admin::InternalDashboardController < Admin::BaseController
 
   def search_activity_logs
     @q = ActivityLog.ransack(params[:q])
-    @activity_logs = @q.result.includes(:law_firm)
+    @activity_logs = @q.result.includes(:law_firm).order('created_at DESC')
 
     render partial: 'activity_log', locals: {activity_logs: @activity_logs}
   end
