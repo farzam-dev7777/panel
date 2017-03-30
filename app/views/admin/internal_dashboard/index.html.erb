@@ -364,13 +364,13 @@
 
 						<%= simple_form_for @q, url: '', html: { method: :get, id: 'search-activity-log' } do |f| %>
                 <div class="col-md-5 no-padding-left">
-	                <%= f.input :law_firm_name_or_event_type_cont, placeholder: "Search", label: false, class: 'form-control' %>
+	                <%= f.input :law_firm_name_or_event_type_cont, placeholder: "Search", label: false, class: 'form-control', input_html: { id: 'search-box' } %>
                 </div>
                 <div class="col-md-3">
-									<%= f.text_field :created_at_gteq, label: false, placeholder: 'From Date', class: 'form-control datepicker' %>
+									<%= f.text_field :created_at_gteq, label: false, placeholder: 'From Date', class: 'form-control datepicker', input_html: { id: 'from-date' } %>
 								</div>
                 <div class="col-md-3">
-									<%= f.text_field :created_at_lteq, label: false, placeholder: 'To Date', class: 'form-control datepicker' %>
+									<%= f.text_field :created_at_lteq, label: false, placeholder: 'To Date', class: 'form-control datepicker', input_html: { id: 'to-date' } %>
 								</div>
 								<div class="col-md-1 no-padding text-right">
 									<button id="reset-activity-log-btn" class="btn btn-danger">

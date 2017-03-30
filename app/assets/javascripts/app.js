@@ -849,7 +849,7 @@ $('#reset-activity-log-btn').on('click', function(e){
   e.preventDefault();
 })
 
-$("#search-activity-log").find("input[type=text], select").on('change', function(e){
+$("#search-activity-log").find("input[type=text], select").on('change keyup paste', function(e){
   e.preventDefault();
   $.ajax({
     method: 'GET',
