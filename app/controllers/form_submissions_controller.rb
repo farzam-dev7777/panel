@@ -43,7 +43,7 @@ class FormSubmissionsController < BaseController
   end
 
   def logics
-    @logics ||= @form_submission.form.all_logics
+    @logics ||= curent_step == :policy ? @form_submission.form.try(:all_logics) : @form_submission.form_process.try(:all_logics)
   end
 
   def edit
