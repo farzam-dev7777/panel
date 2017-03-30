@@ -12,6 +12,9 @@ $(document).ready(function(){
     done: function (e, data) {
       container = $(this);
       container.parent().append(data.result);
+      $(this).attr('data-file-count', container.parent().find('p').length); // update count
+      $(this).data('file-count', container.parent().find('p').length); // update count
+      showIfCustomLogicMatched($(this));
     },
     progressall: function (e, data) {
       container = $(this);
@@ -49,6 +52,7 @@ $(document).ready(function(){
   $(document).on('click', ".delete_file", function(e){
     e.preventDefault();
     href = $(this).attr('href');
+    container = $(this);
     swal({
       title: "Are you sure?",
       text: "",
@@ -66,7 +70,11 @@ $(document).ready(function(){
           method: 'DELETE',
           url: href,
           success: function(file_id) {
+            file_upload = container.parent().parent().find('.fileupload');
+            file_upload.attr('data-file-count', $("#delete_file-" + file_id).parent().find('p').length - 1); // update count
+            file_upload.data('file-count', $("#delete_file-" + file_id).parent().find('p').length - 1); // update count
             $("#delete_file-" + file_id).remove();
+            showIfCustomLogicMatched(file_upload);
           },
           error: function(response) {
             debugger;
@@ -88,7 +96,7 @@ $(document).ready(function(){
     // });
   } );
 
-  $('.form_submission_form_values_value input, .form_submission_form_values_value select, .form_submission_form_values_value textarea').each(function(){
+  $('.form_submission_form_values_value input, .form_submission_form_values_value select, .form_submission_form_values_value textarea, .fileupload').each(function(){
      prepareForCustomLogic($(this));
   })
 
@@ -145,7 +153,7 @@ $(document).ready(function(){
     showIfCustomLogicMatched($(this));
   });
 
-  $("input[type='text'], input[type='email'], input[type='file'], input[type='number']")
+  $("input[type='text'], input[type='email'], input[type='file'], input[type='number'], input[type='file']")
     .on("change paste keyup", function(){
       showIfCustomLogicMatched($(this));
   });
@@ -713,17 +721,20 @@ function initializeCustomLogic(){
   }
 }
 
-
 function showIfCustomLogicMatched(currentField){
+  debugger;
   logics = $('.logics').data('logics');
-  currentFieldId = currentField.parent().parent().siblings('.form_submission_form_values_form_field_id').find('input').val();
+  currentFieldId = currentField.parent().parent().siblings('.form_submission_form_values_form_field_id').find('input').val() || currentField.data('form-field-id');
   currentFieldLogics = _.where(logics, { listen_field_id: parseInt(currentFieldId) })
   
   if( currentFieldLogics.length > 0 ) {
     currentFieldLogics.forEach(function(logic) {
       targetField = $('.field-wrapper-' + logic.change_field_id)
-
-      if((currentField.val() == logic.values && currentField.val().length != 0) || (logic.values == "" && currentField.val().length > 0)){
+      debugger;
+      if( (currentField.val() == logic.values && currentField.val().length != 0) 
+           || (logic.values == "" && currentField.val().length > 0)
+           || (currentField.hasClass('fileupload') && parseInt(currentField.data('file-count')) > 0)
+        ){
         switch(logic.perform_action){
           case 'show':
             targetField.show();
@@ -736,7 +747,6 @@ function showIfCustomLogicMatched(currentField){
             break;
         }
       } else {
-
         switch(logic.perform_action){
           case 'show':
             targetField.hide();

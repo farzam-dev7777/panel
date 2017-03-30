@@ -15,7 +15,7 @@
 </style>
 
 <div class="file-field">
-  <input class="fileupload" type="file" name="files[]" data-url="/file_attachments/<%= v.object.id %>/<%= v.object.class.name %>" multiple>
+  <input class="fileupload" type="file" name="files[]" data-url="/file_attachments/<%= v.object.id %>/<%= v.object.class.name %>" multiple data-form-field-id="<%= v.object.try(:form_field).try(:id) %>" data-file-count="<%= v.object.file_attachments.count %>">
 
   <div id="progress">
     <div class="bar" style="width: 0%;"></div>
