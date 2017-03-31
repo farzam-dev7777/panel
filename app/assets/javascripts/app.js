@@ -722,7 +722,6 @@ function initializeCustomLogic(){
 }
 
 function showIfCustomLogicMatched(currentField){
-  debugger;
   logics = $('.logics').data('logics');
   currentFieldId = currentField.parent().parent().siblings('.form_submission_form_values_form_field_id').find('input').val() || currentField.data('form-field-id');
   currentFieldLogics = _.where(logics, { listen_field_id: parseInt(currentFieldId) })
@@ -730,7 +729,6 @@ function showIfCustomLogicMatched(currentField){
   if( currentFieldLogics.length > 0 ) {
     currentFieldLogics.forEach(function(logic) {
       targetField = $('.field-wrapper-' + logic.change_field_id)
-      debugger;
       if( (currentField.val() == logic.values && currentField.val().length != 0) 
            || (logic.values == "" && currentField.val().length > 0)
            || (currentField.hasClass('fileupload') && parseInt(currentField.data('file-count')) > 0)
