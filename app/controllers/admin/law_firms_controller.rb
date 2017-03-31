@@ -98,11 +98,13 @@ class Admin::LawFirmsController < Admin::BaseController
   def law_firms
     case params[:filter]
     when 'certified'
-      LawFirm.joins(:form_submissions).where("form_submissions.created_at = (SELECT MAX(form_submissions.created_at) FROM form_submissions WHERE form_submissions.law_firm_id = law_firms.id) AND form_submissions.status='approved'")
+      LawFirm.certified
     when 'under_process'
-      LawFirm.joins(:form_submissions).where("form_submissions.created_at = (SELECT MAX(form_submissions.created_at) FROM form_submissions WHERE form_submissions.law_firm_id = law_firms.id) AND form_submissions.status='sent'")
+      LawFirm.in_process
     when 'decertified'
-      LawFirm.joins(:form_submissions).where("form_submissions.created_at = (SELECT MAX(form_submissions.created_at) FROM form_submissions WHERE form_submissions.law_firm_id = law_firms.id) AND form_submissions.status='decertified'")
+      LawFirm.decertified
+    when 'onboarded'
+      LawFirm.onboarded
     else
       LawFirm
     end

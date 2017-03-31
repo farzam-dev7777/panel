@@ -738,7 +738,7 @@ ul.internal-notes li div {
 
 .current-stats ul#sparks {
   margin: 0 auto;
-  width: 60% !important;
+  width: 670px !important;
 }
 
 .current-stats ul#sparks li span{
@@ -790,6 +790,7 @@ ul.internal-notes li div {
   box-shadow: 2px 2px 10px #4a4a4a;
   border: 3px solid #ccc;
   padding: 15px;
+  padding-right: 65px;
 }
 
 .form-enclosure label {
@@ -822,5 +823,36 @@ ul.internal-notes li div {
   padding-left: 0px;
 }
 
+.file-name-holder:last-child {
+  margin-bottom: 10px !important;
+}
 
+.form-control[disabled] {
+  border-bottom: 1px solid #ccc !important;
+}
+
+h3.firm-score-approved,
+h3.firm-score-declined {
+  margin: 5px;
+}
+
+h3.firm-score-approved span {
+  color: green
+}
+
+h3.firm-score-declined span {
+  color: red
+}
+
+#law-firm-score {
+  margin-bottom: 8px;
+}
+
+#sec-threat_filter label {
+  width: 100%;
+}
+
+#sec-threat_filter label input {
+  width: 95% !important;
+}
 

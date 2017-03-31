@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170327204204) do
+ActiveRecord::Schema.define(version: 20170331214006) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -294,6 +294,10 @@ ActiveRecord::Schema.define(version: 20170327204204) do
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
     t.float    "severity_negative_factor"
+    t.text     "vendor"
+    t.text     "platform"
+    t.text     "version"
+    t.text     "service_pack"
   end
 
   create_table "severity_levels", force: :cascade do |t|

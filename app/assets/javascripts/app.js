@@ -14,9 +14,13 @@ $(document).ready(function(){
     done: function (e, data) {
       container = $(this);
       container.parent().append(data.result);
-      $(this).attr('data-file-count', container.parent().find('p').length); // update count
-      $(this).data('file-count', container.parent().find('p').length); // update count
+      $(this).attr('data-file-count', container.parent().find('.delete-file').length); // update count
+      $(this).data('file-count', container.parent().find('.delete-file').length); // update count
       showIfCustomLogicMatched($(this), false);
+
+      setTimeout(function(){
+        container.parent().find('#progress').css('width', 0);
+      }, 5000)
     },
     progressall: function (e, data) {
       container = $(this);
@@ -73,8 +77,8 @@ $(document).ready(function(){
           url: href,
           success: function(file_id) {
             file_upload = container.parent().parent().find('.fileupload');
-            file_upload.attr('data-file-count', $("#delete_file-" + file_id).parent().find('p').length - 1); // update count
-            file_upload.data('file-count', $("#delete_file-" + file_id).parent().find('p').length - 1); // update count
+            file_upload.attr('data-file-count', $("#delete_file-" + file_id).parent().find('.delete-file').length - 1); // update count
+            file_upload.data('file-count', $("#delete_file-" + file_id).parent().find('.delete-file').length - 1); // update count
             $("#delete_file-" + file_id).remove();
             showIfCustomLogicMatched(file_upload, false);
           },
@@ -710,8 +714,24 @@ function fetchLawFirms(vendor, platform, version, target){
     $('#law-firms option').attr('selected', true).parent().trigger('change');
     $('#law-firms').select2({data: response.all});
     $('#law-firms-count').html(response.selected.length + " Firm(s) found")
+
+    if(response.selected.length > 0){
+      $('.clear-all-lawfirms').show();
+    }
   })
 }
+
+$('.add-all-lawfirms').on('click', function(e){
+  e.preventDefault();
+  $('#law-firms option').attr('selected', true).trigger('change');
+  $('.clear-all-lawfirms').show();
+})
+$('.clear-all-lawfirms').hide();
+$('.clear-all-lawfirms').on('click', function(e){
+  e.preventDefault();
+  $('#law-firms option').attr('selected', false).parent().trigger('change');
+  $('.clear-all-lawfirms').hide();
+})
 
 function initializeCustomLogic(){
   if($(this).find('input:checked').length > 0){
