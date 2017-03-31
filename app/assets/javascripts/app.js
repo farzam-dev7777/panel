@@ -14,7 +14,7 @@ $(document).ready(function(){
       container.parent().append(data.result);
       $(this).attr('data-file-count', container.parent().find('p').length); // update count
       $(this).data('file-count', container.parent().find('p').length); // update count
-      showIfCustomLogicMatched($(this));
+      showIfCustomLogicMatched($(this), false);
     },
     progressall: function (e, data) {
       container = $(this);
@@ -74,7 +74,7 @@ $(document).ready(function(){
             file_upload.attr('data-file-count', $("#delete_file-" + file_id).parent().find('p').length - 1); // update count
             file_upload.data('file-count', $("#delete_file-" + file_id).parent().find('p').length - 1); // update count
             $("#delete_file-" + file_id).remove();
-            showIfCustomLogicMatched(file_upload);
+            showIfCustomLogicMatched(file_upload, false);
           },
           error: function(response) {
             debugger;
@@ -150,12 +150,12 @@ $(document).ready(function(){
   $('.form_form_fields_custom_logic').each(initializeCustomLogic);
 
   $("select").on("change", function(){
-    showIfCustomLogicMatched($(this));
+    showIfCustomLogicMatched($(this), false);
   });
 
   $("input[type='text'], input[type='email'], input[type='file'], input[type='number'], input[type='file']")
     .on("change paste keyup", function(){
-      showIfCustomLogicMatched($(this));
+      showIfCustomLogicMatched($(this), false);
   });
 
   $('.submit-form').click(function(e){
@@ -721,7 +721,7 @@ function initializeCustomLogic(){
   }
 }
 
-function showIfCustomLogicMatched(currentField){
+function showIfCustomLogicMatched(currentField, pageLoad){
   logics = $('.logics').data('logics');
   currentFieldId = currentField.parent().parent().siblings('.form_submission_form_values_form_field_id').find('input').val() || currentField.data('form-field-id');
   currentFieldLogics = _.where(logics, { listen_field_id: parseInt(currentFieldId) })
@@ -740,21 +740,27 @@ function showIfCustomLogicMatched(currentField){
             break;
           case 'hide':
             targetField.hide();
-            targetField.find("select").val('').trigger('change');
-            targetField.find("input[type!=hidden]").val('').trigger('change');
+            if(!pageLoad){
+              targetField.find("select").val('').trigger('change');
+              targetField.find("input[type!=hidden]").val('').trigger('change');
+            }
             break;
         }
       } else {
         switch(logic.perform_action){
           case 'show':
             targetField.hide();
-            targetField.find("select").val('').trigger('change');
-            targetField.find("input[type!=hidden]").val('').trigger('change');
+            if(!pageLoad){
+              targetField.find("select").val('').trigger('change');
+              targetField.find("input[type!=hidden]").val('').trigger('change');
+            }
             break;
           case 'hide':
             targetField.show();
             targetField.find("select").select2();
-            targetField.find("input[type!=hidden]").val('').trigger('change');
+            if(!pageLoad){
+              targetField.find("input[type!=hidden]").val('').trigger('change');
+            }
             break;
         }
       }
@@ -764,7 +770,7 @@ function showIfCustomLogicMatched(currentField){
 }
 
 function prepareForCustomLogic(currentField){
-  showIfCustomLogicMatched(currentField);
+  showIfCustomLogicMatched(currentField, true);
 }
 
 $(document).ready(function(){
