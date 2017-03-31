@@ -740,8 +740,8 @@ function showIfCustomLogicMatched(currentField, pageLoad){
             break;
           case 'hide':
             targetField.hide();
-            targetField.find("select").val('').trigger('change');
             if(!pageLoad){
+              targetField.find("select").val('').trigger('change');
               targetField.find("input[type!=hidden]").val('').trigger('change');
             }
             break;
@@ -750,8 +750,8 @@ function showIfCustomLogicMatched(currentField, pageLoad){
         switch(logic.perform_action){
           case 'show':
             targetField.hide();
-            targetField.find("select").val('').trigger('change');
             if(!pageLoad){
+              targetField.find("select").val('').trigger('change');
               targetField.find("input[type!=hidden]").val('').trigger('change');
             }
             break;
