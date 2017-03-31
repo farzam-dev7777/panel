@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-us" id="extr-page">
   <head>
-    <title><%= params[:controller] %> Bluehound</title>
+    <title><%= params[:controller].humanize %> Bluehound</title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
