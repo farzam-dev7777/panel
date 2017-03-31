@@ -1,12 +1,18 @@
 <%- file_attachments.each do |file_attachment| %>
-  <p id="delete_file-<%= file_attachment.id %>">
+  <div id="delete_file-<%= file_attachment.id %>">
     <%- if current_admin_admin_user %>
-      <span><%= link_to file_attachment.try(:file).try(:file).try(:filename), decrypt_admin_file_attachment_path(file_attachment) %> </span>
+      <div class="col-md-11 file-name-holder">
+        <%= link_to file_attachment.try(:file).try(:file).try(:filename), decrypt_admin_file_attachment_path(file_attachment) %> 
+      </div>
     <% else %>
-      <span><%= file_attachment.try(:file).try(:file).try(:filename) %> </span>
+      <div class="col-md-11 file-name-holder">
+        <%= file_attachment.try(:file).try(:file).try(:filename) %> 
+      </div>
     <% end %>
-    <%= link_to(file_attachment_path(file_attachment), class: "delete_file") do %>
-      <i class="fa fa-trash"></i>
-    <% end %>
-  </p>
+    <div class="col-md-1 no-padding">
+      <%= link_to(file_attachment_path(file_attachment), class: "delete_file") do %>
+        <i class="fa fa-trash"></i>
+      <% end %>
+    </div>
+  </div>
 <% end %>

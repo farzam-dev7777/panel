@@ -6,6 +6,8 @@ $(document).ready(function(){
   // $('.dynamic-select').trigger('change');
   $('i.log-icon').tooltip();
 
+  $('.fileupload').next('.file-upload-handler').on('click', function(){ $(this).prev('.fileupload').trigger('click') })
+
   //File Upload
   $('.fileupload').fileupload({
     dataType: 'html',
