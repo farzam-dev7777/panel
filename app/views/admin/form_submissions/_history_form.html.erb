@@ -1,8 +1,8 @@
 <%= simple_fields_for @form_submission do |f| %>
   <div class="container">
     
-    <div class="col-md-10 col-md-offset-1 no-padding">
-	  	<h4 class="m-b-20">SECURITY INCIDENT LOG</h4>
+    <div class="col-md-10 col-md-offset-1 no-padding history-form-wrapper" style="margin-bottom: 55px;">
+	  	<h4 class="m-b-20"><strong>SECURITY INCIDENT LOG</strong></h4>
 
     	<div class=" col-md-12 no-padding">
 	      <%= f.simple_fields_for :history_submissions do |field| %>
@@ -14,6 +14,9 @@
     	<hr class="seperator">
 			<div class="link-to-add"></div>
 
+			<p>&nbsp;</p>
+			<p>&nbsp;</p>
+			<p>&nbsp;</p>
 			<p>&nbsp;</p>
 
     </div>

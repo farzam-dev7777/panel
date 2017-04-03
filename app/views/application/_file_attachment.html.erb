@@ -1,5 +1,5 @@
 <%- file_attachments.each do |file_attachment| %>
-  <div id="delete_file-<%= file_attachment.id %>">
+  <div class="delete-file" id="delete_file-<%= file_attachment.id %>">
     <%- if current_admin_admin_user %>
       <div class="col-md-11 file-name-holder">
         <%= link_to file_attachment.try(:file).try(:file).try(:filename), decrypt_admin_file_attachment_path(file_attachment) %> 
@@ -14,5 +14,6 @@
         <i class="fa fa-trash"></i>
       <% end %>
     </div>
+    <div class="clearfix"></div>
   </div>
 <% end %>

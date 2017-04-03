@@ -6,7 +6,7 @@ class Admin::LawFirmsController < Admin::BaseController
 
   def index
     @q = law_firms.ransack(params[:q])
-    @law_firms = @q.result(distinct: true).order('created_at ASC')
+    @law_firms = @q.result(distinct: true).order('created_at DESC')
     add_breadcrumb "Law Firms", :admin_law_firms_path
   end
 
@@ -68,6 +68,10 @@ class Admin::LawFirmsController < Admin::BaseController
     # TODO: Check if we want to copy the notes and follow ups of the old form submission
     new_form_submission = last_form_submission.amoeba_dup
     new_form_submission.status = 'sent'
+    new_form_submission.submitted = false
+    new_form_submission.submitted_on = nil
+    new_form_submission.total_score = nil
+    new_form_submission.assessor_score = nil
 
     if new_form_submission.save
       @law_firm.log_activity('recertification_process_initiated', true, current_admin_user)
@@ -98,11 +102,13 @@ class Admin::LawFirmsController < Admin::BaseController
   def law_firms
     case params[:filter]
     when 'certified'
-      LawFirm.joins(:form_submissions).where("form_submissions.created_at = (SELECT MAX(form_submissions.created_at) FROM form_submissions WHERE form_submissions.law_firm_id = law_firms.id) AND form_submissions.status='approved'")
+      LawFirm.certified
     when 'under_process'
-      LawFirm.joins(:form_submissions).where("form_submissions.created_at = (SELECT MAX(form_submissions.created_at) FROM form_submissions WHERE form_submissions.law_firm_id = law_firms.id) AND form_submissions.status='sent'")
+      LawFirm.in_process
     when 'decertified'
-      LawFirm.joins(:form_submissions).where("form_submissions.created_at = (SELECT MAX(form_submissions.created_at) FROM form_submissions WHERE form_submissions.law_firm_id = law_firms.id) AND form_submissions.status='decertified'")
+      LawFirm.decertified
+    when 'onboarded'
+      LawFirm.onboarded
     else
       LawFirm
     end

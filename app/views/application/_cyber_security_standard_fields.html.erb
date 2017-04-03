@@ -1,0 +1,20 @@
+<div class="row cyber-security cyber-security-field-<%= f.object.try(:id) %>">
+	<div class="col-md-3">
+		<%= f.input :rank %>
+	</div>
+	<div class="col-md-3">
+		<%= f.input :standard %>
+	</div>
+	<div class="col-md-3">
+		<%= f.input :date_of_certification, as: :string, input_html: { class: 'datepicker', value: DateField.stringify_date(f.object.date_of_certification) } %>
+	</div>
+	<div class="col-md-2">
+		<%= f.input :renewal, as: :string, input_html: { class: 'datepicker', value: DateField.stringify_date(f.object.renewal) } %>
+	</div>
+
+	<div class="col-md-1 text-right" style="line-height: 84px; padding-right: 40px;">
+		<% if f.object %>
+			<%= link_to_remove_association "<i class='fa fa-minus-circle fa-2x'></i>".html_safe, f, { wrapper_class: "cyber-security-field-#{f.object.try(:id)}" }  %>
+		<% end %>
+	</div>
+</div>

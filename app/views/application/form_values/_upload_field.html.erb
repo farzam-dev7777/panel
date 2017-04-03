@@ -22,7 +22,12 @@
 </style>
 
 <div class="file-field">
-  <label class="control-label"><%= v.object.try(:form_field).try(:label) %></label>
+  <label class="control-label">
+    <%= v.object.try(:form_field).try(:label) %>
+    <% if !v.object.try(:form_field).try(:help_description).blank? %>
+      <i class="fa fa-question-circle-o help-text" data-help="<%= v.object.try(:form_field).try(:help_description) %>"></i>
+    <% end %>
+  </label>
   <input class="fileupload hidden" type="file" name="files[]" data-url="/file_attachments/<%= v.object.id %>/<%= v.object.class.name %>" multiple data-form-field-id="<%= v.object.try(:form_field).try(:id) %>" data-file-count="<%= v.object.file_attachments.count %>">
   <input type="text" class="form-control file-upload-handler" placeholder="Click here to upload file(s)" readonly="readonly">
 

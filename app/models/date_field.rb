@@ -1,7 +1,13 @@
 class DateField < FormField
 
+  DATE_FORMAT = "%d-%m-%Y"
+
   def parse_date(form_value)
-    Date.strptime(form_value.value, "%d-%m-%Y") if form_value.value && !form_value.value.blank?
+    Date.strptime(form_value.value, DATE_FORMAT) if form_value.value && !form_value.value.blank?
+  end
+
+  def self.stringify_date(date)
+    date.strftime(DATE_FORMAT) if date.present?
   end
 
   def add_validation_errors(form_value)

@@ -1,9 +1,5 @@
 <div class="check-mark-wrapper">
-	<a class="btn <%= loggable.checked ? 'btn-success' : 'btn-danger' %> btn-success btn-xs check-field-value" data-loggable_id="<%= loggable.id %>" data-loggable_type="<%= form_type %>">
-		<% if loggable.checked %>
-      <i class="fa fa-check"></i>
-    <% else %>
-      <i class="fa fa-close"></i>
-    <% end %>
+	<a class="btn <%= loggable.checked ? 'btn-success' : 'btn-default' %> btn-xs check-field-value" data-loggable_id="<%= loggable.id %>" data-loggable_type="<%= form_type %>">
+    <i class="fa fa-check"></i>
 	</a>
 </div>

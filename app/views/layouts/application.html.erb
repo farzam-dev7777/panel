@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-us">
   <head>
-    <title><%= params[:controller].humanize %> Bluehound</title>
+    <title><%= params[:controller].humanize %> | Bluehound</title>
       
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <%= csrf_meta_tags %>
@@ -193,7 +193,8 @@
       <div class="clearfix"></div>
 
     </div>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application' %>
+    
     <% if current_law_firm && current_law_firm.try(:form_submissions).try(:latest).try(:total_score) %>
       <script>
         $('#law-firm-rating').rateYo({
