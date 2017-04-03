@@ -7,6 +7,7 @@
   <div class="form-field-content">
   <%= f.input :type, as: :select, collection: FormField.descendants %>
   <%= f.input :label %>
+  <%= f.input :help_description, label: 'Help Text' %>
   <%= f.input :position, as: :integer, input_html: {:data => { :role => 'position' }} %>
   <%= f.input :required %>
 

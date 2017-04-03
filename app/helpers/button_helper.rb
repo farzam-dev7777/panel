@@ -23,6 +23,8 @@ module ButtonHelper
       elsif(submissions.latest.status == 'follow_up')
         link_to 'Answer Follow Ups ' + "(#{submissions.latest.follow_ups.review.count})", policy_step_form_submission_path(submissions.latest), html_options = {class: 'btn btn-primary btn-lg dashboard-certificate-button'}
       end
+    else
+      'SEAL status is not available yet'
     end
   end
 

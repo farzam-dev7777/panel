@@ -1,0 +1,2 @@
+class CyberSecurityStandard < ApplicationRecord
+end

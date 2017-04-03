@@ -153,6 +153,16 @@ $(document).ready(function(){
     // $(this).datepicker("option", $.datepicker.regional['en']);
   })
 
+  $(document).on('click', '.add-css', function() {
+    $('.cyber-security').find('.datepicker').datepicker({
+      dateFormat: "dd-mm-yy",
+      altField: $(this).next()
+    })
+
+    // If you use i18n-js you can set the locale like that
+    // $(this).datepicker("option", $.datepicker.regional['en']);
+  })
+
   $('.form_form_fields_custom_logic').each(initializeCustomLogic);
 
   $("select").on("change", function(){
@@ -290,6 +300,19 @@ $(document).ready(function(){
       style: {
         width: 1000,
         classes: 'qtip-blue qtip-shadow'
+      }
+    });
+  });
+
+  $('.help-text').each(function() {
+    var data = $(this).data().help;
+    $(this).qtip({
+      content: {
+        title: 'Tip!',
+        text: data,
+      },
+      position: {
+        my: 'bottom left'
       }
     });
   });

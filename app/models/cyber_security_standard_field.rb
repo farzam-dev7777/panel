@@ -1,0 +1,2 @@
+class CyberSecurityStandardField < FormField
+end

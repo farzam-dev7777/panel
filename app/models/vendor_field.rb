@@ -1,0 +1,2 @@
+class VendorField < FormField
+end

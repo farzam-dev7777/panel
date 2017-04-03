@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  rank: MyString
+  standard: MyString
+  date_of_certification: 2017-04-03 14:45:58
+  renewal: 2017-04-03 14:45:58
+
+two:
+  rank: MyString
+  standard: MyString
+  date_of_certification: 2017-04-03 14:45:58
+  renewal: 2017-04-03 14:45:58

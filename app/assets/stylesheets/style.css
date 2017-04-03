@@ -306,7 +306,7 @@ div.link-to-add > * {
 
 div.note {
   max-height: 250px;
-  overflow: scroll;
+  overflow-y: scroll;
   margin-bottom: 10px;
 }
 div.note h5 {
@@ -816,7 +816,7 @@ ul.internal-notes li div {
 }
 
 .file-name-holder {
-  width: 166px;
+  width: 155px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -854,5 +854,18 @@ h3.firm-score-declined span {
 
 #sec-threat_filter label input {
   width: 95% !important;
+}
+
+.help-text {
+  color: #7297a8;
+}
+
+.delete-file:last-child {
+  margin-bottom: 20px;
+}
+
+.vendor .form-group,
+.cyber-security .form-group {
+  margin-bottom: 0px !important;
 }
 
