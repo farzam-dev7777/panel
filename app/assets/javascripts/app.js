@@ -19,7 +19,7 @@ $(document).ready(function(){
       showIfCustomLogicMatched($(this), false);
 
       setTimeout(function(){
-        container.parent().find('#progress').css('width', 0);
+        container.parent().find('#progress .bar').hide();
       }, 5000)
     },
     progressall: function (e, data) {
