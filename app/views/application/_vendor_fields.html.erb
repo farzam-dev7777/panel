@@ -9,8 +9,8 @@
 		<%= f.input :application %>
 	</div>
 
-	<div class="col-md-1 text-right" style="line-height: 84px; padding-right: 40px;">
-		<% if f.object %>
+	<div class="col-md-1" style="line-height: 84px; padding-right: 40px;">
+		<% if f.object && current_user %>
 			<%= link_to_remove_association "<i class='fa fa-minus-circle fa-2x'></i>".html_safe, f, { wrapper_class: "vendor-field-#{f.object.try(:id)}" }  %>
 		<% end %>
 	</div>
