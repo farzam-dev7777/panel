@@ -20,10 +20,6 @@ class BaseController < ApplicationController
     devise_parameter_sanitizer.permit :account_update, keys: added_attrs
   end
 
-  def current_law_firm
-		current_user.law_firm
-  end
-
   def activities
 		@logs ||= current_law_firm.activity_logs
   end

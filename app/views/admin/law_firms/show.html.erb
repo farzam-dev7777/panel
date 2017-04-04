@@ -34,7 +34,7 @@
 	</div>
 
 	<div class="col-lg-2 pull-right">
-		<%= link_to "Begin Recertification Process", begin_recertification_process_admin_law_firm_path(@law_firm), class: "btn btn-primary pull-right" %>
+		<a class="btn btn-primary pull-right begin-recertification-btn" data-id="<%= @law_firm.id %>">Begin Recertification Process</a>
 	</div>
 <% end %>
 

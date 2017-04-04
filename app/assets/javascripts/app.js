@@ -55,6 +55,33 @@ $(document).ready(function(){
     }
   });
 
+  $('.begin-recertification-btn').on('click', function(e){
+    href  = "/admin/law_firms/" + $(this).data('id') + "/begin_certification_process";
+    swal({
+      title: "Are you sure?",
+      text: "",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "Yes, begin recertification!",
+      cancelButtonText: "Cancel",
+      closeOnConfirm: true,
+      closeOnCancel: true
+    },
+    function(isConfirm){
+      if (isConfirm) {
+        $.ajax({
+          method: 'GET',
+          url: href,
+          success: function() {
+            window.location.reload;
+          },
+          error: function(response) {}
+        })
+      }
+    });
+  })
+
   $(document).on('click', ".delete_file", function(e){
     e.preventDefault();
     href = $(this).attr('href');

@@ -75,7 +75,8 @@ class Admin::LawFirmsController < Admin::BaseController
 
     if new_form_submission.save
       @law_firm.log_activity('recertification_process_initiated', true, current_admin_user)
-      redirect_to :admin_law_firms
+      # redirect_to :admin_law_firms
+      head :ok
     end
   end
 
@@ -117,7 +118,7 @@ class Admin::LawFirmsController < Admin::BaseController
   private
 
   def law_firms_params
-  	params.require(:law_firm).permit(:name, :description, :email, :phone, :temp_password)
+  	params.require(:law_firm).permit(:name, :description, :email, :phone, :temp_password, location_attributes: [:id, :address1, :address2, :city, :province, :postal_code, :country, :_destroy])
   end
 
 end

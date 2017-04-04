@@ -7,6 +7,11 @@
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <style>
+      #main {
+        margin-left: 0px;
+      }
+    </style>
   </head>
 
   <body class="smart-style-6">
@@ -16,57 +21,41 @@
       <div id="logo-group">
 
         <!-- PLACE YOUR LOGO HERE -->
-        <span id="logo"> <%= image_tag "seal-white.png", alt:"SEAL" %> </span>
+        <span id="logo">
+          <a href="/"><%= image_tag "seal-white.png", alt:"SEAL" %></a>
+        </span>
         <!-- END LOGO PLACEHOLDER -->
 
         <!-- Note: The activity badge color changes when clicked and resets the number to 0
            Suggestion: You may want to set a flag when this happens to tick off all checked messages / notifications -->
-        <span id="activity" class="activity-dropdown"> 
-          <i class="fa fa-user"></i> 
-          <b class="badge"> <%= unread_notifications_count if current_user %> </b>
-        </span>
 
         <!-- AJAX-DROPDOWN : control this dropdown height, look and feel from the LESS variable file -->
-        <div class="ajax-dropdown">
-
-          <!-- the ID links are fetched via AJAX to the ajax container "ajax-notifications" -->
-          <!-- <div class="btn-group btn-group-justified" data-toggle="buttons">
-            <label class="btn btn-default">
-              <input type="radio" name="activity" id="ajax/notify/mail.html">
-              Msgs (14) </label>
-            <label class="btn btn-default">
-              <input type="radio" name="activity" id="ajax/notify/notifications.html">
-              notify (3) </label>
-            <label class="btn btn-default">
-              <input type="radio" name="activity" id="ajax/notify/tasks.html">
-              Tasks (4) </label>
-          </div> -->
-
-          <!-- notification content -->
-          <div class="ajax-notifications custom-scroll no-padding">
-
-            <ul class="notifications">
-              <%- if current_user %>
-                <%- notifications.reverse.each do |notification| %>
-                  <li class="<%= notification.read ? 'read' : 'unread' %>">
-                    <strong><%= notification.event_type.titleize %></strong>
-                    <p><%= notification.custom_message %></p>
-                    <p class="date"><%= notification.created_at.strftime('%a, %d %b %Y') %></p>
-                  </li>
-                <%- end %>
-              <%- end %>
-            </ul>
-
-          </div>
-          <!-- end notification content -->
-
-        </div>
+        
         <!-- END AJAX-DROPDOWN -->
       </div>
 
       <div class="col-md-8 col-md-offset-1 text-center portal-type">
         <p>Firm Portal</p>
       </div>
+
+       <div class="project-context hidden-xs col-md-1">
+
+          <span class="label">Welcome</span>
+          <span class="project-selector dropdown-toggle" data-toggle="dropdown"><%= current_user.username %> <i class="fa fa-angle-down"></i></span>
+
+          <!-- Suggestion: populate this list with fetch and push technique -->
+          <ul class="dropdown-menu">
+            <li>
+              <%= link_to "Change your password", edit_user_registration_path %>
+            </li>
+            <li class="divider"></li>
+            <li>
+              <a href="/users/sign_out"><i class="fa fa-power-off"></i> Logout</a>
+            </li>
+          </ul>
+          <!-- end dropdown-menu-->
+
+        </div>
 
       <!-- #PROJECTS: projects dropdown -->
       <!-- end projects dropdown -->
@@ -111,12 +100,6 @@
           <span> <a href="javascript:void(0);" data-action="toggleMenu" title="Collapse Menu"><i class="fa fa-reorder"></i></a> </span>
         </div>
 
-        <!-- logout button -->
-        <div id="logout" class="btn-header transparent pull-right">
-          <span> <a href="/users/sign_out" title="Sign Out" data-action="userLogout" data-logout-msg="You can improve your security further after logging out by closing this opened browser"><i class="fa fa-sign-out"></i></a> </span>
-        </div>
-        <!-- end logout button -->
-
       </div>
       <!-- end pulled right: nav area -->
 
@@ -126,46 +109,18 @@
     <!-- #NAVIGATION -->
     <!-- Left panel : Navigation area -->
     <!-- Note: This width of the aside area can be adjusted through LESS/SASS variables -->
-    <aside id="left-panel">
-
-      <!-- User info -->
+<!--     <aside id="left-panel">
       <div class="login-info">
-        <span> <!-- User image size is adjusted inside CSS, it should stay as is --> 
-          
-          <a href="javascript:void(0);" id="show-shortcut" data-action="toggleShortcut">
-            <span style="padding-top: 0; margin-top: 0">
-              <%= current_user.username %> 
-            </span>
-            <i class="fa fa-angle-down"></i>
-          </a> 
-          
-        </span>
+        <span></span>
       </div>
-      <!-- end user info -->
-
-      <!-- NAVIGATION : This navigation is also responsive
-
-      To make this navigation dynamic please make sure to link the node
-      (the reference to the nav > ul) after page load. Or the navigation
-      will not initialize.
-      -->
       <nav>
-        <!-- 
-        NOTE: Notice the gaps after each icon usage <i></i>..
-        Please note that these links work a bit different than
-        traditional href="" links. See documentation for details.
-        -->
-
         <ul>
           <li class="">
             <a href="/" title="blank_"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Dashboard</span></a>
           </li>
         </ul>
       </nav>
-
-      <!-- <span class="minifyme" data-action="minifyMenu"> <i class="fa fa-arrow-circle-left hit"></i> </span> -->
-
-    </aside>
+    </aside> -->
 
         <!-- #MAIN PANEL -->
     <div id="main" role="main" style="padding-bottom: 0px">
@@ -181,13 +136,14 @@
 
       </div>
     <!-- END NAVIGATION -->
-    
-    <% if notice %>
-      <p class="alert alert-success"><%= notice %></p>
-    <% end %>
-    <% if alert %>
-      <p class="alert alert-warning"><%= alert %></p>
-    <% end %>
+    <div class="col-md-12">
+      <% if notice %>
+        <p class="alert alert-success"><%= notice %></p>
+      <% end %>
+      <% if alert %>
+        <p class="alert alert-warning"><%= alert %></p>
+      <% end %>
+    </div>
     <%= yield %>
 
       <div class="clearfix"></div>

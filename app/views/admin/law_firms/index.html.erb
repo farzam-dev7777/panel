@@ -75,7 +75,7 @@
 																<span class="label label-<%= submission_status_class(firm.form_submissions.latest) %>"><%= firm.form_submissions.latest.try(:status).titleize %></span>
 																<%=  %>
 															<% else %>
-																-
+																<span class="label label-warning">Onboarded</span>
 															<% end %>
 														</td>
 													</tr>

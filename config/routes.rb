@@ -124,10 +124,15 @@ Rails.application.routes.draw do
     end
   end
 
-  devise_for :users, controllers: { 
+  devise_for :users, skip: [:registrations], controllers: { 
     sessions: 'users/sessions',
-    passwords: 'users/passwords' 
+    passwords: 'users/passwords',
+    registrations: 'users/registrations'
   }
+  as :user do 
+    get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'    
+    patch 'users/update' => 'users/registrations#update', :as => 'user_registration'
+  end
   resources :two_factor_authentication
   namespace :users do
   end

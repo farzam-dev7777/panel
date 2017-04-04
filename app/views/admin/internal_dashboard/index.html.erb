@@ -180,6 +180,7 @@
 							<th>Title</th>
 							<th>Description</th>
 							<th>Severity</th>
+							<th>Created</th>
 							<th>Status</th>
 						</tr>
 						</thead>
@@ -189,6 +190,7 @@
 									<td><%= threat.title %></td>
 									<td><%= truncate(threat.description, length: 150) %></td>
 									<td><%= threat.severity_level.name.humanize %></td>
+									<td><%= threat.created_at.strftime("%d %b %y, %I:%M %Z") %></td>
 									<td><%= link_to "More Details", admin_security_threat_path(threat), :class => "", :remote => true, "data-toggle" => "modal", "data-target" => "securityAlert" %></td>
 								</tr>
 							<% end %>

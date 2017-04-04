@@ -7,6 +7,9 @@ class LawFirm < ApplicationRecord
   has_many :form_submissions
   has_many :action_items
   has_many :internal_notes
+  has_many :locations
+
+  accepts_nested_attributes_for :locations
 
   after_create :generate_a_new_user
   acts_as_messageable

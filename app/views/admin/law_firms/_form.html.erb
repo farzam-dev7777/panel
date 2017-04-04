@@ -29,6 +29,43 @@
 				<td><%= f.input :phone, label: false %></td>
 			</tr>
 
+			<% if @law_firm.new_record? %>
+				<tr>
+					<td colspan="2">
+						<%= f.simple_fields_for :locations do |field| %>
+					    <%= render partial: "location_fields", 
+					               locals: {f: field} unless field.object.nil? %>
+					  <% end %>
+					  <div class="add-css">
+				    <%= link_to_add_association '<span href="javascript:void(0);" class="btn btn-primary btn-sm"><i class="fa fa-plus-circle"></i> Location</span>'.html_safe, f, :locations %>
+					  </div>
+				  </td>
+			  </tr>
+			<% else %>
+				<% @law_firm.locations.each do |location| %>
+					<tr>
+						<td colspan="2">
+							<div class="col-md-1">Address 1</div>
+							<div class="col-md-3"><%= location.address1 %></div>
+
+							<div class="col-md-1">Address 2</div>
+							<div class="col-md-3"><%= location.address2 %></div>
+
+							<div class="col-md-1">City</div>
+							<div class="col-md-3"><%= location.city %></div>
+
+							<div class="col-md-1">Province</div>
+							<div class="col-md-3"><%= location.province %></div>
+
+							<div class="col-md-1">Postal Code</div>
+							<div class="col-md-3"><%= location.postal_code %></div>
+
+							<div class="col-md-1">Country</div>
+							<div class="col-md-3"><%= location.country %></div>
+						</td>
+					</tr>
+			  <% end %>
+		  <% end %>
 
 			<tr>
 				<td>Temp. Password</td>

@@ -1,0 +1,27 @@
+<tr class="location-<%= f.object.try(:id) %>">
+	<td>
+		<div class="col-md-1">Address 1</div>
+		<div class="col-md-3"><%= f.input :address1, label: false %></div>
+
+		<div class="col-md-1">Address 2</div>
+		<div class="col-md-3"><%= f.input :address2, label: false %></div>
+
+		<div class="col-md-1">City</div>
+		<div class="col-md-3"><%= f.input :city, label: false %></div>
+
+		<div class="col-md-1">Province</div>
+		<div class="col-md-3"><%= f.input :province, label: false %></div>
+
+		<div class="col-md-1">Postal Code</div>
+		<div class="col-md-3"><%= f.input :postal_code, label: false %></div>
+
+		<div class="col-md-1">Country</div>
+		<div class="col-md-3"><%= f.input :country, :as => :string, label: false %></div>
+
+		<div class="clearfix"></div>
+		<hr>
+	</td>
+	<td style="line-height: 85px;">
+		<%= link_to_remove_association "<i class='fa fa-minus-circle fa-2x'></i>".html_safe, f, { wrapper_class: "location-#{f.object.try(:id)}" }  %>
+	</td>
+</tr>

@@ -252,6 +252,7 @@
 		  </div>
 		</div>
 
+		<script async defer type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
     <%= javascript_include_tag 'application' %>
 
 
@@ -552,6 +553,7 @@
 				phone : 480
 			};
 			$('#dt_basic').dataTable({
+				"order": [[ 6, "desc" ]],
 				"sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-12 hidden-xs'l>r>"+
 					"t"+
 					"<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-xs-12 col-sm-6'p>>",
@@ -596,6 +598,7 @@
 
 			var responsiveHelper_db_curr_threats = undefined;
 			$('#db-curr-threats').dataTable({
+				"order": [[ 3, "desc" ]],
 				"sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'><'col-sm-6 col-xs-12 hidden-xs'>r>"+
 					"t"+
 					"<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'><'col-xs-12 col-sm-6'>>",
@@ -640,6 +643,7 @@
 
 			var responsiveHelper_dashboard_lf = undefined;
 			$('#db_lfs').dataTable({
+				"order": [[ 2, "desc" ]],
 				"sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'><'col-sm-6 col-xs-12 hidden-xs'>r>"+
 					"t"+
 					"<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'><'col-xs-12 col-sm-6'>>",
