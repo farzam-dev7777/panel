@@ -12,8 +12,15 @@ class NotificationService
     def review_score
       return unless @law_firm
       @snf = queued_notification.severity_negative_factor || queued_notification.action_item.security_threat.severity_negative_factor
-      # @law_firm.update_attributes(total_score: ) if snf > 0
+      @law_firm.update_attributes(total_score: (total_score * @snf/100) - total_score) if @snf > 0
+      if @law_firm.total_score < SystemSetting.score_threshold
+        notify_admin
+      end
       log_score_reviewed
+    end
+
+    def notify_admin
+      AdminMailer.score_below_threshold(@law_firm).deliver_now
     end
 
     def log_queued_notification_sent

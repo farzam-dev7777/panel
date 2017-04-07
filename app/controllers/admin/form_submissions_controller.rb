@@ -34,6 +34,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
   end
 
   def technology_step
+    @security_threats = SecurityThreat.all
   end
 
   def history_step
@@ -112,6 +113,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
     @form_submission.submitted_on = nil
     @form_submission.follow_ups.pending.update_all(status: 'review')
     if (@form_submission.update_attributes(status: :follow_up))
+      LawFirmMailer.decision_reached(@form_submission, 'Follow Up').deliver_now
       FormSubmission.log_activity('follow_up', true, @form_submission, current_admin_user)
       redirect_to :admin_law_firms
     end
@@ -127,7 +129,9 @@ class Admin::FormSubmissionsController < Admin::BaseController
   def approve
     @form_submission = FormSubmission.find(params[:id])
     @form_submission.status = 'approved'
+    @form_submission.expiry_date = Time.now + 1.year
     if (@form_submission.save)
+      LawFirmMailer.decision_reached(@form_submission, 'Approved').deliver_now
       FormSubmission.log_activity('approved', true, @form_submission, current_admin_user)
       redirect_to :admin_law_firms
     end
@@ -137,6 +141,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
     @form_submission = FormSubmission.find(params[:id])
     @form_submission.status = 'decline'
     if (@form_submission.save)
+      LawFirmMailer.decision_reached(@form_submission, 'Declined').deliver_now
       FormSubmission.log_activity('declined', true, @form_submission, current_admin_user)
       redirect_to :admin_law_firms
     end
@@ -155,6 +160,12 @@ class Admin::FormSubmissionsController < Admin::BaseController
     if (@form_submission.assessor_score && @form_submission.system_score)
       @form_submission.update_attributes(total_score: (@form_submission.system_score + @form_submission.assessor_score)/2)
     end
+  end
+
+  def set_expiry_date
+    @form_submission = FormSubmission.find_by(id: params[:id])
+    @form_submission.update_attributes(expiry_date: Date.parse(params[:expiry_date])) if @form_submission && params[:expiry_date]
+    head :ok
   end
 
   private

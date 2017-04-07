@@ -10,7 +10,7 @@ class ActivityLog < ApplicationRecord
 	ACTION_TYPE_REASON = {
     account_created: 'Onboarded',
     todo_task_created: 'A Todo task was created',
-    information_security_policy_request_initiated: 'SEAL process started (Bank)',
+    information_security_policy_request_initiated: 'SEAL process started<br>(Bank)',
     seal_certification_process_initiated: 'SEAL process started (LawFirm)',
     information_security_policy_submitted: 'SEAL form submitted',
     information_security_policy_review_started: 'SEAL form under review',

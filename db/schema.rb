@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170404155915) do
+ActiveRecord::Schema.define(version: 20170407180328) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -145,6 +145,7 @@ ActiveRecord::Schema.define(version: 20170404155915) do
     t.string   "reason"
     t.float    "assessor_score"
     t.float    "system_score"
+    t.date     "expiry_date"
   end
 
   create_table "form_values", force: :cascade do |t|
@@ -195,9 +196,10 @@ ActiveRecord::Schema.define(version: 20170404155915) do
     t.string   "description"
     t.string   "email"
     t.string   "phone"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.integer  "user_id"
+    t.string   "relationship_manager_email"
   end
 
   create_table "locations", force: :cascade do |t|

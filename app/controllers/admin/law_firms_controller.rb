@@ -72,8 +72,10 @@ class Admin::LawFirmsController < Admin::BaseController
     new_form_submission.submitted_on = nil
     new_form_submission.total_score = nil
     new_form_submission.assessor_score = nil
+    new_form_submission.expiry_date = nil
 
     if new_form_submission.save
+      last_form_submission.update_attributes(expiry_date: nil)
       @law_firm.log_activity('recertification_process_initiated', true, current_admin_user)
       # redirect_to :admin_law_firms
       head :ok
@@ -89,6 +91,7 @@ class Admin::LawFirmsController < Admin::BaseController
     form_submission.reason = params[:reason]
 
     if form_submission.save!
+      LawFirmMailer.firm_decertified(@law_firm).deliver_now
       @law_firm.log_activity('decertified', true, current_admin_user)
       head :ok
     end
@@ -98,6 +101,13 @@ class Admin::LawFirmsController < Admin::BaseController
     @law_firm = LawFirm.find_by(id: params[:id])
     internal_note = @law_firm.add_internal_note(params[:message], current_admin_admin_user)
     render partial: 'internal_note', locals: {note: internal_note}
+  end
+
+  def remove_internal_note
+    @law_firm = LawFirm.find_by(id: params[:id])
+    internal_note = @law_firm.internal_notes.find_by(id: params[:internal_note_id])
+    internal_note.destroy if internal_note
+    head :ok
   end
 
   def law_firms
@@ -118,7 +128,7 @@ class Admin::LawFirmsController < Admin::BaseController
   private
 
   def law_firms_params
-  	params.require(:law_firm).permit(:name, :description, :email, :phone, :temp_password, location_attributes: [:id, :address1, :address2, :city, :province, :postal_code, :country, :_destroy])
+  	params.require(:law_firm).permit(:name, :description, :email, :phone, :temp_password, :relationship_manager_email, location_attributes: [:id, :address1, :address2, :city, :province, :postal_code, :country, :_destroy])
   end
 
 end

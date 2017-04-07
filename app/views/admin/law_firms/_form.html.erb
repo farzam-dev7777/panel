@@ -6,28 +6,39 @@
 	<% end %>
 <% end %>
 <div class="table-responsive">
-	<table class="table table-bordered">
+	<table class="table table-striped">
 
 		<%= simple_form_for([:admin, @law_firm]) do |f| %>
 			<tr>
-				<td>Name</td>
+				<td class="text-right" width="20%">Name</td>
 				<td><%= f.input :name, autofocus: true, label: false %></td>
 			</tr>
 
 			<tr>
-				<td>Description</td>
+				<td class="text-right" width="20%">Description</td>
 				<td><%= f.input :description, label: false %></td>
 			</tr>
 
 			<tr>
-				<td>Email</td>
+				<td class="text-right" width="20%">Email</td>
 				<td><%= f.input :email, label: false %></td>
 			</tr>
 
 			<tr>
-				<td>Phone</td>
+				<td class="text-right" width="20%">Phone</td>
 				<td><%= f.input :phone, label: false %></td>
 			</tr>
+
+			<tr>
+				<td class="text-right" width="20%">Relationship Manager's Email</td>
+				<td><%= f.input :relationship_manager_email, label: false %></td>
+			</tr>
+
+			<tr>
+				<td class="text-right" width="20%">Temp. Password</td>
+				<td><%= f.input :temp_password, label: false %></td>
+			</tr>
+			
 
 			<% if @law_firm.new_record? %>
 				<tr>
@@ -66,11 +77,6 @@
 					</tr>
 			  <% end %>
 		  <% end %>
-
-			<tr>
-				<td>Temp. Password</td>
-				<td><%= f.input :temp_password, label: false %></td>
-			</tr>
 
 
 			<tr>

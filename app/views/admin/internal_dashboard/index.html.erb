@@ -245,10 +245,10 @@
 									<td class="text-center">
 										<div> 
 											<span class="percent txt-color-blue semi-bold">
-												<% if firm.form_submissions.try(:latest).try(:total_score) %>
-													<div class="total-score" data-score=<%= firm.form_submissions.try(:latest).try(:total_score) %>></div>
+												<% if firm.form_submissions.try(:latest).try(:status) == 'approved' %>
+													<% score = firm.form_submissions.try(:latest).try(:total_score) %>
+													<div class="total-score" data-color="<%= firm.form_submissions.try(:latest).try(:color, score, 'total_score') %>" data-score=<%= score %>></div>
 												<% end %>
-												
 											</span> 
 										</div>
 									</td>

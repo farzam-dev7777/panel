@@ -13,7 +13,7 @@
 			<div class="col-md-1">
 				<%= render partial: 'note', locals: { loggable: f.object, follow_ups: @follow_ups, 
 																						 wrapper_class: note_class('history'),
-																						 form_type: 'HistorySubmission'} %>
+																						 form_type: 'HistorySubmission', field: f.object} %>
       </div>
 	<% end %>
 </div>

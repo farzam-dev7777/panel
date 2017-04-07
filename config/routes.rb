@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       collection do
         post :decertify
         post :add_internal_note
+        post :remove_internal_note
       end
     end
 
@@ -76,6 +77,7 @@ Rails.application.routes.draw do
       collection do
         post :mark_as_checked
         post :update_assessor_score
+        post :set_expiry_date
       end
     end
     get '/internal_dashboard/notifications', to: 'internal_dashboard#notifications'

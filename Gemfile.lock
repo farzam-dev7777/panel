@@ -276,6 +276,8 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
+    rollbar (2.14.1)
+      multi_json
     rotp (2.1.2)
     rqrcode (0.10.1)
       chunky_png (~> 1.0)
@@ -387,6 +389,7 @@ DEPENDENCIES
   rails-breadcrumbs
   rails-jquery-ui-sortable
   ransack
+  rollbar
   rqrcode-rails3
   sass-rails (~> 5.0)
   simple-form-datepicker
