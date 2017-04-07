@@ -130,30 +130,37 @@
 
 						<% if(@law_firm.form_submissions.try(:latest).try(:status) == 'approved') %>
 							<% latest_form_submission = @law_firm.form_submissions.latest %>
+
 							<div class="score-form">
-			          <div class="col-md-3 text-center">
-			            <p class="rating-label">SYSTEM SCORE (<%= latest_form_submission.system_score %>)</p>
-			            <div class="readonly-system-score force-center" 
-			            		 data-score=<%= latest_form_submission.system_score %>
-			            		 data-color="<%= latest_form_submission.try(:color, latest_form_submission.system_score, 'system_score') %>"></div>
-			          </div>
-			          <div class="col-md-3 text-center">
-			            <p class="rating-label">ASSESSOR SCORE (<%= latest_form_submission.assessor_score %>)</p>
-			            <div class="readonly-assessor-score-rating force-center" 
-			            		 data-score="<%= latest_form_submission.assessor_score %>"
-			            		 data-color="<%= latest_form_submission.try(:color, latest_form_submission.assessor_score, 'assessor_score') %>"></div>
-			          </div>
-			          <div class="col-md-3 text-center">
-			            <p class="rating-label">RESPONSIVE SCORE (<%= @law_firm.responsiveness_rate %>)</p>
-			            <div class="readonly-responsiveness-score-rating force-center" 
-			            		 data-score="<%= @law_firm.responsiveness_rate %>"
-			            		 data-color="<%= latest_form_submission.try(:color, @law_firm.responsiveness_rate, 'responsiveness_rate') %>"></div>
-			          </div>
-			          <div class="col-md-3 text-center">
+			          <div class="col-md-12 text-center">
 			            <p class="rating-label">TOTAL SCORE (<%= @law_firm.total_calculated_score %>)</p>
 			            <div class="readonly-total-score-rating force-center" 
 			            		 data-score="<%= @law_firm.total_calculated_score %>"
 			            		 data-color="<%= latest_form_submission.try(:color, @law_firm.total_calculated_score, 'total_calculated_score') %>"></div>
+			          </div>
+							</div>
+
+							<div class="score-form">
+			          <div class="col-md-4 text-center">
+			            <p class="rating-label">SYSTEM SCORE (<%= latest_form_submission.system_score %>)</p>
+			            <p class="rating-label no-margin-bottom">40%</p>
+			            <div class="readonly-system-score force-center" 
+			            		 data-score=<%= latest_form_submission.system_score %>
+			            		 data-color="<%= latest_form_submission.try(:color, latest_form_submission.system_score, 'system_score') %>"></div>
+			          </div>
+			          <div class="col-md-4 text-center">
+			            <p class="rating-label">ASSESSOR SCORE (<%= latest_form_submission.assessor_score %>)</p>
+			            <p class="rating-label no-margin-bottom">20%</p>
+			            <div class="readonly-assessor-score-rating force-center" 
+			            		 data-score="<%= latest_form_submission.assessor_score %>"
+			            		 data-color="<%= latest_form_submission.try(:color, latest_form_submission.assessor_score, 'assessor_score') %>"></div>
+			          </div>
+			          <div class="col-md-4 text-center">
+			            <p class="rating-label">RESPONSIVE SCORE (<%= @law_firm.responsiveness_rate %>)</p>
+			            <p class="rating-label no-margin-bottom">40%</p>
+			            <div class="readonly-responsiveness-score-rating force-center" 
+			            		 data-score="<%= @law_firm.responsiveness_rate %>"
+			            		 data-color="<%= latest_form_submission.try(:color, @law_firm.responsiveness_rate, 'responsiveness_rate') %>"></div>
 			          </div>
 				      </div>
 			      <% end %>

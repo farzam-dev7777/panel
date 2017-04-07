@@ -1,6 +1,6 @@
 class QueuedNotificationMailer < ApplicationMailer
 
-	default from: "admin@seal.bmo.com"
+	default from: "info@seal.grcconsulting.ca"
 
 	def notify_law_firm(queued_notification)
 		@queued_notification = queued_notification
