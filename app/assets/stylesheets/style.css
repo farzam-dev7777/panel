@@ -901,3 +901,6 @@ h3.firm-score-declined span {
   border: none !important;
 }
 
+.no-margin-bottom {
+  margin-bottom: 0px !important
+}
