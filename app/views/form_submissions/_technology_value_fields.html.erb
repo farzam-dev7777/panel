@@ -49,7 +49,7 @@
 		<%  if (follow_up_class(params[:id], f.object.id, 'TechnologyValue') == 'need-follow-up'   || follow_up_class(params[:id], f.object.id, 'TechnologyValue') == 'follow-up-success') %>
 			<%= render partial: 'note', locals: { loggable: f.object, follow_ups: @follow_ups, 
 																						 wrapper_class: note_class('technology'),
-																						 form_type: 'TechnologyValue'} %>
+																						 form_type: 'TechnologyValue', field: f.object} %>
 		<% end %>
 	</div>
 </div>

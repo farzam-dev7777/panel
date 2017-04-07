@@ -10,6 +10,10 @@ class FileUploader < CarrierWave::Uploader::Base
 
   # process :encrypt_file
 
+  def extension_white_list
+    %w(jpg jpeg gif png pdf)
+  end
+
   def encrypt_file
     file = File.open(self.file.file, 'wb')
     encrypted_entity = Underlock::Base.encrypt(file)

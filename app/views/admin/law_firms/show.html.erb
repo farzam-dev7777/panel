@@ -4,18 +4,18 @@
 	}
 </style>
 
-<div class="col-lg-1">
+<div class="col-lg-2 ">
 	<%= link_to "<i class='fa fa-long-arrow-left'></i> Back".html_safe, admin_law_firms_path, class: "btn btn-default" %>
+	<%= link_to "<i class='fa fa-pencil-square-o'></i> Edit".html_safe, edit_admin_law_firm_path, class: "btn btn-primary m-l-15 no-border" %>
 </div>
-<div class="col-md-11 text-right">
-	<div class="col-lg-1 pull-right">
-		<%= link_to "<i class='fa fa-pencil-square-o'></i> Edit".html_safe, edit_admin_law_firm_path, class: "btn btn-primary" %>
-	</div>
+<div class="col-md-10 text-right law-firm-controls">
+	<!-- <div class="col-lg-1 pull-right"> -->
+	<!-- </div> -->
 <% if (@law_firm.form_submissions.any? && @law_firm.form_submissions.latest.status == 'decertified') %>
 	
-	<div class="col-lg-1 pull-right">
+	<!-- <div class="col-lg-1 pull-right"> -->
 		<a class="btn btn-success certify-btn" data-id='<%= @law_firm.id %>' data-name='<%= @law_firm.name %>'>Certify</a>
-	</div>
+	<!-- </div> -->
 
 	<div class="clearfix"></div>
 
@@ -29,19 +29,19 @@
 <% else %>
 
 <% if(@law_firm.form_submissions.any? && @law_firm.form_submissions.latest.status == 'approved') %>
-	<div class="col-lg-1 pull-right">
+	<!-- <div class="col-lg-1 pull-right"> -->
 		<a class="btn btn-danger decertify-btn pull-right" data-id='<%= @law_firm.id %>' data-name='<%= @law_firm.name %>'>Decertify</a>
-	</div>
+	<!-- </div> -->
 
-	<div class="col-lg-2 pull-right">
+	<!-- <div class="col-lg-2 pull-right"> -->
 		<a class="btn btn-primary pull-right begin-recertification-btn" data-id="<%= @law_firm.id %>">Begin Recertification Process</a>
-	</div>
+	<!-- </div> -->
 <% end %>
 
 <% if(!@law_firm.form_submissions.any?) %>
-	<div class="col-lg-2 pull-right">
-		<%= link_to "Begin Certification Process", begin_certification_process_admin_law_firm_path(@law_firm), class: "btn btn-primary pull-right" %>
-	</div>
+	<!-- <div class="col-lg-2 pull-right"> -->
+		<a class="btn btn-primary pull-right begin-certification-btn" data-id="<%= @law_firm.id %>">Begin Certification Process</a>
+	<!-- </div> -->
 <% end %>
 
 <% end %>
@@ -113,9 +113,12 @@
 
 							<div class="col-md-4 column">Username</div>		
 							<div class="col-md-8 data"><%= @law_firm.user.try(:username) %></div>		
+
+							<div class="col-md-4 column">Relationship Manager</div>		
+							<div class="col-md-8 data"><%= @law_firm.try(:relationship_manager_email) %></div>		
 						</div>
 
-						<div class="col-lg-4 column">
+						<div class="col-lg-4 column text-center">
 							<% if @law_firm.user %>
 								<%= image_tag @law_firm.user.google_qr_uri %><br/>
 								<p>Account: <%= @law_firm.user.username %> </p>
@@ -124,6 +127,37 @@
 						</div>
 
 						<div class="clearfix"></div>
+
+						<% if(@law_firm.form_submissions.try(:latest).try(:status) == 'approved') %>
+							<% latest_form_submission = @law_firm.form_submissions.latest %>
+							<div class="score-form">
+			          <div class="col-md-3 text-center">
+			            <p class="rating-label">SYSTEM SCORE (<%= latest_form_submission.system_score %>)</p>
+			            <div class="readonly-system-score force-center" 
+			            		 data-score=<%= latest_form_submission.system_score %>
+			            		 data-color="<%= latest_form_submission.try(:color, latest_form_submission.system_score, 'system_score') %>"></div>
+			          </div>
+			          <div class="col-md-3 text-center">
+			            <p class="rating-label">ASSESSOR SCORE (<%= latest_form_submission.assessor_score %>)</p>
+			            <div class="readonly-assessor-score-rating force-center" 
+			            		 data-score="<%= latest_form_submission.assessor_score %>"
+			            		 data-color="<%= latest_form_submission.try(:color, latest_form_submission.assessor_score, 'assessor_score') %>"></div>
+			          </div>
+			          <div class="col-md-3 text-center">
+			            <p class="rating-label">RESPONSIVE SCORE (<%= @law_firm.responsiveness_rate %>)</p>
+			            <div class="readonly-responsiveness-score-rating force-center" 
+			            		 data-score="<%= @law_firm.responsiveness_rate %>"
+			            		 data-color="<%= latest_form_submission.try(:color, @law_firm.responsiveness_rate, 'responsiveness_rate') %>"></div>
+			          </div>
+			          <div class="col-md-3 text-center">
+			            <p class="rating-label">TOTAL SCORE (<%= @law_firm.total_calculated_score %>)</p>
+			            <div class="readonly-total-score-rating force-center" 
+			            		 data-score="<%= @law_firm.total_calculated_score %>"
+			            		 data-color="<%= latest_form_submission.try(:color, @law_firm.total_calculated_score, 'total_calculated_score') %>"></div>
+			          </div>
+				      </div>
+			      <% end %>
+
 					</div>
 					<div class="tab-pane fade" id="hr2">
 						
@@ -172,11 +206,31 @@
 											<td><%= submission.law_firm.name %></td>
 											<td><%= submission.total_score || '-' %></td>
 											<td class="text-center">
-											<span class="label label-<%= submission_status_class(submission) %>"><%= submission.try(:status).titleize %></span>
+											<span class="label label-<%= submission_status_class(submission) %>">
+												<%= submission.try(:status).titleize %>
+												<% if submission.try(:status) == 'decertified' %>	
+													<br><em><%= submission.try(:reason) %></em>
+												<% end %>
+											</span>
 											</td>
 											<td>
 												<% if submission.try(:status) == 'approved' %>	
 													<%= link_to "Begin Recertification Process", begin_recertification_process_admin_law_firm_path(submission.law_firm), class: "btn btn-primary btn-xs" %>	
+
+													<a class="btn btn-default btn-xs extend-expiry">Extend Expiry Date</a>
+													<form id="extend-expiry-form" class="text-center" style="margin-top: 20px; height: 75px;" method="POST" action="">
+														<div class="col-md-offset-3 no-padding col-md-6 text-center">
+															<div class="col-md-9">
+																<label>Expiry Date</label>
+																<input type="hidden" value="<%= submission.id %>" name="id"></input>
+																<input type="text" class="datepicker" name="expiry_date" value="<%= submission.expiry_date %>">
+															</div>
+															<div class="col-md-3" style="line-height: 75px;">
+																<input type="Submit" class="btn btn-primary">
+															</div>
+														</div>
+													</form>
+
 												<% elsif submission.try(:status) == 'sent' %>
 													<%= link_to "Waiting for Law Firm", '#', class: "btn btn-primary btn-xs", disabled: true %>		
 												<% elsif submission.try(:status) == 'started' %>
@@ -186,6 +240,8 @@
 												<% else %>
 													<%= link_to submission.try(:status).try(:humanize) || '-', "#", class: "btn btn-default btn-xs", disabled: true %>
 												<% end %>
+
+
 											</td>
 										</tr>
 										

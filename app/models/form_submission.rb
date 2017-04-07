@@ -11,6 +11,8 @@ class FormSubmission < ApplicationRecord
   scope :approved, -> { where(status: 'approved') }
   scope :latest,   -> { order(:id).last }
 
+  TOTAL_SCORE = 5.0
+
   amoeba do
     enable
     include_association :form_values
@@ -39,11 +41,38 @@ class FormSubmission < ApplicationRecord
     submission.status = 'sent'
     submission.save
 
+    LawFirmMailer.initial_submissions_generated(law_firm).deliver_now
     log_activity('information_security_policy_request_initiated', true, submission, current_user) if submission.save
   end
 
   def can_be_approved?
     self.total_score >= SystemSetting.score_threshold
+  end
+
+  def self.check_for_expiry
+    start_date = Time.now.beginning_of_day
+    end_date = Time.now.end_of_day
+    @form_submissions = FormSubmission.where(created_at: start_date..end_date)
+    if @form_submissions.any?
+      @form_submissions.each do |form_submission|
+        AdminMailer.submission_expired(form_submission).deliver_now
+      end
+    end
+  end
+
+  def system_score_median 
+    ((TOTAL_SCORE - SystemSetting.score_threshold) / 2) + SystemSetting.score_threshold
+  end
+
+  def color(score, type)
+    return 'grey' unless score
+    if (score >= 0 && score <= SystemSetting.score_threshold)
+      '#ff0000'
+    elsif (score > SystemSetting.score_threshold && score <= system_score_median)
+      '#F6D300'
+    else
+      '#00B026'
+    end
   end
 
 end

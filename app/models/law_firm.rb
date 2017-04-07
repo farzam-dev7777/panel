@@ -17,8 +17,10 @@ class LawFirm < ApplicationRecord
   attr_accessor :temp_password
 
   EMAIL_PREFIX = "@check.com"
-
   TIME_FORMAT = "%d %b %y, %I:%M %Z"
+  SYSTEM_SCORE_WEIGHTAGE = 0.4
+  RESPONSIVENESS_SCORE_WEIGHTAGE = 0.4
+  ASSESSOR_SCORE_WEIGHTAGE = 0.2
 
   def approved_and_scored
     LawFirm.joins(:form_submissions).where("form_submissions.status = 'approved' AND form_submissions.total_score IS NOT NULL")
@@ -45,6 +47,23 @@ class LawFirm < ApplicationRecord
   def add_internal_note(message, admin)
     internal_note = InternalNote.new(message: message, sender_id: admin.id, law_firm_id: self.id)
     internal_note if internal_note.save
+  end
+
+  def total_calculated_score
+    latest_form_submission = self.form_submissions.latest
+
+    return unless latest_form_submission.status == 'approved'
+
+    (((latest_form_submission.system_score || 0) * SYSTEM_SCORE_WEIGHTAGE) + 
+        ((latest_form_submission.assessor_score || 0) * ASSESSOR_SCORE_WEIGHTAGE) + 
+        (responsiveness_rate * RESPONSIVENESS_SCORE_WEIGHTAGE)).round(1)
+  end
+
+  def responsiveness_rate
+    total_notifications = self.action_items.each { |item| item.queued_notifications.where('trigger_at < ?', Time.now) }.count
+    missed_notifications = self.action_items.each { |item| item.queued_notifications.where('trigger_at < ?, triggered = ?', Time.now, true) }.count
+    
+    total_notifications > 0 ? ((1 - (missed_notifications/total_notifications.to_f)) * 5) : 5
   end
 
   def self.certified

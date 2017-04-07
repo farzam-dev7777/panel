@@ -67,7 +67,7 @@ class User < ApplicationRecord
       notify: false,
       source: user.class.to_s,
       email: user.email,
-      custom_message: "You last logged #{task_string} on #{Time.now.strftime('%d %b at %I:%M %p')}"
+      custom_message: "You last logged #{task_string}"
     }
     ActivityLog.log(object)
   end

@@ -75,6 +75,7 @@ class FormSubmissionsController < BaseController
     @form_submission.submitted_on = Time.now
     @form_submission.status = 'submitted'
     if (@form_submission.save)
+      AdminMailer.forms_submitted(@form_submission).deliver_now
       FormSubmission.log_activity('information_security_policy_submitted', true, @form_submission, current_user)
     end
     head :ok
