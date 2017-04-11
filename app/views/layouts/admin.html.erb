@@ -299,9 +299,12 @@
 			      method: 'GET',
 			    })
 			      .done(function( data ) {
+			      	var ticks = [];
 			      	var count = 0
 			      	$.each( data.certified, function( key, value ) {
 							  data1.push([count, parseInt(value)])
+							  date = new Date(Date.parse(key));
+							  ticks.push([count, monthNames[date.getMonth()]])
 							  count++;
 							});
 
@@ -309,40 +312,18 @@
 			      	var count2 = 0
 			      	$.each( data.decertified, function( key, value ) {
 							  data2.push([count2, parseInt(value)])
+							  date = new Date(Date.parse(key));
+							  ticks.push([count, monthNames[date.getMonth()]])
 							  count++;
 							});
 
 			      	var count3 = 0
 			      	$.each( data.under_process, function( key, value ) {
 							  data3.push([count3, parseInt(value)])
+							  date = new Date(Date.parse(key));
+							  ticks.push([count, monthNames[date.getMonth()]])
 								count3++;
 							});
-
-			      		debugger;
-							// data1 = [    
-						 //    [0, 11], //London, UK
-						 //    [1, 15], //New York, USA
-						 //    [2, 25], //New Delhi, India
-						 //    [3, 24], //Taipei, Taiwan
-						 //    [4, 13], //Beijing, China
-						 //    [5, 18]  //Sydney, AU
-							// ];
-							// data2 = [    
-						 //    [0, 11], //London, UK
-						 //    [1, 15], //New York, USA
-						 //    [2, 25], //New Delhi, India
-						 //    [3, 24], //Taipei, Taiwan
-						 //    [4, 13], //Beijing, China
-						 //    [5, 18]  //Sydney, AU
-							// ];
-							// data3 = [    
-						 //    [0, 11], //London, UK
-						 //    [1, 15], //New York, USA
-						 //    [2, 25], //New Delhi, India
-						 //    [3, 24], //Taipei, Taiwan
-						 //    [4, 13], //Beijing, China
-						 //    [5, 18]  //Sydney, AU
-							// ];
 
 							var ds = new Array();
 
@@ -353,7 +334,8 @@
 										show : true,
 										barWidth : 0.2,
 										order : 1,
-									}
+									},
+									label: 'March'
 								});
 							}
 
@@ -392,13 +374,11 @@
 								legend : true,
 								tooltip : true,
 								tooltipOpts : {
-									content : "<b>%x</b> = <span>%y</span>",
+									content : "<span>%y</span>",
 									defaultTheme : false
 								}, 
 								xaxis: {
-									show: true,
-									mode: "time",
-								  timeformat: "%m %y"
+									ticks: ticks,
 								}
 
 							});
