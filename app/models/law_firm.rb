@@ -18,14 +18,17 @@ class LawFirm < ApplicationRecord
 
   PRACTICE_AREAS = ["Administrative law","Advertising law","Admiralty law","Agency law","Alcohol law","Alternative dispute resolution","Animal law","Antitrust law (or competition law)","Appellate practice","Art law (or art and culture law)","Aviation law","Banking law","Bankruptcy law (creditor debtor rights law or insolvency and reorganization law)","Bioethics","Bird law","Business law (or commercial law); commercial litigation","Business organizations law (or companies law)","Civil law or common law","Class action litigation/Mass tort litigation","Communications law","Computer law","Conflict of law (or private international law)","Constitutional law","Construction law","Consumer law","Contract law","Copyright law","Corporate law (or company law)"," also corporate compliance law and corporate governance law","Criminal law","Cryptography law","Cultural property law","Custom (law)","Cyber law","Defamation","Derivatives and futures law","Drug control law","Elder law","Employee benefits law (ERISA)","Employment law","Energy law","Entertainment law","Environmental law","Equipment finance law","Evidence","Family law","FDA law","Financial services regulation law","Firearm law","Food law","Franchise law","Gaming law","Health and safety law","Health law","Immigration law","Insurance law","Intellectual property law","International law","International trade and finance law","Internet law","Juvenile law","Labour law (or Labor law)","Land use & zoning law","Litigation","Martial law","Media law","Medical law","Mergers & acquisitions law","Military law","Mining law","Music law","Mutual funds law","Nationality law","Native American law","Obscenity law","Oil & gas law","Parliamentary law","Patent law","Poverty law","Privacy law","Private equity law","Private funds law / Hedge funds law","Procedural law","Product liability litigation","Property law","Public health law","Public International Law","Railroad law","Real estate law","Securities law / Capital markets law","Social Security disability law","Space law","Sports law","Statutory law","Tax law","Technology law","Timber law","Tort law","Trademark law","Transport law / Transportation law","Trusts & estates law","Utilities Regulation","Venture capital law","Water law","Sexual Law"].freeze
   COMPANY_TYPES = ["LP", "LLP", "LLC", "S", "CORP/SOLE", "PROP"].freeze
-
-  attr_accessor :temp_password
+  
+  JURISDICTION_COUNTRIES = ["Canada","United States of America"].freeze
 
   EMAIL_PREFIX = "@check.com"
   TIME_FORMAT = "%d %b %y, %I:%M %Z"
   SYSTEM_SCORE_WEIGHTAGE = 0.4
   RESPONSIVENESS_SCORE_WEIGHTAGE = 0.4
   ASSESSOR_SCORE_WEIGHTAGE = 0.2
+
+  attr_accessor :temp_password
+
 
   def approved_and_scored
     LawFirm.joins(:form_submissions).where("form_submissions.status = 'approved' AND form_submissions.total_score IS NOT NULL")

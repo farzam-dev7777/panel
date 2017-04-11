@@ -21,8 +21,8 @@ set :unicorn_rack_env, :external
 
 set :ssh_options, {
   config: false,
-  # forward_agent: true,
-  # auth_methods: %w(publickey),
+  forward_agent: true,
+  auth_methods: %w(publickey),
   user: 'root'
 }
 

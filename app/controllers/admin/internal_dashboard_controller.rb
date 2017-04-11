@@ -33,9 +33,24 @@ class Admin::InternalDashboardController < Admin::BaseController
   end
 
   def seal_stats
-    certified = LawFirm.certified.group("DATE_TRUNC('month', form_submissions.created_at)").count
-    decertified = LawFirm.decertified.group("DATE_TRUNC('month', form_submissions.created_at)").count
-    under_process = LawFirm.in_process.group("DATE_TRUNC('month', form_submissions.created_at)").count
+    under_process = {}
+    certified = {}
+    decertified = {}
+
+    certified_count = LawFirm.certified.group("DATE_TRUNC('month', form_submissions.created_at)").count
+    decertified_count = LawFirm.decertified.group("DATE_TRUNC('month', form_submissions.created_at)").count
+    under_process_count = LawFirm.in_process.group("DATE_TRUNC('month', form_submissions.created_at)").count
+
+
+    certified_count.each do |value|
+      certified[value[0].strftime('%B')] = value[1]
+    end
+    under_process_count.each do |value|
+      under_process[value[0].strftime('%B')] = value[1]
+    end
+    decertified_count.each do |value|
+      decertified[value[0].strftime('%B')] = value[1]
+    end
     render json: {certified: certified, decertified: decertified, under_process: under_process}
   end
 

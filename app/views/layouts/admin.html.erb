@@ -303,8 +303,7 @@
 			      	var count = 0
 			      	$.each( data.certified, function( key, value ) {
 							  data1.push([count, parseInt(value)])
-							  date = new Date(Date.parse(key));
-							  ticks.push([count, monthNames[date.getMonth()]])
+							  ticks.push([count, key])
 							  count++;
 							});
 
@@ -312,8 +311,7 @@
 			      	var count2 = 0
 			      	$.each( data.decertified, function( key, value ) {
 							  data2.push([count2, parseInt(value)])
-							  date = new Date(Date.parse(key));
-							  ticks.push([count, monthNames[date.getMonth()]])
+							  ticks.push([count, key])
 							  count++;
 							});
 
@@ -322,7 +320,7 @@
 							  data3.push([count3, parseInt(value)])
 							  debugger;
 							  date = new Date(Date.parse(key));
-							  ticks.push([count, monthNames[date.getMonth()]])
+							  ticks.push([count, key])
 								count3++;
 							});
 
