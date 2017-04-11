@@ -26,6 +26,7 @@ class ActivityLog < ApplicationRecord
     action_item_marked_as_complete: 'The Firm has marked the security threat action item complete',
     login: "You last logged in at ",
     logout: "You last logged out at ",
+    expiry_date_changed: "Expiry date changed ",
   }.freeze
 
 	def self.log(object)

@@ -12,7 +12,9 @@
         <% platform_category = 'operating_systems'; type = 'server' %>
 	      <%= f.simple_fields_for :technology_values, build_fields(@form_submission, @form_submission.technology_values.operating_systems.server, platform_category, type) do |field| %>
 	      	<%= render partial: "technology_value_fields", 
-	      						 locals: {f: field, platform_category: platform_category, type: type}  %>
+	      						 locals: {f: field, 
+                              platform_category: platform_category, 
+                              type: type}  %>
 			  <% end %>
     	</div>
 			<div class="clearfix"></div>

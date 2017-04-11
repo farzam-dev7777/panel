@@ -168,7 +168,8 @@
 					</div>
 					<div class="tab-pane fade" id="hr2">
 						
-						<%= link_to "<i class='fa fa-download'></i>".html_safe, activity_logs_admin_pdf_index_path, method: :get, params: { id: @law_firm.id }, class: 'btn btn-success btn-xs pull-right' %>
+
+						<%= link_to "<i class='fa fa-download'></i>".html_safe, activity_logs_admin_pdf_index_path(id: @law_firm.id), method: :get, params: { id: @law_firm.id }, class: 'btn btn-success btn-xs pull-right' %>
 
 						<div class="clearfix"></div>
 						<section id="cd-timeline" class="cd-container">

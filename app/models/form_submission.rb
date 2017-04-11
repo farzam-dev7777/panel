@@ -21,7 +21,6 @@ class FormSubmission < ApplicationRecord
   end
 
 	def self.log_activity(event_type, notify, submission, current_user)
-
 		object = {
   		law_firm_id: submission.law_firm_id,
   		event_type: event_type,

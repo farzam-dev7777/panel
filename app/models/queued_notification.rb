@@ -11,8 +11,8 @@ class QueuedNotification < ApplicationRecord
 		triggers.each_with_index do |trigger, i|
 			q = QueuedNotification.new(trigger_at: trigger.hours.hours.from_now, 
 																 trigger_id: trigger.id, 
-																 action_item_id: action_item.id,
-																 severity_negative_factor: params[:snf]["snf_#{i}"])
+																 action_item_id: action_item.id)
+																 # severity_negative_factor: params[:snf]["snf_#{i}"])
 			q.save
 		end
 

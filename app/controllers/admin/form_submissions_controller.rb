@@ -129,7 +129,14 @@ class Admin::FormSubmissionsController < Admin::BaseController
   def approve
     @form_submission = FormSubmission.find(params[:id])
     @form_submission.status = 'approved'
+
+    # The admin will be notified after an year about the law firm.
+    # Admin can review the law firm and take necessary action.
     @form_submission.expiry_date = Time.now + 1.year
+
+    # Creates action items for the law firm that has just been approved
+    generate_security_threats
+
     if (@form_submission.save)
       LawFirmMailer.decision_reached(@form_submission, 'Approved').deliver_now
       FormSubmission.log_activity('approved', true, @form_submission, current_admin_user)
@@ -164,8 +171,22 @@ class Admin::FormSubmissionsController < Admin::BaseController
 
   def set_expiry_date
     @form_submission = FormSubmission.find_by(id: params[:id])
-    @form_submission.update_attributes(expiry_date: Date.parse(params[:expiry_date])) if @form_submission && params[:expiry_date]
+
+    if @form_submission && params[:expiry_date]
+      @form_submission.update_attributes(expiry_date: Date.parse(params[:expiry_date]))
+      FormSubmission.log_activity('expiry_date_changed', false, @form_submission, current_admin_user)
+    end
     head :ok
+  end
+
+  def generate_security_threats
+    technology_values = @form_submission.technology_values
+    technology_values.each do |value|
+      security_threats = SecurityThreat.where(vendor: technology_value.vendor, platform: technology_value.platform, version: technology_value.version, service_pack: technology_value.service_pack)
+      security_threats.each do |threat|
+        threat.generate_pending_action_items_after_approval(@form_submission.law_firm_id, current_user)
+      end
+    end
   end
 
   private

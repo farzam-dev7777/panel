@@ -128,7 +128,7 @@ class Admin::LawFirmsController < Admin::BaseController
   private
 
   def law_firms_params
-  	params.require(:law_firm).permit(:name, :description, :email, :phone, :temp_password, :relationship_manager_email, location_attributes: [:id, :address1, :address2, :city, :province, :postal_code, :country, :_destroy])
+  	params.require(:law_firm).permit(:name, :description, :email, :phone, :temp_password, :relationship_manager_email, location_attributes: [:id, :address1, :address2, :city, :province, :postal_code, :country, :_destroy], jurisdiction_attributes: [:id, :country, :city, :_destroy])
   end
 
 end

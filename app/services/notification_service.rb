@@ -5,15 +5,17 @@ class NotificationService
       @action_item = @queued_notification.action_item
       @law_firm = @action_item.law_firm
 
-      review_score
+      # review_score
       log_queued_notification_sent     
     end
 
     def review_score
-      return unless @law_firm
-      @snf = queued_notification.severity_negative_factor || queued_notification.action_item.security_threat.severity_negative_factor
-      @law_firm.update_attributes(total_score: (total_score * @snf/100) - total_score) if @snf > 0
-      if @law_firm.total_score < SystemSetting.score_threshold
+      return unless @law_firm && @action_item.security_threat.severity_level.try(:name) == "critical"
+      # @snf = queued_notification.severity_negative_factor || queued_notification.action_item.security_threat.severity_negative_factor
+      
+      # @law_firm.update_attributes(total_score: (total_score * @snf/100) - total_score) if @snf > 0
+      
+      if @law_firm.total_calculated_score < SystemSetting.score_threshold
         notify_admin
       end
       log_score_reviewed

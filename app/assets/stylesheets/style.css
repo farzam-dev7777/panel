@@ -904,3 +904,13 @@ h3.firm-score-declined span {
 .no-margin-bottom {
   margin-bottom: 0px !important
 }
+
+.threat-warning {
+  position: relative;
+  left: 50px;
+  bottom: 32px;
+  font-size: 15px;
+  color: yellow;
+  background: red;
+  border-radius: 0px 5px 0px 5px;
+}

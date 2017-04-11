@@ -10,7 +10,7 @@ class TechnologiesController < BaseController
 	private
 
 	def technology_filter_params
-		params.require(:filter).permit(:vendor, :platform, :version, :service_pack).reject { |key,value| value.empty? }
+		params.require(:filter).permit(:vendor, :platform, :version, :service_pack, :platform_category, :platform_type).reject { |key,value| value.empty? }
 	end
 
 end

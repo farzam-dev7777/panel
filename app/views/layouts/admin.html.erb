@@ -300,6 +300,7 @@
 			    })
 			      .done(function( data ) {
 			      	$.each( data.certified, function( key, value ) {
+			      		debugger;
 							  data1.push([Date.parse(key), parseInt(value)])
 							});
 

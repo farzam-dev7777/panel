@@ -72,6 +72,14 @@ module FormSubmissionHelper
     FollowUp.find_by(filters)
   end
 
+  def is_technical_threat(technology_value)
+    security_threats = SecurityThreat.where(vendor: technology_value.vendor, 
+                                            platform: technology_value.platform, 
+                                            version: technology_value.version, 
+                                            service_pack: technology_value.service_pack)
+    security_threats.count > 0 ? "threat-found #{security_threats.count}-threat(s)-found" : "hidden"
+  end
+
   def filter(form_submission_id: nil, loggable_id: nil, loggable_type: nil, status: nil)
     filter = {}
     filter[:form_submission_id] = form_submission_id if form_submission_id

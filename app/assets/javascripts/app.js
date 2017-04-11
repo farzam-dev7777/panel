@@ -153,7 +153,6 @@ $(document).ready(function(){
             showIfCustomLogicMatched(file_upload, false);
           },
           error: function(response) {
-            debugger;
           }
         })
       }
@@ -274,20 +273,20 @@ $(document).ready(function(){
       vendor = $(this).val();
       target = $(this).parent().parent().next('div.platform-wrapper').find('select');
       fetchLawFirms(vendor, null, null, target)
-      fetchTechnology(vendor, null, null, target)
+      fetchTechnology(vendor, null, null, target, null, null)
     } else if (field == 'platform'){
       vendor = $(this).parent().parent().prev('.vendor-wrapper').find('select').val();
       platform = $(this).val();
       target = $(this).parent().parent().next('div.version-wrapper').find('select');
       fetchLawFirms(vendor, platform, null, target)
-      fetchTechnology(vendor, platform, null, target)
+      fetchTechnology(vendor, platform, null, target, null, null)
     } else if (field == 'version') {
       vendor = $(this).parent().parent().prev('.vendor-wrapper').find('select').val();
       platform = $(this).parent().parent().prev('.platform-wrapper').find('select').val();
       version = $(this).val();
       target = $(this).parent().parent().next('div.service_pack-wrapper').find('select');
       fetchLawFirms(vendor, platform, version, target);
-      fetchTechnology(vendor, platform, version, target)
+      fetchTechnology(vendor, platform, version, target, null, null)
     }
 
     platform = $(this).data('platform');
@@ -296,22 +295,25 @@ $(document).ready(function(){
 
   $(document).on('change', '.dynamic-select', function() {
     field = $(this).data('field');
+
+    platform_category = $(this).parent().parent().parent().children('.hidden').first().find('input').val();
+    platform_type = $(this).parent().parent().parent().children('.hidden').last().find('input').val()
     
     if (field == 'vendor'){
       vendor = $(this).val();
       target = $(this).parent().parent().next('div.platform-wrapper').find('select');
-      fetchTechnology(vendor, null, null, target)
+      fetchTechnology(vendor, null, null, target, platform_type, platform_category)
     } else if (field == 'platform'){
       vendor = $(this).parent().parent().prev('.vendor-wrapper').find('select').val();
       platform = $(this).val();
       target = $(this).parent().parent().next('div.version-wrapper').find('select');
-      fetchTechnology(vendor, platform, null, target)
+      fetchTechnology(vendor, platform, null, target, platform_type, platform_category)
     } else if (field == 'version') {
       vendor = $(this).parent().parent().prev('.vendor-wrapper').find('select').val();
       platform = $(this).parent().parent().prev('.platform-wrapper').find('select').val();
       version = $(this).val();
       target = $(this).parent().parent().next('div.service_pack-wrapper').find('select');
-      fetchTechnology(vendor, platform, version, target);
+      fetchTechnology(vendor, platform, version, target, platform_type, platform_category);
     }
 
     platform = $(this).data('platform');
@@ -321,8 +323,17 @@ $(document).ready(function(){
   hideTextFields();
 
   $(document).on( 'click','a.turn-to-text', function () {
-    $(this).parent().parent().prev('.text-only-fields').removeClass('hidden').show();
+    var textFields = $(this).parent().parent().prev('.text-only-fields');
     $(this).parent().parent().remove();
+
+    textFields.find('.vendor-wrapper input').val($(this).parent().children().find('select').val());
+    textFields.find('.platform-wrapper input').val($(this).parent().parent().children('.platform-wrapper').find('select').val());
+    textFields.find('.version-wrapper input').val($(this).parent().parent().children('.version-wrapper').find('select').val());
+    textFields.find('.service_pack-wrapper input').val($(this).parent().parent().children('.service_pack-wrapper').find('select').val());
+    textFields.find('.supported-wrapper select').val($(this).parent().parent().children('.supported-wrapper').find('select').val());
+  
+    textFields.removeClass('hidden').show();
+    
   });
 
 
@@ -352,7 +363,6 @@ $(document).ready(function(){
       });
   })
 
-
   $('.follow-up').each(function() {
     $(this).qtip({
       content: {
@@ -374,6 +384,17 @@ $(document).ready(function(){
         classes: 'qtip-blue qtip-shadow'
       }
     });
+  });
+
+  $('.threat-warning').each(function() {
+    if($(this).hasClass('threat-found')){
+      $(this).qtip({
+        content: {
+          title: 'Security threat(s) found.',
+          text: $(this).attr("class").replace('btn btn-xs threat-warning threat-found ', '').replace(/-/g, ' ')
+        }
+      });
+    }
   });
 
   $('.help-text').each(function() {
@@ -616,7 +637,7 @@ $(document).ready(function(){
     })
   })
 
-  $('.remove-internal-note').on('click', function(){
+  $(document).on('click', '.remove-internal-note', function(){
     var data = $(this).data();
     var context = $(this).parent().parent();
 
@@ -639,7 +660,6 @@ $(document).ready(function(){
           data: data,
           context: context,
           success: function(response) {
-            debugger;
             $(context).hide();
           }
         })
@@ -764,17 +784,17 @@ $(document).ready(function(){
   });
 
   $('.severity-level').change(function(){
-    var data = {};
-    data.id = $(this).val();
+    // var data = {};
+    // data.id = $(this).val();
 
-    $.ajax({
-      method: 'GET',
-      url: '/admin/security_threats/' + data.id + '/severity_negative_factors_for_triggers',
-      data: data,
-      success: function(response) {
-        $('.snf').html(response)
-      }
-    })
+    // $.ajax({
+    //   method: 'GET',
+    //   url: '/admin/security_threats/' + data.id + '/severity_negative_factors_for_triggers',
+    //   data: data,
+    //   success: function(response) {
+    //     $('.snf').html(response)
+    //   }
+    // })
   })
 
   $('.search-query').on('change', function(){
@@ -801,7 +821,6 @@ function init_rating(handler){
     rating: 0,
     precision: 1,
     onInit: function (rating, rateYoInstance) {
-      debugger;
       rating = parseFloat($(this).data().score);
       $(this).rateYo("rating", rating);
       $(this).rateYo("option", "readOnly", true);
@@ -837,13 +856,15 @@ function hideTextFields(){
   }, 100)
 }
 
-function fetchTechnology(vendor, platform, version, target){
+function fetchTechnology(vendor, platform, version, target, platform_type, platform_category){
   data = {
     field: target.data('field'),
     filter: {
       vendor: vendor,
       platform: platform,
       version: version,
+      platform_category: platform_category,
+      platform_type: platform_type
     }
   }
 
@@ -1070,15 +1091,32 @@ $('.extend-expiry').on('click', function(){
 
 $('#extend-expiry-form').on('submit', function(e){
   e.preventDefault();
-  $.ajax({
-    method: 'POST',
-    url: '/admin/form_submissions/set_expiry_date',
-    data: $(this).serialize(),
-    context: $(this),
-    success: function(response) {
-      window.location.reload();
+  var data = $(this).serialize();
+  swal({
+    title: "Are you sure?",
+    text: "",
+    type: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#DD6B55",
+    confirmButtonText: "Yes, change expiry date",
+    cancelButtonText: "Cancel",
+    closeOnConfirm: true,
+    closeOnCancel: true
+  },
+  function(isConfirm){
+    if (isConfirm) {
+      $.ajax({
+        method: 'POST',
+        url: '/admin/form_submissions/set_expiry_date',
+        data: data,
+        context: $(this),
+        success: function(response) {
+          window.location.reload();
+        }
+      })
     }
-  })
+  });
+
 })
 
 var _rollbarConfig = {

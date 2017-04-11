@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170407180328) do
+ActiveRecord::Schema.define(version: 20170411183738) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -191,6 +191,14 @@ ActiveRecord::Schema.define(version: 20170407180328) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "jurisdictions", force: :cascade do |t|
+    t.string   "country"
+    t.string   "city"
+    t.integer  "law_firm_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "law_firms", force: :cascade do |t|
     t.string   "name"
     t.string   "description"
@@ -200,6 +208,13 @@ ActiveRecord::Schema.define(version: 20170407180328) do
     t.datetime "updated_at",                 null: false
     t.integer  "user_id"
     t.string   "relationship_manager_email"
+    t.string   "law_firm_type"
+    t.text     "parent_company"
+    t.string   "practice_area"
+    t.text     "sister_firm"
+    t.string   "principle_name"
+    t.string   "principle_title"
+    t.text     "principle_contact_info"
   end
 
   create_table "locations", force: :cascade do |t|
@@ -344,8 +359,10 @@ ActiveRecord::Schema.define(version: 20170407180328) do
     t.string   "version"
     t.string   "service_pack"
     t.string   "supported"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.string   "platform_category"
+    t.string   "platform_type"
   end
 
   create_table "technology_values", id: :integer, default: -> { "nextval('technology_forms_id_seq'::regclass)" }, force: :cascade do |t|
