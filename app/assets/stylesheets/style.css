@@ -914,3 +914,11 @@ h3.firm-score-declined span {
   background: red;
   border-radius: 0px 5px 0px 5px;
 }
+
+.within-block {
+  background-color: #e1e1e1 !important;
+}
+
+.threat-found i:hover, .threat-found:hover i {
+  color: #FFF;
+}
