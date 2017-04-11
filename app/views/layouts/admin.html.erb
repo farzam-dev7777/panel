@@ -320,6 +320,7 @@
 			      	var count3 = 0
 			      	$.each( data.under_process, function( key, value ) {
 							  data3.push([count3, parseInt(value)])
+							  debugger;
 							  date = new Date(Date.parse(key));
 							  ticks.push([count, monthNames[date.getMonth()]])
 								count3++;
