@@ -299,20 +299,50 @@
 			      method: 'GET',
 			    })
 			      .done(function( data ) {
+			      	var count = 0
 			      	$.each( data.certified, function( key, value ) {
-			      		debugger;
-							  data1.push([Date.parse(key), parseInt(value)])
+							  data1.push([count, parseInt(value)])
+							  count++;
 							});
 
 
+			      	var count2 = 0
 			      	$.each( data.decertified, function( key, value ) {
-							  data2.push([Date.parse(key), parseInt(value)])
+							  data2.push([count2, parseInt(value)])
+							  count++;
 							});
 
+			      	var count3 = 0
 			      	$.each( data.under_process, function( key, value ) {
-							  data3.push([Date.parse(key), parseInt(value)])
+							  data3.push([count3, parseInt(value)])
+								count3++;
 							});
 
+			      		debugger;
+							// data1 = [    
+						 //    [0, 11], //London, UK
+						 //    [1, 15], //New York, USA
+						 //    [2, 25], //New Delhi, India
+						 //    [3, 24], //Taipei, Taiwan
+						 //    [4, 13], //Beijing, China
+						 //    [5, 18]  //Sydney, AU
+							// ];
+							// data2 = [    
+						 //    [0, 11], //London, UK
+						 //    [1, 15], //New York, USA
+						 //    [2, 25], //New Delhi, India
+						 //    [3, 24], //Taipei, Taiwan
+						 //    [4, 13], //Beijing, China
+						 //    [5, 18]  //Sydney, AU
+							// ];
+							// data3 = [    
+						 //    [0, 11], //London, UK
+						 //    [1, 15], //New York, USA
+						 //    [2, 25], //New Delhi, India
+						 //    [3, 24], //Taipei, Taiwan
+						 //    [4, 13], //Beijing, China
+						 //    [5, 18]  //Sydney, AU
+							// ];
 
 							var ds = new Array();
 

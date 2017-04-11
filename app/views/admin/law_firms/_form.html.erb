@@ -16,7 +16,7 @@
 			
 			<tr>
 				<td class="text-right" width="20%">Type</td>
-				<td><%= f.input :name, label: false, collection: LawFirm::COMPANY_TYPES %></td>
+				<td><%= f.input :law_firm_type, label: false, collection: LawFirm::COMPANY_TYPES %></td>
 			</tr>
 			
 			<tr>
@@ -35,6 +35,11 @@
 			</tr>
 
 			<tr>
+				<td class="text-right" width="20%">Temp. Password</td>
+				<td><%= f.input :temp_password, label: false %></td>
+			</tr>
+
+			<tr>
 				<td class="text-right" width="20%">Phone</td>
 				<td><%= f.input :phone, label: false %></td>
 			</tr>
@@ -44,23 +49,22 @@
 				<td><%= f.input :relationship_manager_email, label: false %></td>
 			</tr>
 
-			<tr>
-				<td class="text-right" width="20%">Temp. Password</td>
-				<td><%= f.input :temp_password, label: false %></td>
+			<tr class="text-left">
+				<td colspan="2" class="text-left"><strong>Principle</strong></td>
 			</tr>
 
 			<tr>
-				<td class="text-right" width="20%">Principle Name</td>
+				<td class="text-right" width="20%">Name</td>
 				<td><%= f.input :principle_name, label: false %></td>
 			</tr>
 
 			<tr>
-				<td class="text-right" width="20%">Principle Title</td>
+				<td class="text-right" width="20%">Title</td>
 				<td><%= f.input :principle_title, label: false %></td>
 			</tr>
 
 			<tr>
-				<td class="text-right" width="20%">Principle Contact Info</td>
+				<td class="text-right" width="20%">Contact Info</td>
 				<td><%= f.input :principle_contact_info, label: false %></td>
 			</tr>
 			
