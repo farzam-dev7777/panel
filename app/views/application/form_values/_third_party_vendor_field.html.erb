@@ -1,5 +1,7 @@
 <div>
 	<label><%= field.try(:label) %></label>
+
+  <div class="clearfix"></div>
   <div class="col-md-4">
     <label>Vendor Name</label>
   </div>
@@ -9,6 +11,8 @@
   <div class="col-md-3">
     <label>Confidentiality Agreement</label>
   </div>
+  <div class="clearfix"></div>
+
   <%= v.simple_fields_for :third_party_vendors do |third_party_vendor_field| %>
     <%= render partial: "third_party_vendor_fields", 
                locals: {f: third_party_vendor_field} unless third_party_vendor_field.object.nil? %>

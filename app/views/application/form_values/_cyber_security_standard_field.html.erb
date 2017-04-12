@@ -1,5 +1,7 @@
 <div>
 	<label><%= field.try(:label) %></label>
+
+  <div class="clearfix"></div>
   <div class="col-md-3">
     <label>Rank</label>
   </div>
@@ -12,6 +14,8 @@
   <div class="col-md-2">
     <label>Expiry</label>
   </div>
+  <div class="clearfix"></div>
+  
   <%= v.simple_fields_for :cyber_security_standards do |field| %>
     <%= render partial: "cyber_security_standard_fields", 
                locals: {f: field} unless field.object.nil? %>

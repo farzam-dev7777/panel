@@ -1,5 +1,7 @@
 <div>
   <label><%= field.try(:label) %></label>
+  
+  <div class="clearfix"></div>
   <div class="col-md-3">
     <label>Policy</label>
   </div>
@@ -12,6 +14,9 @@
   <div class="col-md-2">
     <label>Freq. of Review</label>
   </div>
+  <div class="clearfix"></div>
+
+
   <%= v.simple_fields_for :information_security_policies do |information_security_policy_field| %>
     <%= render partial: "information_security_policy_fields", 
                locals: {f: information_security_policy_field} unless information_security_policy_field.object.nil? %>
