@@ -25,6 +25,10 @@ module FormSubmissionHelper
     end
   end
 
+  def policy_step_instructions
+
+  end
+
   def follow_up_class_for_law_firm(loggable_id, loggable_type, form_submission_id)
     follow_up = find_follow_up(filter(loggable_id: loggable_id, 
                                       loggable_type: loggable_type,

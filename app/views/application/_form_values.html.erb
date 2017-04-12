@@ -1,4 +1,18 @@
 <% step = 0 %>
+
+<% if current_step == :policy %>
+	<div class="col-md-10 col-md-offset-1 no-padding" style="margin-bottom: 40px">
+		<div id="accordion">
+			<div>
+				<h4>Instructions</h4>
+				<div class="row padding-10">
+					<br/><strong>Please read before answering the questions:</strong><br/><ul><li><p>You would need the following:</p></li><ul><li><p>List of technologies that are used in the company</p></li><li><p>Knowledge of and access to policies related to Information Security.</p></li></ul></ul><br/><br/><p>Please do not input name of your firms, people , contact or any info that uniquely identifies your firm with the answers you provide. Remove all names and contact information from the documents you upload. Thanks for your cooperation.</p><br/><ul><li><p>*Users=Anyone that has access to the information inside the lawfirm i.e Employee, Contractor, Vendor, Consultant.</p></li><li><p>**Confidential Information : Information that the lawfirm internally defines as confidentials. Information that BMO defines as Confidentials. Information by it’s nature is consideration. </p></li><li>*** Information Security Company are Cyber Security firms that allow</li></ul>
+				</div>
+			</div>
+		</div>
+	</div>
+<% end %>
+
 <div class="col-md-10 col-md-offset-1 form-enclosure">
 	<div class="col-md-12">
 		<%= render "form_values_fields", f: f, form_values: f.object.build_values(nil, current_step), step: step, group_form: false, sub_fields: false %>

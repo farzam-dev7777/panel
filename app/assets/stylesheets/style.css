@@ -364,7 +364,7 @@ textarea.note {
 
 .select2-container .select2-choice, .select2-selection {
   border: 0;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #f1f1f1;
 }
 
 .select2-search{ padding: 0; }
@@ -731,7 +731,7 @@ ul.internal-notes li div p {
 
 .portal-type{ 
   line-height: 50px;
-  color: #a0c3d8;
+  color: #FFF;
   text-transform: uppercase;
   letter-spacing: 30px;
   font-weight: bold; 
@@ -804,8 +804,14 @@ ul.internal-notes li div p {
 }
 
 .form-enclosure label {
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 600;
+  margin-bottom: 35px;
+  color: #007ac3;
+}
+
+.select2-selection {
+  font-size: 20px;
 }
 
 .form-enclosure .wrapper .form-group {
@@ -838,7 +844,7 @@ ul.internal-notes li div p {
 }
 
 .form-control[disabled] {
-  border-bottom: 1px solid #ccc !important;
+  border-bottom: 1px solid #f1f1f1 !important;
 }
 
 h3.firm-score-approved,
@@ -921,4 +927,15 @@ h3.firm-score-declined span {
 
 .threat-found i:hover, .threat-found:hover i {
   color: #FFF;
+}
+
+.wrapper {
+  margin-bottom: 80px;
+}
+
+.control-label i {
+  background-color: yellow;
+  border-radius: 50%;
+  position: relative;
+  bottom: 10px; 
 }

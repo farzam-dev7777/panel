@@ -1,5 +1,18 @@
 <div>
 	<label><%= field.try(:label) %></label>
+
+  <div class="clearfix"></div>
+  <div class="col-md-4">
+    <label>Name</label>
+  </div>
+  <div class="col-md-4">
+    <label>Service</label>
+  </div>
+  <div class="col-md-3">
+    <label>Date Store Location CA</label>
+  </div>
+  <div class="clearfix"></div>
+
   <%= v.simple_fields_for :cloud_providers do |cloud_provider| %>
     <%= render partial: "cloud_providers_fields", 
                locals: {f: cloud_provider} unless cloud_provider.object.nil? %>
