@@ -29,7 +29,7 @@ class FormValue < ApplicationRecord
   private
 
   def value_is_valid
-    form_field.validate_value(self)
+    form_field.validate_value(self) if form_field
   end
 
 
