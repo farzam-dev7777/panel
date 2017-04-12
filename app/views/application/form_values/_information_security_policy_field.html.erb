@@ -19,7 +19,7 @@
 
   <%= v.simple_fields_for :information_security_policies do |information_security_policy_field| %>
     <%= render partial: "information_security_policy_fields", 
-               locals: {f: information_security_policy_field} unless information_security_policy_field.object.nil? %>
+               locals: {f: information_security_policy_field} %>
   <% end %>
   <div class="add-information-security-policy text-right">
     <% if current_user %>

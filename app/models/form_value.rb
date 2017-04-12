@@ -7,6 +7,7 @@ class FormValue < ApplicationRecord
   has_many   :cyber_security_standards
   has_many   :information_security_policies
   has_many   :third_party_vendors
+  has_many   :cloud_providers
 
   serialize :multi_select_value, Array
 
@@ -19,6 +20,7 @@ class FormValue < ApplicationRecord
   accepts_nested_attributes_for :cyber_security_standards, allow_destroy: true
   accepts_nested_attributes_for :information_security_policies, allow_destroy: true
   accepts_nested_attributes_for :third_party_vendors, allow_destroy: true
+  accepts_nested_attributes_for :cloud_providers, allow_destroy: true
 
   def file_cache
 
