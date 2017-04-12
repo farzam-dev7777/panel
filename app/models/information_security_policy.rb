@@ -1,0 +1,2 @@
+class InformationSecurityPolicy < ApplicationRecord
+end

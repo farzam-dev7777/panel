@@ -315,8 +315,9 @@ $(document).ready(function(){
     // $(this).datepicker("option", $.datepicker.regional['en']);
   })
 
-  $(document).on('click', '.add-css', function() {
-    $('.cyber-security').find('.datepicker').datepicker({
+  $(document).on('click', '.add-css, .add-information-security-policy', function() {
+    var classesToActOn = ".cyber-security, .information-security-policy"
+    $(classesToActOn).find('.datepicker').datepicker({
       dateFormat: "dd-mm-yy",
       altField: $(this).next()
     })

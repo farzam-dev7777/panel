@@ -5,6 +5,8 @@ class FormValue < ApplicationRecord
   has_many   :file_attachments
   has_many   :vendors
   has_many   :cyber_security_standards
+  has_many   :information_security_policies
+  has_many   :third_party_vendors
 
   # mount_uploader :file_value, FileUploader
 
@@ -13,6 +15,8 @@ class FormValue < ApplicationRecord
   accepts_nested_attributes_for :file_attachments, allow_destroy: true
   accepts_nested_attributes_for :vendors, allow_destroy: true
   accepts_nested_attributes_for :cyber_security_standards, allow_destroy: true
+  accepts_nested_attributes_for :information_security_policies, allow_destroy: true
+  accepts_nested_attributes_for :third_party_vendors, allow_destroy: true
 
   def file_cache
 

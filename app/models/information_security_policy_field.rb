@@ -1,0 +1,2 @@
+class InformationSecurityPolicyField < FormField
+end
