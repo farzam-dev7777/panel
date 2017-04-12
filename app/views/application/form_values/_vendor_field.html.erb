@@ -1,5 +1,16 @@
 <div>
 	<label><%= field.try(:label) %></label>
+  <div class="col-md-12 no-padding">
+    <div class="col-md-4">
+      <label>Name</label>
+    </div>
+    <div class="col-md-4">
+      <label>Type</label>
+    </div>
+    <div class="col-md-4">
+      <label>Application</label>
+    </div>
+  </div>
   <%= v.simple_fields_for :vendors do |vendor_field| %>
     <%= render partial: "vendor_fields", 
                locals: {f: vendor_field} unless vendor_field.object.nil? %>

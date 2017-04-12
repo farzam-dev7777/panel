@@ -181,7 +181,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
 
   def generate_security_threats
     technology_values = @form_submission.technology_values
-    technology_values.each do |value|
+    technology_values.each do |technology_value|
       security_threats = SecurityThreat.where(vendor: technology_value.vendor, platform: technology_value.platform, version: technology_value.version, service_pack: technology_value.service_pack)
       security_threats.each do |threat|
         threat.generate_pending_action_items_after_approval(@form_submission.law_firm_id, current_user)
