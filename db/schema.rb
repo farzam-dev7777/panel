@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170412163108) do
+ActiveRecord::Schema.define(version: 20170412191927) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -161,14 +161,15 @@ ActiveRecord::Schema.define(version: 20170412163108) do
     t.integer  "form_field_id"
     t.integer  "submittable_id"
     t.string   "value"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.string   "submittable_type"
     t.string   "form_field_label"
     t.string   "file_value"
-    t.boolean  "checked",          default: false
+    t.boolean  "checked",            default: false
     t.string   "form_value_iv"
     t.string   "form_value_key"
+    t.text     "multi_select_value"
   end
 
   create_table "forms", force: :cascade do |t|

@@ -1,18 +1,18 @@
 <div class="row information-security-policy information-security-policy-field-<%= f.object.try(:id) %>">
 	<div class="col-md-3">
-		<%= f.input :policy %>
+		<%= f.input :policy, label: false %>
 	</div>
 	<div class="col-md-3">
-		<%= f.input :last_reviewed, as: :string, input_html: { class: 'datepicker' } %>
+		<%= f.input :last_reviewed, as: :string, input_html: { class: 'datepicker' }, label: false %>
 	</div>
 	<div class="col-md-3">
-		<%= f.input :last_updated, as: :string, input_html: { class: 'datepicker' } %>
+		<%= f.input :last_updated, as: :string, input_html: { class: 'datepicker' }, label: false %>
 	</div>
 	<div class="col-md-2">
-		<%= f.input :freq_of_review %>
+		<%= f.input :freq_of_review, label: false %>
 	</div>
 
-	<div class="col-md-1" style="line-height: 84px; padding-right: 40px;">
+	<div class="col-md-1" style="padding-top: 15px;">
 		<% if f.object && current_user %>
 			<%= link_to_remove_association "<i class='fa fa-minus-circle fa-2x'></i>".html_safe, f, { wrapper_class: "information-security-policy-field-#{f.object.try(:id)}" }  %>
 		<% end %>

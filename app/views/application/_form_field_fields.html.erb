@@ -14,7 +14,7 @@
 
   <div class="tabs">
     <ul>
-      <% if f.object.type == 'DropdownField' %>
+      <% if f.object.type == 'DropdownField' || f.object.type == 'MultiSelectField' %>
         <li>
           <a href="#tabs-dropdown-options">Dropdown Options</a>
         </li>
@@ -27,7 +27,7 @@
       </li>
     </ul>
 
-    <% if f.object.type == 'DropdownField' %>
+    <% if f.object.type == 'DropdownField' || f.object.type == 'MultiSelectField' %>
       <div id="tabs-dropdown-options">
         <%= render "application/form_fields/#{f.object.type.try(:underscore)}", f: f if f.object.type %>
       </div>

@@ -8,6 +8,8 @@ class FormValue < ApplicationRecord
   has_many   :information_security_policies
   has_many   :third_party_vendors
 
+  serialize :multi_select_value, Array
+
   # mount_uploader :file_value, FileUploader
 
   validate :value_is_valid

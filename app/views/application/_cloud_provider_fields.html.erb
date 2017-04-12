@@ -9,7 +9,7 @@
 		<%= f.input :data_store_location_ca %>
 	</div>
 
-	<div class="col-md-1" style="line-height: 84px; padding-right: 40px;">
+	<div class="col-md-1" style="padding-top: 15px;">
 		<% if f.object && current_user %>
 			<%= link_to_remove_association "<i class='fa fa-minus-circle fa-2x'></i>".html_safe, f, { wrapper_class: "cloud-provider-field-#{f.object.try(:id)}" }  %>
 		<% end %>
