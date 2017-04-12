@@ -14,7 +14,7 @@
   <div class="clearfix"></div>
 
   <%= v.simple_fields_for :cloud_providers do |cloud_provider| %>
-    <%= render partial: "cloud_providers_fields", 
+    <%= render partial: "cloud_provider_fields", 
                locals: {f: cloud_provider} unless cloud_provider.object.nil? %>
   <% end %>
   <div class="add-cloud-provider text-right">
