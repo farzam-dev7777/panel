@@ -843,6 +843,9 @@ ul.internal-notes li div p {
   margin-bottom: 10px !important;
 }
 
+.form-control {
+  border: 1px solid #f1f1f1 !important;
+}
 .form-control[disabled] {
   border-bottom: 1px solid #f1f1f1 !important;
 }
