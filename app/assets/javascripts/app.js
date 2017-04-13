@@ -985,12 +985,11 @@ function fetchLawFirms(vendor, platform, version, target){
   }
 
   $.get('/admin/security_threats/0/find_law_firms', data, function(response){
-    $('#law-firms').select2().empty().select2({data: response.selected});
-    $('#law-firms option').attr('selected', true).parent().trigger('change');
-    $('#law-firms').select2({data: response.all});
-    $('#law-firms-count').html(response.selected.length + " Firm(s) found")
-
     if(response.selected.length > 0){
+      $('#law-firms').select2().empty().select2({data: response.selected});
+      $('#law-firms option').attr('selected', true).parent().trigger('change');
+      $('#law-firms').select2({data: response.all});
+      $('#law-firms-count').html(response.selected.length + " Firm(s) found")
       $('.clear-all-lawfirms').show();
     }
   })
