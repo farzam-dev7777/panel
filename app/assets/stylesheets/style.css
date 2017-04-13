@@ -807,7 +807,8 @@ ul.internal-notes li div p {
   font-size: 20px;
   font-weight: 600;
   margin-bottom: 15px;
-  color: #007ac3;
+  color: #3eaaea;
+  font-family: monospace;
 }
 
 .select2-selection {

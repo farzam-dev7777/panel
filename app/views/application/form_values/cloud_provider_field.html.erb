@@ -2,13 +2,13 @@
 	<label><%= field.try(:label) %></label>
 
   <div class="clearfix"></div>
-  <div class="col-md-4 gfe-field">
+  <div class="col-md-4 no-padding gfe-field">
     <label>Name</label>
   </div>
-  <div class="col-md-4 gfe-field">
+  <div class="col-md-4 no-padding gfe-field">
     <label>Service</label>
   </div>
-  <div class="col-md-3 gfe-field">
+  <div class="col-md-3 no-padding gfe-field">
     <label>Date Store Location CA</label>
   </div>
   <div class="clearfix"></div>
@@ -22,7 +22,5 @@
 	    <%= link_to_add_association '<span href="javascript:void(0);" class="btn btn-default btn-sm"><i class="fa fa-plus-circle"></i> Cloud Provider</span>'.html_safe, v, :cloud_providers %>
 	   <% end %>
   </div>
-
-  <hr>
 
 </div>

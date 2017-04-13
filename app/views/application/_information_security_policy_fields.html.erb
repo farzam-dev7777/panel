@@ -1,17 +1,17 @@
 <div class="row information-security-policy information-security-policy-field-<%= f.object.try(:id) %>">
-	<div class="col-md-3 gfe-field">
+	<div class="col-md-3 no-padding gfe-field">
 		<%= f.input :policy, label: false, collection: ["Access Control Policies","Segregation of Duties Policies","Remote Access Policies","Asset Management Policies","Acceptable Use Policy","Antivirus / Malware Policies","Confidentiality Agreements / Non-Disclosure Agreements","Change Management / Change Control Policies","Audit / Compliance Policies","Data Backup Policies","Data Destruction / Disposal Policies","Business Continuity Management / Disaster Recovery Policies","Application Development Policies","Secure Coding Policies","Email Use and Security Policies","Encryption Policies","Human Resource Screening Policies","Human Resource Termination Policies","Security Awareness Training Policies","Incident Response Policies","Information Security Policies","Mobile Media / Devices Policies","Network Security Management Policies","IT Operations Policies","Patch Management Policies","Privacy Notices","Physical Security Policies","Internal Privacy Policies","Risk Management / Risk Assessment Program Policies","Data Retention Policies","Third Party Management Policies","Vulnerability Management Policies"] %>
 	</div>
-	<div class="col-md-2 gfe-field">
+	<div class="col-md-2 no-padding gfe-field">
 		<%= f.input :last_reviewed, as: :string, input_html: { class: 'datepicker' }, label: false %>
 	</div>
-	<div class="col-md-2 gfe-field">
+	<div class="col-md-2 no-padding gfe-field">
 		<%= f.input :last_updated, as: :string, input_html: { class: 'datepicker' }, label: false %>
 	</div>
-	<div class="col-md-2 gfe-field">
+	<div class="col-md-2 no-padding gfe-field">
 		<%= f.input :freq_of_review, label: false %>
 	</div>
-	<div class="col-md-2 gfe-field">
+	<div class="col-md-2 no-padding gfe-field">
 		<%= f.input :upload_policy, as: :file, label: false %>
 	</div>
 

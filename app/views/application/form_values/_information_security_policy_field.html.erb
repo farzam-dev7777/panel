@@ -2,19 +2,19 @@
   <label><%= field.try(:label) %></label>
   
   <div class="clearfix"></div>
-  <div class="col-md-3 gfe-field">
+  <div class="col-md-3 no-padding gfe-field">
     <label>Policy</label>
   </div>
-  <div class="col-md-2 gfe-field">
+  <div class="col-md-2 no-padding gfe-field">
     <label>Last Reviewed</label>
   </div>
-  <div class="col-md-2 gfe-field">
+  <div class="col-md-2 no-padding gfe-field">
     <label>Last Updated</label>
   </div>
-  <div class="col-md-2 gfe-field">
+  <div class="col-md-2 no-padding gfe-field">
     <label>Freq. of Review</label>
   </div>
-  <div class="col-md-2 gfe-field">
+  <div class="col-md-2 no-padding gfe-field">
     <label>Upload Policy</label>
   </div>
   <div class="clearfix"></div>
@@ -29,8 +29,6 @@
       <%= link_to_add_association '<span href="javascript:void(0);" class="btn btn-default btn-sm"><i class="fa fa-plus-circle"></i> Policy</span>'.html_safe, v, :information_security_policies %>
      <% end %>
   </div>
-
-  <hr>
 
 </div>
 
