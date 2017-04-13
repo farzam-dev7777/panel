@@ -10,7 +10,7 @@ class ActionItem < ApplicationRecord
 			action_item = ActionItem.new(security_threat_id: security_threat_id, law_firm_id: id)
 			if action_item.save
 	      QueuedNotification.generate_notifications(action_item, params, current_user)
-	      LawFirmMailer.security_threat_generated(law_firm_id).deliver_now
+	      LawFirmMailer.security_threat_generated(id).deliver_now
 			end
 		end
 	end
