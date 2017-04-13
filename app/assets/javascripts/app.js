@@ -1040,7 +1040,7 @@ function showIfCustomLogicMatched(currentField, pageLoad){
   if( currentFieldLogics.length > 0 ) {
     currentFieldLogics.forEach(function(logic) {
       targetField = $('.field-wrapper-' + logic.change_field_id)
-      if( (currentField.val() == logic.values && currentField.val().length != 0) 
+      if( (currentField.val() && currentField.val() == logic.values && currentField.val().length != 0) 
            || (logic.values == "" && currentField.val().length > 0)
            || (currentField.hasClass('fileupload') && parseInt(currentField.data('file-count')) > 0)
         ){
