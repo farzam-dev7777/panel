@@ -974,6 +974,21 @@ function fetchTechnology(vendor, platform, version, target, platform_type, platf
 
 }
 
+function fetchTechnologyForThreats(vendor, platform, version, target){
+  data = {
+    field: target.data('field'),
+    filter: {
+      vendor: vendor,
+      platform: platform,
+      version: version,
+    }
+  }
+  $.get('/technologies', data, function(response){
+    $(target).select2().empty().select2({data: response}).trigger('change');
+  })
+
+}
+
 function fetchLawFirms(vendor, platform, version, target){
   data = {
     field: target.data('field'),
@@ -983,13 +998,13 @@ function fetchLawFirms(vendor, platform, version, target){
       version: version,
     }
   }
-
   $.get('/admin/security_threats/0/find_law_firms', data, function(response){
+    $('#law-firms').select2().empty().select2({data: response.selected});
+    $('#law-firms option').attr('selected', true).parent().trigger('change');
+    $('#law-firms').select2({data: response.all});
+    $('#law-firms-count').html(response.selected.length + " Firm(s) found")
+
     if(response.selected.length > 0){
-      $('#law-firms').select2().empty().select2({data: response.selected});
-      $('#law-firms option').attr('selected', true).parent().trigger('change');
-      $('#law-firms').select2({data: response.all});
-      $('#law-firms-count').html(response.selected.length + " Firm(s) found")
       $('.clear-all-lawfirms').show();
     }
   })

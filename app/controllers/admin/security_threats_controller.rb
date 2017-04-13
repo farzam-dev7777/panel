@@ -23,7 +23,13 @@ class Admin::SecurityThreatsController < Admin::BaseController
 		form_submission_ids = TechnologyValue.select(params[:field].to_s).where(technology_values_filter_params).uniq.pluck(:form_submission_id)
 		law_firms = LawFirm.joins(:form_submissions).where("form_submissions.id IN (?)", form_submission_ids)
 
-		render json: { selected: law_firms.map{ |firm| { id: firm.id, text: firm.name } }, all: LawFirm.where('id NOT IN (?)', law_firms.pluck(:id)).uniq.map{ |firm| { id: firm.id, text: firm.name } } }
+    if law_firms.any?
+      all_law_firms = LawFirm.where('id NOT IN (?)', law_firms.pluck(:id)).uniq.map{ |firm| { id: firm.id, text: firm.name } }
+    else
+      all_law_firms = LawFirm.all.uniq.map{ |firm| { id: firm.id, text: firm.name } }
+    end
+
+		render json: { selected: law_firms.map{ |firm| { id: firm.id, text: firm.name } }, all: all_law_firms }
 	end
 
   def show
