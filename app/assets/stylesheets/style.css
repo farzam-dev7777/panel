@@ -36,6 +36,10 @@ body.smart-style-6 .table>tbody>tr>td, body.smart-style-6 .table>tbody>tr>th, bo
   margin: 0px;
 }
 
+.form-control {
+  font-size: 14px !important;
+}
+
 .dataTables_filter .input-group-addon+.form-control{
   background: #fafafa;
 }
@@ -399,8 +403,8 @@ span.select2-selection__arrow{
 .qtip-default .qtip-icon{ padding: 4px; }
 
 .need-follow-up {
-  background-color: rgba(255, 168, 168, 0.7) !important;
-  border: 1px solid #ff8282 !important;
+  /*background-color: rgba(255, 168, 168, 0.7) !important;*/
+  border: 2px solid #ff8282 !important;
   border-radius: 5px !important;
   padding-top: 10px !important;
   margin-bottom: 10px;
@@ -947,4 +951,14 @@ h3.firm-score-declined span {
 .gfe-field label {
   color: #9c9c9c !important;
   font-size: 16px !important;
+}
+
+.tech-form-wraper h4 strong, 
+.tech-form-wraper .m-b-20.text-center, 
+.tech-field label,
+.history-form-wrapper h4 strong, 
+.history-form-wraper .m-b-20.text-center,
+.history-field label { 
+  color: #3eaaea;
+  font-family: monospace;
 }
