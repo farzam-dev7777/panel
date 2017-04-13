@@ -1,6 +1,6 @@
 <div class="row information-security-policy information-security-policy-field-<%= f.object.try(:id) %>">
 	<div class="col-md-3 gfe-field">
-		<%= f.input :policy, label: false, collection: ["Access Control Policies / Procedures","Segregation of Duties Policies / Procedures","Remote Access Policies / Procedures","Asset Management Policies / Procedures","Acceptable Use Policy","Antivirus / Malware Policies / Procedures","Confidentiality Agreements / Non-Disclosure Agreements","Change Management / Change Control Policies / Procedures","Audit / Compliance Policies / Procedures","Data Backup Policies / Procedures","Data Destruction / Disposal Policies / Procedures","Business Continuity Management / Disaster Recovery Policies / Procedures","Application Development Policies / Procedures","Secure Coding Policies / Procedures","Email Use and Security Policies / Procedures","Encryption Policies / Procedures","Human Resource Screening Policies / Procedures","Human Resource Termination Policies / Procedures","Security Awareness Training Policies / Procedures","Incident Response Policies / Procedures","Information Security Policies / Procedures","Mobile Media / Devices Policies / Procedures","Network Security Management Policies / Procedures","IT Operations Policies / Procedures","Patch Management Policies/ Procedures","Privacy Notices","Physical Security Policies / Procedures","Internal Privacy Policies / Procedures","Risk Management / Risk Assessment Program Policies / Procedures","Data Retention Policies / Procedures","Third Party Management Policies / Procedures","Vulnerability Management Policies / Procedures"] %>
+		<%= f.input :policy, label: false, collection: ["Access Control Policies","Segregation of Duties Policies","Remote Access Policies","Asset Management Policies","Acceptable Use Policy","Antivirus / Malware Policies","Confidentiality Agreements / Non-Disclosure Agreements","Change Management / Change Control Policies","Audit / Compliance Policies","Data Backup Policies","Data Destruction / Disposal Policies","Business Continuity Management / Disaster Recovery Policies","Application Development Policies","Secure Coding Policies","Email Use and Security Policies","Encryption Policies","Human Resource Screening Policies","Human Resource Termination Policies","Security Awareness Training Policies","Incident Response Policies","Information Security Policies","Mobile Media / Devices Policies","Network Security Management Policies","IT Operations Policies","Patch Management Policies","Privacy Notices","Physical Security Policies","Internal Privacy Policies","Risk Management / Risk Assessment Program Policies","Data Retention Policies","Third Party Management Policies","Vulnerability Management Policies"] %>
 	</div>
 	<div class="col-md-2 gfe-field">
 		<%= f.input :last_reviewed, as: :string, input_html: { class: 'datepicker' }, label: false %>
@@ -11,8 +11,8 @@
 	<div class="col-md-2 gfe-field">
 		<%= f.input :freq_of_review, label: false %>
 	</div>
-	<div class="col-md-1 gfe-field">
-		
+	<div class="col-md-2 gfe-field">
+		<%= f.input :upload_policy, as: :file, label: false %>
 	</div>
 
 

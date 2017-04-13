@@ -811,7 +811,7 @@ ul.internal-notes li div p {
 }
 
 .select2-selection {
-  font-size: 20px;
+  font-size: 14px;
 }
 
 .form-enclosure .wrapper .form-group {
@@ -844,7 +844,7 @@ ul.internal-notes li div p {
 }
 
 .form-control {
-  border: 1px solid #f1f1f1 !important;
+  border-bottom: 1px solid #f1f1f1 !important;
 }
 .form-control[disabled] {
   border-bottom: 1px solid #f1f1f1 !important;
