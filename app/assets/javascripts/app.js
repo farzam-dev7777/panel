@@ -5,6 +5,9 @@ $(document).ready(function(){
   
   // $('.dynamic-select').trigger('change');
 
+  $(document).ready(function() { $(".add_fields").click() } );
+
+
   var american_states = [
     { "id": "Alabama", "text": "Alabama" },
     { "id": "Alaska", "text": "Alaska" },
