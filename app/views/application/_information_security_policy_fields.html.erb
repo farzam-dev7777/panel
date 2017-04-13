@@ -1,16 +1,20 @@
 <div class="row information-security-policy information-security-policy-field-<%= f.object.try(:id) %>">
-	<div class="col-md-3">
+	<div class="col-md-2 gfe-field">
 		<%= f.input :policy, label: false %>
 	</div>
-	<div class="col-md-3">
+	<div class="col-md-2 gfe-field">
 		<%= f.input :last_reviewed, as: :string, input_html: { class: 'datepicker' }, label: false %>
 	</div>
-	<div class="col-md-3">
+	<div class="col-md-2 gfe-field">
 		<%= f.input :last_updated, as: :string, input_html: { class: 'datepicker' }, label: false %>
 	</div>
-	<div class="col-md-2">
+	<div class="col-md-2 gfe-field">
 		<%= f.input :freq_of_review, label: false %>
 	</div>
+	<div class="col-md-1 gfe-field">
+		
+	</div>
+
 
 	<div class="col-md-1" style="padding-top: 15px;">
 		<% if f.object && current_user %>
