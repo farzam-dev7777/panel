@@ -1,5 +1,10 @@
 # Law Firms
 
+# law_firm = LawFirm.create!(name: "Alston & Bird LLP",description: "Law Firm",email: "alisonandbird@seal-test.com",phone: "+1 212-210-9400", temp_password: 'se123456al')
+# law_firm = LawFirm.create!(name: "The Lanier Law Firm PLLC",description: "Law Firm",email: "lanier@seal-test.com",phone: "+1 212-210-9400", temp_password: 'se123456al')
+# law_firm = LawFirm.create!(name: "The Blanch Law Firm",description: "Law Firm",email: "blanch@seal-test.com",phone: "+1 212-210-9400", temp_password: 'se123456al')
+# law_firm = LawFirm.create!(name: "Spodek Criminal Defense Lawyers",description: "Law Firm",email: "spodek@seal-test.com",phone: "+1 212-210-9400", temp_password: 'se123456al')
+# law_firm = LawFirm.create!(name: "Cary Kane LLP",description: "Law Firm",email: "carykane@seal-test.com",phone: "+1 212-210-9400", temp_password: 'se123456al')
 # law_firm = LawFirm.create!(name: "Preszler Law Firm",description: "Personal Injury Attorney",email: "presezlerlawfirm@seal-test.com",phone: "+1 888-608-2111", temp_password: 'se123456al')
 # law_firm.log_activity('account_created', true)
 # law_firm = LawFirm.create!(name: "Niren & Associates Immigration Law Firm",description: "Immigration Attorney",email: "nirenassociatesimmigrationlawfirm@seal-test.com",phone: "+1 416 410 7484", temp_password: 'se123456al')
