@@ -5,7 +5,7 @@
 	<div class="col-md-2"><%= f.input :source, collection: ['Source 1',  'Source 2'] %></div>
 	<div class="col-md-2"><%= f.input :data_loss, collection: ['Yes', 'No'] %></div>
 	<div class="col-md-1 text-center" style="line-height: 84px;">
-		<%= link_to_remove_association "<i class='fa fa-minus-circle fa-2x'></i>".html_safe, f, { wrapper_class: "history-field" }  %>
+		<%= link_to_remove_association "<i class='fa fa-minus-circle'></i>".html_safe, f, { wrapper_class: "history-field" }  %>
 	</div>
 	<div class="col-md-10"><%= f.input :incident_details %></div>
 
