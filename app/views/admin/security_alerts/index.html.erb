@@ -42,7 +42,7 @@
 									<td><%= alert.severity %></td>
 									<td><%= "#{time_ago_in_words(alert.created_at)} ago" %></td>
 									<td class="text-center">
-										<%= link_to "Edit", edit_admin_security_alert_path(alert), class: "btn btn-primary" %>	
+										<%= link_to "Edit", edit_admin_security_alert_path(alert), class: "btn btn-xs btn-primary" %>	
 									</td>
 								</tr>
 							<% end %>

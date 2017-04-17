@@ -4,17 +4,17 @@
 	}
 </style>
 
-<div class="col-lg-2 ">
-	<%= link_to "<i class='fa fa-long-arrow-left'></i> Back".html_safe, admin_law_firms_path, class: "btn btn-default" %>
-	<%= link_to "<i class='fa fa-pencil-square-o'></i> Edit".html_safe, edit_admin_law_firm_path, class: "btn btn-primary m-l-15 no-border" %>
+<div class="col-lg-3">
+	<%= link_to "<i class='fa fa-long-arrow-left'></i>".html_safe, admin_law_firms_path, class: "btn btn-sm btn-default" %>
+	<%= link_to "<i class='fa fa-pencil-square-o'></i> Edit".html_safe, edit_admin_law_firm_path, class: "btn btn-sm btn-primary m-l-15 no-border" %>
 </div>
-<div class="col-md-10 text-right law-firm-controls">
+<div class="col-md-9 text-right law-firm-controls">
 	<!-- <div class="col-lg-1 pull-right"> -->
 	<!-- </div> -->
 <% if (@law_firm.form_submissions.any? && @law_firm.form_submissions.latest.status == 'decertified') %>
 	
 	<!-- <div class="col-lg-1 pull-right"> -->
-		<a class="btn btn-success certify-btn" data-id='<%= @law_firm.id %>' data-name='<%= @law_firm.name %>'>Certify</a>
+		<a class="btn btn-sm btn-success certify-btn" data-id='<%= @law_firm.id %>' data-name='<%= @law_firm.name %>'>Certify</a>
 	<!-- </div> -->
 
 	<div class="clearfix"></div>
@@ -30,17 +30,17 @@
 
 <% if(@law_firm.form_submissions.any? && @law_firm.form_submissions.latest.status == 'approved') %>
 	<!-- <div class="col-lg-1 pull-right"> -->
-		<a class="btn btn-danger decertify-btn pull-right" data-id='<%= @law_firm.id %>' data-name='<%= @law_firm.name %>'>Decertify</a>
+		<a class="btn btn-sm btn-danger decertify-btn pull-right" data-id='<%= @law_firm.id %>' data-name='<%= @law_firm.name %>'>Decertify</a>
 	<!-- </div> -->
 
 	<!-- <div class="col-lg-2 pull-right"> -->
-		<a class="btn btn-primary pull-right begin-recertification-btn" data-id="<%= @law_firm.id %>">Begin Recertification Process</a>
+		<a class="btn btn-sm btn-primary pull-right begin-recertification-btn" data-id="<%= @law_firm.id %>">Begin Recertification Process</a>
 	<!-- </div> -->
 <% end %>
 
 <% if(!@law_firm.form_submissions.any?) %>
 	<!-- <div class="col-lg-2 pull-right"> -->
-		<a class="btn btn-primary pull-right begin-certification-btn" data-id="<%= @law_firm.id %>">Begin Certification Process</a>
+		<a class="btn btn-sm btn-primary pull-right begin-certification-btn" data-id="<%= @law_firm.id %>">Begin Certification Process</a>
 	<!-- </div> -->
 <% end %>
 
@@ -206,7 +206,7 @@
 										<th class="text-center">Law Firm</th>
 										<th class="text-center">Score</th>
 										<th class="text-center">Status</th>
-										<th class="text-center">Action</th>
+										<th colspan="2" class="text-center">Action</th>
 									</tr>
 
 									<% @law_firm.form_submissions.each do |submission| %>
@@ -223,7 +223,7 @@
 											</td>
 											<td>
 												<% if submission.try(:status) == 'approved' %>	
-													<%= link_to "Begin Recertification Process", begin_recertification_process_admin_law_firm_path(submission.law_firm), class: "btn btn-primary btn-xs" %>	
+													<% #link_to "Begin Recertification Process", begin_recertification_process_admin_law_firm_path(submission.law_firm), class: "btn btn-primary btn-xs" %>	
 
 													<a class="btn btn-default btn-xs extend-expiry">Extend Expiry Date</a>
 													<form id="extend-expiry-form" class="text-center" style="margin-top: 20px; height: 75px;" method="POST" action="">
@@ -234,7 +234,7 @@
 																<input type="text" class="datepicker" name="expiry_date" value="<%= submission.expiry_date %>">
 															</div>
 															<div class="col-md-3" style="line-height: 75px;">
-																<input type="Submit" class="btn btn-primary">
+																<input type="Submit" class="btn btn-sm btn-primary">
 															</div>
 														</div>
 													</form>
@@ -250,6 +250,9 @@
 												<% end %>
 
 
+											</td>
+											<td>
+												<%= link_to "View Submission", policy_step_admin_form_submission_path(submission), class: "btn btn-outline-primary btn-xs" %>	
 											</td>
 										</tr>
 										
@@ -286,12 +289,12 @@
 								
 						</div>
 						<form id="internal-note-form" action="#" method="POST">
-							<div class="col-md-11 no-padding">
+							<div class="col-md-10 no-padding">
 								<input type="hidden" name="id" value="<%= @law_firm.id %>">
 								<textarea id="new-note" placeholder="Add your message here." name="message"></textarea>
 							</div>
-							<div class="col-md-1 no-padding">
-								<input type="submit" class="btn btn-primary" value="Add">
+							<div class="col-md-2 no-padding">
+								<input type="submit" class="btn btn-sm btn-primary" value="Add">
 							</div>
 						</form>
 					</div>

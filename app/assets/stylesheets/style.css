@@ -176,7 +176,7 @@ ul.notifications li p.date {
 }
 
 div.link-to-add {
-  width: 100px;
+  /*width: 100px;*/
 }
 div.link-to-add > * {
   color: #fff
@@ -654,10 +654,14 @@ ul.internal-notes li div p {
 }
 
 #internal-note-form input[type="submit"] {
-  padding: 15px 29px;
+  padding: 12px 25px;
   font-size: 20px;
   border-radius: 0px;
   border-right: 0px;
+}
+
+#internal-note-form i {
+  margin-top: 0;
 }
 
 
@@ -962,10 +966,15 @@ h3.firm-score-declined span {
 .history-form-wrapper h4 strong, 
 .history-form-wraper .m-b-20.text-center,
 .history-field label { 
-  color: #3eaaea;
+  color: #007ac3;
   /*font-family: monospace;*/
 }
 
 .parent-f-sized-label {
   font-size: 14px !important;
+}
+
+.tech-form-wraper input[type=text] {
+  padding: 0;
+  margin: 0;
 }
