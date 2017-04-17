@@ -22,7 +22,7 @@
 </style>
 
 <div class="file-field">
-  <label class="control-label">
+  <label class="control-label parent-f-sized-label">
     <%= v.object.try(:form_field).try(:label) %>
     <% if !v.object.try(:form_field).try(:help_description).blank? %>
       <i class="fa fa-question-circle-o help-text" data-help="<%= v.object.try(:form_field).try(:help_description) %>"></i>

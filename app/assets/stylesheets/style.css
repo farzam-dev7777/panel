@@ -803,16 +803,16 @@ ul.internal-notes li div p {
   background: #fff;
   box-shadow: 2px 2px 10px #4a4a4a;
   border: 3px solid #ccc;
-  padding: 15px;
+  padding: 35px 15px;
   padding-right: 65px;
 }
 
 .form-enclosure label {
-  font-size: 20px;
+  /*font-size: 20px;
   font-weight: 600;
   margin-bottom: 15px;
-  color: #3eaaea;
-  font-family: monospace;
+  color: #3eaaea;*/
+  /*font-family: monospace;*/
 }
 
 .select2-selection {
@@ -849,7 +849,10 @@ ul.internal-notes li div p {
 }
 
 .form-control {
-  border-bottom: 1px solid #f1f1f1 !important;
+  border-bottom: 1px solid #f1f1f1;
+}
+.form-control.control-label.active{
+  color: #4285F4;
 }
 .form-control[disabled] {
   border-bottom: 1px solid #f1f1f1 !important;
@@ -949,8 +952,8 @@ h3.firm-score-declined span {
 }
 
 .gfe-field label {
-  color: #9c9c9c !important;
-  font-size: 16px !important;
+  /*color: #9c9c9c !important;
+  font-size: 16px !important;*/
 }
 
 .tech-form-wraper h4 strong, 
@@ -960,5 +963,9 @@ h3.firm-score-declined span {
 .history-form-wraper .m-b-20.text-center,
 .history-field label { 
   color: #3eaaea;
-  font-family: monospace;
+  /*font-family: monospace;*/
+}
+
+.parent-f-sized-label {
+  font-size: 14px !important;
 }

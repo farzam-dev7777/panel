@@ -22,6 +22,7 @@
 // require turbolinks
 //= require app.config.seed
 //= require bootstrap/bootstrap.min
+//= require mdb
 //= require app.seed
 //= require plugin/jquery-touch/jquery.ui.touch-punch.min
 //= require plugin/moment/moment.min
