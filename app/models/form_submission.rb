@@ -59,6 +59,16 @@ class FormSubmission < ApplicationRecord
     end
   end
 
+  def check_total_score_before_approval
+    (((self.system_score || 0) * LawFirm::SYSTEM_SCORE_WEIGHTAGE) + 
+        ((self.assessor_score || 0) * LawFirm::ASSESSOR_SCORE_WEIGHTAGE) + 
+        (self.law_firm.responsiveness_rate * LawFirm::RESPONSIVENESS_SCORE_WEIGHTAGE)).round(1)
+  end
+
+  def check_follow_ups
+    FollowUp.where(form_submission_id: self.id).map(&:status).count('pending') > 0
+  end
+
   def system_score_median 
     ((TOTAL_SCORE - SystemSetting.score_threshold) / 2) + SystemSetting.score_threshold
   end
