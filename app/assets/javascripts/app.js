@@ -26,7 +26,7 @@ $(document).ready(function(){
         setTimeout(function(){
           sourceField.find('input, select').trigger("change");
           targetField.find('input, select').trigger("change");
-        },500)
+        }, 500)
       })
     }
   }, 2000)
