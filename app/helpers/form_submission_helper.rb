@@ -56,7 +56,7 @@ module FormSubmissionHelper
     if (submission.status == 'approved')
       'success'
     elsif (submission.status == 'declined')
-      'warning'
+      'danger'
     else
       'info'
     end

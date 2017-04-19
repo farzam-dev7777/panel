@@ -74,7 +74,7 @@
 				</li>
 
 				<li>
-					<a data-toggle="tab" href="#hr4"> <i class="fa fa-lg fa-book"></i> <span class="hidden-mobile hidden-tablet"> Internal Notes </span></a>
+					<a data-toggle="tab" href="#hr4"> <i class="fa fa-lg fa-sticky-note-o"></i> <span class="hidden-mobile hidden-tablet"> Internal Notes </span></a>
 				</li>
 
 			</ul>	
@@ -216,10 +216,10 @@
 											<td class="text-center">
 											<span class="label label-<%= submission_status_class(submission) %>">
 												<%= submission.try(:status).titleize %>
-												<% if submission.try(:status) == 'decertified' %>	
-													<br><em><%= submission.try(:reason) %></em>
-												<% end %>
 											</span>
+											<% if submission.try(:status) == 'decertified' %>	
+												<br><em><%= submission.try(:reason) %></em>
+											<% end %>
 											</td>
 											<td>
 												<% if submission.try(:status) == 'approved' %>	
