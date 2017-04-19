@@ -7,7 +7,7 @@ class Logic < ApplicationRecord
   belongs_to :form, class_name: Form
 
   REPEATER_FIELDS = ['CyberSecurityStandardField',
-  									 'ThirdPartVendorField',
+  									 'ThirdPartyVendorField',
   								 	 'CloudProviderField',
   								 	 'InformationSecurityPolicyField'
   								 	].freeze
