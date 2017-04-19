@@ -14,9 +14,14 @@
 
   <div class="tabs">
     <ul>
-      <% if f.object.type == 'DropdownField' || f.object.type == 'MultiSelectField' %>
+      <% if f.object.type == 'DropdownField' || 
+            f.object.type == 'MultiSelectField' ||
+            f.object.type == 'InformationSecurityPolicyField' ||
+            f.object.type == 'CyberSecurityStandardField' ||
+            f.object.type == 'ThirdPartVendorField' ||
+            f.object.type == 'CloudProviderField' %>
         <li>
-          <a href="#tabs-dropdown-options">Dropdown Options</a>
+          <a href="#tabs-dropdown-options">Field Options</a>
         </li>
       <% end %>
       <li>
@@ -27,9 +32,18 @@
       </li>
     </ul>
 
-    <% if f.object.type == 'DropdownField' || f.object.type == 'MultiSelectField' %>
+    <% if f.object.type == 'DropdownField' || 
+          f.object.type == 'MultiSelectField' ||
+          f.object.type == 'CyberSecurityStandardField' ||
+          f.object.type == 'ThirdPartVendorField' ||
+          f.object.type == 'CloudProviderField' ||
+          f.object.type == 'InformationSecurityPolicyField' %>
       <div id="tabs-dropdown-options">
-        <%= render "application/form_fields/#{f.object.type.try(:underscore)}", f: f if f.object.type %>
+        <% if f.object.type == 'DropdownField' || f.object.type == 'MultiSelectField' %>
+          <%= render "application/form_fields/#{f.object.type.try(:underscore)}", f: f if f.object.type %>
+        <% else %>
+          <%= render "application/form_fields/repeater_field", f: f if f.object.type %>
+        <% end %>
       </div>
     <% end %>
     <div id="tabs-custom-logics">

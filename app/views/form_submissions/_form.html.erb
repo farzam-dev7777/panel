@@ -13,7 +13,7 @@
       <%= render 'wizard' %>
       <div class="clearfix"></div>
       <div class="row">
-        <div class="col-md-12 logics" data-logics=<%= logics.to_json %>>
+        <div class="col-md-12 logics" data-logics=<%= logics.to_json(methods: :repeater_field) %>>
           <%= simple_form_for @form_submission, validate: true, :html => {:multipart => true, remote: true, authenticity_token: true} do |f| %>
             <%= yield :form %>
           <% end %>
