@@ -65,6 +65,11 @@ class Admin::LawFirmsController < Admin::BaseController
     @law_firm = LawFirm.find(params[:id])
     last_form_submission = @law_firm.form_submissions.latest
 
+    if last_form_submission.status == 'decertified'
+      law_firm_user = User.unscoped.find_by(id: @law_firm.user_id)
+      law_firm_user.update_attributes(deactivated_at: nil) if law_firm_user
+    end
+
     # TODO: Check if we want to copy the notes and follow ups of the old form submission
     new_form_submission = last_form_submission.amoeba_dup
     new_form_submission.status = 'sent'

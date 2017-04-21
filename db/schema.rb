@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170413032526) do
+ActiveRecord::Schema.define(version: 20170421204610) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,6 +78,16 @@ ActiveRecord::Schema.define(version: 20170413032526) do
     t.datetime "updated_at",             null: false
   end
 
+  create_table "cyber_security_insurances", force: :cascade do |t|
+    t.string   "company"
+    t.string   "coverage"
+    t.string   "coverage_amount"
+    t.string   "policy"
+    t.string   "form_value_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
   create_table "cyber_security_standards", force: :cascade do |t|
     t.string   "rank"
     t.string   "standard"
@@ -100,10 +110,12 @@ ActiveRecord::Schema.define(version: 20170413032526) do
   create_table "file_attachments", force: :cascade do |t|
     t.string   "file"
     t.integer  "form_value_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.text     "iv"
     t.text     "key"
+    t.string   "attachable_type"
+    t.integer  "attachable_id"
   end
 
   create_table "follow_ups", force: :cascade do |t|

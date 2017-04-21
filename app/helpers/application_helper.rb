@@ -58,4 +58,14 @@ module ApplicationHelper
     end
   end
 
+  def activity_source_class(activity)
+    return nil unless activity.source
+    user = activity.source.constantize.find_by(email: activity.email)
+    if(user.class.to_s == 'User')
+      'lawfirm-activity-color'
+    elsif(user.class.to_s == 'AdminUser')
+      'lawfirm-bank-color'
+    end
+  end
+
 end

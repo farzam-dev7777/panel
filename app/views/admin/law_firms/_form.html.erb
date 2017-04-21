@@ -1,3 +1,6 @@
+<style>
+	input, textarea, select { padding: 0px !important; margin: 0px; background: transparent; }
+</style>
 <% content_for :page_title do %>
 	<% if @law_firm.new_record? %>
 		<span>Onboard a law firm</span>
@@ -6,153 +9,155 @@
 	<% end %>
 <% end %>
 <div class="table-responsive">
-	<table class="table table-striped">
+	<%= simple_form_for([:admin, @law_firm]) do |f| %>
+		<table class="table table-striped">
+			<tbody>
+					<tr>
+						<td class="text-right" width="20%"><strong>Name</strong></td>
+						<td><%= f.input :name, autofocus: true, label: false, input_html: { autocomplete: 'off' } %></td>
+					</tr>
+					
+					<tr>
+						<td class="text-right" width="20%"><strong>Type</strong></td>
+						<td><%= f.input :law_firm_type, label: false, collection: LawFirm::COMPANY_TYPES, input_html: { autocomplete: 'off', class: 'text-left' }, prompt: 'Please Select a Type' %></td>
+					</tr>
+					
+					<tr>
+						<td class="text-right" width="20%"><strong>Practice Area</strong></td>
+						<td><%= f.input :practice_area, label: false, collection: LawFirm::PRACTICE_AREAS, input_html: { multiple: true }, prompt: 'Please Select a Practice Area' %></td>
+					</tr>
 
-		<%= simple_form_for([:admin, @law_firm]) do |f| %>
-			<tr>
-				<td class="text-right" width="20%">Name</td>
-				<td><%= f.input :name, autofocus: true, label: false %></td>
-			</tr>
-			
-			<tr>
-				<td class="text-right" width="20%">Type</td>
-				<td><%= f.input :law_firm_type, label: false, collection: LawFirm::COMPANY_TYPES %></td>
-			</tr>
-			
-			<tr>
-				<td class="text-right" width="20%">Practice Area</td>
-				<td><%= f.input :practice_area, label: false, collection: LawFirm::PRACTICE_AREAS, input_html: { multiple: true } %></td>
-			</tr>
+					<tr>
+						<td class="text-right" width="20%"><strong>Description</strong></td>
+						<td><%= f.input :description, label: false, input_html: { autocomplete: 'off' } %></td>
+					</tr>
 
-			<tr>
-				<td class="text-right" width="20%">Description</td>
-				<td><%= f.input :description, label: false %></td>
-			</tr>
+					<% if @law_firm.new_record? %>
+						<tr>
+							<td class="text-right" width="20%"><strong>Email</strong></td>
+							<td><%= f.input :email, label: false, input_html: { autocomplete: 'off' } %></td>
+						</tr>
+					<% end %>
 
-			<tr>
-				<td class="text-right" width="20%">Email</td>
-				<td><%= f.input :email, label: false %></td>
-			</tr>
+					<tr>
+						<td class="text-right" width="20%"><strong>Temp. Password</strong></td>
+						<td><%= f.input :temp_password, label: false, input_html: { autocomplete: 'off' } %></td>
+					</tr>
 
-			<tr>
-				<td class="text-right" width="20%">Temp. Password</td>
-				<td><%= f.input :temp_password, label: false %></td>
-			</tr>
+					<tr>
+						<td class="text-right" width="20%"><strong>Phone</strong></td>
+						<td><%= f.input :phone, label: false, input_html: { autocomplete: 'off' } %></td>
+					</tr>
 
-			<tr>
-				<td class="text-right" width="20%">Phone</td>
-				<td><%= f.input :phone, label: false %></td>
-			</tr>
+					<tr>
+						<td class="text-right" width="20%"><strong>Relationship Manager's Email</strong></td>
+						<td><%= f.input :relationship_manager_email, label: false, input_html: { autocomplete: 'off' } %></td>
+					</tr>
 
-			<tr>
-				<td class="text-right" width="20%">Relationship Manager's Email</td>
-				<td><%= f.input :relationship_manager_email, label: false %></td>
-			</tr>
+				<tr class="within-block">
+						<td colspan="2" class="text-center"><strong>Key Security Contact</strong></td>
+					</tr>
 
-		<tr class="within-block">
-				<td colspan="2" class="text-center"><strong>Key Security Contact</strong></td>
-			</tr>
+				<tr class="within-block">
+						<td class="text-right" width="20%"><strong>Name</strong></td>
+						<td><%= f.input :principle_name, label: false, input_html: { autocomplete: 'off' } %></td>
+					</tr>
 
-		<tr class="within-block">
-				<td class="text-right" width="20%">Name</td>
-				<td><%= f.input :principle_name, label: false %></td>
-			</tr>
+				<tr class="within-block">
+						<td class="text-right" width="20%"><strong>Title</strong></td>
+						<td><%= f.input :principle_title, label: false, input_html: { autocomplete: 'off' } %></td>
+					</tr>
 
-		<tr class="within-block">
-				<td class="text-right" width="20%">Title</td>
-				<td><%= f.input :principle_title, label: false %></td>
-			</tr>
+				<tr class="within-block">
+						<td class="text-right" width="20%"><strong>Contact Info</strong></td>
+						<td><%= f.input :principle_contact_info, label: false, input_html: { autocomplete: 'off' } %></td>
+					</tr>
+					
+					<tr>
+						<td class="text-right" width="20%"><strong>Parent Company</strong></td>
+						<td><%= f.input :parent_company, label: false, input_html: { autocomplete: 'off' } %></td>
+					</tr>
+					
+					<tr>
+						<td class="text-right" width="20%"><strong>Sister Company</strong></td>
+						<td><%= f.input :sister_firm, label: false, input_html: { autocomplete: 'off' } %></td>
+					</tr>
+					
 
-		<tr class="within-block">
-				<td class="text-right" width="20%">Contact Info</td>
-				<td><%= f.input :principle_contact_info, label: false %></td>
-			</tr>
-			
-			<tr>
-				<td class="text-right" width="20%">Parent Company</td>
-				<td><%= f.input :parent_company, label: false %></td>
-			</tr>
-			
-			<tr>
-				<td class="text-right" width="20%">Sister Company</td>
-				<td><%= f.input :sister_firm, label: false %></td>
-			</tr>
-			
+					<% if @law_firm.new_record? %>
+						<tr>
+							<td colspan="2">
+								<%= f.simple_fields_for :locations do |field| %>
+							    <%= render partial: "location_fields", 
+							               locals: {f: field} unless field.object.nil? %>
+							  <% end %>
+							  <div class="add-css">
+						    <%= link_to_add_association '<span href="javascript:void(0);" class="btn btn-primary btn-sm"><i class="fa fa-plus-circle"></i> Add Law Firm\'s Location(s)</span>'.html_safe, f, :locations %>
+							  </div>
+						  </td>
+					  </tr>
+					<% else %>
+						<% @law_firm.locations.each do |location| %>
+							<tr>
+								<td colspan="2">
+									<div class="col-md-1">Address 1</div>
+									<div class="col-md-3"><%= location.address1 %></div>
 
-			<% if @law_firm.new_record? %>
-				<tr>
-					<td colspan="2">
-						<%= f.simple_fields_for :locations do |field| %>
-					    <%= render partial: "location_fields", 
-					               locals: {f: field} unless field.object.nil? %>
+									<div class="col-md-1">Address 2</div>
+									<div class="col-md-3"><%= location.address2 %></div>
+
+									<div class="col-md-1">City</div>
+									<div class="col-md-3"><%= location.city %></div>
+
+									<div class="col-md-1">Province</div>
+									<div class="col-md-3"><%= location.province %></div>
+
+									<div class="col-md-1">Postal Code</div>
+									<div class="col-md-3"><%= location.postal_code %></div>
+
+									<div class="col-md-1">Country</div>
+									<div class="col-md-3"><%= location.country %></div>
+								</td>
+							</tr>
 					  <% end %>
-					  <div class="add-css">
-				    <%= link_to_add_association '<span href="javascript:void(0);" class="btn btn-primary btn-sm"><i class="fa fa-plus-circle"></i> Add Law Firm\'s Location(s)</span>'.html_safe, f, :locations %>
-					  </div>
-				  </td>
-			  </tr>
-			<% else %>
-				<% @law_firm.locations.each do |location| %>
+				  <% end %>
+
+
+					
+
+					<% if @law_firm.new_record? %>
+						<tr>
+							<td colspan="2">
+								<%= f.simple_fields_for :jurisdictions do |field| %>
+							    <%= render partial: "jurisdiction_fields", 
+							               locals: {f: field} unless field.object.nil? %>
+							  <% end %>
+							  <div class="add-css">
+						    <%= link_to_add_association '<span href="javascript:void(0);" class="btn btn-primary btn-sm"><i class="fa fa-plus-circle"></i> Add Law Firm\'s Jurisdication(s)</span>'.html_safe, f, :jurisdictions %>
+							  </div>
+						  </td>
+					  </tr>
+					<% else %>
+						<% @law_firm.jurisdictions.each do |jurisdiction| %>
+							<tr>
+								<td colspan="2">
+									<div class="col-md-1">Country</div>
+									<div class="col-md-3"><%= jurisdiction.country %></div>
+
+									<div class="col-md-1">City</div>
+									<div class="col-md-3"><%= jurisdiction.city %></div>
+								</td>
+							</tr>
+					  <% end %>
+				  <% end %>
+
+
 					<tr>
 						<td colspan="2">
-							<div class="col-md-1">Address 1</div>
-							<div class="col-md-3"><%= location.address1 %></div>
-
-							<div class="col-md-1">Address 2</div>
-							<div class="col-md-3"><%= location.address2 %></div>
-
-							<div class="col-md-1">City</div>
-							<div class="col-md-3"><%= location.city %></div>
-
-							<div class="col-md-1">Province</div>
-							<div class="col-md-3"><%= location.province %></div>
-
-							<div class="col-md-1">Postal Code</div>
-							<div class="col-md-3"><%= location.postal_code %></div>
-
-							<div class="col-md-1">Country</div>
-							<div class="col-md-3"><%= location.country %></div>
+							<%= f.button :submit, f.object.new_record? ? 'Create' : 'Update', class: "btn btn-primary" %>
 						</td>
 					</tr>
-			  <% end %>
-		  <% end %>
-
-
-			
-
-			<% if @law_firm.new_record? %>
-				<tr>
-					<td colspan="2">
-						<%= f.simple_fields_for :jurisdictions do |field| %>
-					    <%= render partial: "jurisdiction_fields", 
-					               locals: {f: field} unless field.object.nil? %>
-					  <% end %>
-					  <div class="add-css">
-				    <%= link_to_add_association '<span href="javascript:void(0);" class="btn btn-primary btn-sm"><i class="fa fa-plus-circle"></i> Add Law Firm\'s Jurisdication(s)</span>'.html_safe, f, :jurisdictions %>
-					  </div>
-				  </td>
-			  </tr>
-			<% else %>
-				<% @law_firm.jurisdictions.each do |jurisdiction| %>
-					<tr>
-						<td colspan="2">
-							<div class="col-md-1">Country</div>
-							<div class="col-md-3"><%= jurisdiction.country %></div>
-
-							<div class="col-md-1">City</div>
-							<div class="col-md-3"><%= jurisdiction.city %></div>
-						</td>
-					</tr>
-			  <% end %>
-		  <% end %>
-
-
-			<tr>
-				<td colspan="2">
-					<%= f.button :submit, f.object.new_record? ? 'Create' : 'Update', class: "btn btn-primary" %>
-				</td>
-			</tr>
-		<% end %>
-
-	</table>
+			</tbody>
+		</table>
+	<% end %>
 </div>

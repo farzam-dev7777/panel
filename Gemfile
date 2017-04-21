@@ -33,6 +33,7 @@ gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'google-authenticator-rails'
 gem 'rollbar'
+gem 'country_select'
 
 # gem 'rails-assets-fontawesome', source: 'https://rails-assets.org'
 gem 'rails-assets-JustGage', source: 'https://rails-assets.org'

@@ -19,7 +19,7 @@ class FileAttachmentsController < BaseController
   private
 
   def build_file_attachment(file, obj)
-    file_attachment = obj.file_attachments.build
+    file_attachment = obj.file_attachments.build(form_value_id: obj.form_value_id)
     authorize! :create, file_attachment
     file_attachment.file = file
     file_attachment.save && file_attachment

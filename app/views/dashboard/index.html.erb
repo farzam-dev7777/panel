@@ -55,21 +55,21 @@
 						<h5 class="todo-group-title"><i class="fa fa-warning"></i> Critical</h5>
 					<% end %>
 					<% @action_items.select{|a| a.status != 'complete' && a.security_threat.severity_level.name == 'critical'}.each do |item| %>
-						<%= render partial: 'action_item', locals: { item: item } %>
+						<%= render partial: 'action_item', locals: { item: item, active: true } %>
 					<% end %>
 
 					<% if (@action_items.select{|a| a.status != 'complete' && a.security_threat.severity_level.name == 'high'}).count > 0 %>
 						<h5 class="todo-group-title"><i class="fa fa-warning"></i> High</h5>
 					<% end %>
 					<% @action_items.select{|a| a.status != 'high' && a.security_threat.severity_level.name == 'high'}.each do |item| %>
-						<%= render partial: 'action_item', locals: { item: item } %>
+						<%= render partial: 'action_item', locals: { item: item, active: true } %>
 					<% end %>
 
 					<% if (@action_items.select{|a| a.status != 'complete' && a.security_threat.severity_level.name == 'low'}).count > 0 %>
 						<h5 class="todo-group-title"><i class="fa fa-warning"></i> Low</h5>
 					<% end %>
 					<% @action_items.select{|a| a.status != 'low' && a.security_threat.severity_level.name == 'low'}.each do |item| %>
-						<%= render partial: 'action_item', locals: { item: item } %>
+						<%= render partial: 'action_item', locals: { item: item, active: true } %>
 					<% end %>
 
 
@@ -352,7 +352,7 @@
 
 									<div class="cd-timeline-content">
 										<h2 class="m-b-5">
-											<strong><%= activity.custom_message.try(:html_safe) || activity.event_type.humanize %></strong>
+											<strong class="<%= activity_source_class(activity) %>"><%= activity.custom_message.try(:html_safe) || activity.event_type.humanize %></strong>
 										</h2>
 										<em>(<%= activity.source == 'AdminUser' ? 'Bank' : 'Law Firm' %>)</em>
 										<span class="cd-date"><%= activity.created_at.strftime('%d %b at %I:%M %p') %></span>

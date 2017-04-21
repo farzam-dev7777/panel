@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  company: MyString
+  coverage: MyString
+  coverage_amount: MyString
+  policy: MyString
+
+two:
+  company: MyString
+  coverage: MyString
+  coverage_amount: MyString
+  policy: MyString

@@ -9,7 +9,8 @@ class Logic < ApplicationRecord
   REPEATER_FIELDS = ['CyberSecurityStandardField',
   									 'ThirdPartyVendorField',
   								 	 'CloudProviderField',
-  								 	 'InformationSecurityPolicyField'
+                     'InformationSecurityPolicyField',
+  								 	 'CyberSecurityInsuranceField'
   								 	].freeze
 
   def repeater_field

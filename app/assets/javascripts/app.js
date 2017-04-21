@@ -5,21 +5,44 @@ $(document).ready(function(){
   
   // $('.dynamic-select').trigger('change');
 
+  var currentUrl = window.location.href;
 
   var american_states = [ { "id": "Alabama", "text": "Alabama" }, { "id": "Alaska", "text": "Alaska" }, { "id": "American Samoa", "text": "American Samoa" }, { "id": "Arizona", "text": "Arizona" }, { "id": "Arkansas", "text": "Arkansas" }, { "id": "California", "text": "California" }, { "id": "Colorado", "text": "Colorado" }, { "id": "Connecticut", "text": "Connecticut" }, { "id": "Delaware", "text": "Delaware" }, { "id": "District Of Columbia", "text": "District Of Columbia" }, { "id": "Federated States Of Micronesia", "text": "Federated States Of Micronesia" }, { "id": "Florida", "text": "Florida" }, { "id": "Georgia", "text": "Georgia" }, { "id": "Guam", "text": "Guam" }, { "id": "Hawaii", "text": "Hawaii" }, { "id": "Idaho", "text": "Idaho" }, { "id": "Illinois", "text": "Illinois" }, { "id": "Indiana", "text": "Indiana" }, { "id": "Iowa", "text": "Iowa" }, { "id": "Kansas", "text": "Kansas" }, { "id": "Kentucky", "text": "Kentucky" }, { "id": "Louisiana", "text": "Louisiana" }, { "id": "Maine", "text": "Maine" }, { "id": "Marshall Islands", "text": "Marshall Islands" }, { "id": "Maryland", "text": "Maryland" }, { "id": "Massachusetts", "text": "Massachusetts" }, { "id": "Michigan", "text": "Michigan" }, { "id": "Minnesota", "text": "Minnesota" }, { "id": "Mississippi", "text": "Mississippi" }, { "id": "Missouri", "text": "Missouri" }, { "id": "Montana", "text": "Montana" }, { "id": "Nebraska", "text": "Nebraska" }, { "id": "Nevada", "text": "Nevada" }, { "id": "New Hampshire", "text": "New Hampshire" }, { "id": "New Jersey", "text": "New Jersey" }, { "id": "New Mexico", "text": "New Mexico" }, { "id": "New York", "text": "New York" }, { "id": "North Carolina", "text": "North Carolina" }, { "id": "North Dakota", "text": "North Dakota" }, { "id": "Northern Mariana Islands", "text": "Northern Mariana Islands" }, { "id": "Ohio", "text": "Ohio" }, { "id": "Oklahoma", "text": "Oklahoma" }, { "id": "Oregon", "text": "Oregon" }, { "id": "Palau", "text": "Palau" }, { "id": "Pennsylvania", "text": "Pennsylvania" }, { "id": "Puerto Rico", "text": "Puerto Rico" }, { "id": "Rhode Island", "text": "Rhode Island" }, { "id": "South Carolina", "text": "South Carolina" }, { "id": "South Dakota", "text": "South Dakota" }, { "id": "Tennessee", "text": "Tennessee" }, { "id": "Texas", "text": "Texas" }, { "id": "Utah", "text": "Utah" }, { "id": "Vermont", "text": "Vermont" }, { "id": "Virgin Islands", "text": "Virgin Islands" }, { "id": "Virginia", "text": "Virginia" }, { "id": "Washington", "text": "Washington" }, { "id": "West Virginia", "text": "West Virginia" }, { "id": "Wisconsin", "text": "Wisconsin" }, { "id": "Wyoming", "text": "Wyoming" } ];
   var canadian_provinces = [ { "id": "Alberta", "text": "Alberta" }, { "id": "British Columbia", "text": "British Columbia" }, { "id": "Manitoba", "text": "Manitoba" }, { "id": "New Brunswick", "text": "New Brunswick" }, { "id": "Newfoundland and Labrador", "text": "Newfoundland and Labrador" }, { "id": "Nova Scotia", "text": "Nova Scotia" }, { "id": "Ontario", "text": "Ontario" }, { "id": "Prince Edward Island", "text": "Prince Edward Island" }, { "id": "Quebec", "text": "Quebec" }, { "id": "Saskatchewan", "text": "Saskatchewan" }, { "id": "Northwest Territories", "text": "Northwest Territories" }, { "id": "Nunavut", "text": "Nunavut" }, { "id": "Yukon", "text": "Yukon" } ];
 
 
+  if(currentUrl.indexOf("form_submissions") != -1 && currentUrl.indexOf("admin/form_submissions") == -1){
+    $.LoadingOverlay("show", { color:  'rgba(255, 255, 255, 0.96)' });
+  }
+
+  $('.add-all-multiselect-options').on('click', function(){
+    $(this).parent().parent().find('select option').attr('selected', true).parent().trigger('change');
+  })
+
+  $('.multiselectcantfind').on('click', function(){
+    $(this).parent().parent().find('.select2').hide();
+    $(this).parent().parent().find('.multiselectcantfind').hide();
+    $(this).parent().parent().find('.text-for-multi').removeClass('hidden').show();
+  })
+
+  // setTimeout(function(){  
+  //   $.LoadingOverlay("hide");
+  // }, 5000)
+  
   setTimeout(function(){
-    
     logics = $('.logics').data('logics');
     if(logics) {
+      logics_count = logics.length;
       logics.forEach(function(logic) {
         var sourceField = $('.field-wrapper-' + logic.listen_field_id)
         var targetField = $('.field-wrapper-' + logic.change_field_id)
         if(logic.repeater_field){
           targetHTML = "<a class='btn btn-primary btn-sm repeater-customlogic' href='javascript:void(0)' data-target=" + logic.change_field_id + ">Next</a>";
           sourceField.children().last().children().last().append(targetHTML);
+
+          if(sourceField.find('.repeater-field-value').val() == 'next_btn_pressed'){
+            targetField.delay(1000).show(0);
+          }
         }
 
         targetField.hide();
@@ -27,14 +50,21 @@ $(document).ready(function(){
           sourceField.find('input, select').trigger("change");
           targetField.find('input, select').trigger("change");
         }, 500)
+        if (!--logics_count){ 
+          setTimeout(function(){ $.LoadingOverlay("hide"); }, 1500) 
+        }
       })
+    } else {
+      $.LoadingOverlay("hide");
     }
   }, 2000)
 
   $(document).on('click', '.repeater-customlogic', function(){
+    var sourceField = $(this);
     var targetFieldId = $(this).data('target');
     if(targetFieldId) {
       $('.field-wrapper-' + targetFieldId).show();
+      sourceField.parent().parent().find('.repeater-field-value').val('next_btn_pressed')
     }
   })
 
@@ -75,6 +105,18 @@ $(document).ready(function(){
   //File Upload
   $('.fileupload').fileupload({
     dataType: 'html',
+    maxNumberOfFiles: parseInt($(this).data('limit')),
+    change: function(e, data){
+      var uploadErrors = [];
+      var file_count = data.files.length + $(this).data('file-count');
+      if(file_count > 2){
+        uploadErrors.push('Only 2 files are allowed at max.');
+        sweetAlert("Oops...", uploadErrors.join("\n"), "error");
+        return false
+      }
+      if(uploadErrors.length > 0) {
+      }
+    },
     add: function(e, data) {
       var uploadErrors = [];
       var acceptFileTypes = /^image\/(gif|jpe?g|png)$|^application\/(pdf|(vnd\.(ms-|openxmlformats-).*))$|^text\/plain$/i;;
@@ -210,7 +252,7 @@ $(document).ready(function(){
           method: 'DELETE',
           url: href,
           success: function(file_id) {
-            file_upload = container.parent().parent().find('.fileupload');
+            file_upload = container.parent().parent().parent().find('.fileupload');
             file_upload.attr('data-file-count', $("#delete_file-" + file_id).parent().find('.delete-file').length - 1); // update count
             file_upload.data('file-count', $("#delete_file-" + file_id).parent().find('.delete-file').length - 1); // update count
             $("#delete_file-" + file_id).remove();
@@ -228,13 +270,11 @@ $(document).ready(function(){
 
   $( function() {
     $( "#accordion" ).accordion({
-      collapsible: true, active: false, header: "h4"
+      collapsible: true, active: false, header: "h4",
+      icons: { "header": "fa fa-plus", "activeHeader": "fa fa-minus" }
     });
+
     $( ".tabs" ).tabs();
-    // $( ".accordion" ).accordion({
-    //   heightStyle: "content",
-    //   collapsible: true,
-    // });
   } );
 
   $('.form_submission_form_values_value input, .form_submission_form_values_value select, .form_submission_form_values_value textarea, .fileupload').each(function(){
@@ -281,12 +321,22 @@ $(document).ready(function(){
   $("input.datepicker").each(function(input) {
     $(this).datepicker({
       dateFormat: "dd-mm-yy",
-      altField: $(this).next()
+      altField: $(this).next(),
+      maxDate: 0
     })
 
     // If you use i18n-js you can set the locale like that
     // $(this).datepicker("option", $.datepicker.regional['en']);
   })
+
+
+  $('body').on('focus',".restrict-till-day", function(){
+      $(this).datepicker({
+        maxDate: 0,
+        dateFormat: "dd-mm-yy"
+      });
+  });
+
 
   $(document).on('click', '.add-css, .add-information-security-policy', function() {
     var classesToActOn = ".cyber-security, .information-security-policy"
@@ -320,7 +370,11 @@ $(document).ready(function(){
   $("form").bind("ajax:success", function(response){
     $('.submit-form').find('.loader').addClass('hidden');
     link = window.link_to_redirect_to;
-    window.location.href = link;
+    if(link == window.location.pathname){
+      toastr.success('Your progress has been saved successfully', 'Saved')
+    } else{ 
+      window.location.href = link;
+    }
   })
 
   $(document).on('DOMNodeInserted', function(e) {

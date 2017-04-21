@@ -6,7 +6,7 @@
 		<%= f.input :standard, label: false %>
 	</div>
 	<div class="col-md-3">
-		<%= f.input :date_of_certification, as: :string, input_html: { class: 'datepicker', value: DateField.stringify_date(f.object.date_of_certification) }, label: false %>
+		<%= f.input :date_of_certification, as: :string, input_html: { class: 'restrict-till-day', value: DateField.stringify_date(f.object.date_of_certification) }, label: false %>
 	</div>
 	<div class="col-md-2">
 		<%= f.input :renewal, as: :string, input_html: { class: 'datepicker', value: DateField.stringify_date(f.object.renewal) }, label: false %>

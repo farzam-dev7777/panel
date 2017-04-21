@@ -1,0 +1,32 @@
+<div>
+  <label><%= field.try(:label) %></label>
+
+  <%= v.input :value, as: :hidden, input_html: { class: 'repeater-field-value' } %>
+  
+  <div class="clearfix"></div>
+  <div class="col-md-2 no-padding gfe-field">
+    <label>Company</label>
+  </div>
+  <div class="col-md-3 gfe-field">
+    <label>Coverage</label>
+  </div>
+  <div class="col-md-3 gfe-field">
+    <label>Third Party Liability - Coverage Amount</label>
+  </div>
+  <div class="col-md-3 gfe-field">
+    <label>Upload the Policy</label>
+  </div>
+  <div class="clearfix"></div>
+
+  <%= v.simple_fields_for :cyber_security_insurances, v.object.render_cyber_security_insurance_fields do |cyber_security_insurance_field| %>
+    <%= render partial: "cyber_security_insurance_fields", 
+               locals: {f: cyber_security_insurance_field} %>
+  <% end %>
+  <div class="add-information-security-policy text-right">
+    <% if current_user %>
+      <%= link_to_add_association '<span href="javascript:void(0);" class="btn btn-default btn-sm"><i class="fa fa-plus-circle"></i> Policy</span>'.html_safe, v, :cyber_security_insurances %>
+     <% end %>
+  </div>
+
+</div>
+

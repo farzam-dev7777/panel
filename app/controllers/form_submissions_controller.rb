@@ -8,7 +8,7 @@ class FormSubmissionsController < BaseController
   before_action :before_non_dynamic_forms, only: [:technology_step, :history_step]
 
   helper_method :next_step_path, :current_step_path, :steps, :previous_step_path, 
-                :current_step, :wizard_path, :last_step, :logics
+                :current_step, :wizard_path, :last_step, :first_step, :logics
 
   def before_steps
     @form_submission = FormSubmission.find(params[:id])
@@ -129,7 +129,7 @@ private
   end
 
   def previous_step_path
-    wizard_path(previous_step)
+    wizard_path(previous_step) 
   end
 
   def next_step
@@ -144,6 +144,10 @@ private
 
   def last_step
     current_step_path.include? "history_step"
+  end
+
+  def first_step
+    current_step_path.include? "policy_step"
   end
   
   def form_submissions_params

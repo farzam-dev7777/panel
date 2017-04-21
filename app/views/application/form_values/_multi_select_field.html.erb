@@ -4,13 +4,27 @@
     <i class="fa fa-question-circle-o help-text" data-help="<%= v.object.try(:form_field).try(:help_description) %>"></i>
   <% end %>	
 </label>
-<%= v.input :multi_select_value, {
-  label: false,
-  collection: field.collection,
-  # input_html: field.input_html,
-  required: field.required,
-  # wrapper: field.wrapper,
-  # wrapper_html: field.wrapper_html
-  as: field.as,
-  input_html: { multiple: v.object.try(:form_field).try(:type) == 'MultiSelectField' }
-}, &field.input_block(v) %>
+<div class="col-md-10 no-padding no-margin-for-children">
+  <%= v.input :multi_select_value, {
+    label: false,
+    collection: field.collection,
+    # input_html: field.input_html,
+    required: field.required,
+    # wrapper: field.wrapper,
+    # wrapper_html: field.wrapper_html
+    as: field.as,
+    input_html: { multiple: v.object.try(:form_field).try(:type) == 'MultiSelectField', class: 'multselect-field no-margin', wrapper_class: 'no-margin' }
+  }, &field.input_block(v) %>
+
+  <%= v.input :multi_select_value, {
+    label: false, 
+    required: field.required,
+    as: :string,
+    input_html: { class: 'text-for-multi hidden no-margin', wrapper_class: 'no-margin' }
+  }, &field.input_block(v) %>
+
+  <!-- <span class="multiselectcantfind">Can't find what you're looking for?</span> -->
+</div>
+<div class="col-md-2 no-padding text-right">
+  <a class="btn btn-default btn-sm add-all-multiselect-options">Add All</a>
+</div>

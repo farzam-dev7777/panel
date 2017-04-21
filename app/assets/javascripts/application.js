@@ -46,6 +46,8 @@
 //= require raphael
 //= require sweetalert
 //= require jquery_nested_form
+//= require loadingoverlay.min
+//= require loadingoverlay_progress
 //= require toastr
 //= require admin.js
 // require main.js
