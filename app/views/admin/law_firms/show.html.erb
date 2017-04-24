@@ -186,7 +186,7 @@
 
 									<div class="cd-timeline-content">
 										<h2>
-											<strong><%= activity.custom_message || activity.event_type.titleize %></strong>
+											<strong class="<%= activity_source_class(activity) %>"><%= activity.custom_message || activity.event_type.titleize %></strong>
 										</h2>
 										<em>(<%= activity.source == 'AdminUser' ? 'Bank' : 'Law Firm' %>)</em>
 										<span class="cd-date"><%= activity.created_at.strftime('%d %b at %I:%M %p') %></span>

@@ -1082,6 +1082,18 @@ table.all-forms tr td {
   width: 97.5% !important;
 }
 
+.dataTables_filter .input-group-addon+.form-control {
+  margin: 0;
+  padding: 0;
+}
+
+.dataTables_filter .input-group-addon {
+  width: 35px;
+  height: 35px;
+}
+
+.form_submission_form_values_multi_select_value { margin-bottom: 0 !important; }
+
 
 
 
