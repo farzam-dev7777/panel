@@ -1071,11 +1071,6 @@ function showIfCustomLogicMatched(currentField, pageLoad){
       // }
       targetField = $('.field-wrapper-' + logic.change_field_id)
 
-      if ( logic.listen_field_id == 55 ) {
-        debugger;
-        sourceField = $('.field-wrapper-' + logic.listen_field_id);
-      }
-
       if( (currentField.val() && currentField.val() == logic.values && currentField.val().length != 0) 
            || (logic.values == "" && currentField.val().length > 0)
            || (currentField.hasClass('fileupload') && parseInt(currentField.data('file-count')) > 0)
