@@ -15,7 +15,7 @@
   </div>
   <div class="clearfix"></div>
 
-  <%= v.simple_fields_for :third_party_vendors do |third_party_vendor_field| %>
+  <%= v.simple_fields_for :third_party_vendors, v.object.render_third_party_vendor_fields do |third_party_vendor_field| %>
     <%= render partial: "third_party_vendor_fields", 
                locals: {f: third_party_vendor_field} %>
   <% end %>
