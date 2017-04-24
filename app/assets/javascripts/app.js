@@ -33,16 +33,16 @@ $(document).ready(function(){
     $(this).parent().parent().find('.text-for-multi').removeClass('hidden').show();
   })
 
-  if (window.location.pathname.indexOf("/policy_step") > -1 ||
-      window.location.pathname.indexOf("/process_step") > -1 || 
-      window.location.pathname.indexOf("/technology_step") > -1 || 
-      window.location.pathname.indexOf("/history_step") > -1) {
-    replaceChosenWithSelect2();
-    $(document).on('change paste keyup', 'select, input', function(){
-      // replaceChosenWithSelect2();
-    })
+  // if (window.location.pathname.indexOf("/policy_step") > -1 ||
+  //     window.location.pathname.indexOf("/process_step") > -1 || 
+  //     window.location.pathname.indexOf("/technology_step") > -1 || 
+  //     window.location.pathname.indexOf("/history_step") > -1) {
+  //   replaceChosenWithSelect2();
+  //   $(document).on('change paste keyup', 'select, input', function(){
+  //     // replaceChosenWithSelect2();
+  //   })
     
-  }
+  // }
 
   // setTimeout(function(){  
   //   $.LoadingOverlay("hide");
@@ -68,6 +68,7 @@ $(document).ready(function(){
         setTimeout(function(){
           sourceField.find('input, select').trigger("change");
           targetField.find('input, select').trigger("change");
+
         }, 500)
         if (!--logics_count){ 
           setTimeout(function(){ $.LoadingOverlay("hide"); }, 1500) 
@@ -83,7 +84,8 @@ $(document).ready(function(){
     var targetFieldId = $(this).data('target');
     if(targetFieldId) {
       $('.field-wrapper-' + targetFieldId).show();
-      sourceField.parent().parent().find('.repeater-field-value').val('next_btn_pressed')
+      sourceField.parent().parent().find('.repeater-field-value').val('next_btn_pressed');
+      $('select').chosen();
     }
   })
 
@@ -102,16 +104,16 @@ $(document).ready(function(){
     }
   })
 
-  if(window.location.href.indexOf("admin") == -1){
-    setTimeout(function(){
-      var $select = $('select').select2();
-        $select.each(function(i,item){
-          if($(item).attr('multiple') != 'multiple'){
-            $(item).select2("destroy");
-          }
-        });
-    }, 1000)
-  }
+  // if(window.location.href.indexOf("admin") == -1){
+  //   setTimeout(function(){
+  //     var $select = $('select').select2();
+  //       $select.each(function(i,item){
+  //         if($(item).attr('multiple') != 'multiple'){
+  //           $(item).select2("destroy");
+  //         }
+  //       });
+  //   }, 1000)
+  // }
 
   $('.form-control').on('click', function(){
     $(this).next('input').focus();
@@ -307,7 +309,11 @@ $(document).ready(function(){
   })
   $('*[data-role=activerecord_sortable]').activerecord_sortable();
 
-  $('select').select2();
+  // $('select').select2();
+  $('select').chosen({
+    disable_search_threshold: 5,
+    no_results_text: "Oops, nothing found!"
+  });
 
   $('form#message-form').submit(function(e) {
     e.preventDefault()
@@ -690,7 +696,7 @@ $(document).ready(function(){
       $(item).select2("destroy");
       $(item).addClass('chosen-select');
       $(item).chosen({
-        // disable_search_threshold: 5,
+        disable_search_threshold: 5,
         no_results_text: "Oops, nothing found!"
       });
     });
@@ -845,9 +851,12 @@ $(document).ready(function(){
 
   score_rating();
 
+    
   $(document).on('click', '#links a.add_fields', function(){
     score_rating();
-
+  })
+  $(document).on('click', 'a.add_fields', function(){
+    $('select').chosen();
   })
 
   $('.average-score-rating').rateYo({
@@ -1022,7 +1031,12 @@ function fetchTechnology(vendor, platform, version, target, platform_type, platf
 
   $.get('/technologies', data, function(response){
     html = "";
-    $(target).select2().empty().select2({data: response}).trigger('change');
+    // $(target).select2().empty().select2({data: response}).trigger('change');
+    if (response.length > 0){
+      $.each(response, function( index, value ) {
+        $(target).empty().append("<option value='" + value.id + "'>" + value.text + "</option>").trigger('chosen:updated').trigger('change');
+      });
+    }
     // $(target).select2({data: response}).trigger('change');
     // response.forEach(function(value){
       // html += '<option value="' + value + '">' + value + "</option>";
@@ -1109,7 +1123,8 @@ function showIfCustomLogicMatched(currentField, pageLoad){
         switch(logic.perform_action){
           case 'show':
             targetField.show();
-            targetField.find("select").select2();
+            // targetField.find("select").select2();
+            targetField.find("select").chosen();
             break;
           case 'hide':
             targetField.hide();

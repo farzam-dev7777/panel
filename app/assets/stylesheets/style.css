@@ -1094,6 +1094,11 @@ table.all-forms tr td {
 
 .form_submission_form_values_multi_select_value { margin-bottom: 0 !important; }
 
+input.form-control {
+  padding: 0;
+  margin: 0;
+}
+
 
 
 

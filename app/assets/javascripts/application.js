@@ -33,7 +33,7 @@
 //= require plugin/flot/jquery.flot.time.min
 //= require plugin/flot/jquery.flot.tooltip.min
 //= require plugin/flot/jquery.flot.orderBar.min
-//= require plugin/select2/select2.min
+// require plugin/select2/select2.min
 //= require plugin/datatables/jquery.dataTables.min.js
 //= require plugin/datatables/dataTables.colVis.min.js
 //= require plugin/datatables/dataTables.tableTools.min.js
