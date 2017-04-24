@@ -33,14 +33,14 @@ $(document).ready(function(){
     $(this).parent().parent().find('.text-for-multi').removeClass('hidden').show();
   })
 
-  // if (window.location.pathname.indexOf("/policy_step") > -1 ||
-  //     window.location.pathname.indexOf("/process_step") > -1 || 
-  //     window.location.pathname.indexOf("/technology_step") > -1 || 
-  //     window.location.pathname.indexOf("/history_step") > -1) {
-  //   replaceChosenWithSelect2();
-  //   $(document).on('change paste keyup', 'select, input', function(){
-  //     // replaceChosenWithSelect2();
-  //   })
+  if (window.location.pathname.indexOf("/policy_step") > -1 ||
+      window.location.pathname.indexOf("/process_step") > -1 || 
+      window.location.pathname.indexOf("/technology_step") > -1 || 
+      window.location.pathname.indexOf("/history_step") > -1) {
+    replaceChosenWithSelect2();
+    $(document).on('change paste keyup', 'select, input', function(){
+      replaceChosenWithSelect2();
+    })
     
   // }
 
@@ -691,15 +691,7 @@ $(document).ready(function(){
   })
 
   function replaceChosenWithSelect2(){
-    var $select = $('select').select2();
-    $select.each(function(i,item){
-      $(item).select2("destroy");
-      $(item).addClass('chosen-select');
-      $(item).chosen({
-        disable_search_threshold: 5,
-        no_results_text: "Oops, nothing found!"
-      });
-    });
+    $('select').chosen();
   }
 
   // count tasks
@@ -1145,7 +1137,7 @@ function showIfCustomLogicMatched(currentField, pageLoad){
             break;
           case 'hide':
             targetField.show();
-            targetField.find("select").select2();
+            targetField.find("select").chosen();
             if(!pageLoad){
               targetField.find("input[type!=hidden]").val('').trigger('change');
             }
