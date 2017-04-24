@@ -180,7 +180,7 @@ $(document).ready(function(){
 
   $(document).on('click', '.form-field-header', function(){
     $(this).next('.form-field-content').slideToggle();
-    $(this).next('.form-field-content').find('select').select2();
+    $(this).next('.form-field-content').find('select').chosen();
     $( ".tabs" ).tabs();
   })
 
