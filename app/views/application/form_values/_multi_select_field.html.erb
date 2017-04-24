@@ -13,6 +13,7 @@
     # wrapper: field.wrapper,
     # wrapper_html: field.wrapper_html
     as: field.as,
+    blank: 'Please select an option',
     input_html: { multiple: v.object.try(:form_field).try(:type) == 'MultiSelectField', class: 'multselect-field no-margin', wrapper_class: 'no-margin' }
   }, &field.input_block(v) %>
 

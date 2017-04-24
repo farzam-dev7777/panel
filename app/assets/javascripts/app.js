@@ -50,7 +50,7 @@ $(document).ready(function(){
   
   setTimeout(function(){
     logics = $('.logics').data('logics');
-    if(logics) {
+    if(logics && logics.length > 0) {
       logics_count = logics.length;
       logics.forEach(function(logic) {
         var sourceField = $('.field-wrapper-' + logic.listen_field_id)
