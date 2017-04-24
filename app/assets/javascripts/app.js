@@ -42,7 +42,7 @@ $(document).ready(function(){
       replaceChosenWithSelect2();
     })
     
-  // }
+  }
 
   // setTimeout(function(){  
   //   $.LoadingOverlay("hide");
@@ -1137,7 +1137,7 @@ function showIfCustomLogicMatched(currentField, pageLoad){
             break;
           case 'hide':
             targetField.show();
-            targetField.find("select").chosen();
+            targetField.find("select").select2();
             if(!pageLoad){
               targetField.find("input[type!=hidden]").val('').trigger('change');
             }
