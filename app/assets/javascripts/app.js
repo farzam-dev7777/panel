@@ -1067,12 +1067,11 @@ function showIfCustomLogicMatched(currentField, pageLoad){
   
   if( currentFieldLogics.length > 0 ) {
     currentFieldLogics.forEach(function(logic) {
-      // if(logic.change_field_id == 55){
-      // }
+
       targetField = $('.field-wrapper-' + logic.change_field_id)
 
       if( (currentField.val() && currentField.val() == logic.values && currentField.val().length != 0) 
-           || (logic.values == "" && currentField.val().length > 0)
+           || (logic.values == "" && currentField.val() && currentField.val().length > 0)
            || (currentField.hasClass('fileupload') && parseInt(currentField.data('file-count')) > 0)
         ){
         switch(logic.perform_action){
