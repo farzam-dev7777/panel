@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require jquery-ui-sortable
+//= require chosen.jquery.min
 //= require sortable
 //= require app
 //= require cocoon
