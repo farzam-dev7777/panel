@@ -39,7 +39,7 @@ $(document).ready(function(){
       window.location.pathname.indexOf("/history_step") > -1) {
     replaceChosenWithSelect2();
     $(document).on('change paste keyup', 'select, input', function(){
-      replaceChosenWithSelect2();
+      // replaceChosenWithSelect2();
     })
     
   }
