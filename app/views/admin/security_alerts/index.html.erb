@@ -31,7 +31,7 @@
 								<th>Title</th>
 								<th>Severity</th>
 								<th>Submitted</th>
-								<th>Action</th>
+								<th colspan="2">Action</th>
 							</tr>
 						</thead>
 
@@ -43,6 +43,9 @@
 									<td><%= "#{time_ago_in_words(alert.created_at)} ago" %></td>
 									<td class="text-center">
 										<%= link_to "Edit", edit_admin_security_alert_path(alert), class: "btn btn-xs btn-primary" %>	
+									</td>
+									<td class="text-center">
+										<a href="javascript:void(0)" class="btn btn-xs btn-danger delete-security-alert" data-id="<%= alert.id %>">Delete</a>
 									</td>
 								</tr>
 							<% end %>

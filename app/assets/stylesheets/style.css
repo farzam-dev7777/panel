@@ -1103,6 +1103,14 @@ input.form-control {
   width: 100% !important;
 }
 
+label.float-field {
+  margin: 0 !important;
+  height: 25px !important;
+  color: #444 !important;
+}
+
+i.btn { padding: 0 }
+
 
 
 

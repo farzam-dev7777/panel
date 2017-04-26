@@ -134,7 +134,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
   def approve
     @form_submission = FormSubmission.find(params[:id])
 
-    if @form_submission.check_total_score_before_approval >= SystemSetting.score_threshold
+    if @form_submission.system_score >= SystemSetting.score_threshold
 
       @form_submission.status = 'approved'
 
@@ -151,7 +151,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
         redirect_to :admin_law_firms
       end
     else
-      redirect_to history_step_admin_form_submission_path(@form_submission), alert: "The score (#{@form_submission.check_total_score_before_approval}) is below system's threshold (#{SystemSetting.score_threshold}). You cannot approve the law firm" 
+      redirect_to history_step_admin_form_submission_path(@form_submission), alert: "The score (#{@form_submission.system_score}) is below system's threshold (#{SystemSetting.score_threshold}). You cannot approve the law firm" 
     end
   end
 

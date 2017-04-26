@@ -481,14 +481,12 @@ $(document).ready(function(){
   });
 
 
-  if(window.location.pathname.indexOf("/admin/form_submissions/") > -1){
-    $('select').attr('disabled', 'true');
-    $('input[type="text"]').attr('disabled', 'true');
-    $('input[type="number"]').attr('disabled', 'true');
-    $('textarea').attr('disabled', 'true');
-    $('.score-form input').removeAttr('disabled');
-    $('#notes-modal .input > div textarea').removeAttr('disabled');
-    $('textarea.note').removeAttr('disabled');
+  if(window.location.pathname.indexOf("/admin/form_submissions/") > -1 ){
+    disabledFormSubmissionFields();
+  }
+
+  if(window.location.pathname.indexOf("/form_submissions/?readonly=true") > -1){
+    disabledFormSubmissionFields();
   }
 
   $('.send-wrapper').click(function(){
@@ -556,8 +554,13 @@ $(document).ready(function(){
 
   $('.add-note').on('click', function(e){
     e.preventDefault();
+    var data;
 
-    var data = $(this).data();
+    if( _.isEmpty($(this).data()) ){
+      data = $(this).find('input').data();
+    } else {
+      data = $(this).data();
+    }
     var field_wrapper_id = data.field_wrapper_id;
     message = $(this).parent().parent().find('textarea.note').val();
     data.message = message;
@@ -636,6 +639,38 @@ $(document).ready(function(){
     
   })
 
+  $('.delete-security-alert').on('click', function(e){
+    e.preventDefault();
+    var id = $(this).data('id');
+
+    swal({
+      title: "Are you sure?",
+      text: "",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "Yes, delete this security alert!",
+      cancelButtonText: "Cancel",
+      closeOnConfirm: true,
+      closeOnCancel: true
+    },
+    function(isConfirm){
+      if (isConfirm) {
+        $.ajax({
+          url: "/admin/security_alerts/" + id,
+          method: 'POST',
+          async: false,
+          data: {"_method":"delete"},
+          success: function(response) {
+            window.location.reload();
+          }
+        })
+      }
+    });
+
+    
+  })
+
   // initialize sortable
   $(function() {
     $("#sortable1, #sortable2").sortable({
@@ -692,6 +727,16 @@ $(document).ready(function(){
 
   function replaceChosenWithSelect2(){
     $('select').chosen();
+  }
+
+  function disabledFormSubmissionFields(){
+    $('select').attr('disabled', 'true');
+    $('input[type="text"]').attr('disabled', 'true');
+    $('input[type="number"]').attr('disabled', 'true');
+    $('textarea').attr('disabled', 'true');
+    $('.score-form input').removeAttr('disabled');
+    $('#notes-modal .input > div textarea').removeAttr('disabled');
+    $('textarea.note').removeAttr('disabled');
   }
 
   // count tasks
@@ -1024,9 +1069,11 @@ function fetchTechnology(vendor, platform, version, target, platform_type, platf
   $.get('/technologies', data, function(response){
     html = "";
     // $(target).select2().empty().select2({data: response}).trigger('change');
+
+    $(target).empty().append("<option value=''></option>");
     if (response.length > 0){
       $.each(response, function( index, value ) {
-        $(target).empty().append("<option value='" + value.id + "'>" + value.text + "</option>").trigger('chosen:updated').trigger('change');
+        $(target).append("<option value='" + value.id + "'>" + value.text + "</option>").trigger('chosen:updated').trigger('change');
       });
     }
     // $(target).select2({data: response}).trigger('change');

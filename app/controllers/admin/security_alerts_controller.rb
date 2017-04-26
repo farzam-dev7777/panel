@@ -22,10 +22,22 @@ class Admin::SecurityAlertsController < Admin::BaseController
   end
 
   def show
-  	@security_alert =  SecurityAlert.find(params[:id])
-  	respond_to do |format|
+    @security_alert =  SecurityAlert.find(params[:id])
+    respond_to do |format|
       format.js
     end
+  end
+
+  def destroy
+  	@security_alert =  SecurityAlert.find(params[:id])
+    alert_msg = ""
+    if @security_alert 
+      @security_alert.destroy
+      alert_msg = "Security alert has been successfully deleted"
+    else
+      alert_msg = "We couldn't find the security alert in our database."
+    end
+    redirect_to admin_security_alerts_path, alert: alert_msg
   end
 
   private

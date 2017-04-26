@@ -2,8 +2,8 @@
   form_class = label_class = ''
   if(v.object.form_field.type == 'TextField' ||
      v.object.form_field.type == 'EmailField')
-    form_class = 'md-form'
-    label_class = 'form-control no-border'
+    form_class = 'float-form'
+    label_class = 'form-control float-field no-border'
   end
 %>
 
@@ -17,7 +17,8 @@
     wrapper: false,
     # wrapper_html: field.wrapper_html,
     blank: true,
-    as: field.as
+    as: field.as,
+    disabled: @readonly ? 'disabled' : ''
   }, &field.input_block(v) %>
 </div>
 

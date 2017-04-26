@@ -47,6 +47,7 @@ class FormSubmissionsController < BaseController
   end
 
   def edit
+    @readonly = true
     redirect_to first_step_path
   end
 

@@ -94,7 +94,7 @@
 
 
 					<% else %>
-						<em class="text-center"> There are no security threats </em>
+						<em class="text-center"> Not Available </em>
 					<% end %>
 
 				</div>
@@ -320,6 +320,93 @@
 
 	</div>
 
+
+
+
+	<div class="col-md-12">
+		<div class="jarviswidget jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+
+			<header>
+				<span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
+				<h2 class="font-md"><strong>Submissions </strong></h2>	
+			</header>
+
+			<div>
+
+				<div class="clearfix"></div>
+				<!-- MAIN PANEL -->
+				<div role="main">
+
+					<!-- MAIN CONTENT -->
+					<div style="max-height: 500px;overflow-y: scroll;">
+
+						<!-- row -->
+						<div class="row">
+
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+							<% if current_law_firm.form_submissions.any? %>
+								<div class="table-responsive">
+									<table class="table table-bordered text-center content-in-jarvis">
+
+										<tr>
+											<th class="text-center">Submission ID</th>
+											<th class="text-center">Score</th>
+											<th class="text-center">Status</th>
+											<th colspan="2" class="text-center">Action</th>
+										</tr>
+
+										<% current_law_firm.form_submissions.each do |submission| %>
+											<tr>
+												<td><%= submission.law_firm.id %></td>
+												<td><%= submission.total_score || '-' %></td>
+												<td class="text-center">
+												<span class="label label-<%= submission_status_class(submission) %>">
+													<%= submission.try(:status).titleize %>
+												</span>
+												<% if submission.try(:status) == 'decertified' %>	
+													<br><em><%= submission.try(:reason) %></em>
+												<% end %>
+												</td>
+												<td>
+													<%= link_to "View", policy_step_form_submission_path(submission, readonly: "true"), class: "btn btn-outline-primary btn-xs" %>	
+												</td>
+												<td>
+													<% if submission.id == current_law_firm.form_submissions.latest.id %>
+														<%= link_to "Edit", policy_step_form_submission_path(submission), class: "btn btn-outline-primary btn-xs" %>	
+													<% else %>
+														-
+													<% end %>
+												</td>
+											</tr>
+											
+										<% end %>
+
+									</table>
+									<div class="clearfix"></div>
+
+
+								</div>
+								<% else %>
+									<h4 class="text-center">There are no submissions to review yet</h4>
+								<% end %>
+							</div>
+
+							</div>
+
+						</div>
+
+						<!-- end row -->
+
+					</div>
+					<!-- END MAIN CONTENT -->
+
+				</div>
+				<!-- END MAIN PANEL -->
+			</div>
+
+		</div>
+	</div>
 
 
 
