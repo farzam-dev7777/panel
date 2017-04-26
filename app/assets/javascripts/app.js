@@ -385,18 +385,25 @@ $(document).ready(function(){
       showIfCustomLogicMatched($(this), false);
   });
 
+  var ajaxRequestInProcess = false;
   $('.submit-form').click(function(e){
     e.preventDefault();
+
     $(this).find('.loader').removeClass('hidden');
     window.link_to_redirect_to = $(this).attr('href');
-    $('form').submit();
+    if(!ajaxRequestInProcess){
+      ajaxRequestInProcess = true;
+      $('form').submit();
+      $('.submit-form').attr("disabled", "disabled");
+    }
   })
 
   $("form").bind("ajax:success", function(response){
     $('.submit-form').find('.loader').addClass('hidden');
     link = window.link_to_redirect_to;
     if(link == window.location.pathname){
-      toastr.success('Your progress has been saved successfully', 'Saved')
+      toastr.success('Your progress has been saved successfully', 'Saved');
+      setTimeout(function(){ ajaxRequestInProcess = false; $('.submit-form').removeAttr("disabled"); }, 2000)
     } else{ 
       window.location.href = link;
     }

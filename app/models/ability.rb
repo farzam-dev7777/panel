@@ -8,7 +8,7 @@ class Ability
       can :manage, :all
     else
       can :manage, FormSubmission do |fs|
-        user.law_firm.form_submissions.latest.id == fs.id
+        user.law_firm.form_submissions.map(&:id).include? fs.id
       end
       can :manage, FileAttachment do |fa|
         fa.form_value.submittable.law_firm_id == user.law_firm.id
