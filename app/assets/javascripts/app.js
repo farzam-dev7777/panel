@@ -668,7 +668,7 @@ $(document).ready(function(){
           method: 'POST',
           async: false,
           data: {"_method":"delete"},
-          success: function(response) {
+          complete: function(response) {
             window.location.reload();
           }
         })
