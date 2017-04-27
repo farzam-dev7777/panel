@@ -2,13 +2,13 @@
 	<div class="col-md-2 gfe-field no-padding-left">
 		<%= f.input :company, label: false, collection: ["Travelers", "Intact", "IIC", "Chubb", "Marsh", "IBC"] %>
 	</div>
-	<div class="col-md-3 gfe-field no-padding-left">
+	<div class="col-md-3 gfe-field">
 		<%= f.input :coverage, as: :string, label: false %>
 	</div>
-	<div class="col-md-3 gfe-field no-padding-left">
+	<div class="col-md-3 gfe-field">
 		<%= f.input :coverage_amount, as: :string, label: false %>
 	</div>
-	<div class="col-md-3 gfe-field no-padding-left">
+	<div class="col-md-3 gfe-field">
 		<%= render '/application/form_values/upload_field', v: f, f: f, field: f.object.form_value.form_field %>
 	</div>
 

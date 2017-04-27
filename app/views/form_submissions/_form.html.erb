@@ -41,7 +41,7 @@
                 <%= link_to "Next <i class='fa fa-caret-right'></i> <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, next_step_path, class: 'btn btn-default submit-form next-btn' %>
               <% end %>
 
-              <% else %>
+            <% else %>
 
               <% if !first_step %>
                 <%= link_to "<i class='fa fa-caret-left'></i> Prev <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, previous_step_path, class: 'btn btn-default' %>

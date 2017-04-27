@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170421204610) do
+ActiveRecord::Schema.define(version: 20170427163945) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -211,9 +211,10 @@ ActiveRecord::Schema.define(version: 20170421204610) do
     t.date     "last_updated"
     t.string   "freq_of_review"
     t.integer  "form_value_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
     t.string   "upload_policy"
+    t.string   "independent_review"
   end
 
   create_table "internal_notes", force: :cascade do |t|
