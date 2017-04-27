@@ -26,11 +26,12 @@ class FormSubmissionsController < BaseController
 
   def policy_step
     @form_submission = FormSubmission.find(params[:id])
-    @form_submission.status = 'started'
-    @form_submission.save
-    log = ActivityLog.find_by(loggable_id: @form_submission.id, loggable_type: 'FormSubmission', law_firm_id: current_law_firm.id)
-    
-    FormSubmission.log_activity('seal_certification_process_initiated', true, @form_submission, current_user) if @form_submission && !log
+    if(@form_submission.status == 'sent')
+      @form_submission.status = 'started'
+      @form_submission.save
+      log = ActivityLog.find_by(loggable_id: @form_submission.id, loggable_type: 'FormSubmission', law_firm_id: current_law_firm.id)
+      FormSubmission.log_activity('seal_certification_process_initiated', true, @form_submission, current_user) if @form_submission && !log
+    end
   end
 
   def process_step
