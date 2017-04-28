@@ -44,12 +44,10 @@ $(document).ready(function(){
     
   }
 
-  // setTimeout(function(){  
-  //   $.LoadingOverlay("hide");
-  // }, 5000)
-  
   setTimeout(function(){
-    logics = $('.logics').data('logics');
+    var dataDiv = $('.logics');
+    
+    logics = dataDiv.data('logics');
     if(logics && logics.length > 0) {
       logics_count = logics.length;
       logics.forEach(function(logic) {
@@ -68,7 +66,6 @@ $(document).ready(function(){
         setTimeout(function(){
           sourceField.find('input, select').trigger("change");
           targetField.find('input, select').trigger("change");
-
         }, 500)
         if (!--logics_count){ 
           setTimeout(function(){ $.LoadingOverlay("hide"); }, 1500) 
@@ -77,6 +74,24 @@ $(document).ready(function(){
     } else {
       $.LoadingOverlay("hide");
     }
+
+    // When the assessor has requested follow-ups then disable all fields,
+    // get all the follow ups, iterate through the array
+    // and enable only those fields which require attention
+    if(dataDiv.data('form-submission-status') == 'follow_up') {
+      follow_ups = dataDiv.data('follow-ups');
+      if(follow_ups.length > 0 ){
+        disableFormSubmissionFields();
+        setTimeout(function(){
+          follow_ups.forEach(function(follow_up) {
+            var target = $('.need-follow-up.field-wrapper-' + follow_up.form_field_id);
+            target.find('input').removeAttr('disabled');
+            target.find('select').prop('disabled', false).trigger("chosen:updated");
+          })
+        }, 500)
+      }
+    }
+
   }, 2000)
 
   $(document).on('click', '.repeater-customlogic', function(){
@@ -121,61 +136,68 @@ $(document).ready(function(){
 
   $('i.log-icon').tooltip();
 
-  $('.fileupload').next('.file-upload-handler').on('click', function(){ $(this).prev('.fileupload').trigger('click') })
+  $(document).on('click', '.file-upload-handler', function(){
+    $(this).prev('.fileupload').trigger('click');
 
-  //File Upload
-  $('.fileupload').fileupload({
-    dataType: 'html',
-    maxNumberOfFiles: parseInt($(this).data('limit')),
-    change: function(e, data){
-      var uploadErrors = [];
-      var file_count = data.files.length + $(this).data('file-count');
-      if(file_count > 2){
-        uploadErrors.push('Only 2 files are allowed at max.');
-        sweetAlert("Oops...", uploadErrors.join("\n"), "error");
-        return false
-      }
-      if(uploadErrors.length > 0) {
-      }
-    },
-    add: function(e, data) {
-      var uploadErrors = [];
-      var acceptFileTypes = /^image\/(gif|jpe?g|png)$|^application\/(pdf|(vnd\.(ms-|openxmlformats-).*))$|^text\/plain$/i;;
-      // var acceptFileTypes = /\.(gif|jpg|jpeg|tiff|png|mp4)$/i;
-      if(data.originalFiles[0]['type'].length && !acceptFileTypes.test(data.originalFiles[0]['type'])) {
-          uploadErrors.push('Not an accepted file type');
-      }
-      if(data.originalFiles[0]['size'] && data.originalFiles[0]['size'] > 10000000) {
-          uploadErrors.push('Filesize is too big. Maximum filesize allowed is 10MB');
-      }
-      if(uploadErrors.length > 0) {
+    //File Upload
+    $('.fileupload').fileupload({
+      dataType: 'html',
+      maxNumberOfFiles: parseInt($(this).data('limit')),
+      change: function(e, data){
+        var uploadErrors = [];
+        var file_count = data.files.length + $(this).data('file-count');
+        if(file_count > 2){
+          uploadErrors.push('Only 2 files are allowed at max.');
           sweetAlert("Oops...", uploadErrors.join("\n"), "error");
-      } else {
-          data.submit();
-      }
-    },
-    done: function (e, data) {
-      container = $(this);
-      container.parent().append(data.result);
-      $(this).attr('data-file-count', container.parent().find('.delete-file').length); // update count
-      $(this).data('file-count', container.parent().find('.delete-file').length); // update count
-      showIfCustomLogicMatched($(this), false);
+          return false
+        }
+        if(uploadErrors.length > 0) {
+        }
+      },
+      add: function(e, data) {
+        var uploadErrors = [];
+        var acceptFileTypes = /^image\/(gif|jpe?g|png)$|^application\/(pdf|(vnd\.(ms-|openxmlformats-).*))$|^text\/plain$/i;;
+        // var acceptFileTypes = /\.(gif|jpg|jpeg|tiff|png|mp4)$/i;
+        if(data.originalFiles[0]['type'].length && !acceptFileTypes.test(data.originalFiles[0]['type'])) {
+            uploadErrors.push('Not an accepted file type');
+        }
+        if(data.originalFiles[0]['size'] && data.originalFiles[0]['size'] > 10000000) {
+            uploadErrors.push('Filesize is too big. Maximum filesize allowed is 10MB');
+        }
+        if(uploadErrors.length > 0) {
+            sweetAlert("Oops...", uploadErrors.join("\n"), "error");
+        } else {
+            data.submit();
+        }
+      },
+      done: function (e, data) {
+        container = $(this);
+        json_data = JSON.parse(data.result);
+        container.parent().append(json_data.file_attachment_html);
+        existing_file_attachement_ids = _.compact($(this).parent().parent().find('.file-ids').val().split(','));
+        existing_file_attachement_ids.push(json_data.file_attachment_ids);
+        $(this).parent().parent().find('.file-ids').val(existing_file_attachement_ids)
+        $(this).attr('data-file-count', container.parent().find('.delete-file').length); // update count
+        $(this).data('file-count', container.parent().find('.delete-file').length); // update count
+        showIfCustomLogicMatched($(this), false);
 
-      setTimeout(function(){
-        container.parent().find('#progress .bar').hide();
-      }, 5000)
-    },
-    progressall: function (e, data) {
-      container = $(this);
-      var progress = parseInt(data.loaded / data.total * 100, 10);
-      container.parent().find('#progress .bar').css(
-          'width',
-          progress + '%'
-      )
-      .css('display', 'block')
-      .text(progress + '%');
-    }
-  });
+        setTimeout(function(){
+          container.parent().find('#progress .bar').hide();
+        }, 5000)
+      },
+      progressall: function (e, data) {
+        container = $(this);
+        var progress = parseInt(data.loaded / data.total * 100, 10);
+        container.parent().find('#progress .bar').css(
+            'width',
+            progress + '%'
+        )
+        .css('display', 'block')
+        .text(progress + '%');
+      }
+    });
+
+  })
 
 
   $(document).on('click', '.form-field-header', function(){
@@ -277,6 +299,7 @@ $(document).ready(function(){
             file_upload.attr('data-file-count', $("#delete_file-" + file_id).parent().find('.delete-file').length - 1); // update count
             file_upload.data('file-count', $("#delete_file-" + file_id).parent().find('.delete-file').length - 1); // update count
             $("#delete_file-" + file_id).remove();
+            file_upload.parent().find('.file-ids').val(_.without(file_upload.parent().find('.file-ids').val().split(','), file_id.toString()));
             showIfCustomLogicMatched(file_upload, false);
           },
           error: function(response) {
@@ -345,7 +368,7 @@ $(document).ready(function(){
 
   $("input.datepicker").each(function(input) {
     $(this).datepicker({
-      dateFormat: "dd-mm-yy",
+      dateFormat: "dd M yy",
       altField: $(this).next(),
       maxDate: 0
     })
@@ -358,7 +381,7 @@ $(document).ready(function(){
   $('body').on('focus',".restrict-till-day", function(){
       $(this).datepicker({
         maxDate: 0,
-        dateFormat: "dd-mm-yy"
+        dateFormat: "dd M yy"
       });
   });
 
@@ -404,6 +427,7 @@ $(document).ready(function(){
     if(link == window.location.pathname){
       toastr.success('Your progress has been saved successfully', 'Saved');
       setTimeout(function(){ ajaxRequestInProcess = false; $('.submit-form').removeAttr("disabled"); }, 2000)
+      window.location.reload();
     } else{ 
       window.location.href = link;
     }
@@ -489,11 +513,11 @@ $(document).ready(function(){
 
 
   if(window.location.pathname.indexOf("/admin/form_submissions/") > -1 ){
-    disabledFormSubmissionFields();
+    disableFormSubmissionFields();
   }
 
   if(window.location.pathname.indexOf("/form_submissions/?readonly=true") > -1){
-    disabledFormSubmissionFields();
+    disableFormSubmissionFields();
   }
 
   $('.send-wrapper').click(function(){
@@ -736,10 +760,12 @@ $(document).ready(function(){
     $('select').chosen();
   }
 
-  function disabledFormSubmissionFields(){
+  function disableFormSubmissionFields(){
     $('select').attr('disabled', 'true');
+    $('select').prop('disabled', true).trigger("chosen:updated");
     $('input[type="text"]').attr('disabled', 'true');
     $('input[type="number"]').attr('disabled', 'true');
+    $('input[type="email"]').attr('disabled', 'true');
     $('textarea').attr('disabled', 'true');
     $('.score-form input').removeAttr('disabled');
     $('#notes-modal .input > div textarea').removeAttr('disabled');

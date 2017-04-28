@@ -2,13 +2,13 @@ class FormValue < ApplicationRecord
 
   belongs_to :form_field
   belongs_to :submittable, polymorphic: true
-  has_many   :file_attachments
-  has_many   :vendors
-  has_many   :cyber_security_standards
-  has_many   :information_security_policies
-  has_many   :third_party_vendors
-  has_many   :cloud_providers
-  has_many   :cyber_security_insurances
+  has_many   :file_attachments, dependent: :destroy
+  has_many   :vendors, dependent: :destroy
+  has_many   :cyber_security_standards, dependent: :destroy
+  has_many   :information_security_policies, dependent: :destroy
+  has_many   :third_party_vendors, dependent: :destroy
+  has_many   :cloud_providers, dependent: :destroy
+  has_many   :cyber_security_insurances, dependent: :destroy
 
   serialize :multi_select_value, Array
 
@@ -23,7 +23,7 @@ class FormValue < ApplicationRecord
                                 reject_if: proc { |attributes| attributes['rank'].blank? && attributes['standard'].blank? && attributes['date_of_certification'].blank? && attributes['renewal'].blank? }
   accepts_nested_attributes_for :information_security_policies, 
                                 allow_destroy: true, 
-                                reject_if: proc { |attributes| attributes['policy'].blank? && attributes['last_reviewed'].blank? && attributes['last_updated'].blank? && attributes['freq_of_review'].blank? }
+                                reject_if: proc { |attributes| attributes['policy'].blank? && attributes['last_reviewed'].blank? && attributes['last_updated'].blank? && attributes['freq_of_review'].blank? && attributes['file_ids'].blank? }
   accepts_nested_attributes_for :third_party_vendors, 
                                 allow_destroy: true,
                                 reject_if: proc { |attributes| attributes['vendor_name'].blank? && attributes['area'].blank? && attributes['confidentiality_agreement'].blank? }

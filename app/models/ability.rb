@@ -11,7 +11,11 @@ class Ability
         user.law_firm.form_submissions.map(&:id).include? fs.id
       end
       can :manage, FileAttachment do |fa|
-        fa.form_value.submittable.law_firm_id == user.law_firm.id
+        if fa.form_value && fa.attachable_type && fa.attachable_id
+          fa.form_value.submittable.law_firm_id == user.law_firm.id
+        else
+          true
+        end
       end
       can :read, :SecurityThreat
       can :read, :SecurityAlert

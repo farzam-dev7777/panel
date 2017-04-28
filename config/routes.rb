@@ -109,6 +109,7 @@ Rails.application.routes.draw do
   end
 
   patch "file_attachments/:id/:type" => "file_attachments#create", :as => "file_attachments_uploader"
+  patch "file_attachments/" => "file_attachments#create", :as => "file_attachments_without_object"
   resources :file_attachments
   resources :form_submissions do
     member do

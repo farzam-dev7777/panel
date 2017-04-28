@@ -14,12 +14,12 @@
 	<div class="col-md-2 gfe-field">
 		<%= f.input :independent_review, label: false, collection: ["Yes", "No"] %>
 	</div>
-	<div class="col-md-2 gfe-field">
+	<div class="col-md-2 gfe-field" style="width: 200px">
 		<%= render '/application/form_values/upload_field', v: f, f: f, field: f.object.form_value.form_field %>
 	</div>
 
 
-	<div class="col-md-1 text-right" style="font-size: 16px;">
+	<div class="col-md-1 text-right" style="font-size: 16px; width: 60px; margin-top: 5px;">
 		<% if f.object && current_user %>
 			<%= link_to_remove_association "<i class='fa fa-minus-circle'></i>".html_safe, f, { wrapper_class: "information-security-policy-field-#{f.object.try(:id)}" }  %>
 		<% end %>

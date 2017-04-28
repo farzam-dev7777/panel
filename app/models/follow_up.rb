@@ -17,4 +17,8 @@ class FollowUp < ApplicationRecord
 		note
 	end
 
+  def form_field_id
+    self.loggable.try(:form_field_id)
+  end
+
 end

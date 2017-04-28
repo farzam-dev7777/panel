@@ -85,7 +85,7 @@ class FormSubmission < ApplicationRecord
   end
 
   def is_available_to_user
-    open_states = ["sent", "started"]
+    open_states = ["sent", "started", "follow_up"]
     open_states.include? self.status
   end
 

@@ -31,8 +31,9 @@
     <% end %>
   </label>
   <% end %>
-  <input class="fileupload hidden" type="file" name="files[]" data-url="/file_attachments/<%= v.object.id %>/<%= v.object.class.name %>" multiple data-form-field-id="<%= v.object.try(:form_field).try(:id) %>" data-file-count="<%= v.object.file_attachments.count %>" data-limit="<%= UploadField::FILES_LIMIT %>">
+  <input class="fileupload hidden" type="file" name="files[]" data-url='<%= v.object.new_record? ? "/file_attachments/" : "/file_attachments/#{v.object.id}/#{v.object.class.name}"%>' multiple data-form-field-id="<%= v.object.try(:form_field).try(:id) %>" data-file-count="<%= v.object.file_attachments.count %>" data-limit="<%= UploadField::FILES_LIMIT %>">
   <input type="text" class="form-control file-upload-handler" placeholder="Click here to upload file(s)" readonly="readonly">
+  <%= v.input :file_ids, as: :hidden, input_html: { class: 'file-ids' } %>
 
   <div id="progress">
     <div class="bar" style="width: 0%;"></div>
