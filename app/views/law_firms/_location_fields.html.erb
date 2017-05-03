@@ -1,0 +1,28 @@
+<tr class="location-<%= f.object.try(:id) %>">
+	<td class="text-left">
+		
+		<div class="col-md-3"><%= f.input :address1, input_html: { class: 'no-margin no-padding' } %></div>
+
+		
+		<div class="col-md-3"><%= f.input :city, input_html: { class: 'no-margin no-padding' } %></div>
+
+		
+		<div class="col-md-2"><%= f.input :province, label: 'State/Province', input_html: { class: 'no-margin no-padding' } %></div>
+
+		
+		<div class="col-md-2"><%= f.input :postal_code, label: 'Postal/Zip Code', input_html: { class: 'no-margin no-padding' } %></div>
+
+		
+		<div class="col-md-2">
+			<div class="form-group optional law_firm_locations_country">
+				<label><strong>Postal/Zip Code</strong></label>
+				<%= f.country_select :country, priority_countries: ["US", "CA"], input_html: { class: 'no-margin no-padding select2', label: 'Country' } %>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+		<hr>
+	</td>
+	<td>
+		<%= link_to_remove_association "<i class='fa fa-minus-circle'></i>".html_safe, f, { wrapper_class: "location-#{f.object.try(:id)}" }  %>
+	</td>
+</tr>

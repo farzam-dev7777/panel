@@ -9,6 +9,9 @@ class LawFirm < ApplicationRecord
   has_many :internal_notes
   has_many :locations
   has_many :jurisdictions
+  has_many :history_submissions
+
+  accepts_nested_attributes_for :history_submissions
 
   accepts_nested_attributes_for :locations
   accepts_nested_attributes_for :jurisdictions

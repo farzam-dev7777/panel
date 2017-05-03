@@ -34,6 +34,12 @@ class FormSubmissionsController < BaseController
     end
   end
 
+  def technology_profile
+  end
+
+  def history_profile
+  end
+
   def process_step
   end
 

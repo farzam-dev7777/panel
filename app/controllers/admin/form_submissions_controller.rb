@@ -44,12 +44,47 @@ class Admin::FormSubmissionsController < Admin::BaseController
     
     @form_submission.form_values.each do |form_value|
       if !form_value.value.blank?
-        total_score = total_score + form_value.try(:form_field).try(:score) if form_value.try(:form_field).try(:score) 
+        if form_value.is_a_repeater_field?
+          total_score = total_score + calculate_repeater_field_score(form_value)
+        else
+          total_score = total_score + form_value.try(:form_field).try(:score) if form_value.try(:form_field).try(:score) 
+        end
         score_counter = score_counter + 1
       end
     end
-    @system_score = score_counter > 0 ? total_score/score_counter : 0
+    @system_score = score_counter > 0 ? (total_score/score_counter).round(2) : 0
     @form_submission.update_attributes(system_score: @system_score)
+  end
+
+  def calculate_repeater_field_score(form_value)
+    repeater_field_score = []
+    calculated_score = 0
+    case form_value.form_field.type
+    when 'InformationSecurityPolicyField'
+      calculated_score = compute_field_score(form_value, repeater_field_score, 'InformationSecurityPolicy', 'information_security_policies')
+    when 'CyberSecurityStandardField'
+      calculated_score = compute_field_score(form_value, repeater_field_score, 'CyberSecurityStandardField', 'cyber_security_standards')
+    when 'ThirdPartyVendorField'
+      calculated_score = compute_field_score(form_value, repeater_field_score, 'ThirdPartyVendor', 'third_party_vendors')
+    when 'CloudProviderField'
+      calculated_score = compute_field_score(form_value, repeater_field_score, 'CloudProvider', 'cloud_providers')
+    when 'CyberSecurityInsuranceField'
+      calculated_score = compute_field_score(form_value, repeater_field_score, 'CyberSecurityInsurance', 'cyber_security_insurances')
+    end
+    calculated_score
+  end
+
+  def compute_field_score(form_value, repeater_field_score, model, association)
+    ignored_columns = ["id", "created_at", "updated_at", "form_value_id"]
+    single_field_score = 5
+    columns = model.constantize.column_names
+    form_value.send(association).each do |field|
+      columns.each_with_index do |column_name, index|
+        single_field_score = single_field_score - 1 if field[column_name.to_sym].blank? && !ignored_columns.include?(column_name)
+        repeater_field_score.push(single_field_score) && single_field_score = 5 if columns.size - 1 == index
+      end
+    end
+    ((repeater_field_score.sum / ((columns - ignored_columns).size * 5).to_f) * 5).round(2)
   end
 
   def edit

@@ -62,6 +62,10 @@ class FormValue < ApplicationRecord
     self.cyber_security_insurances.any? ? self.cyber_security_insurances : [self.cyber_security_insurances.build]
   end
 
+  def is_a_repeater_field?
+    Logic::REPEATER_FIELDS.include? self.form_field.type 
+  end
+
   private
 
   def value_is_valid

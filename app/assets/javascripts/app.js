@@ -433,6 +433,25 @@ $(document).ready(function(){
     }
   })
 
+    $('.submit-tech-form').click(function(e){
+    e.preventDefault();
+
+    $(this).find('.loader').removeClass('hidden');
+    window.link_to_redirect_to = $(this).attr('href');
+    if(!ajaxRequestInProcess){
+      ajaxRequestInProcess = true;
+      $('form').submit();
+      $('.submit-tech-form').attr("disabled", "disabled");
+    }
+  })
+
+  $("form").bind("ajax:success", function(response){
+    $('.submit-tech-form').find('.loader').addClass('hidden');
+    toastr.success('Your progress has been saved successfully', 'Saved');
+    setTimeout(function(){ ajaxRequestInProcess = false; $('.submit-form').removeAttr("disabled"); }, 2000)
+    window.location.reload();
+  })
+
   $(document).on('DOMNodeInserted', function(e) {
     if($(e.target).hasClass('select-fields')){
       $(e.target).find('.dynamic-select').first().trigger('change');

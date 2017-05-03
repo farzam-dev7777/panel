@@ -1,0 +1,74 @@
+<style>.user-form-wrapper { background-image: url(<%= asset_path 'bg-photo.jpg' %>) !important }</style>
+<div class="jarviswidget form-wizard-wrapper" id="wid-id-0" data-widget-editbutton="false">
+  <header>
+    <span class="widget-icon"> <i class="fa fa-certificate"></i> </span>
+    <h2>History Profile</h2>
+
+  </header>
+
+  <!-- widget div-->
+  <div role="content">
+
+    <!-- widget content -->
+    <div class="widget-body fuelux no-padding user-form-wrapper">
+    	<p>&nbsp;</p>
+      <div class="clearfix"></div>
+      <div class="row">
+        <div class="col-md-12 logics">
+          <%= simple_form_for @form_submission, validate: true, :html => {:multipart => true, remote: true, authenticity_token: true} do |f| %>
+            	
+
+          	<%= simple_fields_for @form_submission do |f| %>
+						  <div class="container">
+						    
+						    <div class="col-md-10 col-md-offset-1 no-padding history-form-wrapper">
+							  	<h4 class="m-b-20"><strong>SECURITY INCIDENT LOG</strong></h4>
+
+						    	<div class=" col-md-12 no-padding">
+							      <%= f.simple_fields_for :history_submissions do |field| %>
+							      	<%= render partial: "history_submission_fields", 
+							      						 locals: {f: field}  %>
+									  <% end %>
+						    	</div>
+									<div class="clearfix"></div>
+						    	<hr class="seperator">
+									<div class="link-to-add">
+										<%= link_to_add_association '<span href="javascript:void(0);" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Add More</span>'.html_safe, f, :history_submissions %>
+									</div>
+
+									<p>&nbsp;</p>
+
+						    </div>
+
+						  </div>
+
+						<% end %>
+
+
+
+
+          <% end %>
+        </div>
+      </div>
+
+      <div class="widget-footer" style="top: 54px;"">
+
+        <div class="text-center">
+          <div class="btn-group">
+            <%= link_to "<i class='fa fa-floppy-o'></i> Save".html_safe, current_step_path, class: 'btn btn-primary submit-tech-form' %>
+          </div>
+        </div>
+        
+      </div>
+
+    </div>
+    
+    <br />
+    <br />
+    <br />
+    <!-- end widget content -->
+
+  </div>
+  <!-- end widget div -->
+
+</div>
