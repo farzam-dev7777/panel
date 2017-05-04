@@ -57,6 +57,10 @@ module FormSubmissionHelper
       'success'
     elsif (submission.status == 'declined')
       'danger'
+    elsif (submission.status == 'sent')
+        'yellow'
+    elsif (submission.status == 'started')
+        'light-green'
     else
       'info'
     end

@@ -1117,6 +1117,22 @@ i.btn { padding: 0 }
   padding-left: 11px;
 }
 
+li.active {
+  background: #e1e1e1;
+}
+
+body.smart-style-6 .txt-color-magenta, body.smart-style-6 nav ul li.active>a:before {
+  color: #007ac3!important;
+}
+
+span.label-light-green {
+  background: #00cc00;
+}
+
+span.label-yellow {
+  background: #cccc00;
+}
+
 
 
 

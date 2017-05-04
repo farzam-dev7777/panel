@@ -120,22 +120,22 @@
 			-->
 
 			<ul>
-				<li class="">
+				<li class="<%= active_menu_item('/admin') %>">
 					<a href="/admin" title="blank_"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Dashboard</span></a>
 				</li>
-				<li class="">
+				<li class="<%= active_menu_item('/admin/law_firms') %>">
 					<a href="/admin/law_firms" title="blank_"><i class="fa fa-lg fa-fw fa-briefcase"></i> <span class="menu-item-parent">Law Firms</span></a>
 				</li>
 				<!-- <li class="">
 					<a href="/admin/form_submissions" title="blank_"><i class="fa fa-lg fa-fw fa-book"></i> <span class="menu-item-parent">Submissions</span></a>
 				</li> -->
-				<li class="">
+				<li class="<%= active_menu_item('/admin/security_threats') %>">
 					<a href="/admin/security_threats" title="blank_"><i class="fa fa-lg fa-fw fa-shield"></i> <span class="menu-item-parent">Security Threats</span></a>
 				</li>
-				<li class="">
+				<li class="<%= active_menu_item('/admin/security_alerts') %>">
 					<a href="/admin/security_alerts" title="blank_"><i class="fa fa-lg fa-fw fa-newspaper-o"></i> <span class="menu-item-parent">Security News Alerts</span></a>
 				</li>
-				<li class="">
+				<li class="<%= active_menu_item(edit_admin_system_setting_path(SystemSetting.last || SystemSetting.create)) %>">
 					<a href="<%= edit_admin_system_setting_path(SystemSetting.last || SystemSetting.create) %>" title="blank_"><i class="fa fa-lg fa-fw fa-cog"></i> <span class="menu-item-parent">System Settings</span></a>
 				</li>
 			</ul>

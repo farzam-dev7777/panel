@@ -10,7 +10,17 @@
   <div id="content" class="container">
 
     <div class="row">
-      <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4 login-form-wrapper">
+
+      <div class="col-md-12">
+        <div class="col-md-6">
+          <%= image_tag("bmo-logo.png") %>
+        </div>
+        <div class="col-md-6 text-right">
+          <%= image_tag("seal-logo.png") %>
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4 col-lg-offset-4 login-form-wrapper">
         <div class="well no-padding">
 
 	        <% if notice || alert %>
@@ -61,10 +71,6 @@
               </div>
               
             </div>
-      <div class="col-xs-12 col-sm-12 col-md-7 col-lg-8 hidden-xs hidden-sm text-right">
-        <%= image_tag("bmo-logo.png") %>
-
-      </div>
       
           </div>
         </div>
