@@ -37,7 +37,7 @@
               <%= link_to "<i class='fa fa-floppy-o'></i> Save".html_safe, current_step_path, class: 'btn btn-primary submit-form' %>
 
               <% if(last_step) %>
-                <a href="#" class="btn btn-default submit-form finalize-submission" data-form_id=<%= params[:id] %>>
+                <a href="#" class="btn btn-default finalize-submission" data-form_id=<%= params[:id] %>>
                   <i class='fa fa-caret-right'></i> Submit
                 </a>
               <% else %>
