@@ -13,7 +13,7 @@ module HasAttachedFiles
   		file_attachments = ::FileAttachment.where(id: file_attachment_ids)
   		file_attachments.each do |file_attachment|
         next if file_attachment.attachable
-        file_attachment.update_attributes(attachable: self, form_value_id: self.try(:form_value_id) || self.id)
+        file_attachment.update_attributes(attachable: self, form_value_id: self.try(:form_value_id))
   		end
   	end
   end

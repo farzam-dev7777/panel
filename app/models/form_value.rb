@@ -67,6 +67,10 @@ class FormValue < ApplicationRecord
     Logic::REPEATER_FIELDS.include? self.form_field.type 
   end
 
+  def form_value_id
+    self.id
+  end
+
   private
 
   def value_is_valid
