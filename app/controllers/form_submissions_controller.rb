@@ -61,6 +61,11 @@ class FormSubmissionsController < BaseController
   def update
     @form_submission = FormSubmission.find(params[:id])
     if @form_submission.update(form_submissions_params)
+      if request.referrer.split('/').last.to_sym == :technology_profile
+        FormSubmission.log_activity('technologies_updated', true, @form_submission, current_user)
+      elsif request.referrer.split('/').last.to_sym == :history_profile
+        FormSubmission.log_activity('history_updated', true, @form_submission, current_user)
+      end
       render json: :ok
     else
       render :technology_step

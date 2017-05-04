@@ -27,6 +27,8 @@ class ActivityLog < ApplicationRecord
     login: "You last logged in at ",
     logout: "You last logged out at ",
     expiry_date_changed: "Expiry date changed ",
+    technologies_updated: "Law firm has updated their technologies",
+    history_updated: "Law firm has updated their history"
   }.freeze
 
 	def self.log(object)
