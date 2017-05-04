@@ -4,7 +4,7 @@ module SubmissionBehaviors
   def form_values_attributes
     [
     	form_values_attributes: [
-                                :id, :form_field_id, :value, :submittable_id, :submittable_type, :form_field_label, :file_value, multi_select_value: [], 
+                                :id, :file_ids, :form_field_id, :value, :submittable_id, :submittable_type, :form_field_label, :file_value, multi_select_value: [], 
       													file_attachments_attributes: [:id, :file], 
                                 vendors_attributes: [:id, :name, :vendor_type, :application, :_destroy],
                                 cyber_security_standards_attributes: [:id, :file_ids, :rank, :standard, :date_of_certification, :renewal, :_destroy], 
