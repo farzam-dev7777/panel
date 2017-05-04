@@ -1,4 +1,5 @@
 class FormValue < ApplicationRecord
+  include HasAttachedFiles
 
   belongs_to :form_field
   belongs_to :submittable, polymorphic: true
