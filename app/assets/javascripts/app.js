@@ -1163,10 +1163,23 @@ function fetchLawFirms(vendor, platform, version, target){
     }
   }
   $.get('/admin/security_threats/0/find_law_firms', data, function(response){
-    $('#law-firms').select2().empty().select2({data: response.selected});
-    $('#law-firms option').attr('selected', true).parent().trigger('change');
-    $('#law-firms').select2({data: response.all});
-    $('#law-firms-count').html(response.selected.length + " Firm(s) found")
+
+    $('#law-firms').empty().append("<option value=''></option>");
+    if (response.selected.length > 0){
+      $.each(response.selected, function( index, value ) {
+        $("#law-firms").append("<option selected='selected' value='" + value.id + "'>" + value.text + "</option>").trigger('chosen:updated').trigger('change');
+      });
+    }
+    if (response.all.length > 0){
+      $.each(response.all, function( index, value ) {
+        $("#law-firms").append("<option value='" + value.id + "'>" + value.text + "</option>").trigger('chosen:updated').trigger('change');
+      });
+    }
+
+    // $('#law-firms').select2().empty().select2({data: response.selected});
+    // $('#law-firms option').attr('selected', true).parent().trigger('change');
+    // $('#law-firms').select2({data: response.all});
+    // $('#law-firms-count').html(response.selected.length + " Firm(s) found")
 
     if(response.selected.length > 0){
       $('.clear-all-lawfirms').show();
