@@ -145,7 +145,9 @@
 			</ul>
 		</nav>
 
-		<!-- <span class="minifyme" data-action="minifyMenu"> <i class="fa fa-arrow-circle-left hit"></i> </span> -->
+		<span class="minifyme" data-action="minifyMenu"> 
+			<i class="fa fa-arrow-circle-left hit"></i> 
+		</span>
 
 	</aside>
 	<!-- END NAVIGATION -->
@@ -310,28 +312,36 @@
 			      method: 'GET',
 			    })
 			      .done(function( data ) {
-			      	var ticks = [];
+			      	var tempTicks = [];
 			      	var count = 0
-			      	$.each( data.certified, function( key, value ) {
-							  data1.push([count, parseInt(value)])
-							  ticks.push([count, key])
-							  count++;
+
+			      	tempTicks.push(_.allKeys(data.certified))
+			      	tempTicks.push(_.allKeys(data.uncertified))
+			      	tempTicks.push(_.allKeys(data.under_process));
+
+			      	var tickCount = 0;
+			      	var ticks = [];
+							var tempArr = _.uniq(_.flatten(tempTicks));
+			      	$.each( tempArr, function( key, value ) {
+							  ticks.push([tickCount, value])
+							  tickCount++;
 							});
 
+			      	$.each( data.certified, function( key, value ) {
+							  data1.push([count, parseInt(value)])
+							  count++;
+							});
 
 			      	var count2 = 0
 			      	$.each( data.decertified, function( key, value ) {
 							  data2.push([count2, parseInt(value)])
-							  ticks.push([count, key])
-							  count++;
+							  count2++;
 							});
 
 			      	var count3 = 0
 			      	$.each( data.under_process, function( key, value ) {
 							  data3.push([count3, parseInt(value)])
-							  debugger;
 							  date = new Date(Date.parse(key));
-							  ticks.push([count, key])
 								count3++;
 							});
 
@@ -344,8 +354,7 @@
 										show : true,
 										barWidth : 0.2,
 										order : 1,
-									},
-									label: 'March'
+									}
 								});
 							}
 
@@ -575,8 +584,13 @@
 				tablet : 1024,
 				phone : 480
 			};
+
 			$('#dt_basic').dataTable({
-				"order": [[ 6, "desc" ]],
+				aLengthMenu: [
+	        [10, 25, 50, -1],
+	        [10, 25, 50, "All"]
+		    ],
+				"order": [[ 4, "desc" ]],
 				"sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-12 hidden-xs'l>r>"+
 					"t"+
 					"<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-xs-12 col-sm-6'p>>",
@@ -599,6 +613,10 @@
 
 			var responsiveHelper_sec_threat = undefined;
 			$('#sec-threat').dataTable({
+				aLengthMenu: [
+	        [10, 25, 50, -1],
+	        [10, 25, 50, "All"]
+		    ],
 				"sDom": "<'dt-toolbar'<'col-xs-12 col-sm-10'f><'col-sm-2 col-xs-12 hidden-xs'l>r>"+
 					"t"+
 					"<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-xs-12 col-sm-6'p>>",
@@ -621,6 +639,10 @@
 
 			var responsiveHelper_db_curr_threats = undefined;
 			$('#db-curr-threats').dataTable({
+				aLengthMenu: [
+	        [10, 25, 50, -1],
+	        [10, 25, 50, "All"]
+		    ],
 				"order": [[ 3, "desc" ]],
 				"sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'><'col-sm-6 col-xs-12 hidden-xs'>r>"+
 					"t"+
@@ -644,6 +666,10 @@
 
 			var responsiveHelper_sec_alert = undefined;
 			$('#sec-alert').dataTable({
+				aLengthMenu: [
+	        [10, 25, 50, -1],
+	        [10, 25, 50, "All"]
+		    ],
 				"sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-12 hidden-xs'l>r>"+
 					"t"+
 					"<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-xs-12 col-sm-6'p>>",
@@ -666,6 +692,10 @@
 
 			var responsiveHelper_dashboard_lf = undefined;
 			$('#db_lfs').dataTable({
+				aLengthMenu: [
+	        [10, 25, 50, -1],
+	        [10, 25, 50, "All"]
+		    ],
 				"order": [[ 2, "desc" ]],
 				"sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'><'col-sm-6 col-xs-12 hidden-xs'>r>"+
 					"t"+

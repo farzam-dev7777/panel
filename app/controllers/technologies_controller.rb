@@ -4,10 +4,7 @@ class TechnologiesController < BaseController
 
 	def index
 		@technologies = []
-
-		# if technology_filter_params[:vendor]
-			@technologies = Technology.select(params[:field].to_s).where(technology_filter_params).uniq
-		# end
+		@technologies = Technology.select(params[:field].to_s).where(technology_filter_params).uniq
 		render json: @technologies.map{ |technology| { id: technology.send(params[:field]), text: technology.send(params[:field]) } }
 	end
 

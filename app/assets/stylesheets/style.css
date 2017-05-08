@@ -425,7 +425,7 @@ span.select2-selection__arrow{
 
 .resolve-btn {
   position: relative;
-  bottom: 33px;
+  bottom: 55px;
 }
 
 .resolve-btn:active,
@@ -485,11 +485,6 @@ hr.note-seperator {
   clear: both;
   margin-bottom: 20px;
   margin-right: 27px;
-}
-
-body.smart-style-6 .minifyme {
-  bottom: 450px;
-  right: -10px;
 }
 
 .check-mark-wrapper {
@@ -1109,7 +1104,8 @@ label.float-field {
   color: #444 !important;
 }
 
-i.btn { padding: 0 }
+i.btn { padding: 0 !important }
+i.btn input { padding: 15px !important; }
 
 .chosen-container-single .chosen-single span { text-align: left }
 .chosen-container .chosen-results li {
@@ -1131,6 +1127,10 @@ span.label-light-green {
 
 span.label-yellow {
   background: #cccc00;
+}
+
+img.bmo-small {
+  width: 20px;
 }
 
 

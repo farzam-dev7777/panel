@@ -64,7 +64,7 @@ class FormValue < ApplicationRecord
   end
 
   def is_a_repeater_field?
-    Logic::REPEATER_FIELDS.include? self.form_field.type 
+    Logic::REPEATER_FIELDS.include? self.try(:form_field).try(:type) 
   end
 
   def form_value_id

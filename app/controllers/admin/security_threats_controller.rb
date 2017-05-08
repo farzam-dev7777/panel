@@ -20,8 +20,14 @@ class Admin::SecurityThreatsController < Admin::BaseController
   end
 
   def find_law_firms
-    form_submission_ids = TechnologyValue.select(params[:field].to_s).where(technology_values_filter_params).uniq.pluck(:form_submission_id)
-    law_firms = LawFirm.joins(:form_submissions).where("form_submissions.id IN (?)", form_submission_ids)
+
+    law_firms = []
+    # form_submission_ids = TechnologyValue.select(params[:field].to_s).where(technology_values_filter_params).uniq.pluck(:form_submission_id)
+    if !technology_values_filter_params.empty?
+      form_submission_ids = TechnologyValue.select(params[:field].to_s).where(technology_values_filter_params).uniq.pluck(:form_submission_id)
+      law_firms = LawFirm.joins(:form_submissions).where("form_submissions.id IN (?)", form_submission_ids)
+    end
+
     if law_firms.any?
       all_law_firms = LawFirm.where('id NOT IN (?)', law_firms.pluck(:id)).uniq.map{ |firm| { id: firm.id, text: firm.name } }
     else

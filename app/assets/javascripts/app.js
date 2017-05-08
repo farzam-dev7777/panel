@@ -411,10 +411,11 @@ $(document).ready(function(){
   var ajaxRequestInProcess = false;
   $('.submit-form').click(function(e){
     e.preventDefault();
-
+    
     $(this).find('.loader').removeClass('hidden');
     window.link_to_redirect_to = $(this).attr('href');
     if(!ajaxRequestInProcess){
+      $('#redirect_value').val(window.link_to_redirect_to);
       ajaxRequestInProcess = true;
       $('form').submit();
       $('.submit-form').attr("disabled", "disabled");
@@ -423,10 +424,10 @@ $(document).ready(function(){
 
   $("form").bind("ajax:success", function(response){
     $('.submit-form').find('.loader').addClass('hidden');
+    setTimeout(function(){ ajaxRequestInProcess = false; $('.submit-form').removeAttr("disabled"); }, 2000)
+    toastr.success('Your progress has been saved successfully', 'Saved');
     link = window.link_to_redirect_to;
     if(link == window.location.pathname){
-      toastr.success('Your progress has been saved successfully', 'Saved');
-      setTimeout(function(){ ajaxRequestInProcess = false; $('.submit-form').removeAttr("disabled"); }, 2000)
       window.location.reload();
     } else{ 
       window.location.href = link;
@@ -445,12 +446,12 @@ $(document).ready(function(){
     }
   })
 
-  $("form").bind("ajax:success", function(response){
-    $('.submit-tech-form').find('.loader').addClass('hidden');
-    toastr.success('Your progress has been saved successfully', 'Saved');
-    setTimeout(function(){ ajaxRequestInProcess = false; $('.submit-form').removeAttr("disabled"); }, 2000)
-    window.location.reload();
-  })
+  // $("form").bind("ajax:success", function(response){
+  //   $('.submit-tech-form').find('.loader').addClass('hidden');
+  //   toastr.success('Your progress has been saved successfully', 'Saved');
+  //   setTimeout(function(){ ajaxRequestInProcess = false; $('.submit-form').removeAttr("disabled"); }, 2000)
+  //   window.location.reload();
+  // })
 
   $(document).on('DOMNodeInserted', function(e) {
     if($(e.target).hasClass('select-fields')){
@@ -533,6 +534,9 @@ $(document).ready(function(){
 
   if(window.location.pathname.indexOf("/admin/form_submissions/") > -1 ){
     disableFormSubmissionFields();
+    if(!$('body').hasClass('minified')){
+      setTimeout(function(){ $('.minifyme').trigger('click') }, 500)
+    }
   }
 
   if(window.location.pathname.indexOf("/form_submissions/?readonly=true") > -1){
@@ -623,6 +627,7 @@ $(document).ready(function(){
       context: $(this).parent().parent().parent(),
       success: function(response) {
         $(this).find('div.note').prepend(response)
+        window.location.reload();
       }
     })
     wrapper = $('.field-wrapper-' + field_wrapper_id);
@@ -633,10 +638,11 @@ $(document).ready(function(){
 
   $('.resolve-btn').on('click', function(e){
     e.preventDefault();
+    var data = $(this).find('input').data();
     $.ajax({
       url: "/admin/follow_ups/resolve",
       method: 'post',
-      data: $(this).data(),
+      data: data,
       context: $(this).parent()
     })
       .done(function( data ) {
@@ -1020,6 +1026,41 @@ $(document).ready(function(){
       "endColor"  : "#369e36"
     },
     onChange: function(rating, instance){
+
+      $('.system-score-threshold').click(function(){
+
+        swal({
+          title: "Are you sure?",
+          text: "",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#DD6B55",
+          confirmButtonText: "Yes, change threshold",
+          cancelButtonText: "Cancel",
+          closeOnConfirm: true,
+          closeOnCancel: true
+        },
+        function(isConfirm){
+          if (isConfirm) {
+            $.ajax({
+              method: 'PATCH',
+              url: '/admin/system_settings/0',
+              data: {
+                system_setting: {
+                  score_threshold: rating 
+                }
+              },
+              context: $(this),
+              success: function(response) {
+                toastr.success("", "The system score threshold has been updated.")
+              }
+            })
+          }
+        });
+        
+      })
+
+
       $(this).attr("data-original-title", rating).tooltip('show');
       $(this).data('bs.tooltip').options.placement = 'right';
       
@@ -1164,8 +1205,8 @@ function fetchLawFirms(vendor, platform, version, target){
   }
   $.get('/admin/security_threats/0/find_law_firms', data, function(response){
 
-    $('#law-firms').empty().append("<option value=''></option>");
     if (response.selected.length > 0){
+    $('#law-firms').empty().append("<option value=''></option>");
       $.each(response.selected, function( index, value ) {
         $("#law-firms").append("<option selected='selected' value='" + value.id + "'>" + value.text + "</option>").trigger('chosen:updated').trigger('change');
       });

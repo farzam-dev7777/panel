@@ -66,7 +66,7 @@ class FormSubmissionsController < BaseController
       elsif request.referrer.split('/').last.to_sym == :history_profile
         FormSubmission.log_activity('history_updated', true, @form_submission, current_user)
       end
-      render json: :ok
+      head :ok
     else
       render :technology_step
     end

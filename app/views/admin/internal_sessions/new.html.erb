@@ -29,7 +29,7 @@
 	        <% end %>
           <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {id: 'login-form', class: 'smart-form client-form'}) do |f| %>
             <header>
-              Sign In
+              <%= image_tag 'bmo-small.png', class: 'bmo-small' %> Sign In
             </header>
 
             <fieldset>

@@ -1,5 +1,7 @@
 <style>.user-form-wrapper { background-image: url(<%= asset_path 'bg-photo.jpg' %>) !important }</style>
 
+<div class="clearfix"></div>
+
 <div class="jarviswidget form-wizard-wrapper" id="wid-id-0" data-widget-editbutton="false">
   <header>
     <span class="widget-icon"> <i class="fa fa-certificate"></i> </span>
@@ -55,6 +57,10 @@
     <div class="col-md-12 text-center" style="margin: 20px 0px">
       <div class="btn-group">
         <%= link_to "<i class='fa fa-caret-left'></i> Prev <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, previous_step_path, class: 'btn btn-default' %>
+
+        <% if(!last_step && save_and_follow_up?(@form_submission.id)) %>
+          <%= link_to "Save & Follow Up <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, save_and_follow_up_admin_form_submission_path(@form_submission), method: :post, class: 'btn btn-warning hidden save-follow-up-btn', disabled: !save_and_follow_up?(@form_submission.id) %>
+        <% end %>
 
         <% if(!last_step) %>
           <%= link_to "Next <i class='fa fa-caret-right'></i> <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, next_step_path, class: 'btn btn-default' %>
