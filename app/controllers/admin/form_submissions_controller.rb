@@ -178,7 +178,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
       @form_submission.expiry_date = Time.now + 1.year
 
       # Creates action items for the law firm that has just been approved
-      generate_security_threats
+      # generate_security_threats
 
       if (@form_submission.save)
         LawFirmMailer.decision_reached(@form_submission, 'Approved').deliver_now

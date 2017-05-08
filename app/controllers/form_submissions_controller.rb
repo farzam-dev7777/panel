@@ -88,10 +88,24 @@ class FormSubmissionsController < BaseController
     @form_submission.submitted_on = Time.now
     @form_submission.status = 'submitted'
     if (@form_submission.save)
+
+      # Creates action items for the law firm that has just been approved
+      generate_security_threats
+
       AdminMailer.forms_submitted(@form_submission).deliver_now
       FormSubmission.log_activity('information_security_policy_submitted', true, @form_submission, current_user)
     end
     head :ok
+  end
+
+  def generate_security_threats
+    technology_values = @form_submission.technology_values
+    technology_values.each do |technology_value|
+      security_threats = SecurityThreat.where(vendor: technology_value.vendor, platform: technology_value.platform, version: technology_value.version, service_pack: technology_value.service_pack)
+      security_threats.each do |threat|
+        threat.generate_pending_action_items_after_approval(@form_submission.law_firm_id, AdminUser.first)
+      end
+    end
   end
 
   def follow_ups
