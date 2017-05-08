@@ -1,48 +1,4 @@
-<div id="accordion">	
-	<div>
-		<h4>Active Security Threats</h4>
-		<div class="row padding-10">
-			<div class="col-md-12 table-responsive">
-				<table class="table table-bordered">
-					<thead>
-					<tr style="background: #007ac3;color: #fff;">
-						<th>Title</th>
-						<th>Description</th>
-						<th></th>
-						<th>Severity</th>
-						<th>Status</th>
-					</tr>
-					</thead>
-					<tbody>
-						<% @security_threats.each do |threat| %>
-							<tr class="security-threat-row" data-id="<%= threat.id %>">
-								<td><%= threat.title %></td>
-								<td><%= truncate(threat.description, length: 150) %></td>
-								<td>
-									<% if threat.vendor %>
-										<p><b>Vendor: </b> <%= threat.vendor %></p>
-									<% end %>
-									<% if threat.platform %>
-										<p><b>Platform: </b> <%= threat.platform %></p>
-									<% end %>
-									<% if threat.version %>
-										<p><b>Version: </b> <%= threat.version %></p>
-									<% end %>
-									<% if threat.service_pack %>
-										<p><b>Service Pack: </b> <%= threat.service_pack %></p>
-									<% end %>
-								</td>
-								<td><%= threat.severity_level.try(:name) %></td>
-								<td><%= link_to "More Details", admin_security_threat_path(threat), :class => "", :remote => true, "data-toggle" => "modal", "data-target" => "securityAlert" %></td>
-							</tr>
-						<% end %>
-					</tbody>
-				</table>
-				<div class="clearfix"></div>
-			</div>	
-		</div>
-	</div>
-</div><%= simple_fields_for @form_submission do |f| %>
+<%= simple_fields_for @form_submission do |f| %>
   <div class="col-md-10 col-md-offset-1 tech-form-wraper">
     
     <div class="col-md-12 no-padding">

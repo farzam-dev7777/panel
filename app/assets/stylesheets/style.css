@@ -926,12 +926,12 @@ h3.firm-score-declined span {
 
 .threat-warning {
   position: relative;
-  left: 50px;
-  bottom: 32px;
-  font-size: 15px;
-  color: yellow;
+  left: 66px;
+  bottom: 0px;
+  font-size: 13px;
+  color: yellow !important;
   background: red;
-  border-radius: 0px 5px 0px 5px;
+  /*border-radius: 0px 5px 0px 5px;*/
 }
 
 .within-block {
@@ -981,6 +981,7 @@ a.check-field-value,
 a.follow-up {
   margin: 0;
   padding: 1px 4px;
+  right: 12px;
 }
 
 a.check-field-value i,

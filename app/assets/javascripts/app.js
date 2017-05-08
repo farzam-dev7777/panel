@@ -587,7 +587,7 @@ $(document).ready(function(){
       $(this).qtip({
         content: {
           title: 'Security threat(s) found.',
-          text: $(this).attr("class").replace('btn btn-xs threat-warning threat-found ', '').replace(/-/g, ' ')
+          text: $(this).attr("class").replace('btn btn-xs threat-warning threat-found ', '').replace('waves-effect waves-light', '').replace(/-/g, ' ')
         }
       });
     }
