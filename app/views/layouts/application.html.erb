@@ -49,7 +49,7 @@
 
           <!-- Suggestion: populate this list with fetch and push technique -->
           <ul class="dropdown-menu">
-            <% if current_law_firm && current_law_firm.form_submissions %>
+            <% if current_law_firm && current_law_firm.form_submissions && ( !['sent', 'started'].include? current_law_firm.form_submissions.latest.status ) %>
               <li>
                 <%= link_to "Technologies", technology_profile_form_submission_path(current_law_firm.form_submissions.latest) %>
               </li>
