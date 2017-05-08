@@ -99,9 +99,15 @@ class FormSubmissionsController < BaseController
   end
 
   def generate_security_threats
+    action_items = 0
     technology_values = @form_submission.technology_values
     technology_values.each do |technology_value|
       security_threats = SecurityThreat.where(vendor: technology_value.vendor, platform: technology_value.platform, version: technology_value.version, service_pack: technology_value.service_pack)
+      
+      # Check if the threat already exists for the law firm
+      action_items = current_law_firm.action_items.where(security_threat_id: security_threats.map(&:id)).count if security_threats.any?
+      next unless action_items == 0
+
       security_threats.each do |threat|
         threat.generate_pending_action_items_after_approval(@form_submission.law_firm_id, AdminUser.first)
       end
