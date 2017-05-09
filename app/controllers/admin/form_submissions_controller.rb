@@ -218,9 +218,12 @@ class Admin::FormSubmissionsController < Admin::BaseController
   def set_expiry_date
     @form_submission = FormSubmission.find_by(id: params[:id])
 
+    current_expiry_date = @form_submission.expiry_date
+
     if @form_submission && params[:expiry_date]
       @form_submission.update_attributes(expiry_date: Date.parse(params[:expiry_date]))
-      FormSubmission.log_activity('expiry_date_changed', false, @form_submission, current_admin_user)
+      custom_activity_message = "Expiry date changed from #{DateField.stringify_date(current_expiry_date)} to #{params[:expiry_date]}"
+      FormSubmission.log_activity('expiry_date_changed', false, @form_submission, current_admin_user, custom_activity_message)
     end
     head :ok
   end

@@ -20,14 +20,15 @@ class FormSubmission < ApplicationRecord
     include_association :history_submissions
   end
 
-	def self.log_activity(event_type, notify, submission, current_user)
+	def self.log_activity(event_type, notify, submission, current_user, custom_message=nil)
 		object = {
   		law_firm_id: submission.law_firm_id,
   		event_type: event_type,
   		loggable: submission,
       notify: notify,
       source: current_user.class,
-      email: current_user.email
+      email: current_user.email,
+      custom_message: custom_message
   	}
   	ActivityLog.log(object)
 	end

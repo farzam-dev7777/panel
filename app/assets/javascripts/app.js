@@ -256,6 +256,7 @@ $(document).ready(function(){
           method: 'GET',
           url: href,
           success: function() {
+            toastr.success("", "Recertification process has begun")
             window.location.reload();
           },
           error: function(response) {}
@@ -283,6 +284,7 @@ $(document).ready(function(){
           method: 'GET',
           url: href,
           success: function() {
+            toastr.success("", "Certification process has begun")
             window.location.reload();
           },
           error: function(response) {}
