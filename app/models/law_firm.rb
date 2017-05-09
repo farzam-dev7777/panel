@@ -11,6 +11,8 @@ class LawFirm < ApplicationRecord
   has_many :jurisdictions
   has_many :history_submissions
 
+  serialize :practice_area, Array
+
   accepts_nested_attributes_for :history_submissions
 
   accepts_nested_attributes_for :locations

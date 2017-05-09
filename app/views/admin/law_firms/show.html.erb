@@ -268,7 +268,7 @@
 
 							</div>
 							<% else %>
-								<h4 class="text-center">There are no submissions to review yet</h4>
+								<h4 class="text-center no-submissions">There are no submissions to review yet</h4>
 							<% end %>
 						</div>
 
@@ -303,14 +303,14 @@
 									<% if (@law_firm.action_items.select{|a| a.status != 'complete' && a.security_threat.severity_level.name == 'high'}).count > 0 %>
 										<h5 class="todo-group-title"><i class="fa fa-warning"></i> High</h5>
 									<% end %>
-									<% @law_firm.action_items.select{|a| a.status != 'high' && a.security_threat.severity_level.name == 'high'}.each do |item| %>
+									<% @law_firm.action_items.select{|a| a.status != 'complete' && a.security_threat.severity_level.name == 'high'}.each do |item| %>
 										<%= render partial: 'dashboard/action_item', locals: { item: item, active: false } %>
 									<% end %>
 
 									<% if (@law_firm.action_items.select{|a| a.status != 'complete' && a.security_threat.severity_level.name == 'low'}).count > 0 %>
 										<h5 class="todo-group-title"><i class="fa fa-warning"></i> Low</h5>
 									<% end %>
-									<% @law_firm.action_items.select{|a| a.status != 'low' && a.security_threat.severity_level.name == 'low'}.each do |item| %>
+									<% @law_firm.action_items.select{|a| a.status != 'complete' && a.security_threat.severity_level.name == 'low'}.each do |item| %>
 										<%= render partial: 'dashboard/action_item', locals: { item: item, active: false } %>
 									<% end %>
 

@@ -981,7 +981,6 @@ a.check-field-value,
 a.follow-up {
   margin: 0;
   padding: 1px 4px;
-  right: 12px;
 }
 
 a.check-field-value i,
@@ -1134,7 +1133,34 @@ img.bmo-small {
   width: 20px;
 }
 
+.no-submissions {
+  line-height: 30px;
+}
 
+.widget-toolbar>.btn {
+  margin: 0px !important
+}
+
+.download-activities {
+  margin: 0;
+  border-radius: 0;
+}
+
+.download-activities .fa.fa-download {
+  padding: 8.5px 4px;
+}
+
+.minified .minifyme{
+  width: 30px !important;
+  padding: 1px 3px !important;
+  font-size: 20px !important;
+  height: 30px !important;
+}
+
+.minified nav>ul>li {
+  border-bottom: 1px solid #525151;
+  border-top: 0;
+}
 
 
 

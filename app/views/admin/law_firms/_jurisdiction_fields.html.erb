@@ -1,10 +1,8 @@
 <div class="col-md-12 no-padding jurisdiction-<%= f.object.try(:id) %>">
 	<div class="col-md-6">
-		<label><strong>Country</strong></label>
 		<%= f.input :country, label: false, collection: LawFirm::JURISDICTION_COUNTRIES, input_html: { class: 'j-country' } %>
 	</div>
 	<div class="col-md-5 j-states">
-		<label><strong>States/Provinces</strong></label>
 		<%= f.input :city, label: false, collection: [], input_html: { multiple: true } %>
 	</div>
 	<div class="col-md-1" style="line-height: 90px;">

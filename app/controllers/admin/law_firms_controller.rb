@@ -19,7 +19,7 @@ class Admin::LawFirmsController < Admin::BaseController
   end
 
   def create
-  	@law_firm = LawFirm.new(law_firms_params)
+    @law_firm = LawFirm.new(law_firms_params)
   	if @law_firm.save
       # Pass true as a 2nd arg if admin wants to send the activity as notification as well
       @law_firm.log_activity('account_created', true, current_admin_user)
@@ -36,7 +36,8 @@ class Admin::LawFirmsController < Admin::BaseController
   def update
   	@law_firm = LawFirm.find(params[:id])
   	if @law_firm.update_attributes(law_firms_params)
-  		redirect_to :admin_law_firms
+  		render :edit
+      flash[:alert] = "Law firm information updated"
   	else
   		flash[:alert] = "There was an error updating the law firm"
   		render :new
@@ -133,7 +134,7 @@ class Admin::LawFirmsController < Admin::BaseController
   private
 
   def law_firms_params
-  	params.require(:law_firm).permit(:name, :description, :email, :phone, :temp_password, :relationship_manager_email, :law_firm_type, :practice_area, :principle_name, :principle_title, :principle_contact_info, :parent_company, :sister_firm, location_attributes: [:id, :address1, :address2, :city, :province, :postal_code, :country, :_destroy], jurisdiction_attributes: [:id, :country, :city, :_destroy])
+  	params.require(:law_firm).permit(:name, :description, :email, :phone, :temp_password, :relationship_manager_email, :law_firm_type, :principle_name, :principle_title, :principle_contact_info, :parent_company, :sister_firm, location_attributes: [:id, :address1, :city, :province, :postal_code, :country, :_destroy], jurisdiction_attributes: [:id, :country, :city, :_destroy], practice_area: [])
   end
 
 end

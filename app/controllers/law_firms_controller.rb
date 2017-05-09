@@ -20,7 +20,7 @@ class LawFirmsController < BaseController
   private
 
   def law_firms_params
-  	params.require(:law_firm).permit(:name, :description, :phone, :law_firm_type, :practice_area, :principle_name, :principle_title, :principle_contact_info, :parent_company, :sister_firm, location_attributes: [:id, :address1, :address2, :city, :province, :postal_code, :country, :_destroy], jurisdiction_attributes: [:id, :country, :city, :_destroy])
+    params.require(:law_firm).permit(:name, :description, :email, :phone, :temp_password, :relationship_manager_email, :law_firm_type, :principle_name, :principle_title, :principle_contact_info, :parent_company, :sister_firm, location_attributes: [:id, :address1, :address2, :city, :province, :postal_code, :country, :_destroy], jurisdiction_attributes: [:id, :country, :city, :_destroy], practice_area: [])
   end
 
 end

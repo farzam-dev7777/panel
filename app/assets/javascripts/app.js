@@ -5,6 +5,23 @@ $(document).ready(function(){
   
   // $('.dynamic-select').trigger('change');
 
+
+  (function( $ ) {
+    $.fn.replaceTag = function(newTag) {
+      var originalElement = this[0]
+      , originalTag = originalElement.tagName
+      , startRX = new RegExp('^<'+originalTag, 'i')
+      , endRX = new RegExp(originalTag+'>$', 'i')
+      , startSubst = '<'+newTag
+      , endSubst = newTag+'>'
+      , newHTML = originalElement.outerHTML
+      .replace(startRX, startSubst)
+      .replace(endRX, endSubst);
+      this.replaceWith(newHTML);
+    };
+  })(jQuery);
+  // $('input[type=submit]').parent().replaceTag('p');
+  
   var currentUrl = window.location.href;
 
   var american_states = [ { "id": "Alabama", "text": "Alabama" }, { "id": "Alaska", "text": "Alaska" }, { "id": "American Samoa", "text": "American Samoa" }, { "id": "Arizona", "text": "Arizona" }, { "id": "Arkansas", "text": "Arkansas" }, { "id": "California", "text": "California" }, { "id": "Colorado", "text": "Colorado" }, { "id": "Connecticut", "text": "Connecticut" }, { "id": "Delaware", "text": "Delaware" }, { "id": "District Of Columbia", "text": "District Of Columbia" }, { "id": "Federated States Of Micronesia", "text": "Federated States Of Micronesia" }, { "id": "Florida", "text": "Florida" }, { "id": "Georgia", "text": "Georgia" }, { "id": "Guam", "text": "Guam" }, { "id": "Hawaii", "text": "Hawaii" }, { "id": "Idaho", "text": "Idaho" }, { "id": "Illinois", "text": "Illinois" }, { "id": "Indiana", "text": "Indiana" }, { "id": "Iowa", "text": "Iowa" }, { "id": "Kansas", "text": "Kansas" }, { "id": "Kentucky", "text": "Kentucky" }, { "id": "Louisiana", "text": "Louisiana" }, { "id": "Maine", "text": "Maine" }, { "id": "Marshall Islands", "text": "Marshall Islands" }, { "id": "Maryland", "text": "Maryland" }, { "id": "Massachusetts", "text": "Massachusetts" }, { "id": "Michigan", "text": "Michigan" }, { "id": "Minnesota", "text": "Minnesota" }, { "id": "Mississippi", "text": "Mississippi" }, { "id": "Missouri", "text": "Missouri" }, { "id": "Montana", "text": "Montana" }, { "id": "Nebraska", "text": "Nebraska" }, { "id": "Nevada", "text": "Nevada" }, { "id": "New Hampshire", "text": "New Hampshire" }, { "id": "New Jersey", "text": "New Jersey" }, { "id": "New Mexico", "text": "New Mexico" }, { "id": "New York", "text": "New York" }, { "id": "North Carolina", "text": "North Carolina" }, { "id": "North Dakota", "text": "North Dakota" }, { "id": "Northern Mariana Islands", "text": "Northern Mariana Islands" }, { "id": "Ohio", "text": "Ohio" }, { "id": "Oklahoma", "text": "Oklahoma" }, { "id": "Oregon", "text": "Oregon" }, { "id": "Palau", "text": "Palau" }, { "id": "Pennsylvania", "text": "Pennsylvania" }, { "id": "Puerto Rico", "text": "Puerto Rico" }, { "id": "Rhode Island", "text": "Rhode Island" }, { "id": "South Carolina", "text": "South Carolina" }, { "id": "South Dakota", "text": "South Dakota" }, { "id": "Tennessee", "text": "Tennessee" }, { "id": "Texas", "text": "Texas" }, { "id": "Utah", "text": "Utah" }, { "id": "Vermont", "text": "Vermont" }, { "id": "Virgin Islands", "text": "Virgin Islands" }, { "id": "Virginia", "text": "Virginia" }, { "id": "Washington", "text": "Washington" }, { "id": "West Virginia", "text": "West Virginia" }, { "id": "Wisconsin", "text": "Wisconsin" }, { "id": "Wyoming", "text": "Wyoming" } ];
@@ -369,8 +386,7 @@ $(document).ready(function(){
   $("input.datepicker").each(function(input) {
     $(this).datepicker({
       dateFormat: "dd M yy",
-      altField: $(this).next(),
-      maxDate: 0
+      altField: $(this).next()
     })
 
     // If you use i18n-js you can set the locale like that
@@ -770,6 +786,7 @@ $(document).ready(function(){
                 $this.remove();
                 countTasks();
               });
+              window.location.href = response.redirect_url;
             }
           })
         } else {
