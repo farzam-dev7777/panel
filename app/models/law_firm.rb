@@ -76,8 +76,11 @@ class LawFirm < ApplicationRecord
 
     critical_action_items = self.action_items.joins("INNER JOIN security_threats ON security_threats.id = action_items.security_threat_id INNER JOIN severity_levels ON severity_levels.id = security_threats.severity_level_id").where("severity_levels.name = 'critical' ")
 
-    total_notifications = critical_action_items.select { |item| item.queued_notifications.where('trigger_at < ?', Time.now) }.count
-    missed_notifications = critical_action_items.select { |item| item.queued_notifications.where('trigger_at < ?, triggered = ?, ', Time.now, true) }.count
+    total_notifications = QueuedNotification.unscoped.where('trigger_at < ? AND action_item_id IN (?)', Time.now, critical_action_items.map(&:id))
+    missed_notifications = QueuedNotification.unscoped.where('trigger_at < ? AND triggered = ? AND action_item_id IN (?)', Time.now, true, critical_action_items.map(&:id))
+    #critical_action_items.select { |item| item.queued_notifications.where('trigger_at < ?, triggered = ?, ', Time.now, true) }.count
+    #total_notifications = critical_action_items.select { |item| item.queued_notifications.where('trigger_at < ?', Time.now) }.count
+    #missed_notifications = critical_action_items.select { |item| item.queued_notifications.where('trigger_at < ?, triggered = ?, ', Time.now, true) }.count
     
     total_notifications > 0 ? ((1 - (missed_notifications/total_notifications.to_f)) * 5) : 5
   end
