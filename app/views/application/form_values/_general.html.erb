@@ -12,7 +12,7 @@
   <%= v.input :value, {
     label: false,
     collection: field.collection.sort,
-    input_html: { autocomplete: 'off' },
+    input_html: { autocomplete: 'off', value: v.object.try(:value) },
     required: field.required,
     wrapper: false,
     # wrapper_html: field.wrapper_html,
