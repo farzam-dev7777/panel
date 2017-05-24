@@ -89,8 +89,8 @@ $(document).ready(function(){
 
         // targetField.hide();
         setTimeout(function(){
-          sourceField.find('input, select').trigger("change");
-          targetField.find('input, select').trigger("change");
+          sourceField.find('input[type!=hidden], select').trigger("change");
+          targetField.find('input[type!=hidden], select').trigger("change");
         }, 500)
         if (!--logics_count){ 
           setTimeout(function(){ $.LoadingOverlay("hide"); }, 500) 
@@ -1317,27 +1317,27 @@ function showIfCustomLogicMatched(currentField, pageLoad){
             break;
           case 'hide':
             targetField.hide();
-            if(!pageLoad){
-              targetField.find("select").val('').trigger('change');
-              targetField.find("input[type!=hidden]").val('').trigger('change');
-            }
+            // if(!pageLoad){
+            //   targetField.find("select").val('').trigger('change');
+            //   targetField.find("input[type!=hidden]").val('').trigger('change');
+            // }
             break;
         }
       } else {
         switch(logic.perform_action){
           case 'show':
             targetField.hide();
-            if(!pageLoad){
-              targetField.find("select").val('').trigger('change');
-              targetField.find("input[type!=hidden]").val('').trigger('change');
-            }
+            // if(!pageLoad){
+            //   targetField.find("select").val('').trigger('change');
+            //   targetField.find("input[type!=hidden]").val('').trigger('change');
+            // }
             break;
           case 'hide':
             targetField.show();
             targetField.find("select").chosen();
-            if(!pageLoad){
-              targetField.find("input[type!=hidden]").val('').trigger('change');
-            }
+            // if(!pageLoad){
+            //   targetField.find("input[type!=hidden]").val('').trigger('change');
+            // }
             break;
         }
       }
