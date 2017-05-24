@@ -87,13 +87,13 @@ $(document).ready(function(){
           }
         }
 
-        targetField.hide();
+        // targetField.hide();
         setTimeout(function(){
           sourceField.find('input, select').trigger("change");
           targetField.find('input, select').trigger("change");
         }, 500)
         if (!--logics_count){ 
-          setTimeout(function(){ $.LoadingOverlay("hide"); }, 1500) 
+          setTimeout(function(){ $.LoadingOverlay("hide"); }, 500) 
         }
       })
     } else {
