@@ -1334,7 +1334,7 @@ function showIfCustomLogicMatched(currentField, pageLoad){
             break;
           case 'hide':
             targetField.show();
-            targetField.find("select").select2();
+            targetField.find("select").chosen();
             if(!pageLoad){
               targetField.find("input[type!=hidden]").val('').trigger('change');
             }
