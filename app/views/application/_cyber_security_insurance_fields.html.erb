@@ -1,15 +1,15 @@
 <div class="cyber-security-insurance cyber-security-insurance-field-<%= f.object.try(:id) %>">
 	<div class="col-md-2 gfe-field no-padding-left">
-		<%= f.input :company, label: false, collection: ["Travelers", "Intact", "IIC", "Chubb", "Marsh", "IBC"] %>
+		<%= f.input :company, label: false, collection: ["ISO 27000/27001", "SSAE 16", "SAS 70 Report", "SOC 2", "COBIT"] %>
 	</div>
 	<div class="col-md-3 gfe-field">
 		<%= f.input :coverage, as: :string, label: false %>
 	</div>
 	<div class="col-md-3 gfe-field">
-		<%= f.input :coverage_amount, as: :string, label: false %>
+		<%= f.input :date_of_expiry, as: :string, input_html: { class: 'datepicker', value: DateField.stringify_date(f.object.date_of_expiry) }, label: false %>
 	</div>
 	<div class="col-md-3 gfe-field">
-		<%= render '/application/form_values/upload_field', v: f, f: f, field: f.object.form_value.form_field %>
+		<%= f.input :standing, as: :string, label: false %>
 	</div>
 
 

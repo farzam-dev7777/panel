@@ -171,11 +171,11 @@
       <script>
         $('#law-firm-rating').rateYo({
           halfStar: true,
-          rating: <%= current_law_firm.try(:form_submissions).try(:latest).try(:total_score) %>,
+          rating: <%= current_law_firm.try(:total_calculated_score) %>,
           readOnly: true,
-          multiColor: {
-            "startColor": "#FF0000",
-            "endColor"  : "#f39c12"
+          multiColor: { 
+            "startColor": "<%= current_law_firm.form_submissions.latest.try(:color, current_law_firm.total_calculated_score, 'total_calculated_score') %>", 
+            "endColor": "<%= current_law_firm.form_submissions.latest.try(:color, current_law_firm.total_calculated_score, 'total_calculated_score') %>"
           }
         });
       </script>

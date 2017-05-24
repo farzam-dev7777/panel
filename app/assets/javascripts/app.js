@@ -61,6 +61,14 @@ $(document).ready(function(){
     
   }
 
+  $('.never-chkbx').on('change', function(){
+    if($(this).is(':checked')){
+      $(this).parent().parent().find('.input-wrap input').val("").attr("disabled", "disabled")
+    } else {
+      $(this).parent().parent().find('.input-wrap input').val("").removeAttr("disabled", "disabled")
+    }
+  })
+
   setTimeout(function(){
     var dataDiv = $('.logics');
     
@@ -125,16 +133,33 @@ $(document).ready(function(){
     //   $("select, input[type='text'], input[type='email'], input[type='file'], input[type='number'], input[type='file']").trigger('change')
     // }, 2000)
 
+  $('.j-country').trigger('change');
   $(document).on('change', '.j-country', function(){
     var j_states = $(this).parent().parent().parent().find('.j-states select')
     if ($(this).val() == 'Canada'){
-      j_states.select2().empty().select2({data: canadian_provinces})
-      $(this).parent().parent().parent().find('.j-states select option').attr('selected', true).parent().trigger('change');
+
+      j_states.empty().append("<option value=''></option>");
+
+      $.each(canadian_provinces, function( key, value ) {
+        j_states.append("<option selected='selected' value='" + value.id + "'>" + value.text + "</option>").trigger('chosen:updated').trigger('change');
+      });
+
+      // j_states.select2().empty().select2({data: canadian_provinces})
+      // $(this).parent().parent().parent().find('.j-states select option').attr('selected', true).parent().trigger('change');
     } else {
-      j_states.select2().empty().select2({data: american_states})
-      $(this).parent().parent().parent().find('.j-states select option').attr('selected', true).parent().trigger('change');
+      j_states.empty().append("<option value=''></option>");
+
+      $.each(american_states, function( key, value ) {
+        j_states.append("<option selected='selected' value='" + value.id + "'>" + value.text + "</option>").trigger('chosen:updated').trigger('change');
+      });
+      // j_states.select2().empty().select2({data: american_states})
+      // $(this).parent().parent().parent().find('.j-states select option').attr('selected', true).parent().trigger('change');
     }
   })
+
+  function updateJurisdicationCities(){
+    
+  }
 
   // if(window.location.href.indexOf("admin") == -1){
   //   setTimeout(function(){

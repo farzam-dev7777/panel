@@ -13,6 +13,7 @@ class Admin::SystemSettingsController < Admin::BaseController
   end
 
   def edit
+    # authorize! :edit, @settings
   end
 
   def show

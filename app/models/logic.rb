@@ -10,7 +10,8 @@ class Logic < ApplicationRecord
   									 'ThirdPartyVendorField',
   								 	 'CloudProviderField',
                      'InformationSecurityPolicyField',
-  								 	 'CyberSecurityInsuranceField'
+  								 	 'CyberSecurityInsuranceField',
+                     'ActivityTimeLogField'
   								 	].freeze
 
   def repeater_field

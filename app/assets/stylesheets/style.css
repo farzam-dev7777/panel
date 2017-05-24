@@ -36,6 +36,19 @@ body.smart-style-6 .table>tbody>tr>td, body.smart-style-6 .table>tbody>tr>th, bo
   margin: 0px;
 }
 
+.input-wrap > div {
+  margin-bottom: 0px !important;
+}
+
+.atl-wrap .label-wrap {
+  line-height: 30px
+}
+
+.atl-wrap .chkbx-wrap {
+  line-height: 30px;
+  margin-top: 5px;
+}
+
 .form-control {
   font-size: 14px !important;
 }
@@ -1105,7 +1118,7 @@ label.float-field {
 }
 
 i.btn { padding: 0 !important }
-i.btn input { padding: 15px !important; }
+i.btn input { padding: 8px !important; }
 
 .chosen-container-single .chosen-single span { text-align: left }
 .chosen-container .chosen-results li {

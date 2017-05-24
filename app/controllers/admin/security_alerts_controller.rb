@@ -1,7 +1,7 @@
 class Admin::SecurityAlertsController < Admin::BaseController
 
   layout 'admin'
-	skip_before_action :authenticate_admin_admin_user!, only: [:show]
+	skip_before_action :authenticate_user!, only: [:show]
 
   def index
   	@q = SecurityAlert.ransack(params[:q])

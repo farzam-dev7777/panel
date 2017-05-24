@@ -1,15 +1,15 @@
 <div class="cyber-security cyber-security-field-<%= f.object.try(:id) %>">
 	<div class="col-md-3 no-padding-left">
-		<%= f.input :rank, label: false %>
-	</div>
-	<div class="col-md-3 no-padding-left">
-		<%= f.input :standard, label: false %>
+		<%= f.input :rank, label: false, collection: ["ISO 27000/27001", "SSAE 16", "SAS 70 Report", "SOC 2", "COBIT"] %>
 	</div>
 	<div class="col-md-3 no-padding-left">
 		<%= f.input :date_of_certification, as: :string, input_html: { class: 'restrict-till-day', value: DateField.stringify_date(f.object.date_of_certification) }, label: false %>
 	</div>
 	<div class="col-md-2 no-padding-left">
 		<%= f.input :renewal, as: :string, input_html: { class: 'datepicker', value: DateField.stringify_date(f.object.renewal) }, label: false %>
+	</div>
+	<div class="col-md-3 no-padding-left">
+		<%= f.input :standard, label: false %>
 	</div>
 
 	<div class="col-md-1 text-right" style="padding-top: 15px;">

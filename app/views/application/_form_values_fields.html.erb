@@ -8,7 +8,7 @@
             <%- if !group_form %>
               <div class="note-wrapper">
                 <% follow_up = @follow_ups.select{ |follow_up| follow_up.loggable_id == v.object.id }.first %>
-                <% if follow_up || current_admin_admin_user %>
+                <% if follow_up || current_user %>
                   <%= render partial: 'note', locals: { loggable: v.object, follow_ups: @follow_ups, 
                                                         wrapper_class: note_class('policy'),
                                                         form_type: 'FormValue', field: field} %>

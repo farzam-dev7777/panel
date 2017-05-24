@@ -35,7 +35,7 @@
 
 		<!-- logout button -->
 			<div id="logout" class="btn-header transparent pull-right">
-				<span> <a href="/admin/admin_users/sign_out" title="Sign Out" data-action="userLogout" data-logout-msg="You can improve your security further after logging out by closing this opened browser"><i class="fa fa-sign-out"></i></a> </span>
+				<span> <a href="/users/sign_out" title="Sign Out" data-action="userLogout" data-logout-msg="You can improve your security further after logging out by closing this opened browser"><i class="fa fa-sign-out"></i></a> </span>
 			</div>
 			<!-- end logout button -->
 
@@ -101,7 +101,7 @@
 				<a style="padding-top: 0" href="javascript:void(0);" id="show-shortcut" data-action="toggleShortcut">
 					<!-- <img src="/assets/avatars/sunny.png" alt="me" class="online" />  -->
 					<span>
-						<%= current_admin_admin_user.email %>
+						<%= current_user.email %>
 					</span>
 					<!-- <i class="fa fa-angle-down"></i> -->
 				</a> 
@@ -139,9 +139,11 @@
 				<li class="<%= active_menu_item('/admin/security_alerts') %>">
 					<a href="/admin/security_alerts" title="blank_"><i class="fa fa-lg fa-fw fa-newspaper-o"></i> <span class="menu-item-parent">Security News Alerts</span></a>
 				</li>
-				<li class="<%= active_menu_item(edit_admin_system_setting_path(SystemSetting.last || SystemSetting.create)) %>">
-					<a href="<%= edit_admin_system_setting_path(SystemSetting.last || SystemSetting.create) %>" title="blank_"><i class="fa fa-lg fa-fw fa-cog"></i> <span class="menu-item-parent">System Settings</span></a>
-				</li>
+				<% if current_user && current_user.role == 'superadmin' %>
+					<li class="<%= active_menu_item(edit_admin_system_setting_path(SystemSetting.last || SystemSetting.create)) %>">
+						<a href="<%= edit_admin_system_setting_path(SystemSetting.last || SystemSetting.create) %>" title="blank_"><i class="fa fa-lg fa-fw fa-cog"></i> <span class="menu-item-parent">System Settings</span></a>
+					</li>
+				<% end %>
 			</ul>
 		</nav>
 

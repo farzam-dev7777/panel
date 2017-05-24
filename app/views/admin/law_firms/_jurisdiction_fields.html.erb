@@ -3,7 +3,7 @@
 		<%= f.input :country, label: false, collection: LawFirm::JURISDICTION_COUNTRIES, input_html: { class: 'j-country' } %>
 	</div>
 	<div class="col-md-5 j-states">
-		<%= f.input :city, label: false, collection: [], input_html: { multiple: true } %>
+		<%= f.input :city, label: false, collection: f.object ? f.object.city : [], input_html: { multiple: true } %>
 	</div>
 	<div class="col-md-1" style="line-height: 90px;">
 		<%= link_to_remove_association "<i class='fa fa-minus-circle'></i>".html_safe, f, { wrapper_class: "jurisdiction-#{f.object.try(:id)}" }  %>

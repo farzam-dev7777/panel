@@ -10,6 +10,7 @@ class FormValue < ApplicationRecord
   has_many   :third_party_vendors, dependent: :destroy
   has_many   :cloud_providers, dependent: :destroy
   has_many   :cyber_security_insurances, dependent: :destroy
+  has_many   :activity_time_logs, dependent: :destroy
 
   serialize :multi_select_value, Array
 
@@ -18,22 +19,23 @@ class FormValue < ApplicationRecord
   validate :value_is_valid
 
   accepts_nested_attributes_for :file_attachments, allow_destroy: true
+  accepts_nested_attributes_for :activity_time_logs, allow_destroy: true
   accepts_nested_attributes_for :vendors, allow_destroy: true
   accepts_nested_attributes_for :cyber_security_standards, 
-                                allow_destroy: true,
-                                reject_if: proc { |attributes| attributes['rank'].blank? && attributes['standard'].blank? && attributes['date_of_certification'].blank? && attributes['renewal'].blank? }
+                                allow_destroy: true
+                                # ,reject_if: proc { |attributes| attributes['rank'].blank? && attributes['standard'].blank? && attributes['date_of_certification'].blank? && attributes['renewal'].blank? }
   accepts_nested_attributes_for :information_security_policies, 
-                                allow_destroy: true, 
-                                reject_if: proc { |attributes| attributes['policy'].blank? && attributes['last_reviewed'].blank? && attributes['last_updated'].blank? && attributes['freq_of_review'].blank? && attributes['file_ids'].blank? }
+                                allow_destroy: true
+                                # ,reject_if: proc { |attributes| attributes['policy'].blank? && attributes['last_reviewed'].blank? && attributes['last_updated'].blank? && attributes['freq_of_review'].blank? && attributes['file_ids'].blank? }
   accepts_nested_attributes_for :third_party_vendors, 
                                 allow_destroy: true,
                                 reject_if: proc { |attributes| attributes['vendor_name'].blank? && attributes['area'].blank? && attributes['confidentiality_agreement'].blank? }
   accepts_nested_attributes_for :cloud_providers, 
-                                allow_destroy: true,
-                                reject_if: proc { |attributes| attributes['name'].blank? && attributes['service'].blank? && attributes['data_store_location_ca'].blank? }
+                                allow_destroy: true
+                                # ,reject_if: proc { |attributes| attributes['name'].blank? && attributes['service'].blank? && attributes['data_store_location_ca'].blank? }
   accepts_nested_attributes_for :cyber_security_insurances, 
-                                allow_destroy: true,
-                                reject_if: proc { |attributes| attributes['company'].blank? && attributes['coverage'].blank? && attributes['coverage_amount'].blank? }
+                                allow_destroy: true
+                                # ,reject_if: proc { |attributes| attributes['company'].blank? && attributes['coverage'].blank? && attributes['coverage_amount'].blank? }
 
   def file_cache
 
@@ -57,6 +59,10 @@ class FormValue < ApplicationRecord
 
   def render_cloud_provider_fields
     self.cloud_providers.any? ? self.cloud_providers : [self.cloud_providers.build]
+  end
+
+  def render_activity_time_log_fields
+    self.activity_time_logs.any? ? self.activity_time_logs : [self.activity_time_logs.build]
   end
 
   def render_cyber_security_insurance_fields

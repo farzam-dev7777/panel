@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170502181655) do
+ActiveRecord::Schema.define(version: 20170524160235) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,18 @@ ActiveRecord::Schema.define(version: 20170502181655) do
     t.index ["loggable_type", "loggable_id"], name: "index_activity_logs_on_loggable_type_and_loggable_id", using: :btree
   end
 
+  create_table "activity_time_logs", force: :cascade do |t|
+    t.date     "network_discovery"
+    t.date     "penetration_testing"
+    t.date     "vulnerability_assessment"
+    t.date     "hardware_refresh"
+    t.date     "hardware_inventory"
+    t.date     "software_inventory"
+    t.integer  "form_value_id"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
   create_table "admin_users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -65,6 +77,7 @@ ActiveRecord::Schema.define(version: 20170502181655) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.string   "role"
     t.index ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
   end
@@ -76,6 +89,10 @@ ActiveRecord::Schema.define(version: 20170502181655) do
     t.string   "data_store_location_ca"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.string   "cloud_type"
+    t.string   "data"
+    t.string   "encrypted_in_flight"
+    t.string   "encrypted_at_rest"
   end
 
   create_table "cyber_security_insurances", force: :cascade do |t|
@@ -86,6 +103,8 @@ ActiveRecord::Schema.define(version: 20170502181655) do
     t.string   "form_value_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.date     "date_of_expiry"
+    t.string   "standing"
   end
 
   create_table "cyber_security_standards", force: :cascade do |t|
@@ -460,6 +479,7 @@ ActiveRecord::Schema.define(version: 20170502181655) do
     t.datetime "deactivated_at"
     t.string   "otp_secret_key"
     t.string   "google_secret"
+    t.string   "role"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end

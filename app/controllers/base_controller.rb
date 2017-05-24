@@ -2,14 +2,10 @@ class BaseController < ApplicationController
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_filter :authenticate_user!
 
-  helper_method :current_law_firm, :activities, :notifications, :unread_notifications_count, :current_admin_admin_user
+  helper_method :current_law_firm, :activities, :notifications, :unread_notifications_count
 
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to root_url, :alert => exception.message
-  end
-
-  def current_admin_admin_user
-    nil
   end
 
   protected

@@ -1,0 +1,2 @@
+class ActivityTimeLog < ApplicationRecord
+end

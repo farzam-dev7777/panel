@@ -22,7 +22,7 @@ class Admin::LawFirmsController < Admin::BaseController
     @law_firm = LawFirm.new(law_firms_params)
   	if @law_firm.save
       # Pass true as a 2nd arg if admin wants to send the activity as notification as well
-      @law_firm.log_activity('account_created', true, current_admin_user)
+      @law_firm.log_activity('account_created', true, current_user)
 
       @law_firm.user.send_reset_password_instructions
 
@@ -58,7 +58,7 @@ class Admin::LawFirmsController < Admin::BaseController
 
   def begin_certification_process
     @law_firm = LawFirm.find(params[:id])
-    FormSubmission.generate_initial_submissions(@law_firm, current_admin_user)
+    FormSubmission.generate_initial_submissions(@law_firm, current_user)
     head :ok
   end
 
@@ -71,7 +71,7 @@ class Admin::LawFirmsController < Admin::BaseController
       law_firm_user.update_attributes(deactivated_at: nil) if law_firm_user
     end
 
-    # TODO: Check if we want to copy the notes and follow ups of the old form submission
+    # Merge the new form (in case there are new questions)
     new_form_submission = last_form_submission.amoeba_dup
     new_form_submission.status = 'sent'
     new_form_submission.submitted = false
@@ -80,9 +80,23 @@ class Admin::LawFirmsController < Admin::BaseController
     new_form_submission.assessor_score = nil
     new_form_submission.expiry_date = nil
 
+    Form.where(step: 'policy').last.form_fields.each do |form_field|
+      next if new_form_submission.form.try(:form_fields).map(&:label).include? form_field.label
+      ff = form_field.amoeba_dup
+      ff.formable_id = new_form_submission.form.id
+      ff.save
+    end
+
+    Form.where(step: 'process').last.form_fields.each do |form_field|
+      next if new_form_submission.form_process.try(:form_fields).map(&:label).include? form_field.label
+      ff = form_field.amoeba_dup
+      ff.formable_id = new_form_submission.form.id
+      ff.save
+    end
+
     if new_form_submission.save
       last_form_submission.update_attributes(expiry_date: nil)
-      @law_firm.log_activity('recertification_process_initiated', true, current_admin_user)
+      @law_firm.log_activity('recertification_process_initiated', true, current_user)
       # redirect_to :admin_law_firms
     end
     head :ok
@@ -98,14 +112,14 @@ class Admin::LawFirmsController < Admin::BaseController
 
     if form_submission.save!
       LawFirmMailer.firm_decertified(@law_firm).deliver_now
-      @law_firm.log_activity('decertified', true, current_admin_user)
+      @law_firm.log_activity('decertified', true, current_user)
       head :ok
     end
   end
 
   def add_internal_note
     @law_firm = LawFirm.find_by(id: params[:id])
-    internal_note = @law_firm.add_internal_note(params[:message], current_admin_admin_user)
+    internal_note = @law_firm.add_internal_note(params[:message], current_user)
     render partial: 'internal_note', locals: {note: internal_note}
   end
 
@@ -134,7 +148,7 @@ class Admin::LawFirmsController < Admin::BaseController
   private
 
   def law_firms_params
-  	params.require(:law_firm).permit(:name, :description, :email, :phone, :temp_password, :relationship_manager_email, :law_firm_type, :principle_name, :principle_title, :principle_contact_info, :parent_company, :sister_firm, location_attributes: [:id, :address1, :city, :province, :postal_code, :country, :_destroy], jurisdiction_attributes: [:id, :country, :city, :_destroy], practice_area: [])
+  	params.require(:law_firm).permit(:name, :description, :email, :phone, :temp_password, :relationship_manager_email, :law_firm_type, :principle_name, :principle_title, :principle_contact_info, :parent_company, :sister_firm, locations_attributes: [:id, :address1, :city, :province, :postal_code, :country, :_destroy], jurisdictions_attributes: [:id, :country, :city, :_destroy], practice_area: [])
   end
 
 end
