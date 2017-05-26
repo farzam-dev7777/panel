@@ -1,4 +1,27 @@
-<label class="control-label">
+<% 
+  form_class = label_class = ''
+  if(v.object.form_field.type == 'TextField' ||
+     v.object.form_field.type == 'EmailField')
+    form_class = 'md-form'
+    label_class = 'form-control no-border'
+  end
+%>
+
+<div class="form-group <%= form_class %>">
+  <label class="<%= label_class %> control-label parent-f-sized-label"><%= field.label %></label>
+  <%= v.input :value, {
+    label: false,
+    collection: field.collection.sort,
+    input_html: { autocomplete: 'off' },
+    required: field.required,
+    wrapper: false,
+    # wrapper_html: field.wrapper_html,
+    blank: false,
+    as: field.as
+  }, &field.input_block(v) %>
+</div>
+
+<!-- <label class="control-label">
 	<%= field.label %>
 	<% if(!v.object.try(:form_field).try(:help_description).blank?) %>
     <i class="fa fa-question-circle-o help-text" data-help="<%= v.object.try(:form_field).try(:help_description) %>"></i>
@@ -12,4 +35,4 @@
   # wrapper: field.wrapper,
   # wrapper_html: field.wrapper_html
   as: field.as
-}, &field.input_block(v) %>
+}, &field.input_block(v) %> -->

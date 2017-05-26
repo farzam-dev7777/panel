@@ -25,7 +25,9 @@ class TechnologyValue < ApplicationRecord
 			vendor: self.vendor,
 		 	platform: self.platform,
 		 	version: self.version,
-		 	service_pack: self.service_pack
+		 	service_pack: self.service_pack,
+		 	platform_category: self.platform_category,
+		 	platform_type: self.platform_type
 		 ) if self.new_value
 	end
 

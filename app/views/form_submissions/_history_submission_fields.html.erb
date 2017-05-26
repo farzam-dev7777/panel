@@ -1,16 +1,16 @@
 <div class="row history-field <%= follow_up_class_for_law_firm( f.object.id, 'HistorySubmission', params[:id]) %>">
-	<div class="col-md-2"><%= f.input :incident_type, collection: ['Incident Type 1', 'Incident Type 2'] %></div>
-	<div class="col-md-2"><%= f.input :impact %></div>
-	<div class="col-md-2"><%= f.input :discovery_time %></div>
-	<div class="col-md-2"><%= f.input :source, collection: ['Source 1',  'Source 2'] %></div>
-	<div class="col-md-2"><%= f.input :data_loss, collection: ['Yes', 'No'] %></div>
+	<div class="col-md-3 history-field"><%= f.input :incident_type, collection: ['Compromised Information', 'Compromised Asset', 'Unauthorized Access', 'Malicious Code', '(Distributed) Denial of Service', 'Theft or Loss', 'Phishing', 'Unlawful activity', 'Scans/Probes/Attempted Access', 'Policy Violations'] %></div>
+	<div class="col-md-2 history-field"><%= f.input :impact %></div>
+	<div class="col-md-2 history-field"><%= f.input :discovery_time %></div>
+	<div class="col-md-2 history-field"><%= f.input :source, collection: ['Source 1',  'Source 2'] %></div>
+	<div class="col-md-2 history-field"><%= f.input :data_loss, collection: ['Yes', 'No'] %></div>
 	<div class="col-md-1 text-center" style="line-height: 84px;">
-		<%= link_to_remove_association "<i class='fa fa-minus-circle fa-2x'></i>".html_safe, f, { wrapper_class: "history-field" }  %>
+		<%= link_to_remove_association "<i class='fa fa-minus-circle'></i>".html_safe, f, { wrapper_class: "history-field" }  %>
 	</div>
-	<div class="col-md-10"><%= f.input :incident_details %></div>
+	<div class="col-md-11"><%= f.input :incident_details %></div>
 
 	<% if (follow_up_class_for_law_firm( f.object.id, 'HistorySubmission', params[:id]) == 'need-follow-up' ||follow_up_class_for_law_firm( f.object.id, 'HistorySubmission', params[:id]) == 'follow-up-success') %>
-			<div class="col-md-1">
+			<div class="col-md-1 text-right">
 				<%= render partial: 'note', locals: { loggable: f.object, follow_ups: @follow_ups, 
 																						 wrapper_class: note_class('history'),
 																						 form_type: 'HistorySubmission', field: f.object} %>

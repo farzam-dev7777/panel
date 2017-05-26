@@ -11,7 +11,8 @@
 					</div>
 					<div class="smart-timeline-content">
 						<p>
-							<%= link_to "<strong>#{activity.try(:law_firm).try(:name)}<strong>".html_safe, admin_law_firm_path(activity.law_firm) %>
+							<strong><%= activity.try(:law_firm).try(:name) %><strong>
+							 <!-- link_to "<strong>#{activity.try(:law_firm).try(:name)}<strong>".html_safe, admin_law_firm_path(activity.try(:law_firm)) -->
 						</p>
 						<p>
 							<%= activity.custom_message || activity.event_type.humanize %>

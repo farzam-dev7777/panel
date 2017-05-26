@@ -43,8 +43,8 @@ class Admin::FormSubmissionsController < Admin::BaseController
     @form_submission = FormSubmission.find(params[:id])
     
     @form_submission.form_values.each do |form_value|
-      if !form_value.value.blank? && form_value.form_field.scored
-        total_score = total_score + form_value.form_field.score 
+      if !form_value.value.blank?
+        total_score = total_score + form_value.try(:form_field).try(:score) if form_value.try(:form_field).try(:score) 
         score_counter = score_counter + 1
       end
     end
@@ -109,13 +109,18 @@ class Admin::FormSubmissionsController < Admin::BaseController
 
   def save_and_follow_up
     @form_submission = FormSubmission.find(params[:id])
-    @form_submission.submitted = false
-    @form_submission.submitted_on = nil
-    @form_submission.follow_ups.pending.update_all(status: 'review')
-    if (@form_submission.update_attributes(status: :follow_up))
-      LawFirmMailer.decision_reached(@form_submission, 'Follow Up').deliver_now
-      FormSubmission.log_activity('follow_up', true, @form_submission, current_admin_user)
-      redirect_to :admin_law_firms
+
+    if(@form_submission.check_follow_ups)
+      @form_submission.submitted = false
+      @form_submission.submitted_on = nil
+      @form_submission.follow_ups.pending.update_all(status: 'review')
+      if (@form_submission.update_attributes(status: :follow_up))
+        LawFirmMailer.decision_reached(@form_submission, 'Follow Up').deliver_now
+        FormSubmission.log_activity('follow_up', true, @form_submission, current_admin_user)
+        redirect_to :admin_law_firms
+      end
+    else
+      redirect_to history_step_admin_form_submission_path(@form_submission), alert: "You haven't added any follow up notes." 
     end
   end
 
@@ -128,19 +133,25 @@ class Admin::FormSubmissionsController < Admin::BaseController
 
   def approve
     @form_submission = FormSubmission.find(params[:id])
-    @form_submission.status = 'approved'
 
-    # The admin will be notified after an year about the law firm.
-    # Admin can review the law firm and take necessary action.
-    @form_submission.expiry_date = Time.now + 1.year
+    if @form_submission.check_total_score_before_approval >= SystemSetting.score_threshold
 
-    # Creates action items for the law firm that has just been approved
-    generate_security_threats
+      @form_submission.status = 'approved'
 
-    if (@form_submission.save)
-      LawFirmMailer.decision_reached(@form_submission, 'Approved').deliver_now
-      FormSubmission.log_activity('approved', true, @form_submission, current_admin_user)
-      redirect_to :admin_law_firms
+      # The admin will be notified after an year about the law firm.
+      # Admin can review the law firm and take necessary action.
+      @form_submission.expiry_date = Time.now + 1.year
+
+      # Creates action items for the law firm that has just been approved
+      generate_security_threats
+
+      if (@form_submission.save)
+        LawFirmMailer.decision_reached(@form_submission, 'Approved').deliver_now
+        FormSubmission.log_activity('approved', true, @form_submission, current_admin_user)
+        redirect_to :admin_law_firms
+      end
+    else
+      redirect_to history_step_admin_form_submission_path(@form_submission), alert: "The score (#{@form_submission.check_total_score_before_approval}) is below system's threshold (#{SystemSetting.score_threshold}). You cannot approve the law firm" 
     end
   end
 
@@ -181,7 +192,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
 
   def generate_security_threats
     technology_values = @form_submission.technology_values
-    technology_values.each do |value|
+    technology_values.each do |technology_value|
       security_threats = SecurityThreat.where(vendor: technology_value.vendor, platform: technology_value.platform, version: technology_value.version, service_pack: technology_value.service_pack)
       security_threats.each do |threat|
         threat.generate_pending_action_items_after_approval(@form_submission.law_firm_id, current_user)

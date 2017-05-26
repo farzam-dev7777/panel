@@ -1,0 +1,1 @@
+security_threat_generated.html.erb

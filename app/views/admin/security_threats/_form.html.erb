@@ -21,14 +21,14 @@
 <div class="col-md-9 no-padding">
 	<select name="[law_firm_ids][]" id="law-firms" multiple="multiple">
 		<% LawFirm.all.uniq.each do |firm| %>
-			<option value="firm.id"><%= firm.name %></option>
+			<option value="<%= firm.id %>"><%= firm.name %></option>
 		<% end %>
 	</select>
 </div>
 
 <div class="col-md-3 text-right">
-	<button class="btn btn-primary add-all-lawfirms">Add all Law Firms</button>
-	<button class="btn btn-danger clear-all-lawfirms">Clear</button>
+	<button class="btn btn-primary add-all-lawfirms btn-sm">Add all Law Firms</button>
+	<button class="btn btn-danger clear-all-lawfirms btn-sm">Clear</button>
 </div>
 
 <div class="clearfix"></div>
@@ -39,14 +39,11 @@
 	<div class="col-md-8">
 		<%= f.input :title %>
 	</div>
-	<div class="col-md-2">
+	<div class="col-md-4">
 		<%= f.input :severity_level, 
 								input_html: { name: '[security_threat][severity_level_id]', class: 'severity-level' },
 								collection: SeverityLevel.all.map{ |severity| [severity.name.humanize, severity.id] },
 								prompt: "Select severity level" %>
-	</div>
-	<div class="col-md-2">
-		<%= f.input :severity_negative_factor, as: :float %>
 	</div>
 
 	<%= render partial: 'severity_negative_factor', locals: { triggers: @triggers } %>

@@ -21,7 +21,7 @@
 			
 			<tr>
 				<td class="text-right" width="20%">Practice Area</td>
-				<td><%= f.input :practice_area, label: false, collection: LawFirm::PRACTICE_AREAS %></td>
+				<td><%= f.input :practice_area, label: false, collection: LawFirm::PRACTICE_AREAS, input_html: { multiple: true } %></td>
 			</tr>
 
 			<tr>
@@ -49,21 +49,21 @@
 				<td><%= f.input :relationship_manager_email, label: false %></td>
 			</tr>
 
-			<tr class="text-left">
-				<td colspan="2" class="text-left"><strong>Principle</strong></td>
+		<tr class="within-block">
+				<td colspan="2" class="text-center"><strong>Key Security Contact</strong></td>
 			</tr>
 
-			<tr>
+		<tr class="within-block">
 				<td class="text-right" width="20%">Name</td>
 				<td><%= f.input :principle_name, label: false %></td>
 			</tr>
 
-			<tr>
+		<tr class="within-block">
 				<td class="text-right" width="20%">Title</td>
 				<td><%= f.input :principle_title, label: false %></td>
 			</tr>
 
-			<tr>
+		<tr class="within-block">
 				<td class="text-right" width="20%">Contact Info</td>
 				<td><%= f.input :principle_contact_info, label: false %></td>
 			</tr>

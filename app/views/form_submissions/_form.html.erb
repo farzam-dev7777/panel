@@ -1,3 +1,4 @@
+<style>.user-form-wrapper { background-image: url(<%= asset_path 'bg-photo.jpg' %>) !important }</style>
 <div class="jarviswidget form-wizard-wrapper" id="wid-id-0" data-widget-editbutton="false">
   <header>
     <span class="widget-icon"> <i class="fa fa-certificate"></i> </span>
@@ -13,7 +14,7 @@
       <%= render 'wizard' %>
       <div class="clearfix"></div>
       <div class="row">
-        <div class="col-md-12 logics" data-logics=<%= logics.to_json %>>
+        <div class="col-md-12 logics" data-logics=<%= logics.to_json(methods: :repeater_field) %>>
           <%= simple_form_for @form_submission, validate: true, :html => {:multipart => true, remote: true, authenticity_token: true} do |f| %>
             <%= yield :form %>
           <% end %>

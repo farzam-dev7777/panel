@@ -14,9 +14,14 @@
 
   <div class="tabs">
     <ul>
-      <% if f.object.type == 'DropdownField' %>
+      <% if f.object.type == 'DropdownField' || 
+            f.object.type == 'MultiSelectField' ||
+            f.object.type == 'InformationSecurityPolicyField' ||
+            f.object.type == 'CyberSecurityStandardField' ||
+            f.object.type == 'ThirdPartVendorField' ||
+            f.object.type == 'CloudProviderField' %>
         <li>
-          <a href="#tabs-dropdown-options">Dropdown Options</a>
+          <a href="#tabs-dropdown-options">Field Options</a>
         </li>
       <% end %>
       <li>
@@ -27,9 +32,18 @@
       </li>
     </ul>
 
-    <% if f.object.type == 'DropdownField' %>
+    <% if f.object.type == 'DropdownField' || 
+          f.object.type == 'MultiSelectField' ||
+          f.object.type == 'CyberSecurityStandardField' ||
+          f.object.type == 'ThirdPartVendorField' ||
+          f.object.type == 'CloudProviderField' ||
+          f.object.type == 'InformationSecurityPolicyField' %>
       <div id="tabs-dropdown-options">
-        <%= render "application/form_fields/#{f.object.type.try(:underscore)}", f: f if f.object.type %>
+        <% if f.object.type == 'DropdownField' || f.object.type == 'MultiSelectField' %>
+          <%= render "application/form_fields/#{f.object.type.try(:underscore)}", f: f if f.object.type %>
+        <% else %>
+          <%= render "application/form_fields/repeater_field", f: f if f.object.type %>
+        <% end %>
       </div>
     <% end %>
     <div id="tabs-custom-logics">
@@ -49,6 +63,9 @@
       <div class="row">
         <div class="col-md-12">
           <%= f.input :parent_id, collection: @form.form_fields.map{|form_field| ["#{form_field.label}(#{form_field.type})", form_field.id]} %>
+          <% if f.object.type == 'GroupFormField' %>
+            <%= f.input :group_form_id, collection: Form.where(group_form: true) %>
+          <% end %>
           <%= link_to_remove_association "Remove Field", f, { wrapper_class: 'form-field', class: "btn btn-danger white-text" } %>
         </div>
       </div>

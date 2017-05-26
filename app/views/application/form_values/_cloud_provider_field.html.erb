@@ -1,0 +1,26 @@
+<div>
+	<label><%= field.try(:label) %></label>
+
+  <div class="clearfix"></div>
+  <div class="col-md-4 no-padding gfe-field">
+    <label>Name</label>
+  </div>
+  <div class="col-md-4 no-padding gfe-field">
+    <label>Service</label>
+  </div>
+  <div class="col-md-3 no-padding gfe-field">
+    <label>Date Store Location CA</label>
+  </div>
+  <div class="clearfix"></div>
+
+  <%= v.simple_fields_for :cloud_providers do |cloud_provider| %>
+    <%= render partial: "cloud_provider_fields", 
+               locals: {f: cloud_provider} unless cloud_provider.object.nil? %>
+  <% end %>
+  <div class="add-cloud-provider text-right">
+  	<% if current_user %>
+	    <%= link_to_add_association '<span href="javascript:void(0);" class="btn btn-default btn-sm"><i class="fa fa-plus-circle"></i> Cloud Provider</span>'.html_safe, v, :cloud_providers %>
+	   <% end %>
+  </div>
+
+</div>

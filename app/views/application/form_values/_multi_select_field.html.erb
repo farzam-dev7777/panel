@@ -1,0 +1,16 @@
+<label class="control-label">
+	<%= field.label %>
+	<% if(!v.object.try(:form_field).try(:help_description).blank?) %>
+    <i class="fa fa-question-circle-o help-text" data-help="<%= v.object.try(:form_field).try(:help_description) %>"></i>
+  <% end %>	
+</label>
+<%= v.input :multi_select_value, {
+  label: false,
+  collection: field.collection,
+  # input_html: field.input_html,
+  required: field.required,
+  # wrapper: field.wrapper,
+  # wrapper_html: field.wrapper_html
+  as: field.as,
+  input_html: { multiple: v.object.try(:form_field).try(:type) == 'MultiSelectField' }
+}, &field.input_block(v) %>

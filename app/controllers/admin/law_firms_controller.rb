@@ -58,7 +58,7 @@ class Admin::LawFirmsController < Admin::BaseController
   def begin_certification_process
     @law_firm = LawFirm.find(params[:id])
     FormSubmission.generate_initial_submissions(@law_firm, current_admin_user)
-    redirect_to :admin_law_firms
+    head :ok
   end
 
   def begin_recertification_process
@@ -78,8 +78,8 @@ class Admin::LawFirmsController < Admin::BaseController
       last_form_submission.update_attributes(expiry_date: nil)
       @law_firm.log_activity('recertification_process_initiated', true, current_admin_user)
       # redirect_to :admin_law_firms
-      head :ok
     end
+    head :ok
   end
 
   def decertify

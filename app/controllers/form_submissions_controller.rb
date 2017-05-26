@@ -109,7 +109,11 @@ private
   end
 
   def wizard_path(step)
-    eval("#{step}_step_form_submission_path")
+    begin
+      eval("#{step}_step_form_submission_path")
+    rescue => e
+      Rollbar.log('error', e)
+    end
   end
 
   def next_step_path

@@ -1,0 +1,17 @@
+<div class="cloud-provider cloud-provider-field-<%= f.object.try(:id) %>">
+	<div class="col-md-4">
+		<%= f.input :name, label: false %>
+	</div>
+	<div class="col-md-4">
+		<%= f.input :service, label: false %>
+	</div>
+	<div class="col-md-3">
+		<%= f.input :data_store_location_ca, label: false %>
+	</div>
+
+	<div class="col-md-1 text-right" style="font-size: 16px;">
+		<% if f.object && current_user %>
+			<%= link_to_remove_association "<i class='fa fa-minus-circle'></i>".html_safe, f, { wrapper_class: "cloud-provider-field-#{f.object.try(:id)}" }  %>
+		<% end %>
+	</div>
+</div>
