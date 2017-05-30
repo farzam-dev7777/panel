@@ -1,4 +1,5 @@
 class BaseController < ApplicationController
+  # include CanCan::ControllerAdditions
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_filter :authenticate_user!
 
