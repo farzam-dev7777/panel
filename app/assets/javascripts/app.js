@@ -1318,8 +1318,8 @@ function showIfCustomLogicMatched(currentField, pageLoad){
           case 'hide':
             targetField.hide();
             if(!pageLoad){
-              // targetField.find("select").val('').trigger('change');
-              targetField.find("select").trigger('change');
+              targetField.find("select").val('').trigger('change');
+              // targetField.find("select").trigger('change');
               targetField.find("input[type!=hidden]").trigger('change');
             }
             break;
@@ -1329,8 +1329,8 @@ function showIfCustomLogicMatched(currentField, pageLoad){
           case 'show':
             targetField.hide();
             if(!pageLoad){
-              // targetField.find("select").val('').trigger('change');
-              targetField.find("select").trigger('change');
+              targetField.find("select").val('').trigger('change');
+              // targetField.find("select").trigger('change');
               targetField.find("input[type!=hidden]").val('').trigger('change');
             }
             break;
@@ -1338,8 +1338,8 @@ function showIfCustomLogicMatched(currentField, pageLoad){
             targetField.show();
             targetField.find("select").chosen();
             if(!pageLoad){
-              // targetField.find("input[type!=hidden]").val('').trigger('change');
-              targetField.find("input[type!=hidden]").trigger('change');
+              targetField.find("input[type!=hidden]").val('').trigger('change');
+              // targetField.find("input[type!=hidden]").trigger('change');
             }
             break;
         }
