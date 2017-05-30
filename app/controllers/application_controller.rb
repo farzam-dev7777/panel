@@ -8,7 +8,6 @@ class ApplicationController < ActionController::Base
     	# new_two_factor_authentication_url
       admin_root_url
     # elsif ( current_user.role == 'user' )
-    #   binding.pry
     #   root_url
     else
       # unknown user role

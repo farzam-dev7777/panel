@@ -3,7 +3,6 @@ class Ability
 
   def initialize(user)
     # Define abilities for the passed in user here. For example:
-    binding.pry
     if user.role == 'superadmin'
       can :manage, :all
     elsif user.role == 'admin'
