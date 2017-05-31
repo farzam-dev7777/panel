@@ -1179,5 +1179,14 @@ p.not-available {
   padding: 12px;
 }
 
+input.other-input {
+  width: 50% !important;
+  padding-left: 8px !important;
+}
+
+li.create-option.highlighted a {
+  color: #FFF !important;
+}
+
 
 

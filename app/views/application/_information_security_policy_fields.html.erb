@@ -8,10 +8,10 @@
 	<div style="width: 125px;" class="col-md-2 gfe-field">
 		<%= f.input :last_updated, as: :string, input_html: { class: 'restrict-till-day', value: DateField.stringify_date(f.object.last_updated) }, label: false %>
 	</div>
-	<div class="col-md-1 gfe-field">
+	<!-- <div class="col-md-1 gfe-field">
 		<%= f.input :freq_of_review, as: :integer, label: false %>
-	</div>
-	<div class="col-md-2 gfe-field">
+	</div> -->
+	<div class="col-md-3 gfe-field">
 		<%= f.input :independent_review, label: false, collection: ["Yes", "No"] %>
 	</div>
 	<div class="col-md-2 gfe-field" style="width: 200px">

@@ -21,6 +21,18 @@ $(document).ready(function(){
     };
   })(jQuery);
   // $('input[type=submit]').parent().replaceTag('p');
+
+  $('select').on('change', function(){
+    if($(this).val() == 'other'){
+      if($(this).parent().find('.other-input').length == 0) {
+        name = $(this).attr('name');
+        $(this).prop('readonly', true).trigger("chosen:updated");
+        $(this).parent().append('<input class="form-control other-input" type="text" placeholder="Please specify the other option" name="' + name + '">');
+      }
+    } else {
+      $(this).parent().find('.other-input').remove();
+    }
+  })
   
   var currentUrl = window.location.href;
 
@@ -125,6 +137,11 @@ $(document).ready(function(){
     if(targetFieldId) {
       $('.field-wrapper-' + targetFieldId).show();
       sourceField.parent().parent().find('.repeater-field-value').val('next_btn_pressed');
+      $('select[multiple]').chosen({
+        create_option: true,
+              persistent_create_option: true,
+              skip_no_results: true
+      });
       $('select').chosen();
     }
   })
@@ -244,6 +261,11 @@ $(document).ready(function(){
 
   $(document).on('click', '.form-field-header', function(){
     $(this).next('.form-field-content').slideToggle();
+    $(this).next('.form-field-content').find('select[multiple]').chosen({
+      create_option: true,
+              persistent_create_option: true,
+              skip_no_results: true
+    });
     $(this).next('.form-field-content').find('select').chosen();
     $( ".tabs" ).tabs();
   })
@@ -826,6 +848,11 @@ $(document).ready(function(){
   })
 
   function replaceChosenWithSelect2(){
+    $('select[multiple]').chosen({
+      create_option: true,
+              persistent_create_option: true,
+              skip_no_results: true
+    });
     $('select').chosen();
   }
 
@@ -995,6 +1022,11 @@ $(document).ready(function(){
     score_rating();
   })
   $(document).on('click', 'a.add_fields', function(){
+    $('select[multiple]').chosen({
+      create_option: true,
+              persistent_create_option: true,
+              skip_no_results: true
+    });
     $('select').chosen();
   })
 
@@ -1313,6 +1345,11 @@ function showIfCustomLogicMatched(currentField, pageLoad){
           case 'show':
             targetField.show();
             // targetField.find("select").select2();
+            targetField.find("select[multiple]").chosen({
+              create_option: true,
+              persistent_create_option: true,
+              skip_no_results: true
+            });
             targetField.find("select").chosen();
             break;
           case 'hide':
@@ -1334,6 +1371,11 @@ function showIfCustomLogicMatched(currentField, pageLoad){
             break;
           case 'hide':
             targetField.show();
+            targetField.find("select[multiple]").chosen({
+              create_option: true,
+              persistent_create_option: true,
+              skip_no_results: true
+            });
             targetField.find("select").chosen();
             // if(!pageLoad){
             //   targetField.find("input[type!=hidden]").val('').trigger('change');
