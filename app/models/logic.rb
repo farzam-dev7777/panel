@@ -15,7 +15,7 @@ class Logic < ApplicationRecord
   								 	].freeze
 
   def repeater_field
-  	REPEATER_FIELDS.include? self.listen_field.type 
+  	REPEATER_FIELDS.include? self.try(:listen_field).try(:type) 
   end
 
 end
