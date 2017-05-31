@@ -103,7 +103,7 @@ $(document).ready(function(){
         setTimeout(function(){
           sourceField.find('input[type!=hidden], select').trigger("change");
           targetField.find('input[type!=hidden], select').trigger("change");
-        }, 1500)
+        }, 500)
         if (!--logics_count){ 
           setTimeout(function(){ $.LoadingOverlay("hide"); }, 500) 
         }
