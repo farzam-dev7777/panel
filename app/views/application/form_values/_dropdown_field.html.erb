@@ -7,6 +7,7 @@
     required: field.required,
     wrapper: false,
     blank: true,
+    allow_blank: true,
     as: field.as,
     disabled:  @readonly ? 'disabled' : '',
     selected: (v.object.try(:value) && !field.collection.flatten.include?(v.object.try(:value))) ? 'other' : v.object.try(:value)
