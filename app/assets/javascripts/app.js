@@ -104,6 +104,7 @@ $(document).ready(function(){
           sourceField.find('input[type!=hidden], select').trigger("change");
           targetField.find('input[type!=hidden], select').trigger("change");
           targetField.find('input[type=file]').trigger("change");
+          sourcefield.find('input[type=file]').trigger("change");
         }, 1500)
         if (!--logics_count){ 
           setTimeout(function(){ $.LoadingOverlay("hide"); }, 500) 
