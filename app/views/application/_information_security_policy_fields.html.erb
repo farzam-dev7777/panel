@@ -1,6 +1,6 @@
 <div class="information-security-policy information-security-policy-field-<%= f.object.try(:id) %>">
 	<div class="col-md-3 no-padding gfe-field">
-		<%= f.input :policy, label: false, collection: ["Information Security", "Acceptable Use", "Privacy", "Records Retention", "Confidential Agreement (HR)", "Disaster Recovery", "Business Continuity"] %>
+		<%= f.input :policy, label: false, collection: ["Information Security", "Acceptable Use", "Privacy", "Records Retention", "Confidentiality Agreement (HR)", "Disaster Recovery", "Business Continuity"] %>
 	</div>
 	<div style="width: 125px;" class="col-md-2 gfe-field">
 		<%= f.input :last_reviewed, as: :string, input_html: { class: 'restrict-till-day', value: DateField.stringify_date(f.object.last_reviewed) }, label: false %>
