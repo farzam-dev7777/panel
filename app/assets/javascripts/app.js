@@ -6,7 +6,7 @@ $(document).ready(function(){
   // $('.dynamic-select').trigger('change');
 
   $('.masked-phone').mask('(000)-000-0000');
-  $('.masked-money').mask('000.000.000.000.000,00', {reverse: true});
+  // $('.masked-money').mask('000.000.000.000.000,00');
 
   $(".file-name-holder.user-access").on('click', function(){
     swal({
