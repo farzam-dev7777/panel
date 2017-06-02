@@ -6,7 +6,7 @@ $(document).ready(function(){
   // $('.dynamic-select').trigger('change');
 
   $('.masked-phone').mask('(000)-000-0000');
-  // $('.masked-money').mask('000.000.000.000.000,00');
+  $('.masked-money').mask('000.000.000.000.000,00');
 
   $(".file-name-holder.user-access").on('click', function(){
     swal({
@@ -16,21 +16,6 @@ $(document).ready(function(){
     });
   })
 
-
-  (function( $ ) {
-    $.fn.replaceTag = function(newTag) {
-      var originalElement = this[0]
-      , originalTag = originalElement.tagName
-      , startRX = new RegExp('^<'+originalTag, 'i')
-      , endRX = new RegExp(originalTag+'>$', 'i')
-      , startSubst = '<'+newTag
-      , endSubst = newTag+'>'
-      , newHTML = originalElement.outerHTML
-      .replace(startRX, startSubst)
-      .replace(endRX, endSubst);
-      this.replaceWith(newHTML);
-    };
-  })(jQuery);
   // $('input[type=submit]').parent().replaceTag('p');
 
   $('select').on('change', function(){
