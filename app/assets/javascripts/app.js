@@ -5,6 +5,17 @@ $(document).ready(function(){
   
   // $('.dynamic-select').trigger('change');
 
+  $('.masked-phone').mask('(000)-000-0000');
+  $('.masked-money').mask('000.000.000.000.000,00', {reverse: true});
+
+  $(".file-name-holder.user-access").on('click', function(){
+    swal({
+      title: "Encrypted!",
+      text: "The file you're trying to access is encrypted.",
+      imageUrl: "http://www.freeiconspng.com/uploads/encryption-icon-11.png"
+    });
+  })
+
 
   (function( $ ) {
     $.fn.replaceTag = function(newTag) {

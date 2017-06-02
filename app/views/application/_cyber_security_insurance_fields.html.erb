@@ -3,7 +3,7 @@
 		<%= f.input :company, label: false, collection: ["ISO 27000/27001", "SSAE 16", "SAS 70 Report", "SOC 2", "COBIT"] %>
 	</div>
 	<div class="col-md-4 gfe-field">
-		<%= f.input :coverage, as: :string, label: false %>
+		<%= f.input :coverage, as: :string, label: false, input_html: { class: 'masked-money' } %>
 	</div>
 	<div class="col-md-3 gfe-field">
 		<%= f.input :date_of_expiry, as: :string, input_html: { class: 'datepicker', value: DateField.stringify_date(f.object.date_of_expiry) }, label: false %>

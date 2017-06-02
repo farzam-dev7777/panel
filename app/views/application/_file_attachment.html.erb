@@ -1,11 +1,11 @@
 <%- file_attachments.each do |file_attachment| %>
   <div class="delete-file" id="delete_file-<%= file_attachment.id %>">
-    <%- if current_user %>
+    <%- if current_user.is_an_admin? %>
       <div class="col-md-11 file-name-holder">
         <%= link_to file_attachment.try(:file).try(:file).try(:filename), decrypt_admin_file_attachment_path(file_attachment) %> 
       </div>
     <% else %>
-      <div class="col-md-11 file-name-holder">
+      <div class="col-md-11 file-name-holder user-access">
         <%= file_attachment.try(:file).try(:file).try(:filename) %> 
       </div>
     <% end %>

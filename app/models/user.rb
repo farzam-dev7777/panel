@@ -76,4 +76,8 @@ class User < ApplicationRecord
     self.role == 'user'
   end 
 
+  def is_an_admin?
+    self.role == 'superadmin' || self.role == 'admin'
+  end
+
 end

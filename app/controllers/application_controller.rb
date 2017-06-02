@@ -5,9 +5,9 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
 
     if ( current_user.role == 'superadmin' || current_user.role == 'admin' )
+    	# new_two_factor_authentication_url
       admin_root_url
     # elsif ( current_user.role == 'user' )
-    	new_two_factor_authentication_url
     #   root_url
     else
       # unknown user role
