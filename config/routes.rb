@@ -91,7 +91,7 @@ Rails.application.routes.draw do
     root to: "internal_dashboard#index"
   end
   
-  resources :law_firms
+  # resources :law_firms
 
   resources :technologies do
     member do
