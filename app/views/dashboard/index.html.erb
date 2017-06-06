@@ -55,21 +55,21 @@
 						<h5 class="todo-group-title"><i class="fa fa-warning"></i> Critical</h5>
 					<% end %>
 					<% @action_items.select{|a| a.status != 'complete' && a.security_threat.severity_level.name == 'critical'}.each do |item| %>
-						<%= render partial: 'action_item', locals: { item: item } %>
+						<%= render partial: 'action_item', locals: { item: item, active: true } %>
 					<% end %>
 
 					<% if (@action_items.select{|a| a.status != 'complete' && a.security_threat.severity_level.name == 'high'}).count > 0 %>
 						<h5 class="todo-group-title"><i class="fa fa-warning"></i> High</h5>
 					<% end %>
 					<% @action_items.select{|a| a.status != 'high' && a.security_threat.severity_level.name == 'high'}.each do |item| %>
-						<%= render partial: 'action_item', locals: { item: item } %>
+						<%= render partial: 'action_item', locals: { item: item, active: true } %>
 					<% end %>
 
 					<% if (@action_items.select{|a| a.status != 'complete' && a.security_threat.severity_level.name == 'low'}).count > 0 %>
 						<h5 class="todo-group-title"><i class="fa fa-warning"></i> Low</h5>
 					<% end %>
 					<% @action_items.select{|a| a.status != 'low' && a.security_threat.severity_level.name == 'low'}.each do |item| %>
-						<%= render partial: 'action_item', locals: { item: item } %>
+						<%= render partial: 'action_item', locals: { item: item, active: true } %>
 					<% end %>
 
 
@@ -94,7 +94,7 @@
 
 
 					<% else %>
-						<em class="text-center"> There are no security threats </em>
+						<em class="text-center"> Not Available </em>
 					<% end %>
 
 				</div>
@@ -323,6 +323,86 @@
 
 
 
+	<div class="col-md-12">
+		<div class="jarviswidget jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+
+			<header>
+				<span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
+				<h2 class="font-md"><strong>Submissions </strong></h2>	
+			</header>
+
+			<div>
+
+				<div class="clearfix"></div>
+				<!-- MAIN PANEL -->
+				<div role="main">
+
+					<!-- MAIN CONTENT -->
+					<div style="max-height: 500px;overflow-y: scroll;">
+
+						<!-- row -->
+						<div class="row">
+
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+							<% if current_law_firm.form_submissions.any? %>
+								<div class="table-responsive">
+									<table class="table table-bordered text-center content-in-jarvis">
+
+										<tr>
+											<th class="text-center">Submission ID</th>
+											<th class="text-center">Score</th>
+											<th class="text-center">Status</th>
+											<th class="text-center">Action</th>
+										</tr>
+
+										<% current_law_firm.form_submissions.reverse.each do |submission| %>
+											<tr>
+												<td><%= submission.id %></td>
+												<td><%= submission.total_score || '-' %></td>
+												<td class="text-center">
+												<span class="label label-<%= submission_status_class(submission) %>">
+													<%= submission.try(:status).titleize %>
+												</span>
+												<% if submission.try(:status) == 'decertified' %>	
+													<br><em><%= submission.try(:reason) %></em>
+												<% end %>
+												</td>
+												<td>
+													<%= link_to submission.id == current_law_firm.form_submissions.latest.id ? 'Edit' : 'View', policy_step_form_submission_path(submission, readonly: "true"), class: "btn btn-outline-primary btn-xs" %>	
+												</td>
+											</tr>
+											
+										<% end %>
+
+									</table>
+									<div class="clearfix"></div>
+
+
+								</div>
+								<% else %>
+									<h4 class="text-center">There are no submissions to review yet</h4>
+								<% end %>
+							</div>
+
+							</div>
+
+						</div>
+
+						<!-- end row -->
+
+					</div>
+					<!-- END MAIN CONTENT -->
+
+				</div>
+				<!-- END MAIN PANEL -->
+			</div>
+
+		</div>
+	</div>
+
+
+
 
 	<div class="col-md-12">
 		<div class="jarviswidget jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
@@ -352,7 +432,7 @@
 
 									<div class="cd-timeline-content">
 										<h2 class="m-b-5">
-											<strong><%= activity.custom_message.try(:html_safe) || activity.event_type.humanize %></strong>
+											<strong class="<%= activity_source_class(activity) %>"><%= activity.custom_message.try(:html_safe) || activity.event_type.humanize %></strong>
 										</h2>
 										<em>(<%= activity.source == 'AdminUser' ? 'Bank' : 'Law Firm' %>)</em>
 										<span class="cd-date"><%= activity.created_at.strftime('%d %b at %I:%M %p') %></span>

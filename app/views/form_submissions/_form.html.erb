@@ -14,8 +14,12 @@
       <%= render 'wizard' %>
       <div class="clearfix"></div>
       <div class="row">
-        <div class="col-md-12 logics" data-logics=<%= logics.to_json(methods: :repeater_field) %>>
+        <div class="col-md-12 logics" 
+             data-logics=<%= logics.to_json(methods: :repeater_field) %>
+             data-follow-ups=<%= @form_submission.follow_ups.review.to_json(methods: :form_field_id) %>
+             data-form-submission-status=<%= @form_submission.status %>>
           <%= simple_form_for @form_submission, validate: true, :html => {:multipart => true, remote: true, authenticity_token: true} do |f| %>
+            <input id="redirect_value" type="hidden" name="redirect_value">
             <%= yield :form %>
           <% end %>
         </div>
@@ -25,15 +29,35 @@
 
         <div class="text-center">
           <div class="btn-group">
-            <%= link_to "<i class='fa fa-caret-left'></i> Prev <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, previous_step_path, class: 'btn btn-default submit-form' %>
-            <%= link_to "<i class='fa fa-floppy-o'></i> Save".html_safe, current_step_path, class: 'btn btn-primary submit-form' %>
+            <% if @form_submission.is_available_to_user %>
 
-            <% if(last_step) %>
-              <a href="#" class="btn btn-default submit-form finalize-submission" data-form_id=<%= params[:id] %>>
-                <i class='fa fa-caret-right'></i> Submit
-              </a>
+              <% if !first_step %>
+                <%= link_to "<i class='fa fa-caret-left'></i> Prev <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, previous_step_path, class: 'btn btn-default submit-form' %>
+              <% end %>
+              <%= link_to "<i class='fa fa-floppy-o'></i> Save".html_safe, current_step_path, class: 'btn btn-primary submit-form' %>
+
+              <% if(last_step) %>
+                <a href="#" class="btn btn-default finalize-submission" data-form_id=<%= params[:id] %>>
+                  <i class='fa fa-caret-right'></i> Submit
+                </a>
+              <% elsif @form_submission.status == 'follow_up' %>
+                <a href="#" class="btn btn-default finalize-submission" data-form_id=<%= params[:id] %>>
+                  <i class='fa fa-caret-right'></i> Submit
+                </a>
+                <%= link_to "Next <i class='fa fa-caret-right'></i> <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, next_step_path, class: 'btn btn-default submit-form next-btn' %>
+              <% else %>
+                <%= link_to "Next <i class='fa fa-caret-right'></i> <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, next_step_path, class: 'btn btn-default submit-form next-btn' %>
+              <% end %>
+
             <% else %>
-              <%= link_to "Next <i class='fa fa-caret-right'></i> <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, next_step_path, class: 'btn btn-default submit-form' %>
+
+              <% if !first_step %>
+                <%= link_to "<i class='fa fa-caret-left'></i> Prev <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, previous_step_path, class: 'btn btn-default' %>
+              <% end %>
+
+               <% if !last_step %>
+                <%= link_to "Next <i class='fa fa-caret-right'></i> <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, next_step_path, class: 'btn btn-default' %>
+                <% end %>
             <% end %>
           </div>
         </div>

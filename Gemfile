@@ -33,6 +33,8 @@ gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'google-authenticator-rails'
 gem 'rollbar'
+gem 'country_select'
+
 
 # gem 'rails-assets-fontawesome', source: 'https://rails-assets.org'
 gem 'rails-assets-JustGage', source: 'https://rails-assets.org'
@@ -49,7 +51,7 @@ gem 'breadcrumbs_on_rails'
 gem 'whenever', :require => false
 
 gem 'font-awesome-rails', '~> 4.5'
-gem 'paper_trail'
+# gem 'paper_trail'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -77,7 +79,7 @@ gem "paranoia", "~> 2.2"
 gem 'simple_form'
 gem "cocoon"
 gem 'will_paginate-bootstrap'
-gem 'mailboxer'
+# gem 'mailboxer'
 gem 'nested_form'
 gem 'mailjet'
 
@@ -97,6 +99,7 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'letter_opener'
+  gem "rails-erd"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

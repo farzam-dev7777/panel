@@ -36,7 +36,6 @@ Rails.application.configure do
 
   # Raise an error on page load if there are pending migrations.
   config.active_record.migration_error = :page_load
-  config.action_mailer.delivery_method = :letter_opener
 
   # Debug mode disables concatenation and preprocessing of assets.
   # This option may cause significant delays in view rendering with a large
@@ -46,7 +45,22 @@ Rails.application.configure do
   # Suppress logger output for asset requests.
   config.assets.quiet = true
 
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  # config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+  # config.action_mailer.delivery_method = :letter_opener
+  config.action_mailer.default_url_options = { host: 'seal.grcconsulting.ca' }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+
+  config.action_mailer.smtp_settings = {
+    :address        => 'in-v3.mailjet.com',
+    :port           => '587',
+    :authentication => :plain,
+    :user_name      => ENV['MAILJET_API_KEY'],
+    :password       => ENV['MAILJET_SECRET_KEY'],
+    :domain         => 'seal.grcconsulting.ca',
+    :enable_starttls_auto => true
+  }
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true

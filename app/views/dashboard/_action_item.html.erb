@@ -2,8 +2,10 @@
 	<li>
 		<span class="handle"> 
 			<label class="checkbox">
-				<input type="checkbox" name="checkbox-inline" data-id="<%= item.id %>">
-				<i></i> 
+				<% if active %>
+					<input type="checkbox" name="checkbox-inline" data-id="<%= item.id %>">
+					<i></i> 
+				<% end %>
 			</label> 
 		</span>
 		<p>

@@ -36,6 +36,19 @@ body.smart-style-6 .table>tbody>tr>td, body.smart-style-6 .table>tbody>tr>th, bo
   margin: 0px;
 }
 
+.input-wrap > div {
+  margin-bottom: 0px !important;
+}
+
+.atl-wrap .label-wrap {
+  line-height: 30px
+}
+
+.atl-wrap .chkbx-wrap {
+  line-height: 30px;
+  margin-top: 5px;
+}
+
 .form-control {
   font-size: 14px !important;
 }
@@ -425,7 +438,7 @@ span.select2-selection__arrow{
 
 .resolve-btn {
   position: relative;
-  bottom: 33px;
+  bottom: 55px;
 }
 
 .resolve-btn:active,
@@ -485,11 +498,6 @@ hr.note-seperator {
   clear: both;
   margin-bottom: 20px;
   margin-right: 27px;
-}
-
-body.smart-style-6 .minifyme {
-  bottom: 450px;
-  right: -10px;
 }
 
 .check-mark-wrapper {
@@ -763,6 +771,9 @@ ul.internal-notes li div p {
   color: #fff !important
 }
 
+.no-margin { margin: 0 !important; }
+.no-margin-for-children * { margin: 0 !important }
+.no-padding { padding: 0 !important; }
 .no-margin-top { margin-top: 0 !important; }
 
 .form-field-header {
@@ -841,7 +852,7 @@ ul.internal-notes li div p {
 }
 
 .file-name-holder {
-  width: 155px;
+  width: 135px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -928,12 +939,12 @@ h3.firm-score-declined span {
 
 .threat-warning {
   position: relative;
-  left: 50px;
-  bottom: 32px;
-  font-size: 15px;
-  color: yellow;
+  left: 66px;
+  bottom: 0px;
+  font-size: 13px;
+  color: yellow !important;
   background: red;
-  border-radius: 0px 5px 0px 5px;
+  /*border-radius: 0px 5px 0px 5px;*/
 }
 
 .within-block {
@@ -1000,10 +1011,10 @@ select.form-control {
   border-bottom: 1px solid #ccc !important;
   border-radius: 0 !important;
   margin-top: 3px !important;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
   padding: 5px 0px;
+  /*-webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;*/
 }
 
 label.control-label, 
@@ -1017,15 +1028,156 @@ table.all-forms tr td {
   vertical-align: middle !important;
 }
 
+.law_firm_locations_country select { width: 100%; }
 
+.lawfirm-activity-color { color: #f39500; }
+.lawfirm-bank-color { color: #0275d8; }
 
+.select2-selection { text-align: left; }
 
+.multiselectcantfind {
+  font-size: 12px;
+  color: #007ac3;
+  cursor: pointer;
+}
 
+.ui-accordion .ui-accordion-icons {
+  padding-left: 2.2em;
+  background: #007ac3;
+  color: #fff;
+}
 
+.chosen-container-single .chosen-single {
+  padding: 5px 0px 5px 8px;
+  height: 35px;
+  background: #fff;
+  border: none !important;
+  box-shadow: none;
+  border-bottom: 1px solid #ccc !important;
+  border-radius: 0;
+}
 
+.chosen-container-single .chosen-single div {
+  top: 5px;
+}
 
+.chosen-search-input {
+  padding-right: 0 !important;
+}
 
+.chosen-container-multi .chosen-choices {
+  box-shadow: none !important;
+  border-radius: 5px;
+  background-image: none;
+  border: 0 !important;
+  border-bottom: 1px solid #ccc !important;
+}
 
+.chosen-container-multi .chosen-choices li.search-choice {
+  background: #007ac3;
+  color: #fff;
+  box-shadow: none !important;
+}
+
+.chosen-container-single .chosen-drop { border: none; }
+
+.chosen-container-multi .chosen-choices li.search-choice .search-choice-close { filter: brightness(3); }
+.chosen-container.chosen-with-drop .chosen-drop { border: none; }
+.chosen-container-single .chosen-search input[type=text]{
+  padding: 4px 20px 4px 0px;
+  padding-left: 5px !important;
+  padding-right: 0px !important;
+  width: 97.5% !important;
+}
+
+.dataTables_filter .input-group-addon+.form-control {
+  margin: 0;
+  padding: 0;
+}
+
+.dataTables_filter .input-group-addon {
+  width: 35px;
+  height: 35px;
+}
+
+.form_submission_form_values_multi_select_value { margin-bottom: 0 !important; }
+
+input.form-control {
+  padding: 0;
+  margin: 0;
+}
+
+.chosen-container {
+  width: 100% !important;
+}
+
+label.float-field {
+  margin: 0 !important;
+  height: 25px !important;
+  color: #444 !important;
+}
+
+i.btn { padding: 0 !important }
+i.btn input { padding: 8px !important; }
+
+.chosen-container-single .chosen-single span { text-align: left }
+.chosen-container .chosen-results li {
+  text-align: left;
+  padding-left: 11px;
+}
+
+li.active {
+  background: #e1e1e1;
+}
+
+body.smart-style-6 .txt-color-magenta, body.smart-style-6 nav ul li.active>a:before {
+  color: #007ac3!important;
+}
+
+span.label-light-green {
+  background: #00cc00;
+}
+
+span.label-yellow {
+  background: #cccc00;
+}
+
+img.bmo-small {
+  width: 20px;
+}
+
+.no-submissions {
+  line-height: 30px;
+}
+
+.widget-toolbar>.btn {
+  margin: 0px !important
+}
+
+.download-activities {
+  margin: 0;
+  border-radius: 0;
+}
+
+.download-activities .fa.fa-download {
+  padding: 8.5px 4px;
+}
+
+.minified .minifyme{
+  width: 30px !important;
+  padding: 1px 3px !important;
+  font-size: 20px !important;
+  height: 30px !important;
+}
+
+.minified nav>ul>li {
+  border-bottom: 1px solid #525151;
+  border-top: 0;
+}
+
+p.not-available {
+  padding: 12px;
+}
 
 
 

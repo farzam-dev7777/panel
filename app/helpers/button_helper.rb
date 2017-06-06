@@ -24,12 +24,12 @@ module ButtonHelper
         link_to 'Answer Follow Ups ' + "(#{submissions.latest.follow_ups.review.count})", policy_step_form_submission_path(submissions.latest), html_options = {class: 'btn btn-primary btn-lg dashboard-certificate-button'}
       end
     else
-      'SEAL status is not available yet'
+      '<p class="not-available">SEAL status is not available yet</p>'.html_safe
     end
   end
 
   def gauge(submission)
-    "<h3 class='firm-score-#{submission.status}'><span>#{submission.status.try(:humanize)}</span></h3><div id='law-firm-rating' class='force-center'></div> (#{submission.total_score.try(:to_s)})".html_safe
+    "<h3 class='firm-score-#{submission.status}'><span>#{submission.status.try(:humanize)}</span></h3><div id='law-firm-rating' class='force-center'></div> (#{submission.law_firm.total_calculated_score.try(:to_s)})".html_safe
   end
 
 end

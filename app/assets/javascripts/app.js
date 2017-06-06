@@ -6,35 +6,126 @@ $(document).ready(function(){
   // $('.dynamic-select').trigger('change');
 
 
+  (function( $ ) {
+    $.fn.replaceTag = function(newTag) {
+      var originalElement = this[0]
+      , originalTag = originalElement.tagName
+      , startRX = new RegExp('^<'+originalTag, 'i')
+      , endRX = new RegExp(originalTag+'>$', 'i')
+      , startSubst = '<'+newTag
+      , endSubst = newTag+'>'
+      , newHTML = originalElement.outerHTML
+      .replace(startRX, startSubst)
+      .replace(endRX, endSubst);
+      this.replaceWith(newHTML);
+    };
+  })(jQuery);
+  // $('input[type=submit]').parent().replaceTag('p');
+  
+  var currentUrl = window.location.href;
+
   var american_states = [ { "id": "Alabama", "text": "Alabama" }, { "id": "Alaska", "text": "Alaska" }, { "id": "American Samoa", "text": "American Samoa" }, { "id": "Arizona", "text": "Arizona" }, { "id": "Arkansas", "text": "Arkansas" }, { "id": "California", "text": "California" }, { "id": "Colorado", "text": "Colorado" }, { "id": "Connecticut", "text": "Connecticut" }, { "id": "Delaware", "text": "Delaware" }, { "id": "District Of Columbia", "text": "District Of Columbia" }, { "id": "Federated States Of Micronesia", "text": "Federated States Of Micronesia" }, { "id": "Florida", "text": "Florida" }, { "id": "Georgia", "text": "Georgia" }, { "id": "Guam", "text": "Guam" }, { "id": "Hawaii", "text": "Hawaii" }, { "id": "Idaho", "text": "Idaho" }, { "id": "Illinois", "text": "Illinois" }, { "id": "Indiana", "text": "Indiana" }, { "id": "Iowa", "text": "Iowa" }, { "id": "Kansas", "text": "Kansas" }, { "id": "Kentucky", "text": "Kentucky" }, { "id": "Louisiana", "text": "Louisiana" }, { "id": "Maine", "text": "Maine" }, { "id": "Marshall Islands", "text": "Marshall Islands" }, { "id": "Maryland", "text": "Maryland" }, { "id": "Massachusetts", "text": "Massachusetts" }, { "id": "Michigan", "text": "Michigan" }, { "id": "Minnesota", "text": "Minnesota" }, { "id": "Mississippi", "text": "Mississippi" }, { "id": "Missouri", "text": "Missouri" }, { "id": "Montana", "text": "Montana" }, { "id": "Nebraska", "text": "Nebraska" }, { "id": "Nevada", "text": "Nevada" }, { "id": "New Hampshire", "text": "New Hampshire" }, { "id": "New Jersey", "text": "New Jersey" }, { "id": "New Mexico", "text": "New Mexico" }, { "id": "New York", "text": "New York" }, { "id": "North Carolina", "text": "North Carolina" }, { "id": "North Dakota", "text": "North Dakota" }, { "id": "Northern Mariana Islands", "text": "Northern Mariana Islands" }, { "id": "Ohio", "text": "Ohio" }, { "id": "Oklahoma", "text": "Oklahoma" }, { "id": "Oregon", "text": "Oregon" }, { "id": "Palau", "text": "Palau" }, { "id": "Pennsylvania", "text": "Pennsylvania" }, { "id": "Puerto Rico", "text": "Puerto Rico" }, { "id": "Rhode Island", "text": "Rhode Island" }, { "id": "South Carolina", "text": "South Carolina" }, { "id": "South Dakota", "text": "South Dakota" }, { "id": "Tennessee", "text": "Tennessee" }, { "id": "Texas", "text": "Texas" }, { "id": "Utah", "text": "Utah" }, { "id": "Vermont", "text": "Vermont" }, { "id": "Virgin Islands", "text": "Virgin Islands" }, { "id": "Virginia", "text": "Virginia" }, { "id": "Washington", "text": "Washington" }, { "id": "West Virginia", "text": "West Virginia" }, { "id": "Wisconsin", "text": "Wisconsin" }, { "id": "Wyoming", "text": "Wyoming" } ];
   var canadian_provinces = [ { "id": "Alberta", "text": "Alberta" }, { "id": "British Columbia", "text": "British Columbia" }, { "id": "Manitoba", "text": "Manitoba" }, { "id": "New Brunswick", "text": "New Brunswick" }, { "id": "Newfoundland and Labrador", "text": "Newfoundland and Labrador" }, { "id": "Nova Scotia", "text": "Nova Scotia" }, { "id": "Ontario", "text": "Ontario" }, { "id": "Prince Edward Island", "text": "Prince Edward Island" }, { "id": "Quebec", "text": "Quebec" }, { "id": "Saskatchewan", "text": "Saskatchewan" }, { "id": "Northwest Territories", "text": "Northwest Territories" }, { "id": "Nunavut", "text": "Nunavut" }, { "id": "Yukon", "text": "Yukon" } ];
 
+  var customElement   = $("<div>", {
+    id      : "countdown",
+    css     : { "font-size" : "15px" },
+    text    : 'LOADING'
+  });
+
+  if(currentUrl.indexOf("form_submissions") != -1 && currentUrl.indexOf("admin/form_submissions") == -1){
+    $.LoadingOverlay("show", { 
+      color:  'rgba(255, 255, 255, 0.96)',
+      custom: customElement
+    });
+  }
+
+  $('.add-all-multiselect-options').on('click', function(){
+    $(this).parent().find('select option').prop('selected', true).trigger('chosen:updated').trigger('change');
+  })
+
+  $('.multiselectcantfind').on('click', function(){
+    $(this).parent().parent().find('.select2').hide();
+    $(this).parent().parent().find('.multiselectcantfind').hide();
+    $(this).parent().parent().find('.text-for-multi').removeClass('hidden').show();
+  })
+
+  if (window.location.pathname.indexOf("/policy_step") > -1 ||
+      window.location.pathname.indexOf("/process_step") > -1 || 
+      window.location.pathname.indexOf("/technology_step") > -1 || 
+      window.location.pathname.indexOf("/history_step") > -1) {
+    replaceChosenWithSelect2();
+    $(document).on('change paste keyup', 'select, input', function(){
+      replaceChosenWithSelect2();
+    })
+    
+  }
+
+  $('.never-chkbx').on('change', function(){
+    if($(this).is(':checked')){
+      $(this).parent().parent().find('.input-wrap input').val("").attr("disabled", "disabled")
+    } else {
+      $(this).parent().parent().find('.input-wrap input').val("").removeAttr("disabled", "disabled")
+    }
+  })
 
   setTimeout(function(){
+    var dataDiv = $('.logics');
     
-    logics = $('.logics').data('logics');
-    if(logics) {
+    logics = dataDiv.data('logics');
+    if(logics && logics.length > 0) {
+      logics_count = logics.length;
       logics.forEach(function(logic) {
         var sourceField = $('.field-wrapper-' + logic.listen_field_id)
         var targetField = $('.field-wrapper-' + logic.change_field_id)
         if(logic.repeater_field){
           targetHTML = "<a class='btn btn-primary btn-sm repeater-customlogic' href='javascript:void(0)' data-target=" + logic.change_field_id + ">Next</a>";
           sourceField.children().last().children().last().append(targetHTML);
+
+          if(sourceField.find('.repeater-field-value').val() == 'next_btn_pressed'){
+            targetField.delay(1000).show(0);
+          }
         }
 
-        targetField.hide();
+        // targetField.hide();
         setTimeout(function(){
-          sourceField.find('input, select').trigger("change");
-          targetField.find('input, select').trigger("change");
+          sourceField.find('input[type!=hidden], select').trigger("change");
+          targetField.find('input[type!=hidden], select').trigger("change");
         }, 500)
+        if (!--logics_count){ 
+          setTimeout(function(){ $.LoadingOverlay("hide"); }, 500) 
+        }
       })
+    } else {
+      $.LoadingOverlay("hide");
     }
+
+    // When the assessor has requested follow-ups then disable all fields,
+    // get all the follow ups, iterate through the array
+    // and enable only those fields which require attention
+    if(dataDiv.data('form-submission-status') == 'follow_up') {
+      follow_ups = dataDiv.data('follow-ups');
+      if(follow_ups.length > 0 ){
+        disableFormSubmissionFields();
+        setTimeout(function(){
+          follow_ups.forEach(function(follow_up) {
+            var target = $('.need-follow-up.field-wrapper-' + follow_up.form_field_id);
+            target.find('input').removeAttr('disabled');
+            target.find('select').prop('disabled', false).trigger("chosen:updated");
+          })
+        }, 500)
+      }
+    }
+
   }, 2000)
 
   $(document).on('click', '.repeater-customlogic', function(){
+    var sourceField = $(this);
     var targetFieldId = $(this).data('target');
     if(targetFieldId) {
       $('.field-wrapper-' + targetFieldId).show();
+      sourceField.parent().parent().find('.repeater-field-value').val('next_btn_pressed');
+      $('select').chosen();
     }
   })
 
@@ -42,27 +133,44 @@ $(document).ready(function(){
     //   $("select, input[type='text'], input[type='email'], input[type='file'], input[type='number'], input[type='file']").trigger('change')
     // }, 2000)
 
+  $('.j-country').trigger('change');
   $(document).on('change', '.j-country', function(){
     var j_states = $(this).parent().parent().parent().find('.j-states select')
     if ($(this).val() == 'Canada'){
-      j_states.select2().empty().select2({data: canadian_provinces})
-      $(this).parent().parent().parent().find('.j-states select option').attr('selected', true).parent().trigger('change');
+
+      j_states.empty().append("<option value=''></option>");
+
+      $.each(canadian_provinces, function( key, value ) {
+        j_states.append("<option selected='selected' value='" + value.id + "'>" + value.text + "</option>").trigger('chosen:updated').trigger('change');
+      });
+
+      // j_states.select2().empty().select2({data: canadian_provinces})
+      // $(this).parent().parent().parent().find('.j-states select option').attr('selected', true).parent().trigger('change');
     } else {
-      j_states.select2().empty().select2({data: american_states})
-      $(this).parent().parent().parent().find('.j-states select option').attr('selected', true).parent().trigger('change');
+      j_states.empty().append("<option value=''></option>");
+
+      $.each(american_states, function( key, value ) {
+        j_states.append("<option selected='selected' value='" + value.id + "'>" + value.text + "</option>").trigger('chosen:updated').trigger('change');
+      });
+      // j_states.select2().empty().select2({data: american_states})
+      // $(this).parent().parent().parent().find('.j-states select option').attr('selected', true).parent().trigger('change');
     }
   })
 
-  if(window.location.href.indexOf("admin") == -1){
-    setTimeout(function(){
-      var $select = $('select').select2();
-        $select.each(function(i,item){
-          if($(item).attr('multiple') != 'multiple'){
-            $(item).select2("destroy");
-          }
-        });
-    }, 1000)
+  function updateJurisdicationCities(){
+    
   }
+
+  // if(window.location.href.indexOf("admin") == -1){
+  //   setTimeout(function(){
+  //     var $select = $('select').select2();
+  //       $select.each(function(i,item){
+  //         if($(item).attr('multiple') != 'multiple'){
+  //           $(item).select2("destroy");
+  //         }
+  //       });
+  //   }, 1000)
+  // }
 
   $('.form-control').on('click', function(){
     $(this).next('input').focus();
@@ -70,54 +178,73 @@ $(document).ready(function(){
 
   $('i.log-icon').tooltip();
 
-  $('.fileupload').next('.file-upload-handler').on('click', function(){ $(this).prev('.fileupload').trigger('click') })
+  $(document).on('click', '.file-upload-handler', function(){
+    $(this).prev('.fileupload').trigger('click');
 
-  //File Upload
-  $('.fileupload').fileupload({
-    dataType: 'html',
-    add: function(e, data) {
-      var uploadErrors = [];
-      var acceptFileTypes = /^image\/(gif|jpe?g|png)$|^application\/(pdf|(vnd\.(ms-|openxmlformats-).*))$|^text\/plain$/i;;
-      // var acceptFileTypes = /\.(gif|jpg|jpeg|tiff|png|mp4)$/i;
-      if(data.originalFiles[0]['type'].length && !acceptFileTypes.test(data.originalFiles[0]['type'])) {
-          uploadErrors.push('Not an accepted file type');
-      }
-      if(data.originalFiles[0]['size'] && data.originalFiles[0]['size'] > 10000000) {
-          uploadErrors.push('Filesize is too big. Maximum filesize allowed is 10MB');
-      }
-      if(uploadErrors.length > 0) {
+    //File Upload
+    $('.fileupload').fileupload({
+      dataType: 'html',
+      maxNumberOfFiles: parseInt($(this).data('limit')),
+      change: function(e, data){
+        var uploadErrors = [];
+        var file_count = data.files.length + $(this).data('file-count');
+        if(file_count > 2){
+          uploadErrors.push('Only 2 files are allowed at max.');
           sweetAlert("Oops...", uploadErrors.join("\n"), "error");
-      } else {
-          data.submit();
-      }
-    },
-    done: function (e, data) {
-      container = $(this);
-      container.parent().append(data.result);
-      $(this).attr('data-file-count', container.parent().find('.delete-file').length); // update count
-      $(this).data('file-count', container.parent().find('.delete-file').length); // update count
-      showIfCustomLogicMatched($(this), false);
+          return false
+        }
+        if(uploadErrors.length > 0) {
+        }
+      },
+      add: function(e, data) {
+        var uploadErrors = [];
+        var acceptFileTypes = /^image\/(gif|jpe?g|png)$|^application\/(pdf|(vnd\.(ms-|openxmlformats-).*))$|^text\/plain$/i;;
+        // var acceptFileTypes = /\.(gif|jpg|jpeg|tiff|png|mp4)$/i;
+        if(data.originalFiles[0]['type'].length && !acceptFileTypes.test(data.originalFiles[0]['type'])) {
+            uploadErrors.push('Not an accepted file type');
+        }
+        if(data.originalFiles[0]['size'] && data.originalFiles[0]['size'] > 10000000) {
+            uploadErrors.push('Filesize is too big. Maximum filesize allowed is 10MB');
+        }
+        if(uploadErrors.length > 0) {
+            sweetAlert("Oops...", uploadErrors.join("\n"), "error");
+        } else {
+            data.submit();
+        }
+      },
+      done: function (e, data) {
+        container = $(this);
+        json_data = JSON.parse(data.result);
+        container.parent().append(json_data.file_attachment_html);
+        existing_file_attachement_ids = _.compact($(this).parent().parent().find('.file-ids').val().split(','));
+        existing_file_attachement_ids.push(json_data.file_attachment_ids);
+        $(this).parent().parent().find('.file-ids').val(existing_file_attachement_ids)
+        $(this).attr('data-file-count', container.parent().find('.delete-file').length); // update count
+        $(this).data('file-count', container.parent().find('.delete-file').length); // update count
+        showIfCustomLogicMatched($(this), false);
 
-      setTimeout(function(){
-        container.parent().find('#progress .bar').hide();
-      }, 5000)
-    },
-    progressall: function (e, data) {
-      container = $(this);
-      var progress = parseInt(data.loaded / data.total * 100, 10);
-      container.parent().find('#progress .bar').css(
-          'width',
-          progress + '%'
-      )
-      .css('display', 'block')
-      .text(progress + '%');
-    }
-  });
+        setTimeout(function(){
+          container.parent().find('#progress .bar').hide();
+        }, 5000)
+      },
+      progressall: function (e, data) {
+        container = $(this);
+        var progress = parseInt(data.loaded / data.total * 100, 10);
+        container.parent().find('#progress .bar').css(
+            'width',
+            progress + '%'
+        )
+        .css('display', 'block')
+        .text(progress + '%');
+      }
+    });
+
+  })
 
 
   $(document).on('click', '.form-field-header', function(){
     $(this).next('.form-field-content').slideToggle();
-    $(this).next('.form-field-content').find('select').select2();
+    $(this).next('.form-field-content').find('select').chosen();
     $( ".tabs" ).tabs();
   })
 
@@ -154,6 +281,7 @@ $(document).ready(function(){
           method: 'GET',
           url: href,
           success: function() {
+            toastr.success("", "Recertification process has begun")
             window.location.reload();
           },
           error: function(response) {}
@@ -181,6 +309,7 @@ $(document).ready(function(){
           method: 'GET',
           url: href,
           success: function() {
+            toastr.success("", "Certification process has begun")
             window.location.reload();
           },
           error: function(response) {}
@@ -210,10 +339,11 @@ $(document).ready(function(){
           method: 'DELETE',
           url: href,
           success: function(file_id) {
-            file_upload = container.parent().parent().find('.fileupload');
+            file_upload = container.parent().parent().parent().find('.fileupload');
             file_upload.attr('data-file-count', $("#delete_file-" + file_id).parent().find('.delete-file').length - 1); // update count
             file_upload.data('file-count', $("#delete_file-" + file_id).parent().find('.delete-file').length - 1); // update count
             $("#delete_file-" + file_id).remove();
+            file_upload.parent().find('.file-ids').val(_.without(file_upload.parent().find('.file-ids').val().split(','), file_id.toString()));
             showIfCustomLogicMatched(file_upload, false);
           },
           error: function(response) {
@@ -228,13 +358,11 @@ $(document).ready(function(){
 
   $( function() {
     $( "#accordion" ).accordion({
-      collapsible: true, active: false, header: "h4"
+      collapsible: true, active: false, header: "h4",
+      icons: { "header": "fa fa-plus", "activeHeader": "fa fa-minus" }
     });
+
     $( ".tabs" ).tabs();
-    // $( ".accordion" ).accordion({
-    //   heightStyle: "content",
-    //   collapsible: true,
-    // });
   } );
 
   $('.form_submission_form_values_value input, .form_submission_form_values_value select, .form_submission_form_values_value textarea, .fileupload').each(function(){
@@ -248,7 +376,11 @@ $(document).ready(function(){
   })
   $('*[data-role=activerecord_sortable]').activerecord_sortable();
 
-  $('select').select2();
+  // $('select').select2();
+  $('select').chosen({
+    disable_search_threshold: 5,
+    no_results_text: "Oops, nothing found!"
+  });
 
   $('form#message-form').submit(function(e) {
     e.preventDefault()
@@ -280,13 +412,22 @@ $(document).ready(function(){
 
   $("input.datepicker").each(function(input) {
     $(this).datepicker({
-      dateFormat: "dd-mm-yy",
+      dateFormat: "dd M yy",
       altField: $(this).next()
     })
 
     // If you use i18n-js you can set the locale like that
     // $(this).datepicker("option", $.datepicker.regional['en']);
   })
+
+
+  $('body').on('focus',".restrict-till-day", function(){
+      $(this).datepicker({
+        maxDate: 0,
+        dateFormat: "dd M yy"
+      });
+  });
+
 
   $(document).on('click', '.add-css, .add-information-security-policy', function() {
     var classesToActOn = ".cyber-security, .information-security-policy"
@@ -310,18 +451,50 @@ $(document).ready(function(){
       showIfCustomLogicMatched($(this), false);
   });
 
+  var ajaxRequestInProcess = false;
   $('.submit-form').click(function(e){
     e.preventDefault();
+    
     $(this).find('.loader').removeClass('hidden');
     window.link_to_redirect_to = $(this).attr('href');
-    $('form').submit();
+    if(!ajaxRequestInProcess){
+      $('#redirect_value').val(window.link_to_redirect_to);
+      ajaxRequestInProcess = true;
+      $('form').submit();
+      $('.submit-form').attr("disabled", "disabled");
+    }
   })
 
   $("form").bind("ajax:success", function(response){
     $('.submit-form').find('.loader').addClass('hidden');
+    setTimeout(function(){ ajaxRequestInProcess = false; $('.submit-form').removeAttr("disabled"); }, 2000)
+    toastr.success('Your progress has been saved successfully', 'Saved');
     link = window.link_to_redirect_to;
-    window.location.href = link;
+    if(link == window.location.pathname){
+      window.location.reload();
+    } else{ 
+      window.location.href = link;
+    }
   })
+
+    $('.submit-tech-form').click(function(e){
+    e.preventDefault();
+
+    $(this).find('.loader').removeClass('hidden');
+    window.link_to_redirect_to = $(this).attr('href');
+    if(!ajaxRequestInProcess){
+      ajaxRequestInProcess = true;
+      $('form').submit();
+      $('.submit-tech-form').attr("disabled", "disabled");
+    }
+  })
+
+  // $("form").bind("ajax:success", function(response){
+  //   $('.submit-tech-form').find('.loader').addClass('hidden');
+  //   toastr.success('Your progress has been saved successfully', 'Saved');
+  //   setTimeout(function(){ ajaxRequestInProcess = false; $('.submit-form').removeAttr("disabled"); }, 2000)
+  //   window.location.reload();
+  // })
 
   $(document).on('DOMNodeInserted', function(e) {
     if($(e.target).hasClass('select-fields')){
@@ -402,14 +575,15 @@ $(document).ready(function(){
   });
 
 
-  if(window.location.pathname.indexOf("/admin/form_submissions/") > -1){
-    $('select').attr('disabled', 'true');
-    $('input[type="text"]').attr('disabled', 'true');
-    $('input[type="number"]').attr('disabled', 'true');
-    $('textarea').attr('disabled', 'true');
-    $('.score-form input').removeAttr('disabled');
-    $('#notes-modal .input > div textarea').removeAttr('disabled');
-    $('textarea.note').removeAttr('disabled');
+  if(window.location.pathname.indexOf("/admin/form_submissions/") > -1 ){
+    disableFormSubmissionFields();
+    if(!$('body').hasClass('minified')){
+      setTimeout(function(){ $('.minifyme').trigger('click') }, 500)
+    }
+  }
+
+  if(window.location.pathname.indexOf("/form_submissions/?readonly=true") > -1){
+    disableFormSubmissionFields();
   }
 
   $('.send-wrapper').click(function(){
@@ -456,7 +630,7 @@ $(document).ready(function(){
       $(this).qtip({
         content: {
           title: 'Security threat(s) found.',
-          text: $(this).attr("class").replace('btn btn-xs threat-warning threat-found ', '').replace(/-/g, ' ')
+          text: $(this).attr("class").replace('btn btn-xs threat-warning threat-found ', '').replace('waves-effect waves-light', '').replace(/-/g, ' ')
         }
       });
     }
@@ -477,8 +651,13 @@ $(document).ready(function(){
 
   $('.add-note').on('click', function(e){
     e.preventDefault();
+    var data;
 
-    var data = $(this).data();
+    if( _.isEmpty($(this).data()) ){
+      data = $(this).find('input').data();
+    } else {
+      data = $(this).data();
+    }
     var field_wrapper_id = data.field_wrapper_id;
     message = $(this).parent().parent().find('textarea.note').val();
     data.message = message;
@@ -491,6 +670,7 @@ $(document).ready(function(){
       context: $(this).parent().parent().parent(),
       success: function(response) {
         $(this).find('div.note').prepend(response)
+        window.location.reload();
       }
     })
     wrapper = $('.field-wrapper-' + field_wrapper_id);
@@ -501,10 +681,11 @@ $(document).ready(function(){
 
   $('.resolve-btn').on('click', function(e){
     e.preventDefault();
+    var data = $(this).find('input').data();
     $.ajax({
       url: "/admin/follow_ups/resolve",
       method: 'post',
-      data: $(this).data(),
+      data: data,
       context: $(this).parent()
     })
       .done(function( data ) {
@@ -557,6 +738,38 @@ $(document).ready(function(){
     
   })
 
+  $('.delete-security-alert').on('click', function(e){
+    e.preventDefault();
+    var id = $(this).data('id');
+
+    swal({
+      title: "Are you sure?",
+      text: "",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "Yes, delete this security alert!",
+      cancelButtonText: "Cancel",
+      closeOnConfirm: true,
+      closeOnCancel: true
+    },
+    function(isConfirm){
+      if (isConfirm) {
+        $.ajax({
+          url: "/admin/security_alerts/" + id,
+          method: 'POST',
+          async: false,
+          data: {"_method":"delete"},
+          complete: function(response) {
+            window.location.reload();
+          }
+        })
+      }
+    });
+
+    
+  })
+
   // initialize sortable
   $(function() {
     $("#sortable1, #sortable2").sortable({
@@ -600,6 +813,7 @@ $(document).ready(function(){
                 $this.remove();
                 countTasks();
               });
+              window.location.href = response.redirect_url;
             }
           })
         } else {
@@ -610,6 +824,23 @@ $(document).ready(function(){
     }
 
   })
+
+  function replaceChosenWithSelect2(){
+    $('select').chosen();
+  }
+
+  function disableFormSubmissionFields(){
+    $('select').attr('disabled', 'true');
+    $('select').prop('disabled', true).trigger("chosen:updated");
+    $('input[type="text"]').attr('disabled', 'true');
+    $('input[type="number"]').attr('disabled', 'true');
+    $('input[type="email"]').attr('disabled', 'true');
+    $('textarea').attr('disabled', 'true');
+    $('.score-form input').removeAttr('disabled');
+    $('#notes-modal .input > div textarea').removeAttr('disabled');
+    $('textarea.note').removeAttr('disabled');
+  }
+
   // count tasks
   function countTasks() {
 
@@ -759,9 +990,12 @@ $(document).ready(function(){
 
   score_rating();
 
+    
   $(document).on('click', '#links a.add_fields', function(){
     score_rating();
-
+  })
+  $(document).on('click', 'a.add_fields', function(){
+    $('select').chosen();
   })
 
   $('.average-score-rating').rateYo({
@@ -836,6 +1070,41 @@ $(document).ready(function(){
       "endColor"  : "#369e36"
     },
     onChange: function(rating, instance){
+
+      $('.system-score-threshold').click(function(){
+
+        swal({
+          title: "Are you sure?",
+          text: "",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#DD6B55",
+          confirmButtonText: "Yes, change threshold",
+          cancelButtonText: "Cancel",
+          closeOnConfirm: true,
+          closeOnCancel: true
+        },
+        function(isConfirm){
+          if (isConfirm) {
+            $.ajax({
+              method: 'PATCH',
+              url: '/admin/system_settings/0',
+              data: {
+                system_setting: {
+                  score_threshold: rating 
+                }
+              },
+              context: $(this),
+              success: function(response) {
+                toastr.success("", "The system score threshold has been updated.")
+              }
+            })
+          }
+        });
+        
+      })
+
+
       $(this).attr("data-original-title", rating).tooltip('show');
       $(this).data('bs.tooltip').options.placement = 'right';
       
@@ -936,7 +1205,14 @@ function fetchTechnology(vendor, platform, version, target, platform_type, platf
 
   $.get('/technologies', data, function(response){
     html = "";
-    $(target).select2().empty().select2({data: response}).trigger('change');
+    // $(target).select2().empty().select2({data: response}).trigger('change');
+
+    $(target).empty().append("<option value=''></option>");
+    if (response.length > 0){
+      $.each(response, function( index, value ) {
+        $(target).append("<option value='" + value.id + "'>" + value.text + "</option>").trigger('chosen:updated').trigger('change');
+      });
+    }
     // $(target).select2({data: response}).trigger('change');
     // response.forEach(function(value){
       // html += '<option value="' + value + '">' + value + "</option>";
@@ -972,10 +1248,23 @@ function fetchLawFirms(vendor, platform, version, target){
     }
   }
   $.get('/admin/security_threats/0/find_law_firms', data, function(response){
-    $('#law-firms').select2().empty().select2({data: response.selected});
-    $('#law-firms option').attr('selected', true).parent().trigger('change');
-    $('#law-firms').select2({data: response.all});
-    $('#law-firms-count').html(response.selected.length + " Firm(s) found")
+
+    if (response.selected.length > 0){
+    $('#law-firms').empty().append("<option value=''></option>");
+      $.each(response.selected, function( index, value ) {
+        $("#law-firms").append("<option selected='selected' value='" + value.id + "'>" + value.text + "</option>").trigger('chosen:updated').trigger('change');
+      });
+    }
+    if (response.all.length > 0){
+      $.each(response.all, function( index, value ) {
+        $("#law-firms").append("<option value='" + value.id + "'>" + value.text + "</option>").trigger('chosen:updated').trigger('change');
+      });
+    }
+
+    // $('#law-firms').select2().empty().select2({data: response.selected});
+    // $('#law-firms option').attr('selected', true).parent().trigger('change');
+    // $('#law-firms').select2({data: response.all});
+    // $('#law-firms-count').html(response.selected.length + " Firm(s) found")
 
     if(response.selected.length > 0){
       $('.clear-all-lawfirms').show();
@@ -1013,47 +1302,42 @@ function showIfCustomLogicMatched(currentField, pageLoad){
   
   if( currentFieldLogics.length > 0 ) {
     currentFieldLogics.forEach(function(logic) {
-      // if(logic.change_field_id == 55){
-      // }
+
       targetField = $('.field-wrapper-' + logic.change_field_id)
 
-      if ( logic.listen_field_id == 55 ) {
-        debugger;
-        sourceField = $('.field-wrapper-' + logic.listen_field_id);
-      }
-
       if( (currentField.val() && currentField.val() == logic.values && currentField.val().length != 0) 
-           || (logic.values == "" && currentField.val().length > 0)
+           || (logic.values == "" && currentField.val() && currentField.val().length > 0)
            || (currentField.hasClass('fileupload') && parseInt(currentField.data('file-count')) > 0)
         ){
         switch(logic.perform_action){
           case 'show':
             targetField.show();
-            targetField.find("select").select2();
+            // targetField.find("select").select2();
+            targetField.find("select").chosen();
             break;
           case 'hide':
             targetField.hide();
-            if(!pageLoad){
-              targetField.find("select").val('').trigger('change');
-              targetField.find("input[type!=hidden]").val('').trigger('change');
-            }
+            // if(!pageLoad){
+            //   targetField.find("select").val('').trigger('change');
+            //   targetField.find("input[type!=hidden]").val('').trigger('change');
+            // }
             break;
         }
       } else {
         switch(logic.perform_action){
           case 'show':
             targetField.hide();
-            if(!pageLoad){
-              targetField.find("select").val('').trigger('change');
-              targetField.find("input[type!=hidden]").val('').trigger('change');
-            }
+            // if(!pageLoad){
+            //   targetField.find("select").val('').trigger('change');
+            //   targetField.find("input[type!=hidden]").val('').trigger('change');
+            // }
             break;
           case 'hide':
             targetField.show();
-            targetField.find("select").select2();
-            if(!pageLoad){
-              targetField.find("input[type!=hidden]").val('').trigger('change');
-            }
+            targetField.find("select").chosen();
+            // if(!pageLoad){
+            //   targetField.find("input[type!=hidden]").val('').trigger('change');
+            // }
             break;
         }
       }

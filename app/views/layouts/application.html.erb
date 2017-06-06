@@ -7,6 +7,9 @@
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <!--[if IE]>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+    <![endif]-->
     <style>
       #main {
         margin-left: 0px;
@@ -46,6 +49,18 @@
 
           <!-- Suggestion: populate this list with fetch and push technique -->
           <ul class="dropdown-menu">
+            <% if current_law_firm && current_law_firm.form_submissions.any? && ( !['sent', 'started'].include? current_law_firm.form_submissions.latest.status ) %>
+              <li>
+                <%= link_to "Technologies", technology_profile_form_submission_path(current_law_firm.form_submissions.latest) %>
+              </li>
+              <li>
+                <%= link_to "History", history_profile_form_submission_path(current_law_firm.form_submissions.latest) %>
+              </li>
+              <li class="divider"></li>
+            <% end %>
+            <li>
+              <%= link_to "Edit Profile", edit_law_firm_path(current_law_firm) %>
+            </li>
             <li>
               <%= link_to "Change your password", edit_user_registration_path %>
             </li>
@@ -156,11 +171,11 @@
       <script>
         $('#law-firm-rating').rateYo({
           halfStar: true,
-          rating: <%= current_law_firm.try(:form_submissions).try(:latest).try(:total_score) %>,
+          rating: <%= current_law_firm.try(:total_calculated_score) %>,
           readOnly: true,
-          multiColor: {
-            "startColor": "#FF0000",
-            "endColor"  : "#f39c12"
+          multiColor: { 
+            "startColor": "<%= current_law_firm.form_submissions.latest.try(:color, current_law_firm.total_calculated_score, 'total_calculated_score') %>", 
+            "endColor": "<%= current_law_firm.form_submissions.latest.try(:color, current_law_firm.total_calculated_score, 'total_calculated_score') %>"
           }
         });
       </script>

@@ -2,6 +2,7 @@ require 'tempfile'
 class FileAttachment < ApplicationRecord
   attr_accessor :encrypted
 
+  belongs_to :attachable, polymorphic: true
   belongs_to :form_value
   mount_uploader :file, FileUploader
 

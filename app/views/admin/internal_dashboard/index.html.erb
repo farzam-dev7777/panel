@@ -45,56 +45,24 @@
 
 
 <div class="row">
-<div class="col-md-6">
+	<!-- <div class="col-md-6">
 		<article class="col-sm-12">
-			<!-- new widget -->
 			<div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
-					<!-- widget options:
-					usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
-
-					data-widget-colorbutton="false"
-					data-widget-editbutton="false"
-					data-widget-togglebutton="false"
-					data-widget-deletebutton="false"
-					data-widget-fullscreenbutton="false"
-					data-widget-custombutton="false"
-					data-widget-collapsed="true"
-					data-widget-sortable="false"
-
-				-->
 				<header>
 					<span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
 					<h2>HEAT Map</h2>
-
 				</header>
-
-				<!-- widget div-->
 				<div>
-
-					<!-- widget edit box -->
-					<div class="jarviswidget-editbox">
-						<!-- This area used as dropdown edit box -->
-
-					</div>
-					<!-- end widget edit box -->
-
-					<!-- widget content -->
+					<div class="jarviswidget-editbox"></div>
 					<div class="widget-body no-padding" style="height: 250px;">
-
-					<div id="chartContainer" style="height: 250px; width: 100%;">
-
+						<div id="chartContainer" style="height: 250px; width: 100%;"></div>
 					</div>
-					<!-- end widget content -->
-
 				</div>
-				<!-- end widget div -->
-
 			</div>
-
 		</article>
-	</div>
+	</div> -->
 
-	<div class="col-md-6">
+	<div class="col-md-12">
 		<article class="col-sm-12">
 			<!-- new widget -->
 			<div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
@@ -166,7 +134,7 @@
 	<div class="jarviswidget jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
 		<header>
 			<span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
-			<h2 class="font-md"><strong>Current Threats </strong></h2>				
+			<h2 class="font-md"><strong>Latest Threats </strong></h2>				
 		</header>
 		<div class="no-padding">
 			<div class="jarviswidget-editbox"></div>
@@ -177,7 +145,7 @@
 					<table class="table table-bordered" id="db-curr-threats">
 						<thead>
 						<tr style="background: #007ac3; color: #fff;">
-							<th>Title</th>
+							<th>Threat</th>
 							<th>Description</th>
 							<th>Severity</th>
 							<th>Created</th>
@@ -190,7 +158,8 @@
 									<td><%= threat.title %></td>
 									<td><%= truncate(threat.description, length: 150) %></td>
 									<td><%= threat.severity_level.name.humanize %></td>
-									<td><%= threat.created_at.strftime("%d %b %y, %I:%M %Z") %></td>
+									<!-- <td><%= threat.created_at.strftime("%d %b %y, %I:%M %Z") %></td> -->
+									<td><%= threat.created_at.strftime("%d %b, %Y") %></td>
 									<td><%= link_to "More Details", admin_security_threat_path(threat), :class => "", :remote => true, "data-toggle" => "modal", "data-target" => "securityAlert" %></td>
 								</tr>
 							<% end %>
@@ -353,11 +322,11 @@
 		<div class="col-md-12">
 			<div class="jarviswidget jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
 
-				<header>
+				<header class="no-border">
 					<span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
 					<h2 class="font-md"><strong>Activity Log </strong></h2>	
-					<div class="widget-toolbar">
-						<%= link_to "<i class='fa fa-download'></i>".html_safe, activity_logs_admin_pdf_index_path, method: :get, class: 'btn btn-success btn-xs' %>
+					<div class="widget-toolbar no-padding">
+						<%= link_to "<i class='fa fa-download'></i>".html_safe, activity_logs_admin_pdf_index_path, method: :get, class: 'btn btn-success btn-xs download-activities' %>
 					</div>			
 				</header>
 
@@ -375,8 +344,8 @@
 									<%= f.text_field :created_at_lteq, label: false, placeholder: 'To Date', class: 'form-control datepicker', input_html: { id: 'to-date' } %>
 								</div>
 								<div class="col-md-1 no-padding text-right">
-									<button id="reset-activity-log-btn" class="btn btn-sm btn-danger">
-										<i class="fa fa-times"></i> Reset
+									<button id="reset-activity-log-btn" class="btn btn-sm btn-danger no-margin">
+										<i class="fa fa-times"></i>
 									</button>
 								</div>
             <% end %>

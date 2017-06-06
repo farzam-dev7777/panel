@@ -20,7 +20,7 @@ class QueuedNotification < ApplicationRecord
 	    law_firm_id: action_item.law_firm_id,
 	    event_type: "#{action_item.security_threat.severity_level.name}_security_alert",
 	    loggable: action_item,
-	    custom_message: "A #{triggers.last.severity_level.name.humanize} security threat needs your attention.",
+	    custom_message: action_item.security_threat.title,
 	    notify: true,
 	    source: current_user.class,
 	    email: current_user.email

@@ -44,12 +44,47 @@ class Admin::FormSubmissionsController < Admin::BaseController
     
     @form_submission.form_values.each do |form_value|
       if !form_value.value.blank?
-        total_score = total_score + form_value.try(:form_field).try(:score) if form_value.try(:form_field).try(:score) 
+        if form_value.is_a_repeater_field?
+          total_score = total_score + calculate_repeater_field_score(form_value)
+        else
+          total_score = total_score + form_value.try(:form_field).try(:score) if form_value.try(:form_field).try(:score) 
+        end
         score_counter = score_counter + 1
       end
     end
-    @system_score = score_counter > 0 ? total_score/score_counter : 0
+    @system_score = score_counter > 0 ? (total_score/score_counter).round(2) : 0
     @form_submission.update_attributes(system_score: @system_score)
+  end
+
+  def calculate_repeater_field_score(form_value)
+    repeater_field_score = []
+    calculated_score = 0
+    case form_value.form_field.type
+    when 'InformationSecurityPolicyField'
+      calculated_score = compute_field_score(form_value, repeater_field_score, 'InformationSecurityPolicy', 'information_security_policies')
+    when 'CyberSecurityStandardField'
+      calculated_score = compute_field_score(form_value, repeater_field_score, 'CyberSecurityStandardField', 'cyber_security_standards')
+    when 'ThirdPartyVendorField'
+      calculated_score = compute_field_score(form_value, repeater_field_score, 'ThirdPartyVendor', 'third_party_vendors')
+    when 'CloudProviderField'
+      calculated_score = compute_field_score(form_value, repeater_field_score, 'CloudProvider', 'cloud_providers')
+    when 'CyberSecurityInsuranceField'
+      calculated_score = compute_field_score(form_value, repeater_field_score, 'CyberSecurityInsurance', 'cyber_security_insurances')
+    end
+    calculated_score
+  end
+
+  def compute_field_score(form_value, repeater_field_score, model, association)
+    ignored_columns = ["id", "created_at", "updated_at", "form_value_id"]
+    single_field_score = 5
+    columns = model.constantize.column_names
+    form_value.send(association).each do |field|
+      columns.each_with_index do |column_name, index|
+        single_field_score = single_field_score - 1 if field[column_name.to_sym].blank? && !ignored_columns.include?(column_name)
+        repeater_field_score.push(single_field_score) && single_field_score = 5 if columns.size - 1 == index
+      end
+    end
+    ((repeater_field_score.sum / ((columns - ignored_columns).size * 5).to_f) * 5).round(2)
   end
 
   def edit
@@ -134,7 +169,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
   def approve
     @form_submission = FormSubmission.find(params[:id])
 
-    if @form_submission.check_total_score_before_approval >= SystemSetting.score_threshold
+    if @form_submission.system_score >= SystemSetting.score_threshold
 
       @form_submission.status = 'approved'
 
@@ -143,7 +178,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
       @form_submission.expiry_date = Time.now + 1.year
 
       # Creates action items for the law firm that has just been approved
-      generate_security_threats
+      # generate_security_threats
 
       if (@form_submission.save)
         LawFirmMailer.decision_reached(@form_submission, 'Approved').deliver_now
@@ -151,7 +186,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
         redirect_to :admin_law_firms
       end
     else
-      redirect_to history_step_admin_form_submission_path(@form_submission), alert: "The score (#{@form_submission.check_total_score_before_approval}) is below system's threshold (#{SystemSetting.score_threshold}). You cannot approve the law firm" 
+      redirect_to history_step_admin_form_submission_path(@form_submission), alert: "The score (#{@form_submission.system_score}) is below system's threshold (#{SystemSetting.score_threshold}). You cannot approve the law firm" 
     end
   end
 
@@ -183,9 +218,12 @@ class Admin::FormSubmissionsController < Admin::BaseController
   def set_expiry_date
     @form_submission = FormSubmission.find_by(id: params[:id])
 
+    current_expiry_date = @form_submission.expiry_date
+
     if @form_submission && params[:expiry_date]
       @form_submission.update_attributes(expiry_date: Date.parse(params[:expiry_date]))
-      FormSubmission.log_activity('expiry_date_changed', false, @form_submission, current_admin_user)
+      custom_activity_message = "Expiry date changed from #{DateField.stringify_date(current_expiry_date)} to #{params[:expiry_date]}"
+      FormSubmission.log_activity('expiry_date_changed', false, @form_submission, current_admin_user, custom_activity_message)
     end
     head :ok
   end

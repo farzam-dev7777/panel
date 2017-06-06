@@ -9,7 +9,7 @@ class ActionItemsController < BaseController
 	  	queued_notifications.update_all(deleted_at: Time.now)
       log_completion
   	end
-  	head :ok
+  	render json: {redirect_url: "/form_submissions/#{@action_item.law_firm.form_submissions.latest.id}/technology_profile"}
   end
 
   def show

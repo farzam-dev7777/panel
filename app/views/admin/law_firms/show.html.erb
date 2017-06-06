@@ -14,7 +14,7 @@
 <% if (@law_firm.form_submissions.any? && @law_firm.form_submissions.latest.status == 'decertified') %>
 	
 	<!-- <div class="col-lg-1 pull-right"> -->
-		<a class="btn btn-sm btn-success certify-btn" data-id='<%= @law_firm.id %>' data-name='<%= @law_firm.name %>'>Certify</a>
+		<a class="btn btn-sm btn-success certify-btn" data-id='<%= @law_firm.id %>' data-name='<%= @law_firm.name %>'>Recertify</a>
 	<!-- </div> -->
 
 	<div class="clearfix"></div>
@@ -71,6 +71,10 @@
 
 				<li>
 					<a data-toggle="tab" href="#hr3"> <i class="fa fa-lg fa-book"></i> <span class="hidden-mobile hidden-tablet"> Submissions </span></a>
+				</li>
+
+				<li>
+					<a data-toggle="tab" href="#hrst"> <i class="fa fa-lg fa-lock"></i> <span class="hidden-mobile hidden-tablet"> Security Threats </span></a>
 				</li>
 
 				<li>
@@ -182,7 +186,7 @@
 
 									<div class="cd-timeline-content">
 										<h2>
-											<strong><%= activity.custom_message || activity.event_type.titleize %></strong>
+											<strong class="<%= activity_source_class(activity) %>"><%= activity.custom_message || activity.event_type.titleize %></strong>
 										</h2>
 										<em>(<%= activity.source == 'AdminUser' ? 'Bank' : 'Law Firm' %>)</em>
 										<span class="cd-date"><%= activity.created_at.strftime('%d %b at %I:%M %p') %></span>
@@ -264,12 +268,79 @@
 
 							</div>
 							<% else %>
-								<h4 class="text-center">There are no submissions to review yet</h4>
+								<h4 class="text-center no-submissions">There are no submissions to review yet</h4>
 							<% end %>
 						</div>
 
 
 						
+					</div>
+
+					<div class="tab-pane fade" id="hrst">
+						<div class="clearfix"></div>
+						<div class="col-lg-12">
+							<div>
+								<!-- widget edit box -->
+								<div class="jarviswidget-editbox">
+									<div>
+										<label>Title:</label>
+										<input type="text" />
+									</div>
+								</div>
+								<!-- end widget edit box -->
+
+								<% if @law_firm.action_items.any? %>
+								<div class="widget-body no-padding smart-form" style="margin-top: 5px !important">
+									<!-- content goes here -->
+									
+									<% if (@law_firm.action_items.select{|a| a.status != 'complete' && a.security_threat.severity_level.name == 'critical'}).count > 0 %>
+										<h5 class="todo-group-title"><i class="fa fa-warning"></i> Critical</h5>
+									<% end %>
+									<% @law_firm.action_items.select{|a| a.status != 'complete' && a.security_threat.severity_level.name == 'critical'}.each do |item| %>
+										<%= render partial: 'dashboard/action_item', locals: { item: item, active: false } %>
+									<% end %>
+
+									<% if (@law_firm.action_items.select{|a| a.status != 'complete' && a.security_threat.severity_level.name == 'high'}).count > 0 %>
+										<h5 class="todo-group-title"><i class="fa fa-warning"></i> High</h5>
+									<% end %>
+									<% @law_firm.action_items.select{|a| a.status != 'complete' && a.security_threat.severity_level.name == 'high'}.each do |item| %>
+										<%= render partial: 'dashboard/action_item', locals: { item: item, active: false } %>
+									<% end %>
+
+									<% if (@law_firm.action_items.select{|a| a.status != 'complete' && a.security_threat.severity_level.name == 'low'}).count > 0 %>
+										<h5 class="todo-group-title"><i class="fa fa-warning"></i> Low</h5>
+									<% end %>
+									<% @law_firm.action_items.select{|a| a.status != 'complete' && a.security_threat.severity_level.name == 'low'}.each do |item| %>
+										<%= render partial: 'dashboard/action_item', locals: { item: item, active: false } %>
+									<% end %>
+
+
+
+									<h5 class="todo-group-title"><i class="fa fa-check"></i> Completed Tasks</h5>
+									<ul id="sortable3" class="todo">
+										<% @law_firm.action_items.select{|a| a.status == 'complete'}.each do |item| %>
+										<li class="complete">
+											<span class="handle" style="display:none"> <label class="checkbox state-disabled">
+												<input type="checkbox" name="checkbox-inline" checked="checked" disabled="disabled">
+												<i></i> </label> </span>
+												<p>
+													<strong><%= item.security_threat.title %></strong> [<%= link_to "More Details", action_item_path(item), :class => "", :remote => true, "data-toggle" => "modal", "data-target" => "securityAlert" %>] <span class="text-muted"><%= item.security_threat.description %> </span>
+													<span class="date"><%= time_ago_in_words(item.created_at) %></span>
+												</p>
+											</li>
+											<% end %>
+										</ul>
+
+										<!-- end content -->
+									</div>
+
+
+									<% else %>
+										<em class="text-center"> There are no security threats </em>
+									<% end %>
+
+								</div>
+						</div>
 					</div>
 
 

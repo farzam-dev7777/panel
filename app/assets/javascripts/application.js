@@ -14,6 +14,8 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require jquery-ui-sortable
+//= require html5shiv
+//= require chosen.jquery.min
 //= require sortable
 //= require app
 //= require cocoon
@@ -32,7 +34,7 @@
 //= require plugin/flot/jquery.flot.time.min
 //= require plugin/flot/jquery.flot.tooltip.min
 //= require plugin/flot/jquery.flot.orderBar.min
-//= require plugin/select2/select2.min
+// require plugin/select2/select2.min
 //= require plugin/datatables/jquery.dataTables.min.js
 //= require plugin/datatables/dataTables.colVis.min.js
 //= require plugin/datatables/dataTables.tableTools.min.js
@@ -46,6 +48,8 @@
 //= require raphael
 //= require sweetalert
 //= require jquery_nested_form
+//= require loadingoverlay.min
+//= require loadingoverlay_progress
 //= require toastr
 //= require admin.js
 // require main.js

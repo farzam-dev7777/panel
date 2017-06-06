@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  network_discovery: 2017-05-24
+  penetration_testing: 2017-05-24
+  vulnerability_assessment: 2017-05-24
+  hardware_refresh: 2017-05-24
+  hardware_inventory: 2017-05-24
+  software_inventory: 2017-05-24
+
+two:
+  network_discovery: 2017-05-24
+  penetration_testing: 2017-05-24
+  vulnerability_assessment: 2017-05-24
+  hardware_refresh: 2017-05-24
+  hardware_inventory: 2017-05-24
+  software_inventory: 2017-05-24

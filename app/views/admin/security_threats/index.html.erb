@@ -19,7 +19,7 @@
 				<table class="table table-bordered" id="sec-threat">
 					<thead>
 					<tr style="background: #007ac3;color: #fff;">
-						<th>Title</th>
+						<th>Threat</th>
 						<th width="150px">Description</th>
 						<th>Target</th>
 						<th>Severity</th>
@@ -46,7 +46,8 @@
 									<% end %>
 								</td>
 								<td><%= threat.severity_level.try(:name) %></td>
-								<td><%= link_to "More Details", admin_security_threat_path(threat), :class => "", :remote => true, "data-toggle" => "modal", "data-target" => "securityAlert" %></td>
+
+								<td><%= link_to "#{threat.action_items.complete.count}/#{threat.action_items.count}", admin_security_threat_path(threat), :class => "", :remote => true, "data-toggle" => "modal", "data-target" => "securityAlert" %></td>
 							</tr>
 						<% end %>
 					</tbody>

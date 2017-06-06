@@ -8,14 +8,12 @@ class Admin::SystemSettingsController < Admin::BaseController
   end
 
   def update
-  	if @settings.update_attributes(settings_params)
-  		redirect_to :back, notice: "System Settings Saved"
-    else
-      redirect_to :back, notice: "Couldn't save system settings"
-  	end
+  	@settings.update_attributes(settings_params)
+		render json: :ok
   end
 
   def edit
+    # authorize! :edit, @settings
   end
 
   def show

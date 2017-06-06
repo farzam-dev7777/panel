@@ -1,6 +1,8 @@
 <div>
 	<label><%= field.try(:label) %></label>
 
+  <%= v.input :value, as: :hidden, input_html: { class: 'repeater-field-value' } %>
+
   <div class="clearfix"></div>
   <div class="col-md-4 no-padding gfe-field">
     <label>Vendor Name</label>
@@ -13,7 +15,7 @@
   </div>
   <div class="clearfix"></div>
 
-  <%= v.simple_fields_for :third_party_vendors do |third_party_vendor_field| %>
+  <%= v.simple_fields_for :third_party_vendors, v.object.render_third_party_vendor_fields do |third_party_vendor_field| %>
     <%= render partial: "third_party_vendor_fields", 
                locals: {f: third_party_vendor_field} %>
   <% end %>

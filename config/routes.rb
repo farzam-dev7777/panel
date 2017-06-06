@@ -91,6 +91,8 @@ Rails.application.routes.draw do
     root to: "internal_dashboard#index"
   end
   
+  resources :law_firms
+
   resources :technologies do
     member do
       get :vendors
@@ -109,6 +111,7 @@ Rails.application.routes.draw do
   end
 
   patch "file_attachments/:id/:type" => "file_attachments#create", :as => "file_attachments_uploader"
+  patch "file_attachments/" => "file_attachments#create", :as => "file_attachments_without_object"
   resources :file_attachments
   resources :form_submissions do
     member do
@@ -117,8 +120,12 @@ Rails.application.routes.draw do
       get :technology_step
       get :history_step
       get :submit_forms
+      get :technology_profile
+      get :history_profile
     end
   end
+
+  resources :technology_values
 
   resources :pdf do
     collection do

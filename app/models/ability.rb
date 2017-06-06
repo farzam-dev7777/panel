@@ -4,14 +4,23 @@ class Ability
   def initialize(user)
     # Define abilities for the passed in user here. For example:
     #
-    if user.class.to_s == 'AdminUser'
+    if user.class.to_s == 'AdminUser' && user.role == 'superadmin'
       can :manage, :all
+    elsif  user.class.to_s == 'AdminUser' && user.role == 'admin'
+      cannot :manage, SystemSetting
     else
       can :manage, FormSubmission do |fs|
-        user.law_firm.form_submissions.latest.id == fs.id
+        user.law_firm.form_submissions.map(&:id).include? fs.id
+      end
+      can :manage, LawFirm do |lf|
+        user.law_firm.id == lf.id # && !user.law_firm.profile_completed
       end
       can :manage, FileAttachment do |fa|
-        fa.form_value.submittable.law_firm_id == user.law_firm.id
+        if fa.form_value && fa.attachable_type && fa.attachable_id
+          fa.form_value.submittable.law_firm_id == user.law_firm.id
+        else
+          true
+        end
       end
       can :read, :SecurityThreat
       can :read, :SecurityAlert

@@ -9,7 +9,7 @@ class LawFirmMailer < ApplicationMailer
   def firm_decertified(law_firm)
   	@law_firm = law_firm
   	@user = @law_firm.try(:user)
-  	mail(to: @law_firm.relationship_manager_emai, subject: "#{@law_firm.name} has been decertified")
+  	mail(to: @law_firm.relationship_manager_email, subject: "#{@law_firm.name} has been decertified")
   end
 
   def initial_submissions_generated(law_firm)

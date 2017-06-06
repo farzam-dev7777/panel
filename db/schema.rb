@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170413032526) do
+ActiveRecord::Schema.define(version: 20170524160235) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,18 @@ ActiveRecord::Schema.define(version: 20170413032526) do
     t.index ["loggable_type", "loggable_id"], name: "index_activity_logs_on_loggable_type_and_loggable_id", using: :btree
   end
 
+  create_table "activity_time_logs", force: :cascade do |t|
+    t.date     "network_discovery"
+    t.date     "penetration_testing"
+    t.date     "vulnerability_assessment"
+    t.date     "hardware_refresh"
+    t.date     "hardware_inventory"
+    t.date     "software_inventory"
+    t.integer  "form_value_id"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
   create_table "admin_users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -68,6 +80,7 @@ ActiveRecord::Schema.define(version: 20170413032526) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.integer  "internal_id"
+    t.string   "role"
     t.index ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
   end
@@ -79,6 +92,22 @@ ActiveRecord::Schema.define(version: 20170413032526) do
     t.string   "data_store_location_ca"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.string   "cloud_type"
+    t.string   "data"
+    t.string   "encrypted_in_flight"
+    t.string   "encrypted_at_rest"
+  end
+
+  create_table "cyber_security_insurances", force: :cascade do |t|
+    t.string   "company"
+    t.string   "coverage"
+    t.string   "coverage_amount"
+    t.string   "policy"
+    t.string   "form_value_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.date     "date_of_expiry"
+    t.string   "standing"
   end
 
   create_table "cyber_security_standards", force: :cascade do |t|
@@ -104,11 +133,13 @@ ActiveRecord::Schema.define(version: 20170413032526) do
   create_table "file_attachments", force: :cascade do |t|
     t.string   "file"
     t.integer  "form_value_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
     t.integer  "internal_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.text     "iv"
     t.text     "key"
+    t.string   "attachable_type"
+    t.integer  "attachable_id"
   end
 
   create_table "follow_ups", force: :cascade do |t|
@@ -210,9 +241,10 @@ ActiveRecord::Schema.define(version: 20170413032526) do
     t.date     "last_updated"
     t.string   "freq_of_review"
     t.integer  "form_value_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
     t.string   "upload_policy"
+    t.string   "independent_review"
   end
 
   create_table "internal_notes", force: :cascade do |t|
@@ -236,8 +268,8 @@ ActiveRecord::Schema.define(version: 20170413032526) do
     t.string   "description"
     t.string   "email"
     t.string   "phone"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
     t.integer  "user_id"
     t.integer  "internal_id"
     t.string   "relationship_manager_email"
@@ -248,6 +280,7 @@ ActiveRecord::Schema.define(version: 20170413032526) do
     t.string   "principle_name"
     t.string   "principle_title"
     t.text     "principle_contact_info"
+    t.boolean  "profile_completed",          default: false
   end
 
   create_table "locations", force: :cascade do |t|
@@ -468,6 +501,7 @@ ActiveRecord::Schema.define(version: 20170413032526) do
     t.datetime "deactivated_at"
     t.string   "otp_secret_key"
     t.string   "google_secret"
+    t.string   "role"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end

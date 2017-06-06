@@ -1,11 +1,11 @@
 <div class="third-party-vendor third-party-vendor-field-<%= f.object.try(:id) %>">
-	<div class="col-md-4">
+	<div class="col-md-4 no-padding-left">
 		<%= f.input :vendor_name, label: false %>
 	</div>
-	<div class="col-md-4">
+	<div class="col-md-4 no-padding-left">
 		<%= f.input :area, label: false %>
 	</div>
-	<div class="col-md-3">
+	<div class="col-md-3 no-padding-left">
 		<%= f.input :confidentiality_agreement, collection: ['Yes', 'No'], blank: false , label: false %>
 	</div>
 

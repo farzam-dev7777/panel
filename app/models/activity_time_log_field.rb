@@ -1,0 +1,2 @@
+class ActivityTimeLogField < FormField
+end

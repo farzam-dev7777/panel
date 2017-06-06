@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  acts_as_messageable
+  # acts_as_messageable
   acts_as_google_authenticated :column => :username
 
   devise :database_authenticatable,
@@ -52,11 +52,11 @@ class User < ApplicationRecord
   end
 
   Warden::Manager.after_authentication do |user,auth,opts|
-    activity_object(user, 'login', 'in') if user && user.class.to_s != 'AdminUser'
+    activity_object(user, 'login', 'in') if user && user.class.to_s != 'AdminUser' && user.role == 'user'
   end
 
   Warden::Manager.before_logout do |user,auth,opts|
-    activity_object(user, 'logout', 'out') if user && user.class.to_s != 'AdminUser'
+    activity_object(user, 'logout', 'out') if user && user.class.to_s != 'AdminUser' && user.role == 'user'
   end
 
   def self.activity_object(user, event_type, task_string)
@@ -71,5 +71,9 @@ class User < ApplicationRecord
     }
     ActivityLog.log(object)
   end
+
+  def is_a_standard_user?
+    self.role == 'user'
+  end 
 
 end

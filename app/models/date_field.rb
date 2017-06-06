@@ -1,6 +1,6 @@
 class DateField < FormField
 
-  DATE_FORMAT = "%d-%m-%Y"
+  DATE_FORMAT = "%d %b %Y"
 
   def parse_date(form_value)
     Date.strptime(form_value.value, DATE_FORMAT) if form_value.value && !form_value.value.blank?

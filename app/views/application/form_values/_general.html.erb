@@ -2,8 +2,8 @@
   form_class = label_class = ''
   if(v.object.form_field.type == 'TextField' ||
      v.object.form_field.type == 'EmailField')
-    form_class = 'md-form'
-    label_class = 'form-control no-border'
+    form_class = 'float-form'
+    label_class = 'form-control float-field no-border'
   end
 %>
 
@@ -12,12 +12,13 @@
   <%= v.input :value, {
     label: false,
     collection: field.collection.sort,
-    input_html: { autocomplete: 'off' },
+    input_html: { autocomplete: 'off', value: v.object.try(:value) },
     required: field.required,
     wrapper: false,
     # wrapper_html: field.wrapper_html,
-    blank: false,
-    as: field.as
+    blank: true,
+    as: field.as,
+    disabled: @readonly ? 'disabled' : ''
   }, &field.input_block(v) %>
 </div>
 

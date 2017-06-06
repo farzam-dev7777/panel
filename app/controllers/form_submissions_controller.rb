@@ -8,7 +8,7 @@ class FormSubmissionsController < BaseController
   before_action :before_non_dynamic_forms, only: [:technology_step, :history_step]
 
   helper_method :next_step_path, :current_step_path, :steps, :previous_step_path, 
-                :current_step, :wizard_path, :last_step, :logics
+                :current_step, :wizard_path, :last_step, :first_step, :logics
 
   def before_steps
     @form_submission = FormSubmission.find(params[:id])
@@ -26,11 +26,18 @@ class FormSubmissionsController < BaseController
 
   def policy_step
     @form_submission = FormSubmission.find(params[:id])
-    @form_submission.status = 'started'
-    @form_submission.save
-    log = ActivityLog.find_by(loggable_id: @form_submission.id, loggable_type: 'FormSubmission', law_firm_id: current_law_firm.id)
-    
-    FormSubmission.log_activity('seal_certification_process_initiated', true, @form_submission, current_user) if @form_submission && !log
+    if(@form_submission.status == 'sent')
+      @form_submission.status = 'started'
+      @form_submission.save
+      log = ActivityLog.find_by(loggable_id: @form_submission.id, loggable_type: 'FormSubmission', law_firm_id: current_law_firm.id)
+      FormSubmission.log_activity('seal_certification_process_initiated', true, @form_submission, current_user) if @form_submission && !log
+    end
+  end
+
+  def technology_profile
+  end
+
+  def history_profile
   end
 
   def process_step
@@ -47,13 +54,19 @@ class FormSubmissionsController < BaseController
   end
 
   def edit
+    @readonly = true
     redirect_to first_step_path
   end
 
   def update
     @form_submission = FormSubmission.find(params[:id])
     if @form_submission.update(form_submissions_params)
-      render json: :ok
+      if request.referrer.split('/').last.to_sym == :technology_profile
+        FormSubmission.log_activity('technologies_updated', true, @form_submission, current_user)
+      elsif request.referrer.split('/').last.to_sym == :history_profile
+        FormSubmission.log_activity('history_updated', true, @form_submission, current_user)
+      end
+      head :ok
     else
       render :technology_step
     end
@@ -75,10 +88,30 @@ class FormSubmissionsController < BaseController
     @form_submission.submitted_on = Time.now
     @form_submission.status = 'submitted'
     if (@form_submission.save)
+
+      # Creates action items for the law firm that has just been approved
+      generate_security_threats
+
       AdminMailer.forms_submitted(@form_submission).deliver_now
       FormSubmission.log_activity('information_security_policy_submitted', true, @form_submission, current_user)
     end
     head :ok
+  end
+
+  def generate_security_threats
+    action_items = 0
+    technology_values = @form_submission.technology_values
+    technology_values.each do |technology_value|
+      security_threats = SecurityThreat.where(vendor: technology_value.vendor, platform: technology_value.platform, version: technology_value.version, service_pack: technology_value.service_pack)
+      
+      # Check if the threat already exists for the law firm
+      action_items = current_law_firm.action_items.where(security_threat_id: security_threats.map(&:id)).count if security_threats.any?
+      next unless action_items == 0
+
+      security_threats.each do |threat|
+        threat.generate_pending_action_items_after_approval(@form_submission.law_firm_id, AdminUser.first)
+      end
+    end
   end
 
   def follow_ups
@@ -129,7 +162,7 @@ private
   end
 
   def previous_step_path
-    wizard_path(previous_step)
+    wizard_path(previous_step) 
   end
 
   def next_step
@@ -144,6 +177,10 @@ private
 
   def last_step
     current_step_path.include? "history_step"
+  end
+
+  def first_step
+    current_step_path.include? "policy_step"
   end
   
   def form_submissions_params
