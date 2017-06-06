@@ -18,7 +18,8 @@ set :branch, :external
 server '159.203.10.57', user: 'root', port: 22, password: fetch(:password), roles: %w{web app db}
 
 set :deploy_via, :remote_cache
-set :rvm_type, :system
+set :rvm_custom_path, '/usr/share/rvm/'
+set :rvm_ruby_version, '2.4.0'
 
 set :unicorn_rack_env, :external
 
