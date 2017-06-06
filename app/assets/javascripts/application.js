@@ -16,6 +16,8 @@
 //= require jquery-ui-sortable
 //= require html5shiv
 //= require chosen.jquery.min
+//= require chosen.proto.min
+//= require jquery.mask
 //= require sortable
 //= require app
 //= require cocoon

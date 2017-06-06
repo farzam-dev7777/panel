@@ -1,5 +1,28 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 
+
+.ui-datepicker-prev .ui-icon,
+.ui-datepicker-next .ui-icon {
+  width: 34px !important;
+  margin-top: -11px !important;
+}
+.ui-datepicker-next .ui-icon {
+  margin-left: -24px !important;
+}
+
+.ui-datepicker .ui-datepicker-prev, .ui-datepicker .ui-datepicker-next {
+  width: 35px !important
+}
+.ui-datepicker .ui-datepicker-prev span, .ui-datepicker .ui-datepicker-next span {
+  position: initial !important;
+  margin: 0px !important;
+}
+
+.file-name-holder.user-access {
+  cursor: pointer;
+}
+
+
 html, #main {
   background-color: #f9f9f9;
 }
@@ -362,6 +385,10 @@ textarea.note {
   font-size: 18px;
   padding: 10px;
   border: 1px solid #ccc;
+}
+
+textarea.message {
+	color: #FFF;
 }
 
 .note-technology {
@@ -1177,6 +1204,31 @@ img.bmo-small {
 
 p.not-available {
   padding: 12px;
+}
+
+input.other-input {
+  width: 50% !important;
+  padding-left: 8px !important;
+}
+
+li.create-option.highlighted a {
+  color: #FFF !important;
+}
+
+.form-submit-btn {
+  padding: 5px 20px !important;
+  background: #007ac3 !important;
+  color: #fff !important;
+  border: none !important;
+  font-weight: bold !important;
+  font-size: 12px !important;
+  text-transform: uppercase !important;
+}
+
+.form-submit-btn:hover {
+  background: #f9f9f9;
+  color: #007ac3;
+  border: 1px solid #007ac3;
 }
 
 

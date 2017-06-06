@@ -8,7 +8,6 @@ class ApplicationController < ActionController::Base
     	# new_two_factor_authentication_url
       admin_root_url
     # elsif ( current_user.role == 'user' )
-    #   binding.pry
     #   root_url
     else
       # unknown user role
@@ -19,6 +18,10 @@ class ApplicationController < ActionController::Base
   def current_law_firm
     return nil unless current_user.is_a_standard_user?
 		current_user.law_firm
+  end
+
+  def current_ability
+    @current_ability ||= Ability.new(current_user)
   end
 
 end

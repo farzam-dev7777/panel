@@ -3,10 +3,9 @@ class Ability
 
   def initialize(user)
     # Define abilities for the passed in user here. For example:
-    #
-    if user.class.to_s == 'AdminUser' && user.role == 'superadmin'
+    if user.role == 'superadmin'
       can :manage, :all
-    elsif  user.class.to_s == 'AdminUser' && user.role == 'admin'
+    elsif user.role == 'admin'
       cannot :manage, SystemSetting
     else
       can :manage, FormSubmission do |fs|

@@ -4,18 +4,18 @@
   <%= v.input :value, as: :hidden, input_html: { class: 'repeater-field-value' } %>
   
   <div class="clearfix"></div>
-  <div class="col-md-2 no-padding gfe-field">
+  <div class="col-md-4 no-padding gfe-field">
     <label>Provider</label>
   </div>
-  <div class="col-md-3 gfe-field">
+  <div class="col-md-4 gfe-field">
     <label>Amount Covered</label>
   </div>
   <div class="col-md-3 gfe-field">
     <label>Date of Expiry</label>
   </div>
-  <div class="col-md-3 gfe-field">
+  <!-- <div class="col-md-3 gfe-field">
     <label>Standing</label>
-  </div>
+  </div> -->
   <div class="clearfix"></div>
 
   <%= v.simple_fields_for :cyber_security_insurances, v.object.render_cyber_security_insurance_fields do |cyber_security_insurance_field| %>

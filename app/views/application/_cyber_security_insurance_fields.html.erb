@@ -1,16 +1,16 @@
 <div class="cyber-security-insurance cyber-security-insurance-field-<%= f.object.try(:id) %>">
-	<div class="col-md-2 gfe-field no-padding-left">
+	<div class="col-md-4 gfe-field no-padding-left">
 		<%= f.input :company, label: false, collection: ["ISO 27000/27001", "SSAE 16", "SAS 70 Report", "SOC 2", "COBIT"] %>
 	</div>
-	<div class="col-md-3 gfe-field">
-		<%= f.input :coverage, as: :string, label: false %>
+	<div class="col-md-4 gfe-field">
+		<%= f.input :coverage, as: :string, label: false, input_html: { class: 'masked-money' } %>
 	</div>
 	<div class="col-md-3 gfe-field">
 		<%= f.input :date_of_expiry, as: :string, input_html: { class: 'datepicker', value: DateField.stringify_date(f.object.date_of_expiry) }, label: false %>
 	</div>
-	<div class="col-md-3 gfe-field">
+	<!-- <div class="col-md-3 gfe-field">
 		<%= f.input :standing, as: :string, label: false %>
-	</div>
+	</div> -->
 
 
 	<div class="col-md-1 text-right" style="font-size: 16px;">
@@ -18,5 +18,5 @@
 			<%= link_to_remove_association "<i class='fa fa-minus-circle'></i>".html_safe, f, { wrapper_class: "cyber-security-insurance-field-#{f.object.try(:id)}" }  %>
 		<% end %>
 	</div>
+	<div class="clearfix"></div>
 </div>
-<div class="clearfix"></div>

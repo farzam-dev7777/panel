@@ -28,7 +28,7 @@
         
           <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {id: 'login-form', class: 'smart-form client-form'}) do |f| %>
             <header>
-              Law Firm Sign In
+              Sign In
             </header>
 
             <fieldset>
@@ -53,12 +53,14 @@
 
                   <section>
                     <label class="checkbox">
-                      <input type="checkbox" name="remember" checked="">
-                      <i></i>Terms &amp; Conditions</label>
+                      <input type="checkbox" name="remember" required="required">
+                      <i></i>Terms &amp; Conditions
+                      <b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i> Please enter username</b>
+                    </label>
                     </section>
                     <section>
                     <label class="checkbox">
-                      <input type="checkbox" name="remember" checked="">
+                      <input type="checkbox" name="remember" required="required">
                       <i></i>Privacy Policy</label>
                     </section>
                   </fieldset>

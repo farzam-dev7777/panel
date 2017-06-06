@@ -5,8 +5,8 @@ class FormSubmission < ApplicationRecord
   has_many :history_submissions
   has_many :notes
   has_many :follow_ups
-	accepts_nested_attributes_for :technology_values
-	accepts_nested_attributes_for :history_submissions
+	accepts_nested_attributes_for :technology_values, reject_if: proc { |attributes| attributes['platform_category'].blank? && attributes['platform_type'].blank? && attributes['vendor'].blank? && attributes['platform'].blank? && attributes['version'].blank? && attributes['service_pack'].blank? && attributes['supported'].blank? && attributes['supported'].blank? }
+	accepts_nested_attributes_for :history_submissions, reject_if: proc { |attributes| attributes['incident_type'].blank? && attributes['impact'].blank? && attributes['discovery_time'].blank? && attributes['source'].blank? && attributes['data_loss'].blank? && attributes['incident_details'].blank? }
 
   scope :approved, -> { where(status: 'approved') }
   scope :latest,   -> { order(:id).last }
@@ -88,6 +88,14 @@ class FormSubmission < ApplicationRecord
   def is_available_to_user
     open_states = ["sent", "started", "follow_up"]
     open_states.include? self.status
+  end
+
+  def render_technology_value_fields
+    self.technology_values.any? ? self.technology_values : [self.technology_values.build]
+  end
+
+  def render_history_submission_fields
+    self.history_submissions.any? ? self.history_submissions : [self.history_submissions.build]
   end
 
 end

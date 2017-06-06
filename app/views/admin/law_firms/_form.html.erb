@@ -46,7 +46,7 @@
 
 					<tr>
 						<td class="text-right" width="20%"><strong>Phone</strong></td>
-						<td><%= f.input :phone, label: false, input_html: { autocomplete: 'off' } %></td>
+						<td><%= f.input :phone, label: false, input_html: { autocomplete: 'off', class: 'masked-phone' } %></td>
 					</tr>
 
 					<tr>
@@ -55,7 +55,7 @@
 					</tr>
 
 				<tr class="within-block">
-						<td colspan="2" class="text-center"><strong>Key Security Contact</strong></td>
+						<td colspan="2" class="text-center"><strong>Key Security Contact/Information Security Officer</strong></td>
 					</tr>
 
 				<tr class="within-block">
@@ -74,7 +74,7 @@
 					</tr>
 					
 					<tr>
-						<td class="text-right" width="20%"><strong>Parent Company</strong></td>
+						<td class="text-right" width="20%"><strong>Parent Company/Firm</strong></td>
 						<td><%= f.input :parent_company, label: false, input_html: { autocomplete: 'off' } %></td>
 					</tr>
 					
@@ -84,7 +84,7 @@
 					</tr>
 					
 
-					<% if @law_firm.new_record? %>
+					
 						<tr>
 							<td colspan="2">
 								<div class="col-md-12 no-padding" style="margin-bottom: 15px">
@@ -102,33 +102,7 @@
 							  </div>
 						  </td>
 					  </tr>
-					<% else %>
-						<% @law_firm.locations.each do |location| %>
-							<tr>
-								<td colspan="2">
-									<div class="col-md-1">Address 1</div>
-									<div class="col-md-3"><%= location.address1 %></div>
 
-									<div class="col-md-1">City</div>
-									<div class="col-md-3"><%= location.city %></div>
-
-									<div class="col-md-1">Province</div>
-									<div class="col-md-3"><%= location.province %></div>
-
-									<div class="col-md-1">Postal Code</div>
-									<div class="col-md-3"><%= location.postal_code %></div>
-
-									<div class="col-md-1">Country</div>
-									<div class="col-md-3"><%= location.country %></div>
-								</td>
-							</tr>
-					  <% end %>
-				  <% end %>
-
-
-					
-
-					<% if @law_firm.new_record? %>
 						<tr>
 							<td colspan="2">
 								<div class="col-md-12">
@@ -148,24 +122,12 @@
 							  </div>
 						  </td>
 					  </tr>
-					<% else %>
-						<% @law_firm.jurisdictions.each do |jurisdiction| %>
-							<tr>
-								<td colspan="2">
-									<div class="col-md-1">Country</div>
-									<div class="col-md-3"><%= jurisdiction.country %></div>
-
-									<div class="col-md-1">City</div>
-									<div class="col-md-3"><%= jurisdiction.city %></div>
-								</td>
-							</tr>
-					  <% end %>
-				  <% end %>
+					
 
 
 					<tr>
 						<td colspan="2">
-							<%= f.button :submit, f.object.new_record? ? 'Create' : 'Update', class: "btn btn-primary btn-sm" %>
+							<%= f.button :submit, f.object.new_record? ? 'Create' : 'Update', class: "" %>
 						</td>
 					</tr>
 			</tbody>

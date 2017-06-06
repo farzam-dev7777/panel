@@ -62,6 +62,7 @@ gem 'rails-jquery-ui-sortable'
 gem 'carrierwave', github: 'carrierwaveuploader/carrierwave', branch: :master
 gem 'amoeba'
 gem "cancan"
+# gem 'cancancan', '~> 1.10'
 
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 # gem 'turbolinks', '~> 5'
