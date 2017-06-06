@@ -5,7 +5,7 @@
 	  	<h4 class="m-b-20"><strong>SECURITY INCIDENT LOG</strong></h4>
 
     	<div class=" col-md-12 no-padding">
-	      <%= f.simple_fields_for :history_submissions do |field| %>
+	      <%= f.simple_fields_for :history_submissions, f.object.render_history_submission_fields do |field| %>
 	      	<%= render partial: "history_submission_fields", 
 	      						 locals: {f: field}  %>
 			  <% end %>

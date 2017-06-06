@@ -6,9 +6,9 @@ $(document).ready(function(){
   // $('.dynamic-select').trigger('change');
 
   $('.masked-phone').mask('(000)-000-0000');
-  $('.masked-money').mask('000.000.000.000.000,00');
+  $('.masked-money').mask("$ 000,000,000,000,000,00");
 
-  $(".file-name-holder.user-access").on('click', function(){
+  $(document).on('click', ".file-name-holder.user-access", function(){
     swal({
       title: "Encrypted!",
       text: "The file you're trying to access is encrypted.",
@@ -496,6 +496,13 @@ $(document).ready(function(){
       window.location.href = link;
     }
   })
+    .bind("ajax:failure", function(response){
+      setTimeout(function(){ 
+        ajaxRequestInProcess = false; 
+        $('.submit-form').removeAttr("disabled"); 
+      }, 2000)
+      toastr.error('Failed to save the form. Please try again.', 'Error');
+    })
 
     $('.submit-tech-form').click(function(e){
     e.preventDefault();
