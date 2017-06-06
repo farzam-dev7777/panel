@@ -21,10 +21,10 @@ gem 'underlock', github: 'metaware/underlock', branch: 'encoding-issue'
 gem 'jquery-fileupload-rails'
 
 gem 'devise'
-gem 'rqrcode-rails3'
-gem 'mini_magick'
-gem 'will_paginate'
-gem 'inherited_resources', github: 'activeadmin/inherited_resources'
+# gem 'rqrcode-rails3'
+# gem 'mini_magick'
+# gem 'will_paginate'
+# gem 'inherited_resources', github: 'activeadmin/inherited_resources'
 gem 'draper', '~> 3.0.0.pre1'
 gem 'ransack'
 gem 'activemodel-serializers-xml'
@@ -37,8 +37,8 @@ gem 'country_select'
 
 
 # gem 'rails-assets-fontawesome', source: 'https://rails-assets.org'
-gem 'rails-assets-JustGage', source: 'https://rails-assets.org'
-gem 'rails-assets-raphael', source: 'https://rails-assets.org'
+# gem 'rails-assets-JustGage', source: 'https://rails-assets.org'
+# gem 'rails-assets-raphael', source: 'https://rails-assets.org'
 gem 'rails-assets-qTip2', source: 'https://rails-assets.org'
 gem 'rails-assets-sweetalert', source: 'https://rails-assets.org'
 gem 'rails-assets-toastr', source: 'https://rails-assets.org'
@@ -82,7 +82,7 @@ gem "cocoon"
 gem 'will_paginate-bootstrap'
 # gem 'mailboxer'
 gem 'nested_form'
-gem 'mailjet'
+# gem 'mailjet'
 
 gem 'rails-breadcrumbs'
 
@@ -104,7 +104,7 @@ group :development do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+# gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 
 group :production, :staging do

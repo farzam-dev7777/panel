@@ -46,8 +46,6 @@
 //= require underscore
 //= require rateyo
 //= require qTip2
-//= require JustGage
-//= require raphael
 //= require sweetalert
 //= require jquery_nested_form
 //= require loadingoverlay.min

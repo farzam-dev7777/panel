@@ -164,7 +164,7 @@
     </div>
     <%= javascript_include_tag 'application' %>
     
-    <% if current_law_firm && current_law_firm.try(:form_submissions).try(:latest).try(:total_score) %>
+    <% if current_law_firm && current_law_firm.try(:form_submissions).try(:latest).try(:total_score) && current_law_firm.try(:form_submissions).try(:latest).try(:status) == 'approved' %>
       <script>
         $('#law-firm-rating').rateYo({
           halfStar: true,
