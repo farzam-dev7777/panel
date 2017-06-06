@@ -12,8 +12,10 @@ set :branch, :external
 # set :nginx_server_name, 'pns-staging.in'
 
 # ask(:password, nil, echo: false)
-server '159.203.21.120', user: 'root', port: 22, password: fetch(:password), roles: %w{web app db}
+# server '159.203.21.120', user: 'root', port: 22, password: fetch(:password), roles: %w{web app db}
 # server '162.208.50.227', user: 'admin', roles: %w{app db web}
+#external-new
+server '159.203.10.57', user: 'root', port: 22, password: fetch(:password), roles: %w{web app db}
 
 set :deploy_via, :remote_cache
 
