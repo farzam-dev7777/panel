@@ -18,6 +18,14 @@
   margin: 0px !important;
 }
 
+.chosen-container-single .chosen-single {
+  padding: 5px 0px 5px 0px !important;
+}
+
+.chosen-container-active.chosen-with-drop .chosen-single {
+  background-image: none !important
+}
+
 .file-name-holder.user-access {
   cursor: pointer;
 }
