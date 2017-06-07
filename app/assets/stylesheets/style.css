@@ -387,7 +387,7 @@ textarea.note {
   border: 1px solid #ccc;
 }
 
-textarea.message {
+textarea[name='message'] {
 	color: #FFF;
 }
 
@@ -465,13 +465,13 @@ span.select2-selection__arrow{
 
 .resolve-btn {
   position: relative;
-  bottom: 55px;
+  bottom: 40px;
 }
 
 .resolve-btn:active,
 .resolve-btn:focus {
   position: relative;
-  bottom: 33px;
+  bottom: 40px;
   top: auto;
 }
 

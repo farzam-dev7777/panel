@@ -8,6 +8,16 @@ $(document).ready(function(){
   $('.masked-phone').mask('(000)-000-0000');
   $('.masked-money').mask("$ 000,000,000,000,000,00");
 
+  $('.login-btn').on('click', function(){
+    if ( $('#tandc').prop('checked') == false ){ 
+      $('.login-error').css('display', 'block').html('Please accept the terms and conditions');
+    } else if ( $('#privacy-policy').prop('checked') == false ) {
+      $('.login-error').css('display', 'block').html('Please accept the privacy policy');
+    } else {
+      $('.login-error').css('display', 'none');
+    }
+  })
+
   $(document).on('click', ".file-name-holder.user-access", function(){
     swal({
       title: "Encrypted!",

@@ -32,6 +32,8 @@
             </header>
 
             <fieldset>
+
+              <div class="alert alert-danger login-error"></div>
               
               <section>
                 <label class="label">Username</label>
@@ -53,19 +55,19 @@
 
                   <section>
                     <label class="checkbox">
-                      <input type="checkbox" name="remember" required="required">
+                      <input id="tandc" type="checkbox" name="remember" required="required">
                       <i></i>Terms &amp; Conditions
                       <b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i> Please enter username</b>
                     </label>
                     </section>
                     <section>
                     <label class="checkbox">
-                      <input type="checkbox" name="remember" required="required">
+                      <input id="privacy-policy" type="checkbox" name="remember" required="required">
                       <i></i>Privacy Policy</label>
                     </section>
                   </fieldset>
                   <footer>
-                    <%= f.submit "Log in", class: 'btn btn-primary' %>  
+                    <%= f.submit "Log in", class: 'btn btn-primary login-btn' %>  
                   </footer>
                 <% end %>
 
