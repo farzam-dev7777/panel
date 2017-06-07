@@ -18,6 +18,7 @@
 //= require chosen.jquery.min
 //= require chosen.proto.min
 //= require jquery.mask
+//= require jquery.maskMoney.min
 //= require sortable
 //= require app
 //= require cocoon

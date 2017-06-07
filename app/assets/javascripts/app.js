@@ -6,7 +6,7 @@ $(document).ready(function(){
   // $('.dynamic-select').trigger('change');
 
   $('.masked-phone').mask('(000)-000-0000');
-  $('.masked-money').mask("$ 000,000,000,000,000,00");
+  $('.masked-money').maskMoney();
 
   $('.login-btn').on('click', function(){
     if ( $('#tandc').prop('checked') == false ){ 
