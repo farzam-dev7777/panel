@@ -501,7 +501,7 @@ $(document).ready(function(){
     toastr.success('Your progress has been saved successfully', 'Saved');
     link = window.link_to_redirect_to;
     if(link == window.location.pathname){
-      window.location.reload();
+      // window.location.reload();
     } else{ 
       window.location.href = link;
     }
@@ -751,7 +751,7 @@ $(document).ready(function(){
     var data = $(this).data();
     swal({
       title: "Are you sure?",
-      text: "",
+      text: "You won't be able to edit these forms later",
       type: "warning",
       showCancelButton: true,
       confirmButtonColor: "#DD6B55",
