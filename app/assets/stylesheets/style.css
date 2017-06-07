@@ -1250,5 +1250,20 @@ li.create-option.highlighted a {
   border: 1px solid #007ac3;
 }
 
+@media (min-width: 768px) {
+  .t-and-c-modal.modal-dialog {
+    width: 1100px;
+  }
+}
+.t-and-c-modal.modal-dialog .modal-header {
+  background: #0677d8;
+  color: #fff !important;
+}
+
+.t-and-c-modal .modal-header .close {
+  margin-top: -40px !important;
+  color: #fff !important;
+}
+
 
 

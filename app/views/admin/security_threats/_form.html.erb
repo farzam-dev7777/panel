@@ -1,18 +1,22 @@
 <%= f.simple_fields_for :technology do |t| %>
 <div class="row">
 	<div class="col-md-3 vendor-wrapper">
+		<label class="control-label select">Vendor</label>
 		<%= t.input :vendor, collection: TechnologyValue.pluck(:vendor).uniq, include_blank: 'None',
 												 input_html: {class: 'threat-lf-dynamic-select', data: { field: 'vendor' },
-												 name: 'security_threat[vendor]' } %>
+												 name: 'security_threat[vendor]' }, label: false %>
 	</div>
 	<div class="col-md-3 platform-wrapper">
-		<%= t.input :platform, collection: TechnologyValue.pluck(:platform).uniq, include_blank: 'None', input_html: {class: 'threat-lf-dynamic-select', data: {field: 'platform'}, name: 'security_threat[platform]'} %>
+		<label class="control-label select">Platform</label>
+		<%= t.input :platform, collection: TechnologyValue.pluck(:platform).uniq, include_blank: 'None', input_html: {class: 'threat-lf-dynamic-select', data: {field: 'platform'}, name: 'security_threat[platform]'}, label: false %>
 	</div>
 	<div class="col-md-3 version-wrapper">
-		<%= t.input :version, collection: TechnologyValue.pluck(:version).uniq, include_blank: 'None', input_html: {class: 'threat-lf-dynamic-select', data: {field: 'version'}, name: 'security_threat[version]' } %>
+		<label class="control-label select">Version</label>
+		<%= t.input :version, collection: TechnologyValue.pluck(:version).uniq, include_blank: 'None', input_html: {class: 'threat-lf-dynamic-select', data: {field: 'version'}, name: 'security_threat[version]' }, label: false %>
 	</div>
 	<div class="col-md-3 service_pack-wrapper">
-		<%= t.input :service_pack, collection: TechnologyValue.pluck(:service_pack).uniq, include_blank: 'None', input_html: { class: 'threat-lf-dynamic-select', data: {field: 'service_pack'}, name: 'security_threat[service_pack]' } %>
+		<label class="control-label select">Service Pack</label>
+		<%= t.input :service_pack, collection: TechnologyValue.pluck(:service_pack).uniq, include_blank: 'None', input_html: { class: 'threat-lf-dynamic-select', data: {field: 'service_pack'}, name: 'security_threat[service_pack]' }, label: false %>
 	</div>
 </div>
 <% end %>
