@@ -1,0 +1,2 @@
+class SharedBankInformationField < FormField
+end

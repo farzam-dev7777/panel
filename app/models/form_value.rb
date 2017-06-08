@@ -9,6 +9,7 @@ class FormValue < ApplicationRecord
   has_many   :information_security_policies, dependent: :destroy
   has_many   :third_party_vendors, dependent: :destroy
   has_many   :cloud_providers, dependent: :destroy
+  has_many   :shared_bank_informations, dependent: :destroy
   has_many   :cyber_security_insurances, dependent: :destroy
   has_many   :activity_time_logs, dependent: :destroy
 
@@ -21,6 +22,7 @@ class FormValue < ApplicationRecord
   accepts_nested_attributes_for :file_attachments, allow_destroy: true
   accepts_nested_attributes_for :activity_time_logs, allow_destroy: true
   accepts_nested_attributes_for :vendors, allow_destroy: true
+  accepts_nested_attributes_for :shared_bank_informations, allow_destroy: true
   accepts_nested_attributes_for :cyber_security_standards, 
                                 allow_destroy: true
                                 # ,reject_if: proc { |attributes| attributes['rank'].blank? && attributes['standard'].blank? && attributes['date_of_certification'].blank? && attributes['renewal'].blank? }
@@ -67,6 +69,10 @@ class FormValue < ApplicationRecord
 
   def render_cyber_security_insurance_fields
     self.cyber_security_insurances.any? ? self.cyber_security_insurances : [self.cyber_security_insurances.build]
+  end
+
+  def render_shared_bank_information_fields
+    self.shared_bank_informations.any? ? self.shared_bank_informations : [self.shared_bank_informations.build]
   end
 
   def is_a_repeater_field?

@@ -20,7 +20,7 @@
 
 
 	<div class="col-md-1 text-right" style="font-size: 16px; width: 60px; margin-top: 5px;">
-		<% if f.object && current_user.is_a_standard_user? %>
+		<% if f.object && !current_user.is_an_admin? %>
 			<%= link_to_remove_association "<i class='fa fa-minus-circle'></i>".html_safe, f, { wrapper_class: "information-security-policy-field-#{f.object.try(:id)}" }  %>
 		<% end %>
 	</div>

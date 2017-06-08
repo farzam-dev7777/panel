@@ -1,0 +1,2 @@
+class SharedBankInformation < ApplicationRecord
+end

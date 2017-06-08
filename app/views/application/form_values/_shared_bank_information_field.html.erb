@@ -1,0 +1,28 @@
+<div>
+	<label><%= field.try(:label) %></label>
+
+  <%= v.input :value, as: :hidden, input_html: { class: 'repeater-field-value' } %>
+
+  <div class="clearfix"></div>
+  <div class="col-md-3 no-padding gfe-field">
+    <label>Name</label>
+  </div>
+  <div class="col-md-5 no-padding gfe-field">
+    <label>Purpose</label>
+  </div>
+  <div class="col-md-3 no-padding gfe-field">
+    <label>Level of Access</label>
+  </div>
+  <div class="clearfix"></div>
+
+  <%= v.simple_fields_for :shared_bank_informations, v.object.render_shared_bank_information_fields do |record| %>
+    <%= render partial: "shared_bank_information_fields", 
+               locals: {f: record} unless record.object.nil? %>
+  <% end %>
+  <div class="add-bank-record text-right">
+  	<% if current_user %>
+	    <%= link_to_add_association '<span href="javascript:void(0);" class="btn btn-default btn-sm"><i class="fa fa-plus-circle"></i> Cloud Provider</span>'.html_safe, v, :shared_bank_informations %>
+	   <% end %>
+  </div>
+
+</div>
