@@ -34,6 +34,11 @@
           <fieldset>
 
             <div class="alert alert-danger login-error"></div>
+            <%- flash.each do |name, msg| -%>
+              <div class="alert alert-danger p-error">
+                <%= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) %>
+              </div>
+            <%- end -%> 
 
             <section>
               <label class="label">Username</label>

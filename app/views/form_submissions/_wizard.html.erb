@@ -3,7 +3,13 @@
     <%- steps.each_with_index do |step, index| %>
     <li data-target="#step1" class="text-center <%= (steps.find_index(step) <= steps.find_index(current_step)) ? 'active' : ''%>">
       <%= link_to wizard_path(step) do %>
-        <span class="badge badge-info"><%= index + 1 %></span><%= step.capitalize %>
+        <span class="badge badge-info"><%= index + 1 %></span>
+        <%= step.capitalize %>
+          <% 
+            stats = follow_up_stats
+             if stats[step] %>
+              <span class="badge badge-info follow-up-count"><%= stats[step] %></span>
+          <% end %>
         <span class="chevron"></span>
       <% end %>
     </li>
