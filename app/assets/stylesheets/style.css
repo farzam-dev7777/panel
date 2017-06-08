@@ -1023,7 +1023,7 @@ h3.firm-score-declined span {
 .history-form-wrapper h4 strong, 
 .history-form-wraper .m-b-20.text-center,
 .history-field label { 
-  color: #007ac3;
+  color: #444;
   /*font-family: monospace;*/
 }
 
@@ -1268,6 +1268,19 @@ li.create-option.highlighted a {
 .follow-up-count {
   margin-left: 8px;
   border-radius: 50%;
+}
+
+.sec-threats-latest {
+  height: 350px;
+  overflow: scroll;
+}
+
+ul.q-instructions ul {
+    margin-left: 20px;
+}
+
+ul.q-instructions li {
+    margin-left: 20px;
 }
 
 .p-error { display: block !important; }

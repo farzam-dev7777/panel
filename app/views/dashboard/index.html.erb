@@ -48,7 +48,7 @@
 				<!-- end widget edit box -->
 
 				<% if @action_items.any? %>
-				<div class="widget-body no-padding smart-form">
+				<div class="widget-body no-padding smart-form sec-threats-latest">
 					<!-- content goes here -->
 					
 					<% if (@action_items.select{|a| a.status != 'complete' && a.security_threat.severity_level.name == 'critical'}).count > 0 %>

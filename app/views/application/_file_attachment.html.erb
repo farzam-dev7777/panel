@@ -5,7 +5,7 @@
         <%= link_to file_attachment.try(:file).try(:file).try(:filename), decrypt_admin_file_attachment_path(file_attachment) %> 
       </div>
     <% else %>
-      <div class="col-md-11 file-name-holder user-access">
+      <div class="col-md-11 file-name-holder user-access" data-file-name="<%= file_attachment.try(:file).try(:file).try(:filename) %>">
         <%= file_attachment.try(:file).try(:file).try(:filename) %> 
       </div>
     <% end %>

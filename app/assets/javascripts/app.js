@@ -19,9 +19,10 @@ $(document).ready(function(){
   })
 
   $(document).on('click', ".file-name-holder.user-access", function(){
+    filename = $(this).data('file-name');
     swal({
       title: "Encrypted!",
-      text: "The file you're trying to access is encrypted.",
+      text: "The file (" + filename + ") you're trying to access is encrypted.",
       imageUrl: "http://www.freeiconspng.com/uploads/encryption-icon-11.png"
     });
   })
