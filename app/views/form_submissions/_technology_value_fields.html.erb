@@ -8,10 +8,10 @@
 	<div class="col-md-2 tech-field platform-wrapper">
 		<%= f.input :platform %>
 	</div>
-	<div class="col-md-2 tech-field version-wrapper">
+	<div class="col-md-1 tech-field version-wrapper">
 		<%= f.input :version %>
 	</div>
-	<div class="col-md-2 tech-field service_pack-wrapper">
+	<div class="col-md-3 tech-field service_pack-wrapper">
 		<%= f.input :service_pack, label: "Service Pack/Update/Build" %>
 	</div>
 	<div class="col-md-2 tech-field supported-wrapper">
@@ -33,10 +33,10 @@
 	<div class="col-md-2 tech-field platform-wrapper">
 		<%= f.input :platform, collection: Technology.where(platform_category: platform_category, platform_type: type).pluck(:platform).uniq, include_blank: true, input_html: {class: 'dynamic-select', data: {field: 'platform'}} %>
 	</div>
-	<div class="col-md-2 tech-field version-wrapper">
+	<div class="col-md-1 tech-field version-wrapper">
 		<%= f.input :version, collection: Technology.where(platform_category: platform_category, platform_type: type).pluck(:version).uniq, include_blank: true, input_html: {class: 'dynamic-select', data: {field: 'version'} } %>
 	</div>
-	<div class="col-md-2 tech-field service_pack-wrapper">
+	<div class="col-md-3 tech-field service_pack-wrapper">
 		<%= f.input :service_pack, collection: Technology.where(platform_category: platform_category, platform_type: type).pluck(:service_pack).uniq, include_blank: true, input_html: { data: {field: 'service_pack'} }, label: "Service Pack/Update/Build" %>
 	</div>
 	<div class="col-md-2 tech-field supported-wrapper">
