@@ -32,10 +32,17 @@
 						<td><%= f.input :description, label: false, input_html: { autocomplete: 'off' } %></td>
 					</tr>
 
-					<tr>
-						<td class="text-right" width="20%"><strong>Temp. Password</strong></td>
-						<td><%= f.input :temp_password, label: false, input_html: { autocomplete: 'off' } %></td>
-					</tr>
+					<% if @law_firm.new_record? %>
+						<tr>
+							<td class="text-right" width="20%"><strong>Temp. Password</strong></td>
+							<td><%= f.input :temp_password, :autocomplete => "off", label: false, input_html: { autocomplete: 'off' } %></td>
+						</tr>
+					<% else %>
+						<tr>
+							<td class="text-right" width="20%"><strong>Password</strong></td>
+							<td><%= f.input :password, :autocomplete => "off", label: false, input_html: { autocomplete: 'off' } %></td>
+						</tr>
+					<% end %>
 
 					<tr>
 						<td class="text-right" width="20%"><strong>Relationship Manager's Email</strong></td>

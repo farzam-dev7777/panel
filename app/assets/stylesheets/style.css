@@ -20,6 +20,7 @@
 
 .chosen-container-single .chosen-single {
   padding: 5px 0px 5px 0px !important;
+  background-color: transparent !important;
 }
 
 .chosen-container-active.chosen-with-drop .chosen-single {
@@ -1117,6 +1118,7 @@ table.all-forms tr td {
   background-image: none;
   border: 0 !important;
   border-bottom: 1px solid #ccc !important;
+  background-color: transparent !important;
 }
 
 .chosen-container-multi .chosen-choices li.search-choice {
@@ -1273,6 +1275,10 @@ li.create-option.highlighted a {
 .sec-threats-latest {
   height: 350px;
   overflow: scroll;
+}
+
+ul.q-instructions {
+  line-height: 20px;
 }
 
 ul.q-instructions ul {

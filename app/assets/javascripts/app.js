@@ -6,7 +6,7 @@ $(document).ready(function(){
   // $('.dynamic-select').trigger('change');
 
   $('.masked-phone').mask('(000)-000-0000');
-  $('.masked-money').maskMoney();
+  $('.masked-money').maskMoney({prefix:'USD ', allowNegative: true, thousands:'.', decimal:',', affixesStay: false});
 
   $('.login-btn').on('click', function(){
     if ( $('#tandc').prop('checked') == false ){ 
@@ -730,7 +730,8 @@ $(document).ready(function(){
       .done(function( data ) {
         $(this).children('.resolve-btn').val('Resolved').attr('disabled', 'true')
         // https://github.com/johnpapa/toastr-bower
-        toastr.success('The follow up has been marked as resolved', 'Resolved')
+        $(this).parent().parent().parent().find('.qtip-close').trigger('click');
+        toastr.success('The follow up has been marked as resolved', 'Resolved');
       });
   })
 

@@ -29,13 +29,15 @@ class Admin::LawFirmsController < Admin::BaseController
   		redirect_to :admin_law_firms
   	else
   		flash[:alert] = "There was an error creating the law firm"
-  		render :new
+  		render action: 'new'
   	end
   end
 
   def update
   	@law_firm = LawFirm.find(params[:id])
-  	if @law_firm.update_attributes(law_firms_params)
+    if @law_firm.update_attributes(law_firms_params)
+      binding.pry
+      @law_firm.user.update_attributes(password:  params[:law_firm][:password]) if params[:law_firm][:password] && !params[:law_firm][:password].blank? 
   		render :edit
       flash[:alert] = "Law firm information updated"
   	else
@@ -148,7 +150,7 @@ class Admin::LawFirmsController < Admin::BaseController
   private
 
   def law_firms_params
-  	params.require(:law_firm).permit(:name, :description, :email, :phone, :temp_password, :password, :relationship_manager_email, :law_firm_type, :principle_name, :principle_title, :principle_contact_info, :parent_company, :sister_firm, locations_attributes: [:id, :address1, :address2, :city, :province, :postal_code, :country, :_destroy], jurisdictions_attributes: [:id, :country, :_destroy,  city: []], practice_area: [])
+  	params.require(:law_firm).permit(:name, :description, :email, :phone, :temp_password, :relationship_manager_email, :law_firm_type, :principle_name, :principle_title, :principle_contact_info, :parent_company, :sister_firm, locations_attributes: [:id, :address1, :address2, :city, :province, :postal_code, :country, :_destroy], jurisdictions_attributes: [:id, :country, :_destroy,  city: []], practice_area: [])
   end
 
 end

@@ -1,9 +1,9 @@
 <div class="row history-field <%= follow_up_class_for_law_firm( f.object.id, 'HistorySubmission', params[:id]) %>">
 	<div class="col-md-3 history-field"><%= f.input :incident_type, collection: ['Compromised Information', 'Compromised Asset', 'Unauthorized Access', 'Malicious Code', '(Distributed) Denial of Service', 'Theft or Loss', 'Phishing', 'Unlawful activity', 'Scans/Probes/Attempted Access', 'Policy Violations'] %></div>
-	<div class="col-md-4 history-field"><%= f.input :impact %></div>
+	<!-- <div class="col-md-4 history-field"><%= f.input :impact %></div> -->
 <!-- 	<div class="col-md-2 history-field"><%= f.input :discovery_time %></div> -->
-	<div class="col-md-2 history-field"><%= f.input :data_loss, collection: ["No", "Not that we know.", "Yes, but not client data", "Yes , some", "Yes", "Significant"] %></div>
-	<div class="col-md-2 history-field"><%= f.input :source, collection: ["Was done immediately", "Done", "Underway", "Planned", "Not done yet."], label: 'Remediation Status' %></div>
+	<div class="col-md-4 history-field"><%= f.input :data_loss, collection: ["No", "Not that we know.", "Yes, but not client data", "Yes , some", "Significant"] %></div>
+	<div class="col-md-4 history-field"><%= f.input :source, collection: ["Was done immediately", "Done", "Underway", "Planned", "Not done yet."], label: 'Remediation Status' %></div>
 	<div class="col-md-1 text-center" style="line-height: 84px;">
 		<%= link_to_remove_association "<i class='fa fa-minus-circle'></i>".html_safe, f, { wrapper_class: "history-field" }  %>
 	</div>
