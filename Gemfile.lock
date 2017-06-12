@@ -211,6 +211,7 @@ GEM
       railties (= 5.0.3)
       sprockets-rails (>= 2.0.0)
     rails-assets-ev-emitter (1.0.3)
+    rails-assets-fontawesome (4.7.0)
     rails-assets-imagesloaded (4.1.1)
       rails-assets-ev-emitter (~> 1.0.0)
     rails-assets-jquery (2.1.4)
@@ -353,6 +354,7 @@ DEPENDENCIES
   pry
   puma (~> 3.0)
   rails (~> 5.0.0, >= 5.0.0.1)
+  rails-assets-fontawesome!
   rails-assets-qTip2!
   rails-assets-rateyo!
   rails-assets-sweetalert!
@@ -378,4 +380,4 @@ DEPENDENCIES
   wkhtmltopdf-binary
 
 BUNDLED WITH
-   1.14.6
+   1.15.1

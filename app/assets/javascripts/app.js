@@ -851,7 +851,7 @@ $(document).ready(function(){
                 $this.remove();
                 countTasks();
               });
-              window.location.href = response.redirect_url;
+              // window.location.href = response.redirect_url;
             }
           })
         } else {
