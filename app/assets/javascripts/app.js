@@ -124,19 +124,20 @@ $(document).ready(function(){
     // When the assessor has requested follow-ups then disable all fields,
     // get all the follow ups, iterate through the array
     // and enable only those fields which require attention
-    if(dataDiv.data('form-submission-status') == 'follow_up') {
-      follow_ups = dataDiv.data('follow-ups');
-      if(follow_ups.length > 0 ){
-        disableFormSubmissionFields();
-        setTimeout(function(){
-          follow_ups.forEach(function(follow_up) {
-            var target = $('.need-follow-up.field-wrapper-' + follow_up.form_field_id);
-            target.find('input').removeAttr('disabled');
-            target.find('select').prop('disabled', false).trigger("chosen:updated");
-          })
-        }, 500)
-      }
-    }
+    
+    // if(dataDiv.data('form-submission-status') == 'follow_up') {
+    //   follow_ups = dataDiv.data('follow-ups');
+    //   if(follow_ups.length > 0 ){
+    //     disableFormSubmissionFields();
+    //     setTimeout(function(){
+    //       follow_ups.forEach(function(follow_up) {
+    //         var target = $('.need-follow-up.field-wrapper-' + follow_up.form_field_id);
+    //         target.find('input').removeAttr('disabled');
+    //         target.find('select').prop('disabled', false).trigger("chosen:updated");
+    //       })
+    //     }, 500)
+    //   }
+    // }
 
   }, 2000)
 
