@@ -27,6 +27,16 @@ $(document).ready(function(){
     });
   })
 
+  $(document).on('blur', ".set-password", function(){
+    if($(this).val().length < 12){
+      swal({
+        title: "Oops!",
+        text: "Password length must be minimum 12 characters",
+        imageUrl: "/assets/16205-200.png"
+      });
+    }
+  })
+
   // $('input[type=submit]').parent().replaceTag('p');
 
   $('select').on('change', function(){
