@@ -6,7 +6,7 @@ $(document).ready(function(){
   // $('.dynamic-select').trigger('change');
 
   $('.masked-phone').mask('(000)-000-0000');
-  $('.masked-money').maskMoney({prefix:'USD ', allowNegative: true, thousands:'.', decimal:',', affixesStay: false});
+  $('.masked-money').maskMoney({prefix:'USD ', allowNegative: true, thousands:',', affixesStay: false});
 
   $('.login-btn').on('click', function(){
     if ( $('#tandc').prop('checked') == false ){ 
