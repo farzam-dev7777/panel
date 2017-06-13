@@ -32,24 +32,21 @@
 						<td><%= f.input :description, label: false, input_html: { autocomplete: 'off' } %></td>
 					</tr>
 
-					<% if @law_firm.new_record? %>
-						<tr>
+					<tr>
+						<% if @law_firm.new_record? %>
 							<td class="text-right" width="20%"><strong>Temp. Password</strong></td>
 							<td>
 								<%= f.input :temp_password, autocomplete: "off", label: false, input_html: { class: 'set-password' } %>
 								<p style="color: #949494;" class="text-left"><em>Minimum 12 characters required</em></p>	
 							</td>
-							asd
-						</tr>
-					<% else %>
-						<tr>
+						<% else %>
 							<td class="text-right" width="20%"><strong>Password</strong></td>
 							<td>
-								<%= f.input :password, autocomplete: "off", label: false, input_html: { class: 'set-password no-margin' } %>
+								<%= f.input :password, autocomplete: "off", label: false, input_html: { class: 'set-password' } %>
 								<p style="color: #949494;" class="text-left"><em>Minimum 12 characters required</em></p>	
 							</td>
-						</tr>
-					<% end %>
+						<% end %>
+					</tr>
 
 					<tr>
 						<td class="text-right" width="20%"><strong>Relationship Manager's Email</strong></td>
