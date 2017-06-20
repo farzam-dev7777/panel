@@ -369,7 +369,7 @@
 												<% end %>
 												</td>
 												<td>
-													<%= link_to submission.id == current_law_firm.form_submissions.latest.id ? 'Edit' : 'View', policy_step_form_submission_path(submission, readonly: "true"), class: "btn btn-outline-primary btn-xs" %>	
+													<%= link_to 'View', policy_step_form_submission_path(submission, readonly: "true"), class: "btn btn-outline-primary btn-xs" %>	
 												</td>
 											</tr>
 											
