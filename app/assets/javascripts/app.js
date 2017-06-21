@@ -63,10 +63,14 @@ $(document).ready(function(){
   });
 
   if(currentUrl.indexOf("form_submissions") != -1 && currentUrl.indexOf("admin/form_submissions") == -1){
-    $.LoadingOverlay("show", { 
-      color:  'rgba(255, 255, 255, 0.96)',
-      custom: customElement
-    });
+    if ((!window.location.href.indexOf("technology_step") > -1 || !window.location.href.indexOf("history_step") > -1)){
+      $.LoadingOverlay("hide");
+    } else {
+      $.LoadingOverlay("show", { 
+        color:  'rgba(255, 255, 255, 0.96)',
+        custom: customElement
+      });
+    }
   }
 
   $('.add-all-multiselect-options').on('click', function(){
@@ -513,7 +517,9 @@ $(document).ready(function(){
     toastr.success('Your progress has been saved successfully', 'Saved');
     link = window.link_to_redirect_to;
     if(link == window.location.pathname){
-      // window.location.reload();
+      if ((window.location.href.indexOf("technology_step") > -1)) {
+        window.location.reload();
+      }
     } else{ 
       window.location.href = link;
     }
