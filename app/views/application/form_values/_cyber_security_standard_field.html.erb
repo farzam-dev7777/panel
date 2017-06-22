@@ -23,7 +23,7 @@
                locals: {f: field} unless field.object.nil? %>
   <% end %>
   <div class="add-css text-right">
-  	<% if current_user %>
+  	<% if current_user && !current_user.is_an_admin? %>
 	    <%= link_to_add_association '<span href="javascript:void(0);" class="btn btn-default btn-sm"><i class="fa fa-plus-circle"></i> Cyber Security Standard</span>'.html_safe, v, :cyber_security_standards %>
     <% end %>
   </div>

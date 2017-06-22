@@ -16,7 +16,7 @@
 
 
 	<div class="col-md-1 text-right" style="font-size: 16px;">
-		<% if f.object && current_user %>
+		<% if f.object && current_user && !current_user.is_an_admin? %>
 			<%= link_to_remove_association "<i class='fa fa-minus-circle'></i>".html_safe, f, { wrapper_class: "cyber-security-insurance-field-#{f.object.try(:id)}" }  %>
 		<% end %>
 	</div>

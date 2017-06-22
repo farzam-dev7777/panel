@@ -23,7 +23,7 @@
                locals: {f: cyber_security_insurance_field} %>
   <% end %>
   <div class="add-information-security-policy text-right">
-    <% if current_user %>
+    <% if current_user && !current_user.is_an_admin? %>
       <%= link_to_add_association '<span href="javascript:void(0);" class="btn btn-default btn-sm"><i class="fa fa-plus-circle"></i> Policy</span>'.html_safe, v, :cyber_security_insurances %>
      <% end %>
   </div>
