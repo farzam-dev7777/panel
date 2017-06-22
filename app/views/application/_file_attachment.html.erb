@@ -8,12 +8,12 @@
       <div class="col-md-11 file-name-holder user-access" data-file-name="<%= file_attachment.try(:file).try(:file).try(:filename) %>">
         <%= file_attachment.try(:file).try(:file).try(:filename) %> 
       </div>
+      <div class="col-md-1 no-padding">
+        <%= link_to(file_attachment_path(file_attachment), class: "delete_file") do %>
+          <i class="fa fa-trash"></i>
+        <% end %>
+      </div>
     <% end %>
-    <div class="col-md-1 no-padding">
-      <%= link_to(file_attachment_path(file_attachment), class: "delete_file") do %>
-        <i class="fa fa-trash"></i>
-      <% end %>
-    </div>
     <div class="clearfix"></div>
   </div>
 <% end %>
