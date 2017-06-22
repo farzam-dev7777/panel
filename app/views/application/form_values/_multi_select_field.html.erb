@@ -24,6 +24,6 @@
   }
 }, &field.input_block(v) %>
 
-<% !current_user.is_an_admin? %>
+<% if !current_user.is_an_admin? %>
   <a class="btn btn-default btn-sm add-all-multiselect-options <%= current_user ? '' : 'hidden' %>">Add All</a>
 <% end %>
