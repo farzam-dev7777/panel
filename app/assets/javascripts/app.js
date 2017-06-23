@@ -18,6 +18,40 @@ $(document).ready(function(){
     }
   })
 
+  $(document).on('click', '.decrypt-file', function(){
+    var url = $(this).data('decrypt-url');
+    var data = {};
+    swal({
+      title: "Decrypt",
+      text: "Enter your key to decrypt the file",
+      type: "input",
+      showCancelButton: true,
+      closeOnConfirm: false,
+      animation: "slide-from-top",
+      inputPlaceholder: "Enter your decryption key here"
+    },
+    function(inputValue){
+      if (inputValue === false) return false;
+      
+      if (inputValue === "") {
+        swal.showInputError("You need to write something!");
+        return false
+      }
+      data.key = inputValue
+      debugger;
+      $.ajax({
+        method: 'GET',
+        url: url,
+        data: data,
+        success: function() {
+          toastr.success("", "Decryption process has begun")
+        },
+        error: function(response) {}
+      })
+      // swal("Nice!", "You wrote: " + inputValue, "success");
+    });
+  })
+
   $(document).on('click', ".file-name-holder.user-access", function(){
     filename = $(this).data('file-name');
     swal({
@@ -716,6 +750,9 @@ $(document).ready(function(){
     var field_wrapper_id = data.field_wrapper_id;
     message = $(this).parent().parent().find('textarea.note').val();
     data.message = message;
+
+    if(!message || message == "")
+      return
 
     $.ajax({
       url: "/admin/follow_ups",
