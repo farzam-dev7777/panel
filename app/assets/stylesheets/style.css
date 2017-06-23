@@ -18,6 +18,15 @@
   margin: 0px !important;
 }
 
+.chosen-container-single .chosen-single {
+  padding: 5px 0px 5px 0px !important;
+  background-color: transparent !important;
+}
+
+.chosen-container-active.chosen-with-drop .chosen-single {
+  background-image: none !important
+}
+
 .file-name-holder.user-access {
   cursor: pointer;
 }
@@ -387,7 +396,7 @@ textarea.note {
   border: 1px solid #ccc;
 }
 
-textarea.message {
+textarea[name='message'] {
 	color: #FFF;
 }
 
@@ -465,13 +474,13 @@ span.select2-selection__arrow{
 
 .resolve-btn {
   position: relative;
-  bottom: 55px;
+  bottom: 40px;
 }
 
 .resolve-btn:active,
 .resolve-btn:focus {
   position: relative;
-  bottom: 33px;
+  bottom: 40px;
   top: auto;
 }
 
@@ -862,7 +871,7 @@ ul.internal-notes li div p {
 }
 
 .form-enclosure .wrapper .form-group {
-  margin-bottom: 50px;
+  /*margin-bottom: 50px;*/
 }
 
 .user-form-wrapper {
@@ -974,6 +983,17 @@ h3.firm-score-declined span {
   /*border-radius: 0px 5px 0px 5px;*/
 }
 
+.threat-warning:hover,
+.threat-warning:active, {
+  position: relative;
+  left: 66px;
+  bottom: 0px;
+  font-size: 13px;
+  color: yellow !important;
+  background: red;
+  /*border-radius: 0px 5px 0px 5px;*/
+}
+
 .within-block {
   background-color: #e1e1e1 !important;
 }
@@ -1004,7 +1024,7 @@ h3.firm-score-declined span {
 .history-form-wrapper h4 strong, 
 .history-form-wraper .m-b-20.text-center,
 .history-field label { 
-  color: #007ac3;
+  color: #444;
   /*font-family: monospace;*/
 }
 
@@ -1098,6 +1118,7 @@ table.all-forms tr td {
   background-image: none;
   border: 0 !important;
   border-bottom: 1px solid #ccc !important;
+  background-color: transparent !important;
 }
 
 .chosen-container-multi .chosen-choices li.search-choice {
@@ -1230,6 +1251,46 @@ li.create-option.highlighted a {
   color: #007ac3;
   border: 1px solid #007ac3;
 }
+
+@media (min-width: 768px) {
+  .t-and-c-modal.modal-dialog {
+    width: 1100px;
+  }
+}
+.t-and-c-modal.modal-dialog .modal-header {
+  background: #0677d8;
+  color: #fff !important;
+}
+
+.t-and-c-modal .modal-header .close {
+  margin-top: -40px !important;
+  color: #fff !important;
+}
+
+.follow-up-count {
+  margin-left: 8px;
+  border-radius: 50%;
+  background-color: red;
+}
+
+.sec-threats-latest {
+  height: 350px;
+  overflow: scroll;
+}
+
+ul.q-instructions {
+  line-height: 20px;
+}
+
+ul.q-instructions ul {
+    margin-left: 20px;
+}
+
+ul.q-instructions li {
+    margin-left: 20px;
+}
+
+.p-error { display: block !important; }
 
 
 

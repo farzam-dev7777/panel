@@ -8,7 +8,7 @@ class FormSubmissionsController < BaseController
   before_action :before_non_dynamic_forms, only: [:technology_step, :history_step]
 
   helper_method :next_step_path, :current_step_path, :steps, :previous_step_path, 
-                :current_step, :wizard_path, :last_step, :first_step, :logics
+                :current_step, :wizard_path, :last_step, :first_step, :logics, :follow_up_stats
 
   def before_steps
     @form_submission = FormSubmission.find(params[:id])
@@ -128,6 +128,28 @@ class FormSubmissionsController < BaseController
                     @form_submission.follow_ups.history.decorate
                   end
       
+  end
+
+  def follow_up_stats
+    stats = {}
+    @form_submission.follow_ups.review.map(&:loggable).each do |form_value|
+      if form_value.try(:form_field).try(:formable)
+        case form_value.form_field.formable.name
+        when 'Policy'
+          stats[:policy] = (stats[:policy] || 0) + 1
+        when 'Process'
+          stats[:process] = (stats[:process] || 0) + 1
+        end 
+      else
+        case form_value.class.to_s
+        when 'TechnologyValue'
+          stats[:technology] = (stats[:policy] || 0) + 1
+        when 'HistorySubmission'
+          stats[:history] = (stats[:process] || 0) + 1
+        end 
+      end
+    end
+    stats
   end
 
 private

@@ -9,14 +9,14 @@
 	<div class="col-md-2 platform-wrapper">
 		<%= f.input :platform, collection: Technology.all.pluck(:platform).uniq, input_html: {class: 'dynamic-select', data: {field: 'platform'}} %>
 	</div>
-	<div class="col-md-2 version-wrapper">
+	<div class="col-md-1 version-wrapper">
 		<%= f.input :version, collection: Technology.all.pluck(:version).uniq, input_html: {class: 'dynamic-select', data: {field: 'version'} } %>
 	</div>
-	<div class="col-md-2 service_pack-wrapper">
-		<%= f.input :service_pack, collection: Technology.all.pluck(:service_pack).uniq, input_html: { data: {field: 'service_pack'} } %>
+	<div class="col-md-3 service_pack-wrapper">
+		<%= f.input :service_pack, collection: Technology.all.pluck(:service_pack).uniq, input_html: { data: {field: 'service_pack'} }, label: "Service Pack/Update/Build" %>
 	</div>
 	<div class="col-md-2">
-		<%= f.input :supported, collection: ['Yes', 'No'] %>
+		<%= f.input :supported, collection: ['Yes', 'No'], label: 'Vendor Supported' %>
 	</div>
 
 	<%= render partial: 'note', locals: { loggable: f.object, follow_ups: @follow_ups, 

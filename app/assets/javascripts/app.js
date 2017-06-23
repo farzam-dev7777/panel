@@ -6,14 +6,35 @@ $(document).ready(function(){
   // $('.dynamic-select').trigger('change');
 
   $('.masked-phone').mask('(000)-000-0000');
-  $('.masked-money').mask("$ 000,000,000,000,000,00");
+  $('.masked-money').maskMoney({prefix:'USD ', allowNegative: true, thousands:',', affixesStay: false});
+
+  $('.login-btn').on('click', function(){
+    if ( $('#tandc').prop('checked') == false ){ 
+      $('.login-error').css('display', 'block').html('Please accept the terms and conditions');
+    } else if ( $('#privacy-policy').prop('checked') == false ) {
+      $('.login-error').css('display', 'block').html('Please accept the privacy policy');
+    } else {
+      $('.login-error').css('display', 'none');
+    }
+  })
 
   $(document).on('click', ".file-name-holder.user-access", function(){
+    filename = $(this).data('file-name');
     swal({
       title: "Encrypted!",
-      text: "The file you're trying to access is encrypted.",
+      text: "The file (" + filename + ") you're trying to access is encrypted.",
       imageUrl: "http://www.freeiconspng.com/uploads/encryption-icon-11.png"
     });
+  })
+
+  $(document).on('blur', ".set-password", function(){
+    if($(this).val().length < 12){
+      swal({
+        title: "Oops!",
+        text: "Password length must be minimum 12 characters",
+        imageUrl: "/assets/16205-200.png"
+      });
+    }
   })
 
   // $('input[type=submit]').parent().replaceTag('p');
@@ -113,19 +134,20 @@ $(document).ready(function(){
     // When the assessor has requested follow-ups then disable all fields,
     // get all the follow ups, iterate through the array
     // and enable only those fields which require attention
-    if(dataDiv.data('form-submission-status') == 'follow_up') {
-      follow_ups = dataDiv.data('follow-ups');
-      if(follow_ups.length > 0 ){
-        disableFormSubmissionFields();
-        setTimeout(function(){
-          follow_ups.forEach(function(follow_up) {
-            var target = $('.need-follow-up.field-wrapper-' + follow_up.form_field_id);
-            target.find('input').removeAttr('disabled');
-            target.find('select').prop('disabled', false).trigger("chosen:updated");
-          })
-        }, 500)
-      }
-    }
+    
+    // if(dataDiv.data('form-submission-status') == 'follow_up') {
+    //   follow_ups = dataDiv.data('follow-ups');
+    //   if(follow_ups.length > 0 ){
+    //     disableFormSubmissionFields();
+    //     setTimeout(function(){
+    //       follow_ups.forEach(function(follow_up) {
+    //         var target = $('.need-follow-up.field-wrapper-' + follow_up.form_field_id);
+    //         target.find('input').removeAttr('disabled');
+    //         target.find('select').prop('disabled', false).trigger("chosen:updated");
+    //       })
+    //     }, 500)
+    //   }
+    // }
 
   }, 2000)
 
@@ -491,7 +513,7 @@ $(document).ready(function(){
     toastr.success('Your progress has been saved successfully', 'Saved');
     link = window.link_to_redirect_to;
     if(link == window.location.pathname){
-      window.location.reload();
+      // window.location.reload();
     } else{ 
       window.location.href = link;
     }
@@ -718,7 +740,8 @@ $(document).ready(function(){
       .done(function( data ) {
         $(this).children('.resolve-btn').val('Resolved').attr('disabled', 'true')
         // https://github.com/johnpapa/toastr-bower
-        toastr.success('The follow up has been marked as resolved', 'Resolved')
+        $(this).parent().parent().parent().find('.qtip-close').trigger('click');
+        toastr.success('The follow up has been marked as resolved', 'Resolved');
       });
   })
 
@@ -741,7 +764,7 @@ $(document).ready(function(){
     var data = $(this).data();
     swal({
       title: "Are you sure?",
-      text: "",
+      text: "You won't be able to edit these forms later",
       type: "warning",
       showCancelButton: true,
       confirmButtonColor: "#DD6B55",
@@ -840,7 +863,7 @@ $(document).ready(function(){
                 $this.remove();
                 countTasks();
               });
-              window.location.href = response.redirect_url;
+              // window.location.href = response.redirect_url;
             }
           })
         } else {

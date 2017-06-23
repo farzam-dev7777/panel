@@ -48,7 +48,7 @@
 				<!-- end widget edit box -->
 
 				<% if @action_items.any? %>
-				<div class="widget-body no-padding smart-form">
+				<div class="widget-body no-padding smart-form sec-threats-latest">
 					<!-- content goes here -->
 					
 					<% if (@action_items.select{|a| a.status != 'complete' && a.security_threat.severity_level.name == 'critical'}).count > 0 %>
@@ -427,7 +427,7 @@
 								<%- activities.reverse.each do |activity| %>
 								<div class="cd-timeline-block">
 									<div class="cd-timeline-img cd-picture">
-										<i class="fa fa-edit fa-2x timeline-icon"></i>
+										<i class="fa <%= activity_icon(activity.event_type) %> fa-2x timeline-icon"></i>
 									</div>
 
 									<div class="cd-timeline-content">

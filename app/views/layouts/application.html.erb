@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-us">
   <head>
-    <title><%= params[:controller].humanize %> | Bluehound</title>
+    <title><%= params[:controller].humanize %> | SEAL</title>
       
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <%= csrf_meta_tags %>
@@ -15,6 +15,7 @@
         margin-left: 0px;
       }
     </style>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   </head>
 
   <body class="smart-style-6">
@@ -37,12 +38,11 @@
         <!-- END AJAX-DROPDOWN -->
       </div>
 
-      <div class="col-md-8 text-center portal-type">
+      <div class="col-md-8 col-g-7 text-center portal-type">
         <p>Firm Portal</p>
       </div>
-      <div class="col-md-1"></div>
 
-       <div class="project-context hidden-xs col-md-1">
+       <div class="project-context hidden-xs col-md-2">
 
           <span class="label">Welcome</span>
           <span class="project-selector dropdown-toggle" data-toggle="dropdown"><%= current_user.username %> <i class="fa fa-angle-down"></i></span>
@@ -179,5 +179,20 @@
 
       <%= javascript_include_tag 'http://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js' %>
     <% end %>
+
+    <% if current_law_firm %>
+      <script type="text/javascript">
+        window.doorbellOptions = {
+            appKey: 'jmrrnhLtSDvA0b1werKyiNoVi5SYAP44NBZkoAJycCHYYcXmNe5czwRTb8fYqVP7'
+        };
+        (function(w, d, t) {
+            var hasLoaded = false;
+            function l() { if (hasLoaded) { return; } hasLoaded = true; window.doorbellOptions.windowLoaded = true; var g = d.createElement(t);g.id = 'doorbellScript';g.type = 'text/javascript';g.async = true;g.src = 'https://embed.doorbell.io/button/6300?t='+(new Date().getTime());(d.getElementsByTagName('head')[0]||d.getElementsByTagName('body')[0]).appendChild(g); }
+            if (w.attachEvent) { w.attachEvent('onload', l); } else if (w.addEventListener) { w.addEventListener('load', l, false); } else { l(); }
+            if (d.readyState == 'complete') { l(); }
+        }(window, document, 'script'));
+      </script>
+    <% end %>
+    
   </body>
 </html>

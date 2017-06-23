@@ -14,66 +14,287 @@
 
 
 
-            <div class="col-md-12">
-              <div class="col-md-6">
-                <%= image_tag("bmo-logo.png") %>
-              </div>
-              <div class="col-md-6 text-right">
-                <%= image_tag("seal-logo.png") %>
-              </div>
-            </div>
+      <div class="col-md-12">
+        <div class="col-md-6">
+          <%= image_tag("bmo-logo.png") %>
+        </div>
+        <div class="col-md-6 text-right">
+          <%= image_tag("seal-logo.png") %>
+        </div>
+      </div>
 
       <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4 col-lg-offset-4 login-form-wrapper">
         <div class="well no-padding">
-        
-          <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {id: 'login-form', class: 'smart-form client-form'}) do |f| %>
-            <header>
-              Sign In
-            </header>
 
-            <fieldset>
-              
+          <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {id: 'login-form', class: 'smart-form client-form'}) do |f| %>
+          <header>
+            Sign In
+          </header>
+
+          <fieldset>
+
+            <div class="alert alert-danger login-error"></div>
+            <%- flash.each do |name, msg| -%>
+              <div class="alert alert-danger p-error">
+                <%= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) %>
+              </div>
+            <%- end -%> 
+
+            <section>
+              <label class="label">Username</label>
+              <label class="input"> <i class="icon-append fa fa-user"></i>
+                <%= f.text_field :username, autofocus: true %>
+                <b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i> Please enter username</b></label>
+              </section>
+
               <section>
-                <label class="label">Username</label>
-                <label class="input"> <i class="icon-append fa fa-user"></i>
-                  <%= f.text_field :username, autofocus: true %>
-                  <b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i> Please enter username</b></label>
+                <label class="label">Password</label>
+                <label class="input"> <i class="icon-append fa fa-lock"></i>
+                  <%= f.password_field :password, autocomplete: "off" %>
+                  <b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i> Enter your password</b> </label>
+                  <!-- <div class="note">
+                    <%= link_to "Forgot password?", new_password_path('user'), :class => "login-link" %>
+
+                  </div> -->
                 </section>
 
                 <section>
-                  <label class="label">Password</label>
-                  <label class="input"> <i class="icon-append fa fa-lock"></i>
-                    <%= f.password_field :password, autocomplete: "off" %>
-                    <b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i> Enter your password</b> </label>
-                    <div class="note">
-                    <%= link_to "Forgot password?", new_password_path('user'), :class => "login-link" %>
-
-                    </div>
-                  </section>
-
-                  <section>
-                    <label class="checkbox">
-                      <input type="checkbox" name="remember" required="required">
-                      <i></i>Terms &amp; Conditions
-                      <b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i> Please enter username</b>
-                    </label>
-                    </section>
-                    <section>
-                    <label class="checkbox">
-                      <input type="checkbox" name="remember" required="required">
-                      <i></i>Privacy Policy</label>
-                    </section>
-                  </fieldset>
-                  <footer>
-                    <%= f.submit "Log in", class: 'btn btn-primary' %>  
-                  </footer>
+                  <label class="checkbox">
+                    <input id="tandc" type="checkbox" name="remember" required="required">
+                    <i></i>I agree to the <a href="#" data-toggle="modal" data-target="#tandcModal">Terms &amp; Conditions</a> and <a target="_blank" href="/files/15-1333-Privacy code_Ev3.pdf">Privacy Policy</a>
+                    <b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i> Please enter username</b>
+                  </label>
+                </section>
+                </fieldset>
+                <footer>
+                  <%= f.submit "Log in", class: 'btn btn-primary login-btn' %>  
+                </footer>
                 <% end %>
 
               </div>
               
             </div>
-      
+
           </div>
         </div>
 
+      </div>
+
+
+      <!-- T & C Modal -->
+      <div class="modal fade" id="tandcModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog t-and-c-modal" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title" id="exampleModalLongTitle">Terms & Conditions</h1>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="popupContent">
+                <!-- code -->
+                <h1>Legal </h1>
+                <ul class="redArrows">
+                  <li><a href="#res" title="Responsibilities "> Responsibilities </a></li>
+                  <li><a href="#avi" title="Available Only Where Permitted by Law"> Available Only Where Permitted by Law </a></li>
+                  <li><a href="#app" title="Applicable Agreements">Applicable Agreements </a></li>
+                  <li><a href="#use" title="Use of Information">Use of Information </a></li>
+                  <li><a href="#acc" title="Accuracy and Changes"> Accuracy and Changes</a></li>
+                  <li><a href="#sbk" title="Software Backup"> Software Backup </a></li>
+                  <li><a href="#hyp" title="Hyperlinks are Not Endorsements"> Hyperlinks are Not Endorsements </a></li>
+                  <li><a href="#sup" title="Support Orders and Support Provisions">Support Orders and Support Provisions  </a></li>
+                  <li><a href="#mar" title="Marketing Names/Trade Names Used by Bank of Montreal">Marketing Names/Trade Names Used by Bank of Montreal </a></li>
+                  <li><a href="#trd" title="Trademarks Belonging to Bank of Montreal or Other Entities">Trademarks Belonging to Bank of Montreal or Other Entities </a></li>
+                  <li><a href="#thi" title="Third Party Trade-marks">Third Party Trade-marks  </a></li>
+                  <li><a href="#cpy" title="Copyright"> Copyright</a></li>
+                </ul>
+                <h4>Important notices to all users of this Website: <br>
+                  Our Terms of Use</h4>
+                  <p class="first">We want you to use and enjoy our Website, but it is important that you take a moment to read the information below.</p>
+                  <p><span class="bold"><ins>Note:</ins></span>For the legal notices on sites of certain other members of BMO Financial Group simply click on the links provided:
+                  </p>
+                  <ul class="redArrows">
+                    <li><a href="javascript:popup('/home/popups/global/mutual-funds-legal', 640,580);" title="BMO mutual funds (opens in a new window)">BMO Mutual Funds </a></li>
+                    <li><a href="javascript:popup('/home/popups/global/mastercard-legal', 640,580);" title="BMO Master card (opens in a new window)">BMO Mastercard </a></li>
+                    <!-- <li><a href="http://www.bmoinvestorline.com/General_Info/LegalInfo.html" vlt="1" target="_blank" title="BMO Investor Line (opens in a new window)">BMO InvestorLine </a></li> -->
+                    <li><a href="https://www.bmoinvestorline.com" target="_blank" title="BMO InvestorLine Self-Directed (opens in a new window)">BMO InvestorLine Self-Directed</a></li>
+                    <li><a href="https://www.bmo.com/advicedirect" target="_blank" title="BMO InvestorLine Self-Directed (opens in a new window)">BMO InvestorLine adviceDirect</a></li>
+                    <li><a href="javascript:popup('/harrisprivatebanking/popups/legal', 640,580);" title="BMO Private Banking. (opens in a new window)">BMO Private Banking </a></li>
+                    <li><a href="http://www.bmo.com/nesbittburns" target="_blank" vlt="1" title="BMO Nesbitt Burns (opens in a new window)">BMO Nesbitt Burns</a></li>
+                    <li><a href="http://www.bmocm.com/legal/" vlt="1" target="_blank" title="BMO Capital Markets Corporate Institutional Clients. (opens in a new window)">BMO Capital Markets Corporate and Institutional Clients </a></li>
+                    <li><a href="http://www.bmo.com/gam" vlt="1" target="_blank" title="BMO Global Asset Management (opens in a new window)">BMO Global Asset Management</a></li>
+                  </ul>
+                  <p>Bank of Montreal maintains this Website to provide you with information about the products and services of various members of BMO Financial Group.<span class="bold"> Each time you use this Website you indicate your acknowledgment and acceptance of the terms and conditions below, which we may revise periodically without notice. If you do not accept these terms and conditions, do not use the Website.
+                  </span></p>
+                  <div class="dotted_horiz"></div>
+                  <div align="left"><a href="#" title="Back to top">Back to top</a></div>
+                  <h3><a name="res"> Responsibilities</a></h3>
+                  <p clas="=&quot;first&quot;">We take great care to ensure that the use of this Website and the services available through it such as online banking are safe and secure. We are committed to protecting the security of our customers' funds, as well as the confidentiality of personal and financial information within the web server hosting our Website and our internal computer systems.</p>
+                  <p>Unauthorized use of this Website and our systems including but not limited to unauthorized entry into our systems, misuse of passwords, or misuse of any information on the Website is prohibited.</p>
+                  <p>
+                    Although considerable care has been taken in preparing and maintaining the information and materials contained on this Website, they are provided on an "as is" basis, without warranty of any kind either express or implied. In particular, all responsibility or liability for any damages caused to computer systems, software or electronic files by computer viruses, "worms", "trojan horses" or other items or forces of an intrusive, disruptive or destructive nature is disclaimed.
+                  </p>
+                  <p>
+                    Please note that regular, unencrypted e-mail messages over the Internet are not secure (i.e. not private) at this time. Please do not send personal or financial information to us using unencrypted e-mail. Alternative, secure means of communicating with us over the Internet are available to Online Banking customers.
+                    <ins> We are not liable if you send confidential information to us over the Internet using regular, unencrypted e-mail and that information subsequently becomes public through no fault of ours.</ins>
+                  </p>
+                  <p>
+                    For more information on liability and limitations of liability in connection with the use of online banking, please refer to your
+                    <!--<a href="/home/personal/banking/everyday/fees-agreements/agreements" title="First Banking Automated Services Agreement.">FirstBanking® Automated Services Agreement.</a>--><a href="/home/popups/global/firstbank-service-agreement" title="Electronic Banking Services Agreement">Electronic Banking Services Agreement.</a>
+                  </p>
+                  <div class="dotted_horiz"></div>
+                  <div align="left"><a href="#" title="Back to top">Back to top</a></div>
+                  <h3><a name="avi">Available Only Where Permitted by Law</a></h3>
+                  <p clas="=&quot;first&quot;">The products and services described in this Website are only offered in jurisdictions where they may be legally offered for sale.
+                  </p>
+                  <p>The information on this Website is not an offer or solicitation by anyone in any jurisdiction in which an offer or solicitation cannot legally be made, or to any person to whom it is unlawful to make a solicitation.
+                  </p>
+                  <div class="dotted_horiz"></div>
+                  <div align="left"><a href="#" title="Back to top">Back to top</a></div>
+                  <h3><a name="app">Applicable Agreements</a></h3>
+                  <p clas="=&quot;first&quot;">All products and services are subject to the terms of the applicable agreements.</p>
+                  <div class="dotted_horiz"></div>
+                  <div align="left"><a href="#" title="Back to top">Back to top</a></div>
+                  <h3><a name="use">Use of Information</a></h3>
+                  <p clas="=&quot;first&quot;">The information contained on this Website and pages within is for informational purposes only and is not intended to provide specific legal, accounting, financial or tax advice for you and should not be relied upon in that regard.</p>
+                  <div class="dotted_horiz"></div>
+                  <div align="left"><a href="#" title="Back to top">Back to top</a></div>
+                  <h3><a name="acc"> Accuracy and Changes</a></h3>
+                  <p clas="=&quot;first&quot;">Facts and information provided by Bank of Montreal, and its subsidiaries and affiliates are believed to be accurate when placed on the Website. Changes may be made at any time to the information at this Website without prior notice. Please consult any branch of BMO Bank of Montreal in Canada for complete and up-to-date information on products and services.</p>
+                  <div class="dotted_horiz"></div>
+                  <div align="left"><a href="#" title="Back to top">Back to top</a></div>
+                  <h3><a name="sbk">Software Backup</a></h3>
+                  <p clas="=&quot;first&quot;">While every effort is made to ensure that all software provided at this Website, is suitable for use on a wide variety of computer systems, you should take reasonable and appropriate precautions to scan for computer viruses, and ensure compatibility of the software with your specific computer system. You should also ensure that you have a complete and current backup of the information contained on your computer system prior to installing such software.</p>
+                  <div class="dotted_horiz"></div>
+                  <div align="left"><a href="#" title="Back to top">Back to top</a></div>
+                  <h3><a name="hyp">Hyperlinks are Not Endorsements</a></h3>
+                  <p clas="=&quot;first&quot;">Links from this Website to other Websites, or references to products, services or publications other than those of Bank of Montreal and its subsidiaries and affiliates, do not imply the endorsement or approval of such Websites, products, services or publications by Bank of Montreal or its subsidiaries and affiliates.
+                  </p>
+                  <div class="dotted_horiz"></div>
+                  <div align="left"><a href="#" title="Back to top">Back to top</a></div>
+                  <h3><a name="sup">Support Orders and Support Provisions</a></h3>
+                  <p clas="=&quot;first&quot;">In compliance with the Support Orders and Support Provisions (Banks and Authorized Foreign Banks) Regulations and Support Orders and Support Provisions (Trust and Loan Companies) Regulations, the following locations have been designated for the service of enforcement notices in respect of the below noted provinces for BMO Bank of Montreal.</p>
+                  <h4>Alberta and Northwest Territories</h4> Edmonton Main Branch
+                  <br> 10199-101 Street NW
+                  <br> Edmonton, Alberta, T5J 3Y4
+                  <br> Transit 0014
+                  <br>
+                  <h4>British Columbia and Yukon</h4> Vancouver Main Branch
+                  <br> 595 Burrard Street
+                  <br> Vancouver, British Columbia, V7X 1L7
+                  <br> Transit 0004
+                  <br>
+                  <h4>Manitoba</h4> Winnipeg Main Branch
+                  <br> 335 Main Street
+                  <br> Winnipeg, Manitoba, R3C 1C2
+                  <br> Transit 0003
+                  <br>
+                  <h4>New Brunswick</h4> Moncton Main Branch
+                  <br> 633 Main Street
+                  <br> Moncton, New Brunswick, E1C 8P7
+                  <br> Transit 0035
+                  <br>
+                  <br>
+                  <h4>Newfoundland and Labrador</h4> St. John's Main Branch
+                  <br> 238 Water Street
+                  <br> St. John's, Newfoundland A1C 1A9
+                  <br> Transit 1002
+                  <br>
+                  <h4>Nova Scotia</h4> Halifax Main Branch
+                  <br> 5151 George Street
+                  <br> Halifax, Nova Scotia, B3J 2M3,
+                  <br> Transit 0009
+                  <br>
+                  <h4>Ontario and Nunavut
+                  </h4> Toronto Main Branch
+                  <br> 100 King Street W
+                  <br> P.O. Box 3
+                  <br> Toronto, Ontario, M5X 1A3
+                  <br> Transit 0002
+                  <br>
+                  <h4>
+                    Prince Edward Island
+                  </h4> Charlottetown Main Branch
+                  <br> 105 Grafton Street
+                  <br> Charlottetown, Prince Edward Island, C1A 7L2
+                  <br> Transit 0037
+                  <br>
+                  <h4>Quebec
+                  </h4> BMO Group financier et Societe de fiducie BMO Groupe financier
+                  <br> Succursale principale
+                  <br> 119, rue Saint-Jacques
+                  <br> Montreal, Quebec, H2Y 1L6
+                  <br> Transit 0001
+                  <br>
+                  <h4>Saskatchewan</h4> Regina Main Branch 1800 Scarth Street
+                  <br> Regina, Saskatchewan, S4P 2G3
+                  <br> Transit 0013
+                  <br>
+                  <div class="dotted_horiz"></div>
+                  <div align="left"><a href="#" title="Back to top">Back to top</a></div>
+                  <h3><a name="mar">Marketing Names/Trade Names Used by Bank of Montreal</a></h3>
+                  <p clas="=&quot;first&quot;">"BMO Financial Group" and "BMO Bank of Montreal" are marketing names (also referred to as trade names or brand names) used by Bank of Montreal.</p>
+                  <p> BMO Wealth Management is a brand name that refers to Bank of Montreal and certain of its affiliates in providing wealth management products and services.</p>
+                  <div class="dotted_horiz"></div>
+                  <div align="left"><a href="#" title="Back to top">Back to top</a></div>
+                  <h3><a name="trd"> Trademarks Belonging to Bank of Montreal or Other Entities</a></h3>
+                  <p clas="=&quot;first&quot;">Certain names, graphics, logos, icons, designs, words, titles or phrases on this Website are trade names, or trade-marks owned by Bank of Montreal or other entities, or licensed to them. Trade-marks may be registered in Canada and in other countries as applicable. The Bank's trade-marks are, in most cases on this Website, accompanied at an early, prominent use in the Website with an appropriate trade-mark symbol such as ®, TM, or similar indicator to denote Bank of Montreal's ownership:
+                  </p>
+                  <p><sup>®</sup>Registered trade-mark of Bank of Montreal</p>
+                  <p><sup>TM </sup> Trade-mark of Bank of Montreal</p>
+                  <p>Some of the registered trade-marks owned by Bank of Montreal include:
+                  </p>
+                  <p>"BMO",<img src="/images/53959BMO_Identifer.gif" alt="Photo of the BMO logo.">,"Bank of Montreal"</p>
+                  <p>The display of trade-marks on pages at this Website does not imply that a license of any kind has been granted to anyone else. Any unauthorized downloading, re-transmission or other copying or modification of trade-marks and/or the contents herein may be a violation of federal or common law, trade-mark and/or copyright laws and could subject the copier to legal action.
+                  </p>
+                  <div class="dotted_horiz"></div>
+                  <div align="left"><a href="#" title="Back to top">Back to top</a></div>
+                  <h3><a name="thi">Third Party Trade-marks</a></h3>
+                  <p class="first">
+                    <br>®* -- Bank of Montreal is a licensed user of the registered trademark and design owned by Mastercard International Inc., the <i>Interac</i> trademark of <i>Interac</i> Inc., and the Cirrus trademark of Cirrus System Inc. <br>
+                    ®§ -- <i>Interac</i> and <i>Interac</i> e-Transfer are registered trademarks of Interac Inc. Used under license.
+                    <br>®<sup>†</sup> <sup>TM†</sup> -- Trademarks of AIR MILES International Trading B.V. Used under license by LoyaltyOne, Co. and Bank of Montreal.
+                    <br>®#-- Bank of Montreal is a licensed user of the Maestro trade-mark owned by Maestro International Incorporated.
+                    <br> ®
+                    <sup>**</sup> Registered trade-mark of Student Price Card Ltd.
+                    <br>®<sup>††/TM††</sup> -- Trademarks of American Express Company.
+                    <br>®** S&amp;P/TSX 60® and S&amp;P 500® are trade-marks of the McGraw-Hill Companies inc. "TSX" is a trade-mark of the Toronto Stock Exchange. These marks have been licensed for use by Bank of Montreal.
+                    <br>® Diners Club and Diners Club International with the Split Circle Device, Club Rewards and Club Cash are registered trade-marks of Diners Club International Ltd.; Bank of Montreal is a licensed user.
+                    <br> ®# 2015 Western Union Holdings, Inc. All Rights Reserved.
+                    <br>
+                    <sup>®††</sup> National, the “flag” and Emerald Club are trademarks of Vanguard Trademark Holdings USA, LLC.
+                    <br>
+                    <sup>®**</sup> Alamo is a trademark of Vanguard Trademark Holdings USA, LLC.
+                    <br>
+                    <sup>TM†*</sup>Priority Pass is a registered trade-mark of Priority Pass Inc.
+                    <br>
+                    <sup>®†#</sup> IDefence<sup>®</sup> is a trademark owned by D+H Limited Partnership, used under licence by Bank of Montreal.
+                    <br>
+                    <sup>TM†#</sup> IDefence Plus<sup>TM</sup> is a trademark owned by D+H Limited Partnership, used under licence by Bank of Montreal.
+                    <br>
+                    <sup>TM†#</sup>CreditDefence™ is a trademark owned by D+H Limited Partnership, used under licence by Bank of Montreal.
+                    <br>
+                    Apple, the Apple Logo, Apple Pay, iPhone, Apple Watch and Touch ID are trademarks of Apple Inc., registered in the U.S. and other countries. iOS is trademark or registered trademark of Cisco in the U.S. and other countries.
+                  </p>
+                  <p class="first">&nbsp;</p>
+                  <p class="first">
+                  </p><div class="dotted_horiz"></div>
+                  <div align="left"><a href="#" title="Back to top">Back to top</a></div>
+                  <h3><a name="cpy"> Copyright</a></h3>
+                  <p clas="=&quot;first&quot;">© Copyright Bank of Montreal 1996 - 2003 Unauthorized use of the Bank's logos and/or name, trade names or trade-marks or trade names is prohibited. All information at this site is protected under the copyright laws of Canada and in other countries. In addition, certain information may be copyrighted by others. Unless otherwise specified, no one has permission to copy, redistribute, reproduce or republish in any form, any information found at this Website.<span class="bold">If you wish to incorporate the Bank name or trade names, or our products names within another site, please contact us for permission.
+
+                  </span>
+                </p>
+                <div class="dotted_horiz"></div>
+                <div align="left"><a href="#" title="Back to top">Back to top</a></div>
+                <!-- end code -->
+              </div>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
       </div>
