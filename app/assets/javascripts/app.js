@@ -46,7 +46,8 @@ $(document).ready(function(){
           url: url,
           data: data,
           success: function(response) {
-            download(data, "strFileName", "image/jpeg");
+            debugger;
+            download("data:application/octet-stream;base64," + response.file, response.filename, data.application);
             toastr.success("", "Decryption process has begun")
           },
           error: function(response) {

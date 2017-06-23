@@ -25,7 +25,7 @@ class FileAttachment < ApplicationRecord
   end
 
   def decrypt(pkey)
-    # Underlock::Base.config[:private_key] = pkey
+    Underlock::Base.config[:private_key] = pkey
     encrypted_file = File.open(self.file.file.file)
     encrypted_entity = Underlock::EncryptedEntity.new(encrypted_file: encrypted_file, key: key, iv: iv)
     decrypted_file = Underlock::Base.decrypt(encrypted_entity)
