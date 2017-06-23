@@ -20,7 +20,7 @@
                locals: {f: record} unless record.object.nil? %>
   <% end %>
   <div class="add-bank-record text-right">
-  	<% if current_user %>
+  	<% if current_user && !current_user.is_an_admin? %>
 	    <%= link_to_add_association '<span href="javascript:void(0);" class="btn btn-default btn-sm"><i class="fa fa-plus-circle"></i> Cloud Provider</span>'.html_safe, v, :shared_bank_informations %>
 	   <% end %>
   </div>

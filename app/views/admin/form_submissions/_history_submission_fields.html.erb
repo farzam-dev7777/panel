@@ -1,5 +1,5 @@
 <div class="row history-field <%= follow_up_class(params[:id], f.object.id, 'HistorySubmission') %>">
-	<div class="col-md-3"><%= f.input :incident_type, collection: ['Incident Type 1', 'Incident Type 2'] %></div>
+	<div class="col-md-3"><%= f.input :incident_type %></div>
 	<!-- <div class="col-md-4"><%= f.input :impact %></div> -->
 <!-- 	<div class="col-md-2"><%= f.input :discovery_time %></div> -->
 	<div class="col-md-4"><%= f.input :data_loss, collection: ["No", "Not that we know.", "Yes, but not client data", "Yes , some", "Significant"] %></div>

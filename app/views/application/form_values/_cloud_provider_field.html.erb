@@ -32,7 +32,7 @@
                locals: {f: cloud_provider} unless cloud_provider.object.nil? %>
   <% end %>
   <div class="add-cloud-provider text-right">
-  	<% if current_user %>
+  	<% if current_user && !current_user.is_an_admin? %>
 	    <%= link_to_add_association '<span href="javascript:void(0);" class="btn btn-default btn-sm"><i class="fa fa-plus-circle"></i> Cloud Provider</span>'.html_safe, v, :cloud_providers %>
 	   <% end %>
   </div>

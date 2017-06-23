@@ -18,6 +18,47 @@ $(document).ready(function(){
     }
   })
 
+  $(document).on('click', '.decrypt-file', function(){
+    var params = $(this).data(); 
+    var url = $(this).data('decrypt-url');
+    var data = {};
+
+    swal({
+      title: "Decrypt",
+      text: "<textarea id='pkey' placeholder='Enter your decryption key'></textarea>",
+      html: true,
+      showCancelButton: true,
+      closeOnConfirm: true,
+      showLoaderOnConfirm: true,
+      animation: "slide-from-top",
+      inputPlaceholder: "Write something"
+    }, function(inputValue) {
+      if (inputValue === false) return false;
+      if (inputValue === "") {
+        swal.showInputError("You need to write something!");
+        return false
+      }
+      // get value using textarea id
+      data.key = document.getElementById('pkey').value;
+      if( data.key && data.key != ""){
+        $.ajax({
+          method: 'GET',
+          url: url,
+          data: data,
+          success: function(response) {
+            debugger;
+            download("data:application/octet-stream;base64," + response.file, response.filename, data.application);
+            toastr.success("", "Decryption process has begun")
+          },
+          error: function(response) {
+            swal("Error!", "Decryption process failed. Please try again!", "error");
+          }
+        })
+      }
+    });
+
+  })
+
   $(document).on('click', ".file-name-holder.user-access", function(){
     filename = $(this).data('file-name');
     swal({
@@ -63,10 +104,14 @@ $(document).ready(function(){
   });
 
   if(currentUrl.indexOf("form_submissions") != -1 && currentUrl.indexOf("admin/form_submissions") == -1){
-    $.LoadingOverlay("show", { 
-      color:  'rgba(255, 255, 255, 0.96)',
-      custom: customElement
-    });
+    if ((!window.location.href.indexOf("technology_step") > -1 || !window.location.href.indexOf("history_step") > -1)){
+      $.LoadingOverlay("hide");
+    } else {
+      $.LoadingOverlay("show", { 
+        color:  'rgba(255, 255, 255, 0.96)',
+        custom: customElement
+      });
+    }
   }
 
   $('.add-all-multiselect-options').on('click', function(){
@@ -513,7 +558,9 @@ $(document).ready(function(){
     toastr.success('Your progress has been saved successfully', 'Saved');
     link = window.link_to_redirect_to;
     if(link == window.location.pathname){
-      // window.location.reload();
+      if ((window.location.href.indexOf("technology_step") > -1)) {
+        window.location.reload();
+      }
     } else{ 
       window.location.href = link;
     }
@@ -710,6 +757,9 @@ $(document).ready(function(){
     var field_wrapper_id = data.field_wrapper_id;
     message = $(this).parent().parent().find('textarea.note').val();
     data.message = message;
+
+    if(!message || message == "")
+      return
 
     $.ajax({
       url: "/admin/follow_ups",

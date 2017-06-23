@@ -2,18 +2,21 @@
   <div class="delete-file" id="delete_file-<%= file_attachment.id %>">
     <%- if current_user.is_an_admin? %>
       <div class="col-md-11 file-name-holder">
-        <%= link_to file_attachment.try(:file).try(:file).try(:filename), decrypt_admin_file_attachment_path(file_attachment) %> 
+        <a href="javascript:void(0)" class="decrypt-file" data-decrypt-url="<%= decrypt_admin_file_attachment_path(file_attachment) %>">
+          <%= file_attachment.try(:file).try(:file).try(:filename) %>
+        </a>
+        <% link_to file_attachment.try(:file).try(:file).try(:filename), decrypt_admin_file_attachment_path(file_attachment) %> 
       </div>
     <% else %>
       <div class="col-md-11 file-name-holder user-access" data-file-name="<%= file_attachment.try(:file).try(:file).try(:filename) %>">
         <%= file_attachment.try(:file).try(:file).try(:filename) %> 
       </div>
+      <div class="col-md-1 no-padding">
+        <%= link_to(file_attachment_path(file_attachment), class: "delete_file") do %>
+          <i class="fa fa-trash"></i>
+        <% end %>
+      </div>
     <% end %>
-    <div class="col-md-1 no-padding">
-      <%= link_to(file_attachment_path(file_attachment), class: "delete_file") do %>
-        <i class="fa fa-trash"></i>
-      <% end %>
-    </div>
     <div class="clearfix"></div>
   </div>
 <% end %>

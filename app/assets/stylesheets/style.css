@@ -1292,5 +1292,32 @@ ul.q-instructions li {
 
 .p-error { display: block !important; }
 
+#home-wrapper {
+  color: #FFF;
+  font-size: 36px;
+  margin-top: 0px;
+  line-height: 0;
+  position: relative;
+  top: -4px;
+  border-right: 1px solid #FFF;
+  width: 40px;
+  float: left;
+}
+
+#home-wrapper a {
+  color: #FFF !important
+}
+
+#home-wrapper a:hover {
+  color: #e1e1e1 !important
+}
+
+textarea#pkey {
+  height: 200px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: none;
+  padding: 10px;
+}
 
 

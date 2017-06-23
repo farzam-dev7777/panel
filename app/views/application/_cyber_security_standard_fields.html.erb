@@ -13,7 +13,7 @@
 	</div>
 
 	<div class="col-md-1 text-right" style="padding-top: 15px;">
-		<% if f.object && current_user %>
+		<% if f.object && current_user && !current_user.is_an_admin? %>
 			<%= link_to_remove_association "<i class='fa fa-minus-circle'></i>".html_safe, f, { wrapper_class: "cyber-security-field-#{f.object.try(:id)}" }  %>
 		<% end %>
 	</div>
