@@ -19,37 +19,43 @@ $(document).ready(function(){
   })
 
   $(document).on('click', '.decrypt-file', function(){
+    var params = $(this).data(); 
     var url = $(this).data('decrypt-url');
     var data = {};
+
     swal({
       title: "Decrypt",
-      text: "Enter your key to decrypt the file",
-      type: "input",
+      text: "<textarea id='pkey' placeholder='Enter your decryption key'></textarea>",
+      html: true,
       showCancelButton: true,
-      closeOnConfirm: false,
+      closeOnConfirm: true,
+      showLoaderOnConfirm: true,
       animation: "slide-from-top",
-      inputPlaceholder: "Enter your decryption key here"
-    },
-    function(inputValue){
+      inputPlaceholder: "Write something"
+    }, function(inputValue) {
       if (inputValue === false) return false;
-      
       if (inputValue === "") {
         swal.showInputError("You need to write something!");
         return false
       }
-      data.key = inputValue
-      debugger;
-      $.ajax({
-        method: 'GET',
-        url: url,
-        data: data,
-        success: function() {
-          toastr.success("", "Decryption process has begun")
-        },
-        error: function(response) {}
-      })
-      // swal("Nice!", "You wrote: " + inputValue, "success");
+      // get value using textarea id
+      data.key = document.getElementById('pkey').value;
+      if( data.key && data.key != ""){
+        $.ajax({
+          method: 'GET',
+          url: url,
+          data: data,
+          success: function(response) {
+            download(data, "strFileName", "image/jpeg");
+            toastr.success("", "Decryption process has begun")
+          },
+          error: function(response) {
+            swal("Error!", "Decryption process failed. Please try again!", "error");
+          }
+        })
+      }
     });
+
   })
 
   $(document).on('click', ".file-name-holder.user-access", function(){

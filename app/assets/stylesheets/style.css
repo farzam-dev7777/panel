@@ -1312,4 +1312,12 @@ ul.q-instructions li {
   color: #e1e1e1 !important
 }
 
+textarea#pkey {
+  height: 200px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: none;
+  padding: 10px;
+}
+
 

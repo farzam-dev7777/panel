@@ -48,6 +48,9 @@
 //= require rateyo
 //= require qTip2
 //= require sweetalert
+// require swal.min
+// require swal.common
+//= require download.js
 //= require jquery_nested_form
 //= require loadingoverlay.min
 //= require loadingoverlay_progress
