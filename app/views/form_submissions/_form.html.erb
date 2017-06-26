@@ -3,6 +3,9 @@
   <header>
     <span class="widget-icon"> <i class="fa fa-certificate"></i> </span>
     <h2>Certification Submission</h2>
+    <div style="float: right;padding-right: 10px;">
+      <h2>Last Saved: <strong class="last-updated-timestamp"><%= @form_submission.updated_at.strftime("%d %b %Y at %I:%M:%S %p") %></strong></h2>
+    </div>
 
   </header>
 
@@ -34,7 +37,7 @@
               <% if !first_step %>
                 <%= link_to "<i class='fa fa-caret-left'></i> Prev <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, previous_step_path, class: 'btn btn-default submit-form' %>
               <% end %>
-              <%= link_to "<i class='fa fa-floppy-o'></i> Save".html_safe, current_step_path, class: 'btn btn-primary submit-form' %>
+              <%= link_to "<i class='fa fa-floppy-o'></i> Save".html_safe, current_step_path, class: 'btn btn-primary submit-form save-btn' %>
 
               <% if(last_step) %>
                 <a href="#" class="btn btn-default finalize-submission" data-form_id=<%= params[:id] %>>

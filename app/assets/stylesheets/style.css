@@ -1320,4 +1320,22 @@ textarea#pkey {
   padding: 10px;
 }
 
+.faqs span {
+  position: relative;
+  bottom: 2px;
+  font-weight: bold;
+}
+.faqs i {
+  font-size: 20px;
+}
+.faqs a {
+  color: #FFF;
+}
+.faqs {
+  color: #FFF;
+  font-size: 14px !important;
+  position: relative;
+  margin-top: 14px;
+}
+
 

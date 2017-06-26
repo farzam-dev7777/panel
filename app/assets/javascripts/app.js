@@ -5,6 +5,8 @@ $(document).ready(function(){
   
   // $('.dynamic-select').trigger('change');
 
+  var currentUrl = window.location.href;
+
   $('.masked-phone').mask('(000)-000-0000');
   $('.masked-money').maskMoney({prefix:'USD ', allowNegative: true, thousands:',', affixesStay: false});
 
@@ -17,6 +19,16 @@ $(document).ready(function(){
       $('.login-error').css('display', 'none');
     }
   })
+
+  function save_user_progress(){
+    if(currentUrl.indexOf("form_submissions") > -1 && currentUrl.indexOf("admin") == -1){
+      $('.save-btn').trigger('click');
+    }
+  }
+
+  window.setInterval(function(){
+    save_user_progress(true);
+  }, 30000);
 
   $(document).on('click', '.decrypt-file', function(){
     var params = $(this).data(); 
@@ -91,8 +103,7 @@ $(document).ready(function(){
       $(this).parent().find('.other-input').remove();
     }
   })
-  
-  var currentUrl = window.location.href;
+
 
   var american_states = [ { "id": "Alabama", "text": "Alabama" }, { "id": "Alaska", "text": "Alaska" }, { "id": "American Samoa", "text": "American Samoa" }, { "id": "Arizona", "text": "Arizona" }, { "id": "Arkansas", "text": "Arkansas" }, { "id": "California", "text": "California" }, { "id": "Colorado", "text": "Colorado" }, { "id": "Connecticut", "text": "Connecticut" }, { "id": "Delaware", "text": "Delaware" }, { "id": "District Of Columbia", "text": "District Of Columbia" }, { "id": "Federated States Of Micronesia", "text": "Federated States Of Micronesia" }, { "id": "Florida", "text": "Florida" }, { "id": "Georgia", "text": "Georgia" }, { "id": "Guam", "text": "Guam" }, { "id": "Hawaii", "text": "Hawaii" }, { "id": "Idaho", "text": "Idaho" }, { "id": "Illinois", "text": "Illinois" }, { "id": "Indiana", "text": "Indiana" }, { "id": "Iowa", "text": "Iowa" }, { "id": "Kansas", "text": "Kansas" }, { "id": "Kentucky", "text": "Kentucky" }, { "id": "Louisiana", "text": "Louisiana" }, { "id": "Maine", "text": "Maine" }, { "id": "Marshall Islands", "text": "Marshall Islands" }, { "id": "Maryland", "text": "Maryland" }, { "id": "Massachusetts", "text": "Massachusetts" }, { "id": "Michigan", "text": "Michigan" }, { "id": "Minnesota", "text": "Minnesota" }, { "id": "Mississippi", "text": "Mississippi" }, { "id": "Missouri", "text": "Missouri" }, { "id": "Montana", "text": "Montana" }, { "id": "Nebraska", "text": "Nebraska" }, { "id": "Nevada", "text": "Nevada" }, { "id": "New Hampshire", "text": "New Hampshire" }, { "id": "New Jersey", "text": "New Jersey" }, { "id": "New Mexico", "text": "New Mexico" }, { "id": "New York", "text": "New York" }, { "id": "North Carolina", "text": "North Carolina" }, { "id": "North Dakota", "text": "North Dakota" }, { "id": "Northern Mariana Islands", "text": "Northern Mariana Islands" }, { "id": "Ohio", "text": "Ohio" }, { "id": "Oklahoma", "text": "Oklahoma" }, { "id": "Oregon", "text": "Oregon" }, { "id": "Palau", "text": "Palau" }, { "id": "Pennsylvania", "text": "Pennsylvania" }, { "id": "Puerto Rico", "text": "Puerto Rico" }, { "id": "Rhode Island", "text": "Rhode Island" }, { "id": "South Carolina", "text": "South Carolina" }, { "id": "South Dakota", "text": "South Dakota" }, { "id": "Tennessee", "text": "Tennessee" }, { "id": "Texas", "text": "Texas" }, { "id": "Utah", "text": "Utah" }, { "id": "Vermont", "text": "Vermont" }, { "id": "Virgin Islands", "text": "Virgin Islands" }, { "id": "Virginia", "text": "Virginia" }, { "id": "Washington", "text": "Washington" }, { "id": "West Virginia", "text": "West Virginia" }, { "id": "Wisconsin", "text": "Wisconsin" }, { "id": "Wyoming", "text": "Wyoming" } ];
   var canadian_provinces = [ { "id": "Alberta", "text": "Alberta" }, { "id": "British Columbia", "text": "British Columbia" }, { "id": "Manitoba", "text": "Manitoba" }, { "id": "New Brunswick", "text": "New Brunswick" }, { "id": "Newfoundland and Labrador", "text": "Newfoundland and Labrador" }, { "id": "Nova Scotia", "text": "Nova Scotia" }, { "id": "Ontario", "text": "Ontario" }, { "id": "Prince Edward Island", "text": "Prince Edward Island" }, { "id": "Quebec", "text": "Quebec" }, { "id": "Saskatchewan", "text": "Saskatchewan" }, { "id": "Northwest Territories", "text": "Northwest Territories" }, { "id": "Nunavut", "text": "Nunavut" }, { "id": "Yukon", "text": "Yukon" } ];
@@ -552,7 +563,8 @@ $(document).ready(function(){
     }
   })
 
-  $("form").bind("ajax:success", function(response){
+  $("form").bind("ajax:success", function(e, response){
+    $('.last-update-timestamp').html(response.last_updated);
     $('.submit-form').find('.loader').addClass('hidden');
     setTimeout(function(){ ajaxRequestInProcess = false; $('.submit-form').removeAttr("disabled"); }, 2000)
     toastr.success('Your progress has been saved successfully', 'Saved');

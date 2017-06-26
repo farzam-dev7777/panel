@@ -42,6 +42,7 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :frequently_asked_questions
     resources :severity_levels
 
     resources :security_alerts
@@ -133,6 +134,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources 'frequently_asked_questions', only: [:index]
+
   devise_for :users, skip: [:registrations], controllers: { 
     sessions: 'users/sessions',
     passwords: 'users/passwords',
@@ -145,6 +148,9 @@ Rails.application.routes.draw do
   resources :two_factor_authentication
   namespace :users do
   end
+
+
+
   root to: "dashboard#index"
 
 end

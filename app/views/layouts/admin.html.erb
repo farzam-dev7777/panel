@@ -140,6 +140,9 @@
 				<li class="<%= active_menu_item('/admin/security_alerts') %>">
 					<a href="/admin/security_alerts" title="blank_"><i class="fa fa-lg fa-fw fa-newspaper-o"></i> <span class="menu-item-parent">Security News Alerts</span></a>
 				</li>
+				<li class="<%= active_menu_item('/admin/frequently_asked_questions') %>">
+					<a href="/admin/frequently_asked_questions" title="blank_"><i class="fa fa-lg fa-fw fa-newspaper-o"></i> <span class="menu-item-parent">FAQs</span></a>
+				</li>
 				<% if current_user && current_user.role == 'superadmin' %>
 					<li class="<%= active_menu_item(edit_admin_system_setting_path(SystemSetting.last || SystemSetting.create)) %>">
 						<a href="<%= edit_admin_system_setting_path(SystemSetting.last || SystemSetting.create) %>" title="blank_"><i class="fa fa-lg fa-fw fa-cog"></i> <span class="menu-item-parent">System Settings</span></a>
