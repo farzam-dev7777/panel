@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20170626194926) do
     t.integer  "author_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "internal_id"
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id", using: :btree
     t.index ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
@@ -47,6 +48,7 @@ ActiveRecord::Schema.define(version: 20170626194926) do
     t.datetime "updated_at",     null: false
     t.boolean  "read"
     t.boolean  "notify"
+    t.integer  "internal_id"
     t.string   "email"
     t.string   "source"
     t.index ["loggable_type", "loggable_id"], name: "index_activity_logs_on_loggable_type_and_loggable_id", using: :btree
@@ -77,6 +79,7 @@ ActiveRecord::Schema.define(version: 20170626194926) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.integer  "internal_id"
     t.string   "role"
     t.index ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
@@ -124,6 +127,7 @@ ActiveRecord::Schema.define(version: 20170626194926) do
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
     t.float    "score",         default: 0.0
+    t.integer  "internal_id"
   end
 
   create_table "file_attachments", force: :cascade do |t|
@@ -131,6 +135,7 @@ ActiveRecord::Schema.define(version: 20170626194926) do
     t.integer  "form_value_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.integer  "internal_id"
     t.text     "iv"
     t.text     "key"
     t.string   "attachable_type"
@@ -145,6 +150,7 @@ ActiveRecord::Schema.define(version: 20170626194926) do
     t.integer  "note_id"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+    t.integer  "internal_id"
   end
 
   create_table "form_fields", force: :cascade do |t|
@@ -167,6 +173,7 @@ ActiveRecord::Schema.define(version: 20170626194926) do
     t.string   "show_when_form_field_value"
     t.boolean  "scored"
     t.float    "score"
+    t.integer  "internal_id"
     t.text     "help_description"
     t.index ["position"], name: "index_form_fields_on_position", using: :btree
   end
@@ -182,6 +189,7 @@ ActiveRecord::Schema.define(version: 20170626194926) do
     t.integer  "law_firm_id"
     t.float    "total_score"
     t.string   "status"
+    t.integer  "internal_id"
     t.string   "reason"
     t.float    "assessor_score"
     t.float    "system_score"
@@ -198,6 +206,7 @@ ActiveRecord::Schema.define(version: 20170626194926) do
     t.string   "form_field_label"
     t.string   "file_value"
     t.boolean  "checked",            default: false
+    t.integer  "internal_id"
     t.string   "form_value_iv"
     t.string   "form_value_key"
     t.text     "multi_select_value"
@@ -205,10 +214,11 @@ ActiveRecord::Schema.define(version: 20170626194926) do
 
   create_table "forms", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.boolean  "group_form"
     t.string   "step"
+    t.integer  "internal_id"
   end
 
   create_table "frequently_asked_questions", force: :cascade do |t|
@@ -229,6 +239,7 @@ ActiveRecord::Schema.define(version: 20170626194926) do
     t.datetime "updated_at",                         null: false
     t.integer  "form_submission_id"
     t.boolean  "checked",            default: false
+    t.integer  "internal_id"
   end
 
   create_table "information_security_policies", force: :cascade do |t|
@@ -267,6 +278,7 @@ ActiveRecord::Schema.define(version: 20170626194926) do
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
     t.integer  "user_id"
+    t.integer  "internal_id"
     t.string   "relationship_manager_email"
     t.string   "law_firm_type"
     t.text     "parent_company"
@@ -305,14 +317,16 @@ ActiveRecord::Schema.define(version: 20170626194926) do
     t.string  "unsubscriber_type"
     t.integer "unsubscriber_id"
     t.integer "conversation_id"
+    t.integer "internal_id"
     t.index ["conversation_id"], name: "index_mailboxer_conversation_opt_outs_on_conversation_id", using: :btree
     t.index ["unsubscriber_id", "unsubscriber_type"], name: "index_mailboxer_conversation_opt_outs_on_unsubscriber_id_type", using: :btree
   end
 
   create_table "mailboxer_conversations", force: :cascade do |t|
-    t.string   "subject",    default: ""
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.string   "subject",     default: ""
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "internal_id"
   end
 
   create_table "mailboxer_notifications", force: :cascade do |t|
@@ -331,6 +345,7 @@ ActiveRecord::Schema.define(version: 20170626194926) do
     t.datetime "created_at",                           null: false
     t.boolean  "global",               default: false
     t.datetime "expires"
+    t.integer  "internal_id"
     t.index ["conversation_id"], name: "index_mailboxer_notifications_on_conversation_id", using: :btree
     t.index ["notified_object_id", "notified_object_type"], name: "index_mailboxer_notifications_on_notified_object_id_and_type", using: :btree
     t.index ["sender_id", "sender_type"], name: "index_mailboxer_notifications_on_sender_id_and_sender_type", using: :btree
@@ -350,6 +365,7 @@ ActiveRecord::Schema.define(version: 20170626194926) do
     t.boolean  "is_delivered",               default: false
     t.string   "delivery_method"
     t.string   "message_id"
+    t.integer  "internal_id"
     t.index ["notification_id"], name: "index_mailboxer_receipts_on_notification_id", using: :btree
     t.index ["receiver_id", "receiver_type"], name: "index_mailboxer_receipts_on_receiver_id_and_receiver_type", using: :btree
   end
@@ -365,6 +381,7 @@ ActiveRecord::Schema.define(version: 20170626194926) do
     t.datetime "updated_at",         null: false
     t.integer  "form_submission_id"
     t.integer  "follow_up_id"
+    t.integer  "internal_id"
   end
 
   create_table "queued_notifications", force: :cascade do |t|
@@ -386,6 +403,7 @@ ActiveRecord::Schema.define(version: 20170626194926) do
     t.string   "link"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "internal_id"
   end
 
   create_table "security_threats", force: :cascade do |t|
@@ -431,11 +449,12 @@ ActiveRecord::Schema.define(version: 20170626194926) do
     t.string   "supported"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
+    t.integer  "internal_id"
     t.string   "platform_category"
     t.string   "platform_type"
   end
 
-  create_table "technology_values", id: :integer, default: -> { "nextval('technology_forms_id_seq'::regclass)" }, force: :cascade do |t|
+  create_table "technology_values", force: :cascade do |t|
     t.string   "platform_category"
     t.string   "platform_type"
     t.string   "vendor"
@@ -449,6 +468,7 @@ ActiveRecord::Schema.define(version: 20170626194926) do
     t.integer  "form_submission_id"
     t.integer  "technology_id"
     t.boolean  "checked",            default: false
+    t.integer  "internal_id"
   end
 
   create_table "third_party_vendors", force: :cascade do |t|
@@ -467,6 +487,7 @@ ActiveRecord::Schema.define(version: 20170626194926) do
     t.string   "severity"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "internal_id"
   end
 
   create_table "triggers", force: :cascade do |t|
@@ -492,6 +513,7 @@ ActiveRecord::Schema.define(version: 20170626194926) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.integer  "internal_id"
     t.datetime "deactivated_at"
     t.string   "otp_secret_key"
     t.string   "google_secret"
