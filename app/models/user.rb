@@ -4,7 +4,7 @@ class User < ApplicationRecord
 
   devise :database_authenticatable,
          :recoverable, :trackable, 
-         :validatable, :timeoutable, :authentication_keys => [:username]
+         :validatable, :authentication_keys => [:username]
 
   validates :username,
     :presence => true,
