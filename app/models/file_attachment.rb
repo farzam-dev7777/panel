@@ -28,7 +28,14 @@ class FileAttachment < ApplicationRecord
     Underlock::Base.config[:private_key] = pkey
     encrypted_file = File.open(self.file.file.file)
     encrypted_entity = Underlock::EncryptedEntity.new(encrypted_file: encrypted_file, key: key, iv: iv)
-    decrypted_file = Underlock::Base.decrypt(encrypted_entity)
+    
+    begin
+      decrypted_file = Underlock::Base.decrypt(encrypted_entity)
+    rescue
+      Underlock::Base.config[:cipher] = OpenSSL::Cipher.new('aes-256-ofb')
+      decrypted_file = Underlock::Base.decrypt(encrypted_entity)
+    end
+    
     temp_file = Tempfile.new(File.basename(encrypted_file))
     temp_file.write(decrypted_file.read)
     File.delete(decrypted_file)
