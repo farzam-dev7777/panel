@@ -22,11 +22,13 @@
              data-follow-ups=<%= @form_submission.follow_ups.review.to_json(methods: :form_field_id) %>
              data-form-submission-status=<%= @form_submission.status %>>
 
-             <div class="col-md-10 col-md-offset-1 toggle-view">
-               <a id="view-only-follow-ups" href="javascript:void(0)">View Only Follow Up Questions</a>
-               &nbsp; &nbsp; &nbsp; | &nbsp; &nbsp; &nbsp;
-               <a id="view-all-questions" href="javascript:void(0)">View All Questions</a>
-             </div>
+             <% if @form_submission.status == 'follow_up' %>
+               <div class="col-md-10 col-md-offset-1 toggle-view">
+                 <a id="view-only-follow-ups" href="javascript:void(0)">View Only Follow Up Questions</a>
+                 &nbsp; &nbsp; &nbsp; | &nbsp; &nbsp; &nbsp;
+                 <a id="view-all-questions" href="javascript:void(0)">View All Questions</a>
+               </div>
+             <% end %>
 
           <%= simple_form_for @form_submission, validate: true, :html => {:multipart => true, remote: true, authenticity_token: true} do |f| %>
             <input id="redirect_value" type="hidden" name="redirect_value">
