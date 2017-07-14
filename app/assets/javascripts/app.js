@@ -20,6 +20,56 @@ $(document).ready(function(){
     }
   })
 
+  $('.delete-note').on('click', function(){
+    var poa = $(this);
+    var data = {};
+    data.id = $(this).data('id');
+
+    swal({
+      title: "Are you sure?",
+      text: "You're about to delete your note. You cannot undo this action.",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "Yes, delete note",
+      cancelButtonText: "Cancel",
+      closeOnConfirm: true,
+      closeOnCancel: true
+    },
+    function(isConfirm){
+      if (isConfirm) {
+        $.ajax({
+          method: 'DELETE',
+          url: '/admin/notes/' + data.id,
+          data: data,
+          context: $(this),
+          success: function() {
+            // toastr.success("", "Recertification process has begun")
+            window.location.reload();
+          },
+          error: function(response) {
+            toastr.error('You\re not authorized to delete the note', 'Error');
+          }
+        })
+      }
+    });
+
+  })
+
+  $('.cloned-form').hide()
+  $('#view-only-follow-ups').on('click', function(){
+    var element = jQuery('.need-follow-up').clone();
+    element.appendTo('.cloned-form > div');
+
+    $('.real-form').fadeOut();
+    $('.cloned-form').fadeIn();
+  })
+
+  $('#view-all-questions').on('click', function(){
+    $('.real-form').fadeIn();
+    $('.cloned-form').fadeOut();
+  })
+
   function save_user_progress(){
     if(currentUrl.indexOf("form_submissions") > -1 && currentUrl.indexOf("admin") == -1){
       $('.save-btn').trigger('click');

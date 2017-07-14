@@ -1338,4 +1338,31 @@ textarea#pkey {
   margin-top: 14px;
 }
 
+.delete-note {
+  color: #FFF;
+  background: #e40808;
+  width: 25px;
+  height: 25px;
+  padding: 5px;
+  text-align: center;
+  border-radius: 50%;
+  position: relative;
+  float: right;
+  bottom: 54px;
+  cursor: pointer;
+}
+
+p.info {
+  font-weight: 400;
+  font-size: 11px;
+  color: #737373;
+}
+
+.toggle-view {
+  background: #FFF;
+  text-align: right;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
 

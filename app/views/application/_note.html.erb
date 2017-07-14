@@ -1,9 +1,9 @@
 <% follow_up = follow_ups.select{ |follow_up| follow_up.loggable_id == loggable.id }.first %>
 <div class="tip-wrapper">
 	<div class="col text-right <%= wrapper_class %>">
-		<% if(current_user && admin_panel?) %>
-			<%= render partial: 'check_mark', locals: {loggable: loggable, form_type: form_type} %>
-		<% end %>
+		<% # if(current_user && admin_panel?) %>
+			<% # render partial: 'check_mark', locals: {loggable: loggable, form_type: form_type} %>
+		<% # end %>
 		<% if ((follow_up_needed?(params[:id], loggable.id, form_type) || (current_user && admin_panel?))) %>
 			<a class="btn btn-default btn-xs follow-up pull-right"><i class="fa fa-envelope"></i></a>
 		<% end %>

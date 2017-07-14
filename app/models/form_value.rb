@@ -22,22 +22,24 @@ class FormValue < ApplicationRecord
   accepts_nested_attributes_for :file_attachments, allow_destroy: true
   accepts_nested_attributes_for :activity_time_logs, allow_destroy: true
   accepts_nested_attributes_for :vendors, allow_destroy: true
-  accepts_nested_attributes_for :shared_bank_informations, allow_destroy: true
+  accepts_nested_attributes_for :shared_bank_informations,
+                                allow_destroy: true,
+                                reject_if: proc { |attributes| attributes['name'].blank? && attributes['purpose'].blank? && attributes['level_of_access'].blank? }
   accepts_nested_attributes_for :cyber_security_standards, 
-                                allow_destroy: true
-                                # ,reject_if: proc { |attributes| attributes['rank'].blank? && attributes['standard'].blank? && attributes['date_of_certification'].blank? && attributes['renewal'].blank? }
+                                allow_destroy: true,
+                                reject_if: proc { |attributes| attributes['rank'].blank? && attributes['standard'].blank? && attributes['date_of_certification'].blank? && attributes['renewal'].blank? }
   accepts_nested_attributes_for :information_security_policies, 
-                                allow_destroy: true
-                                # ,reject_if: proc { |attributes| attributes['policy'].blank? && attributes['last_reviewed'].blank? && attributes['last_updated'].blank? && attributes['freq_of_review'].blank? && attributes['file_ids'].blank? }
+                                allow_destroy: true,
+                                reject_if: proc { |attributes| attributes['policy'].blank? && attributes['last_reviewed'].blank? && attributes['last_updated'].blank? && attributes['freq_of_review'].blank? }
   accepts_nested_attributes_for :third_party_vendors, 
                                 allow_destroy: true,
                                 reject_if: proc { |attributes| attributes['vendor_name'].blank? && attributes['area'].blank? && attributes['confidentiality_agreement'].blank? }
   accepts_nested_attributes_for :cloud_providers, 
-                                allow_destroy: true
-                                # ,reject_if: proc { |attributes| attributes['name'].blank? && attributes['service'].blank? && attributes['data_store_location_ca'].blank? }
+                                allow_destroy: true,
+                                reject_if: proc { |attributes| attributes['name'].blank? && attributes['service'].blank? && attributes['data_store_location_ca'].blank? && attributes['cloud_type'].blank? && attributes['data'].blank? && attributes['encrypted_in_flight'].blank? && attributes['encrypted_at_rest'].blank? }
   accepts_nested_attributes_for :cyber_security_insurances, 
-                                allow_destroy: true
-                                # ,reject_if: proc { |attributes| attributes['company'].blank? && attributes['coverage'].blank? && attributes['coverage_amount'].blank? }
+                                allow_destroy: true,
+                                reject_if: proc { |attributes| attributes['company'].blank? && attributes['coverage'].blank? && attributes['coverage_amount'].blank? && attributes['date_of_expiry'].blank? && attributes['standing'].blank? }
 
   def file_cache
 
