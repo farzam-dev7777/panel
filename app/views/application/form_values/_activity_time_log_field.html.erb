@@ -4,7 +4,7 @@
   <%= v.input :value, as: :hidden, input_html: { class: 'repeater-field-value' } %>
   
   <div class="clearfix"></div>
-  <%= v.simple_fields_for :activity_time_logs, v.object.render_activity_time_log_fields do |activity_time_log| %>
+  <%= v.simple_fields_for :activity_time_log, v.object.render_activity_time_log_fields do |activity_time_log| %>
   
     <div class="col-md-12 no-padding gfe-field atl-wrap">
       <div class="col-md-2 no-padding label-wrap">

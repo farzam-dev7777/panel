@@ -11,7 +11,7 @@ class FormValue < ApplicationRecord
   has_many   :cloud_providers, dependent: :destroy
   has_many   :shared_bank_informations, dependent: :destroy
   has_many   :cyber_security_insurances, dependent: :destroy
-  has_many   :activity_time_logs, dependent: :destroy
+  has_one    :activity_time_log, dependent: :destroy
 
   serialize :multi_select_value, Array
 
@@ -20,7 +20,7 @@ class FormValue < ApplicationRecord
   validate :value_is_valid
 
   accepts_nested_attributes_for :file_attachments, allow_destroy: true
-  accepts_nested_attributes_for :activity_time_logs, allow_destroy: true
+  accepts_nested_attributes_for :activity_time_log, allow_destroy: true
   accepts_nested_attributes_for :vendors, allow_destroy: true
   accepts_nested_attributes_for :shared_bank_informations,
                                 allow_destroy: true,
@@ -66,7 +66,7 @@ class FormValue < ApplicationRecord
   end
 
   def render_activity_time_log_fields
-    self.activity_time_logs.any? ? self.activity_time_logs : [self.activity_time_logs.build]
+    self.activity_time_log.any? ? self.activity_time_log : self.activity_time_log.build
   end
 
   def render_cyber_security_insurance_fields
