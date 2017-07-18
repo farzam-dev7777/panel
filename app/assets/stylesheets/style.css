@@ -1365,4 +1365,11 @@ p.info {
   margin-bottom: 20px;
 }
 
+div.checkbox label.boolean {
+  line-height: 15px;
+}
+
+div.checkbox {
+  margin: 0 !important;
+}
 

@@ -20,7 +20,7 @@ class FormValue < ApplicationRecord
   validate :value_is_valid
 
   accepts_nested_attributes_for :file_attachments, allow_destroy: true
-  accepts_nested_attributes_for :activity_time_log, allow_destroy: true
+  accepts_nested_attributes_for :activity_time_log
   accepts_nested_attributes_for :vendors, allow_destroy: true
   accepts_nested_attributes_for :shared_bank_informations,
                                 allow_destroy: true,
@@ -66,7 +66,7 @@ class FormValue < ApplicationRecord
   end
 
   def render_activity_time_log_fields
-    self.activity_time_log ? self.activity_time_log : self.activity_time_log.build
+    self.activity_time_log ? self.activity_time_log : ActivityTimeLog.create(form_value_id: self.id)
   end
 
   def render_cyber_security_insurance_fields

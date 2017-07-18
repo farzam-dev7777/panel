@@ -14,7 +14,7 @@
         <%= activity_time_log.input :network_discovery, as: :string, input_html: { class: 'datepicker', value: DateField.stringify_date(activity_time_log.object.network_discovery) }, label: false %>
       </div>
       <div class="col-md-4 chkbx-wrap">
-        <input type="checkbox" class="never-chkbx"> Never
+        <%= activity_time_log.input :network_discovery_never, as: :boolean, label: 'Never', input_html: { class: 'never-chkbx' } %>
       </div>
     </div>
     <div class="col-md-12 no-padding gfe-field atl-wrap">
@@ -25,7 +25,7 @@
         <%= activity_time_log.input :penetration_testing, as: :string, input_html: { class: 'datepicker', value: DateField.stringify_date(activity_time_log.object.penetration_testing) }, label: false %>
       </div>
       <div class="col-md-4 chkbx-wrap">
-        <input type="checkbox" class="never-chkbx"> Never
+        <%= activity_time_log.input :penetration_testing_never, as: :boolean, label: 'Never', input_html: { class: 'never-chkbx' } %>
       </div>
     </div>
     <div class="col-md-12 no-padding gfe-field atl-wrap">
@@ -36,7 +36,7 @@
       <%= activity_time_log.input :vulnerability_assessment, as: :string, input_html: { class: 'datepicker', value: DateField.stringify_date(activity_time_log.object.vulnerability_assessment) }, label: false %>
       </div>
       <div class="col-md-4 chkbx-wrap">
-        <input type="checkbox" class="never-chkbx"> Never
+        <%= activity_time_log.input :vulnerability_assessment_never, as: :boolean, label: 'Never', input_html: { class: 'never-chkbx' } %>
       </div>
     </div>
     <div class="col-md-12 no-padding gfe-field atl-wrap">
@@ -47,7 +47,7 @@
         <%= activity_time_log.input :hardware_refresh, as: :string, input_html: { class: 'datepicker', value: DateField.stringify_date(activity_time_log.object.hardware_refresh) }, label: false %>
       </div>
       <div class="col-md-4 chkbx-wrap">
-        <input type="checkbox" class="never-chkbx"> Never
+        <%= activity_time_log.input :hardware_refresh_never, as: :boolean, label: 'Never', input_html: { class: 'never-chkbx' } %>
       </div>
     </div>
     <div class="col-md-12 no-padding gfe-field atl-wrap">
@@ -58,7 +58,7 @@
         <%= activity_time_log.input :hardware_inventory, as: :string, input_html: { class: 'datepicker', value: DateField.stringify_date(activity_time_log.object.hardware_inventory) }, label: false %>
       </div>
       <div class="col-md-4 chkbx-wrap">
-        <input type="checkbox" class="never-chkbx"> Never
+        <%= activity_time_log.input :hardware_inventory_never, as: :boolean, label: 'Never', input_html: { class: 'never-chkbx' } %>
       </div>
     </div>
     <div class="col-md-12 no-padding gfe-field atl-wrap">
@@ -69,7 +69,7 @@
         <%= activity_time_log.input :software_inventory, as: :string, input_html: { class: 'datepicker', value: DateField.stringify_date(activity_time_log.object.software_inventory) }, label: false %>
       </div>
       <div class="col-md-4 chkbx-wrap">
-        <input type="checkbox" class="never-chkbx"> Never
+        <%= activity_time_log.input :software_inventory_never, as: :boolean, label: 'Never', input_html: { class: 'never-chkbx' } %>
       </div>
     </div>
 

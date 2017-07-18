@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170718155256) do
+ActiveRecord::Schema.define(version: 20170718165654) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,8 +60,14 @@ ActiveRecord::Schema.define(version: 20170718155256) do
     t.date     "hardware_inventory"
     t.date     "software_inventory"
     t.integer  "form_value_id"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
+    t.boolean  "network_discovery_never",        default: false
+    t.boolean  "penetration_testing_never",      default: false
+    t.boolean  "vulnerability_assessment_never", default: false
+    t.boolean  "hardware_refresh_never",         default: false
+    t.boolean  "hardware_inventory_never",       default: false
+    t.boolean  "software_inventory_never",       default: false
   end
 
   create_table "admin_users", force: :cascade do |t|

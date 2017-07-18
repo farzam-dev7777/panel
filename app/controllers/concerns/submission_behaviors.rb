@@ -12,7 +12,7 @@ module SubmissionBehaviors
                                 third_party_vendors_attributes: [:id, :file_ids, :vendor_name, :area, :confidentiality_agreement, :_destroy], 
                                 cloud_providers_attributes: [:id, :file_ids, :name, :service, :data_store_location_ca, :cloud_type, :data, :encrypted_in_flight, :encrypted_at_rest, :_destroy],
                                 cyber_security_insurances_attributes: [:id, :file_ids, :company, :coverage, :coverage_amount, :date_of_expiry, :_destroy],
-                                activity_time_logs_attributes: [:id, :network_discovery, :penetration_testing, :vulnerability_assessment, :hardware_refresh, :hardware_inventory, :software_inventory, :_destroy], 
+                                activity_time_log_attributes: [:id, :network_discovery, :network_discovery_never, :penetration_testing, :penetration_testing_never, :vulnerability_assessment, :vulnerability_assessment_never, :hardware_refresh, :hardware_refresh_never, :hardware_inventory, :hardware_inventory_never, :software_inventory, :software_inventory_never, :_destroy], 
                                 shared_bank_informations_attributes: [:id, :name, :level_of_access, :purpose, :_destroy] 
                                 
                               ],

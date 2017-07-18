@@ -198,9 +198,9 @@ $(document).ready(function(){
 
   $('.never-chkbx').on('change', function(){
     if($(this).is(':checked')){
-      $(this).parent().parent().find('.input-wrap input').val("").attr("disabled", "disabled")
+      $(this).parent().parent().parent().parent().parent().find('.input-wrap input').val("").attr("disabled", "disabled")
     } else {
-      $(this).parent().parent().find('.input-wrap input').val("").removeAttr("disabled", "disabled")
+      $(this).parent().parent().parent().parent().parent().find('.input-wrap input').val("").removeAttr("disabled", "disabled")
     }
   })
 
