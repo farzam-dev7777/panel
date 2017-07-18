@@ -66,7 +66,7 @@ class FormValue < ApplicationRecord
   end
 
   def render_activity_time_log_fields
-    self.activity_time_log.any? ? self.activity_time_log : self.activity_time_log.build
+    self.activity_time_log ? self.activity_time_log : self.activity_time_log.build
   end
 
   def render_cyber_security_insurance_fields

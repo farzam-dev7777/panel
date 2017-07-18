@@ -689,6 +689,13 @@ $(document).ready(function(){
     version = $(this).data('version');
   })
 
+  $('body').on('click', '.tech-form-wraper .add_fields', function(){
+    fields = $(this);
+    setTimeout(function(){
+      fields.parent().prev('div').prev('div').find('div.platform-wrapper select, .service_pack-wrapper select, div.version-wrapper select').prop('disabled', true).trigger("chosen:updated");
+    }, 100)
+  })
+
   $(document).on('change', '.dynamic-select', function() {
     field = $(this).data('field');
 
@@ -698,18 +705,30 @@ $(document).ready(function(){
     if (field == 'vendor'){
       vendor = $(this).val();
       target = $(this).parent().parent().next('div.platform-wrapper').find('select');
-      fetchTechnology(vendor, null, null, target, platform_type, platform_category)
+      
+      if(vendor != ""){
+        fetchTechnology(vendor, null, null, target, platform_type, platform_category)
+        target.removeAttr('disabled')
+      }
     } else if (field == 'platform'){
       vendor = $(this).parent().parent().prev('.vendor-wrapper').find('select').val();
       platform = $(this).val();
       target = $(this).parent().parent().next('div.version-wrapper').find('select');
-      fetchTechnology(vendor, platform, null, target, platform_type, platform_category)
+      
+      if(vendor != "" && platform != ""){
+        fetchTechnology(vendor, platform, null, target, platform_type, platform_category)
+        target.removeAttr('disabled')
+      }
     } else if (field == 'version') {
       vendor = $(this).parent().parent().prev('.vendor-wrapper').find('select').val();
       platform = $(this).parent().parent().prev('.platform-wrapper').find('select').val();
       version = $(this).val();
       target = $(this).parent().parent().next('div.service_pack-wrapper').find('select');
-      fetchTechnology(vendor, platform, version, target, platform_type, platform_category);
+      
+      if(vendor != "" && platform != "" && version != ""){
+        fetchTechnology(vendor, platform, version, target, platform_type, platform_category);
+        target.removeAttr('disabled')
+      }
     }
 
     platform = $(this).data('platform');

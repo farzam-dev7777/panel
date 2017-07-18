@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170714160454) do
+ActiveRecord::Schema.define(version: 20170718155256) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -434,6 +434,10 @@ ActiveRecord::Schema.define(version: 20170714160454) do
     t.datetime "updated_at",        null: false
     t.string   "platform_category"
     t.string   "platform_type"
+    t.index ["platform", "version"], name: "index_technologies_on_platform_and_version", using: :btree
+    t.index ["vendor", "platform"], name: "index_technologies_on_vendor_and_platform", using: :btree
+    t.index ["vendor"], name: "index_technologies_on_vendor", using: :btree
+    t.index ["version", "service_pack"], name: "index_technologies_on_version_and_service_pack", using: :btree
   end
 
   create_table "technology_values", id: :integer, default: -> { "nextval('technology_forms_id_seq'::regclass)" }, force: :cascade do |t|
