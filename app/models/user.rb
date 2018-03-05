@@ -73,7 +73,7 @@ class User < ApplicationRecord
   end
 
   def is_a_standard_user?
-    self.role == 'user'
+    self.role == 'user' || 'master_user'
   end 
 
   def is_an_admin?

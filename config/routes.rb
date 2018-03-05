@@ -126,6 +126,13 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :law_firms, except: [:index, :create, :new, :edit, :show, :update] do
+    collection do
+      get :add_users
+      post :invite_users
+    end
+  end
+
   resources :technology_values
 
   resources :pdf do

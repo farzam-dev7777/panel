@@ -38,4 +38,11 @@ class LawFirmMailer < ApplicationMailer
     end
   end
 
+  def invite_user(user, temp_password, law_firm)
+    @user = user
+    @temp_password = temp_password
+    @law_firm = law_firm
+    mail(to: @user.email, subject: "#{@law_firm}.name invited you to join SEAL")
+  end
+
 end

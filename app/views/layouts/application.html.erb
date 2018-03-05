@@ -71,6 +71,12 @@
                 <%= link_to "History", history_profile_form_submission_path(current_law_firm.form_submissions.latest) %>
               </li>
               <li class="divider"></li>
+              <% if current_user.role == 'master_user' %>
+                <li>
+                  <%= link_to "Add Users", add_users_law_firms_path %>
+                </li>
+                <li class="divider"></li>
+              <% end %>
             <% end %>
             <li>
               <%= link_to "Change your password", edit_user_registration_path %>
