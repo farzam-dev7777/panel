@@ -21,7 +21,7 @@ class LawFirmsController < BaseController
     law_firm_user_count = current_law_firm.users.count
     temp_password = SecureRandom.hex(6)
     if !user_exists?
-      if(law_firm_user_count < LawFirm::USER_LIMIT)
+      if(law_firm_user_count < current_law_firm.law_firm_user_limit)
         user = User.new( email: params[:email], 
                   username: SecureRandom.hex(4), 
                   password: temp_password,

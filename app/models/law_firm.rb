@@ -42,6 +42,10 @@ class LawFirm < ApplicationRecord
     LawFirm.joins(:form_submissions).where("form_submissions.status = 'approved' AND form_submissions.total_score IS NOT NULL")
   end
 
+  def law_firm_user_limit
+    self.max_users || USER_LIMIT
+  end
+
   def generate_a_new_user
     self.create_user!(email: "#{SecureRandom.hex(4)}#{EMAIL_PREFIX}", 
                       username: SecureRandom.hex(4), 
