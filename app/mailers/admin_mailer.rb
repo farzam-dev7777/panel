@@ -1,5 +1,4 @@
 class AdminMailer < ApplicationMailer
-  default from: 'info@seal.grcconsulting.ca'
   
   ADMIN_EMAIL = 'gagan@metawarelabs.com'
 

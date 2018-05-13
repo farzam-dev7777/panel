@@ -47,20 +47,20 @@ Rails.application.configure do
 
   # config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
-  config.action_mailer.delivery_method = :letter_opener
-  config.action_mailer.default_url_options = { host: 'seal.grcconsulting.ca' }
-  config.action_mailer.delivery_method = :smtp
+  # config.action_mailer.delivery_method = :letter_opener
+  config.action_mailer.default_url_options = { host: ENV['MAILJET_ACTIVE_DOMAIN'] }
+  config.action_mailer.delivery_method = :mailjet
   config.action_mailer.perform_deliveries = true
 
-  config.action_mailer.smtp_settings = {
-    :address        => 'in-v3.mailjet.com',
-    :port           => '587',
-    :authentication => :plain,
-    :user_name      => ENV['MAILJET_API_KEY'],
-    :password       => ENV['MAILJET_SECRET_KEY'],
-    :domain         => 'seal.grcconsulting.ca',
-    :enable_starttls_auto => true
-  }
+  # config.action_mailer.smtp_settings = {
+  #   :address        => 'in-v3.mailjet.com',
+  #   :port           => '25',
+  #   :authentication => :plain,
+  #   :user_name      => ENV['MAILJET_API_KEY'],
+  #   :password       => ENV['MAILJET_SECRET_KEY'],
+  #   :domain         => ENV['MAILJET_ACTIVE_DOMAIN'],
+  #   :enable_starttls_auto => true
+  # }
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true

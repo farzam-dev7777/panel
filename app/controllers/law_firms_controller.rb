@@ -35,7 +35,7 @@ class LawFirmsController < BaseController
         flash[:alert] = "You're only allowed to add #{LawFirm::USER_LIMIT} users"
       end
     else
-      flash[:alert] = "A user with #{user.email} is already registered on the system."
+      flash[:alert] = "A user with #{params[:email]} is already registered on the system."
     end
   end
 

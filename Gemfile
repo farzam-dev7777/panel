@@ -82,7 +82,7 @@ gem "cocoon"
 gem 'will_paginate-bootstrap'
 # gem 'mailboxer'
 gem 'nested_form'
-# gem 'mailjet'
+gem 'mailjet'
 
 gem 'rails-breadcrumbs'
 

@@ -1,7 +1,8 @@
 module ButtonHelper
 	
   def certification_status(law_firm)
-    submissions = law_firm.form_submissions
+    return unless law_firm
+    submissions = law_firm.try(:form_submissions)
 
     if (submissions.any?)
       # return "" if submissions.latest.status == "approved"

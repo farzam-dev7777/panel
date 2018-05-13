@@ -1,5 +1,4 @@
 class LawFirmMailer < ApplicationMailer
-  default from: 'info@seal.grcconsulting.ca'
 
   def account_creation_confirmation(law_firm)
   	@law_firm = law_firm
@@ -42,7 +41,7 @@ class LawFirmMailer < ApplicationMailer
     @user = user
     @temp_password = temp_password
     @law_firm = law_firm
-    mail(to: @user.email, subject: "#{@law_firm}.name invited you to join SEAL")
+    mail(to: @user.email, subject: "#{@law_firm.name} invited you to join SEAL")
   end
 
 end

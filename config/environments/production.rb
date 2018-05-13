@@ -80,6 +80,20 @@ Rails.application.configure do
     config.logger = ActiveSupport::TaggedLogging.new(logger)
   end
 
+  config.action_mailer.default_url_options = { host: ENV['MAILJET_ACTIVE_DOMAIN'] }
+  config.action_mailer.delivery_method = :mailjet
+  config.action_mailer.perform_deliveries = true
+
+  # config.action_mailer.smtp_settings = {
+  #   :address        => 'in-v3.mailjet.com',
+  #   :port           => '587',
+  #   :authentication => :plain,
+  #   :user_name      => ENV['MAILJET_API_KEY'],
+  #   :password       => ENV['MAILJET_SECRET_KEY'],
+  #   :domain         => ENV['MAILJET_ACTIVE_DOMAIN'],
+  #   :enable_starttls_auto => true
+  # }
+
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 end
