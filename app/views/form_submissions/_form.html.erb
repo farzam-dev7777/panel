@@ -30,7 +30,7 @@
                </div>
              <% end %>
 
-          <%= simple_form_for @form_submission, validate: true, :html => {:multipart => true, remote: true, authenticity_token: true} do |f| %>
+          <%= simple_form_for @form_submission, validate: true, :html => {:multipart => true, authenticity_token: true} do |f| %>
             <input id="redirect_value" type="hidden" name="redirect_value">
             <div class="real-form clearfix">
               <%= yield :form %>

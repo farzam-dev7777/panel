@@ -35,9 +35,9 @@
 
             <div class="alert alert-danger login-error"></div>
             <%- flash.each do |name, msg| -%>
-              <div class="alert alert-danger p-error">
-                <%= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) %>
-              </div>
+              
+                <%= content_tag :div, msg, :id => "<div class='alert alert-danger p-error'>flash_#{name}</div>".html_safe if msg.is_a?(String) && msg != 'You need to sign in or sign up before continuing.' %>
+              
             <%- end -%> 
 
             <section>

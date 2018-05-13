@@ -66,7 +66,8 @@ class FormSubmissionsController < BaseController
       elsif request.referrer.split('/').last.to_sym == :history_profile
         FormSubmission.log_activity('history_updated', true, @form_submission, current_user)
       end
-      render json: { last_updated: @form_submission.updated_at.strftime("%d %b %Y at %I:%M:%S %p")}
+      # render json: { last_updated: @form_submission.updated_at.strftime("%d %b %Y at %I:%M:%S %p")}
+      redirect_to params[:redirect_value]
     else
       render :technology_step
     end
