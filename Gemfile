@@ -35,6 +35,8 @@ gem 'google-authenticator-rails'
 gem 'rollbar'
 gem 'country_select'
 
+gem 'public_uid'
+
 
 # gem 'rails-assets-fontawesome', source: 'https://rails-assets.org'
 # gem 'rails-assets-JustGage', source: 'https://rails-assets.org'

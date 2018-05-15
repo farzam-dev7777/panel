@@ -203,6 +203,8 @@ GEM
       method_source (~> 0.8.1)
       slop (~> 3.4)
     public_suffix (2.0.5)
+    public_uid (1.2.2)
+      orm_adapter (~> 0.5)
     puma (3.8.1)
     rack (2.0.3)
     rack-test (0.6.3)
@@ -368,6 +370,7 @@ DEPENDENCIES
   paranoia (~> 2.2)
   pg (~> 0.19)
   pry
+  public_uid
   puma (~> 3.0)
   rails (~> 5.0.0, >= 5.0.0.1)
   rails-assets-qTip2!

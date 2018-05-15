@@ -19,6 +19,7 @@ class Admin::LawFirmsController < Admin::BaseController
   end
 
   def create
+    return flash[:alert] = "Both passwords must match" unless params[:temp_password] == params[:temp_password_confirmation]
     @law_firm = LawFirm.new(law_firms_params)
   	if @law_firm.save
       # Pass true as a 2nd arg if admin wants to send the activity as notification as well
@@ -149,7 +150,7 @@ class Admin::LawFirmsController < Admin::BaseController
   private
 
   def law_firms_params
-  	params.require(:law_firm).permit(:name, :description, :email, :phone, :temp_password, :relationship_manager_email, :law_firm_type, :principle_name, :principle_title, :principle_contact_info, :parent_company, :sister_firm, locations_attributes: [:id, :address1, :address2, :city, :province, :postal_code, :country, :_destroy], jurisdictions_attributes: [:id, :country, :_destroy,  city: []], practice_area: [])
+  	params.require(:law_firm).permit(:name, :description, :email, :phone, :temp_password, :temp_password_confirmation, :relationship_manager_email, :law_firm_type, :principle_name, :principle_title, :principle_contact_info, :parent_company, :sister_firm, locations_attributes: [:id, :address1, :address2, :city, :province, :postal_code, :country, :_destroy], jurisdictions_attributes: [:id, :country, :_destroy,  city: []], practice_area: [])
   end
 
 end
