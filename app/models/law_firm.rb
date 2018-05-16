@@ -1,4 +1,5 @@
 class LawFirm < ApplicationRecord
+  generate_public_uid
   self.per_page = 10
   belongs_to :user
   has_many :users
@@ -22,6 +23,8 @@ class LawFirm < ApplicationRecord
   after_create :generate_a_new_user
   # acts_as_messageable
 
+  validate :password_complexity
+
   USER_LIMIT = 3
 
   PRACTICE_AREAS = ["Administrative law","Advertising law","Admiralty law","Agency law","Alcohol law","Alternative dispute resolution","Animal law","Antitrust law (or competition law)","Appellate practice","Art law (or art and culture law)","Aviation law","Banking law","Bankruptcy law (creditor debtor rights law or insolvency and reorganization law)","Bioethics","Bird law","Business law (or commercial law); commercial litigation","Business organizations law (or companies law)","Civil law or common law","Class action litigation/Mass tort litigation","Communications law","Computer law","Conflict of law (or private international law)","Constitutional law","Construction law","Consumer law","Contract law","Copyright law","Corporate law (or company law)"," also corporate compliance law and corporate governance law","Criminal law","Cryptography law","Cultural property law","Custom (law)","Cyber law","Defamation","Derivatives and futures law","Drug control law","Elder law","Employee benefits law (ERISA)","Employment law","Energy law","Entertainment law","Environmental law","Equipment finance law","Evidence","Family law","FDA law","Financial services regulation law","Firearm law","Food law","Franchise law","Gaming law","Health and safety law","Health law","Immigration law","Insurance law","Intellectual property law","International law","International trade and finance law","Internet law","Juvenile law","Labour law (or Labor law)","Land use & zoning law","Litigation","Martial law","Media law","Medical law","Mergers & acquisitions law","Military law","Mining law","Music law","Mutual funds law","Nationality law","Native American law","Obscenity law","Oil & gas law","Parliamentary law","Patent law","Poverty law","Privacy law","Private equity law","Private funds law / Hedge funds law","Procedural law","Product liability litigation","Property law","Public health law","Public International Law","Railroad law","Real estate law","Securities law / Capital markets law","Social Security disability law","Space law","Sports law","Statutory law","Tax law","Technology law","Timber law","Tort law","Trademark law","Transport law / Transportation law","Trusts & estates law","Utilities Regulation","Venture capital law","Water law","Sexual Law"].freeze
@@ -36,6 +39,12 @@ class LawFirm < ApplicationRecord
   ASSESSOR_SCORE_WEIGHTAGE = 0.2
 
   attr_accessor :temp_password
+
+  def password_complexity
+    if temp_password.present? and not temp_password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d). /)
+      errors.add :temp_password, "must be at least 10 characters long and must include a special character"
+    end
+  end
 
 
   def approved_and_scored
