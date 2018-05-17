@@ -1373,3 +1373,7 @@ div.checkbox {
   margin: 0 !important;
 }
 
+.tfa-wrapper {
+  background: #2f507399;
+  padding: 15px !important;
+}

@@ -21,7 +21,7 @@ class BaseController < ApplicationController
   end
 
   def activities
-		@logs ||= current_law_firm.activity_logs
+		@logs ||= current_law_firm.try(:activity_logs)
   end
 
   def notifications

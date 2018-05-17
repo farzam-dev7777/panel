@@ -1,7 +1,7 @@
 class DashboardController < BaseController
 
   def index
-
+  	@action_items = []
   	# if current_user.is_a_standard_user?
 	  	# if current_law_firm.profile_completed
 	  	redirect_to new_two_factor_authentication_path unless session[:authorized]

@@ -15,6 +15,8 @@ class User < ApplicationRecord
   has_one :law_firm
   has_many :activity_logs, as: :loggable
 
+  belongs_to :law_firm
+
   default_scope { where("deactivated_at IS NULL") }
 
   attr_accessor :login

@@ -10,6 +10,12 @@ class LawFirmsController < BaseController
 		@law_firm = LawFirm.find(params[:id])
   	if @law_firm.update_attributes(law_firms_params)
   		@law_firm.update_attributes(profile_completed: true)
+
+      # generate submissions on initial update 
+      if current_user.role == 'master_user' && @law_firm.submissions.any?
+        FormSubmission.generate_initial_submissions(@law_firm, current_user)
+      end
+
   		redirect_to root_url
   	else
   		flash[:alert] = "There was an error updating the law firm"

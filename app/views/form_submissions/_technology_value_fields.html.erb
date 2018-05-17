@@ -3,10 +3,10 @@
 	<%= f.input :new_value, as: :hidden, input_html: { value: true }  %>
 	<%= f.input :platform_type, as: :hidden, input_html: { value: type } %>
 	<div class="col-md-3 tech-field vendor-wrapper">
-		<%= f.input :vendor, input_html: { placeholder: 'Please type the vendor', disabled: 'disabled' } %>
+		<%= f.input :vendor, input_html: { placeholder: 'Please type the vendor' } %>
 	</div>
 	<div class="col-md-2 tech-field platform-wrapper">
-		<%= f.input :platform, input_html: { placeholder: 'Please type the platform', disabled: 'disabled' } %>
+		<%= f.input :platform, input_html: { placeholder: 'Please type the platform' } %>
 	</div>
 	<div class="col-md-1 tech-field version-wrapper">
 		<%= f.input :version, input_html: { placeholder: 'Please type the version' } %>

@@ -9,11 +9,7 @@
 		<%= simple_form_for current_law_firm do |f| %>
 			<table class="table table-striped">
 				<tbody>
-						<tr>
-							<td class="text-left" width="20%"><strong>Name</strong></td>
-							<td><%= f.input :name, autofocus: true, label: false, input_html: { autocomplete: 'off' } %></td>
-						</tr>
-						
+
 						<tr>
 							<td class="text-left" width="20%"><strong>Type</strong></td>
 							<td><%= f.input :law_firm_type, label: false, collection: LawFirm::COMPANY_TYPES, input_html: { autocomplete: 'off', class: 'text-left' }, prompt: 'Please Select a Type' %></td>
@@ -38,35 +34,6 @@
 							<td class="text-left" width="20%"><strong>Relationship Manager's Email</strong></td>
 							<td><%= f.input :relationship_manager_email, label: false, input_html: { autocomplete: 'off' } %></td>
 						</tr>
-
-					<tr class="within-block">
-							<td colspan="2" class="text-center"><strong>Key Security Contact/Information Security Officer</strong></td>
-						</tr>
-
-					<tr class="within-block">
-							<td class="text-left" width="20%"><strong>Name</strong></td>
-							<td><%= f.input :principle_name, label: false, input_html: { autocomplete: 'off' } %></td>
-						</tr>
-
-					<tr class="within-block">
-							<td class="text-left" width="20%"><strong>Title</strong></td>
-							<td><%= f.input :principle_title, label: false, input_html: { autocomplete: 'off' } %></td>
-						</tr>
-
-					<tr class="within-block">
-							<td class="text-left" width="20%"><strong>Contact Info</strong></td>
-							<td><%= f.input :principle_contact_info, label: false, input_html: { autocomplete: 'off' } %></td>
-						</tr>
-						
-						<tr>
-							<td class="text-left" width="20%"><strong>Parent Company/Firm</strong></td>
-							<td><%= f.input :parent_company, label: false, input_html: { autocomplete: 'off' } %></td>
-						</tr>
-						
-						<tr>
-							<td class="text-left" width="20%"><strong>Sister Company/Firm</strong></td>
-							<td><%= f.input :sister_firm, label: false, input_html: { autocomplete: 'off' } %></td>
-						</tr>
 						
 						<tr>
 							<td class="text-left" width="20%"><strong>Max. Users</strong></td>
@@ -77,11 +44,9 @@
 						<tr>
 							<td colspan="2">
 								<div class="col-md-12 no-padding" style="margin-bottom: 15px">
-									<div class="col-md-3"><label><strong>Address</strong></label></div>
-									<div class="col-md-2"><label><strong>City</strong></label></div>
-									<div class="col-md-2"><label><strong>State/Province</strong></label></div>
-									<div class="col-md-2"><label><strong>Postal/Zip Code</strong></label></div>
-									<div class="col-md-2"><label><strong>Country</strong></label></div>
+									<div class="col-md-4"><label><strong>City</strong></label></div>
+									<div class="col-md-4"><label><strong>State/Province</strong></label></div>
+									<div class="col-md-4"><label><strong>Country</strong></label></div>
 								</div>
 								<%= f.simple_fields_for :locations do |field| %>
 							    <%= render partial: "location_fields", locals: {f: field} %>

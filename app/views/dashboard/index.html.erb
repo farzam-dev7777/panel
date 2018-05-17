@@ -345,7 +345,7 @@
 
 							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
-							<% if current_law_firm.form_submissions.any? %>
+							<% if current_law_firm && current_law_firm.form_submissions.any? %>
 								<div class="table-responsive">
 									<table class="table table-bordered text-center content-in-jarvis">
 
@@ -424,21 +424,7 @@
 
 							<section id="cd-timeline" class="cd-container">
 
-								<%- activities.reverse.each do |activity| %>
-								<div class="cd-timeline-block">
-									<div class="cd-timeline-img cd-picture">
-										<i class="fa <%= activity_icon(activity.event_type) %> fa-2x timeline-icon"></i>
-									</div>
-
-									<div class="cd-timeline-content">
-										<h2 class="m-b-5">
-											<strong class="<%= activity_source_class(activity) %>"><%= activity.custom_message.try(:html_safe) || activity.event_type.humanize %></strong>
-										</h2>
-										<em>(<%= activity.source == 'AdminUser' ? 'Bank' : 'Law Firm' %>)</em>
-										<span class="cd-date"><%= activity.created_at.strftime('%d %b at %I:%M %p') %></span>
-									</div>
-								</div>
-								<%- end %>
+								
 
 					<!-- <div class="cd-timeline-block">
 						<div class="cd-timeline-img cd-movie">
