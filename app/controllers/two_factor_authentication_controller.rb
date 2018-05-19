@@ -4,7 +4,7 @@ class TwoFactorAuthenticationController < ApplicationController
   skip_before_filter :verify_authenticity_token
 
 	def new
-    session[:authorized] = true
+    # session[:authorized] = true
     if session[:authorized]
       redirect_to root_path
     end
@@ -14,8 +14,9 @@ class TwoFactorAuthenticationController < ApplicationController
     if current_user.google_authentic? params[:code]
       session[:authorized] = true
       flash.now[:notice] = 'Authentication Successful.'
+      binding.pry
       if current_user.role == 'master_user' && current_user.sign_in_count == 1
-        redirect_to law_firm_edit_path(current_law_firm)
+        redirect_to set_new_password_path
       else
         redirect_to root_path
       end

@@ -19,25 +19,10 @@
 							<td class="text-left" width="20%"><strong>Practice Area</strong></td>
 							<td><%= f.input :practice_area, label: false, collection: LawFirm::PRACTICE_AREAS, input_html: { multiple: true } %></td>
 						</tr>
-
-						<tr>
-							<td class="text-left" width="20%"><strong>Description</strong></td>
-							<td><%= f.input :description, label: false, input_html: { autocomplete: 'off' } %></td>
-						</tr>
-
-						<tr>
-							<td class="text-left" width="20%"><strong>Phone</strong></td>
-							<td><%= f.input :phone, label: false, input_html: { autocomplete: 'off', class: 'masked-phone' } %></td>
-						</tr>
-
-						<tr>
-							<td class="text-left" width="20%"><strong>Relationship Manager's Email</strong></td>
-							<td><%= f.input :relationship_manager_email, label: false, input_html: { autocomplete: 'off' } %></td>
-						</tr>
 						
 						<tr>
 							<td class="text-left" width="20%"><strong>Max. Users</strong></td>
-							<td><%= f.input :max_users, label: false, input_html: { autocomplete: 'off' } %></td>
+							<td><%= f.input :max_users, label: false, input_html: { autocomplete: 'off', disabled: 'disabled' } %></td>
 						</tr>
 						
 

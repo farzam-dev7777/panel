@@ -213,6 +213,12 @@
         }(window, document, 'script'));
       </script>
     <% end %>
+
+    <script>
+      $(".edit-password-btn").on('click', function(){
+        $(this).parent().parent().next('.edit-password-field').toggleClass('hidden');
+      })
+    </script>
     
   </body>
 </html>

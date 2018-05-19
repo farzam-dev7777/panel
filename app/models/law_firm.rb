@@ -41,11 +41,11 @@ class LawFirm < ApplicationRecord
   attr_accessor :temp_password
 
   def password_complexity
+    return true unless ENV['RAILS_ENV'] == 'production'
     if temp_password.present? and not temp_password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d). /)
       errors.add :temp_password, "must be at least 10 characters long and must include a special character"
     end
   end
-
 
   def approved_and_scored
     LawFirm.joins(:form_submissions).where("form_submissions.status = 'approved' AND form_submissions.total_score IS NOT NULL")
@@ -56,11 +56,17 @@ class LawFirm < ApplicationRecord
   end
 
   def generate_a_new_user
-    self.create_user!(email: "#{SecureRandom.hex(4)}#{EMAIL_PREFIX}", 
-                      username: SecureRandom.hex(4), 
-                      password: self.temp_password,
-                      role: 'master_user',
-                      law_firm_id: self.id)
+    username = SecureRandom.hex(4)
+    user = self.create_user!(email: "#{username}#{EMAIL_PREFIX}", 
+                             username: username, 
+                             password: self.temp_password,
+                             role: 'master_user',
+                             law_firm_id: self.id)
+    user.set_google_secret
+  end
+
+  def standard_users
+    users.where(role: 'user')
   end
 
   def log_activity(event_type, notify = false, current_user)

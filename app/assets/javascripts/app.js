@@ -134,7 +134,7 @@ $(document).ready(function(){
     if($(this).val().length < 12){
       swal({
         title: "Oops!",
-        text: "Password length must be minimum 12 characters",
+        text: "Password length must be minimum 10 characters",
         imageUrl: "/assets/16205-200.png"
       });
     }

@@ -29,8 +29,8 @@ class Admin::LawFirmsController < Admin::BaseController
 
   		redirect_to :admin_law_firms
   	else
-  		flash[:alert] = "There was an error creating the law firm"
-  		render action: 'new'
+  		flash[:alert] = @law_firm.errors.full_messages.join(',')
+  		render :new
   	end
   end
 

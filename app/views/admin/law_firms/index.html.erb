@@ -42,7 +42,7 @@
 													<tr class="law-firm-row" data-id="<%= firm.id %>">
 														<td><%= firm.id %></td>
 														<td><%= firm.name %></td>
-														<td><%= firm.user.try(:username) %></td>
+														<td><%= firm.users.first.try(:username) %></td>
 														<td class="text-center">
 															<div> 
 																<span class="percent txt-color-blue bold">

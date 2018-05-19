@@ -67,11 +67,13 @@
 			    	<p class="alert alert-warning"><%= alert %></p>
 			    <% end %>
 					<h2 class="text-center" style="color: #fff;">2 Factor Authentication</h2>
-					<% if current_user.sign_in_count == 1 %>
+
 						<div class="text-center">
-							<%= image_tag current_user.google_qr_uri %>
+							<% if current_user.sign_in_count == 1 %>
+								<%= image_tag current_user.google_qr_uri %>
+							<% end %>
 						</div>
-					<% end %>
+
 					<form method="POST" action="/two_factor_authentication">
 						<div class="col-md-12">
 							<div class="col-md-11 no-padding">

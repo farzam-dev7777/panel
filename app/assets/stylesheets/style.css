@@ -1377,3 +1377,8 @@ div.checkbox {
   background: #2f507399;
   padding: 15px !important;
 }
+
+.alert {
+  position: relative;
+  z-index: 999;
+}

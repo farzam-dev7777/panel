@@ -8,69 +8,91 @@
       <div class="col-xs-12 col-lg-8 col-lg-offset-3 login-form-wrapper">
         <div class="well">
 
-          <% if notice || alert %>
-            <p class="notice"><%= notice %></p>
-            <p class="alert"><%= alert %></p>
-          <% end %>
-            <header>
-              <h5><strong>Add new user</strong></h5>
-            </header>
+          <header class="text-center">
+            <h5><strong>Add new user</strong></h5>
+            <p>You've added <%= current_law_firm.standard_users.count %> of <%= current_law_firm.law_firm_user_limit || 0 %> users</p>
+          </header>
 
-              <br>
+          <br>
 
-              <form method="post" action="/law_firms/invite_users">
-              	<%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
-              	<section>
-              		<label>Email</label>
-              		<input type="email" name="email" placeholder="Enter the user's email" required="required">
-              	</section>
+          <form method="post" action="/law_firms/invite_users">
+           <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
 
-              	<footer class="row">
-                  <div class="col-md-9">
-                  	<input type="submit" value="Add User" class="btn btn-lg btn-primary">
-                  </div>
-                </footer>
-              </form>
-              
+           <footer class="row">
+            <div class="col-md-12 text-center">
+             <input type="submit" value="Add New User" class="btn btn-lg btn-primary">
+           </div>
+         </footer>
+       </form>
 
+
+     </div>
+
+   </div>
+ </div>
+
+ <div class="row">
+  <div class="col-xs-12 col-lg-8 col-lg-offset-3 login-form-wrapper">
+    <div class="well">
+
+
+      <header>
+        <h5><strong><%= current_law_firm.name %> Users</strong></h5>
+      </header>
+
+      <br>
+
+      <table id="dt_basic" class="table table-striped table-bordered table-hover" width="100%">
+        <tr>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Invited On</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+        <% current_law_firm.users.where(role: 'user').each do |user| %>
+        <tr>
+          <td><%= user.username %></td>
+          <td><%= user.email %></td>
+          <td><%= user.created_at.strftime("%e %b %Y") %></td>
+          <td><%= user.new_password_set ? 'Onboarded' : 'Pending' %></td>
+          <td>
+            <a href="javascript:void(0)" class="btn btn-sm btn-primary edit-password-btn">Edit</a>
+            <form class="pull-right" action="/delete_user" method="POST">
+              <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+              <input type="hidden" name="id" value="<%= user.id %>">
+              <input type="submit" value="DELETE" class="btn btn-md btn-danger">
+            </form>
+          </td>
+        </tr>
+        <tr class="edit-password-field hidden">
+          <td colspan="5">
+            <form action="/update_new_password" method="POST">
+              <div class="col-md-5">
+                <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+                <input type="hidden" name="id" value="<%= user.id %>">
+                <input type="password" name="new_password" placeholder="Enter a new password">
               </div>
-              
-            </div>
-          </div>
-
-          <div class="row">
-      <div class="col-xs-12 col-lg-8 col-lg-offset-3 login-form-wrapper">
-        <div class="well">
-
-          
-            <header>
-              <h5><strong><%= current_law_firm.name %> Users</strong></h5>
-            </header>
-
-              <br>
-
-              <table id="dt_basic" class="table table-striped table-bordered table-hover" width="100%">
-                <tr>
-                  <th>Username</th>
-                  <th>Email</th>
-                  <th>Invited On</th>
-                </tr>
-                <% current_law_firm.users.where(role: 'user').each do |user| %>
-                  <tr>
-                    <td><%= user.username %></td>
-                    <td><%= user.email %></td>
-                    <td><%= user.created_at.strftime("%e %b %Y") %></td>
-                  </tr>
-                <% end %>
-              </table>
-              
-
+              <div class="col-md-5">
+                <input type="hidden" name="id" value="<%= user.id %>">
+                <input type="password" name="new_password_confirmation" placeholder="Confirm new password">
               </div>
-              
-            </div>
-          </div>
+              <div class="col-md-2">
+                <input type="submit" value="Update" class="btn btn-primary">
+              </div>
+            </form>
+          </td>
+        </tr>
+        <% end %>
+      </table>
 
-        </div>
 
-      </div>
+    </div>
+
+  </div>
+</div>
+
+</div>
+
+</div>
 

@@ -126,7 +126,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :law_firms, except: [:index, :create, :new, :show, :update] do
+  resources :law_firms, except: [:index, :create, :new, :show] do
     collection do
       get :add_users
       post :invite_users
@@ -140,6 +140,10 @@ Rails.application.routes.draw do
       get :activity_logs
     end
   end
+
+  get 'set_new_password' => 'law_firms#set_new_password'
+  post 'delete_user' => 'law_firms#delete_user'
+  post 'update_new_password' => 'law_firms#update_new_password'
 
   resources 'frequently_asked_questions', only: [:index]
 
