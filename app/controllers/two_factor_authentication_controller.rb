@@ -14,7 +14,6 @@ class TwoFactorAuthenticationController < ApplicationController
     if current_user.google_authentic? params[:code]
       session[:authorized] = true
       flash.now[:notice] = 'Authentication Successful.'
-      binding.pry
       if current_user.role == 'master_user' && current_user.sign_in_count == 1
         redirect_to set_new_password_path
       else
