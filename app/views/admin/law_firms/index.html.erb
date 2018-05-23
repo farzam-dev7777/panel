@@ -29,10 +29,7 @@
 										<table id="dt_basic" class="table table-striped table-bordered table-hover" width="100%">
 											<thead>			                
 												<tr style="background: #007ac3;color: #fff;">
-													<th>ID</th>
-													<th>Name</th>
 													<th>Username</th>
-													<th>Score</th>
 													<th>Onboarded</th>
 													<th>Status</th>
 												</tr>
@@ -40,8 +37,6 @@
 											<tbody>
 												<% @law_firms.each do |firm| %>
 													<tr class="law-firm-row" data-id="<%= firm.id %>">
-														<td><%= firm.id %></td>
-														<td><%= firm.name %></td>
 														<td><%= firm.users.first.try(:username) %></td>
 														<td class="text-center">
 															<div> 

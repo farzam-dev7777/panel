@@ -133,7 +133,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :technology_values
+  resources :technology_values do
+    collection do
+      post :import
+    end
+  end
 
   resources :pdf do
     collection do

@@ -103,23 +103,8 @@
 				<div class="tab-content padding-10">
 					<div class="tab-pane fade in active" id="hr1">
 						<div class="col-md-8">
-							<div class="col-md-4 column">Name</div>		
-							<div class="col-md-8 data"><%= !@law_firm.name.blank? ? @law_firm.name : '-' %></div>		
-
-							<div class="col-md-4 column">Description</div>		
-							<div class="col-md-8 data"><%= !@law_firm.description.blank? ? @law_firm.description : '-' %></div>		
-
-							<div class="col-md-4 column">Email</div>		
-							<div class="col-md-8 data"><%= !@law_firm.email.blank? ? @law_firm.email : '-' %></div>
-
-							<div class="col-md-4 column">Phone</div>		
-							<div class="col-md-8 data"><%= !@law_firm.phone.blank? ? @law_firm.phone : '-' %></div>	
-
 							<div class="col-md-4 column">Username</div>		
-							<div class="col-md-8 data"><%= !@law_firm.user.try(:username).blank? ? @law_firm.user.try(:username) : '-' %></div>		
-
-							<div class="col-md-4 column">Relationship Manager</div>		
-							<div class="col-md-8 data"><%= !@law_firm.try(:relationship_manager_email).blank? ? @law_firm.try(:relationship_manager_email) : '-' %></div>		
+							<div class="col-md-8 data"><%= !@law_firm.user.try(:username).blank? ? @law_firm.users.first.try(:username) : '-' %></div>
 						</div>
 
 						<div class="col-lg-4 column text-center">

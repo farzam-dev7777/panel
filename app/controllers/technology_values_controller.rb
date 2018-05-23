@@ -7,6 +7,10 @@ class TechnologyValuesController < BaseController
   	@technology = TechnologyValue.new
   end
 
+  def import
+    binding.pry
+  end
+
   private
 
   def find_law_firm
