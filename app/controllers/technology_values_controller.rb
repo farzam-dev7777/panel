@@ -8,7 +8,6 @@ class TechnologyValuesController < BaseController
   end
 
   def import
-    binding.pry
   end
 
   private
