@@ -131,7 +131,7 @@ $(document).ready(function(){
   })
 
   $(document).on('blur', ".set-password", function(){
-    if($(this).val().length < 12){
+    if($(this).val().length < 10){
       swal({
         title: "Oops!",
         text: "Password length must be minimum 10 characters",

@@ -4,7 +4,6 @@ class TwoFactorAuthenticationController < ApplicationController
   skip_before_filter :verify_authenticity_token
 
 	def new
-    # session[:authorized] = true
     if session[:authorized]
       redirect_to root_path
     end

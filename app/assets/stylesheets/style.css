@@ -31,6 +31,13 @@
   cursor: pointer;
 }
 
+#header>div {
+  height: 35px;
+}
+
+#header>div.onboard-btn {
+  height: 49px;
+}
 
 html, #main {
   background-color: #f9f9f9;

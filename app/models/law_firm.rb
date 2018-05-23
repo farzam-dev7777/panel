@@ -47,6 +47,10 @@ class LawFirm < ApplicationRecord
     end
   end
 
+  def user
+    User.find_by(law_firm_id: self.id)
+  end
+
   def approved_and_scored
     LawFirm.joins(:form_submissions).where("form_submissions.status = 'approved' AND form_submissions.total_score IS NOT NULL")
   end

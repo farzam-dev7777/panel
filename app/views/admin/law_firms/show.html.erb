@@ -103,16 +103,38 @@
 				<div class="tab-content padding-10">
 					<div class="tab-pane fade in active" id="hr1">
 						<div class="col-md-8">
-							<div class="col-md-4 column">Username</div>		
-							<div class="col-md-8 data"><%= !@law_firm.user.try(:username).blank? ? @law_firm.users.first.try(:username) : '-' %></div>
+							<div class="col-md-12">
+								<div class="col-md-4 column">Username</div>
+								<div class="col-md-8 data"><%= !@law_firm.user.try(:username).blank? ? @law_firm.users.first.try(:username) : '-' %></div>
+							</div>
+							<div class="col-md-12">
+								<div class="col-md-4 column">Type</div>		
+								<div class="col-md-8 data"><%= @law_firm.law_firm_type %></div>
+							</div>
+							<div class="col-md-12">
+								<div class="col-md-4 column">Practice Area</div>		
+								<div class="col-md-8 data"><%= @law_firm.practice_area.reject(&:blank?).join(", ") %></div>
+							</div>
+
+							<div class="col-md-12">
+								<div class="col-md-4 column">Locations</div>		
+								<div class="col-md-8 data"><%= @law_firm.locations.map{|location| "#{location.city}, #{location.province}, #{location.country}" }.join("<br />").html_safe %></div>
+							</div>
+
+							<div class="col-md-12">
+								<div class="col-md-4 column">Jurisdiction</div>		
+								<div class="col-md-8 data"><%= @law_firm.jurisdictions.map{|jurisdiction| "#{jurisdiction.country} - <i>#{jurisdiction.city.reject(&:blank?).join(', ')}</i>" }.join("<br />").html_safe %></div>
+							</div>
 						</div>
 
-						<div class="col-lg-4 column text-center">
-							<% if @law_firm.user %>
-								<%= image_tag @law_firm.user.google_qr_uri %><br/>
-								<p>Account: <%= @law_firm.user.username %> </p>
-							  <p>Key: <%= @law_firm.user.google_secret %></p>
-						  <% end %>
+						<div class="col-lg-4 col-md-4 column text-center">
+							<div class="col-lg-12 col-md-12 column text-center">
+								<% if @law_firm.user %>
+									<%= image_tag @law_firm.user.google_qr_uri %><br/>
+									<p>Account: <%= @law_firm.user.username %> </p>
+								  <p>Key: <%= @law_firm.user.google_secret %></p>
+							  <% end %>
+							</div>
 						</div>
 
 						<div class="clearfix"></div>
