@@ -56,8 +56,8 @@
 							<td colspan="2">
 								<div class="col-md-12 no-padding" style="margin-bottom: 15px">
 									<div class="col-md-4"><label><strong>City</strong></label></div>
+									<div class="col-md-3"><label><strong>Country</strong></label></div>
 									<div class="col-md-4"><label><strong>State/Province</strong></label></div>
-									<div class="col-md-4"><label><strong>Country</strong></label></div>
 								</div>
 								<%= f.simple_fields_for :locations do |field| %>
 							    <%= render partial: "location_fields", locals: {f: field} %>

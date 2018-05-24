@@ -19,18 +19,12 @@
 							<td class="text-left" width="20%"><strong>Practice Area</strong></td>
 							<td><%= f.input :practice_area, label: false, collection: LawFirm::PRACTICE_AREAS, input_html: { multiple: true } %></td>
 						</tr>
-						
-						<tr>
-							<td class="text-left" width="20%"><strong>Max. Users</strong></td>
-							<td><%= f.input :max_users, label: false, input_html: { autocomplete: 'off', disabled: 'disabled' } %></td>
-						</tr>
-						
 
 						<tr>
 							<td colspan="2">
 								<div class="col-md-12 no-padding" style="margin-bottom: 15px">
 									<div class="col-md-4"><label><strong>City</strong></label></div>
-									<div class="col-md-4"><label><strong>State/Province</strong></label></div>
+									<div class="col-md-3"><label><strong>State/Province</strong></label></div>
 									<div class="col-md-4"><label><strong>Country</strong></label></div>
 								</div>
 								<%= f.simple_fields_for :locations do |field| %>

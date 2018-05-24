@@ -33,6 +33,7 @@ class LawFirmsController < BaseController
                 role: 'user',
                 law_firm_id: current_law_firm.id)
       if user.save
+        user.set_google_secret
         # LawFirmMailer.invite_user(user, temp_password, current_law_firm).deliver_now!
         flash[:alert] = "We've added a new user with username #{user.username}"
       end
@@ -63,16 +64,23 @@ class LawFirmsController < BaseController
     end
 
     if params[:new_password] == params[:new_password_confirmation]
-      if user.update_attributes(password: params[:new_password], new_password_set: true)
+      if user.update_attributes(password: params[:new_password])
         flash[:notice] = "Password changed successfully"
       else
         flash[:notice] = user.errors.full_messages.join(',')
       end
+
+      if !current_user.is_a_master_user?
+        user.update_attributes(new_password_set: true)
+      end
+
     else
       flash[:notice] = "Both passwords should match"
     end
 
-    if request.referrer.include?('add_users')
+    if user.errors
+      redirect_to request.referrer
+    elsif request.referrer.include?('add_users')
       redirect_to add_users_law_firms_path
     else
       if current_user.role == 'master_user' && current_user.sign_in_count == 1
