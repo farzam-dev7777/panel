@@ -66,8 +66,10 @@ class FormSubmissionsController < BaseController
       elsif request.referrer.split('/').last.to_sym == :history_profile
         FormSubmission.log_activity('history_updated', true, @form_submission, current_user)
       end
-      # render json: { last_updated: @form_submission.updated_at.strftime("%d %b %Y at %I:%M:%S %p")}
       redirect_to params[:redirect_value]
+    elsif form_submissions_params["technology_values_attributes"]
+      @current_step = :technology
+      render :technology_step, alert: "ERROR"
     else
       render :technology_step
     end
@@ -157,7 +159,7 @@ private
 
   def current_step
     step = params[:action].split("_").first.to_sym
-    [:edit, :update].include?(step) ? request.referrer.split('/').last.split("_").first.to_sym : step
+    @current_step ||= [:edit, :update].include?(step) ? request.referrer.split('/').last.split("_").first.to_sym : step
   end
 
   def steps

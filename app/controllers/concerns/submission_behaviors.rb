@@ -20,7 +20,7 @@ module SubmissionBehaviors
 																		 :vendor, :platform, :version, :service_pack, 
 																		 :supported, :_destroy, :new_value],
       history_submissions_attributes: [:id, :incident_type, :impact, :discovery_time, :source, 
-                                       :data_loss, :incident_details, :_destroy]     									  
+                                       :data_loss, :incident_details, :_destroy]
 		]
       
   end

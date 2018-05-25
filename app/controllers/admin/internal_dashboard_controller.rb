@@ -1,4 +1,4 @@
-class Admin::InternalDashboardController < BaseController
+class Admin::InternalDashboardController < Admin::BaseController
 
   layout 'admin'
 

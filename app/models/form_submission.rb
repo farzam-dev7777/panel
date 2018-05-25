@@ -5,8 +5,8 @@ class FormSubmission < ApplicationRecord
   has_many :history_submissions
   has_many :notes
   has_many :follow_ups
-	accepts_nested_attributes_for :technology_values, reject_if: proc { |attributes| attributes['vendor'].blank? && attributes['platform'].blank? && attributes['version'].blank? && attributes['service_pack'].blank? && attributes['supported'].blank? }
-	accepts_nested_attributes_for :history_submissions, reject_if: proc { |attributes| attributes['incident_type'].blank? && attributes['impact'].blank? && attributes['discovery_time'].blank? && attributes['source'].blank? && attributes['data_loss'].blank? && attributes['incident_details'].blank? }
+	accepts_nested_attributes_for :technology_values, allow_destroy: true, reject_if: proc { |attributes| attributes['vendor'].blank? && attributes['platform'].blank? && attributes['version'].blank? && attributes['service_pack'].blank? && attributes['supported'].blank? }
+	accepts_nested_attributes_for :history_submissions, allow_destroy: true, reject_if: proc { |attributes| attributes['incident_type'].blank? && attributes['impact'].blank? && attributes['discovery_time'].blank? && attributes['source'].blank? && attributes['data_loss'].blank? && attributes['incident_details'].blank? }
 
   scope :approved, -> { where(status: 'approved') }
   scope :latest,   -> { order(:id).last }

@@ -5,6 +5,16 @@ $(document).ready(function(){
   
   // $('.dynamic-select').trigger('change');
 
+  $(".show_technology_uploader").on('click', function(){
+    $(".technology-uploader-container").removeClass('hidden');
+    $(".technology-form-container").addClass('hidden');
+  })
+
+  $(".show_technology_form").on('click', function(){
+    $(".technology-uploader-container").addClass('hidden');
+    $(".technology-form-container").removeClass('hidden');
+  })
+
   var currentUrl = window.location.href;
 
   $('.masked-phone').mask('(000)-000-0000');

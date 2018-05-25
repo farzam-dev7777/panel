@@ -1,5 +1,7 @@
 class Admin::BaseController < ApplicationController
   before_action :authenticate_user!, raise: false
+  before_action :authenticate_admin!, raise: false
+
 	layout 'admin'
 
 	rescue_from CanCan::AccessDenied do |exception|
@@ -8,6 +10,10 @@ class Admin::BaseController < ApplicationController
 
   def current_admin_user
     current_user
+  end
+
+  def authenticate_admin!
+    redirect_to "/", :alert => "Access Denied!" if current_user.role != 'superadmin'
   end
 
 end
