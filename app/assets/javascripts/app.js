@@ -300,6 +300,30 @@ $(document).ready(function(){
     }
   })
 
+  function setStates(){
+    var j_states = $(this).parent().parent().parent().find('.law_firm_locations_province select');
+    var selected_value = j_states.data("province");
+    if ($(this).val() == 'US'){
+
+      j_states.empty().append("<option value=''></option>");
+
+      $.each(american_states, function( key, value ) {
+        j_states.append("<option " + (selected_value == value.text ? "selected='selected'" : "") +" value='" + value.id + "'>" + value.text + "</option>").trigger('chosen:updated').trigger('change');
+      });
+
+
+    } else {
+      j_states.empty().append("<option value=''></option>");
+
+      $.each(canadian_provinces, function( key, value ) {
+        j_states.append("<option " + (selected_value == value.text ? "selected='selected'" : "") +" value='" + value.id + "'>" + value.text + "</option>").trigger('chosen:updated').trigger('change');
+      });
+    }
+  }
+
+  $(document).on('change', '.law_firm_locations_country select', setStates)
+  $('.law_firm_locations_country select').each(setStates);
+
   function updateJurisdicationCities(){
     
   }
