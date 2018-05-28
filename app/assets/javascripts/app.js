@@ -15,6 +15,53 @@ $(document).ready(function(){
     $(".technology-form-container").removeClass('hidden');
   })
 
+  $('.fileupload-technology').fileupload({
+    dataType: 'html',
+    maxNumberOfFiles: 1,
+    url: window.location.pathname + "_bulk_upload",
+    type: 'POST',
+    add: function(e, data) {
+      var uploadErrors = [];
+      if(data.originalFiles[0]['type'].length && data.originalFiles[0]['type'] != 'text/csv') {
+          uploadErrors.push('Not an accepted file type, only CSV files are allowed.');
+      }
+      if(data.originalFiles[0]['size'] && data.originalFiles[0]['size'] > 10000000) {
+          uploadErrors.push('Filesize is too big. Maximum filesize allowed is 10MB');
+      }
+      if(uploadErrors.length > 0) {
+          sweetAlert("Oops...", uploadErrors.join("\n"), "error");
+      } else {
+          data.submit();
+      }
+    },
+    done: function (e, data) {
+      response = JSON.parse(data.response().result);
+      if(response.invalid_rows.length == 0){
+        sweetAlert("Success", "Successfully imported " + response.rows.length + " rows", "success");
+        setTimeout(function(){
+          window.location.reload()
+        }, 5000);
+      }else if(response.rows.length == 0){
+        sweetAlert("Oops...", "Looks like there's an issue with the CSV you have uploaded, please use the sample CSV", "error");
+      }else{
+        sweetAlert("Oops...", "Successfully imported " + response.rows.length + " rows but there are " + response.invalid_rows.length + " row(s) that we were not able to import", "warning");
+        setTimeout(function(){
+          window.location.reload()
+        }, 5000);
+      }
+    },
+    progressall: function (e, data) {
+      container = $(this);
+      var progress = parseInt(data.loaded / data.total * 100, 10);
+      container.parent().find('#progress .bar').css(
+          'width',
+          progress + '%'
+      )
+      .css('display', 'block')
+      .text(progress + '%');
+    }
+  });
+
   var currentUrl = window.location.href;
 
   $('.masked-phone').mask('(000)-000-0000');

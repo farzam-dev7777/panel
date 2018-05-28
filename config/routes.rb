@@ -113,6 +113,7 @@ Rails.application.routes.draw do
 
   patch "file_attachments/:id/:type" => "file_attachments#create", :as => "file_attachments_uploader"
   patch "file_attachments/" => "file_attachments#create", :as => "file_attachments_without_object"
+  patch "form_submissions/:id/technology_step_bulk_upload" => "form_submissions#technology_step_bulk_upload", :as => "technology_step_bulk_upload"
   resources :file_attachments
   resources :form_submissions do
     member do
