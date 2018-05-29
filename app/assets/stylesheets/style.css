@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 
 #header>:first-child, aside{
-  max-width: 185px;
+  max-width: 220px;
 }
 .ui-datepicker-prev .ui-icon,
 .ui-datepicker-next .ui-icon {
