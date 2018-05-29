@@ -48,15 +48,8 @@
         <p>Firm Portal</p>
       </div>
 
-       <div class="faqs hidden-xs col-md-1">
-         <div>
-            <a href="/frequently_asked_questions">
-              <i class="fa fa-question-circle"></i> <span>FAQs</span>
-            </a>
-         </div>
-       </div>
 
-       <div class="project-context hidden-xs col-md-1">
+       <div class="project-context hidden-xs col-md-1 pull-right">
 
           <span class="label">Welcome</span>
           <span class="project-selector dropdown-toggle" data-toggle="dropdown"><%= current_user.username %> <i class="fa fa-angle-down"></i></span>
@@ -89,6 +82,14 @@
           <!-- end dropdown-menu-->
 
         </div>
+
+        <div class="faqs hidden-xs col-md-1 pull-right">
+         <div>
+            <a href="/frequently_asked_questions">
+              <i class="fa fa-question-circle"></i> <span>FAQs</span>
+            </a>
+         </div>
+       </div>
 
       <!-- #PROJECTS: projects dropdown -->
       <!-- end projects dropdown -->

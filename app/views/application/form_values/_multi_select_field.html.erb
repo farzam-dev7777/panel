@@ -8,7 +8,7 @@
 
 <%
   collection = field.collection
-  uniq_elements = (field.collection.flatten.map(&:downcase).uniq + v.object.multi_select_value.reject { |c| c.empty? }.map(&:downcase)).uniq - field.collection.flatten.map(&:downcase).uniq
+  uniq_elements = (field.collection.sort.flatten.map(&:downcase).uniq + v.object.multi_select_value.reject { |c| c.empty? }.map(&:downcase)).uniq - field.collection.flatten.map(&:downcase).uniq
   uniq_elements.each { |el| collection << [v.object.multi_select_value[v.object.multi_select_value.map(&:downcase).index(el)], v.object.multi_select_value[v.object.multi_select_value.map(&:downcase).index(el)] ] } if uniq_elements.count > 0
 %>
 
