@@ -1,6 +1,6 @@
 <div class="cyber-security cyber-security-field-<%= f.object.try(:id) %>">
 	<div class="col-md-3 no-padding-left">
-		<%= f.input :rank, label: false, collection: ["ISO/IEC 27001:2005", "ISO/IEC 27001:2013", "ISO 27002:2013", "CYBERSECURITY FRAMEWORK", "GDPR", "HIPAA", "PCI DSS", "SSAE 16 SOC1", "SSAE 16 SOC2", "NIST"] %>
+		<%= f.input :rank, label: false, collection: ["CYBERSECURITY FRAMEWORK","GDPR","HIPAA","ISO 27002:2013","ISO/IEC 27001:2005","ISO/IEC 27001:2013","NIST","PCI DSS","SSAE 16 SOC1","SSAE 16 SOC2"] %>
 	</div>
 	<div class="col-md-3 no-padding-left">
 		<%= f.input :date_of_certification, as: :string, input_html: { class: 'restrict-till-day', value: DateField.stringify_date(f.object.date_of_certification) }, label: false %>

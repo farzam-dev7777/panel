@@ -11,6 +11,7 @@ class LawFirmsController < BaseController
 
       # generate submissions on initial update 
       if current_user.role == 'master_user' && @law_firm.form_submissions.empty?
+        @law_firm.update_attributes(updated_by_lawfirm: true)
         FormSubmission.generate_initial_submissions(@law_firm, current_user)
       end
 
@@ -57,6 +58,7 @@ class LawFirmsController < BaseController
 
   def update_new_password
     redirect_to root_path if current_user.new_password_set
+    law_firm = current_user.law_firm
     if params[:id]
       user = User.find_by(id: params[:id])
     else
@@ -71,20 +73,20 @@ class LawFirmsController < BaseController
         flash[:notice] = user.errors.full_messages.join(',')
       end
 
-      if !current_user.is_a_master_user?
+      # if !current_user.is_a_master_user?
         user.update_attributes(new_password_set: true)
-      end
+      # end
 
     else
       flash[:notice] = "Both passwords should match"
     end
 
-    if user.errors
+    if user.errors.messages.any?
       redirect_to request.referrer
     elsif request.referrer.include?('add_users')
       redirect_to add_users_law_firms_path
     else
-      if current_user.role == 'master_user' && current_user.sign_in_count == 1
+      if current_user.role == 'master_user' && !law_firm.updated_by_lawfirm
         redirect_to edit_law_firm_path(current_law_firm)
       else
         redirect_to root_path

@@ -20,7 +20,7 @@
 		<div id="logo-group">
 
 			<!-- PLACE YOUR LOGO HERE -->
-			<span id="logo"> <%= image_tag "seal-white.png", alt:"SEAL" %> </span>
+			<span id="logo"> <a href="/admin"><%= image_tag "seal-white.png", alt:"SEAL" %></a> </span>
 			<!-- END LOGO PLACEHOLDER -->
 
 			<!-- Note: The activity badge color changes when clicked and resets the number to 0
@@ -101,9 +101,7 @@
 				
 				<a style="padding-top: 0" href="javascript:void(0);" id="show-shortcut" data-action="toggleShortcut">
 					<!-- <img src="/assets/avatars/sunny.png" alt="me" class="online" />  -->
-					<span>
-						<%= current_user.email %>
-					</span>
+					
 					<!-- <i class="fa fa-angle-down"></i> -->
 				</a> 
 				
@@ -169,11 +167,7 @@
 		    <!-- <li>Home</li>
 		    <li>Dashboard</li> -->
 
-		    <% if breadcrumbs.any? %>
-			    <% breadcrumbs.each do |b| %>
-				    <li><%= b.first %></li>
-			    <% end %>
-		    <% end %>
+		    
 		  </ol>
 			<!-- end breadcrumb -->
 

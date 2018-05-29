@@ -214,7 +214,6 @@
 								<table class="table table-bordered text-center content-in-jarvis">
 
 									<tr>
-										<th class="text-center">Law Firm</th>
 										<th class="text-center">Score</th>
 										<th class="text-center">Status</th>
 										<th colspan="2" class="text-center">Action</th>
@@ -222,7 +221,6 @@
 
 									<% @law_firm.form_submissions.each do |submission| %>
 										<tr>
-											<td><%= submission.law_firm.name %></td>
 											<td><%= submission.total_score || '-' %></td>
 											<td class="text-center">
 											<span class="label label-<%= submission_status_class(submission) %>">

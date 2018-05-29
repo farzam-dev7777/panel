@@ -19,7 +19,11 @@ class Admin::LawFirmsController < Admin::BaseController
   end
 
   def create
-    return flash[:alert] = "Both passwords must match" unless params[:temp_password] == params[:temp_password_confirmation]
+    if params[:law_firm][:temp_password] != params[:law_firm][:temp_password_confirmation]
+      return flash[:alert] = "Both passwords must match" 
+      render redirect_to request.referrer
+    end
+
     @law_firm = LawFirm.new(law_firms_params)
   	if @law_firm.save
       # Pass true as a 2nd arg if admin wants to send the activity as notification as well

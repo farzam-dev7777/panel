@@ -1389,5 +1389,9 @@ div.checkbox {
 
 .alert {
   position: relative;
-  z-index: 999;
+  z-index: 10;
+}
+
+.has-follow-up {
+  border-right: 5px solid #4c4c4c;
 }

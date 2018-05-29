@@ -167,6 +167,11 @@ class Admin::FormSubmissionsController < Admin::BaseController
   end
 
   def approve
+
+    if @form_submission.follow_ups.map(&:status).include?('pending')
+      redirect_to :back
+    end
+
     @form_submission = FormSubmission.find(params[:id])
 
     if @form_submission.system_score >= SystemSetting.score_threshold

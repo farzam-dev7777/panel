@@ -26,6 +26,13 @@ class Admin::InternalDashboardController < Admin::BaseController
   end
 
   def search_activity_logs
+    if params[:q][:created_at_gteq]
+      params[:q][:created_at_gteq] = Date.parse(params[:q][:created_at_gteq]).beginning_of_day
+    end
+
+    if params[:q][:created_at_lteq]
+      params[:q][:created_at_lteq] = Date.parse(params[:q][:created_at_lteq]).end_of_day
+    end
     @q = ActivityLog.ransack(params[:q])
     @activity_logs = @q.result.includes(:law_firm).order('created_at DESC')
 

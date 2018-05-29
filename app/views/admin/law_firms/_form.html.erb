@@ -5,9 +5,16 @@
 	<% if @law_firm.new_record? %>
 		<span>Onboard a law firm</span>
 	<% else %>
-		<span>Edit <%= @law_firm.name %></span>
+		<span>Editing <%= @law_firm.users.first.username %></span>
 	<% end %>
 <% end %>
+<h2>
+	<% if @law_firm.new_record? %>
+		<strong>Onboard a law firm</strong>
+	<% else %>
+		<strong>Editing <%= @law_firm.users.first.username %></strong>
+	<% end %>
+</h2>
 <div class="table-responsive">
 	<%= simple_form_for([:admin, @law_firm]) do |f| %>
 		<table class="table table-striped">
@@ -92,6 +99,7 @@
 
 					<tr>
 						<td colspan="2">
+							<%=link_to 'Cancel', f.object.new_record? ? admin_law_firms_path : admin_law_firm_path, class: 'btn btn-danger btn-sm' %>
 							<%= f.button :submit, f.object.new_record? ? 'Create' : 'Update', class: "" %>
 						</td>
 					</tr>
