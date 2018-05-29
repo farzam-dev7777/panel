@@ -9,8 +9,17 @@ class Admin::FrequentlyAskedQuestionsController < Admin::BaseController
   end
 
   def create
-  	@faq = FrequentlyAskedQuestion.new(faq_params)
-  	redirect_to :admin_frequently_asked_questions if @faq.save
+    @faq = FrequentlyAskedQuestion.new(faq_params)
+    redirect_to :admin_frequently_asked_questions if @faq.save
+  end
+
+  def update
+    @faq = FrequentlyAskedQuestion.find(params[:id])
+    if @faq.update(faq_params)
+      redirect_to :admin_frequently_asked_questions
+    else
+      render :edit, alert: @faq.errors.full_messages.join(', ')
+    end
   end
 
   def new

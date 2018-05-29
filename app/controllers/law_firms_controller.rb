@@ -64,7 +64,8 @@ class LawFirmsController < BaseController
     end
 
     if params[:new_password] == params[:new_password_confirmation]
-      if user.update_attributes(password: params[:new_password])
+      if user.update_attributes(password: params[:new_password], new_password_set: true)
+        sign_in(current_user, :bypass => true)
         flash[:notice] = "Password changed successfully"
       else
         flash[:notice] = user.errors.full_messages.join(',')

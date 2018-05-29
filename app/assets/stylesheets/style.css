@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 
-
+#header>:first-child, aside{
+  max-width: 185px;
+}
 .ui-datepicker-prev .ui-icon,
 .ui-datepicker-next .ui-icon {
   width: 34px !important;
@@ -31,6 +33,13 @@
   cursor: pointer;
 }
 
+#header>div {
+  height: 35px;
+}
+
+#header>div.onboard-btn {
+  height: 49px;
+}
 
 html, #main {
   background-color: #f9f9f9;

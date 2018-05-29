@@ -60,12 +60,14 @@
 
 				
 				<div class="col-lg-6 col-md-offset-3 no-padding tfa-wrapper">
-					
-					<h2 class="text-center" style="color: #fff;">2 Factor Authentication</h2>
+					<h2 class="text-center" style="color: #fff;"><%= current_user.sign_in_count == 1 ? "Setup " : "" %>2 Factor Authentication</h2>
 
 						<div class="text-center">
 							<% if current_user.sign_in_count == 1 %>
 								<%= image_tag current_user.google_qr_uri %>
+								<br />
+								<a target="_blank" style="color: #fff;" href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en_CA">Download for Android</a> | 
+								<a target="_blank" style="color: #fff;" href="https://itunes.apple.com/ca/app/google-authenticator/id388497605?mt=8">Download for iOS</a>
 							<% end %>
 						</div>
 

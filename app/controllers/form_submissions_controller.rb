@@ -15,6 +15,29 @@ class FormSubmissionsController < BaseController
     @form = @form_submission.send("form_#{current_step}")
   end
 
+  def technology_step_bulk_upload
+    if @form_submission
+      rows = []
+      invalid_rows = []
+      CSV.foreach(params[:files][0].path, {:headers => true, :header_converters => :symbol}) do |row|
+        ActiveRecord::Base.transaction do
+          tech = Technology.find_or_create_by(row.to_h)
+          row[:form_submission_id] = @form_submission.id
+          row[:technology_id] = tech.id
+          tech_value = TechnologyValue.find_or_build_by(row.to_h)
+          if tech_value.save
+            rows << tech_value 
+          else
+            invalid_rows << tech_value
+          end
+        end
+      end
+      render json: { message: "Imported successfully!", rows: rows, invalid_rows: invalid_rows }
+    else
+      render json: { message: "Can't find the form_submission" }, status: 422
+    end
+  end
+
   def before_non_dynamic_forms
     @form_submission = FormSubmission.find(params[:id])
   end
@@ -66,8 +89,10 @@ class FormSubmissionsController < BaseController
       elsif request.referrer.split('/').last.to_sym == :history_profile
         FormSubmission.log_activity('history_updated', true, @form_submission, current_user)
       end
-      # render json: { last_updated: @form_submission.updated_at.strftime("%d %b %Y at %I:%M:%S %p")}
       redirect_to params[:redirect_value]
+    elsif form_submissions_params["technology_values_attributes"]
+      @current_step = :technology
+      render :technology_step, alert: "ERROR"
     else
       render :technology_step
     end
@@ -157,7 +182,7 @@ private
 
   def current_step
     step = params[:action].split("_").first.to_sym
-    [:edit, :update].include?(step) ? request.referrer.split('/').last.split("_").first.to_sym : step
+    @current_step ||= [:edit, :update].include?(step) ? request.referrer.split('/').last.split("_").first.to_sym : step
   end
 
   def steps
@@ -210,4 +235,5 @@ private
     form_submission_attributes = [:id, :form_id]
     params.require(:form_submission).permit(form_submission_attributes + form_values_attributes)
   end
+
 end

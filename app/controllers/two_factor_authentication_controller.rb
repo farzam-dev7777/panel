@@ -4,7 +4,6 @@ class TwoFactorAuthenticationController < ApplicationController
   skip_before_filter :verify_authenticity_token, :authenticate_2fa
 
 	def new
-    # session[:authorized] = true
     if session[:authorized]
       navigate_user
     end

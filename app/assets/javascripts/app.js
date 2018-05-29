@@ -5,6 +5,63 @@ $(document).ready(function(){
   
   // $('.dynamic-select').trigger('change');
 
+  $(".show_technology_uploader").on('click', function(){
+    $(".technology-uploader-container").removeClass('hidden');
+    $(".technology-form-container").addClass('hidden');
+  })
+
+  $(".show_technology_form").on('click', function(){
+    $(".technology-uploader-container").addClass('hidden');
+    $(".technology-form-container").removeClass('hidden');
+  })
+
+  $('.fileupload-technology').fileupload({
+    dataType: 'html',
+    maxNumberOfFiles: 1,
+    url: window.location.pathname + "_bulk_upload",
+    type: 'POST',
+    add: function(e, data) {
+      var uploadErrors = [];
+      if(data.originalFiles[0]['type'].length && data.originalFiles[0]['type'] != 'text/csv') {
+          uploadErrors.push('Not an accepted file type, only CSV files are allowed.');
+      }
+      if(data.originalFiles[0]['size'] && data.originalFiles[0]['size'] > 10000000) {
+          uploadErrors.push('Filesize is too big. Maximum filesize allowed is 10MB');
+      }
+      if(uploadErrors.length > 0) {
+          sweetAlert("Oops...", uploadErrors.join("\n"), "error");
+      } else {
+          data.submit();
+      }
+    },
+    done: function (e, data) {
+      response = JSON.parse(data.response().result);
+      if(response.invalid_rows.length == 0){
+        sweetAlert("Success", "Successfully imported " + response.rows.length + " rows", "success");
+        setTimeout(function(){
+          window.location.reload()
+        }, 5000);
+      }else if(response.rows.length == 0){
+        sweetAlert("Oops...", "Looks like there's an issue with the CSV you have uploaded, please use the sample CSV", "error");
+      }else{
+        sweetAlert("Oops...", "Successfully imported " + response.rows.length + " rows but there are " + response.invalid_rows.length + " row(s) that we were not able to import", "warning");
+        setTimeout(function(){
+          window.location.reload()
+        }, 5000);
+      }
+    },
+    progressall: function (e, data) {
+      container = $(this);
+      var progress = parseInt(data.loaded / data.total * 100, 10);
+      container.parent().find('#progress .bar').css(
+          'width',
+          progress + '%'
+      )
+      .css('display', 'block')
+      .text(progress + '%');
+    }
+  });
+
   var currentUrl = window.location.href;
 
   $('.masked-phone').mask('(000)-000-0000');
@@ -131,7 +188,7 @@ $(document).ready(function(){
   })
 
   $(document).on('blur', ".set-password", function(){
-    if($(this).val().length < 12){
+    if($(this).val().length < 10){
       swal({
         title: "Oops!",
         text: "Password length must be minimum 10 characters",
@@ -299,6 +356,30 @@ $(document).ready(function(){
       // $(this).parent().parent().parent().find('.j-states select option').attr('selected', true).parent().trigger('change');
     }
   })
+
+  function setStates(){
+    var j_states = $(this).parent().parent().parent().find('.law_firm_locations_province select');
+    var selected_value = j_states.data("province");
+    if ($(this).val() == 'US'){
+
+      j_states.empty().append("<option value=''></option>");
+
+      $.each(american_states, function( key, value ) {
+        j_states.append("<option " + (selected_value == value.text ? "selected='selected'" : "") +" value='" + value.id + "'>" + value.text + "</option>").trigger('chosen:updated').trigger('change');
+      });
+
+
+    } else {
+      j_states.empty().append("<option value=''></option>");
+
+      $.each(canadian_provinces, function( key, value ) {
+        j_states.append("<option " + (selected_value == value.text ? "selected='selected'" : "") +" value='" + value.id + "'>" + value.text + "</option>").trigger('chosen:updated').trigger('change');
+      });
+    }
+  }
+
+  $(document).on('change', '.law_firm_locations_country select', setStates)
+  $('.law_firm_locations_country select').each(setStates);
 
   function updateJurisdicationCities(){
     

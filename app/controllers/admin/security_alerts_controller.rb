@@ -9,8 +9,17 @@ class Admin::SecurityAlertsController < Admin::BaseController
   end
 
   def create
-  	@security_alert = SecurityAlert.new(security_alert_params)
-  	redirect_to :admin_security_alerts if @security_alert.save
+    @security_alert = SecurityAlert.new(security_alert_params)
+    redirect_to :admin_security_alerts if @security_alert.save
+  end
+
+  def update
+    @security_alert = SecurityAlert.find(params[:id])
+    if @security_alert.update(security_alert_params)
+      redirect_to :admin_security_alerts if @security_alert.save
+    else
+      render :edit, alert: @security_alert.errors.full_messages.join(', ')
+    end
   end
 
   def new
