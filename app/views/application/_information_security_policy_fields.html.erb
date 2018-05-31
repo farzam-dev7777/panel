@@ -1,6 +1,6 @@
 <div class="information-security-policy information-security-policy-field-<%= f.object.try(:id) %>">
 	<div class="col-md-3 no-padding gfe-field">
-		<%= f.input :policy, label: false, collection: ["Acceptable Use","Business Continuity","Confidentiality Agreement (HR)","Disaster Recovery","Information Security","Privacy","Records Retention"] %>
+		<%= f.input :policy, label: false, collection: ["Information Security Policy", "Disaster Recovery Plan", "Business Continuity Plan", "Records Retention Policy", "Acceptable Use Policy", "Privacy Policy", "Incidence Response Plan", "Do not have one"] %>
 	</div>
 	<div style="width: 125px;" class="col-md-2 gfe-field">
 		<%= f.input :last_reviewed, as: :string, input_html: { class: 'restrict-till-day', value: DateField.stringify_date(f.object.last_reviewed) }, label: false %>
@@ -15,7 +15,7 @@
 		<%= f.input :independent_review, label: false, collection: ["Yes", "No"] %>
 	</div> -->
 	<div class="col-md-3 gfe-field">
-		<%= f.input :communication_status, label: false, label: false %>
+		<%= f.input :communication_status, label: false, label: false, collection: ["Everyone", "Permanent Staff", "Technology Staff", "Legal Staff", "Partner", "Select People", "Everyone - except contract staff"] %>
 	</div>
 	<div class="col-md-2 gfe-field" style="width: 200px">
 		<%= render '/application/form_values/upload_field', v: f, f: f, field: f.object.form_value.form_field %>
