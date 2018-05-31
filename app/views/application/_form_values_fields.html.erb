@@ -22,7 +22,7 @@
             <% if field.group_form_id %>
               <label>
                 <strong><%= field.group_form.try(:name) %></strong>
-                <% if(v.object.try(:form_field).try(:help_description)) %>
+                <% if !v.object.try(:form_field).try(:help_description).blank? %>
                   <i class="fa fa-question-circle-o help-text" data-help="<%= v.object.try(:form_field).try(:help_description) %>"></i>
                 <% end %>
               </label>
