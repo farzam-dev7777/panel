@@ -17,8 +17,31 @@
 </div>
 
 <div class="technology-form-container">
+
+  <div class="col-md-10 col-md-offset-1 tech-form-wraper tech-form-wraper-help hidden">
+    <ul>
+      <li>- Please list all technologies that the bank data resides on or exposed to.</li>
+      <li>- After Certification, Technology and History Sections will remain open for updating.</li>
+      <li>- All files uploaded are encrypted in flight and after upload. The files cannot be downloaded or viewed after upload. You can, however, replace the file by deleting it and re-uploading a new file.</li>
+    </ul>
+    <br>
+    <div class="col-md-12 text-center dont-show-wrapper">
+      <label><input type="checkbox" name="dont-show"> Don't show this again</label> <br>
+      <a class="btn btn-default btn-sm" href="javascript:void(0)">I Understand</a>
+    </div>
+  </div>
+
+  <div class="clearfix"></div>
+
+  <div class="col-md-10 col-md-offset-1 tech-form-wraper tech-form-wraper-csv-toggle text-center hidden">
+    <label>Do you keep an updated Inventory of end points (Applications)?</label>
+    <p>&nbsp;</p>
+    <a class="btn btn-sm btn-primary" href="javascript:void(0)">Yes</a>
+    <a class="btn btn-sm btn-primary" href="javascript:void(0)">No</a>
+  </div>
+
   <%= simple_fields_for @form_submission do |f| %>
-    <div class="col-md-10 col-md-offset-1 tech-form-wraper">
+    <div class="col-md-10 col-md-offset-1 tech-form-wraper form hidden">
       <a href="#" class="pull-right show_technology_uploader">Upload CSV instead</a>
       <div class="col-md-12 no-padding">
   	  	<h4 class="m-b-20 text-center">

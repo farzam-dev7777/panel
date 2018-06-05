@@ -896,6 +896,11 @@ ul.internal-notes li div p {
   border: 3px solid #ccc;
 }
 
+.tech-form-wraper-help,
+.tech-form-wraper-csv-toggle {
+  margin-bottom: 20px;
+}
+
 .file-name-holder {
   width: 135px;
   white-space: nowrap;

@@ -4,7 +4,7 @@
     <span class="widget-icon"> <i class="fa fa-certificate"></i> </span>
     <h2>Certification Submission</h2>
     <div style="float: right;padding-right: 10px;">
-      <h2>Last Saved: <strong class="last-updated-timestamp"><%= @form_submission.updated_at.strftime("%d %b %Y at %I:%M:%S %p") %></strong></h2>
+      <h2>Last Saved: <strong class="last-updated-timestamp"><%= @form_submission.updated_at.localtime.strftime("%d %b %Y at %I:%M:%S %p") %></strong></h2>
     </div>
 
   </header>

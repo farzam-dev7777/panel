@@ -113,6 +113,40 @@ $(document).ready(function(){
 
   })
 
+  if($.cookie('tech-help-text-understood') == 'true') {
+    $('.tech-form-wraper-help').addClass('hidden')
+  } else {
+    $('.tech-form-wraper-help').removeClass('hidden')
+  }
+  $('.dont-show-wrapper a').click(function(){
+    if($(this).parent().find('input[type=checkbox]').is(':checked')) {
+      $.cookie('tech-help-text-understood', 'true');
+    }
+    $(this).parent().parent().hide();
+  })
+
+  $('.tech-form-wraper-csv-toggle a').click(function(){
+    if($(this).text() == 'Yes') {
+      $(".technology-uploader-container").removeClass('hidden');
+      $(".technology-form-container").addClass('hidden');
+    } 
+    if($(this).text() == 'No'){
+      $(".technology-uploader-container").addClass('hidden');
+      $(".technology-form-container").removeClass('hidden');
+      $('.tech-form-wraper.form').removeClass('hidden')
+      $('.tech-form-wraper-csv-toggle').addClass('hidden')
+    }
+    $.cookie('tech-form-selection', 'true');
+  })
+
+  if($.cookie('tech-form-selection') == 'true') {
+    $('.tech-form-wraper-csv-toggle').addClass('hidden')
+    $(".technology-form-container").removeClass('hidden');
+    $('.tech-form-wraper.form').removeClass('hidden')
+  } else {
+    $('.tech-form-wraper-csv-toggle').removeClass('hidden')
+  }
+
   $('.cloned-form').hide()
   $('#view-only-follow-ups').on('click', function(){
     var element = jQuery('.need-follow-up').clone();
@@ -891,6 +925,12 @@ $(document).ready(function(){
           text: $(this).attr("class").replace('btn btn-xs threat-warning threat-found ', '').replace('waves-effect waves-light', '').replace(/-/g, ' ')
         }
       });
+    }
+  });
+
+  $('.history-qtip').qtip({
+    content: {
+      text: "<p>*Significant : An attempt or risk that that wasn’t automatically prevented with the security systems in place such as firewalls, intrusion detection systems, Policies and controls but needed attention and/or intervention.</p><p>**Incident: An adverse event in an information systems – includes the significant threat of an adverse event (implies harm or the attempt to harm)</p><p>*** Data Loss : Where one or more electronic files were potentially or known to have been copied, printed, viewed, altered or compromised in any other way.</p>"
     }
   });
 

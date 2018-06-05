@@ -28,6 +28,7 @@ gem 'rails-assets-sweetalert', source: 'https://rails-assets.org'
 gem 'rails-assets-toastr', source: 'https://rails-assets.org'
 gem 'rails-assets-rateyo', source: 'https://rails-assets.org'
 gem 'rails-assets-underscore', source: 'https://rails-assets.org'
+gem 'rails-assets-jquery-cookie', source: 'https://rails-assets.org'
 
 gem 'activerecord-sortable'
 gem 'breadcrumbs_on_rails'

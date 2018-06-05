@@ -55,6 +55,7 @@
 //= require loadingoverlay.min
 //= require loadingoverlay_progress
 //= require toastr
+//= require jquery-cookie
 //= require admin.js
 // require main.js
 // require_tree .
