@@ -68,13 +68,13 @@ $(document).ready(function(){
   $('.masked-money').maskMoney({prefix:'USD ', allowNegative: true, thousands:',', affixesStay: false});
 
   $('.login-btn').on('click', function(){
-    if ( $('#tandc').prop('checked') == false ){ 
-      $('.login-error').css('display', 'block').html('Please accept the terms and conditions');
-    } else if ( $('#privacy-policy').prop('checked') == false ) {
-      $('.login-error').css('display', 'block').html('Please accept the privacy policy');
-    } else {
-      $('.login-error').css('display', 'none');
-    }
+    // if ( $('#tandc').prop('checked') == false ){ 
+      // $('.login-error').css('display', 'block').html('Please accept the terms and conditions');
+    // } else if ( $('#privacy-policy').prop('checked') == false ) {
+      // $('.login-error').css('display', 'block').html('Please accept the privacy policy');
+    // } else {
+      // $('.login-error').css('display', 'none');
+    // }
   })
 
   $('.delete-note').on('click', function(){
