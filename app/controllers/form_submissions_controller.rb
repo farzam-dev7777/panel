@@ -7,8 +7,15 @@ class FormSubmissionsController < BaseController
   before_action :before_steps, only: [:policy_step, :process_step]
   before_action :before_non_dynamic_forms, only: [:technology_step, :history_step]
 
+  before_action :prevent_resubmission, only: [:update, :submit_forms]
+
   helper_method :next_step_path, :current_step_path, :steps, :previous_step_path, 
                 :current_step, :wizard_path, :last_step, :first_step, :logics, :follow_up_stats
+
+  def prevent_resubmission
+    form_submission = FormSubmission.find_by(params[:id])
+    form_submission.decision_made? ? false : true
+  end
 
   def before_steps
     @form_submission = FormSubmission.find(params[:id])
