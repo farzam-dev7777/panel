@@ -15,8 +15,12 @@ class Admin::SecurityThreatsController < Admin::BaseController
     @security_threat = SecurityThreat.new(security_threat_params)
     if (@security_threat.save)
     	@security_threat.generate_action_items(params, current_admin_user)
+      redirect_to admin_security_threats_path
+    else
+      @triggers = []
+      flash.now[:alert] = @security_threat.errors.full_messages.join(", ")
+      render :new
     end
-    redirect_to admin_security_threats_path
   end
 
   def find_law_firms
@@ -53,7 +57,7 @@ class Admin::SecurityThreatsController < Admin::BaseController
   private
 
   def security_threat_params
-  	params.require(:security_threat).permit(:title, :description, :severity_level_id, :vendor, :platform, :version, :service_pack, law_firm_ids: [], severity_negative_factor: [])
+  	params.require(:security_threat).permit(:title, :law_firm_ids, :description, :severity_level_id, :vendor, :platform, :version, :service_pack, law_firm_ids: [], severity_negative_factor: [])
   end
 
   def technology_values_filter_params

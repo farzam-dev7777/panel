@@ -412,8 +412,20 @@ $(document).ready(function(){
     }
   }
 
-  $(document).on('change', '.law_firm_locations_country select', setStates)
+  $(document).on('change', '.law_firm_locations_country select', setStates);
   $('.law_firm_locations_country select').each(setStates);
+
+  $(".add_fields").click(function(){
+    setTimeout(function(){
+      debugger;
+      $('.location-object').each(function(){
+        if(!$(this).find('.law_firm_locations_province select').val()){
+          $(this).find('.law_firm_locations_country select').trigger('change');
+        }  
+      })
+    }, 100)
+  })
+  
 
   function updateJurisdicationCities(){
     

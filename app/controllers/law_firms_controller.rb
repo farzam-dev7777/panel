@@ -17,7 +17,7 @@ class LawFirmsController < BaseController
 
   		redirect_to root_url
   	else
-  		flash[:alert] = "There was an error updating the law firm"
+  		flash.now[:alert] = "There was an error updating the law firm"
   		render :new
   	end
 	end
@@ -36,10 +36,10 @@ class LawFirmsController < BaseController
       if user.save
         user.set_google_secret
         # LawFirmMailer.invite_user(user, temp_password, current_law_firm).deliver_now!
-        flash[:alert] = "We've added a new user with username #{user.username}"
+        flash.now[:alert] = "We've added a new user with username #{user.username}"
       end
     else
-      flash[:alert] = "You're only allowed to add #{current_law_firm.law_firm_user_limit} users"
+      flash.now[:alert] = "You're only allowed to add #{current_law_firm.law_firm_user_limit} users"
     end
     redirect_to add_users_law_firms_path
   end
@@ -68,9 +68,9 @@ class LawFirmsController < BaseController
     if params[:new_password] == params[:new_password_confirmation]
       if user.update_attributes(password: params[:new_password], new_password_set: true)
         sign_in(current_user, :bypass => true)
-        flash[:notice] = "Password changed successfully"
+        flash.now[:notice] = "Password changed successfully"
       else
-        flash[:notice] = user.errors.full_messages.join(',')
+        flash.now[:notice] = user.errors.full_messages.join(',')
       end
 
       # if !current_user.is_a_master_user?
@@ -78,7 +78,7 @@ class LawFirmsController < BaseController
       # end
 
     else
-      flash[:notice] = "Both passwords should match"
+      flash.now[:notice] = "Both passwords should match"
     end
 
     if user.errors.messages.any?
@@ -103,7 +103,7 @@ class LawFirmsController < BaseController
       user.destroy!
       redirect_to add_users_law_firms_path
     else
-      flash[:error] = "You're not authorized to remove this user"
+      flash.now[:error] = "You're not authorized to remove this user"
     end
   end
 
