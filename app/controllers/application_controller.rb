@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   before_filter :authenticate_2fa
 
   def authenticate_2fa
-    if (current_user) && ( current_user.role == 'superadmin' || current_user.role == 'admin' ) && !request.env.fetch("PATH_INFO").include?("/admin")
+    if (current_user) && ( current_user.role == 'superadmin' || current_user.role == 'admin' ) && request.env.fetch("PATH_INFO") == "/"
       redirect_to admin_root_url
     end
 
