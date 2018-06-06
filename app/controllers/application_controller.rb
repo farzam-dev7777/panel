@@ -4,6 +4,10 @@ class ApplicationController < ActionController::Base
   before_filter :authenticate_2fa
 
   def authenticate_2fa
+    if ( current_user.role == 'superadmin' || current_user.role == 'admin' )
+      redirect_to admin_root_url
+    end
+
     if current_user
       return true if request.original_url.include?('sign_out') || current_user.is_an_admin?
       unless session[:authorized]
@@ -15,7 +19,6 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-
     if ( current_user.role == 'superadmin' || current_user.role == 'admin' )
       admin_root_url
     else
