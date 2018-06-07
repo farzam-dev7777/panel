@@ -1,5 +1,7 @@
 class DashboardController < BaseController
 
+  before_action :check_new_password, only: :index
+
   def index
   	@action_items = []
   	# if current_user.is_a_standard_user?
@@ -15,7 +17,10 @@ class DashboardController < BaseController
 		# else
 		# 	root_url
 		# end
-		  	
+  end
+
+  def check_new_password
+  	redirect_to set_new_password_path unless current_user.new_password_set
   end
   
 end

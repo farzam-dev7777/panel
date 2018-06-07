@@ -1,6 +1,7 @@
 class LawFirmsController < BaseController
     
 	def edit
+    redirect_to set_new_password_path unless current_user.new_password_set
 		@law_firm = LawFirm.find(params[:id])
 	end
 
@@ -79,6 +80,7 @@ class LawFirmsController < BaseController
 
     else
       flash[:notice] = "Both passwords should match"
+      redirect_to request.referrer and return true
     end
 
     if user.errors.messages.any?

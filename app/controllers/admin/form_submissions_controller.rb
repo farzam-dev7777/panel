@@ -187,7 +187,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
 
       if (@form_submission.save)
         LawFirmMailer.decision_reached(@form_submission, 'Approved').deliver_now
-        FormSubmission.log_activity('approved', true, @form_submission, current_admin_user)
+        # FormSubmission.log_activity('approved', true, @form_submission, current_admin_user)
         redirect_to :admin_law_firms
       end
     else

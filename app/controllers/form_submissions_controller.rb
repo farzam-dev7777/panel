@@ -13,7 +13,7 @@ class FormSubmissionsController < BaseController
                 :current_step, :wizard_path, :last_step, :first_step, :logics, :follow_up_stats
 
   def prevent_resubmission
-    form_submission = FormSubmission.find_by(params[:id])
+    form_submission = FormSubmission.find_by(id: params[:id])
     form_submission.decision_made? ? false : true
   end
 
