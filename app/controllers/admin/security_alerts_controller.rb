@@ -10,15 +10,23 @@ class Admin::SecurityAlertsController < Admin::BaseController
 
   def create
     @security_alert = SecurityAlert.new(security_alert_params)
-    redirect_to :admin_security_alerts if @security_alert.save
+    if @security_alert.save
+      flash[:notice] = "Created a new secity alert"
+      redirect_to :admin_security_alerts
+    else
+      flash.now[:alert] = @security_alert.errors.full_messages.join(', ')
+      render :new
+    end
   end
 
   def update
     @security_alert = SecurityAlert.find(params[:id])
     if @security_alert.update(security_alert_params)
-      redirect_to :admin_security_alerts if @security_alert.save
+      flash[:notice] = "Security alert updated successfully"
+      redirect_to :admin_security_alerts
     else
-      render :edit, alert: @security_alert.errors.full_messages.join(', ')
+      flash.now[:alert] = @security_alert.errors.full_messages.join(', ')
+      render :new
     end
   end
 
@@ -46,7 +54,8 @@ class Admin::SecurityAlertsController < Admin::BaseController
     else
       alert_msg = "We couldn't find the security alert in our database."
     end
-    redirect_to admin_security_alerts_path, alert: alert_msg
+    flash[:notice] = alert_msg
+    redirect_to admin_security_alerts_path, notice: alert_msg
   end
 
   private

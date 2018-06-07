@@ -198,18 +198,22 @@
 			<!-- end col -->
 			<div class="col-lg-12 table-striped table-hover">
 				<div class="col-lg-12 table-striped table-hover">
-
-						<% if notice %>
+	
+					<% if !flash[:notice].blank? %>
+						<div class="row">
 							<div class="col-lg-12">
-								<p class="alert alert-success"><%= notice %></p>
+								<p class="alert alert-success"><%= flash[:notice] %></p>
 							</div>
-						<% end %>
-				    <% if alert %>
+						</div>
+					<% end %>
+			    <% if !flash[:alert].blank? %>
+						<div class="row">
 							<div class="col-lg-12">
-					    	<p class="alert alert-warning"><%= alert %></p>
+					    	<p class="alert alert-warning"><%= flash[:alert] %></p>
 					    </div>
-				    <% end %>
-				    <%= yield %>
+					  </div>
+			    <% end %>
+			    <%= yield %>
 
 				</div>
 			</div>

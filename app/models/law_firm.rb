@@ -41,10 +41,10 @@ class LawFirm < ApplicationRecord
   attr_accessor :temp_password
 
   def password_complexity
-    return true unless ENV['RAILS_ENV'] == 'production'
-    if temp_password.present? and not temp_password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d). /)
-      errors.add :temp_password, "must be at least 10 characters long and must include a special character"
-    end
+    return true if temp_password.blank? && !self.new_record?
+    errors.add :temp_password, "must be present" if temp_password.blank?
+    return if temp_password.present? && temp_password =~ /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{10,100}$/
+    errors.add :temp_password, 'complexity requirement not met. Length should be 10-100 characters and include: 1 Upper case, 1 lower case, 1 digit and 1 special char'
   end
 
   def user
@@ -57,6 +57,10 @@ class LawFirm < ApplicationRecord
 
   def law_firm_user_limit
     self.max_users || USER_LIMIT
+  end
+
+  def name
+    self.public_uid  
   end
 
   def generate_a_new_user

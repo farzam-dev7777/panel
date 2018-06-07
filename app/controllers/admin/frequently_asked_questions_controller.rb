@@ -10,15 +10,21 @@ class Admin::FrequentlyAskedQuestionsController < Admin::BaseController
 
   def create
     @faq = FrequentlyAskedQuestion.new(faq_params)
-    redirect_to :admin_frequently_asked_questions if @faq.save
+    if @faq.save
+      redirect_to :admin_frequently_asked_questions, notice: "Created successfully."
+    else
+      flash.now[:alert] = @faq.errors.full_messages.join(', ')
+      render :new
+    end
   end
 
   def update
     @faq = FrequentlyAskedQuestion.find(params[:id])
     if @faq.update(faq_params)
-      redirect_to :admin_frequently_asked_questions
+      redirect_to :admin_frequently_asked_questions, notice: "Updated successfully."
     else
-      render :edit, alert: @faq.errors.full_messages.join(', ')
+      flash.now[:alert] = @faq.errors.full_messages.join(', ')
+      render :edit
     end
   end
 
