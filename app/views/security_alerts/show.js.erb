@@ -1,1 +1,4 @@
-$(".a-unique-class").html('<%= j render "security_alerts/_alert" %>')
+$("#securityAlert .modal-title").html('<%= @security_alert.title %> ')
+$("#securityAlert .modal-title").append('<%= @security_alert.severity %>')
+$("#securityAlert .news").html('<%= j render "security_alerts/alert" %>')
+$('#securityAlert').modal('show')

@@ -17,7 +17,7 @@ gem 'activemodel-serializers-xml'
 gem 'simple-form-datepicker'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
-gem 'google-authenticator-rails'
+gem 'google-authenticator-rails', '~> 1.6.1'
 gem 'rollbar'
 gem 'country_select'
 

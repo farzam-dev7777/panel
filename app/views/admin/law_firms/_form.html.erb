@@ -5,14 +5,14 @@
 	<% if @law_firm.new_record? %>
 		<span>Onboard a law firm</span>
 	<% else %>
-		<span>Editing <%= @law_firm.users.first.username %></span>
+		<span>Editing <%= @law_firm.users.first.try(:username) %></span>
 	<% end %>
 <% end %>
 <h2>
 	<% if @law_firm.new_record? %>
 		<strong>Onboard a law firm</strong>
 	<% else %>
-		<strong>Editing <%= @law_firm.users.first.username %></strong>
+		<strong>Editing <%= @law_firm.users.first.try(:username) %></strong>
 	<% end %>
 </h2>
 <div class="table-responsive">
@@ -46,10 +46,20 @@
 						</tr>
 						<% else %>
 							<td class="text-right" width="20%"><strong>Password</strong></td>
-							<td>
+							<td class="text-left">
+								<%= f.simple_fields_for :users do |field| %>
+							  	<div class="well">
+								  	<%= field.input :username, autocomplete: "off", label: false, input_html: { class: 'set-password', disabled: true } %>
+								  	<%= field.input :password, autocomplete: "off", label: false, input_html: { class: 'set-password', placeholder: "Password" } %>
+								  	<%= field.input :password_confirmation, autocomplete: "off", label: false, input_html: { class: 'set-password', placeholder: "Password Confirmation" } %>
+								  	<%= field.input :_destroy, label: "Remove", as: :boolean if field.object.role != "master_user" %>
+								  </div>
+							  <% end %>
+							</td>
+							<!-- <td>
 								<%= f.input :password, autocomplete: "off", label: false, input_html: { class: 'set-password' } %>
 								<p style="color: #949494;" class="text-left"><em>Minimum 10 characters required</em></p>	
-							</td>
+							</td> -->
 						<% end %>
 					</tr>
 

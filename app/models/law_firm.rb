@@ -19,6 +19,7 @@ class LawFirm < ApplicationRecord
 
   accepts_nested_attributes_for :locations
   accepts_nested_attributes_for :jurisdictions
+  accepts_nested_attributes_for :users, allow_destroy: true
 
   after_create :generate_a_new_user
   # acts_as_messageable
@@ -43,6 +44,9 @@ class LawFirm < ApplicationRecord
   def password_complexity
     return true if temp_password.blank? && !self.new_record?
     errors.add :temp_password, "must be present" if temp_password.blank?
+    if temp_password != temp_password_confirmation
+      errors.add :temp_password, "both passwords should match"
+    end
     return if temp_password.present? && temp_password =~ /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{10,100}$/
     errors.add :temp_password, 'complexity requirement not met. Length should be 10-100 characters and include: 1 Upper case, 1 lower case, 1 digit and 1 special char'
   end
@@ -68,6 +72,7 @@ class LawFirm < ApplicationRecord
     user = self.create_user!(email: "#{username}#{EMAIL_PREFIX}", 
                              username: username, 
                              password: self.temp_password,
+                             password_confirmation: self.temp_password_confirmation,
                              role: 'master_user',
                              law_firm_id: self.id)
     user.set_google_secret

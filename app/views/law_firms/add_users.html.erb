@@ -9,18 +9,21 @@
         <div class="well">
 
           <header class="text-center">
-            <h5><strong>Add new user</strong></h5>
-            <p>You've added <%= current_law_firm.standard_users.count %> of <%= current_law_firm.law_firm_user_limit || 0 %> users</p>
+            <h5><strong>Add new collaborator</strong></h5>
+            <p>You've added <%= current_law_firm.standard_users.count %> of <%= current_law_firm.law_firm_user_limit || 0 %> collaborators</p>
           </header>
 
           <br>
 
           <form method="post" action="/law_firms/invite_users">
-           <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+            <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+           
+            <%= password_field_tag :temp_password, nil, placeholder: "Temporary password" -%>
+            <%= password_field_tag :temp_password_confirmation, nil, placeholder: "Temporary password confirmation" -%>
 
            <footer class="row">
             <div class="col-md-12 text-center">
-             <input type="submit" value="Add New User" class="btn btn-lg btn-primary">
+             <input type="submit" value="Add New Collaborator" class="btn btn-lg btn-primary">
            </div>
          </footer>
        </form>
@@ -37,7 +40,7 @@
 
 
       <header>
-        <h5><strong><%= current_law_firm.name %> Users</strong></h5>
+        <h5><strong>Collaborators</strong></h5>
       </header>
 
       <br>
@@ -46,14 +49,12 @@
         <tr>
           <th>Username</th>
           <th>Invited On</th>
-          <th>Status</th>
           <th>Action</th>
         </tr>
         <% current_law_firm.users.where(role: 'user').each do |user| %>
         <tr>
           <td><%= user.username %></td>
           <td><%= user.created_at.strftime("%e %b %Y") %></td>
-          <td><%= user.new_password_set ? 'Onboarded' : 'Pending' %></td>
           <td>
             <a href="javascript:void(0)" class="btn btn-sm btn-primary edit-password-btn">Edit</a>
             <%= link_to 'Delete',url_for(action: :delete_user ,id: user.id), method: :post, data: {confirm: "Are you sure you want to delete this user?" }, class: 'btn btn-sm btn-danger' %>

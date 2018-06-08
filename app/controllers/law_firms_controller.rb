@@ -2,11 +2,11 @@ class LawFirmsController < BaseController
     
 	def edit
     redirect_to set_new_password_path unless current_user.new_password_set
-		@law_firm = LawFirm.find(params[:id])
+		@law_firm = LawFirm.find(current_law_firm.id)
 	end
 
 	def update
-		@law_firm = LawFirm.find(params[:id])
+		@law_firm = LawFirm.find(current_law_firm.id)
   	if @law_firm.update_attributes(law_firms_params)
   		@law_firm.update_attributes(profile_completed: true)
 
@@ -16,7 +16,7 @@ class LawFirmsController < BaseController
         FormSubmission.generate_initial_submissions(@law_firm, current_user)
       end
 
-  		redirect_to root_url
+  		redirect_to root_url, notice: "Profile updated"
   	else
   		flash.now[:alert] = "There was an error updating the law firm"
   		render :new
@@ -26,21 +26,24 @@ class LawFirmsController < BaseController
   def invite_users
     redirect_to root_path unless current_user.role == 'master_user'
     law_firm_user_count = current_law_firm.standard_users.count
-    temp_password = SecureRandom.hex(6)
     username = SecureRandom.hex(4)
     if(law_firm_user_count < current_law_firm.law_firm_user_limit)
       user = User.new(email: "#{username}#{LawFirm::EMAIL_PREFIX}", 
                 username: username,
-                password: temp_password,
+                password: params[:temp_password],
+                password_confirmation: params[:temp_password_confirmation],
                 role: 'user',
-                law_firm_id: current_law_firm.id)
+                law_firm_id: current_law_firm.id
+              )
       if user.save
         user.set_google_secret
         # LawFirmMailer.invite_user(user, temp_password, current_law_firm).deliver_now!
-        flash.now[:alert] = "We've added a new user with username #{user.username}"
+        flash[:notice] = "We've added a new user with username #{user.username}"
+      else
+        flash[:alert] = user.errors.full_messages.join(", ")
       end
     else
-      flash.now[:alert] = "You're only allowed to add #{current_law_firm.law_firm_user_limit} users"
+      flash[:alert] = "You're only allowed to add #{current_law_firm.law_firm_user_limit} collaborators"
     end
     redirect_to add_users_law_firms_path
   end
@@ -58,7 +61,6 @@ class LawFirmsController < BaseController
   end
 
   def update_new_password
-    redirect_to root_path if current_user.new_password_set
     law_firm = current_user.law_firm
     if params[:id]
       user = User.find_by(id: params[:id])
@@ -67,24 +69,19 @@ class LawFirmsController < BaseController
     end
 
     if params[:new_password] == params[:new_password_confirmation]
-      if user.update_attributes(password: params[:new_password], new_password_set: true)
+      if user.update_attributes(password: params[:new_password], password_confirmation: params[:new_password_confirmation], new_password_set: true)
         sign_in(current_user, :bypass => true)
-        flash.now[:notice] = "Password changed successfully"
+        flash[:notice] = "Password changed successfully"
       else
-        flash.now[:notice] = user.errors.full_messages.join(',')
+        flash[:alert] = user.errors.full_messages.join(',')
       end
-
-      # if !current_user.is_a_master_user?
-        user.update_attributes(new_password_set: true)
-      # end
-
     else
-      flash[:notice] = "Both passwords should match"
+      flash[:alert] = "Both passwords should match"
       redirect_to request.referrer and return true
     end
 
     if user.errors.messages.any?
-      redirect_to request.referrer
+      redirect_to request.referrer, alert: user.errors.full_messages.join(', ')
     elsif request.referrer.include?('add_users')
       redirect_to add_users_law_firms_path
     else

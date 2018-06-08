@@ -1020,11 +1020,11 @@ h3.firm-score-declined span {
   margin-bottom: 80px;
 }
 
-.control-label i {
+.control-label i, .fa.fa-question-circle-o.help-text {
   background-color: yellow;
   border-radius: 50%;
   position: relative;
-  bottom: 10px; 
+  bottom: 3px; 
 }
 
 .gfe-field label {

@@ -93,7 +93,7 @@ Rails.application.routes.draw do
   end
   
   # resources :law_firms
-
+  resources :security_alerts
   resources :technologies do
     member do
       get :vendors

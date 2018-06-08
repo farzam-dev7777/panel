@@ -19,11 +19,6 @@ class Admin::LawFirmsController < Admin::BaseController
   end
 
   def create
-    if params[:law_firm][:temp_password] != params[:law_firm][:temp_password_confirmation]
-      return flash[:alert] = "Both passwords must match" 
-      render redirect_to request.referrer
-    end
-
     @law_firm = LawFirm.new(law_firms_params)
   	if @law_firm.save
       # Pass true as a 2nd arg if admin wants to send the activity as notification as well
@@ -33,7 +28,7 @@ class Admin::LawFirmsController < Admin::BaseController
 
   		redirect_to :admin_law_firms
   	else
-  		flash[:alert] = @law_firm.errors.full_messages.join(',')
+  		flash.now[:alert] = @law_firm.errors.full_messages.join(',')
   		render :new
   	end
   end
@@ -45,7 +40,7 @@ class Admin::LawFirmsController < Admin::BaseController
       flash[:notice] = "Law firm information updated"
       redirect_to admin_law_firm_path(@law_firm)
   	else
-  		flash[:alert] = "There was an error updating the law firm"
+  		flash.now[:alert] = "There was an error updating the law firm"
   		render :new
   	end
   end
@@ -154,7 +149,7 @@ class Admin::LawFirmsController < Admin::BaseController
   private
 
   def law_firms_params
-  	params.require(:law_firm).permit(:name, :description, :email, :phone, :temp_password, :temp_password_confirmation, :relationship_manager_email, :law_firm_type, :principle_name, :principle_title, :principle_contact_info, :parent_company, :sister_firm, locations_attributes: [:id, :address1, :address2, :city, :province, :postal_code, :country, :_destroy], jurisdictions_attributes: [:id, :country, :_destroy,  city: []], practice_area: [])
+  	params.require(:law_firm).permit(:name, :description, :email, :phone, :temp_password, :temp_password_confirmation, :relationship_manager_email, :law_firm_type, :principle_name, :principle_title, :principle_contact_info, :parent_company, :sister_firm, locations_attributes: [:id, :address1, :address2, :city, :province, :postal_code, :country, :_destroy], jurisdictions_attributes: [:id, :country, :_destroy, city: []], users_attributes: [:id, :password, :password_confirmation, :_destroy], practice_area: [])
   end
 
 end
