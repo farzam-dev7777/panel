@@ -21,6 +21,11 @@
 				</tr>
 
 				<tr>
+					<td>Category</td>
+					<td><%= f.input :faq_category_id, label: false, collection: FaqCategory.all %></td>
+				</tr>
+
+				<tr>
 					<td colspan="2">
 						<%= f.button :submit, f.object.new_record? ? 'Create' : 'Update', class: "btn btn-primary" %>
 					</td>

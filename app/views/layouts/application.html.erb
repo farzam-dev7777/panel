@@ -207,7 +207,12 @@
     <% if current_law_firm %>
       <script type="text/javascript">
         window.doorbellOptions = {
-            appKey: 'jmrrnhLtSDvA0b1werKyiNoVi5SYAP44NBZkoAJycCHYYcXmNe5czwRTb8fYqVP7'
+            appKey: 'jmrrnhLtSDvA0b1werKyiNoVi5SYAP44NBZkoAJycCHYYcXmNe5czwRTb8fYqVP7',
+            hideEmail: true,
+            properties: { // Optional, a Javascript object of custom properties you want to set
+                loggedIn: true,
+                username: "<%= current_user.username %>"
+            }
         };
         (function(w, d, t) {
             var hasLoaded = false;

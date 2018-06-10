@@ -43,6 +43,7 @@ Rails.application.routes.draw do
     end
 
     resources :frequently_asked_questions
+    resources :faq_categories
     resources :severity_levels
 
     resources :security_alerts

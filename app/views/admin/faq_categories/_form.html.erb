@@ -1,0 +1,28 @@
+<% content_for :page_title do %>
+<% if @faq_category.new_record? %>
+<span>Create new FAQ</span>
+<% else %>
+<span>Edit <%= @faq_category.name %></span>
+<% end %>
+<% end %>
+<div class="table-responsive">
+	<%= simple_form_for([:admin, @faq_category]) do |f| %>
+		<table class="table table-bordered">
+
+			<tbody>
+				<tr>
+					<td>Name</td>
+					<td><%= f.input :name, autofocus: true, label: false %></td>
+				</tr>
+
+				<tr>
+					<td colspan="2">
+						<%= f.button :submit, f.object.new_record? ? 'Create' : 'Update', class: "btn btn-primary" %>
+					</td>
+				</tr>
+
+			</tbody>
+
+		</table>
+	<% end %>
+</div>

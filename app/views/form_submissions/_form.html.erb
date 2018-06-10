@@ -44,7 +44,7 @@
         </div>
       </div>
 
-      <div class="widget-footer" style="top: 54px;"">
+      <div class="widget-footer">
 
         <div class="text-center">
           <div class="btn-group">
@@ -56,13 +56,17 @@
               <%= link_to "<i class='fa fa-floppy-o'></i> Save".html_safe, current_step_path, class: 'btn btn-primary submit-form save-btn' %>
 
               <% if(last_step) %>
-                <a href="#" class="btn btn-default finalize-submission" data-form_id=<%= params[:id] %>>
-                  <i class='fa fa-caret-right'></i> Submit
-                </a>
+                <% if(current_user.role == 'master_user') %>
+                  <a href="#" class="btn btn-default finalize-submission" data-form_id=<%= params[:id] %>>
+                    <i class='fa fa-caret-right'></i> Submit
+                  </a>
+                <% end %>
               <% elsif @form_submission.status == 'follow_up' %>
-                <a href="#" class="btn btn-default finalize-submission" data-form_id=<%= params[:id] %>>
-                  <i class='fa fa-caret-right'></i> Submit
-                </a>
+                <% if(current_user.role == 'master_user') %>
+                  <a href="#" class="btn btn-default finalize-submission" data-form_id=<%= params[:id] %>>
+                    <i class='fa fa-caret-right'></i> Submit
+                  </a>
+                <% end %>
                 <%= link_to "Next <i class='fa fa-caret-right'></i> <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, next_step_path, class: 'btn btn-default submit-form next-btn' %>
               <% else %>
                 <%= link_to "Next <i class='fa fa-caret-right'></i> <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, next_step_path, class: 'btn btn-default submit-form next-btn' %>
@@ -84,10 +88,6 @@
       </div>
 
     </div>
-    
-    <br />
-    <br />
-    <br />
     <!-- end widget content -->
 
   </div>

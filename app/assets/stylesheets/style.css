@@ -1400,3 +1400,10 @@ div.checkbox {
 .has-follow-up {
   border-right: 5px solid #4c4c4c;
 }
+.widget-footer{  
+  bottom: 0px;
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 1;
+}

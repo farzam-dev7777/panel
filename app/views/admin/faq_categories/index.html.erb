@@ -1,21 +1,19 @@
 <% content_for :page_title do %>
-	<span>Frequently Asked Questions</span>
+	<span>FAQ Categories</span>
 <% end %>
 
 
 <% content_for :page_buttons do %>
-	<%= link_to "Create New FAQ", new_admin_frequently_asked_question_path, class: "btn btn-primary btn-md pull-right m-b-20" %>
+	<%= link_to "Create New FAQ Categories", new_admin_faq_category_path, class: "btn btn-primary btn-md pull-right m-b-20" %>
 <% end %>
 
 <div class="clearfix"></div>
 
 
-
-
 <div class="jarviswidget jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
 	<header>
 		<span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
-		<h2 class="font-md"><strong>Current FAQs </strong></h2>				
+		<h2 class="font-md"><strong>Current FAQ categories </strong></h2>				
 	</header>
 	<div class="no-padding">
 		<div class="jarviswidget-editbox"></div>
@@ -28,22 +26,20 @@
 					<table class="table table-bordered">
 						<thead>
 							<tr style="background: #007ac3;color: #fff;">
-								<th>Question</th>
-								<th>Answer</th>
+								<th>Name</th>
 								<th>Created</th>
 								<th>Action</th>
 							</tr>
 						</thead>
 
 						<tbody>
-							<% @faqs.each do |faq| %>
+							<% @faq_categories.each do |faq| %>
 								<tr>
-									<td><%= faq.question %></td>
-									<td><%= faq.answer %></td>
+									<td><%= faq.name %></td>
 									<td><%= "#{time_ago_in_words(faq.created_at)} ago" %></td>
 									<td class="text-center">
-										<%= link_to "Edit", edit_admin_frequently_asked_question_path(faq), class: "btn btn-xs btn-primary" %>	
-										<%= link_to "Delete", admin_frequently_asked_question_path(faq), method: :delete, class: "btn btn-xs btn-primary", data: { confirm: "Are you you want to delete?" } %>	
+										<%= link_to "Edit", edit_admin_faq_category_path(faq), class: "btn btn-xs btn-primary" %>	
+										<%= link_to "Delete", admin_faq_category_path(faq), method: :delete, class: "btn btn-xs btn-primary", data: { confirm: "Are you you want to delete?" } %>	
 									</td>
 								</tr>
 							<% end %>
@@ -52,7 +48,7 @@
 					</table>
 					<div class="clearfix"></div>
 
-					<%= will_paginate @faqs, renderer: BootstrapPagination::Rails %>
+					<%= will_paginate @faq_categories, renderer: BootstrapPagination::Rails %>
 				</div>
 			</div>	
 
