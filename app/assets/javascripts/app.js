@@ -1042,7 +1042,7 @@ $(document).ready(function(){
     var data = $(this).data();
     swal({
       title: "Are you sure?",
-      text: "You won't be able to edit these forms later",
+      text: "Once submitted, the Policy and Process sections will not be available for editing unless reopened by the SEAL Administrator.The Technology and History sections will remain open for updates.",
       type: "warning",
       showCancelButton: true,
       confirmButtonColor: "#DD6B55",
