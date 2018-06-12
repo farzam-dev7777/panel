@@ -20,9 +20,34 @@
 		<table class="table table-striped">
 			<tbody>
 					
-					<tr>
+					<!-- <tr>
 						<td class="text-right" width="20%"><strong>Type</strong></td>
 						<td><%= f.input :law_firm_type, label: false, collection: LawFirm::COMPANY_TYPES, input_html: { autocomplete: 'off', class: 'text-left' }, prompt: 'Please Select a Type' %></td>
+					</tr> -->
+
+					<tr>
+						<td class="text-right" width="20%"><strong>Initial Date of Engagement with the bank</strong></td>
+						<td><%= f.input :initial_date_of_engagement_with_the_bank, as: :datepicker, label: false, input_html: { autocomplete: 'off', class: 'text-left datepicker' } %></td>
+					</tr>
+
+					<tr>
+						<td class="text-right" width="20%"><strong>Type of matters your law firm handles for us</strong></td>
+						<td><%= f.input :type_of_matters_your_law_firm_handles_for_us, label: false, collection: LawFirm::TYPES_OF_MATTERS, input_html: { autocomplete: 'off', class: 'text-left', multiple: true } %></td>
+					</tr>
+
+					<tr>
+						<td class="text-right" width="20%"><strong>Type of services your law firm provides generally</strong></td>
+						<td><%= f.input :type_of_services_your_law_firm_provides_generally, label: false, collection: LawFirm::TYPES_OF_MATTERS, input_html: { autocomplete: 'off', class: 'text-left', multiple: true } %></td>
+					</tr>
+
+					<tr>
+						<td class="text-right" width="20%"><strong>Confidentiality level of matters that are handled</strong></td>
+						<td><%= f.input :confidentiality_level_of_matters_that_are_handled, label: false, collection: LawFirm::TYPES_OF_MATTERS, input_html: { autocomplete: 'off', class: 'text-left', multiple: true } %></td>
+					</tr>
+
+					<tr>
+						<td class="text-right" width="20%"><strong>No. of Lawyers</strong></td>
+						<td><%= f.input :number_of_lawyers, label: false, collection: LawFirm::NUMBER_OF_LAWYERS, input_html: { autocomplete: 'off', class: 'text-left' } %></td>
 					</tr>
 					
 					<tr>

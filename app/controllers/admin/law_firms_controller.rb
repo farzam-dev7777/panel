@@ -149,7 +149,29 @@ class Admin::LawFirmsController < Admin::BaseController
   private
 
   def law_firms_params
-  	params.require(:law_firm).permit(:name, :description, :email, :phone, :temp_password, :temp_password_confirmation, :relationship_manager_email, :law_firm_type, :principle_name, :principle_title, :principle_contact_info, :parent_company, :sister_firm, locations_attributes: [:id, :address1, :address2, :city, :province, :postal_code, :country, :_destroy], jurisdictions_attributes: [:id, :country, :_destroy, city: []], users_attributes: [:id, :password, :password_confirmation, :_destroy], practice_area: [])
+  	params.require(:law_firm).permit(
+      :name, :description, :email, :phone, :temp_password,
+      :temp_password_confirmation, :relationship_manager_email,
+      :law_firm_type, :principle_name, :principle_title,
+      :principle_contact_info, :parent_company, :sister_firm,
+      :initial_date_of_engagement_with_the_bank,
+      :confidentiality_level_of_matters_that_are_handled,
+      :number_of_lawyers,
+      locations_attributes: [
+        :id, :address1, :address2,
+        :city, :province, :postal_code,
+        :country, :_destroy
+      ], jurisdictions_attributes: [
+        :id, :country, :_destroy, city: []
+      ], users_attributes: [
+        :id, :password,
+        :password_confirmation, :_destroy
+      ],
+      practice_area: [],
+      type_of_matters_your_law_firm_handles_for_us: [],
+      type_of_services_your_law_firm_provides_generally: [],
+      confidentiality_level_of_matters_that_are_handled: []
+    )
   end
 
 end
