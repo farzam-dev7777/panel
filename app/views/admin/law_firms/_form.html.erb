@@ -42,7 +42,7 @@
 
 					<tr>
 						<td class="text-right" width="20%"><strong>Confidentiality level of matters that are handled</strong></td>
-						<td><%= f.input :confidentiality_level_of_matters_that_are_handled, label: false, collection: LawFirm::TYPES_OF_MATTERS, input_html: { autocomplete: 'off', class: 'text-left', multiple: true } %></td>
+						<td><%= f.input :confidentiality_level_of_matters_that_are_handled, label: false, collection: LawFirm::TYPES_OF_MATTERS, input_html: { autocomplete: 'off', class: 'text-left', multiple: false } %></td>
 					</tr>
 
 					<tr>
