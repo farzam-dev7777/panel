@@ -26,34 +26,34 @@
 					</tr> -->
 
 					<tr>
-						<td class="text-right" width="20%"><strong>Initial Date of Engagement with the bank</strong></td>
+						<td class="text-right" width="20%"><strong>Initial Date of Engagement with BMO</strong></td>
 						<td><%= f.input :initial_date_of_engagement_with_the_bank, as: :datepicker, label: false, input_html: { autocomplete: 'off', class: 'text-left datepicker' } %></td>
 					</tr>
 
 					<tr>
-						<td class="text-right" width="20%"><strong>Type of matters your law firm handles for us</strong></td>
-						<td><%= f.input :type_of_matters_your_law_firm_handles_for_us, label: false, collection: LawFirm::TYPES_OF_MATTERS, input_html: { autocomplete: 'off', class: 'text-left', multiple: true } %></td>
+						<td class="text-right" width="20%"><strong>Types of matters your law firm has handled for us to date</strong></td>
+						<td><%= f.input :type_of_matters_your_law_firm_handles_for_us, label: false, collection: LawFirm::TYPES_OF_MATTERS_FOR_US, input_html: { autocomplete: 'off', class: 'text-left', multiple: true } %></td>
 					</tr>
 
-					<tr>
+					<!-- <tr>
 						<td class="text-right" width="20%"><strong>Type of services your law firm provides generally</strong></td>
 						<td><%= f.input :type_of_services_your_law_firm_provides_generally, label: false, collection: LawFirm::TYPES_OF_MATTERS, input_html: { autocomplete: 'off', class: 'text-left', multiple: true } %></td>
-					</tr>
+					</tr> -->
 
-					<tr>
+					<!-- <tr>
 						<td class="text-right" width="20%"><strong>Confidentiality level of matters that are handled</strong></td>
 						<td><%= f.input :confidentiality_level_of_matters_that_are_handled, label: false, collection: LawFirm::TYPES_OF_MATTERS, input_html: { autocomplete: 'off', class: 'text-left', multiple: false } %></td>
-					</tr>
+					</tr> -->
 
 					<tr>
-						<td class="text-right" width="20%"><strong>No. of Lawyers</strong></td>
+						<td class="text-right" width="20%"><strong>No. of personnel</strong><i class="fa fa-question-circle-o help-text" data-help="All users that have access to law firm files, electronic or physical"></i></td>
 						<td><%= f.input :number_of_lawyers, label: false, collection: LawFirm::NUMBER_OF_LAWYERS, input_html: { autocomplete: 'off', class: 'text-left' } %></td>
 					</tr>
 					
-					<tr>
+					<!-- <tr>
 						<td class="text-right" width="20%"><strong>Practice Area</strong></td>
 						<td><%= f.input :practice_area, label: false, collection: LawFirm::PRACTICE_AREAS, input_html: { multiple: true } %></td>
-					</tr>
+					</tr> -->
 
 					<tr>
 						<% if @law_firm.new_record? %>
@@ -97,9 +97,9 @@
 						<tr>
 							<td colspan="2">
 								<div class="col-md-12 no-padding" style="margin-bottom: 15px">
-									<div class="col-md-4"><label><strong>City</strong></label></div>
+									<!-- <div class="col-md-4"><label><strong>City</strong></label></div> -->
 									<div class="col-md-3"><label><strong>Country</strong></label></div>
-									<div class="col-md-4"><label><strong>State/Province</strong></label></div>
+									<!-- <div class="col-md-4"><label><strong>State/Province</strong></label></div> -->
 								</div>
 								<%= f.simple_fields_for :locations do |field| %>
 							    <%= render partial: "location_fields", locals: {f: field} %>
@@ -110,7 +110,7 @@
 						  </td>
 					  </tr>
 
-						<tr>
+						<!-- <tr>
 							<td colspan="2">
 								<div class="col-md-12">
 									<div class="col-md-6">
@@ -120,7 +120,7 @@
 										<label><strong>States/Provinces</strong></label>
 									</div>
 								</div>
-								<%= f.simple_fields_for :jurisdictions do |field| %>
+								<% f.simple_fields_for :jurisdictions do |field| %>
 							    <%= render partial: "jurisdiction_fields", 
 							               locals: {f: field} unless field.object.nil? %>
 							  <% end %>
@@ -128,7 +128,7 @@
 						    <%= link_to_add_association '<span href="javascript:void(0);" class="btn btn-primary btn-sm"><i class="fa fa-plus-circle"></i> Add Law Firm\'s Jurisdication(s)</span>'.html_safe, f, :jurisdictions %>
 							  </div>
 						  </td>
-					  </tr>
+					  </tr> -->
 					
 
 
