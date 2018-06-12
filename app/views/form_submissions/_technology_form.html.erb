@@ -1,16 +1,42 @@
+<style type="text/css">
+  .bar {
+    background: green;
+    color: #fff;
+    padding: 2px;
+    display: none;
+  }
+  #progress{
+    padding: 10px 0px;
+  }
+</style>
 <div class="technology-uploader-container hidden">
   <div class="col-md-10 col-md-offset-1 tech-form-wraper ">
     <a href="#" class="pull-right show_technology_form">Enter Manually</a>
     <br/>
     <h4 class="m-b-20 text-center">
-      <strong>Upload CSV</strong>
+      <strong>Upload Inventory</strong>
     </h4>
-    <p class="m-b-20 text-center">or <a href="/upload-technology.csv">Download sample CSV</a></p>
     <br/>
-    <div>
-      <input type="file" class="fileupload-technology" />
-      <div id="progress">
-        <div class="bar" style="width: 0%;"></div>
+    <div class="col-md-5">
+      <div class="upload_inventory">
+        <h1>Use SEAL's format</h1>
+        <input type="file" class="fileupload-technology" data-upload-custom-csv="true" />
+        <div id="progress">
+          <div class="bar" style="width: 0%;"></div>
+        </div>
+        <p class="m-b-20"><a href="/upload-technology.csv">Download sample CSV</a></p>
+      </div>
+    </div>
+    <div class="col-md-2 upload_inventory_or">OR</div>
+    <div class="col-md-5">
+      <div class="upload_inventory">
+        <h1>Other software inventory list</h1>
+        <input type="file" class="fileupload-technology" data-upload-custom-csv="false" />
+        <div id="progress">
+          <div class="bar" style="width: 0%;"></div>
+        </div>
+        <%- file = @form_submission.file_attachments.first %>
+        <p><%= file.file.file.filename if file %></p>
       </div>
     </div>
   </div>
@@ -42,7 +68,7 @@
 
   <%= simple_fields_for @form_submission do |f| %>
     <div class="col-md-10 col-md-offset-1 tech-form-wraper form hidden">
-      <a href="#" class="pull-right show_technology_uploader">Upload CSV instead</a>
+      <a href="#" class="pull-right show_technology_uploader">Upload inventory of end points instead</a>
       <div class="col-md-12 no-padding">
   	  	<h4 class="m-b-20 text-center">
           <strong>OPERATING SYSTEMS</strong>

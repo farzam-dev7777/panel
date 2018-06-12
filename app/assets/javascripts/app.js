@@ -14,10 +14,7 @@ $(document).ready(function(){
         return "Are you sure you wish to leave the page? You may loose your changes";
       }
     }
-
   }
-
-
 
   $(".show_technology_uploader").on('click', function(){
     $(".technology-uploader-container").removeClass('hidden');
@@ -35,9 +32,13 @@ $(document).ready(function(){
     url: window.location.pathname + "_bulk_upload",
     type: 'POST',
     add: function(e, data) {
+      upload_custom_file = $(e.target).data("uploadCustomCsv")
+      data.url = window.location.pathname + "_bulk_upload?upload_custom_file=" + upload_custom_file;
       var uploadErrors = [];
-      if(data.originalFiles[0]['type'].length && data.originalFiles[0]['type'] != 'text/csv') {
-          uploadErrors.push('Not an accepted file type, only CSV files are allowed.');
+      if(upload_custom_file){
+        if(data.originalFiles[0]['type'].length && data.originalFiles[0]['type'] != 'text/csv') {
+            uploadErrors.push('Not an accepted file type, only CSV files are allowed.');
+        }
       }
       if(data.originalFiles[0]['size'] && data.originalFiles[0]['size'] > 10000000) {
           uploadErrors.push('Filesize is too big. Maximum filesize allowed is 10MB');
@@ -50,18 +51,22 @@ $(document).ready(function(){
     },
     done: function (e, data) {
       response = JSON.parse(data.response().result);
-      if(response.invalid_rows.length == 0){
-        sweetAlert("Success", "Successfully imported " + response.rows.length + " rows", "success");
-        setTimeout(function(){
-          window.location.reload()
-        }, 5000);
-      }else if(response.rows.length == 0){
-        sweetAlert("Oops...", "Looks like there's an issue with the CSV you have uploaded, please use the sample CSV", "error");
+      if(response.upload_custom_file){
+        if(response.invalid_rows.length == 0){
+          sweetAlert("Success", "Successfully imported " + response.rows.length + " rows", "success");
+          setTimeout(function(){
+            window.location.reload()
+          }, 5000);
+        }else if(response.rows.length == 0){
+          sweetAlert("Oops...", "Looks like there's an issue with the CSV you have uploaded, please use the sample CSV", "error");
+        }else{
+          sweetAlert("Oops...", "Successfully imported " + response.rows.length + " rows but there are " + response.invalid_rows.length + " row(s) that we were not able to import", "warning");
+          setTimeout(function(){
+            window.location.reload()
+          }, 5000);
+        }
       }else{
-        sweetAlert("Oops...", "Successfully imported " + response.rows.length + " rows but there are " + response.invalid_rows.length + " row(s) that we were not able to import", "warning");
-        setTimeout(function(){
-          window.location.reload()
-        }, 5000);
+        sweetAlert("Success", response.message, "success");
       }
     },
     progressall: function (e, data) {
