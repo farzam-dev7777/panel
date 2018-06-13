@@ -4,20 +4,20 @@ class FormField < ApplicationRecord
     config[:relation] = ->(instance) {instance.class.base_class}
   end
 
-  belongs_to :formable, polymorphic: true
-  belongs_to :form
+  belongs_to :formable, polymorphic: true, touch: true
+  belongs_to :form, touch: true
 
   has_many :logics, foreign_key: 'change_field_id', class_name: Logic
   has_many :listen_fields, foreign_key: 'listen_field_id', class_name: Logic
   accepts_nested_attributes_for :logics, allow_destroy: true
 
-  belongs_to :parent, :class_name => 'FormField'
+  belongs_to :parent, :class_name => 'FormField', touch: true
   has_many   :children, ->{ordered_by_position_asc}, :class_name => 'FormField', :foreign_key => 'parent_id'
   has_many   :dropdown_options
   has_many   :form_values
   has_many   :file_attachments
 
-  belongs_to :show_when_form_field, class_name: 'FormField'
+  belongs_to :show_when_form_field, class_name: 'FormField', touch: true
 
   validates :type, presence: true
 

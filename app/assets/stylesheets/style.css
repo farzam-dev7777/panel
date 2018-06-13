@@ -1021,10 +1021,14 @@ h3.firm-score-declined span {
 }
 
 .control-label i, .fa.fa-question-circle-o.help-text {
-  background-color: yellow;
+  background-color: #2cbbad;
   border-radius: 50%;
   position: relative;
-  bottom: 3px; 
+  bottom: 3px;
+  margin-right: 5px;
+  color: #fff;
+  width: 14px;
+  padding: 0px 1px;
 }
 
 .gfe-field label {
@@ -1418,4 +1422,7 @@ div.checkbox {
   padding: 48px;
   text-align: center;
   font-size: 35px;
+}
+.remove_fields.dynamic{
+  color: #F44336;
 }

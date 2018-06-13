@@ -1,8 +1,8 @@
 <div>
-	<label><%= field.try(:label) %></label>
   <% if(!v.object.try(:form_field).try(:help_description).blank?) %>
     <i class="fa fa-question-circle-o help-text" data-help="<%= v.object.try(:form_field).try(:help_description) %>"></i>
   <% end %> 
+  <label><%= field.try(:label) %></label>
   <%= v.input :value, as: :hidden, input_html: { class: 'repeater-field-value' } %>
 
   <div class="clearfix"></div>
@@ -33,7 +33,7 @@
     <%= render partial: "cloud_provider_fields", 
                locals: {f: cloud_provider} unless cloud_provider.object.nil? %>
   <% end %>
-  <div class="add-cloud-provider text-right">
+  <div class="add-cloud-provider">
   	<% if current_user && !current_user.is_an_admin? %>
 	    <%= link_to_add_association '<span href="javascript:void(0);" class="btn btn-default btn-sm"><i class="fa fa-plus-circle"></i> Cloud Provider</span>'.html_safe, v, :cloud_providers %>
 	   <% end %>

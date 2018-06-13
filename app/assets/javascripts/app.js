@@ -887,11 +887,17 @@ $(document).ready(function(){
     var textFields = $(this).parent().parent().prev('.text-only-fields');
     $(this).parent().parent().remove();
 
-    textFields.find('.vendor-wrapper input').val($(this).parent().children().find('select').val());
-    textFields.find('.platform-wrapper input').val($(this).parent().parent().children('.platform-wrapper').find('select').val());
-    textFields.find('.version-wrapper input').val($(this).parent().parent().children('.version-wrapper').find('select').val());
-    textFields.find('.service_pack-wrapper input').val($(this).parent().parent().children('.service_pack-wrapper').find('select').val());
-    textFields.find('.supported-wrapper select').val($(this).parent().parent().children('.supported-wrapper').find('select').val());
+    vendor_val = $(this).parent().children().find('select').val()
+    platform_val = $(this).parent().parent().children('.platform-wrapper').find('select').val()
+    version_val = $(this).parent().parent().children('.version-wrapper').find('select').val()
+    service_pack_val = $(this).parent().parent().children('.service_pack-wrapper').find('select').val()
+    supported_val = $(this).parent().parent().children('.supported-wrapper').find('select').val()
+
+    textFields.find('.vendor-wrapper input').val(vendor_val ? vendor_val : "NA");
+    textFields.find('.platform-wrapper input').val(platform_val ? platform_val : "NA");
+    textFields.find('.version-wrapper input').val(version_val ? version_val : "NA");
+    textFields.find('.service_pack-wrapper input').val(service_pack_val ? service_pack_val : "NA");
+    textFields.find('.supported-wrapper select').val(supported_val ? supported_val : "Yes").trigger("chosen:updated");
   
     textFields.removeClass('hidden').show();
     

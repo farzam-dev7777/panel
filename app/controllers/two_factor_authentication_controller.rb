@@ -4,7 +4,8 @@ class TwoFactorAuthenticationController < ApplicationController
   skip_before_filter :verify_authenticity_token, :authenticate_2fa
 
 	def new
-    # session[:authorized] = true if Rails.env == 'development'
+    session[:authorized] = true if Rails.env == 'development'
+    redirect_to root_path if current_user.nil?
     if session[:authorized]
       navigate_user
     end
