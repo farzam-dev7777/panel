@@ -5,16 +5,16 @@ $(document).ready(function(){
   
   // $('.dynamic-select').trigger('change');
 
-  if($(".form-wizard-wrapper").length > 0){
-    // $(window).unload(function(){
-    //   alert("Goodbye!");
-    // });
-    window.onbeforeunload = function() {
-      if(!window.skipUnload){
-        return "Are you sure you wish to leave the page? You may loose your changes";
-      }
-    }
-  }
+  // if($(".form-wizard-wrapper").length > 0){
+  //   // $(window).unload(function(){
+  //   //   alert("Goodbye!");
+  //   // });
+  //   window.onbeforeunload = function() {
+  //     if(!window.skipUnload){
+  //       return "Are you sure you wish to leave the page? You may loose your changes";
+  //     }
+  //   }
+  // }
 
   $(".show_technology_uploader").on('click', function(){
     $(".technology-uploader-container").removeClass('hidden');
