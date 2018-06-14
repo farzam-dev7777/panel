@@ -18,8 +18,8 @@
       <div class="clearfix"></div>
       <div class="row">
         <div class="col-md-12 logics" 
-             data-logics=<%= logics.to_json(methods: :repeater_field) %>
-             data-follow-ups=<%= @form_submission.follow_ups.review.to_json(methods: :form_field_id) %>
+             data-logics='<%= logics.to_json(methods: :repeater_field).to_s %>'
+             data-follow-ups='<%= @form_submission.follow_ups.review.to_json(methods: :form_field_id) %>'
              data-form-submission-status=<%= @form_submission.status %>>
 
              <% if @form_submission.status == 'follow_up' %>
