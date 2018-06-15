@@ -210,7 +210,7 @@
 								<tr>
 									<td><%= link_to firm.name, admin_law_firm_path(firm) %>	</td>
 									<td><%= firm.form_submissions.latest.try(:status).try(:humanize) %></td>
-									<td><%= firm.updated_at.strftime(LawFirm::TIME_FORMAT) %></td>
+									<td><%= firm.updated_at.in_time_zone('Eastern Time (US & Canada)').strftime(LawFirm::TIME_FORMAT) %></td>
 									<td class="text-center">
 										<div> 
 											<span class="percent txt-color-blue semi-bold">
