@@ -133,10 +133,10 @@ div#dt_basic_length .select2 {
   clear: both;
 }
 
-*[data-role=activerecord_sortable]{
+/**[data-role=activerecord_sortable]{
   list-style: none;
   padding: 0px;  
-}
+}*/
 
 span.sub-fields-arrow:before {
   content: "\2937";

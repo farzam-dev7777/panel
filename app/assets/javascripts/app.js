@@ -666,7 +666,7 @@ $(document).ready(function(){
     html = $(this).data("association-insertion-template");
     $(this).parent().prepend(html);
   })
-  $('*[data-role=activerecord_sortable]').activerecord_sortable();
+  // $('*[data-role=activerecord_sortable]').activerecord_sortable();
 
   // $('select').select2();
   $('select').chosen({

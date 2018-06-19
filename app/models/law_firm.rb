@@ -40,6 +40,7 @@ class LawFirm < ApplicationRecord
 
   EMAIL_PREFIX = "@check.com"
   TIME_FORMAT = "%d %b %y, %I:%M %Z"
+  DATE_FORMAT = "%d %b %y"
   SYSTEM_SCORE_WEIGHTAGE = 0.4
   RESPONSIVENESS_SCORE_WEIGHTAGE = 0.4
   ASSESSOR_SCORE_WEIGHTAGE = 0.2

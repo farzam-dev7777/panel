@@ -1,4 +1,5 @@
-<ul data-role="activerecord_sortable" class="accordion">
+<!-- <ul data-role="activerecord_sortable" class="accordion"> -->
+<ul  class="accordion">
   <%= f.simple_fields_for :form_fields, form_fields do |form_field| %>
     <li class="form-field" data-role="form_field<%= form_field.object.id.to_s %>" data-position="<%= form_field.object.position %>">
       <div>

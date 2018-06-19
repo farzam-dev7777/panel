@@ -108,22 +108,23 @@
 								<div class="col-md-8 data"><%= !@law_firm.user.try(:username).blank? ? @law_firm.users.first.try(:username) : '-' %></div>
 							</div>
 							<div class="col-md-12">
-								<div class="col-md-4 column">Type</div>		
-								<div class="col-md-8 data"><%= @law_firm.law_firm_type %></div>
+								<div class="col-md-4 column">Initial Date of Engagement with BMO</div>		
+								<div class="col-md-8 data"><%= @law_firm.initial_date_of_engagement_with_the_bank && @law_firm.initial_date_of_engagement_with_the_bank.in_time_zone('Eastern Time (US & Canada)').strftime(LawFirm::DATE_FORMAT) %></div>
 							</div>
 							<div class="col-md-12">
-								<div class="col-md-4 column">Practice Area</div>		
-								<div class="col-md-8 data"><%= @law_firm.practice_area.reject(&:blank?).join(", ") %></div>
+								<div class="col-md-4 column">Types of matters your law firm has handled for us to date</div>		
+								<div class="col-md-8 data"><%= @law_firm.type_of_matters_your_law_firm_handles_for_us.reject(&:blank?).join(", ") %></div>
+							</div>
+
+
+							<div class="col-md-12">
+								<div class="col-md-4 column">No. of personnel</div>		
+								<div class="col-md-8 data"><%= @law_firm.number_of_lawyers %></div>
 							</div>
 
 							<div class="col-md-12">
 								<div class="col-md-4 column">Locations</div>		
-								<div class="col-md-8 data"><%= @law_firm.locations.map{|location| "#{location.city}, #{location.province}, #{location.country}" }.join("<br />").html_safe %></div>
-							</div>
-
-							<div class="col-md-12">
-								<div class="col-md-4 column">Jurisdiction</div>		
-								<div class="col-md-8 data"><%= @law_firm.jurisdictions.map{|jurisdiction| "#{jurisdiction.country} - <i>#{jurisdiction.city.reject(&:blank?).join(', ')}</i>" }.join("<br />").html_safe %></div>
+								<div class="col-md-8 data"><%= @law_firm.locations.map{|location| [location.city, location.province, location.country].reject(&:nil?).join(',') }.join("<br />").html_safe %></div>
 							</div>
 						</div>
 
