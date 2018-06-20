@@ -102,6 +102,8 @@ class FormSubmissionsController < BaseController
   def update
     @form_submission = FormSubmission.find(params[:id])
     if @form_submission.update(form_submissions_params)
+      @form_submission.last_submitted_by = current_user
+      @form_submission.save
       @form_submission.touch
       if request.referrer.split('/').last.to_sym == :technology_profile
         FormSubmission.log_activity('technologies_updated', true, @form_submission, current_user)

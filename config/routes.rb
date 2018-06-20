@@ -148,6 +148,7 @@ Rails.application.routes.draw do
   end
 
   get 'set_new_password' => 'law_firms#set_new_password'
+  get 'pull_qr_code' => 'two_factor_authentication#pull'
   post 'delete_user' => 'law_firms#delete_user'
   post 'update_new_password' => 'law_firms#update_new_password'
 

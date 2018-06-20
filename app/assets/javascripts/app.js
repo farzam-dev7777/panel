@@ -132,6 +132,18 @@ $(document).ready(function(){
 
   })
 
+  if($.cookie('byp-text-understood') == 'true') {
+    $('.byp-wrapper-help').addClass('hidden')
+  } else {
+    $('.byp-wrapper-help').removeClass('hidden')
+  }
+  $('.dont-show-byp-wrapper a').click(function(){
+    if($(this).parent().find('input[type=checkbox]').is(':checked')) {
+      $.cookie('byp-text-understood', 'true');
+    }
+    $(this).parent().parent().hide();
+  })
+
   if($.cookie('tech-help-text-understood') == 'true') {
     $('.tech-form-wraper-help').addClass('hidden')
   } else {
@@ -186,9 +198,9 @@ $(document).ready(function(){
     }
   }
 
-  window.setInterval(function(){
-    save_user_progress(true);
-  }, 300000);
+  // window.setInterval(function(){
+  //   save_user_progress(true);
+  // }, 300000);
 
   $(document).on('click', '.decrypt-file', function(){
     var params = $(this).data(); 

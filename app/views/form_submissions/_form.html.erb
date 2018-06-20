@@ -4,7 +4,11 @@
     <span class="widget-icon"> <i class="fa fa-certificate"></i> </span>
     <h2>Certification Submission</h2>
     <div style="float: right;padding-right: 10px;">
-      <h2>Last Saved: <strong class="last-updated-timestamp"><%= @form_submission.updated_at.in_time_zone('Eastern Time (US & Canada)').strftime(LawFirm::TIME_FORMAT) %></strong></h2>
+      <h2>Last Saved: <strong class="last-updated-timestamp"><%= @form_submission.updated_at.in_time_zone('Eastern Time (US & Canada)').strftime(LawFirm::TIME_FORMAT) %></strong> 
+        <% if @form_submission.last_submitted_by %>
+          by <strong><%= @form_submission.last_submitted_by.try(:username) %></strong>
+        <% end %>
+      </h2>
     </div>
 
   </header>

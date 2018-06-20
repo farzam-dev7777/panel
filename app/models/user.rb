@@ -23,6 +23,10 @@ class User < ApplicationRecord
 
   validate :password_complexity
 
+  def google_qr_uri
+    "data:image/png;base64,#{Base64.encode64(open(super).to_a.join)}"
+  end
+
   def password_complexity
     return true if password.blank? && !self.new_record?
     if password != password_confirmation

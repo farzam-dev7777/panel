@@ -2,6 +2,7 @@ class FormSubmission < ApplicationRecord
   include Submittable
   include HasAttachedFiles
   belongs_to :law_firm
+  belongs_to :last_submitted_by, class_name: User
   has_many :technology_values
   has_many :history_submissions
   has_many :notes
