@@ -1,10 +1,10 @@
 <div>
-  <label><%= field.try(:label) %></label>
-
-  <%= v.input :value, as: :hidden, input_html: { class: 'repeater-field-value' } %>
   <% if(!v.object.try(:form_field).try(:help_description).blank?) %>
     <i class="fa fa-question-circle-o help-text" data-help="<%= v.object.try(:form_field).try(:help_description) %>"></i>
   <% end %>
+  <label><%= field.try(:label) %></label>
+
+  <%= v.input :value, as: :hidden, input_html: { class: 'repeater-field-value' } %>
   <div class="clearfix"></div>
   <%= v.simple_fields_for :activity_time_log, v.object.render_activity_time_log_fields do |activity_time_log| %>
   

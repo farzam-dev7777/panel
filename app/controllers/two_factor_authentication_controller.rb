@@ -5,6 +5,7 @@ class TwoFactorAuthenticationController < ApplicationController
 
 	def new
     session[:authorized] = true if Rails.env == 'development'
+    redirect_to root_path if current_user.nil?
     if session[:authorized]
       navigate_user
     end

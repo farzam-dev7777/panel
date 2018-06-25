@@ -1020,11 +1020,15 @@ h3.firm-score-declined span {
   margin-bottom: 80px;
 }
 
-.control-label i {
-  background-color: yellow;
+.control-label i, .fa.fa-question-circle-o.help-text {
+  background-color: #2cbbad;
   border-radius: 50%;
   position: relative;
-  bottom: 10px; 
+  bottom: 3px;
+  margin-right: 5px;
+  color: #fff;
+  width: 14px;
+  padding: 0px 1px;
 }
 
 .gfe-field label {
@@ -1399,4 +1403,26 @@ div.checkbox {
 
 .has-follow-up {
   border-right: 5px solid #4c4c4c;
+}
+.widget-footer{  
+  bottom: 0px;
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 1;
+}
+
+.upload_inventory {
+  padding: 20px;
+  border: 1px dashed #ccc;
+}
+.upload_inventory input{
+}
+.upload_inventory_or{
+  padding: 48px;
+  text-align: center;
+  font-size: 35px;
+}
+.remove_fields{
+  color: #F44336;
 }

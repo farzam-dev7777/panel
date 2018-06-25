@@ -44,21 +44,19 @@ class Admin::FrequentlyAskedQuestionsController < Admin::BaseController
   end
 
   def destroy
-  	@faq =  FrequentlyAskedQuestion.find(params[:id])
-    alert_msg = ""
-    if @faq 
-      @faq.destroy
-      alert_msg = "Security alert has been successfully deleted"
+  	@faq = FrequentlyAskedQuestion.find(params[:id])
+    if @faq.destroy
+      alert_msg = "FAQ has been successfully deleted"
+      redirect_to admin_frequently_asked_questions_path, notice: alert_msg
     else
-      alert_msg = "We couldn't find the security alert in our database."
+      redirect_to admin_frequently_asked_questions_path, alert: "Couldn't delete the FAQ"
     end
-    redirect_to admin_faqs_path, alert: alert_msg
   end
 
   private
 
   def faq_params
-  	params.require(:frequently_asked_question).permit(:question, :answer)
+  	params.require(:frequently_asked_question).permit(:question, :answer, :faq_category_id)
   end
 
 end

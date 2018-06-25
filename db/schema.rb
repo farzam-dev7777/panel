@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180531023630) do
+ActiveRecord::Schema.define(version: 20180612040302) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -137,6 +137,12 @@ ActiveRecord::Schema.define(version: 20180531023630) do
     t.integer  "internal_id"
   end
 
+  create_table "faq_categories", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "file_attachments", force: :cascade do |t|
     t.string   "file"
     t.integer  "form_value_id"
@@ -231,8 +237,9 @@ ActiveRecord::Schema.define(version: 20180531023630) do
   create_table "frequently_asked_questions", force: :cascade do |t|
     t.string   "question"
     t.text     "answer"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "faq_category_id"
   end
 
   create_table "history_submissions", force: :cascade do |t|
@@ -283,8 +290,8 @@ ActiveRecord::Schema.define(version: 20180531023630) do
     t.string   "description"
     t.string   "email"
     t.string   "phone"
-    t.datetime "created_at",                                 null: false
-    t.datetime "updated_at",                                 null: false
+    t.datetime "created_at",                                                        null: false
+    t.datetime "updated_at",                                                        null: false
     t.integer  "user_id"
     t.integer  "internal_id"
     t.string   "relationship_manager_email"
@@ -295,11 +302,16 @@ ActiveRecord::Schema.define(version: 20180531023630) do
     t.string   "principle_name"
     t.string   "principle_title"
     t.text     "principle_contact_info"
-    t.boolean  "profile_completed",          default: false
+    t.boolean  "profile_completed",                                 default: false
     t.integer  "max_users"
     t.string   "public_uid"
     t.string   "temp_password_confirmation"
-    t.boolean  "updated_by_lawfirm",         default: false
+    t.boolean  "updated_by_lawfirm",                                default: false
+    t.datetime "initial_date_of_engagement_with_the_bank"
+    t.text     "type_of_matters_your_law_firm_handles_for_us"
+    t.text     "type_of_services_your_law_firm_provides_generally"
+    t.text     "confidentiality_level_of_matters_that_are_handled"
+    t.string   "number_of_lawyers"
   end
 
   create_table "locations", force: :cascade do |t|

@@ -67,12 +67,15 @@
             <% end %>
             <% if current_user.role == 'master_user' %>
               <li>
-                <%= link_to "Add Users", add_users_law_firms_path %>
+                <%= link_to "Add Colaborators", add_users_law_firms_path %>
+              </li>
+              <li>
+                <%= link_to "Edit Profile", edit_law_firm_path(current_law_firm) %>
               </li>
               <li class="divider"></li>
             <% end %>
             <li>
-              <%= link_to "Change password", edit_user_registration_path %>
+              <%= link_to "Change password", "/set_new_password" %>
             </li>
             <li class="divider"></li>
             <li>
@@ -83,13 +86,13 @@
 
         </div>
 
-        <div class="faqs col-md-1 pull-right">
+        <!-- <div class="faqs col-md-1 pull-right">
          <div>
             <a href="/frequently_asked_questions">
               <i class="fa fa-question-circle"></i> <span>FAQs</span>
             </a>
          </div>
-       </div>
+       </div> -->
 
       <!-- #PROJECTS: projects dropdown -->
       <!-- end projects dropdown -->
@@ -204,7 +207,12 @@
     <% if current_law_firm %>
       <script type="text/javascript">
         window.doorbellOptions = {
-            appKey: 'jmrrnhLtSDvA0b1werKyiNoVi5SYAP44NBZkoAJycCHYYcXmNe5czwRTb8fYqVP7'
+            appKey: 'jmrrnhLtSDvA0b1werKyiNoVi5SYAP44NBZkoAJycCHYYcXmNe5czwRTb8fYqVP7',
+            hideEmail: true,
+            properties: { // Optional, a Javascript object of custom properties you want to set
+                loggedIn: true,
+                username: "<%= current_user.username %>"
+            }
         };
         (function(w, d, t) {
             var hasLoaded = false;

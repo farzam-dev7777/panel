@@ -8,10 +8,10 @@
 %>
 
 <div class="form-group <%= form_class %>">
-  <label class="<%= label_class %> control-label parent-f-sized-label"><%= field.label %></label>
   <% if(!v.object.try(:form_field).try(:help_description).blank?) %>
     <i class="fa fa-question-circle-o help-text" data-help="<%= v.object.try(:form_field).try(:help_description) %>"></i>
   <% end %>
+  <label class="<%= label_class %> control-label parent-f-sized-label"><%= field.label %></label>
   <%= v.input :value, {
     label: false,
     collection: field.collection.sort,

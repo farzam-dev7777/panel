@@ -3,6 +3,14 @@ class ApplicationController < ActionController::Base
   helper_method :current_law_firm
   before_filter :authenticate_2fa
 
+  before_filter :set_cache_headers
+
+  def set_cache_headers
+    response.headers["Cache-Control"] = "no-cache, no-store"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
+  end
+
   def authenticate_2fa
     if (current_user) && ( current_user.role == 'superadmin' || current_user.role == 'admin' ) && request.env.fetch("PATH_INFO") == "/"
       redirect_to admin_root_url

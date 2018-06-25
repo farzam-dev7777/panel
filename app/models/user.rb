@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   # acts_as_messageable
-  acts_as_google_authenticated :column => :username
+  acts_as_google_authenticated :column => :username, :method => :username, :issuer => 'SEAL'
 
   devise :database_authenticatable,
          :recoverable, :trackable, 
@@ -20,6 +20,17 @@ class User < ApplicationRecord
   default_scope { where("deactivated_at IS NULL") }
 
   attr_accessor :login
+
+  validate :password_complexity
+
+  def password_complexity
+    return true if password.blank? && !self.new_record?
+    if password != password_confirmation
+      errors.add :password, "both passwords should match" 
+    end
+    return if password.present? && password =~ /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{10,100}$/
+    errors.add :password, 'complexity requirement not met. Length should be 10-100 characters and include: 1 Upper case, 1 lower case, 1 digit and 1 special char'
+  end
 
   def login=(login)
     @login = login

@@ -1,8 +1,8 @@
 class FormValue < ApplicationRecord
   include HasAttachedFiles
 
-  belongs_to :form_field
-  belongs_to :submittable, polymorphic: true
+  belongs_to :form_field, touch: true
+  belongs_to :submittable, polymorphic: true, touch: true
   has_many   :file_attachments, dependent: :destroy
   has_many   :vendors, dependent: :destroy
   has_many   :cyber_security_standards, dependent: :destroy

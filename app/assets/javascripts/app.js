@@ -5,6 +5,17 @@ $(document).ready(function(){
   
   // $('.dynamic-select').trigger('change');
 
+  // if($(".form-wizard-wrapper").length > 0){
+  //   // $(window).unload(function(){
+  //   //   alert("Goodbye!");
+  //   // });
+  //   window.onbeforeunload = function() {
+  //     if(!window.skipUnload){
+  //       return "Are you sure you wish to leave the page? You may loose your changes";
+  //     }
+  //   }
+  // }
+
   $(".show_technology_uploader").on('click', function(){
     $(".technology-uploader-container").removeClass('hidden');
     $(".technology-form-container").addClass('hidden');
@@ -21,9 +32,13 @@ $(document).ready(function(){
     url: window.location.pathname + "_bulk_upload",
     type: 'POST',
     add: function(e, data) {
+      upload_custom_file = $(e.target).data("uploadCustomCsv")
+      data.url = window.location.pathname + "_bulk_upload?upload_custom_file=" + upload_custom_file;
       var uploadErrors = [];
-      if(data.originalFiles[0]['type'].length && data.originalFiles[0]['type'] != 'text/csv') {
-          uploadErrors.push('Not an accepted file type, only CSV files are allowed.');
+      if(upload_custom_file){
+        if(data.originalFiles[0]['type'].length && data.originalFiles[0]['type'] != 'text/csv') {
+            uploadErrors.push('Not an accepted file type, only CSV files are allowed.');
+        }
       }
       if(data.originalFiles[0]['size'] && data.originalFiles[0]['size'] > 10000000) {
           uploadErrors.push('Filesize is too big. Maximum filesize allowed is 10MB');
@@ -36,18 +51,22 @@ $(document).ready(function(){
     },
     done: function (e, data) {
       response = JSON.parse(data.response().result);
-      if(response.invalid_rows.length == 0){
-        sweetAlert("Success", "Successfully imported " + response.rows.length + " rows", "success");
-        setTimeout(function(){
-          window.location.reload()
-        }, 5000);
-      }else if(response.rows.length == 0){
-        sweetAlert("Oops...", "Looks like there's an issue with the CSV you have uploaded, please use the sample CSV", "error");
+      if(response.upload_custom_file){
+        if(response.invalid_rows.length == 0){
+          sweetAlert("Success", "Successfully imported " + response.rows.length + " rows", "success");
+          setTimeout(function(){
+            window.location.reload()
+          }, 5000);
+        }else if(response.rows.length == 0){
+          sweetAlert("Oops...", "Looks like there's an issue with the CSV you have uploaded, please use the sample CSV", "error");
+        }else{
+          sweetAlert("Oops...", "Successfully imported " + response.rows.length + " rows but there are " + response.invalid_rows.length + " row(s) that we were not able to import", "warning");
+          setTimeout(function(){
+            window.location.reload()
+          }, 5000);
+        }
       }else{
-        sweetAlert("Oops...", "Successfully imported " + response.rows.length + " rows but there are " + response.invalid_rows.length + " row(s) that we were not able to import", "warning");
-        setTimeout(function(){
-          window.location.reload()
-        }, 5000);
+        sweetAlert("Success", response.message, "success");
       }
     },
     progressall: function (e, data) {
@@ -199,7 +218,6 @@ $(document).ready(function(){
           url: url,
           data: data,
           success: function(response) {
-            debugger;
             download("data:application/octet-stream;base64," + response.file, response.filename, data.application);
             toastr.success("", "Decryption process has begun")
           },
@@ -256,14 +274,14 @@ $(document).ready(function(){
   });
 
   if(currentUrl.indexOf("form_submissions") != -1 && currentUrl.indexOf("admin/form_submissions") == -1){
-    if ((!window.location.href.indexOf("technology_step") > -1 || !window.location.href.indexOf("history_step") > -1)){
-      $.LoadingOverlay("hide");
-    } else {
+    // if ((!window.location.href.indexOf("technology_step") > -1 || !window.location.href.indexOf("history_step") > -1)){
+    //   $.LoadingOverlay("hide");
+    // } else {
       $.LoadingOverlay("show", { 
         color:  'rgba(255, 255, 255, 0.96)',
         custom: customElement
       });
-    }
+    // }
   }
 
   $('.add-all-multiselect-options').on('click', function(){
@@ -417,7 +435,6 @@ $(document).ready(function(){
 
   $(".add_fields").click(function(){
     setTimeout(function(){
-      debugger;
       $('.location-object').each(function(){
         if(!$(this).find('.law_firm_locations_province select').val()){
           $(this).find('.law_firm_locations_country select').trigger('change');
@@ -729,6 +746,8 @@ $(document).ready(function(){
   var ajaxRequestInProcess = false;
   $('.submit-form').click(function(e){
     e.preventDefault();
+
+    window.skipUnload = true;
     
     $(this).find('.loader').removeClass('hidden');
     window.link_to_redirect_to = $(this).attr('href');
@@ -868,11 +887,17 @@ $(document).ready(function(){
     var textFields = $(this).parent().parent().prev('.text-only-fields');
     $(this).parent().parent().remove();
 
-    textFields.find('.vendor-wrapper input').val($(this).parent().children().find('select').val());
-    textFields.find('.platform-wrapper input').val($(this).parent().parent().children('.platform-wrapper').find('select').val());
-    textFields.find('.version-wrapper input').val($(this).parent().parent().children('.version-wrapper').find('select').val());
-    textFields.find('.service_pack-wrapper input').val($(this).parent().parent().children('.service_pack-wrapper').find('select').val());
-    textFields.find('.supported-wrapper select').val($(this).parent().parent().children('.supported-wrapper').find('select').val());
+    vendor_val = $(this).parent().children().find('select').val()
+    platform_val = $(this).parent().parent().children('.platform-wrapper').find('select').val()
+    version_val = $(this).parent().parent().children('.version-wrapper').find('select').val()
+    service_pack_val = $(this).parent().parent().children('.service_pack-wrapper').find('select').val()
+    supported_val = $(this).parent().parent().children('.supported-wrapper').find('select').val()
+
+    textFields.find('.vendor-wrapper input').val(vendor_val ? vendor_val : "NA");
+    textFields.find('.platform-wrapper input').val(platform_val ? platform_val : "NA");
+    textFields.find('.version-wrapper input').val(version_val ? version_val : "NA");
+    textFields.find('.service_pack-wrapper input').val(service_pack_val ? service_pack_val : "NA");
+    textFields.find('.supported-wrapper select').val(supported_val ? supported_val : "Yes").trigger("chosen:updated");
   
     textFields.removeClass('hidden').show();
     
@@ -1028,7 +1053,7 @@ $(document).ready(function(){
     var data = $(this).data();
     swal({
       title: "Are you sure?",
-      text: "You won't be able to edit these forms later",
+      text: "Once submitted, the Policy and Process sections will not be available for editing unless reopened by the SEAL Administrator.The Technology and History sections will remain open for updates.",
       type: "warning",
       showCancelButton: true,
       confirmButtonColor: "#DD6B55",
@@ -1142,8 +1167,8 @@ $(document).ready(function(){
   function replaceChosenWithSelect2(){
     $('select[multiple]').chosen({
       create_option: true,
-              persistent_create_option: true,
-              skip_no_results: true
+      persistent_create_option: true,
+      skip_no_results: true
     });
     $('select').chosen();
   }
@@ -1316,8 +1341,8 @@ $(document).ready(function(){
   $(document).on('click', 'a.add_fields', function(){
     $('select[multiple]').chosen({
       create_option: true,
-              persistent_create_option: true,
-              skip_no_results: true
+      persistent_create_option: true,
+      skip_no_results: true
     });
     $('select').chosen();
   })
@@ -1837,4 +1862,3 @@ $('#extend-expiry-form').on('submit', function(e){
 // // Rollbar Snippet
 // !function(r){function e(n){if(o[n])return o[n].exports;var t=o[n]={exports:{},id:n,loaded:!1};return r[n].call(t.exports,t,t.exports,e),t.loaded=!0,t.exports}var o={};return e.m=r,e.c=o,e.p="",e(0)}([function(r,e,o){"use strict";var n=o(1).Rollbar,t=o(2);_rollbarConfig.rollbarJsUrl=_rollbarConfig.rollbarJsUrl||"https://cdnjs.cloudflare.com/ajax/libs/rollbar.js/1.9.4/rollbar.min.js";var a=n.init(window,_rollbarConfig),i=t(a,_rollbarConfig);a.loadFull(window,document,!_rollbarConfig.async,_rollbarConfig,i)},function(r,e){"use strict";function o(r){return function(){try{return r.apply(this,arguments)}catch(r){try{console.error("[Rollbar]: Internal error",r)}catch(r){}}}}function n(r,e,o){window._rollbarWrappedError&&(o[4]||(o[4]=window._rollbarWrappedError),o[5]||(o[5]=window._rollbarWrappedError._rollbarContext),window._rollbarWrappedError=null),r.uncaughtError.apply(r,o),e&&e.apply(window,o)}function t(r){var e=function(){var e=Array.prototype.slice.call(arguments,0);n(r,r._rollbarOldOnError,e)};return e.belongsToShim=!0,e}function a(r){this.shimId=++c,this.notifier=null,this.parentShim=r,this._rollbarOldOnError=null}function i(r){var e=a;return o(function(){if(this.notifier)return this.notifier[r].apply(this.notifier,arguments);var o=this,n="scope"===r;n&&(o=new e(this));var t=Array.prototype.slice.call(arguments,0),a={shim:o,method:r,args:t,ts:new Date};return window._rollbarShimQueue.push(a),n?o:void 0})}function l(r,e){if(e.hasOwnProperty&&e.hasOwnProperty("addEventListener")){var o=e.addEventListener;e.addEventListener=function(e,n,t){o.call(this,e,r.wrap(n),t)};var n=e.removeEventListener;e.removeEventListener=function(r,e,o){n.call(this,r,e&&e._wrapped?e._wrapped:e,o)}}}var c=0;a.init=function(r,e){var n=e.globalAlias||"Rollbar";if("object"==typeof r[n])return r[n];r._rollbarShimQueue=[],r._rollbarWrappedError=null,e=e||{};var i=new a;return o(function(){if(i.configure(e),e.captureUncaught){i._rollbarOldOnError=r.onerror,r.onerror=t(i);var o,a,c="EventTarget,Window,Node,ApplicationCache,AudioTrackList,ChannelMergerNode,CryptoOperation,EventSource,FileReader,HTMLUnknownElement,IDBDatabase,IDBRequest,IDBTransaction,KeyOperation,MediaController,MessagePort,ModalWindow,Notification,SVGElementInstance,Screen,TextTrack,TextTrackCue,TextTrackList,WebSocket,WebSocketWorker,Worker,XMLHttpRequest,XMLHttpRequestEventTarget,XMLHttpRequestUpload".split(",");for(o=0;o<c.length;++o)a=c[o],r[a]&&r[a].prototype&&l(i,r[a].prototype)}return e.captureUnhandledRejections&&(i._unhandledRejectionHandler=function(r){var e=r.reason,o=r.promise,n=r.detail;!e&&n&&(e=n.reason,o=n.promise),i.unhandledRejection(e,o)},r.addEventListener("unhandledrejection",i._unhandledRejectionHandler)),r[n]=i,i})()},a.prototype.loadFull=function(r,e,n,t,a){var i=function(){var e;if(void 0===r._rollbarPayloadQueue){var o,n,t,i;for(e=new Error("rollbar.js did not load");o=r._rollbarShimQueue.shift();)for(t=o.args,i=0;i<t.length;++i)if(n=t[i],"function"==typeof n){n(e);break}}"function"==typeof a&&a(e)},l=!1,c=e.createElement("script"),p=e.getElementsByTagName("script")[0],s=p.parentNode;c.crossOrigin="",c.src=t.rollbarJsUrl,c.async=!n,c.onload=c.onreadystatechange=o(function(){if(!(l||this.readyState&&"loaded"!==this.readyState&&"complete"!==this.readyState)){c.onload=c.onreadystatechange=null;try{s.removeChild(c)}catch(r){}l=!0,i()}}),s.insertBefore(c,p)},a.prototype.wrap=function(r,e){try{var o;if(o="function"==typeof e?e:function(){return e||{}},"function"!=typeof r)return r;if(r._isWrap)return r;if(!r._wrapped){r._wrapped=function(){try{return r.apply(this,arguments)}catch(e){throw"string"==typeof e&&(e=new String(e)),e._rollbarContext=o()||{},e._rollbarContext._wrappedSource=r.toString(),window._rollbarWrappedError=e,e}},r._wrapped._isWrap=!0;for(var n in r)r.hasOwnProperty(n)&&(r._wrapped[n]=r[n])}return r._wrapped}catch(e){return r}};for(var p="log,debug,info,warn,warning,error,critical,global,configure,scope,uncaughtError,unhandledRejection".split(","),s=0;s<p.length;++s)a.prototype[p[s]]=i(p[s]);r.exports={Rollbar:a,_rollbarWindowOnError:n}},function(r,e){"use strict";r.exports=function(r,e){return function(o){if(!o&&!window._rollbarInitialized){var n=window.RollbarNotifier,t=e||{},a=t.globalAlias||"Rollbar",i=window.Rollbar.init(t,r);i._processShimQueue(window._rollbarShimQueue||[]),window[a]=i,window._rollbarInitialized=!0,n.processPayloads()}}}}]);
 // // End Rollbar Snippet
-
