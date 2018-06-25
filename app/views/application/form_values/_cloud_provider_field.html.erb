@@ -25,7 +25,7 @@
     <label>Encrypted<br>(At rest)</label>
   </div>
   <div class="col-md-2 no-padding gfe-field">
-    <label>Location<br>(Country)</label>
+    <label>Location of Data<br>(Country)</label>
   </div>
   <div class="clearfix"></div>
 
@@ -35,7 +35,7 @@
   <% end %>
   <div class="add-cloud-provider">
   	<% if current_user && !current_user.is_an_admin? %>
-	    <%= link_to_add_association '<span href="javascript:void(0);" class="btn btn-default btn-sm"><i class="fa fa-plus-circle"></i> Cloud Provider</span>'.html_safe, v, :cloud_providers %>
+	    <%= link_to_add_association '<span href="javascript:void(0);" class="btn btn-default btn-sm"><i class="fa fa-plus-circle"></i> Third Parties</span>'.html_safe, v, :cloud_providers %>
 	   <% end %>
   </div>
 
