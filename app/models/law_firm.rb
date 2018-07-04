@@ -95,7 +95,8 @@ class LawFirm < ApplicationRecord
       loggable: self,
       notify: notify,
       source: current_user.class,
-      email: current_user.email
+      email: current_user.email,
+      current_user: current_user
   	}
   	ActivityLog.log(object)
   end

@@ -31,7 +31,8 @@ class FormSubmission < ApplicationRecord
       notify: notify,
       source: current_user.class,
       email: current_user.email,
-      custom_message: custom_message
+      custom_message: custom_message,
+      current_user: current_user
   	}
   	ActivityLog.log(object)
 	end

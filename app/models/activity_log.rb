@@ -1,5 +1,6 @@
 class ActivityLog < ApplicationRecord
-	belongs_to :loggable, polymorphic: true
+  belongs_to :loggable, polymorphic: true
+	attr_accessor :current_user
 
   belongs_to :law_firm, touch: true
 
@@ -32,9 +33,25 @@ class ActivityLog < ApplicationRecord
   }.freeze
 
 	def self.log(object)
-      object = object.merge(custom_message: ACTION_TYPE_REASON[object[:event_type].to_sym]) if !object[:custom_message] && object[:custom_message].blank?
-      activity_log = ActivityLog.new(object)
-      LawFirm.find_by(id: object[:law_firm_id]).try(:touch) if activity_log.save
+    object = object.merge(
+      custom_message: ACTION_TYPE_REASON[object[:event_type].to_sym]
+    ) if !object[:custom_message] && object[:custom_message].blank?
+    activity_log = ActivityLog.new(object)
+    if activity_log.save
+      law_firm = LawFirm.find_by(id: object[:law_firm_id])
+      law_firm.try(:touch) 
+    end
+    track_on_mixpanel(law_firm, object)
 	end
+
+  def self.track_on_mixpanel(law_firm, object)
+    begin
+      $tracker.track(law_firm && law_firm.name, ACTION_TYPE_REASON[object[:event_type].to_sym], {
+        'username' => object[:current_user] && object[:current_user].username
+      })
+    rescue Exception => e
+      Rollbar.log('error', e)
+    end
+  end
 
 end
