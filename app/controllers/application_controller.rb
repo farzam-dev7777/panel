@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_2fa
+    return false if params[:controller] == 'users/sessions' && params[:action] == 'create'
     if (current_user) && ( current_user.role == 'superadmin' || current_user.role == 'admin' ) && request.env.fetch("PATH_INFO") == "/"
       redirect_to admin_root_url
     end

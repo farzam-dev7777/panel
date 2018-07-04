@@ -22,6 +22,7 @@ gem 'rollbar'
 gem 'country_select'
 
 gem 'public_uid'
+gem 'mixpanel-ruby'
 
 gem 'rails-assets-qTip2', source: 'https://rails-assets.org'
 gem 'rails-assets-sweetalert', source: 'https://rails-assets.org'
