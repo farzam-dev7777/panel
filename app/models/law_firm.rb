@@ -57,7 +57,7 @@ class LawFirm < ApplicationRecord
   end
 
   def user
-    User.find_by(law_firm_id: self.id)
+    User.where(law_firm_id: self.id).order(created_at: :asc).first
   end
 
   def approved_and_scored
