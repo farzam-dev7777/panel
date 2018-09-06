@@ -18,7 +18,7 @@
 		<%= f.input :communication_status, label: false, label: false, collection: ["Everyone", "Permanent Staff", "Technology Staff", "Legal Staff", "Partner", "Select People", "Everyone - except contract staff"] %>
 	</div>
 	<div class="col-md-2 gfe-field" style="width: 200px">
-		<%= render '/application/form_values/upload_field', v: f, f: f, field: f.object.form_value.form_field %>
+		<%= render '/application/form_values/upload_field', v: f, f: f, field: f.object.form_value&.form_field %>
 	</div>
 
 
