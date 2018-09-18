@@ -4,7 +4,7 @@ class TwoFactorAuthenticationController < ApplicationController
   skip_before_filter :verify_authenticity_token, :authenticate_2fa
 
 	def new
-    session[:authorized] = true if Rails.env == 'development'
+    # session[:authorized] = true if Rails.env == 'development'
     redirect_to root_path if current_user.nil?
     if session[:authorized]
       navigate_user
@@ -14,6 +14,7 @@ class TwoFactorAuthenticationController < ApplicationController
   def create
     if current_user.google_authentic? params[:code]
       session[:authorized] = true
+      current_user.update_attributes({ qr_code_confirmed_at: Time.now })
       flash.now[:notice] = 'Authentication Successful.'
       navigate_user
     else
