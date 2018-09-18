@@ -186,9 +186,9 @@ $(document).ready(function(){
     }
   }
 
-  window.setInterval(function(){
-    save_user_progress(true);
-  }, 300000);
+  // window.setInterval(function(){
+  //   save_user_progress(true);
+  // }, 300000);
 
   $(document).on('click', '.decrypt-file', function(){
     var params = $(this).data(); 
