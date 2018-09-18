@@ -60,10 +60,10 @@
 
 				
 				<div class="col-lg-6 col-md-offset-3 no-padding tfa-wrapper">
-					<h2 class="text-center" style="color: #fff;"><%= !current_user.qr_code_confirmed_at ? "Setup " : "" %>2 Factor Authentication</h2>
+					<h2 class="text-center" style="color: #fff;"><%= current_user.sign_in_count == 1 ? "Setup " : "" %>2 Factor Authentication</h2>
 
 						<div class="text-center">
-							<% if !current_user.qr_code_confirmed_at %>
+							<% if current_user.sign_in_count == 1 %>
 								<%= image_tag current_user.google_qr_uri %>
 								<br />
 								<p style="color: #fff;margin: 10px">Please download/open Google Authenticator App for on your <a style="color: #ccc" target="_blank" style="color: #fff;" href="https://itunes.apple.com/ca/app/google-authenticator/id388497605?mt=8"> iOS</a> or <a target="_blank" style="color: #ccc" href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en_CA">Android</a> device.</p>
