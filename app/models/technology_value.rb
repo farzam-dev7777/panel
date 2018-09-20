@@ -16,7 +16,7 @@ class TechnologyValue < ApplicationRecord
 	scope :internet,  -> { where(platform_type: 'internet') }
 	scope :intranet,  -> { where(platform_type: 'intranet') }
 
-	validates_presence_of :vendor, :platform, :version, :service_pack, :supported
+	# validates_presence_of :vendor, :platform, :version, :service_pack, :supported
 
 	before_save :create_technology
 
