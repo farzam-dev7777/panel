@@ -78,7 +78,7 @@
 
       	<div class=" col-md-12 no-padding" id="operating_system_servers">
           <% platform_category = 'operating_systems'; type = 'server' %>
-  	      <%= f.simple_fields_for :technology_values, build_fields(@form_submission, @form_submission.technology_values.operating_systems.server, platform_category, type) do |field| %>
+  	      <%= f.simple_fields_for :technology_values, build_fields(@form_submission, @form_submission.technology_values.select{|tv| tv.platform_category == platform_category && tv.platform_type == type }, platform_category, type) do |field| %>
   	      	<%= render partial: "technology_value_fields", 
   	      						 locals: {f: field, 
                                 platform_category: platform_category, 
@@ -97,7 +97,7 @@
 
       	<div class=" col-md-12 no-padding">
           <% platform_category = 'operating_systems'; type = 'client' %>
-          <%= f.simple_fields_for :technology_values, build_fields(@form_submission, @form_submission.technology_values.operating_systems.client, platform_category, type) do |field| %>
+          <%= f.simple_fields_for :technology_values, build_fields(@form_submission, @form_submission.technology_values.select{|tv| tv.platform_category == platform_category && tv.platform_type == type }, platform_category, type) do |field| %>
             <%= render partial: "technology_value_fields", 
                        locals: {f: field, platform_category: platform_category, type: type}  %>
           <% end %>
@@ -120,7 +120,7 @@
 
         <div class=" col-md-12 no-padding">
           <% platform_category = 'web_platforms'; type = 'intranet' %>
-          <%= f.simple_fields_for :technology_values, build_fields(@form_submission, @form_submission.technology_values.web_platforms.intranet, platform_category, type) do |field| %>
+          <%= f.simple_fields_for :technology_values, build_fields(@form_submission, @form_submission.technology_values.select{|tv| tv.platform_category == platform_category && tv.platform_type == type }, platform_category, type) do |field| %>
             <%= render partial: "technology_value_fields", 
                        locals: {f: field, platform_category: platform_category, type: type}  %>
           <% end %>
@@ -136,7 +136,7 @@
 
         <div class=" col-md-12 no-padding">
           <% platform_category = 'web_platforms'; type = 'internet' %>
-          <%= f.simple_fields_for :technology_values, build_fields(@form_submission, @form_submission.technology_values.web_platforms.internet, platform_category, type) do |field| %>
+          <%= f.simple_fields_for :technology_values, build_fields(@form_submission, @form_submission.technology_values.select{|tv| tv.platform_category == platform_category && tv.platform_type == type }, platform_category, type) do |field| %>
             <%= render partial: "technology_value_fields", 
                        locals: {f: field, platform_category: platform_category, type: type}  %>
           <% end %>
@@ -158,7 +158,7 @@
 
       	<div class=" col-md-12 no-padding">
   	      <% platform_category = 'infosec_technologies'; type = 'hardware' %>
-          <%= f.simple_fields_for :technology_values, build_fields(@form_submission, @form_submission.technology_values.infosec_technologies.hardware, platform_category, type) do |field| %>
+          <%= f.simple_fields_for :technology_values, build_fields(@form_submission, @form_submission.technology_values.select{|tv| tv.platform_category == platform_category && tv.platform_type == type }, platform_category, type) do |field| %>
             <%= render partial: "technology_value_fields", 
                        locals: {f: field, platform_category: platform_category, type: type}  %>
           <% end %>
@@ -175,7 +175,7 @@
 
       	<div class=" col-md-12 no-padding">
   	      <% platform_category = 'infosec_technologies'; type = 'software' %>
-          <%= f.simple_fields_for :technology_values, build_fields(@form_submission, @form_submission.technology_values.infosec_technologies.software, platform_category, type) do |field| %>
+          <%= f.simple_fields_for :technology_values, build_fields(@form_submission, @form_submission.technology_values.select{|tv| tv.platform_category == platform_category && tv.platform_type == type }, platform_category, type) do |field| %>
             <%= render partial: "technology_value_fields", 
                        locals: {f: field, platform_category: platform_category, type: type}  %>
           <% end %>
@@ -197,7 +197,7 @@
 
       	<div class=" col-md-12 no-padding">
           <% platform_category = 'storage_archival'; type = 'hardware' %>
-          <%= f.simple_fields_for :technology_values, build_fields(@form_submission, @form_submission.technology_values.storage_archival.hardware, platform_category, type) do |field| %>
+          <%= f.simple_fields_for :technology_values, build_fields(@form_submission, @form_submission.technology_values.select{|tv| tv.platform_category == platform_category && tv.platform_type == type }, platform_category, type) do |field| %>
             <%= render partial: "technology_value_fields", 
                        locals: {f: field, platform_category: platform_category, type: type}  %>
           <% end %>
@@ -214,7 +214,7 @@
 
       	<div class=" col-md-12 no-padding">
   	      <% platform_category = 'storage_archival'; type = 'software' %>
-          <%= f.simple_fields_for :technology_values, build_fields(@form_submission, @form_submission.technology_values.storage_archival.software, platform_category, type) do |field| %>
+          <%= f.simple_fields_for :technology_values, build_fields(@form_submission, @form_submission.technology_values.select{|tv| tv.platform_category == platform_category && tv.platform_type == type }, platform_category, type) do |field| %>
             <%= render partial: "technology_value_fields", 
                        locals: {f: field, platform_category: platform_category, type: type}  %>
           <% end %>

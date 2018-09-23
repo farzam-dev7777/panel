@@ -35,7 +35,7 @@ module ApplicationHelper
   end
 
   def build_fields(form_submission, scope, platform_category, type)
-    scope.size == 0 ? scope.new : scope
+    scope.size == 0 ? TechnologyValue.new(platform_category: platform_category, platform_type: type) : scope
   end
 
   def ajax_redirect_to(redirect_uri)
