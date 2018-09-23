@@ -18,6 +18,10 @@ class FormSubmissionsController < BaseController
     form_submission.decision_made? ? false : true
   end
 
+  def show
+    redirect_to technology_step_form_submission_path
+  end
+
   def before_steps
     @form_submission = FormSubmission.find(params[:id])
     @form = @form_submission.send("form_#{current_step}")
@@ -113,7 +117,8 @@ class FormSubmissionsController < BaseController
       redirect_to params[:redirect_value]
     elsif form_submissions_params["technology_values_attributes"]
       @current_step = :technology
-      render :technology_step, alert: "ERROR"
+      flash.now[:alert] = 'Please fill all the fields to save'
+      render :technology_step
     else
       render :technology_step
     end
