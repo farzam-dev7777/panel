@@ -41,16 +41,36 @@ class Admin::FormSubmissionsController < Admin::BaseController
     total_score = 0
     score_counter = 0
     @form_submission = FormSubmission.find(params[:id])
+    @scores_debug = []
     
     @form_submission.form_values.each do |form_value|
-      if !form_value.value.blank?
-        if form_value.is_a_repeater_field?
-          total_score = total_score + calculate_repeater_field_score(form_value)
-        else
-          total_score = total_score + form_value.try(:form_field).try(:score) if form_value.try(:form_field).try(:score) 
-        end
-        score_counter = score_counter + 1
+      if form_value.is_a_repeater_field?
+        score = calculate_repeater_field_score(form_value)
+        total_score = total_score + score
+      elsif form_value.form_field.type == "MultiSelectField"
+        scores = form_value.form_field.dropdown_options.where(value: form_value.multi_select_value).map(&:score)
+        score = (scores.size > 0 ? (scores.sum / scores.size) : 0.0)
+        total_score = total_score + score
+      elsif form_value.form_field.type == "DropdownField"
+        score = form_value.form_field.dropdown_options.find_by(value: form_value.value)&.score || 0.0
+        total_score = total_score + score
+      elsif form_value.form_field.type == "UploadField"
+        score = form_value.file_attachments.blank? ? 0.0 : (form_value.form_field.score || 0.0)
+        total_score = total_score + score
+      elsif !form_value.value.blank?
+        score = form_value.try(:form_field).try(:score) || 0.0
+        total_score = total_score + score
+      else
+        score = 0.0
       end
+      @scores_debug.push(
+        form_field_type: form_value.form_field.type,
+        score: score,
+        total_score: total_score,
+        score_counter: score_counter + 1,
+        field_label: form_value.form_field_label
+      )
+      score_counter = score_counter + 1
     end
     @system_score = score_counter > 0 ? (total_score/score_counter).round(2) : 0
     @form_submission.update_attributes(system_score: @system_score)
@@ -70,21 +90,38 @@ class Admin::FormSubmissionsController < Admin::BaseController
       calculated_score = compute_field_score(form_value, repeater_field_score, 'CloudProvider', 'cloud_providers')
     when 'CyberSecurityInsuranceField'
       calculated_score = compute_field_score(form_value, repeater_field_score, 'CyberSecurityInsurance', 'cyber_security_insurances')
+    when 'SharedBankInformationField'
+      calculated_score = compute_field_score(form_value, repeater_field_score, 'SharedBankInformation', 'shared_bank_informations')
     end
     calculated_score
   end
 
   def compute_field_score(form_value, repeater_field_score, model, association)
-    ignored_columns = ["id", "created_at", "updated_at", "form_value_id"]
-    single_field_score = 5
-    columns = model.constantize.column_names
-    form_value.send(association).each do |field|
-      columns.each_with_index do |column_name, index|
-        single_field_score = single_field_score - 1 if field[column_name.to_sym].blank? && !ignored_columns.include?(column_name)
-        repeater_field_score.push(single_field_score) && single_field_score = 5 if columns.size - 1 == index
+    ignored_columns = ["id", "created_at", "updated_at", "form_value_id", "freq_of_review", "independent_review", "rank", "date_of_certification", "renewal", "coverage_amount", "policy", "standing", "data", "cloud_type"]
+    single_field_score = form_value.form_field.score ? form_value.form_field.score : 0.0
+    columns = form_value.send(association).klass.columns.map(&:name)
+    effective_columns = (columns - ignored_columns)
+    effective_rows = total_rows = form_value.send(association).select{|row| row.id }
+    effective_rows.each do |field|
+      case model
+      when 'CloudProvider'
+          row_score = 0
+          row_score += 1 if !field.name.blank?
+          row_score += 1 if !field.service.blank?
+          row_score += 1 if !field.data_store_location_ca.blank?
+          row_score += 1 if field.encrypted_in_flight == 'Yes'
+          row_score += 1 if field.encrypted_at_rest == 'Yes'
+          repeater_field_score.push(row_score)
+      else
+        effective_columns.each_with_index do |column_name, index|
+          if !field.send(column_name.to_sym).blank?
+            repeater_field_score.push(single_field_score)
+          end
+        end
       end
     end
-    ((repeater_field_score.sum / ((columns - ignored_columns).size * 5).to_f) * 5).round(2)
+    total_possible_score = effective_rows.size * effective_columns.size * single_field_score
+    (total_possible_score.to_f > 0.0) ? ((repeater_field_score.sum / total_possible_score.to_f) * single_field_score) : 0.0
   end
 
   def edit
