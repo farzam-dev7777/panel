@@ -20,7 +20,10 @@
             f.object.type == 'CyberSecurityStandardField' ||
             f.object.type == 'ThirdPartyVendorField' ||
             f.object.type == 'CloudProviderField' ||
-            f.object.type == 'CyberSecurityInsuranceField' %>
+            f.object.type == 'UploadField' ||
+            f.object.type == 'CyberSecurityInsuranceField' ||
+            f.object.type == 'SharedBankInformationField'
+            %>
         <li>
           <a href="#tabs-dropdown-options">Field Options</a>
         </li>
@@ -38,8 +41,11 @@
           f.object.type == 'CyberSecurityStandardField' ||
           f.object.type == 'ThirdPartyVendorField' ||
           f.object.type == 'CloudProviderField' ||
+          f.object.type == 'UploadField' ||
           f.object.type == 'InformationSecurityPolicyField' ||
-          f.object.type == 'CyberSecurityInsuranceField' %>
+          f.object.type == 'CyberSecurityInsuranceField' ||
+          f.object.type == 'SharedBankInformationField'
+        %>
       <div id="tabs-dropdown-options">
         <% if f.object.type == 'DropdownField' || f.object.type == 'MultiSelectField' %>
           <%= render "application/form_fields/#{f.object.type.try(:underscore)}", f: f if f.object.type %>
