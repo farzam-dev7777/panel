@@ -19,8 +19,8 @@ class LawFirm < ApplicationRecord
 
   accepts_nested_attributes_for :history_submissions
 
-  accepts_nested_attributes_for :locations
-  accepts_nested_attributes_for :jurisdictions
+  accepts_nested_attributes_for :locations, allow_destroy: true
+  accepts_nested_attributes_for :jurisdictions, allow_destroy: true
   accepts_nested_attributes_for :users, allow_destroy: true
 
   after_create :generate_a_new_user
