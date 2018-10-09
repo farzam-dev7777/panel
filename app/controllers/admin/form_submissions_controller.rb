@@ -68,7 +68,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
         score: score,
         total_score: total_score,
         score_counter: score_counter + 1,
-        field_label: form_value.form_field_label
+        field_label: form_value.form_field.label
       )
       score_counter = score_counter + 1
     end
@@ -98,6 +98,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
 
   def compute_field_score(form_value, repeater_field_score, model, association)
     ignored_columns = ["id", "created_at", "updated_at", "form_value_id", "freq_of_review", "independent_review", "rank", "date_of_certification", "renewal", "coverage_amount", "policy", "standing", "data", "cloud_type"]
+    ignored_columns = ignored_columns - ['policy'] if model == 'InformationSecurityPolicy'
     single_field_score = form_value.form_field.score ? form_value.form_field.score : 0.0
     columns = form_value.send(association).klass.columns.map(&:name)
     effective_columns = (columns - ignored_columns)
@@ -105,22 +106,41 @@ class Admin::FormSubmissionsController < Admin::BaseController
     effective_rows.each do |field|
       case model
       when 'CloudProvider'
-          row_score = 0
-          row_score += 1 if !field.name.blank?
-          row_score += 1 if !field.service.blank?
-          row_score += 1 if !field.data_store_location_ca.blank?
-          row_score += 1 if field.encrypted_in_flight == 'Yes'
-          row_score += 1 if field.encrypted_at_rest == 'Yes'
-          repeater_field_score.push(row_score)
+        row_score = 0
+        row_score += 1.0 if !field.name.blank?
+        row_score += 1.0 if !field.service.blank?
+        row_score += 1.0 if !field.data_store_location_ca.blank?
+        row_score += 1.0 if field.encrypted_in_flight == 'Yes'
+        row_score += 1.0 if field.encrypted_at_rest == 'Yes'
+        repeater_field_score.push(row_score)
+      when 'InformationSecurityPolicy'
+        row_score = 0
+        row_score += 1.0 if !field.policy.blank?
+        row_score += 1.0 if !field.last_reviewed.blank?
+        row_score += 1.0 if !field.last_updated.blank?
+        row_score += 1.0 if !field.communication_status.blank?
+        row_score += 1.0 if !field.file_attachments.blank?
+        repeater_field_score.push(row_score)
+      when 'CyberSecurityStandardField'
+        row_score = 0
+        row_score += 1.0 if !field.standard.blank?
+        row_score += 1.0 if !field.status.blank?
+        repeater_field_score.push(row_score)
+      when 'CyberSecurityInsurance'
+        row_score = 0
+        row_score += 1.0 if !field.company.blank?
+        row_score += 1.0 if !field.coverage.blank?
+        row_score += 1.0 if !field.date_of_expiry.blank?
+        repeater_field_score.push(row_score)
       else
         effective_columns.each_with_index do |column_name, index|
           if !field.send(column_name.to_sym).blank?
-            repeater_field_score.push(single_field_score)
+            repeater_field_score.push(1.0)
           end
         end
       end
     end
-    total_possible_score = effective_rows.size * effective_columns.size * single_field_score
+    total_possible_score = effective_rows.size * effective_columns.size
     (total_possible_score.to_f > 0.0) ? ((repeater_field_score.sum / total_possible_score.to_f) * single_field_score) : 0.0
   end
 
