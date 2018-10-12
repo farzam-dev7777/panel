@@ -44,7 +44,22 @@ class Admin::FormSubmissionsController < Admin::BaseController
     @scores_debug = []
     
     @form_submission.form_values.each do |form_value|
-      if form_value.is_a_repeater_field?
+      if form_value.form_field.type == "ActivityTimeLogField"
+        score = 0.0
+        field_scores = []
+        fields = ["network_discovery", "penetration_testing", "vulnerability_assessment", "hardware_refresh", "hardware_inventory", "software_inventory"]
+        fields.each do |field_name|
+          date = form_value.activity_time_log.send(field_name)
+          never_field = form_value.activity_time_log.send("#{field_name}_never")
+          if date.present? && never_field != true
+            field_scores << score_datefield(date)
+          else
+            field_scores = 0.0
+          end
+        end
+        score = (field_scores.sum / fields.size)
+        total_score += score
+      elsif form_value.is_a_repeater_field?
         score = calculate_repeater_field_score(form_value)
         total_score = total_score + score
       elsif form_value.form_field.type == "MultiSelectField"
@@ -56,6 +71,22 @@ class Admin::FormSubmissionsController < Admin::BaseController
         total_score = total_score + score
       elsif form_value.form_field.type == "UploadField"
         score = form_value.file_attachments.blank? ? 0.0 : (form_value.form_field.score || 0.0)
+        total_score = total_score + score
+      elsif form_value.form_field.type == "DateField"
+        # - Date is within last 12 months - score: 5
+        # - Date is more than 12 months old - score: 2.5
+        # - if blank: 0
+        score = 0.0
+        if !form_value.value.blank?
+          begin
+            date = Date.parse(form_value.value)
+            score = score_datefield(date)
+          rescue Exception => e
+            score = 0.0
+          end
+        else
+          score = 0.0
+        end
         total_score = total_score + score
       elsif !form_value.value.blank?
         score = form_value.try(:form_field).try(:score) || 0.0
@@ -83,7 +114,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
     when 'InformationSecurityPolicyField'
       calculated_score = compute_field_score(form_value, repeater_field_score, 'InformationSecurityPolicy', 'information_security_policies')
     when 'CyberSecurityStandardField'
-      calculated_score = compute_field_score(form_value, repeater_field_score, 'CyberSecurityStandardField', 'cyber_security_standards')
+      calculated_score = compute_field_score(form_value, repeater_field_score, 'CyberSecurityStandard', 'cyber_security_standards')
     when 'ThirdPartyVendorField'
       calculated_score = compute_field_score(form_value, repeater_field_score, 'ThirdPartyVendor', 'third_party_vendors')
     when 'CloudProviderField'
@@ -107,11 +138,9 @@ class Admin::FormSubmissionsController < Admin::BaseController
       case model
       when 'CloudProvider'
         row_score = 0
-        row_score += 1.0 if !field.name.blank?
-        row_score += 1.0 if !field.service.blank?
-        row_score += 1.0 if !field.data_store_location_ca.blank?
-        row_score += 1.0 if field.encrypted_in_flight == 'Yes'
-        row_score += 1.0 if field.encrypted_at_rest == 'Yes'
+        row_score += 1.0 if field.data_store_location_ca && ['United States', 'Canada'].include?(field.data_store_location_ca)
+        row_score += 2.0 if field.encrypted_in_flight == 'Yes'
+        row_score += 2.0 if field.encrypted_at_rest == 'Yes'
         repeater_field_score.push(row_score)
       when 'InformationSecurityPolicy'
         row_score = 0
@@ -121,16 +150,47 @@ class Admin::FormSubmissionsController < Admin::BaseController
         row_score += 1.0 if !field.communication_status.blank?
         row_score += 1.0 if !field.file_attachments.blank?
         repeater_field_score.push(row_score)
-      when 'CyberSecurityStandardField'
+      when 'CyberSecurityStandard'
+        ## TBD:
+        # standard -> anything other than NA and status is certified then the user get 5 score
+        # standard -> anything other than NA and status -> "Anything other than certified then the user get 2.5 score
         row_score = 0
-        row_score += 1.0 if !field.standard.blank?
-        row_score += 1.0 if !field.status.blank?
+        row_score += 5.0 if field.standard && field.standard != "NA" && field.status == 'Certified'
+        row_score += 2.5 if field.standard && field.standard != "NA" && field.status != 'Follow but not Certified'
+        repeater_field_score.push(row_score)
+      when 'SharedBankInformation'
+        ## TBD: remove score as the user add more rows to this,
+        row_score = (effective_rows.count >= 5) ? 0.0 : (5.0 - effective_rows.count)
         repeater_field_score.push(row_score)
       when 'CyberSecurityInsurance'
-        row_score = 0
-        row_score += 1.0 if !field.company.blank?
-        row_score += 1.0 if !field.coverage.blank?
-        row_score += 1.0 if !field.date_of_expiry.blank?
+        ## TBD: 
+        ## date of expiry > year - 5 score
+        ## date of expiry > today - between today and +6 months - 1 score
+        ## date of expiry between +6 months and +12 months - 2.5 score
+        ## date of expiry < today - 0 score
+
+        ## coverage >= 10M - 5 score
+        ## coverage < 10M - 2.5 score
+
+        expiry_score = 0.0
+        coverage_score = 0.0
+
+        if field.date_of_expiry
+          expiry_score = score_cyber_security_datefield(field.date_of_expiry)
+        end
+
+        if field.coverage
+          coverage_amount = field.coverage.to_f
+          if coverage_amount >= 10_000_000
+            coverage_score = 5.0
+          elsif coverage_score < 10_000_000
+            coverage_score = 2.5
+          else
+            coverage_score = 0.0
+          end
+        end
+        
+        row_score = (expiry_score + coverage_score) / 2
         repeater_field_score.push(row_score)
       else
         effective_columns.each_with_index do |column_name, index|
@@ -348,6 +408,32 @@ class Admin::FormSubmissionsController < Admin::BaseController
   def form_submissions_params
     form_submission_attributes = [:id, :form_id]
     params.require(:form_submission).permit(form_submission_attributes + form_values_attributes)
+  end
+
+  def score_cyber_security_datefield(date)
+    difference_in_days = (date - Date.today).to_i
+    if difference_in_days >= 365
+      score = 5.0
+    elsif difference_in_days > 182 && difference_in_days < 365
+      score = 2.5
+    elsif difference_in_days >= 0 && difference_in_days <= 182
+      score = 1.0
+    else
+      score = 0.0
+    end
+    score
+  end
+
+  def score_datefield(date)
+    difference_in_days = (Date.today - date).to_i
+    if difference_in_days >= 0 && difference_in_days <= 365
+      score = 5.0
+    elsif difference_in_days > 365
+      score = 2.5
+    else
+      score = 0.0
+    end
+    score
   end
 
 end
