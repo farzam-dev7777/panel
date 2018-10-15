@@ -41,16 +41,67 @@ class Admin::FormSubmissionsController < Admin::BaseController
     total_score = 0
     score_counter = 0
     @form_submission = FormSubmission.find(params[:id])
+    @scores_debug = []
     
     @form_submission.form_values.each do |form_value|
-      if !form_value.value.blank?
-        if form_value.is_a_repeater_field?
-          total_score = total_score + calculate_repeater_field_score(form_value)
-        else
-          total_score = total_score + form_value.try(:form_field).try(:score) if form_value.try(:form_field).try(:score) 
+      if form_value.form_field.type == "ActivityTimeLogField"
+        score = 0.0
+        field_scores = []
+        fields = ["network_discovery", "penetration_testing", "vulnerability_assessment", "hardware_refresh", "hardware_inventory", "software_inventory"]
+        fields.each do |field_name|
+          date = form_value.activity_time_log.send(field_name)
+          never_field = form_value.activity_time_log.send("#{field_name}_never")
+          if date.present? && never_field != true
+            field_scores << score_datefield(date)
+          else
+            field_scores = 0.0
+          end
         end
-        score_counter = score_counter + 1
+        score = (field_scores.sum / fields.size)
+        total_score += score
+      elsif form_value.is_a_repeater_field?
+        score = calculate_repeater_field_score(form_value)
+        total_score = total_score + score
+      elsif form_value.form_field.type == "MultiSelectField"
+        scores = form_value.form_field.dropdown_options.where(value: form_value.multi_select_value).map(&:score)
+        score = (scores.size > 0 ? (scores.sum / scores.size) : 0.0)
+        total_score = total_score + score
+      elsif form_value.form_field.type == "DropdownField"
+        score = form_value.form_field.dropdown_options.find_by(value: form_value.value)&.score || 0.0
+        total_score = total_score + score
+      elsif form_value.form_field.type == "UploadField"
+        score = form_value.file_attachments.blank? ? 0.0 : (form_value.form_field.score || 0.0)
+        total_score = total_score + score
+      elsif form_value.form_field.type == "DateField"
+        # - Date is within last 12 months - score: 5
+        # - Date is more than 12 months old - score: 2.5
+        # - if blank: 0
+        score = 0.0
+        if !form_value.value.blank?
+          begin
+            date = Date.parse(form_value.value)
+            score = score_datefield(date)
+          rescue Exception => e
+            score = 0.0
+          end
+        else
+          score = 0.0
+        end
+        total_score = total_score + score
+      elsif !form_value.value.blank?
+        score = form_value.try(:form_field).try(:score) || 0.0
+        total_score = total_score + score
+      else
+        score = 0.0
       end
+      @scores_debug.push(
+        form_field_type: form_value.form_field.type,
+        score: score,
+        total_score: total_score,
+        score_counter: score_counter + 1,
+        field_label: form_value.form_field.label
+      )
+      score_counter = score_counter + 1
     end
     @system_score = score_counter > 0 ? (total_score/score_counter).round(2) : 0
     @form_submission.update_attributes(system_score: @system_score)
@@ -63,28 +114,94 @@ class Admin::FormSubmissionsController < Admin::BaseController
     when 'InformationSecurityPolicyField'
       calculated_score = compute_field_score(form_value, repeater_field_score, 'InformationSecurityPolicy', 'information_security_policies')
     when 'CyberSecurityStandardField'
-      calculated_score = compute_field_score(form_value, repeater_field_score, 'CyberSecurityStandardField', 'cyber_security_standards')
+      calculated_score = compute_field_score(form_value, repeater_field_score, 'CyberSecurityStandard', 'cyber_security_standards')
     when 'ThirdPartyVendorField'
       calculated_score = compute_field_score(form_value, repeater_field_score, 'ThirdPartyVendor', 'third_party_vendors')
     when 'CloudProviderField'
       calculated_score = compute_field_score(form_value, repeater_field_score, 'CloudProvider', 'cloud_providers')
     when 'CyberSecurityInsuranceField'
       calculated_score = compute_field_score(form_value, repeater_field_score, 'CyberSecurityInsurance', 'cyber_security_insurances')
+    when 'SharedBankInformationField'
+      calculated_score = compute_field_score(form_value, repeater_field_score, 'SharedBankInformation', 'shared_bank_informations')
     end
     calculated_score
   end
 
   def compute_field_score(form_value, repeater_field_score, model, association)
-    ignored_columns = ["id", "created_at", "updated_at", "form_value_id"]
-    single_field_score = 5
-    columns = model.constantize.column_names
-    form_value.send(association).each do |field|
-      columns.each_with_index do |column_name, index|
-        single_field_score = single_field_score - 1 if field[column_name.to_sym].blank? && !ignored_columns.include?(column_name)
-        repeater_field_score.push(single_field_score) && single_field_score = 5 if columns.size - 1 == index
+    ignored_columns = ["id", "created_at", "updated_at", "form_value_id", "freq_of_review", "independent_review", "rank", "date_of_certification", "renewal", "coverage_amount", "policy", "standing", "data", "cloud_type"]
+    ignored_columns = ignored_columns - ['policy'] if model == 'InformationSecurityPolicy'
+    single_field_score = form_value.form_field.score ? form_value.form_field.score : 0.0
+    columns = form_value.send(association).klass.columns.map(&:name)
+    effective_columns = (columns - ignored_columns)
+    effective_rows = total_rows = form_value.send(association).select{|row| row.id }
+    effective_rows.each do |field|
+      case model
+      when 'CloudProvider'
+        row_score = 0
+        row_score += 1.0 if field.data_store_location_ca && ['United States', 'Canada'].include?(field.data_store_location_ca)
+        row_score += 2.0 if field.encrypted_in_flight == 'Yes'
+        row_score += 2.0 if field.encrypted_at_rest == 'Yes'
+        repeater_field_score.push(row_score)
+      when 'InformationSecurityPolicy'
+        row_score = 0
+        row_score += 1.0 if !field.policy.blank?
+        row_score += 1.0 if !field.last_reviewed.blank?
+        row_score += 1.0 if !field.last_updated.blank?
+        row_score += 1.0 if !field.communication_status.blank?
+        row_score += 1.0 if !field.file_attachments.blank?
+        repeater_field_score.push(row_score)
+      when 'CyberSecurityStandard'
+        ## TBD:
+        # standard -> anything other than NA and status is certified then the user get 5 score
+        # standard -> anything other than NA and status -> "Anything other than certified then the user get 2.5 score
+        row_score = 0
+        row_score += 5.0 if field.standard && field.standard != "NA" && field.status == 'Certified'
+        row_score += 2.5 if field.standard && field.standard != "NA" && field.status != 'Follow but not Certified'
+        repeater_field_score.push(row_score)
+      when 'SharedBankInformation'
+        ## TBD: remove score as the user add more rows to this,
+        row_score = (effective_rows.count >= 5) ? 0.0 : (5.0 - effective_rows.count)
+        repeater_field_score.push(row_score)
+      when 'CyberSecurityInsurance'
+        ## TBD: 
+        ## date of expiry > year - 5 score
+        ## date of expiry > today - between today and +6 months - 1 score
+        ## date of expiry between +6 months and +12 months - 2.5 score
+        ## date of expiry < today - 0 score
+
+        ## coverage >= 10M - 5 score
+        ## coverage < 10M - 2.5 score
+
+        expiry_score = 0.0
+        coverage_score = 0.0
+
+        if field.date_of_expiry
+          expiry_score = score_cyber_security_datefield(field.date_of_expiry)
+        end
+
+        if field.coverage
+          coverage_amount = field.coverage.to_f
+          if coverage_amount >= 10_000_000
+            coverage_score = 5.0
+          elsif coverage_score < 10_000_000
+            coverage_score = 2.5
+          else
+            coverage_score = 0.0
+          end
+        end
+        
+        row_score = (expiry_score + coverage_score) / 2
+        repeater_field_score.push(row_score)
+      else
+        effective_columns.each_with_index do |column_name, index|
+          if !field.send(column_name.to_sym).blank?
+            repeater_field_score.push(1.0)
+          end
+        end
       end
     end
-    ((repeater_field_score.sum / ((columns - ignored_columns).size * 5).to_f) * 5).round(2)
+    total_possible_score = effective_rows.size * effective_columns.size
+    (total_possible_score.to_f > 0.0) ? ((repeater_field_score.sum / total_possible_score.to_f) * single_field_score) : 0.0
   end
 
   def edit
@@ -291,6 +408,32 @@ class Admin::FormSubmissionsController < Admin::BaseController
   def form_submissions_params
     form_submission_attributes = [:id, :form_id]
     params.require(:form_submission).permit(form_submission_attributes + form_values_attributes)
+  end
+
+  def score_cyber_security_datefield(date)
+    difference_in_days = (date - Date.today).to_i
+    if difference_in_days >= 365
+      score = 5.0
+    elsif difference_in_days > 182 && difference_in_days < 365
+      score = 2.5
+    elsif difference_in_days >= 0 && difference_in_days <= 182
+      score = 1.0
+    else
+      score = 0.0
+    end
+    score
+  end
+
+  def score_datefield(date)
+    difference_in_days = (Date.today - date).to_i
+    if difference_in_days >= 0 && difference_in_days <= 365
+      score = 5.0
+    elsif difference_in_days > 365
+      score = 2.5
+    else
+      score = 0.0
+    end
+    score
   end
 
 end
