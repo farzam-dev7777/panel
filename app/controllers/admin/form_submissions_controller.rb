@@ -286,7 +286,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
   def approve
 
     if @form_submission.follow_ups.map(&:status).include?('pending')
-      redirect_to :back, , alert: "Follow ups are pending!" 
+      redirect_to :back, alert: "Follow ups are pending!" 
     else
       # @form_submission = FormSubmission.find(params[:id])
 
