@@ -54,7 +54,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
           if date.present? && never_field != true
             field_scores << score_datefield(date)
           else
-            field_scores = 0.0
+            field_scores << 0.0
           end
         end
         score = (field_scores.sum / fields.size)

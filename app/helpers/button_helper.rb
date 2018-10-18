@@ -30,7 +30,20 @@ module ButtonHelper
   end
 
   def gauge(submission)
-    "<h3 class='firm-score-#{submission.status}'><span>#{submission.status.try(:humanize)}</span></h3><div id='law-firm-rating' class='force-center'></div> (#{submission.law_firm.total_calculated_score.try(:to_s)})".html_safe
+    status = submission.status.try(:humanize)
+    status = status == "Approved" ? "Certified" : status
+    "
+      <h3 class='firm-score-#{submission.status}'>
+        <span>#{status}</span>
+      </h3>
+    ".html_safe
+    # "
+    #   <h3 class='firm-score-#{submission.status}'>
+    #     <span>#{status}</span>
+    #   </h3>
+    #   <div id='law-firm-rating' class='force-center'></div> 
+    #   (#{submission.law_firm.total_calculated_score.try(:to_s)})
+    # ".html_safe
   end
 
 end
