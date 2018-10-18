@@ -351,7 +351,7 @@
 
 										<tr>
 											<th class="text-center">Submission ID</th>
-											<th class="text-center">Score</th>
+											<!-- <th class="text-center">Score</th> -->
 											<th class="text-center">Status</th>
 											<th class="text-center">Action</th>
 										</tr>
@@ -359,7 +359,7 @@
 										<% current_law_firm.form_submissions.reverse.each do |submission| %>
 											<tr>
 												<td><%= submission.id %></td>
-												<td><%= submission.total_score || '-' %></td>
+												<!-- <td><%= submission.total_score || '-' %></td> -->
 												<td class="text-center">
 												<span class="label label-<%= submission_status_class(submission) %>">
 													<%= submission.try(:status).titleize %>
