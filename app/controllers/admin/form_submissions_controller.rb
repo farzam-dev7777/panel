@@ -267,7 +267,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
       @form_submission.submitted_on = nil
       @form_submission.follow_ups.pending.update_all(status: 'review')
       if (@form_submission.update_attributes(status: :follow_up))
-        LawFirmMailer.decision_reached(@form_submission, 'Follow Up').deliver_now
+        # LawFirmMailer.decision_reached(@form_submission, 'Follow Up').deliver_now
         FormSubmission.log_activity('follow_up', true, @form_submission, current_admin_user)
         redirect_to :admin_law_firms
       end
@@ -286,37 +286,39 @@ class Admin::FormSubmissionsController < Admin::BaseController
   def approve
 
     if @form_submission.follow_ups.map(&:status).include?('pending')
-      redirect_to :back
-    end
-
-    @form_submission = FormSubmission.find(params[:id])
-
-    if @form_submission.system_score >= SystemSetting.score_threshold
-
-      @form_submission.status = 'approved'
-
-      # The admin will be notified after an year about the law firm.
-      # Admin can review the law firm and take necessary action.
-      @form_submission.expiry_date = Time.now + 1.year
-
-      # Creates action items for the law firm that has just been approved
-      # generate_security_threats
-
-      if (@form_submission.save)
-        LawFirmMailer.decision_reached(@form_submission, 'Approved').deliver_now
-        # FormSubmission.log_activity('approved', true, @form_submission, current_admin_user)
-        redirect_to :admin_law_firms
-      end
+      redirect_to :back, , alert: "Follow ups are pending!" 
     else
-      redirect_to history_step_admin_form_submission_path(@form_submission), alert: "The score (#{@form_submission.system_score}) is below system's threshold (#{SystemSetting.score_threshold}). You cannot approve the law firm" 
+      # @form_submission = FormSubmission.find(params[:id])
+
+      if @form_submission.system_score >= SystemSetting.score_threshold
+
+        @form_submission.status = 'approved'
+
+        # The admin will be notified after an year about the law firm.
+        # Admin can review the law firm and take necessary action.
+        @form_submission.expiry_date = Time.now + 1.year
+
+        # Creates action items for the law firm that has just been approved
+        # generate_security_threats
+
+        if (@form_submission.save)
+          # LawFirmMailer.decision_reached(@form_submission, 'Approved').deliver_now
+          # FormSubmission.log_activity('approved', true, @form_submission, current_admin_user)
+          redirect_to :admin_law_firms
+        end
+      else
+        redirect_to history_step_admin_form_submission_path(@form_submission), alert: "The score (#{@form_submission.system_score}) is below system's threshold (#{SystemSetting.score_threshold}). You cannot approve the law firm" 
+      end
+      
     end
+
   end
 
   def decline
     @form_submission = FormSubmission.find(params[:id])
     @form_submission.status = 'decline'
     if (@form_submission.save)
-      LawFirmMailer.decision_reached(@form_submission, 'Declined').deliver_now
+      # LawFirmMailer.decision_reached(@form_submission, 'Declined').deliver_now
       FormSubmission.log_activity('declined', true, @form_submission, current_admin_user)
       redirect_to :admin_law_firms
     end
