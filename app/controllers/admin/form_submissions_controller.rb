@@ -100,7 +100,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
         score: score,
         total_score: total_score,
         score_counter: score_counter + 1,
-        field_label: form_value.form_field.label
+        field_label: form_value.try(:form_field).try(:label)
       )
       score_counter = score_counter + 1
     end
