@@ -44,7 +44,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
     @scores_debug = []
     
     @form_submission.form_values.each do |form_value|
-      if form_value.form_field.type == "ActivityTimeLogField"
+      if form_value.try(:form_field).try(:type) == "ActivityTimeLogField"
         score = 0.0
         field_scores = []
         fields = ["network_discovery", "penetration_testing", "vulnerability_assessment", "hardware_refresh", "hardware_inventory", "software_inventory"]
