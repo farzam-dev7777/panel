@@ -44,7 +44,8 @@ class Admin::FormSubmissionsController < Admin::BaseController
     @scores_debug = []
     
     @form_submission.form_values.each do |form_value|
-      if form_value.try(:form_field).try(:type) == "ActivityTimeLogField"
+      form_field_type = form_value.try(:form_field).try(:type)
+      if form_field_type == "ActivityTimeLogField"
         score = 0.0
         field_scores = []
         fields = ["network_discovery", "penetration_testing", "vulnerability_assessment", "hardware_refresh", "hardware_inventory", "software_inventory"]
@@ -62,17 +63,17 @@ class Admin::FormSubmissionsController < Admin::BaseController
       elsif form_value.is_a_repeater_field?
         score = calculate_repeater_field_score(form_value)
         total_score = total_score + score
-      elsif form_value.form_field.type == "MultiSelectField"
+      elsif form_field_type == "MultiSelectField"
         scores = form_value.form_field.dropdown_options.where(value: form_value.multi_select_value).map(&:score)
         score = (scores.size > 0 ? (scores.sum / scores.size) : 0.0)
         total_score = total_score + score
-      elsif form_value.form_field.type == "DropdownField"
+      elsif form_field_type == "DropdownField"
         score = form_value.form_field.dropdown_options.find_by(value: form_value.value)&.score || 0.0
         total_score = total_score + score
-      elsif form_value.form_field.type == "UploadField"
+      elsif form_field_type == "UploadField"
         score = form_value.file_attachments.blank? ? 0.0 : (form_value.form_field.score || 0.0)
         total_score = total_score + score
-      elsif form_value.form_field.type == "DateField"
+      elsif form_field_type == "DateField"
         # - Date is within last 12 months - score: 5
         # - Date is more than 12 months old - score: 2.5
         # - if blank: 0
@@ -95,7 +96,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
         score = 0.0
       end
       @scores_debug.push(
-        form_field_type: form_value.form_field.type,
+        form_field_type: form_field_type,
         score: score,
         total_score: total_score,
         score_counter: score_counter + 1,
