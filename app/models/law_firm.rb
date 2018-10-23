@@ -106,10 +106,11 @@ class LawFirm < ApplicationRecord
     internal_note if internal_note.save
   end
 
-  def total_calculated_score
-    latest_form_submission = self.form_submissions.latest
-
-    return unless latest_form_submission.status == 'approved'
+  def total_calculated_score(form_submission = nil)
+    latest_form_submission = form_submission || self.form_submissions.latest
+    if !form_submission
+      return unless latest_form_submission.status == 'approved'
+    end
 
     (((latest_form_submission.system_score || 0) * SYSTEM_SCORE_WEIGHTAGE) + 
         ((latest_form_submission.assessor_score || 0) * ASSESSOR_SCORE_WEIGHTAGE) + 

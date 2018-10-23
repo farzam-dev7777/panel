@@ -31,12 +31,15 @@ module ButtonHelper
 
   def gauge(submission)
     status = submission.status.try(:humanize)
-    status = status == "Approved" ? "Certified" : status
-    "
-      <h3 class='firm-score-#{submission.status}'>
-        <span>#{status}</span>
-      </h3>
-    ".html_safe
+    if status == "Approved"
+      "<div class='btn-primary btn-certified'>Certified</div>".html_safe
+    else
+      "
+        <h3 class='firm-score-#{submission.status}'>
+          <span>#{status}</span>
+        </h3>
+      ".html_safe
+    end
     # "
     #   <h3 class='firm-score-#{submission.status}'>
     #     <span>#{status}</span>

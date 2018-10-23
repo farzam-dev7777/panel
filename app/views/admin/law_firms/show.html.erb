@@ -217,24 +217,33 @@
 									<tr>
 										<th class="text-center">Score</th>
 										<th class="text-center">Status</th>
+										<th class="text-center">Approved At</th>
+										<th class="text-center">Expiry Date</th>
 										<th colspan="2" class="text-center">Action</th>
 									</tr>
 
 									<% @law_firm.form_submissions.each do |submission| %>
 										<tr>
-											<td><%= submission.total_score || '-' %></td>
+											<td><%= @law_firm.total_calculated_score(submission) || '-' %></td>
 											<td class="text-center">
-											<span class="label label-<%= submission_status_class(submission) %>">
-												<%= submission.try(:status).titleize %>
-											</span>
-											<% if submission.try(:status) == 'decertified' %>	
-												<br><em><%= submission.try(:reason) %></em>
-											<% end %>
+												<span class="label label-<%= submission_status_class(submission) %>">
+													<%= submission.try(:status).titleize %>
+												</span>
+												<% if submission.try(:status) == 'decertified' %>	
+													<br><em><%= submission.try(:reason) %></em>
+												<% end %>
+											</td>
+											<td class="text-center">
+												<%= submission.approved_at %>
+											</td>
+											<td class="text-center">
+												<%= submission.expiry_date %>
 											</td>
 											<td>
 												<% if submission.try(:status) == 'approved' %>	
 													<% #link_to "Begin Recertification Process", begin_recertification_process_admin_law_firm_path(submission.law_firm), class: "btn btn-primary btn-xs" %>	
 
+													<%= submission.expiry_date %>
 													<a class="btn btn-default btn-xs extend-expiry">Extend Expiry Date</a>
 													<form id="extend-expiry-form" class="text-center" style="margin-top: 20px; height: 75px;" method="POST" action="">
 														<div class="col-md-offset-3 no-padding col-md-6 text-center">

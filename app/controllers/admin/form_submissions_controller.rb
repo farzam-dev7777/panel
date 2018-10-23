@@ -298,6 +298,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
         # The admin will be notified after an year about the law firm.
         # Admin can review the law firm and take necessary action.
         @form_submission.expiry_date = Time.now + 1.year
+        @form_submission.approved_at = Time.now
 
         # Creates action items for the law firm that has just been approved
         # generate_security_threats

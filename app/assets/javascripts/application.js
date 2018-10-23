@@ -43,6 +43,7 @@
 //= require plugin/datatables/dataTables.tableTools.min.js
 //= require plugin/datatables/dataTables.bootstrap.min.js
 //= require plugin/datatable-responsive/datatables.responsive.min.js
+//= require datetimepicker
 //= require plugin/canvasjs.min
 //= require underscore
 //= require rateyo

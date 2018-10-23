@@ -162,8 +162,8 @@
 														<% @security_alerts.each do |alert| %>
 															<div class="col-xs-2 col-sm-1">
 																<time datetime="2014-09-20" class="icon">
-																	<strong><%= alert.created_at.strftime("%b") %></strong>
-																	<span><%= alert.created_at.strftime("%d") %></span>
+																	<strong><%= (alert.alert_date ? alert.alert_date : alert.created_at).strftime("%b") %></strong>
+																	<span><%= (alert.alert_date ? alert.alert_date : alert.created_at).strftime("%d") %></span>
 																</time>
 															</div>
 
@@ -352,6 +352,7 @@
 										<tr>
 											<th class="text-center">Submission ID</th>
 											<!-- <th class="text-center">Score</th> -->
+											<th class="text-center">Date of certification</th>
 											<th class="text-center">Status</th>
 											<th class="text-center">Action</th>
 										</tr>
@@ -360,6 +361,7 @@
 											<tr>
 												<td><%= submission.id %></td>
 												<!-- <td><%= submission.total_score || '-' %></td> -->
+												<td><%= submission.approved_at.try(:strftime, "%d/%m/%Y") || '-' %></td>
 												<td class="text-center">
 												<span class="label label-<%= submission_status_class(submission) %>">
 													<%= submission.try(:status).titleize %>
@@ -513,10 +515,10 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title">Modal Header</h4>
+				<h4 class="modal-title"></h4>
 			</div>
 			<div class="modal-body news">
-				<p>Some text in the modal.</p>
+				<p></p>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -532,10 +534,10 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title">Modal Header</h4>
+				<h4 class="modal-title"></h4>
 			</div>
 			<div class="modal-body news">
-				<p>Some text in the modal.</p>
+				<p></p>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

@@ -61,7 +61,7 @@ class Admin::SecurityAlertsController < Admin::BaseController
   private
 
   def security_alert_params
-  	params.require(:security_alert).permit(:title, :description, :severity, :link)
+    params.require(:security_alert).permit(:title, :description, :severity, :link, :alert_date)
   end
 
 end

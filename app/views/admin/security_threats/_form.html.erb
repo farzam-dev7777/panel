@@ -23,7 +23,7 @@
 <p id="law-firms-count"></p>
 
 <div class="col-md-9 no-padding">
-	<select name="[law_firm_ids][]" id="law-firms" multiple="multiple">
+	<select name="security_threat[law_firm_ids][]" id="law-firms" multiple="multiple">
 		<% LawFirm.all.uniq.each do |firm| %>
 			<option value="<%= firm.id %>"><%= firm.name %></option>
 		<% end %>

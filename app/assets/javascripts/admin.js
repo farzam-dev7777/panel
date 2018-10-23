@@ -1,5 +1,7 @@
 $(document).ready(function(){
 
+  $('.datetimepicker').datetimepicker();
+
 	// Create a new todo task
 	$("#todo-task-form").submit(function(e){
 		e.preventDefault();

@@ -7,11 +7,11 @@ class SecurityThreat < ApplicationRecord
 	validate :check_law_firm_ids
 
 	def generate_action_items(params, current_user)
-		if params[:law_firm_ids].nil?
+		if self.law_firm_ids.nil?
 			errors.add(:law_firm_ids, "You must select law firm ids")
 			return
 		else
-			ActionItem.create_action_items(self.id, params, current_user)
+			ActionItem.create_action_items(self.id, params, current_user, law_firm_ids)
 		end
 	end
 

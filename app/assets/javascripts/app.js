@@ -1536,7 +1536,8 @@ function update_assessor_score(data){
       },
       success: function(response) {
         ajaxReqestSent = false;
-        toastr.success("", "Score Updated")
+        toastr.success("", "Score Updated");
+        window.location.reload();
         // TODO: if total score is below threshold, disable approval
         // if(response.total_score){
         //   $('.approve-btn').attr("disabled", "disabled")

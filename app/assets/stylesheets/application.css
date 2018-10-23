@@ -14,6 +14,7 @@
  *= require jquery.fileupload
  *= require font-awesome
  *= require jquery-ui
+ *= require datetimepicker
  *= require qTip2
  *= require sweetalert
  *= require toastr

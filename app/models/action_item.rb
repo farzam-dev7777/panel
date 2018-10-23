@@ -5,8 +5,8 @@ class ActionItem < ApplicationRecord
 
 	scope :complete, -> { where(status: 'complete') }
 
-	def self.create_action_items(security_threat_id, params, current_user)
-		params[:law_firm_ids].each do |law_firm_id|
+	def self.create_action_items(security_threat_id, params, current_user, law_firm_ids)
+		law_firm_ids.each do |law_firm_id|
 			action_item = ActionItem.new(security_threat_id: security_threat_id, law_firm_id: law_firm_id)
 			if action_item.save
 	      QueuedNotification.generate_notifications(action_item, params, current_user)

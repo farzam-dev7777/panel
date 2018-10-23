@@ -1428,3 +1428,10 @@ div.checkbox {
 .remove_fields{
   color: #F44336;
 }
+
+.btn-certified{
+  max-width: 220px;
+  padding: 12px;
+  margin: 25px auto;
+  font-size: 16px;
+}

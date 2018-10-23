@@ -57,7 +57,7 @@ class Admin::SecurityThreatsController < Admin::BaseController
   private
 
   def security_threat_params
-  	params.require(:security_threat).permit(:title, :law_firm_ids, :description, :severity_level_id, :vendor, :platform, :version, :service_pack, law_firm_ids: [], severity_negative_factor: [])
+  	params.require(:security_threat).permit(:title, :description, :severity_level_id, :vendor, :platform, :version, :service_pack, law_firm_ids: [], severity_negative_factor: [])
   end
 
   def technology_values_filter_params
