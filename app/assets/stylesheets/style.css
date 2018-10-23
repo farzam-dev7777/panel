@@ -1429,9 +1429,10 @@ div.checkbox {
   color: #F44336;
 }
 
-.btn-certified{
+body.smart-style-6 .btn-primary.btn-certified{
   max-width: 220px;
   padding: 12px;
   margin: 25px auto;
   font-size: 16px;
+  background: green!important;
 }
