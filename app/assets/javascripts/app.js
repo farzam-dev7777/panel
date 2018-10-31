@@ -923,7 +923,7 @@ $(document).ready(function(){
     }
   }
 
-  if(window.location.pathname.indexOf("/form_submissions/?readonly=true") > -1){
+  if(window.location.href.indexOf("readonly=true") > -1){
     disableFormSubmissionFields();
   }
 
@@ -1195,6 +1195,9 @@ $(document).ready(function(){
     $('.score-form input').removeAttr('disabled');
     $('#notes-modal .input > div textarea').removeAttr('disabled');
     $('textarea.note').removeAttr('disabled');
+    $('.wrapper .btn').attr('disabled', 'true');
+    $('.wrapper .delete_file').hide();
+    $('.wrapper .remove_fields').hide();
   }
 
   // count tasks

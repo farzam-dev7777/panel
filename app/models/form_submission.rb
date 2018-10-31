@@ -37,6 +37,14 @@ class FormSubmission < ApplicationRecord
   	ActivityLog.log(object)
 	end
 
+  def formatted_status
+    (self.status == 'approved' ? "Certified" : self.status).titleize
+  end
+
+  def formatted_evidence_status
+    (self.evidence_status || "Under Review").humanize
+  end
+
   def self.generate_initial_submissions(law_firm, current_user)
     submission = FormSubmission.new
     submission.form_id = Form.where(step: 'policy').last.try(:id)

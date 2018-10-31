@@ -52,7 +52,7 @@
 														<td><%= firm.created_at.strftime(LawFirm::TIME_FORMAT) %></td>
 														<td class="text-center">
 															<% if firm.form_submissions.any? %>
-																<span class="label label-<%= submission_status_class(firm.form_submissions.latest) %>"><%= firm.form_submissions.latest.try(:status).titleize %></span>
+																<span class="label label-<%= submission_status_class(firm.form_submissions.latest) %>"><%= firm.form_submissions.latest.formatted_status %></span>
 																<%=  %>
 															<% else %>
 																<span class="label label-warning">Onboarded</span>

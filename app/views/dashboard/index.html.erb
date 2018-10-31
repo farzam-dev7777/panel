@@ -353,7 +353,9 @@
 											<th class="text-center">Submission ID</th>
 											<!-- <th class="text-center">Score</th> -->
 											<th class="text-center">Date of certification</th>
+											<th class="text-center">Date of submission</th>
 											<th class="text-center">Status</th>
+											<th class="text-center">Evidence Status</th>
 											<th class="text-center">Action</th>
 										</tr>
 
@@ -362,16 +364,24 @@
 												<td><%= submission.id %></td>
 												<!-- <td><%= submission.total_score || '-' %></td> -->
 												<td><%= submission.approved_at.try(:strftime, "%d/%m/%Y") || '-' %></td>
+												<td><%= submission.submitted_on.try(:strftime, "%d/%m/%Y") || '-' %></td>
 												<td class="text-center">
 												<span class="label label-<%= submission_status_class(submission) %>">
-													<%= submission.try(:status).titleize %>
+													<%= submission.try(:formatted_status) %>
 												</span>
+												<td>
+													<%= submission.try(:formatted_evidence_status) %>
+												</td>
 												<% if submission.try(:status) == 'decertified' %>	
 													<br><em><%= submission.try(:reason) %></em>
 												<% end %>
 												</td>
 												<td>
-													<%= link_to 'View', policy_step_form_submission_path(submission, readonly: "true"), class: "btn btn-outline-primary btn-xs" %>	
+													<% if submission.try(:status) != 'approved' %>
+														<%= link_to 'View', policy_step_form_submission_path(submission, readonly: "true"), class: "btn btn-outline-primary btn-xs" %>	
+													<% else %>
+														<%= link_to 'View', "", class: "btn btn-outline-primary btn-xs", onclick: "alert('Disabled')" %>	
+													<% end %>
 												</td>
 											</tr>
 											

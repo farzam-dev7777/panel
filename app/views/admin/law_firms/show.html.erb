@@ -227,7 +227,7 @@
 											<td><%= @law_firm.total_calculated_score(submission) || '-' %></td>
 											<td class="text-center">
 												<span class="label label-<%= submission_status_class(submission) %>">
-													<%= submission.try(:status).titleize %>
+													<%= submission.formatted_status %>
 												</span>
 												<% if submission.try(:status) == 'decertified' %>	
 													<br><em><%= submission.try(:reason) %></em>
