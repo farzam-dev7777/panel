@@ -820,31 +820,33 @@ $(document).ready(function(){
 
 
 
-  $(document).on('change', '.threat-lf-dynamic-select', function() {
-    field = $(this).data('field');
-    
-    if (field == 'vendor'){
-      vendor = $(this).val();
-      target = $(this).parent().parent().next('div.platform-wrapper').find('select');
-      fetchLawFirms(vendor, null, null, target)
-      fetchTechnology(vendor, null, null, target, null, null)
-    } else if (field == 'platform'){
-      vendor = $(this).parent().parent().prev('.vendor-wrapper').find('select').val();
-      platform = $(this).val();
-      target = $(this).parent().parent().next('div.version-wrapper').find('select');
-      fetchLawFirms(vendor, platform, null, target)
-      fetchTechnology(vendor, platform, null, target, null, null)
-    } else if (field == 'version') {
-      vendor = $(this).parent().parent().prev('.vendor-wrapper').find('select').val();
-      platform = $(this).parent().parent().prev('.platform-wrapper').find('select').val();
-      version = $(this).val();
-      target = $(this).parent().parent().next('div.service_pack-wrapper').find('select');
-      fetchLawFirms(vendor, platform, version, target);
-      fetchTechnology(vendor, platform, version, target, null, null)
-    }
+  $(document).on('change', '.threat-lf-dynamic-select', function(e) {
+    if(e.target.value != ""){
+      field = $(this).data('field');
+      
+      if (field == 'vendor'){
+        vendor = $(this).val();
+        target = $(this).parent().parent().next('div.platform-wrapper').find('select');
+        fetchLawFirms(vendor, null, null, target)
+        fetchTechnology(vendor, null, null, target, null, null)
+      } else if (field == 'platform'){
+        vendor = $(this).parent().parent().prev('.vendor-wrapper').find('select').val();
+        platform = $(this).val();
+        target = $(this).parent().parent().next('div.version-wrapper').find('select');
+        fetchLawFirms(vendor, platform, null, target)
+        fetchTechnology(vendor, platform, null, target, null, null)
+      } else if (field == 'version') {
+        vendor = $(this).parent().parent().prev('.vendor-wrapper').find('select').val();
+        platform = $(this).parent().parent().prev('.platform-wrapper').find('select').val();
+        version = $(this).val();
+        target = $(this).parent().parent().next('div.service_pack-wrapper').find('select');
+        fetchLawFirms(vendor, platform, version, target);
+        fetchTechnology(vendor, platform, version, target, null, null)
+      }
 
-    platform = $(this).data('platform');
-    version = $(this).data('version');
+      platform = $(this).data('platform');
+      version = $(this).data('version');
+    }
   })
 
   $('body').on('click', '.tech-form-wraper .add_fields', function(){
@@ -1615,7 +1617,7 @@ function fetchLawFirms(vendor, platform, version, target){
   $.get('/admin/security_threats/0/find_law_firms', data, function(response){
 
     if (response.selected.length > 0){
-    $('#law-firms').empty().append("<option value=''></option>");
+      $('#law-firms').empty().append("<option value=''></option>");
       $.each(response.selected, function( index, value ) {
         $("#law-firms").append("<option selected='selected' value='" + value.id + "'>" + value.text + "</option>").trigger('chosen:updated').trigger('change');
       });
