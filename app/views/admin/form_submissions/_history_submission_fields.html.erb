@@ -1,9 +1,9 @@
 <div class="row history-field <%= follow_up_class(params[:id], f.object.id, 'HistorySubmission') %>">
-	<div class="col-md-3"><%= f.input :incident_type, collection: ['Incident Type 1', 'Incident Type 2'] %></div>
-	<div class="col-md-2"><%= f.input :impact %></div>
-	<div class="col-md-2"><%= f.input :discovery_time %></div>
-	<div class="col-md-2"><%= f.input :source, collection: ['Source 1',  'Source 2'] %></div>
-	<div class="col-md-2"><%= f.input :data_loss, collection: ['Yes', 'No'] %></div>
+	<div class="col-md-3"><%= f.input :incident_type %></div>
+	<!-- <div class="col-md-4"><%= f.input :impact %></div> -->
+<!-- 	<div class="col-md-2"><%= f.input :discovery_time %></div> -->
+	<div class="col-md-4"><%= f.input :data_loss, collection: ["No", "Not that we know.", "Yes, but not client data", "Yes , some", "Significant"] %></div>
+	<div class="col-md-4"><%= f.input :source, collection: ["Was done immediately", "Done", "Underway", "Planned", "Not done yet."], label: 'Remediation Status' %></div>
 
 
 
@@ -12,7 +12,7 @@
 
 	<%= render partial: 'note', locals: { loggable: f.object, follow_ups: @follow_ups, 
 																							wrapper_class: note_class('history'),
-																							form_type: 'HistorySubmission'} %>
+																							form_type: 'HistorySubmission', field: f.object} %>
 
 </div>
 <div class="clearfix"></div>

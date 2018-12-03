@@ -1,0 +1,31 @@
+<div class="information-security-policy information-security-policy-field-<%= f.object.try(:id) %>">
+	<div class="col-md-3 no-padding gfe-field">
+		<%= f.input :policy, label: false, collection: ["Information Security Policy", "Breach declaration policy", "Disaster Recovery Plan", "Business Continuity Plan", "Records Retention Policy", "Acceptable Use Policy", "Privacy Policy", "Incidence Response Plan", "Do not have one"] %>
+	</div>
+	<div style="width: 125px;" class="col-md-2 gfe-field">
+		<%= f.input :last_reviewed, as: :string, input_html: { class: 'restrict-till-day', value: DateField.stringify_date(f.object.last_reviewed) }, label: false %>
+	</div>
+	<div style="width: 125px;" class="col-md-2 gfe-field">
+		<%= f.input :last_updated, as: :string, input_html: { class: 'restrict-till-day', value: DateField.stringify_date(f.object.last_updated) }, label: false %>
+	</div>
+	<!-- <div class="col-md-1 gfe-field">
+		<%= f.input :freq_of_review, as: :integer, label: false %>
+	</div> -->
+	<!-- <div class="col-md-3 gfe-field">
+		<%= f.input :independent_review, label: false, collection: ["Yes", "No"] %>
+	</div> -->
+	<div class="col-md-3 gfe-field">
+		<%= f.input :communication_status, label: false, label: false, collection: ["Everyone", "Permanent Staff", "Technology Staff", "Legal Staff", "Partner", "Select People", "Everyone - except contract staff"] %>
+	</div>
+	<div class="col-md-2 gfe-field" style="width: 200px">
+		<%= render '/application/form_values/upload_field', v: f, f: f, field: f.object.form_value&.form_field %>
+	</div>
+
+
+	<div class="col-md-1 text-right" style="font-size: 16px; width: 60px; margin-top: 5px;">
+		<% if f.object && !current_user.is_an_admin? %>
+			<%= link_to_remove_association "<i class='fa fa-minus-circle'></i>".html_safe, f, { wrapper_class: "information-security-policy-field-#{f.object.try(:id)}" }  %>
+		<% end %>
+	</div>
+</div>
+<div class="clearfix"></div>

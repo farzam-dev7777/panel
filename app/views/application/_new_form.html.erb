@@ -1,19 +1,21 @@
-<ol data-role="activerecord_sortable">
+<!-- <ul data-role="activerecord_sortable" class="accordion"> -->
+<ul  class="accordion">
   <%= f.simple_fields_for :form_fields, form_fields do |form_field| %>
     <li class="form-field" data-role="form_field<%= form_field.object.id.to_s %>" data-position="<%= form_field.object.position %>">
-      <% step = form_field.object.get_step %>
-      <div class="row">
-        <% if step > 0 %>
-          <div class="<%= 'col-md-' + step.to_s %>">
-            <span class="sub-fields-arrow pull-right"></span>
+      <div>
+        <% step = form_field.object.get_step %>
+        <div class="row">
+          <% if step > 0 %>
+            <div class="<%= 'col-md-' + step.to_s %>">
+              <span class="sub-fields-arrow pull-right"></span>
+            </div>
+          <% end %>
+          <div class="<%= 'col-md-' + (12 - step).to_s  %>">
+            <%= render 'form_field_fields', f: form_field %>
           </div>
-        <% end %>
-        <div class="<%= 'col-md-' + (12 - step).to_s  %>">
-          <%= render 'form_field_fields', f: form_field %>
-          <%= form_field.input :position, as: :integer, input_html: {:data => { :role => 'position' }} %>
         </div>
+        <%= render 'new_form', f: f, form_fields: form_field.object.children %>
       </div>
-      <%= render 'new_form', f: f, form_fields: form_field.object.children %>
     </li>
   <% end %>
-</ol>
+</ul>

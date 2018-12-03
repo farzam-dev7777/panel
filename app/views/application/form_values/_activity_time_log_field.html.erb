@@ -1,0 +1,82 @@
+<div>
+  <% if(!v.object.try(:form_field).try(:help_description).blank?) %>
+    <i class="fa fa-question-circle-o help-text" data-help="<%= v.object.try(:form_field).try(:help_description) %>"></i>
+  <% end %>
+  <label><%= field.try(:label) %></label>
+
+  <%= v.input :value, as: :hidden, input_html: { class: 'repeater-field-value' } %>
+  <div class="clearfix"></div>
+  <%= v.simple_fields_for :activity_time_log, v.object.render_activity_time_log_fields do |activity_time_log| %>
+  
+    <div class="col-md-12 no-padding gfe-field atl-wrap">
+      <div class="col-md-2 no-padding label-wrap">
+        <label>Network Discovery</label>
+      </div>
+      <div class="col-md-4 input-wrap">
+        <%= activity_time_log.input :network_discovery, as: :string, input_html: { class: 'datepicker', value: DateField.stringify_date(activity_time_log.object.network_discovery) }, label: false %>
+      </div>
+      <div class="col-md-4 chkbx-wrap">
+        <%= activity_time_log.input :network_discovery_never, as: :boolean, label: 'Never', input_html: { class: 'never-chkbx' } %>
+      </div>
+    </div>
+    <div class="col-md-12 no-padding gfe-field atl-wrap">
+      <div class="col-md-2 no-padding label-wrap">
+        <label>Penetration Testing</label>
+      </div>
+      <div class="col-md-4 input-wrap">
+        <%= activity_time_log.input :penetration_testing, as: :string, input_html: { class: 'datepicker', value: DateField.stringify_date(activity_time_log.object.penetration_testing) }, label: false %>
+      </div>
+      <div class="col-md-4 chkbx-wrap">
+        <%= activity_time_log.input :penetration_testing_never, as: :boolean, label: 'Never', input_html: { class: 'never-chkbx' } %>
+      </div>
+    </div>
+    <div class="col-md-12 no-padding gfe-field atl-wrap">
+      <div class="col-md-2 no-padding label-wrap">
+        <label>Vulnerability Assessment</</label>
+      </div>
+      <div class="col-md-4 input-wrap">
+      <%= activity_time_log.input :vulnerability_assessment, as: :string, input_html: { class: 'datepicker', value: DateField.stringify_date(activity_time_log.object.vulnerability_assessment) }, label: false %>
+      </div>
+      <div class="col-md-4 chkbx-wrap">
+        <%= activity_time_log.input :vulnerability_assessment_never, as: :boolean, label: 'Never', input_html: { class: 'never-chkbx' } %>
+      </div>
+    </div>
+    <div class="col-md-12 no-padding gfe-field atl-wrap">
+      <div class="col-md-2 no-padding label-wrap">
+        <label>Hardware Refresh</label>
+      </div>
+      <div class="col-md-4 input-wrap">
+        <%= activity_time_log.input :hardware_refresh, as: :string, input_html: { class: 'datepicker', value: DateField.stringify_date(activity_time_log.object.hardware_refresh) }, label: false %>
+      </div>
+      <div class="col-md-4 chkbx-wrap">
+        <%= activity_time_log.input :hardware_refresh_never, as: :boolean, label: 'Never', input_html: { class: 'never-chkbx' } %>
+      </div>
+    </div>
+    <div class="col-md-12 no-padding gfe-field atl-wrap">
+      <div class="col-md-2 no-padding label-wrap">
+        <label>Hardware Inventory</label>
+      </div>
+      <div class="col-md-4 input-wrap">
+        <%= activity_time_log.input :hardware_inventory, as: :string, input_html: { class: 'datepicker', value: DateField.stringify_date(activity_time_log.object.hardware_inventory) }, label: false %>
+      </div>
+      <div class="col-md-4 chkbx-wrap">
+        <%= activity_time_log.input :hardware_inventory_never, as: :boolean, label: 'Never', input_html: { class: 'never-chkbx' } %>
+      </div>
+    </div>
+    <div class="col-md-12 no-padding gfe-field atl-wrap">
+      <div class="col-md-2 no-padding label-wrap">
+        <label>Software Inventory</label>
+      </div>
+      <div class="col-md-4 input-wrap">
+        <%= activity_time_log.input :software_inventory, as: :string, input_html: { class: 'datepicker', value: DateField.stringify_date(activity_time_log.object.software_inventory) }, label: false %>
+      </div>
+      <div class="col-md-4 chkbx-wrap">
+        <%= activity_time_log.input :software_inventory_never, as: :boolean, label: 'Never', input_html: { class: 'never-chkbx' } %>
+      </div>
+    </div>
+
+  <% end %>
+  <div class="clearfix"></div>
+
+</div>
+

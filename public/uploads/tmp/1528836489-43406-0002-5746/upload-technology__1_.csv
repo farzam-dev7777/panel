@@ -1,0 +1,3 @@
+platform_category,platform_type,vendor,platform,version,service_pack,supported
+operating_systems,server,Microsoft,Windows,2012,SP1,Yes
+applications,client,Microsoft,Windows,7,SP1,Yes

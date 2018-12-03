@@ -1,0 +1,2 @@
+class ThirdPartyVendorField < FormField
+end

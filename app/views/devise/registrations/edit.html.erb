@@ -1,0 +1,48 @@
+
+<div id="main" role="main">
+
+  <!-- MAIN CONTENT -->
+  <div id="content" class="container">
+
+    <div class="row">
+      <div class="col-xs-12 col-lg-8 col-lg-offset-3 login-form-wrapper">
+        <div class="well">
+
+          <% if notice || alert %>
+            <p class="notice"><%= notice %></p>
+            <p class="alert"><%= alert %></p>
+          <% end %>
+            <header>
+              Change Password
+            </header>
+
+              <br>
+              
+              <%= simple_form_for(current_user, url: user_registration_path) do |f| %>
+                <section>
+                  <%= f.label :password, "Password" %><br />
+                  <%= f.password_field :password, :autocomplete => "off", class: 'form-control'  %>
+                </section>
+                
+                <br>
+
+                <section>
+                  <%= f.label :password_confirmation %><br />
+                  <%= f.password_field :password_confirmation, class: 'form-control' %>
+                </section>
+                <br>
+                <footer class="row">
+                  <div class="col-md-9">
+                    <%= f.submit "Change Password", class: 'btn btn-primary' %>
+                  </div>
+                </footer>
+              <% end %>
+
+              </div>
+              
+            </div>
+          </div>
+        </div>
+
+      </div>
+

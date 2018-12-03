@@ -1,6 +1,43 @@
-<%= v.input :file_value, {
-  label: field.label,
-  required: field.required
-}, &field.input_block(v) %>
+<style type="text/css">
+  .bar {
+    background: green;
+    color: #fff;
+    padding: 2px;
+    display: none;
+  }
+  #progress{
+    padding: 10px 0px;
+  }
+  .file-field{
+    /*border: 3px dotted #ccc;*/
+    /*padding: 10px;*/
+  }
+  .form-control[readonly] {
+    border-bottom: 1px solid #ccc !important;
+    height: 30px;
+  }
+  .file-upload-handler {
+    position: relative;
+    top: 3px;
+  }
+</style>
 
-<%= link_to v.object.file_value.get_file_name, v.object.file_value.url if v.object.file_value.url %>
+<div class="file-field">
+  <% if !v.object.try(:form_field).try(:label).blank? %>
+  <label class="control-label parent-f-sized-label">
+    <% if !v.object.try(:form_field).try(:help_description).blank? %>
+      <i class="fa fa-question-circle-o help-text" data-help="<%= v.object.try(:form_field).try(:help_description) %>"></i>
+    <% end %>
+    <%= v.object.try(:form_field).try(:label) %>
+  </label>
+  <% end %>
+  <input class="fileupload hidden" type="file" name="files[]" data-url='<%= v.object.new_record? ? "/file_attachments/" : "/file_attachments/#{v.object.id}/#{v.object.class.name}"%>' multiple data-form-field-id="<%= v.object.try(:form_field).try(:id) %>" data-file-count="<%= v.object.file_attachments.count %>" data-limit="<%= UploadField::FILES_LIMIT %>">
+  <input type="text" class="form-control file-upload-handler" placeholder="Click here to upload file(s)" readonly="readonly">
+  <%= v.input :file_ids, as: :hidden, input_html: { class: 'file-ids' } %>
+
+  <div id="progress">
+    <div class="bar" style="width: 0%;"></div>
+  </div>
+
+  <%= render(partial: 'file_attachment', locals: { file_attachments: v.object.file_attachments }) %>
+</div>

@@ -1,0 +1,10 @@
+<div class="col-md-12 no-padding snf">
+	<% triggers.each_with_index do |t, i| %>
+		<div class="col-md-4">
+			<div class="form-group">
+		    <label>Severity Negative Factor (Trigger <%= i + 1 %> - <em><%= t.hours %> hours</em> )</label>
+		    <input type="number" class="form-control" name="[snf][snf_<%= i %>]">
+		  </div>
+		</div>
+	<% end %>
+</div>

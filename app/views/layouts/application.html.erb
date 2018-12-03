@@ -1,66 +1,98 @@
 <!DOCTYPE html>
 <html lang="en-us">
   <head>
-    <title><%= params[:controller] %> Bluehound</title>
+    <title><%= params[:controller].humanize %> | SEAL</title>
       
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <!--[if IE]>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+    <![endif]-->
+    <style>
+      #main {
+        margin-left: 0px;
+      }
+    </style>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   </head>
 
   <body class="smart-style-6">
 
         <!-- #HEADER -->
-    <header id="header">
-      <div id="logo-group">
+    <header id="header" class="row">
+      <div class="col-md-2 col-xs-12">
+
 
         <!-- PLACE YOUR LOGO HERE -->
-        <span id="logo"> <img src="/assets/seal-white.png" alt="SmartAdmin"> </span>
+        <span id="logo">
+          <div id="home-wrapper">
+            <a href="/">
+              <i class="fa fa-home"></i>
+            </a>
+          </div>
+          <a href="/"><%= image_tag "seal-white.png", alt:"SEAL" %></a>
+        </span>
         <!-- END LOGO PLACEHOLDER -->
 
         <!-- Note: The activity badge color changes when clicked and resets the number to 0
            Suggestion: You may want to set a flag when this happens to tick off all checked messages / notifications -->
-        <span id="activity" class="activity-dropdown"> 
-          <i class="fa fa-user"></i> 
-          <b class="badge"> <%= unread_notifications_count %> </b> 
-        </span>
 
         <!-- AJAX-DROPDOWN : control this dropdown height, look and feel from the LESS variable file -->
-        <div class="ajax-dropdown">
-
-          <!-- the ID links are fetched via AJAX to the ajax container "ajax-notifications" -->
-          <!-- <div class="btn-group btn-group-justified" data-toggle="buttons">
-            <label class="btn btn-default">
-              <input type="radio" name="activity" id="ajax/notify/mail.html">
-              Msgs (14) </label>
-            <label class="btn btn-default">
-              <input type="radio" name="activity" id="ajax/notify/notifications.html">
-              notify (3) </label>
-            <label class="btn btn-default">
-              <input type="radio" name="activity" id="ajax/notify/tasks.html">
-              Tasks (4) </label>
-          </div> -->
-
-          <!-- notification content -->
-          <div class="ajax-notifications custom-scroll no-padding">
-
-            <ul class="notifications">
-              <%- notifications.reverse.each do |notification| %>
-                <li class="<%= notification.read ? 'read' : 'unread' %>">
-                  <strong><%= notification.event_type.titleize %></strong>
-                  <p><%= notification.custom_message %></p>
-                  <p class="date"><%= notification.created_at.strftime('%a, %d %b %Y') %></p>
-                </li>
-              <%- end %>
-            </ul>
-
-          </div>
-          <!-- end notification content -->
-
-        </div>
+        
         <!-- END AJAX-DROPDOWN -->
       </div>
+
+      <div class="col-md-7 col-g-7 text-center portal-type">
+        <p>Firm Portal</p>
+      </div>
+
+
+       <div class="project-context col-md-1 pull-right">
+
+          <span class="label">Welcome</span>
+          <span class="project-selector dropdown-toggle" data-toggle="dropdown"><%= current_user.username %> <i class="fa fa-angle-down"></i></span>
+
+          <!-- Suggestion: populate this list with fetch and push technique -->
+          <ul class="dropdown-menu">
+            <% if current_law_firm && current_law_firm.form_submissions.any? && ( !['sent', 'started'].include? current_law_firm.form_submissions.latest.status ) %>
+              <li>
+                <%= link_to "Technologies", technology_profile_form_submission_path(current_law_firm.form_submissions.latest) %>
+              </li>
+              <li>
+                <%= link_to "History", history_profile_form_submission_path(current_law_firm.form_submissions.latest) %>
+              </li>
+              <li class="divider"></li>
+            <% end %>
+            <% if current_user.role == 'master_user' %>
+              <li>
+                <%= link_to "Add Colaborators", add_users_law_firms_path %>
+              </li>
+              <li>
+                <%= link_to "Edit Profile", edit_law_firm_path(current_law_firm) %>
+              </li>
+              <li class="divider"></li>
+            <% end %>
+            <li>
+              <%= link_to "Change password", "/set_new_password" %>
+            </li>
+            <li class="divider"></li>
+            <li>
+              <a href="/users/sign_out"><i class="fa fa-power-off"></i> Logout</a>
+            </li>
+          </ul>
+          <!-- end dropdown-menu-->
+
+        </div>
+
+       <!-- <div class="faqs col-md-1 pull-right">
+         <div>
+            <a href="/frequently_asked_questions">
+              <i class="fa fa-question-circle"></i> <span>FAQs</span>
+            </a>
+         </div>
+       </div>
 
       <!-- #PROJECTS: projects dropdown -->
       <!-- end projects dropdown -->
@@ -101,15 +133,9 @@
         </ul>
         
         <!-- collapse menu button -->
-        <div id="hide-menu" class="btn-header pull-right hidden-lg">
+        <!-- <div id="hide-menu" class="btn-header pull-right hidden-lg">
           <span> <a href="javascript:void(0);" data-action="toggleMenu" title="Collapse Menu"><i class="fa fa-reorder"></i></a> </span>
-        </div>
-
-        <!-- logout button -->
-        <div id="logout" class="btn-header transparent pull-right">
-          <span> <a href="users/sign_out" title="Sign Out" data-action="userLogout" data-logout-msg="You can improve your security further after logging out by closing this opened browser"><i class="fa fa-sign-out"></i></a> </span>
-        </div>
-        <!-- end logout button -->
+        </div> -->
 
       </div>
       <!-- end pulled right: nav area -->
@@ -120,47 +146,18 @@
     <!-- #NAVIGATION -->
     <!-- Left panel : Navigation area -->
     <!-- Note: This width of the aside area can be adjusted through LESS/SASS variables -->
-    <aside id="left-panel">
-
-      <!-- User info -->
+<!--     <aside id="left-panel">
       <div class="login-info">
-        <span> <!-- User image size is adjusted inside CSS, it should stay as is --> 
-          
-          <a href="javascript:void(0);" id="show-shortcut" data-action="toggleShortcut">
-            <!-- <img src="/assets/avatars/sunny.png" alt="me" class="online" />  -->
-            <span style="padding-top: 0; margin-top: 0">
-              john.doe 
-            </span>
-            <i class="fa fa-angle-down"></i>
-          </a> 
-          
-        </span>
+        <span></span>
       </div>
-      <!-- end user info -->
-
-      <!-- NAVIGATION : This navigation is also responsive
-
-      To make this navigation dynamic please make sure to link the node
-      (the reference to the nav > ul) after page load. Or the navigation
-      will not initialize.
-      -->
       <nav>
-        <!-- 
-        NOTE: Notice the gaps after each icon usage <i></i>..
-        Please note that these links work a bit different than
-        traditional href="" links. See documentation for details.
-        -->
-
         <ul>
           <li class="">
             <a href="/" title="blank_"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Dashboard</span></a>
           </li>
         </ul>
       </nav>
-
-      <span class="minifyme" data-action="minifyMenu"> <i class="fa fa-arrow-circle-left hit"></i> </span>
-
-    </aside>
+    </aside> -->
 
         <!-- #MAIN PANEL -->
     <div id="main" role="main" style="padding-bottom: 0px">
@@ -169,30 +166,68 @@
       <div id="ribbon">
 
         <!-- breadcrumb -->
-        <ol class="breadcrumb">
+        <!-- <ol class="breadcrumb">
           <li>Home</li>
-          <li>Blank</li>
-        </ol>
+          <li>Dashboard</li>
+        </ol> -->
 
       </div>
     <!-- END NAVIGATION -->
-    
-    <!-- <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p> -->
+    <div class="col-md-12">
+      <% if notice %>
+        <p class="alert alert-success"><%= notice %></p>
+      <% end %>
+      <% if alert %>
+        <p class="alert alert-warning"><%= alert %></p>
+      <% end %>
+    </div>
     <%= yield %>
 
       <div class="clearfix"></div>
 
     </div>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application' %>
+    
+    <% if current_law_firm && current_law_firm.try(:form_submissions).try(:latest).try(:total_score) && current_law_firm.try(:form_submissions).try(:latest).try(:status) == 'approved' %>
+      <script>
+        $('#law-firm-rating').rateYo({
+          halfStar: true,
+          rating: <%= current_law_firm.try(:total_calculated_score) %>,
+          readOnly: true,
+          multiColor: { 
+            "startColor": "<%= current_law_firm.form_submissions.latest.try(:color, current_law_firm.total_calculated_score, 'total_calculated_score') %>", 
+            "endColor": "<%= current_law_firm.form_submissions.latest.try(:color, current_law_firm.total_calculated_score, 'total_calculated_score') %>"
+          }
+        });
+      </script>
+
+      <%= javascript_include_tag 'http://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js' %>
+    <% end %>
+
+    <% if current_law_firm %>
+      <script type="text/javascript">
+        window.doorbellOptions = {
+            appKey: 'jmrrnhLtSDvA0b1werKyiNoVi5SYAP44NBZkoAJycCHYYcXmNe5czwRTb8fYqVP7',
+            hideEmail: true,
+            properties: { // Optional, a Javascript object of custom properties you want to set
+                loggedIn: true,
+                username: "<%= current_user.username %>"
+            }
+        };
+        (function(w, d, t) {
+            var hasLoaded = false;
+            function l() { if (hasLoaded) { return; } hasLoaded = true; window.doorbellOptions.windowLoaded = true; var g = d.createElement(t);g.id = 'doorbellScript';g.type = 'text/javascript';g.async = true;g.src = 'https://embed.doorbell.io/button/6300?t='+(new Date().getTime());(d.getElementsByTagName('head')[0]||d.getElementsByTagName('body')[0]).appendChild(g); }
+            if (w.attachEvent) { w.attachEvent('onload', l); } else if (w.addEventListener) { w.addEventListener('load', l, false); } else { l(); }
+            if (d.readyState == 'complete') { l(); }
+        }(window, document, 'script'));
+      </script>
+    <% end %>
 
     <script>
-      var g = new JustGage({
-        id: "gauge",
-        value: 137,
-        min: 0,
-        max: 300
-      });
+      $(".edit-password-btn").on('click', function(){
+        $(this).parent().parent().next('.edit-password-field').toggleClass('hidden');
+      })
     </script>
+    
   </body>
 </html>

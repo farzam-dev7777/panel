@@ -1,0 +1,30 @@
+<label class="control-label">
+  <% if(!v.object.try(:form_field).try(:help_description).blank?) %>
+    <i class="fa fa-question-circle-o help-text" data-help="<%= v.object.try(:form_field).try(:help_description) %>"></i>
+  <% end %>
+  <%= field.label %>
+  <p class="info"><em>Click to select or just type to add your own</em></p>
+</label>
+
+<%
+  collection = field.collection
+  uniq_elements = (field.collection.sort.flatten.map(&:downcase).uniq + v.object.multi_select_value.reject { |c| c.empty? }.map(&:downcase)).uniq - field.collection.flatten.map(&:downcase).uniq
+  uniq_elements.each { |el| collection << [v.object.multi_select_value[v.object.multi_select_value.map(&:downcase).index(el)], v.object.multi_select_value[v.object.multi_select_value.map(&:downcase).index(el)] ] } if uniq_elements.count > 0
+%>
+
+<%= v.input :multi_select_value, {
+  label: false,
+  collection: collection,
+  required: field.required,
+  as: field.as,
+  blank: 'Please select an option',
+  input_html: { 
+    multiple: v.object.try(:form_field).try(:type) == 'MultiSelectField', 
+    class: 'multselect-field no-margin', 
+    wrapper_class: 'no-margin' 
+  }
+}, &field.input_block(v) %>
+
+<% if !current_user.is_an_admin? %>
+  <a class="btn btn-default btn-sm add-all-multiselect-options <%= current_user ? '' : 'hidden' %>">Add All</a>
+<% end %>

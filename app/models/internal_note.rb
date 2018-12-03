@@ -1,0 +1,2 @@
+class InternalNote < ApplicationRecord
+end

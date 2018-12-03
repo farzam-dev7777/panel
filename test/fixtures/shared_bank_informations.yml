@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  form_value_id: 1
+  name: MyString
+  purpose: MyString
+  level_of_access: MyString
+
+two:
+  form_value_id: 1
+  name: MyString
+  purpose: MyString
+  level_of_access: MyString

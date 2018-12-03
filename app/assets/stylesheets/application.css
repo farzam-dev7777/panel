@@ -11,8 +11,12 @@
  * It is generally better to create a new file per style scope.
  *
  *= require_tree .
+ *= require jquery.fileupload
  *= require font-awesome
  *= require jquery-ui
+ *= require datetimepicker
  *= require qTip2
+ *= require sweetalert
+ *= require toastr
  * require_self
  */

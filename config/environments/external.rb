@@ -63,7 +63,7 @@ Rails.application.configure do
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
-  # config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = false
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
@@ -79,11 +79,24 @@ Rails.application.configure do
   # require 'syslog/logger'
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
+  config.action_mailer.default_url_options = { host: 'seal.grcx.io' }
+
   if ENV["RAILS_LOG_TO_STDOUT"].present?
     logger           = ActiveSupport::Logger.new(STDOUT)
     logger.formatter = config.log_formatter
     config.logger = ActiveSupport::TaggedLogging.new(logger)
   end
+
+  config.action_mailer.delivery_method = :smtp
+
+  config.action_mailer.smtp_settings = {
+    :address        => 'in-v3.mailjet.com',
+    :port           => '587',
+    :authentication => :plain,
+    :user_name      => ENV['MAILJET_API_KEY'],
+    :password       => ENV['MAILJET_SECRET_KEY'],
+    :enable_starttls_auto => true
+  }
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false

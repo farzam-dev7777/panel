@@ -1,0 +1,16 @@
+<ul id="sortable1" class="todo">
+	<li>
+		<span class="handle"> 
+			<label class="checkbox">
+				<% if active %>
+					<input type="checkbox" name="checkbox-inline" data-id="<%= item.id %>">
+					<i></i> 
+				<% end %>
+			</label> 
+		</span>
+		<p>
+			<strong><%= item.security_threat.title %></strong> [<%= link_to "More Details", action_item_path(item), :remote => true, "data-toggle" => "modal", "data-target" => "securityThreat" %>] <span class="text-muted"><%= item.security_threat.description %> </span>
+			<span class="date"><%= time_ago_in_words(item.created_at) %></span>
+		</p>
+	</li>
+</ul>

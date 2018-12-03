@@ -1,0 +1,2 @@
+class CyberSecurityInsuranceField < FormField
+end

@@ -1,5 +1,7 @@
 class Note < ApplicationRecord
 
+  default_scope { where(deleted_at: nil) }
+
 	def self.new_note(follow_up, message, step, sender)
   	submission = FormSubmission.find_by(id: follow_up.form_submission_id)
   	

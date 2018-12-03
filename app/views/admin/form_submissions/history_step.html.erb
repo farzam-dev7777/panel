@@ -2,3 +2,10 @@
 	<%= render 'history_form', resource: @form_submission %>
 <% end %>
 <%= render "form" %>
+
+<div class="container">
+  
+  <pre>
+    <%= @scores_debug.to_yaml %>
+  </pre>
+</div>

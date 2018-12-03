@@ -1,7 +1,15 @@
+<style>.user-form-wrapper { background-image: url(<%= asset_path 'bg-photo.jpg' %>) !important }</style>
 <div class="jarviswidget form-wizard-wrapper" id="wid-id-0" data-widget-editbutton="false">
   <header>
     <span class="widget-icon"> <i class="fa fa-certificate"></i> </span>
     <h2>Certification Submission</h2>
+    <div style="float: right;padding-right: 10px;">
+      <h2>Last Saved: <strong class="last-updated-timestamp"><%= @form_submission.updated_at.in_time_zone('Eastern Time (US & Canada)').strftime(LawFirm::TIME_FORMAT) %></strong> 
+        <% if @form_submission.last_submitted_by %>
+          by <strong><%= @form_submission.last_submitted_by.try(:username) %></strong>
+        <% end %>
+      </h2>
+    </div>
 
   </header>
 
@@ -9,28 +17,74 @@
   <div role="content">
 
     <!-- widget content -->
-    <div class="widget-body fuelux no-padding">
+    <div class="widget-body fuelux no-padding user-form-wrapper">
       <%= render 'wizard' %>
       <div class="clearfix"></div>
       <div class="row">
-        <div class="col-md-12">
-          <%= simple_form_for @form_submission, validate: true, :html => {:multipart => true, remote: true, authenticity_token: true} do |f| %>
-            <%= yield :form %>
+        <div class="col-md-12 logics" 
+             data-logics='<%= logics.to_json(methods: :repeater_field).to_s %>'
+             data-follow-ups='<%= @form_submission.follow_ups.review.to_json(methods: :form_field_id) %>'
+             data-form-submission-status=<%= @form_submission.status %>>
+
+             <% if @form_submission.status == 'follow_up' %>
+               <div class="col-md-10 col-md-offset-1 toggle-view">
+                 <a id="view-only-follow-ups" href="javascript:void(0)">View Only Follow Up Questions</a>
+                 &nbsp; &nbsp; &nbsp; | &nbsp; &nbsp; &nbsp;
+                 <a id="view-all-questions" href="javascript:void(0)">View All Questions</a>
+               </div>
+             <% end %>
+
+          <%= simple_form_for @form_submission, validate: true, :html => {:multipart => true, authenticity_token: true} do |f| %>
+            <input id="redirect_value" type="hidden" name="redirect_value">
+            <div class="real-form clearfix">
+              <%= yield :form %>
+            </div>
+            <div class="cloned-form clearfix">
+              <div class="col-md-10 col-md-offset-1 form-enclosure">
+                
+              </div>
+            </div>
           <% end %>
         </div>
       </div>
 
-      <div class="widget-footer" style="top: 54px;"">
+      <div class="widget-footer">
 
         <div class="text-center">
           <div class="btn-group">
-            <%= link_to "<i class='fa fa-caret-left'></i> Prev <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, previous_step_path, class: 'btn btn-default submit-form' %>
-            <%= link_to "<i class='fa fa-floppy-o'></i> Save".html_safe, current_step_path, class: 'btn btn-primary submit-form' %>
+            <% if @form_submission.is_available_to_user %>
 
-            <% if(last_step) %>
-              <%= link_to "Submit <i class='fa fa-caret-right'></i> <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, submit_forms_form_submission_path, data: {confirm: 'Are you sure you want to submit? You won\'t be able to make any changes later.'}, class: 'btn btn-default submit-form' %>
+              <% if !first_step %>
+                <%= link_to "<i class='fa fa-caret-left'></i> Prev <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, previous_step_path, class: 'btn btn-default submit-form' %>
+              <% end %>
+              <%= link_to "<i class='fa fa-floppy-o'></i> Save".html_safe, current_step_path, class: 'btn btn-primary submit-form save-btn' %>
+
+              <% if(last_step) %>
+                <% if(current_user.role == 'master_user') %>
+                  <a href="#" class="btn btn-default finalize-submission" data-form_id=<%= params[:id] %>>
+                    <i class='fa fa-caret-right'></i> Submit
+                  </a>
+                <% end %>
+              <% elsif @form_submission.status == 'follow_up' %>
+                <% if(current_user.role == 'master_user') %>
+                  <a href="#" class="btn btn-default finalize-submission" data-form_id=<%= params[:id] %>>
+                    <i class='fa fa-caret-right'></i> Submit
+                  </a>
+                <% end %>
+                <%= link_to "Next <i class='fa fa-caret-right'></i> <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, next_step_path, class: 'btn btn-default submit-form next-btn' %>
+              <% else %>
+                <%= link_to "Next <i class='fa fa-caret-right'></i> <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, next_step_path, class: 'btn btn-default submit-form next-btn' %>
+              <% end %>
+
             <% else %>
-              <%= link_to "Next <i class='fa fa-caret-right'></i> <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, next_step_path, class: 'btn btn-default submit-form' %>
+
+              <% if !first_step %>
+                <%= link_to "<i class='fa fa-caret-left'></i> Prev <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, previous_step_path, class: 'btn btn-default' %>
+              <% end %>
+
+               <% if !last_step %>
+                <%= link_to "Next <i class='fa fa-caret-right'></i> <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, next_step_path, class: 'btn btn-default' %>
+                <% end %>
             <% end %>
           </div>
         </div>
@@ -38,10 +92,6 @@
       </div>
 
     </div>
-    
-    <br />
-    <br />
-    <br />
     <!-- end widget content -->
 
   </div>

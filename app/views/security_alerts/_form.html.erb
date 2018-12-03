@@ -1,0 +1,42 @@
+<% content_for :page_title do %>
+<% if @security_alert.new_record? %>
+<span>Create new security alert</span>
+<% else %>
+<span>Edit <%= @security_alert.title %></span>
+<% end %>
+<% end %>
+<div class="table-responsive">
+	<%= simple_form_for([:admin, @security_alert]) do |f| %>
+		<table class="table table-bordered">
+
+			<tbody>
+				<tr>
+					<td>Title</td>
+					<td><%= f.input :title, autofocus: true, label: false %></td>
+				</tr>
+
+				<tr>
+					<td>Description</td>
+					<td><%= f.input :description, label: false %></td>
+				</tr>
+
+				<tr>
+					<td>Severity</td>
+					<td><%= f.input :severity, collection: ['Critical', 'Normal'], include_blank: false, label: false %></td>
+				</tr>
+
+				<tr>
+					<td>Link</td>
+					<td><%= f.input :link, label: false %></td>
+				</tr>
+
+				<tr>
+					<td colspan="2">
+						<%= f.button :submit, f.object.new_record? ? 'Create' : 'Update', class: "btn btn-primary" %>
+					</td>
+				</tr>
+			</tbody>
+
+		</table>
+	<% end %>
+</div>

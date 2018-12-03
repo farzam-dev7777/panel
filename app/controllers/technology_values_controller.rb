@@ -4,7 +4,10 @@ class TechnologyValuesController < BaseController
   end
 
   def new
-  	@technology = TechnologyForm.new
+  	@technology = TechnologyValue.new
+  end
+
+  def import
   end
 
   private

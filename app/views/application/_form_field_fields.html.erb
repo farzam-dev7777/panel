@@ -1,19 +1,85 @@
-<div class="well">
+<div class="well form-field-wrapper">
+  <h3 class="form-field-header grabbable">
+    <span><%= f.object.label || 'Unnamed' %> </span>
+    <span><%= f.object.type.try(:underscore).try(:humanize) %></span>
+  </h3>
+
+  <div class="form-field-content">
   <%= f.input :type, as: :select, collection: FormField.descendants %>
   <%= f.input :label %>
-  <%= render "application/form_fields/#{f.object.type.try(:underscore)}", f: f if f.object.type %>
+  <%= f.input :help_description, label: 'Help Text' %>
+  <%= f.input :position, as: :integer, input_html: {:data => { :role => 'position' }} %>
   <%= f.input :required %>
-  <div class="well">
-    <%= f.input :custom_logic %>
-    <div class="row">
-      <div class="col-md-6">
-        <%= f.input :show_when_form_field_id, collection: @form.form_fields.map{|form_field| ["#{form_field.label}(#{form_field.type})", form_field.id]}, label: "Show when" %>
+
+
+  <div class="tabs">
+    <ul>
+      <% if f.object.type == 'DropdownField' || 
+            f.object.type == 'MultiSelectField' ||
+            f.object.type == 'InformationSecurityPolicyField' ||
+            f.object.type == 'CyberSecurityStandardField' ||
+            f.object.type == 'ThirdPartyVendorField' ||
+            f.object.type == 'CloudProviderField' ||
+            f.object.type == 'UploadField' ||
+            f.object.type == 'CyberSecurityInsuranceField' ||
+            f.object.type == 'SharedBankInformationField'
+            %>
+        <li>
+          <a href="#tabs-dropdown-options">Field Options</a>
+        </li>
+      <% end %>
+      <li>
+        <a href="#tabs-custom-logics">Custom Logics</a>
+      </li>
+      <li>
+        <a href="#tabs-other-options">Other options</a>
+      </li>
+    </ul>
+
+    <% if f.object.type == 'DropdownField' || 
+          f.object.type == 'MultiSelectField' ||
+          f.object.type == 'CyberSecurityStandardField' ||
+          f.object.type == 'ThirdPartyVendorField' ||
+          f.object.type == 'CloudProviderField' ||
+          f.object.type == 'UploadField' ||
+          f.object.type == 'InformationSecurityPolicyField' ||
+          f.object.type == 'CyberSecurityInsuranceField' ||
+          f.object.type == 'SharedBankInformationField'
+        %>
+      <div id="tabs-dropdown-options">
+        <% if f.object.type == 'DropdownField' || f.object.type == 'MultiSelectField' %>
+          <%= render "application/form_fields/#{f.object.type.try(:underscore)}", f: f if f.object.type %>
+        <% else %>
+          <%= render "application/form_fields/repeater_field", f: f if f.object.type %>
+        <% end %>
       </div>
-      <div class="col-md-6">
-        <%= f.input :show_when_form_field_value, label: "Is" %>
+    <% end %>
+    <div id="tabs-custom-logics">
+      <div class="row">
+        <div class="col-md-12">
+          <%= f.simple_fields_for :logics do |field| %>
+            <%= render partial: "logic_fields", locals: {f: field, form_field: f.object}  %>
+          <% end %>
+        </div>
+        <div class="col-md-12">
+          <%= link_to_add_association '<span href="javascript:void(0);" class="btn btn-primary btn-sm"><i class="fa fa-plus-circle"></i> Custom logic</span>'.html_safe, f, :logics, render_options: {locals: { form_field: f.object }} %>
+        </div>
       </div>
     </div>
+    
+    <div id="tabs-other-options">
+      <div class="row">
+        <div class="col-md-12">
+          <%= f.input :parent_id, collection: @form.form_fields.map{|form_field| ["#{form_field.label}(#{form_field.type})", form_field.id]} %>
+          <% if f.object.type == 'GroupFormField' %>
+            <%= f.input :group_form_id, collection: Form.where(group_form: true) %>
+          <% end %>
+          <%= link_to_remove_association "Remove Field", f, { wrapper_class: 'form-field', class: "btn btn-danger white-text" } %>
+        </div>
+      </div>
+    </div>
+
   </div>
-  <%= f.input :parent_id, collection: @form.form_fields.map{|form_field| ["#{form_field.label}(#{form_field.type})", form_field.id]} %>
-  <%= link_to_remove_association "Remove Field", f, { wrapper_class: 'form-field', class: "btn btn-danger" } %>
+  
+</div>
 </div>

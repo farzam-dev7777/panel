@@ -13,6 +13,16 @@ class Admin::NotesController < Admin::BaseController
   	end
   end
 
+  def destroy
+    note = Note.find_by(id: params[:id])
+    if note && note.sender == current_user.email
+      note.update_attributes(deleted_at: Time.now)
+      head :ok
+    else
+      render :json => { errors: "You're not authorized to delete this note" }
+    end
+  end
+
   private
 
   def note_params

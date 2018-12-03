@@ -13,5 +13,6 @@ module Bluehound
     # -- all .rb files in that directory are automatically loaded.
     config.time_zone = 'Eastern Time (US & Canada)'
     config.action_view.embed_authenticity_token_in_remote_forms = true
+    config.autoload_paths += Dir["#{config.root}/lib/**/"]
   end
 end
