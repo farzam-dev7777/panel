@@ -31,7 +31,24 @@ class Admin::FormSubmissionsController < Admin::BaseController
   end
 
   def download_submission_pdf
-    binding.pry
+    @form_submission = FormSubmission.find(params[:id])
+
+    pdf = WickedPdf.new.pdf_from_string(
+      render_to_string('admin/pdf/submission_body'),
+      #locals: {:form_submission => @form_submission},
+      header: {
+        content: render_to_string('admin/pdf/submission_header')
+      },
+      footer: {
+        content: render_to_string('admin/pdf/submission_footer')
+      }
+     )
+
+
+    save_path = Rails.root.join('lib/form_pdf','filename1.pdf')
+    File.open(save_path, 'wb') do |file|
+      file << pdf
+    end
   end
 
   def process_step
