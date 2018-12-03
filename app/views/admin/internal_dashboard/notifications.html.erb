@@ -17,6 +17,12 @@
 							<fieldset>
 								<div class="row">
 									<section class="col col-4">
+										<label class="label">Vendor</label>
+										<label class="input"> <i class="icon-append fa fa-user"></i>
+											<input type="text" name="name">
+										</label>
+									</section>
+									<section class="col col-4">
 										<label class="label">Platform</label>
 										<label class="input"> <i class="icon-append fa fa-user"></i>
 											<input type="text" name="name">
@@ -29,49 +35,12 @@
 										</label>
 									</section>
 									<section class="col col-4">
-										<label class="label">Patch</label>
+										<label class="label">Service Pack</label>
 										<label class="input"> <i class="icon-append fa fa-globe"></i>
 											<input type="url" name="url">
 										</label>
 									</section>
 								</div>
-
-								<section>
-									<div class="table-responsive">
-										<table class="table table-bordered">
-
-											<tr>
-												<th></th>
-												<th>Name</th>
-												<th>Email</th>
-												<th>Phone</th>
-												<th>Score</th>
-											</tr>
-
-											<% @law_firms.each do |firm| %>
-												<tr>
-													<td width="20px">
-														<input type="checkbox" name="subscription" id="subscription">
-													</td>
-													<td><%= firm.name %></td>
-													<td><%= firm.email %></td>
-													<td><%= firm.phone %></td>
-													<td class="text-center">
-														<div> 
-															<span class="percent txt-color-blue font-xl semi-bold">
-																<%= rand(120...300) %>
-															</span> 
-														</div>
-													</td>
-												</tr>
-												
-											<% end %>
-
-										</table>
-										<div class="clearfix"></div>
-
-									</div>
-								</section>
 
 
 							</fieldset>

@@ -1,0 +1,8 @@
+<div class="well dropdown-options">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="score-rating"></div>
+      <%= f.input :score, as: :hidden, input_html: { class: 'score-holder', value: f.object.score || '0' } %>
+    </div>
+  </div>
+</div>

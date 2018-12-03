@@ -1,10 +1,26 @@
+<style type="text/css">
+  .login-page{
+    background-image: url(<%= asset_path 'bg-photo.jpg' %>) !important;
+  }
+</style>
+
 <div class="login-page" id="main" role="main">
 
   <!-- MAIN CONTENT -->
   <div id="content" class="container">
 
     <div class="row">
-      <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4 login-form-wrapper">
+
+      <div class="col-md-12">
+        <div class="col-md-6">
+          <%= image_tag("bmo-logo.png") %>
+        </div>
+        <div class="col-md-6 text-right">
+          <%= image_tag("seal-logo.png") %>
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4 col-lg-offset-4 login-form-wrapper">
         <div class="well no-padding">
 
 	        <% if notice || alert %>
@@ -13,7 +29,7 @@
 	        <% end %>
           <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {id: 'login-form', class: 'smart-form client-form'}) do |f| %>
             <header>
-              Sign In
+              <%= image_tag 'bmo-small.png', class: 'bmo-small' %> Sign In
             </header>
 
             <fieldset>
@@ -55,18 +71,6 @@
               </div>
               
             </div>
-      <div class="col-xs-12 col-sm-12 col-md-7 col-lg-8 hidden-xs hidden-sm text-right">
-        <%= image_tag("bmo-logo.png") %>
-        <div class="hero">
-
-          <div class="pull-left login-desc-box-l white-text">
-            <h4 class="paragraph-header">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</h4>
-          </div>
-          
-
-        </div>
-
-      </div>
       
           </div>
         </div>

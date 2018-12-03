@@ -1,58 +1,52 @@
 module ButtonHelper
 	
   def certification_status(law_firm)
-    submissions = law_firm.form_submissions
+    return unless law_firm
+    submissions = law_firm.try(:form_submissions)
+
     if (submissions.any?)
-      if (submissions.last.submitted)
-        if submissions.last.score
-          gauge(submissions.last)
-        elsif submissions.last.submitted
-          'Your submission is being reviewed.'
-        elsif submissions.last.follow_ups.map(&:status).count('review') > 0
-          link_to 'Continue Certification Process', policy_step_form_submission_path(submissions.last), html_options = {class: 'btn btn-primary btn-lg dashboard-certificate-button'}  
+      # return "" if submissions.latest.status == "approved"
+      if (submissions.latest.submitted)
+        if submissions.latest.total_score && submissions.latest.status == 'approved'
+          gauge(submissions.latest)
+        elsif(submissions.latest.status == 'decline')
+          link_to 'Your submission has been declined', '#', html_options = {class: 'btn btn-danger btn-lg dashboard-certificate-button text-center', disabled: true}  
+        elsif submissions.latest.submitted
+          link_to 'Your submission is being reviewed', '#', html_options = {class: 'btn btn-primary btn-lg dashboard-certificate-button text-center', disabled: true}  
+        elsif submissions.latest.status == 'started'
+          link_to 'Continue Certification Process', policy_step_form_submission_path(submissions.latest), html_options = {class: 'btn btn-primary btn-lg dashboard-certificate-button'}  
+        
         end
-      else
-        link_to 'Continue Certification Process', policy_step_form_submission_path(submissions.last), html_options = {class: 'btn btn-primary btn-lg dashboard-certificate-button'}
+      elsif(submissions.latest.status == 'sent')
+        link_to 'Begin Certification', policy_step_form_submission_path(submissions.latest), html_options = {class: 'btn btn-primary btn-lg dashboard-certificate-button'}
+      elsif(submissions.latest.status == 'started')
+        link_to 'Continue Certification Process', policy_step_form_submission_path(submissions.latest), html_options = {class: 'btn btn-primary btn-lg dashboard-certificate-button'}
+      elsif(submissions.latest.status == 'follow_up')
+        link_to 'Answer Follow Ups ' + "(#{submissions.latest.follow_ups.review.count})", policy_step_form_submission_path(submissions.latest), html_options = {class: 'btn btn-primary btn-lg dashboard-certificate-button'}
       end
     else
-      link_to 'Start Certification Process', new_form_submission_path, html_options = {class: 'btn btn-primary btn-lg dashboard-certificate-button'}
+      '<p class="not-available">SEAL status is not available yet</p>'.html_safe
     end
   end
 
   def gauge(submission)
-
-    '<div class="col-md-12">
-      <article class="col-sm-12">
-        <div class="jarviswidget">
-            <header>
-              <span class="widget-icon"> <i class="fa fa-bar-chart"></i> </span>
-              <h2><strong>SEAL</strong> Score </h2>
-            </header>
-            <div class="no-padding">
-              <div class="widget-body">
-                <div id="myTabContent" class="tab-content">
-                  <div class="tab-pane fade active in padding-10 no-padding-bottom" id="s1">
-                    <div class="row no-space text-center">
-                      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <div id="gauge"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </article>
-      </div>'.html_safe
-
-    "<script>
-      var g = new JustGage({
-        id: 'gauge',
-        value: #{submission.score},
-        min: 0,
-        max: 300
-      });
-    </script>".html_safe
+    status = submission.status.try(:humanize)
+    if status == "Approved"
+      "<div class='btn-primary btn-certified'>Certified</div>".html_safe
+    else
+      "
+        <h3 class='firm-score-#{submission.status}'>
+          <span>#{status}</span>
+        </h3>
+      ".html_safe
+    end
+    # "
+    #   <h3 class='firm-score-#{submission.status}'>
+    #     <span>#{status}</span>
+    #   </h3>
+    #   <div id='law-firm-rating' class='force-center'></div> 
+    #   (#{submission.law_firm.total_calculated_score.try(:to_s)})
+    # ".html_safe
   end
 
 end

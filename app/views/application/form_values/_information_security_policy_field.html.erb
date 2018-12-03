@@ -1,0 +1,40 @@
+<div>
+  <% if(!v.object.try(:form_field).try(:help_description).blank?) %>
+    <i class="fa fa-question-circle-o help-text" data-help="<%= v.object.try(:form_field).try(:help_description) %>"></i>
+  <% end %> 
+  <label><%= field.try(:label) %></label>
+  <%= v.input :value, as: :hidden, input_html: { class: 'repeater-field-value' } %>
+  
+  <div class="clearfix"></div>
+  <div class="col-md-3 no-padding gfe-field">
+    <label>Policy Type</label>
+  </div>
+  <div style="width: 125px;" class="col-md-2 gfe-field">
+    <label>Last Reviewed</label>
+  </div>
+  <div style="width: 125px;" class="col-md-2 gfe-field">
+    <label>Last Updated</label>
+  </div>
+  <!-- <div class="col-md-1 gfe-field">
+    <label>External Review</label>
+  </div> -->
+  <div class="col-md-3 gfe-field">
+    <label>Socialized with</label>
+  </div>
+  <div class="col-md-2 gfe-field">
+    <label>Upload Policy</label>
+  </div>
+  <div class="clearfix"></div>
+
+  <%= v.simple_fields_for :information_security_policies, v.object.render_information_security_policy_fields do |information_security_policy_field| %>
+    <%= render partial: "information_security_policy_fields", 
+               locals: {f: information_security_policy_field} %>
+  <% end %>
+  <div class="add-information-security-policy">
+    <% if current_user && !current_user.is_an_admin? %>
+      <%= link_to_add_association '<span href="javascript:void(0);" class="btn btn-default btn-sm"><i class="fa fa-plus-circle"></i> Policy</span>'.html_safe, v, :information_security_policies %>
+     <% end %>
+  </div>
+
+</div>
+

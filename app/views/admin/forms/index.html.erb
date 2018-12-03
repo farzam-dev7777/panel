@@ -15,7 +15,7 @@
   <div class="col-lg-8 col-md-8 col-sm-12">
 
     <div class="table-responsive">
-      <table class="table table-bordered">
+      <table class="table table-bordered all-forms">
 
         <tr>
           <th>Name</th>
@@ -26,8 +26,8 @@
           <tr>
             <td><%= form.name %></td>
             <td class="text-center">
-              <%= link_to "Edit", edit_admin_form_path(form), class: "btn btn-primary" %> 
-              <%= link_to "Duplicate", duplicate_admin_form_path(form), class: "btn btn-primary", method: :post %>
+              <%= link_to "Edit", edit_admin_form_path(form), class: "btn btn-sm btn-info" %> 
+              <%= link_to "Duplicate", duplicate_admin_form_path(form), class: "btn btn-sm btn-primary", method: :post %>
             </td>
           </tr>
           
@@ -43,9 +43,9 @@
   <div class="col-lg-4">
     <div class="well">
       <%= simple_form_for @q, url: :admin_forms, method: :get do |f| %>
-        <%= f.input :name_cont, class: 'form-control' %>
-        <%= f.input :group_form_eq, collection: [true, false], class: 'form-control' %>
-        <%= f.button :submit, "Search", class: "btn btn-primary" %>
+        <%= f.input :name_cont, label: 'Name', class: 'form-control' %>
+        <%= f.input :group_form_eq, label: 'Group Form', collection: [true, false], class: 'form-control' %>
+        <%= f.button :submit, "Search", class: "btn btn-sm btn-primary" %>
       <% end %>
     </div>
   </div>

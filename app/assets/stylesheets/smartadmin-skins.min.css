@@ -1,4 +1,4 @@
-.smart-style-1 a {
+body.smart-style-6 #sparks.smart-style-1 a {
     transition: color .1s linear 0s, background-color .1s linear 0s!important
 }
 
@@ -3479,7 +3479,7 @@ body.smart-style-4 {
 }
 
 body.smart-style-6 {
-    background: #edecec;
+    background: #f9f9f9;
     font-family: RobotoDraft, Roboto, sans-serif;
     -webkit-font-smoothing: antialiased
 }
@@ -3842,7 +3842,7 @@ body.smart-style-6 .open>.dropdown-menu {
 
 body.smart-style-6 .login-info {
     /*height: 120px;*/
-    background: url(../img/cover.png) no-repeat center center;
+    /*background: url(../img/cover.png) no-repeat center center;*/
     margin-top: -1px!important;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -4297,5 +4297,5 @@ body.smart-style-6 .superbox-imageinfo span {
 }
 
 body.smart-style-6 #sparks {
-    display: none
+    /*display: none*/
 }

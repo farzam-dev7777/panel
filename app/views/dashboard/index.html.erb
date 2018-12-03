@@ -1,16 +1,38 @@
 <div class="row">
-	<%= certification_status(current_law_firm) %>
+	<div class="col-md-12">
+	    <article class="col-sm-12">
+	      <div class="jarviswidget">
+	          <header>
+	            <span class="widget-icon"> <i class="fa fa-bar-chart"></i> </span>
+	            <h2><strong>SEAL</strong> Status </h2>
+	          </header>
+	          <div class="no-padding">
+	            <div class="widget-body">
+	              <div id="myTabContent" class="tab-content">
+	                <div class="tab-pane fade active in padding-10 no-padding-bottom" id="s1">
+	                  <div class="row no-space text-center">
+	                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+	                      <p><b><%= certification_status(current_law_firm) %></b></p>
+	                    </div>
+	                  </div>
+	                </div>
+	              </div>
+	            </div>
+	          </div>
+	        </div>
+	      </article>
+	    </div>
 </div>
 
 <div class="clearfix"></div>
 
 <div class="col-md-6">
-	<div class="jarviswidget jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+	<div class="jarviswidget security-threats jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
 
 
 		<header>
 			<span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
-			<h2 class="font-md"><strong>ToDo List </strong></h2>				
+			<h2 class="font-md"><strong>Security Threats </strong></h2>				
 		</header>
 
 		<div>
@@ -25,78 +47,68 @@
 				</div>
 				<!-- end widget edit box -->
 
-				<div class="widget-body no-padding smart-form">
+				<% if @action_items.any? %>
+				<div class="widget-body no-padding smart-form sec-threats-latest">
 					<!-- content goes here -->
-					<h5 class="todo-group-title"><i class="fa fa-warning"></i> Critical Tasks (<small class="num-of-tasks">1</small>)</h5>
-					<ul id="sortable1" class="todo">
-						<li>
-							<span class="handle"> <label class="checkbox">
-								<input type="checkbox" name="checkbox-inline">
+					
+					<% if (@action_items.select{|a| a.status != 'complete' && a.security_threat.severity_level.name == 'critical'}).count > 0 %>
+						<h5 class="todo-group-title"><i class="fa fa-warning"></i> Critical</h5>
+					<% end %>
+					<% @action_items.select{|a| a.status != 'complete' && a.security_threat.severity_level.name == 'critical'}.each do |item| %>
+						<%= render partial: 'action_item', locals: { item: item, active: true } %>
+					<% end %>
+
+					<% if (@action_items.select{|a| a.status != 'complete' && a.security_threat.severity_level.name == 'high'}).count > 0 %>
+						<h5 class="todo-group-title"><i class="fa fa-warning"></i> High</h5>
+					<% end %>
+					<% @action_items.select{|a| a.status != 'high' && a.security_threat.severity_level.name == 'high'}.each do |item| %>
+						<%= render partial: 'action_item', locals: { item: item, active: true } %>
+					<% end %>
+
+					<% if (@action_items.select{|a| a.status != 'complete' && a.security_threat.severity_level.name == 'low'}).count > 0 %>
+						<h5 class="todo-group-title"><i class="fa fa-warning"></i> Low</h5>
+					<% end %>
+					<% @action_items.select{|a| a.status != 'low' && a.security_threat.severity_level.name == 'low'}.each do |item| %>
+						<%= render partial: 'action_item', locals: { item: item, active: true } %>
+					<% end %>
+
+
+
+					<h5 class="todo-group-title"><i class="fa fa-check"></i> Completed Tasks</h5>
+					<ul id="sortable3" class="todo">
+						<% @action_items.select{|a| a.status == 'complete'}.each do |item| %>
+						<li class="complete">
+							<span class="handle" style="display:none"> <label class="checkbox state-disabled">
+								<input type="checkbox" name="checkbox-inline" checked="checked" disabled="disabled">
 								<i></i> </label> </span>
 								<p>
-									<strong>Ticket #17643</strong> - Hotfix for WebApp interface issue [<a href="javascript:void(0);" class="font-xs">More Details</a>] <span class="text-muted">Sea deep blessed bearing under darkness from God air living isn't. </span>
-									<span class="date">Jan 1, 2014</span>
+									<strong><%= item.security_threat.title %></strong> [<%= link_to "More Details", action_item_path(item), :class => "", :remote => true, "data-toggle" => "modal", "data-target" => "securityAlert" %>] <span class="text-muted"><%= item.security_threat.description %> </span>
+									<span class="date"><%= time_ago_in_words(item.created_at) %></span>
 								</p>
 							</li>
+							<% end %>
 						</ul>
-						<h5 class="todo-group-title"><i class="fa fa-exclamation"></i> Important Tasks (<small class="num-of-tasks">3</small>)</h5>
-						<ul id="sortable2" class="todo">
-							<li>
-								<span class="handle"> <label class="checkbox">
-									<input type="checkbox" name="checkbox-inline">
-									<i></i> </label> </span>
-									<p>
-										<strong>Ticket #1347</strong> - Inbox email is being sent twice <small>(bug fix)</small> [<a href="javascript:void(0);" class="font-xs">More Details</a>] <span class="date">Nov 22, 2013</span>
-									</p>
-								</li>
-								<li>
-									<span class="handle"> <label class="checkbox">
-										<input type="checkbox" name="checkbox-inline">
-										<i></i> </label> </span>
-										<p>
-											<strong>Ticket #1314</strong> - Call customer support re: Issue <a href="javascript:void(0);" class="font-xs">#6134</a><small>(code review)</small>
-											<span class="date">Nov 22, 2013</span>
-										</p>
-									</li>
-									<li>
-										<span class="handle"> <label class="checkbox">
-											<input type="checkbox" name="checkbox-inline">
-											<i></i> </label> </span>
-											<p>
-												<strong>Ticket #17643</strong> - Hotfix for WebApp interface issue [<a href="javascript:void(0);" class="font-xs">More Details</a>] <span class="text-muted">Sea deep blessed bearing under darkness from God air living isn't. </span>
-												<span class="date">Jan 1, 2014</span>
-											</p>
-										</li>
-									</ul>
 
-									<h5 class="todo-group-title"><i class="fa fa-check"></i> Completed Tasks (<small class="num-of-tasks">1</small>)</h5>
-									<ul id="sortable3" class="todo">
-										<li class="complete">
-											<span class="handle" style="display:none"> <label class="checkbox state-disabled">
-												<input type="checkbox" name="checkbox-inline" checked="checked" disabled="disabled">
-												<i></i> </label> </span>
-												<p>
-													<strong>Ticket #17643</strong> - Hotfix for WebApp interface issue [<a href="javascript:void(0);" class="font-xs">More Details</a>] <span class="text-muted">Sea deep blessed bearing under darkness from God air living isn't. </span>
-													<span class="date">Jan 1, 2014</span>
-												</p>
-											</li>
-										</ul>
-
-										<!-- end content -->
-									</div>
-
-								</div>
-
-							</div>
-
-
-						</div>
-
+						<!-- end content -->
 					</div>
 
-					<div class="col-md-6">
 
-						<div class="jarviswidget jarviswidget-color-blue" id="wid-id-4" data-widget-editbutton="false" data-widget-colorbutton="false">
+					<% else %>
+						<em class="text-center"> Not Available </em>
+					<% end %>
+
+				</div>
+
+			</div>
+
+
+		</div>
+
+	</div>
+
+	<div class="col-md-6">
+
+		<div class="jarviswidget jarviswidget-color-blue" id="wid-id-4" data-widget-editbutton="false" data-widget-colorbutton="false">
 
 				<!-- widget options:
 				usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
@@ -146,29 +158,30 @@
 											<div class="tab-pane fade in active" id="a1">
 
 												<div class="row">
+													<% if @security_alerts.any? %>
+														<% @security_alerts.each do |alert| %>
+															<div class="col-xs-2 col-sm-1">
+																<time datetime="2014-09-20" class="icon">
+																	<strong><%= (alert.alert_date ? alert.alert_date : alert.created_at).strftime("%b") %></strong>
+																	<span><%= (alert.alert_date ? alert.alert_date : alert.created_at).strftime("%d") %></span>
+																</time>
+															</div>
 
-													<% @security_alerts.each do |alert| %>
-														<div class="col-xs-2 col-sm-1">
-															<time datetime="2014-09-20" class="icon">
-																<strong><%= alert.created_at.strftime("%b") %></strong>
-																<span><%= alert.created_at.strftime("%d") %></span>
-															</time>
-														</div>
+															<div class="col-xs-10 col-sm-11">
 
-														<div class="col-xs-10 col-sm-11">
-															
 
-															<h6 class="no-margin"><%= link_to alert.title, admin_security_alert_path(alert), :class => "", :remote => true, "data-toggle" => "modal", "data-target" => "securityAlert" %></h6>
-															<p>
-																<%= truncate(alert.description, length: 150) %>
-															</p>
-														</div>
+																<h6 class="no-margin"><%= link_to alert.title, security_alert_path(alert), :class => "", :remote => true, "data-toggle" => "modal", "data-target" => "securityAlert" %></h6>
+																<p>
+																	<%= truncate(alert.description, length: 150) %>
+																</p>
+															</div>
 
-														<% unless @security_alerts.last %>
 															<div class="col-sm-12 padding-10">
 																<hr>
 															</div>
 														<% end %>
+													<% else %>
+														<em class="text-center"> There are no news </em>
 													<% end %>
 
 													
@@ -193,67 +206,67 @@
 												</div>
 
 												<div class="user" title="email@company.com">
-													<img src="img/avatars/female.png" alt="demo user"><a href="javascript:void(0);">Jenn Wilson</a>
+													<!-- <img src="img/avatars/female.png" alt="demo user"><a href="javascript:void(0);">Jenn Wilson</a> -->
 													<div class="email">
 														travis@company.com
 													</div>
 												</div>
 												<div class="user" title="email@company.com">
-													<img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Marshall Hitt</a>
+													<!-- <img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Marshall Hitt</a> -->
 													<div class="email">
 														marshall@company.com
 													</div>
 												</div>
 												<div class="user" title="email@company.com">
-													<img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Joe Cadena</a>
+													<!-- <img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Joe Cadena</a> -->
 													<div class="email">
 														joe@company.com
 													</div>
 												</div>
 												<div class="user" title="email@company.com">
-													<img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Mike McBride</a>
+													<!-- <img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Mike McBride</a> -->
 													<div class="email">
 														mike@company.com
 													</div>
 												</div>
 												<div class="user" title="email@company.com">
-													<img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Travis Wilson</a>
+													<!-- <img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Travis Wilson</a> -->
 													<div class="email">
 														travis@company.com
 													</div>
 												</div>
 												<div class="user" title="email@company.com">
-													<img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Marshall Hitt</a>
+													<!-- <img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Marshall Hitt</a> -->
 													<div class="email">
 														marshall@company.com
 													</div>
 												</div>
 												<div class="user" title="Joe Cadena joe@company.com">
-													<img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Joe Cadena</a>
+													<!-- <img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Joe Cadena</a> -->
 													<div class="email">
 														joe@company.com
 													</div>
 												</div>
 												<div class="user" title="email@company.com">
-													<img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Mike McBride</a>
+													<!-- <img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Mike McBride</a> -->
 													<div class="email">
 														mike@company.com
 													</div>
 												</div>
 												<div class="user" title="email@company.com">
-													<img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Marshall Hitt</a>
+													<!-- <img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Marshall Hitt</a> -->
 													<div class="email">
 														marshall@company.com
 													</div>
 												</div>
 												<div class="user" title="email@company.com">
-													<img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Joe Cadena</a>
+													<!-- <img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Joe Cadena</a> -->
 													<div class="email">
 														joe@company.com
 													</div>
 												</div>
 												<div class="user" title="email@company.com">
-													<img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);"> Mike McBride</a>
+													<!-- <img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);"> Mike McBride</a> -->
 													<div class="email">
 														mike@company.com
 													</div>
@@ -310,6 +323,98 @@
 
 
 
+	<div class="col-md-12">
+		<div class="jarviswidget jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+
+			<header>
+				<span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
+				<h2 class="font-md"><strong>Submissions </strong></h2>	
+			</header>
+
+			<div>
+
+				<div class="clearfix"></div>
+				<!-- MAIN PANEL -->
+				<div role="main">
+
+					<!-- MAIN CONTENT -->
+					<div style="max-height: 500px;overflow-y: scroll;">
+
+						<!-- row -->
+						<div class="row">
+
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+							<% if current_law_firm && current_law_firm.form_submissions.any? %>
+								<div class="table-responsive">
+									<table class="table table-bordered text-center content-in-jarvis">
+
+										<tr>
+											<th class="text-center">Submission ID</th>
+											<!-- <th class="text-center">Score</th> -->
+											<th class="text-center">Date of certification</th>
+											<th class="text-center">Date of submission</th>
+											<th class="text-center">Status</th>
+											<th class="text-center">Evidence Status</th>
+											<th class="text-center">Action</th>
+										</tr>
+
+										<% current_law_firm.form_submissions.reverse.each do |submission| %>
+											<tr>
+												<td><%= submission.id %></td>
+												<!-- <td><%= submission.total_score || '-' %></td> -->
+												<td><%= submission.approved_at.try(:strftime, "%d/%m/%Y") || '-' %></td>
+												<td><%= submission.submitted_on.try(:strftime, "%d/%m/%Y") || '-' %></td>
+												<td class="text-center">
+												<span class="label label-<%= submission_status_class(submission) %>">
+													<%= submission.try(:formatted_status) %>
+												</span>
+												<td>
+													<%= submission.try(:formatted_evidence_status) %>
+												</td>
+												<% if submission.try(:status) == 'decertified' %>	
+													<br><em><%= submission.try(:reason) %></em>
+												<% end %>
+												</td>
+												<td>
+													<% if submission.try(:status) != 'approved' %>
+														<%= link_to 'View', policy_step_form_submission_path(submission, readonly: "true"), class: "btn btn-outline-primary btn-xs" %>	
+													<% else %>
+														<%= link_to 'View', "", class: "btn btn-outline-primary btn-xs", onclick: "alert('Disabled')" %>	
+													<% end %>
+												</td>
+											</tr>
+											
+										<% end %>
+
+									</table>
+									<div class="clearfix"></div>
+
+
+								</div>
+								<% else %>
+									<h4 class="text-center">There are no submissions to review yet</h4>
+								<% end %>
+							</div>
+
+							</div>
+
+						</div>
+
+						<!-- end row -->
+
+					</div>
+					<!-- END MAIN CONTENT -->
+
+				</div>
+				<!-- END MAIN PANEL -->
+			</div>
+
+		</div>
+	</div>
+
+
+
 
 	<div class="col-md-12">
 		<div class="jarviswidget jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
@@ -324,28 +429,14 @@
 				<div role="main">
 
 					<!-- MAIN CONTENT -->
-					<div style="height: 500px; overflow-y: scroll">
+					<div style="height: 500px; overflow-y: scroll; overflow-x: hidden;">
 
 						<!-- row -->
 						<div class="row">
 
 							<section id="cd-timeline" class="cd-container">
 
-								<%- activities.reverse.each do |activity| %>
-								<div class="cd-timeline-block">
-									<div class="cd-timeline-img cd-picture">
-										<i class="fa fa-edit fa-2x timeline-icon"></i>
-									</div>
-
-									<div class="cd-timeline-content">
-										<h2>
-											<strong><%= activity.event_type.titleize %></strong>
-										</h2>
-										<p><%= activity.custom_message %></p>
-										<span class="cd-date"><%= activity.created_at.strftime('%d %b') %></span>
-									</div>
-								</div>
-								<%- end %>
+								
 
 					<!-- <div class="cd-timeline-block">
 						<div class="cd-timeline-img cd-movie">
@@ -428,21 +519,40 @@
 
 <!-- Modal -->
 <div id="securityAlert" class="modal fade" role="dialog">
-  <div class="modal-dialog">
+	<div class="modal-dialog">
 
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Modal Header</h4>
-      </div>
-      <div class="modal-body news">
-        <p>Some text in the modal.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title"></h4>
+			</div>
+			<div class="modal-body news">
+				<p></p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
 
-  </div>
+	</div>
+</div>
+<div id="securityThreat" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title"></h4>
+			</div>
+			<div class="modal-body news">
+				<p></p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+
+	</div>
 </div>

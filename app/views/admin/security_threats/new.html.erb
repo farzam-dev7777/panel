@@ -1,0 +1,3 @@
+<%= simple_form_for [:admin, @security_threat], validate: true, :html => {authenticity_token: true} do |f| %>
+  <%= render partial: 'form', locals: {f: f} %>
+<% end %>

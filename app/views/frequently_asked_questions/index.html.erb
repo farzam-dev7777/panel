@@ -1,0 +1,18 @@
+<div class="container">
+	<h2>Frequently Asked Questions</h2>
+	<div class="well well-sm well-light">
+		<div id="accordion">
+			<% @faq_categories.each do |faq_cat|  %>
+				<h1><%= faq_cat.name %></h1>
+				<% faq_cat.frequently_asked_questions.each do |faq| %>
+				<div>
+					<h4><%= faq.question %></h4>
+					<div class="row padding-10">
+						<%= faq.answer %>
+					</div>
+				</div>
+				<% end %>
+			<% end %>
+		</div>
+	</div>
+</div>

@@ -1,3 +1,7 @@
+<style>.user-form-wrapper { background-image: url(<%= asset_path 'bg-photo.jpg' %>) !important }</style>
+
+<div class="clearfix"></div>
+
 <div class="jarviswidget form-wizard-wrapper" id="wid-id-0" data-widget-editbutton="false">
   <header>
     <span class="widget-icon"> <i class="fa fa-certificate"></i> </span>
@@ -15,7 +19,7 @@
     <!-- end widget edit box -->
 
     <!-- widget content -->
-    <div class="widget-body fuelux">
+    <div class="widget-body fuelux user-form-wrapper">
       <%= render 'wizard' %>
       <div class="clearfix"></div>
       <div class="row">
@@ -29,11 +33,47 @@
 
 
     <% if(last_step && !save_and_follow_up?(@form_submission.id)) %>
-      <div class="col-md-10 col-md-offset-1">
-        <%= simple_form_for @form_submission, url: update_score_admin_form_submission_path, validate: true, :html => {remote: true, authenticity_token: true, class: 'score-form'} do |f| %>
-          <%= f.input :score, as: :integer, required: true %>
-          <%= f.submit 'Update Score', class: 'btn btn-primary force-center' %>
-        <% end %>
+      <div>
+
+        <div class="score-form-3">
+          <% @law_firm = @form_submission.law_firm %>
+
+          <div class="score-form">
+            <div class="col-md-12 text-center">
+              <p class="rating-label">TOTAL SCORE (<%= @law_firm.total_calculated_score(@form_submission) %>)</p>
+              <div class="readonly-total-score-rating force-center" 
+                   data-score="<%= @law_firm.total_calculated_score(@form_submission) %>"
+                   data-color="<%= @form_submission.try(:color, @law_firm.total_calculated_score(@form_submission), 'total_calculated_score') %>"></div>
+            </div>
+          </div>
+
+          <div class="score-form">
+            <div class="col-md-4 text-center">
+              <p class="rating-label">SYSTEM SCORE (<%= @form_submission.system_score %>)</p>
+              <p class="rating-label no-margin-bottom">40%</p>
+              <div class="readonly-system-score force-center" 
+                   data-score=<%= @form_submission.system_score %>
+                   data-color="<%= @form_submission.try(:color, @form_submission.system_score, 'system_score') %>"></div>
+            </div>
+            <div class="col-md-4 text-center">
+            <p class="rating-label">ASSESSOR SCORE(<%= @form_submission.assessor_score %>)</p>
+            <p class="rating-label no-margin-bottom">20%</p>
+            <div class="average-score-rating force-center" 
+                 data-id=<%= params[:id] %> 
+                 data-readonly=<%= save_and_follow_up?(@form_submission.id) %> 
+                 data-assessor_score=<%= @form_submission.assessor_score || 0 %>></div>
+          </div>
+            <div class="col-md-4 text-center">
+              <p class="rating-label">RESPONSIVE SCORE (<%= @law_firm.responsiveness_rate %>)</p>
+              <p class="rating-label no-margin-bottom">40%</p>
+              <div class="readonly-responsiveness-score-rating force-center" 
+                   data-score="<%= @law_firm.responsiveness_rate %>"
+                   data-color="<%= @form_submission.try(:color, @law_firm.responsiveness_rate, 'responsiveness_rate') %>"></div>
+            </div>
+          </div>
+
+        </div>
+
       </div>
     <% end %>
 
@@ -41,18 +81,22 @@
 
     <div class="col-md-12 text-center" style="margin: 20px 0px">
       <div class="btn-group">
-        <%= link_to "<i class='fa fa-caret-left'></i> Prev <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, previous_step_path, class: 'btn btn-default submit-form' %>
+        <%= link_to "<i class='fa fa-caret-left'></i> Prev <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, previous_step_path, class: 'btn btn-default' %>
 
-        <% if(!last_step) %>
-          <%= link_to "Next <i class='fa fa-caret-right'></i> <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, next_step_path, class: 'btn btn-default submit-form' %>
+        <% if(!last_step && save_and_follow_up?(@form_submission.id)) %>
+          <%= link_to "Save & Follow Up <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, save_and_follow_up_admin_form_submission_path(@form_submission), method: :post, class: 'btn btn-warning save-follow-up-btn', disabled: !save_and_follow_up?(@form_submission.id) %>
         <% end %>
 
-        <% if(last_step) %>
-          <%= link_to "<i class='fa fa-ban'></i> Decline <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, decline_admin_form_submissions_path(@form_submission), class: 'btn btn-danger' %>
+        <% if(!last_step) %>
+          <%= link_to "Next <i class='fa fa-caret-right'></i> <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, next_step_path, class: 'btn btn-default' %>
+        <% end %>
 
-          <%= link_to "Save & Follow Up <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, save_and_follow_up_admin_form_submission_path(@form_submission), method: :post, class: 'btn btn-warning submit-form' %>
+        <% if(last_step && !@form_submission.decision_made?) %>
+          <%= link_to "<i class='fa fa-ban'></i> Decline <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, decline_admin_form_submission_path(@form_submission), method: :post, class: 'btn btn-danger' %>
 
-          <%= link_to "<i class='fa fa-check'></i> Approve <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, approve_admin_form_submissions_path(@form_submission), disabled: save_and_follow_up?(@form_submission.id), class: 'btn btn-success submit-form' %>
+          <%= link_to "Save & Follow Up <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, save_and_follow_up_admin_form_submission_path(@form_submission), method: :post, class: 'btn btn-warning', disabled: !save_and_follow_up?(@form_submission.id) %>
+
+          <%= link_to "<i class='fa fa-check'></i> Approve <i class='loader fa fa-circle-o-notch fa-spin hidden'></i>".html_safe, approve_admin_form_submission_path(@form_submission), method: :post, disabled: save_and_follow_up?(@form_submission.id), class: 'btn btn-success approve-btn' %>
         <% end %>
       </div>
     </div>

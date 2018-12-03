@@ -1,40 +1,57 @@
 class ActivityLog < ApplicationRecord
-	belongs_to :loggable, polymorphic: true
+  belongs_to :loggable, polymorphic: true
+	attr_accessor :current_user
+
+  belongs_to :law_firm, touch: true
 
 	scope :notifications,  -> { where(notify: true) }
 	scope :unread,  -> { where("notify = ? AND read != ?", true, true) }
 	scope :read,  -> { where("notify = ? AND read = ?", true, true) }
 
-	ACTION_OBJECT_TYPES = {
-    account_created: User,
-    todo_task_created: TodoTask,
-    information_security_policy_request_initiated: FormSubmission,
-    seal_certification_process_initiated: FormSubmission,
-    information_security_policy_submitted: FormSubmission,
-    information_security_policy_review_started: FormSubmission,
-    follow_up: FormSubmission,
-    approved: FormSubmission,
-    declined: FormSubmission,
-    recertification_process_initiated: FormSubmission
-	}
-
 	ACTION_TYPE_REASON = {
-    account_created: 'Firm\'s account was created',
+    account_created: 'Onboarded',
     todo_task_created: 'A Todo task was created',
-    information_security_policy_request_initiated: 'Request for information security policy initiated',
-    seal_certification_process_initiated: 'SEAL Certification process started',
-    information_security_policy_submitted: 'Information security policy submitted',
-    information_security_policy_review_started: 'Review for information security policy started',
-    follow_up: 'The assessor requested follow up question(s)',
-    approved: 'The SEAL Certification has been approved',
-    declined: 'The SEAL Certification has been declined',
-    recertification_process_initiated: 'The assessor initiated a recertification process'
+    information_security_policy_request_initiated: 'SEAL process started',
+    seal_certification_process_initiated: 'SEAL process started',
+    information_security_policy_submitted: 'SEAL form submitted',
+    information_security_policy_review_started: 'SEAL form under review',
+    follow_up: 'Follow up requested',
+    approved: 'SEAL Certification approved',
+    declined: 'SEAL Certification declined',
+    critical_security_alert: 'Critical Alert',
+    high_security_alert: 'High Priority Alert',
+    low_security_alert: 'Low Priority Alert',
+    decertify: 'Decertified',
+    recertification_process_initiated: 'Recertification process started',
+    decrease_score: 'SEAL score impacted',
+    action_item_marked_as_complete: 'The Firm has marked the security threat action item complete',
+    login: "You last logged in at ",
+    logout: "You last logged out at ",
+    expiry_date_changed: "Expiry date changed ",
+    technologies_updated: "Law firm has updated their technologies",
+    history_updated: "Law firm has updated their history"
   }.freeze
 
 	def self.log(object)
-		activity_log = ActivityLog.new(object)
-		object = object.merge(custom_reason: ACTION_TYPE_REASON[object[:event_type].to_sym]) unless object[:custom_reason]
-		activity_log.save
+    object = object.merge(
+      custom_message: ACTION_TYPE_REASON[object[:event_type].to_sym]
+    ) if !object[:custom_message] && object[:custom_message].blank?
+    activity_log = ActivityLog.new(object)
+    if activity_log.save
+      law_firm = LawFirm.find_by(id: object[:law_firm_id])
+      law_firm.try(:touch) 
+    end
+    track_on_mixpanel(law_firm, object)
 	end
-	
+
+  def self.track_on_mixpanel(law_firm, object)
+    begin
+      $tracker.track(law_firm && law_firm.name, ACTION_TYPE_REASON[object[:event_type].to_sym], {
+        'username' => object[:current_user] && object[:current_user].username
+      })
+    rescue Exception => e
+      Rollbar.log('error', e)
+    end
+  end
+
 end

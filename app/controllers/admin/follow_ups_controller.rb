@@ -1,13 +1,16 @@
 class Admin::FollowUpsController < Admin::BaseController
 
-
 	before_action :find_follow_up, only: [:create, :resolve, :reviewed]
-	skip_before_filter :authenticate_admin_admin_user!, only: [:create]
+	skip_before_action :authenticate_user!, only: [:create]
 
 	def create
-		username = current_admin_admin_user.try(:email) || current_user.try(:username)
+		username = current_user.try(:email) || current_user.try(:username)
 		if (@follow_up)
 			@note = @follow_up.add_note(params[:message], current_step, username)
+			# CASE: If a follow up has been resolve and the assessor adds another note,
+			# should the follow up be updated to pending/review again?
+
+			# @follow_up.update_attributes(status: 'pending')
 		else
 			@follow_up = FollowUp.new
 			@follow_up.form_submission_id = params[:form_submission_id]
@@ -23,6 +26,7 @@ class Admin::FollowUpsController < Admin::BaseController
 	end
 
 	def resolve
+		@follow_up = FollowUp.find(params[:follow_up_id])
 		if @follow_up
 			@follow_up.update_attributes(status: 'resolved')
 			head :ok

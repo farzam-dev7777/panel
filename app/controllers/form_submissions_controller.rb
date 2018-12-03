@@ -1,17 +1,63 @@
+require 'csv'
 class FormSubmissionsController < BaseController
   include SubmissionBehaviors
 
-
+  load_and_authorize_resource
+  
   before_action :follow_ups, except: :index
   before_action :before_steps, only: [:policy_step, :process_step]
   before_action :before_non_dynamic_forms, only: [:technology_step, :history_step]
 
+  before_action :prevent_resubmission, only: [:update, :submit_forms]
+
   helper_method :next_step_path, :current_step_path, :steps, :previous_step_path, 
-                :current_step, :wizard_path, :last_step
+                :current_step, :wizard_path, :last_step, :first_step, :logics, :follow_up_stats
+
+  def prevent_resubmission
+    form_submission = FormSubmission.find_by(id: params[:id])
+    form_submission.decision_made? ? false : true
+  end
+
+  def show
+    redirect_to technology_step_form_submission_path
+  end
 
   def before_steps
     @form_submission = FormSubmission.find(params[:id])
     @form = @form_submission.send("form_#{current_step}")
+  end
+
+  def technology_step_bulk_upload
+    if @form_submission
+      if params[:upload_custom_file] == "true"
+        rows = []
+        invalid_rows = []
+        CSV.foreach(params[:files][0].path, {:headers => true, :header_converters => :symbol}) do |row|
+          ActiveRecord::Base.transaction do
+            tech = Technology.find_or_create_by(row.to_h)
+            row[:form_submission_id] = @form_submission.id
+            row[:technology_id] = tech.id
+            tech_value = TechnologyValue.find_or_initialize_by(row.to_h)
+            if tech_value.save
+              rows << tech_value 
+            else
+              invalid_rows << tech_value
+            end
+          end
+        end
+        render json: { message: "Imported successfully!", rows: rows, invalid_rows: invalid_rows, upload_custom_file: true }
+      else
+        fa = @form_submission.file_attachments.first || @form_submission.file_attachments.build
+        fa.file = params[:files][0]
+        if fa.save
+          render json: { message: "Uploaded successfully!", upload_custom_file: false }
+        else
+          render json: { message: "Oops! something went wrong!" }, status: 422
+        end
+      end
+    else
+      render json: { message: "Can't find the form_submission" }, status: 422
+    end
   end
 
   def before_non_dynamic_forms
@@ -25,9 +71,18 @@ class FormSubmissionsController < BaseController
 
   def policy_step
     @form_submission = FormSubmission.find(params[:id])
-    log = ActivityLog.find_by(loggable_id: @form_submission.id, loggable_type: 'FormSubmission', law_firm_id: current_law_firm.id)
-    
-    FormSubmission.log_activity('seal_certification_process_initiated', true, @form_submission) if @form_submission && !log
+    if(@form_submission.status == 'sent')
+      @form_submission.status = 'started'
+      @form_submission.save
+      log = ActivityLog.find_by(loggable_id: @form_submission.id, loggable_type: 'FormSubmission', law_firm_id: current_law_firm.id)
+      FormSubmission.log_activity('seal_certification_process_initiated', true, @form_submission, current_user) if @form_submission && !log
+    end
+  end
+
+  def technology_profile
+  end
+
+  def history_profile
   end
 
   def process_step
@@ -39,14 +94,31 @@ class FormSubmissionsController < BaseController
   def history_step
   end
 
+  def logics
+    @logics ||= current_step == :policy ? @form_submission.form.try(:all_logics) : @form_submission.form_process.try(:all_logics)
+  end
+
   def edit
+    @readonly = true
     redirect_to first_step_path
   end
 
   def update
     @form_submission = FormSubmission.find(params[:id])
     if @form_submission.update(form_submissions_params)
-      render json: :ok
+      @form_submission.last_submitted_by = current_user
+      @form_submission.save
+      @form_submission.touch
+      if request.referrer.split('/').last.to_sym == :technology_profile
+        FormSubmission.log_activity('technologies_updated', true, @form_submission, current_user)
+      elsif request.referrer.split('/').last.to_sym == :history_profile
+        FormSubmission.log_activity('history_updated', true, @form_submission, current_user)
+      end
+      redirect_to params[:redirect_value]
+    elsif form_submissions_params["technology_values_attributes"]
+      @current_step = :technology
+      flash.now[:alert] = 'Please fill all the fields to save'
+      render :technology_step
     else
       render :technology_step
     end
@@ -66,9 +138,31 @@ class FormSubmissionsController < BaseController
     @form_submission = FormSubmission.find(params[:id])
     @form_submission.submitted = true
     @form_submission.submitted_on = Time.now
+    @form_submission.status = 'submitted'
     if (@form_submission.save)
-      FormSubmission.log_activity('information_security_policy_submitted', true, @form_submission)
-      redirect_to :root_url
+
+      # Creates action items for the law firm that has just been approved
+      generate_security_threats
+
+      AdminMailer.forms_submitted(@form_submission).deliver_now
+      FormSubmission.log_activity('information_security_policy_submitted', true, @form_submission, current_user)
+    end
+    head :ok
+  end
+
+  def generate_security_threats
+    action_items = 0
+    technology_values = @form_submission.technology_values
+    technology_values.each do |technology_value|
+      security_threats = SecurityThreat.where(vendor: technology_value.vendor, platform: technology_value.platform, version: technology_value.version, service_pack: technology_value.service_pack)
+      
+      # Check if the threat already exists for the law firm
+      action_items = current_law_firm.action_items.where(security_threat_id: security_threats.map(&:id)).count if security_threats.any?
+      next unless action_items == 0
+
+      security_threats.each do |threat|
+        threat.generate_pending_action_items_after_approval(@form_submission.law_firm_id, AdminUser.first)
+      end
     end
   end
 
@@ -78,6 +172,8 @@ class FormSubmissionsController < BaseController
     @follow_ups = case current_step
                   when :policy
                     @form_submission.follow_ups.policy.decorate
+                  when :process
+                    @form_submission.follow_ups.policy.decorate
                   when :technology
                     @form_submission.follow_ups.technology.decorate
                   when :history
@@ -86,11 +182,33 @@ class FormSubmissionsController < BaseController
       
   end
 
+  def follow_up_stats
+    stats = {}
+    @form_submission.follow_ups.review.map(&:loggable).each do |form_value|
+      if form_value.try(:form_field).try(:formable)
+        case form_value.form_field.formable.name
+        when 'Policy'
+          stats[:policy] = (stats[:policy] || 0) + 1
+        when 'Process'
+          stats[:process] = (stats[:process] || 0) + 1
+        end 
+      else
+        case form_value.class.to_s
+        when 'TechnologyValue'
+          stats[:technology] = (stats[:policy] || 0) + 1
+        when 'HistorySubmission'
+          stats[:history] = (stats[:process] || 0) + 1
+        end 
+      end
+    end
+    stats
+  end
+
 private
 
   def current_step
     step = params[:action].split("_").first.to_sym
-    [:edit, :update].include?(step) ? request.referrer.split('/').last.split("_").first.to_sym : step
+    @current_step ||= [:edit, :update].include?(step) ? request.referrer.split('/').last.split("_").first.to_sym : step
   end
 
   def steps
@@ -98,7 +216,11 @@ private
   end
 
   def wizard_path(step)
-    eval("#{step}_step_form_submission_path")
+    begin
+      eval("#{step}_step_form_submission_path")
+    rescue => e
+      Rollbar.log('error', e)
+    end
   end
 
   def next_step_path
@@ -114,7 +236,7 @@ private
   end
 
   def previous_step_path
-    wizard_path(previous_step)
+    wizard_path(previous_step) 
   end
 
   def next_step
@@ -130,9 +252,14 @@ private
   def last_step
     current_step_path.include? "history_step"
   end
+
+  def first_step
+    current_step_path.include? "policy_step"
+  end
   
   def form_submissions_params
     form_submission_attributes = [:id, :form_id]
     params.require(:form_submission).permit(form_submission_attributes + form_values_attributes)
   end
+
 end

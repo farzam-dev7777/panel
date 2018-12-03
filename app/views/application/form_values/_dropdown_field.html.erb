@@ -1,0 +1,28 @@
+<div class="form-group">
+  <% if !v.object.try(:form_field).try(:help_description).blank? %>
+    <i class="fa fa-question-circle-o help-text" data-help="<%= v.object.try(:form_field).try(:help_description) %>"></i>
+  <% end %>
+  <label class="select-input control-label parent-f-sized-label"><%= field.label %></label>
+  <%= v.input :value, {
+    label: false,
+    collection: field.collection.sort,
+    input_html: { autocomplete: 'off', value: v.object.try(:value) },
+    required: field.required,
+    wrapper: false,
+    blank: true,
+    include_blank: true,
+    as: field.as,
+    disabled:  @readonly ? 'disabled' : '',
+    selected: (v.object.try(:value) && !field.collection.flatten.include?(v.object.try(:value))) ? 'other' : v.object.try(:value)
+  }, &field.input_block(v) %>
+
+<% if v.object.try(:value) && !field.collection.flatten.include?(v.object.try(:value)) %>
+	<%= v.input :value, {
+	    label: false,
+	    input_html: { autocomplete: 'off', value: v.object.try(:value), class: 'other-input' },
+	    wrapper: false,
+	    as: 'string',
+	  }, &field.input_block(v) %>
+<% end %>
+
+</div>

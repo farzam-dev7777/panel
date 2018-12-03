@@ -5,36 +5,47 @@
 		<span>Edit <%= @security_alert.title %></span>
 	<% end %>
 <% end %>
+<style>
+	.table-responsive{ height: 1000px; }
+</style>
+
 <div class="table-responsive">
-	<table class="table table-bordered">
+	<%= simple_form_for([:admin, @security_alert]) do |f| %>
+		<table class="table table-bordered">
 
-		<%= simple_form_for([:admin, @security_alert]) do |f| %>
-			<tr>
-				<td>Title</td>
-				<td><%= f.input :title, autofocus: true, label: false %></td>
-			</tr>
+			<tbody>
+				<tr>
+					<td>Title</td>
+					<td><%= f.input :title, autofocus: true, label: false %></td>
+				</tr>
 
-			<tr>
-				<td>Description</td>
-				<td><%= f.input :description, label: false %></td>
-			</tr>
+				<tr>
+					<td>Description</td>
+					<td><%= f.input :description, label: false %></td>
+				</tr>
 
-			<tr>
-				<td>Severity</td>
-				<td><%= f.input :severity, collection: ['Critical', 'Normal'], include_blank: false, label: false %></td>
-			</tr>
+				<tr>
+					<td>Severity</td>
+					<td><%= f.input :severity, collection: ['Critical', 'Normal'], include_blank: false, label: false %></td>
+				</tr>
 
-			<tr>
-				<td>Link</td>
-				<td><%= f.input :link, label: false %></td>
-			</tr>
+				<tr>
+					<td>Link</td>
+					<td><%= f.input :link, label: false %></td>
+				</tr>
 
-			<tr>
-				<td colspan="2">
-					<%= f.button :submit, f.object.new_record? ? 'Create' : 'Update', class: "btn btn-primary" %>
-				</td>
-			</tr>
-		<% end %>
+				<tr>
+					<td>Alert Date</td>
+					<td><%= f.input :alert_date, as: :string, label: false, input_html: { class: "datetimepicker" } %></td>
+				</tr>
 
-	</table>
+				<tr>
+					<td colspan="2">
+						<%= f.button :submit, f.object.new_record? ? 'Create' : 'Update', class: "btn btn-primary" %>
+					</td>
+				</tr>
+			</tbody>
+
+		</table>
+	<% end %>
 </div>

@@ -1,55 +1,56 @@
-<div class="row technology-field-<%= platform_category %>-<%= type %> select-fields <%= follow_up_class_for_law_firm(f.object.id, 'TechnologyValue') %>">
+<div class="row technology-field-<%= platform_category %>-<%= type %>-text text-only-fields hidden">
+	<%= f.input :platform_category, as: :hidden, input_html: { value: platform_category }  %>
+	<%= f.input :new_value, as: :hidden, input_html: { value: true }  %>
+	<%= f.input :platform_type, as: :hidden, input_html: { value: type } %>
+	<div class="col-md-3 tech-field vendor-wrapper">
+		<%= f.input :vendor, input_html: { placeholder: 'Please type the vendor' } %>
+	</div>
+	<div class="col-md-2 tech-field platform-wrapper">
+		<%= f.input :platform, input_html: { placeholder: 'Please type the platform' } %>
+	</div>
+	<div class="col-md-2 tech-field version-wrapper">
+		<%= f.input :version, input_html: { placeholder: 'Please type the version' } %>
+	</div>
+	<div class="col-md-2 tech-field service_pack-wrapper">
+		<%= f.input :service_pack, input_html: { placeholder: 'Please type the vendor' }, label: "Service Pack/Update/Build" %>
+	</div>
+	<div class="col-md-2 tech-field supported-wrapper">
+		<%= f.input :supported, collection: ['Yes', 'No'], input_html: { style: 'width: 100%' }, label: 'Vendor Supported' %>
+	</div>
+	<div class="col-md-1 text-right" style="line-height: 84px; padding-right: 40px;">
+		<%= link_to_remove_association "<i class='fa fa-minus-circle'></i>".html_safe, f, { wrapper_class: "technology-field-#{platform_category}-#{type}-text" }  %>
+	</div>
+</div>
+
+<div class="row technology-field-<%= platform_category %>-<%= type %> select-fields <%= follow_up_class_for_law_firm(f.object.id, 'TechnologyValue', params[:id]) %>">
 	<%= f.input :platform_category, as: :hidden, input_html: { value: platform_category }  %>
 	<%= f.input :platform_type, as: :hidden, input_html: { value: type } %>
-	<div class="col-md-3 vendor-wrapper">
-		<%= f.input :vendor, collection: Technology.all.pluck(:vendor).uniq, include_blank: false,
+	<div class="col-md-3 tech-field vendor-wrapper">
+		<%= f.input :vendor, collection: Technology.where(platform_category: platform_category, platform_type: type).pluck(:vendor).uniq, include_blank: true,
 												 input_html: {class: 'dynamic-select', data: { field: 'vendor' } } %>
 		<a class="turn-to-text">Can't find what you're looking for?</a>
 	</div>
-	<div class="col-md-2 platform-wrapper">
-		<%= f.input :platform, collection: [], include_blank: false, input_html: {class: 'dynamic-select', data: {field: 'platform'}} %>
+	<div class="col-md-2 tech-field platform-wrapper">
+		<%= f.input :platform, collection: Technology.where(platform_category: platform_category, platform_type: type).pluck(:platform).uniq, include_blank: true, input_html: {class: 'dynamic-select', data: {field: 'platform'}} %>
 	</div>
-	<div class="col-md-2 version-wrapper">
-		<%= f.input :version, collection: [], include_blank: false, input_html: {class: 'dynamic-select', data: {field: 'version'} } %>
+	<div class="col-md-2 tech-field version-wrapper">
+		<%= f.input :version, collection: Technology.where(platform_category: platform_category, platform_type: type).pluck(:version).uniq, include_blank: true, input_html: {class: 'dynamic-select', data: {field: 'version'} } %>
 	</div>
-	<div class="col-md-2 service_pack-wrapper">
-		<%= f.input :service_pack, collection: [], include_blank: false, input_html: { data: {field: 'service_pack'} } %>
+	<div class="col-md-2 tech-field service_pack-wrapper">
+		<%= f.input :service_pack, collection: Technology.where(platform_category: platform_category, platform_type: type).pluck(:service_pack).uniq, include_blank: true, input_html: { data: {field: 'service_pack'} }, label: "Service Pack/Update/Build" %>
 	</div>
-	<div class="col-md-2">
-		<%= f.input :supported, collection: ['Yes', 'No'], include_blank: false %>
+	<div class="col-md-2 tech-field supported-wrapper">
+		<%= f.input :supported, collection: ['Yes', 'No'], include_blank: true, label: 'Vendor Supported' %>
 	</div>
 	<div class="col-md-1 text-right" style="line-height: 84px;">
-		<%= link_to_remove_association "<i class='fa fa-minus-circle fa-2x'></i>".html_safe, f, { wrapper_class: "technology-field-#{platform_category}-#{type}" }  %>
+		<%= link_to_remove_association "<i class='fa fa-minus-circle'></i>".html_safe, f, { wrapper_class: "technology-field-#{platform_category}-#{type}" }  %>
 
 
 		<%  if (follow_up_class(params[:id], f.object.id, 'TechnologyValue') == 'need-follow-up'   || follow_up_class(params[:id], f.object.id, 'TechnologyValue') == 'follow-up-success') %>
 			<%= render partial: 'note', locals: { loggable: f.object, follow_ups: @follow_ups, 
 																						 wrapper_class: note_class('technology'),
-																						 form_type: 'TechnologyValue'} %>
+																						 form_type: 'TechnologyValue', field: f.object} %>
 		<% end %>
-	</div>
-</div>
-
-<div class="row technology-field-<%= platform_category %>-<%= type %>-text text-only-fields hidden">
-	<%= f.input :platform_category, as: :hidden, input_html: { value: platform_category }  %>
-	<%= f.input :platform_type, as: :hidden, input_html: { value: type } %>
-	<div class="col-md-3 vendor-wrapper">
-		<%= f.input :vendor %>
-	</div>
-	<div class="col-md-2 platform-wrapper">
-		<%= f.input :platform %>
-	</div>
-	<div class="col-md-2 version-wrapper">
-		<%= f.input :version %>
-	</div>
-	<div class="col-md-2 service_pack-wrapper">
-		<%= f.input :service_pack %>
-	</div>
-	<div class="col-md-2">
-		<%= f.input :supported, collection: ['Yes', 'No'], input_html: { style: 'width: 100%' } %>
-	</div>
-	<div class="col-md-1 text-right" style="line-height: 84px; padding-right: 40px;">
-		<%= link_to_remove_association "<i class='fa fa-minus-circle fa-2x'></i>".html_safe, f, { wrapper_class: "technology-field-#{platform_category}-#{type}-text" }  %>
 	</div>
 </div>
 

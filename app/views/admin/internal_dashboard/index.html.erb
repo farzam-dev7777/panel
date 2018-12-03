@@ -1,29 +1,71 @@
-<div class="row">
-	<div class="col-xs-12 col-sm-5 col-md-5 col-lg-12">
-		<ul id="sparks" class="pull-right">
-			<li class="sparks-info">
-				<h5 class="current-month-info"> Sealed Firms 
-					<span class="txt-color-green">- 171 -</span>
-				</h5>
-			</li>
-			<li class="sparks-info">
-				<h5 class="current-month-info"> Under Process 
-					<span class="txt-color-yellow">- 47 -</span>
-				</h5>
-			</li>
-			<li class="sparks-info">
-				<h5 class="current-month-info"> Not Sealed 
-					<span class="txt-color-red">- 4 -</span>
-				</h5>
-			</li>
-		</ul>
+<div>
+
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 current-stats">
+			<ul id="sparks" class="text-left">
+				<li class="sparks-info">
+					<a href="/admin/law_firms?filter=onboarded">
+						<h5 class="current-month-info"> Onboarded 
+							<span class="txt-color">
+								- <%= LawFirm.onboarded.count %> -
+							</span>
+						</h5>
+					</a>
+				</li>
+				<li class="sparks-info">
+					<a href="/admin/law_firms?filter=under_process">
+						<h5 class="current-month-info"> In Process 
+							<span>- <%= LawFirm.in_process.count %> -</span>
+						</h5>
+					</a>
+				</li>
+				<li class="sparks-info">
+					<a href="/admin/law_firms?filter=certified">
+						<h5 class="current-month-info"> Certified 
+							<span>
+								- <%= LawFirm.certified.count %> -
+							</span>
+						</h5>
+					</a>
+				</li>
+				<li class="sparks-info">
+					<a href="/admin/law_firms?filter=decertified">
+						<h5 class="current-month-info"> Decertified 
+							<span>- <%= LawFirm.decertified.count %> -</span>
+						</h5>
+					</a>
+				</li>
+			</ul>
+		</div>
 	</div>
+
 </div>
+
+<p>&nbsp;</p>
+
+
 <div class="row">
-		<div class="col-md-12">
-			<article class="col-sm-12">
-				<!-- new widget -->
-				<div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+	<!-- <div class="col-md-6">
+		<article class="col-sm-12">
+			<div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+				<header>
+					<span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
+					<h2>HEAT Map</h2>
+				</header>
+				<div>
+					<div class="jarviswidget-editbox"></div>
+					<div class="widget-body no-padding" style="height: 250px;">
+						<div id="chartContainer" style="height: 250px; width: 100%;"></div>
+					</div>
+				</div>
+			</div>
+		</article>
+	</div> -->
+
+	<div class="col-md-12">
+		<article class="col-sm-12">
+			<!-- new widget -->
+			<div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
 					<!-- widget options:
 					usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
 
@@ -36,52 +78,52 @@
 					data-widget-collapsed="true"
 					data-widget-sortable="false"
 
-					-->
-					<header>
-						<span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
-						<h2>SEAL Stats</h2>
+				-->
+				<header>
+					<span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
+					<h2>SEAL Stats</h2>
 
-					</header>
+				</header>
 
-					<!-- widget div-->
-					<div>
+				<!-- widget div-->
+				<div>
 
-						<!-- widget edit box -->
-						<div class="jarviswidget-editbox">
-							<!-- This area used as dropdown edit box -->
-
-						</div>
-						<!-- end widget edit box -->
-
-						<!-- widget content -->
-						<div class="widget-body no-padding">
-
-							<div id="bar-chart" class="chart"></div>
-
-						</div>
-						<!-- end widget content -->
+					<!-- widget edit box -->
+					<div class="jarviswidget-editbox">
+						<!-- This area used as dropdown edit box -->
 
 					</div>
-					<!-- end widget div -->
+					<!-- end widget edit box -->
+
+					<!-- widget content -->
+					<div class="widget-body no-padding">
+
+						<div id="bar-chart" class="chart"></div>
+
+					</div>
+					<!-- end widget content -->
 
 				</div>
+				<!-- end widget div -->
 
-									</article>
-								</div>
-							</div>
+			</div>
+
+		</article>
+	</div>
+
+	
+</div>
 
 
 
 
 
 <% content_for :page_title do %>
-<span>Law Firms</span>
+	<span>Law Firms</span>
 <% end %>
 
 
-<% content_for :page_buttons do %>
-<%= link_to "Create New Law Firm", new_admin_law_firm_path, class: "btn btn-primary btn-md pull-right" %>
-<% end %>
+
 
 <div class="clearfix"></div>
 
@@ -89,373 +131,265 @@
 
 
 
-<div class="jarviswidget jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
-<header>
-<span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
-<h2 class="font-md"><strong>Recently SEAL'ed Firms </strong></h2>				
-</header>
-<div class="no-padding">
-<div class="jarviswidget-editbox"></div>
-<!-- widget content -->
-<div class="widget-body">
-	
-		<div class="table-responsive">
-			<table class="table table-bordered">
-
-				<tr>
-					<th>Name</th>
-					<th>Email</th>
-					<th>Phone</th>
-					<th>Score</th>
-					<th>Action</th>
-				</tr>
-
-				<% @law_firms.each do |firm| %>
-					<tr>
-						<td><%= firm.name %></td>
-						<td><%= firm.email %></td>
-						<td><%= firm.phone %></td>
-						<td class="text-center">
-							<div> 
-								<span class="percent txt-color-blue font-xl semi-bold">
-									<%= rand(120...300) %>
-								</span> 
-							</div>
-						</td>
-						<td class="text-center" width="150px">
-							<%= link_to "Edit", edit_admin_law_firm_path(firm), class: "btn btn-primary" %>	
-							<%= link_to "Mail", edit_admin_law_firm_path(firm), class: "btn btn-primary" %>	
-						</td>
-					</tr>
-					
-				<% end %>
-
-			</table>
-			<div class="clearfix"></div>
-
-		</div>		
-	
-</div>
-</div>
-</div>
-
-
-</div>
-
-
-
-<div class="col-md-4">
-<div class="jarviswidget jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
-
-
-	<header>
-		<span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
-		<h2 class="font-md"><strong>Send Message </strong></h2>				
-	</header>
-
-	<div>
-
-		<div class="jarviswidget" id="wid-id-8" data-widget-editbutton="false" data-widget-custombutton="false" style="border-top: 1px solid #ccc;">
-
-		<!-- widget div-->
-		<div>
-			
-			<!-- widget edit box -->
-			<div class="jarviswidget-editbox">
-				<!-- This area used as dropdown edit box -->
-				
-			</div>
-			<!-- end widget edit box -->
-			
+	<div class="jarviswidget jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+		<header>
+			<span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
+			<h2 class="font-md"><strong>Latest Threats </strong></h2>				
+		</header>
+		<div class="no-padding">
+			<div class="jarviswidget-editbox"></div>
 			<!-- widget content -->
-			<div class="widget-body no-padding">
-				
-				<!-- <form action="/admin" method="post" id="message-form" class="smart-form"> -->
-				<%= form_tag '/admin/messages', class: 'smart-form', id: 'message-form' do %>
-					
-					<div class="alert adjusted alert-success fade in hidden">
-						<button class="close" data-dismiss="alert">
-							×
-						</button>
-						<i class="fa-fw fa-lg fa fa-exclamation"></i>
-						<strong>Message sent successfully!</strong>
-					</div>
+			<div class="widget-body">
 
-					<fieldset>
-						
-						<section>
-							<label class="label">Law Firm</label>
-							<label class="input">
-								<i class="icon-append fa fa-tag"></i>
-								<%= collection_select :message, :law_firm_id, @law_firms, :id, :name, {}, style: "width: 100%" %>							
-							</label>
-						</section>
-						
-						<section>
-							<label class="label">Subject</label>
-							<label class="input">
-								<i class="icon-append fa fa-tag"></i>
-								<%= text_field_tag 'message[subject]' %>
-							</label>
-						</section>
-						
-						<section>
-							<label class="label">Message</label>
-							<label class="textarea">
-								<i class="icon-append fa fa-comment"></i>
-								<%= text_area_tag 'message[body]' %>
-							</label>
-						</section>
+				<div class="table-responsive">
+					<table class="table table-bordered" id="db-curr-threats">
+						<thead>
+						<tr style="background: #007ac3; color: #fff;">
+							<th>Threat</th>
+							<th>Description</th>
+							<th>Severity</th>
+							<th>Created</th>
+							<th>Status</th>
+						</tr>
+						</thead>
+						<tbody>
+							<% @security_threats.each do |threat| %>
+								<tr class="security-threat-row" data-id="<%= threat.id %>">
+									<td><%= threat.title %></td>
+									<td><%= truncate(threat.description, length: 150) %></td>
+									<td><%= threat.severity_level.name.humanize %></td>
+									<!-- <td><%= threat.created_at.strftime("%d %b %y, %I:%M %Z") %></td> -->
+									<td><%= threat.created_at.strftime("%d %b, %Y") %></td>
+									<td><%= link_to "More Details", admin_security_threat_path(threat), :class => "", :remote => true, "data-toggle" => "modal", "data-target" => "securityAlert" %></td>
+								</tr>
+							<% end %>
+						</tbody>
 
-					</fieldset>
-					
-					<footer>
-						<button type="submit" class="btn btn-primary">Send</button>
-					</footer>
+					</table>
+					<div class="clearfix"></div>
 
-				<% end %>
-				
+				</div>		
+
 			</div>
-			<!-- end widget content -->
-			
 		</div>
-		<!-- end widget div -->
-		
-	</div>
-
 	</div>
 
 
 </div>
 
+<div class="clearfix"></div>
+
+<div class="col-lg-12 col-md-12 col-sm-12">
+
+
+
+	<div class="jarviswidget jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+		<header>
+			<span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
+			<h2 class="font-md"><strong>Active Law Firms </strong></h2>				
+		</header>
+		<div class="no-padding">
+			<div class="jarviswidget-editbox"></div>
+			<!-- widget content -->
+			<div class="widget-body">
+
+				<div class="table-responsive">
+					<table id="db_lfs" class="table table-striped table-bordered table-hover">
+
+						<thead>
+							<tr style="background: #007ac3; color: #fff;">
+								<th>Name</th>
+								<th>Status</th>
+								<th>Last Updated At</th>
+								<th>Score</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<% @law_firms.each do |firm| %>
+								<tr>
+									<td><%= link_to firm.name, admin_law_firm_path(firm) %>	</td>
+									<td><%= firm.form_submissions.latest.try(:status).try(:humanize) %></td>
+									<td><%= firm.updated_at.in_time_zone('Eastern Time (US & Canada)').strftime(LawFirm::TIME_FORMAT) %></td>
+									<td class="text-center">
+										<div> 
+											<span class="percent txt-color-blue semi-bold">
+												<% if firm.form_submissions.try(:latest).try(:status) == 'approved' %>
+													<% score = firm.form_submissions.try(:latest).try(:total_score) %>
+													<div class="total-score" data-color="<%= firm.form_submissions.try(:latest).try(:color, score, 'total_score') %>" data-score=<%= score %>></div>
+												<% end %>
+											</span> 
+										</div>
+									</td>
+								</tr>
+							<% end %>
+						</tbody>
+
+					</table>
+					<div class="clearfix"></div>
+
+				</div>		
+
+			</div>
+		</div>
+	</div>
+
+
 </div>
 
-<div class="col-md-8">
-	
-	<div class="jarviswidget jarviswidget-color-blue" id="wid-id-4" data-widget-editbutton="false" data-widget-colorbutton="false">
 
-						<!-- widget options:
-						usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
 
-						data-widget-colorbutton="false"
-						data-widget-editbutton="false"
-						data-widget-togglebutton="false"
-						data-widget-deletebutton="false"
-						data-widget-fullscreenbutton="false"
-						data-widget-custombutton="false"
-						data-widget-collapsed="true"
-						data-widget-sortable="false"
+<!-- <div class="col-md-4">
+	<div class="jarviswidget jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
 
-						-->
 
-						<header>
-							<span class="widget-icon"> <i class="fa fa-check txt-color-white"></i> </span>
-							<h2> Messages </h2>
-							<!-- <div class="widget-toolbar">
-							add: non-hidden - to disable auto hide
+		<header>
+			<span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
+			<h2 class="font-md"><strong>Send Message </strong></h2>				
+		</header>
 
-							</div>-->
-						</header>
+		<div>
 
-						<!-- widget div-->
-						<div>
-							<div class="widget-body no-padding smart-form">
-								<table id="inbox-table" class="table table-striped table-hover">
-									<tbody>
-										<% if @conversations.any? %>
-											<% @conversations.each do |conversation| %>
-												<% receipt = ReceiptDecorator.decorate(conversation.receipts.object.where(receiver_type: 'LawFirm').first) %>
-												<tr>
-													<td class="inbox-table-icon">
-														
-													</td>
-													<td class="inbox-data-from hidden-xs hidden-sm">
-														<div>
-															<%= receipt.try(:receiver).try(:name) %>
-														</div>
-													</td>
-													<td class="inbox-data-message">
-														<div>
-															<span><%= conversation.subject %>.</span> <%= receipt.message.body %>
-														</div>
-													</td>
-													<td class="inbox-data-attachment hidden-xs">
-														<div>
-															<a href="javascript:void(0);" rel="tooltip" data-placement="left" data-original-title="FILES: rocketlaunch.jpg, timelogs.xsl" class="txt-color-darken"></a>
-														</div>
-													</td>
-													<td class="inbox-data-date hidden-xs">
-														<div>
-															<%= receipt.message.humanized_created_at %>
-														</div>
-													</td>
-												</tr>
-											<% end %>
-										<% end %>
-									</tbody>
-								</table>
-							</div>
+			<div class="jarviswidget" id="wid-id-8" data-widget-editbutton="false" data-widget-custombutton="false" style="border-top: 1px solid #ccc;">
 
-								<!-- end content -->
-							</div>
+				<div>
 
-						</div>
-						<!-- end widget div -->
+					<div class="jarviswidget-editbox">
+
 					</div>
 
-</div>
+					<div class="widget-body no-padding">
 
+						<%= form_tag '/admin/messages', class: 'smart-form', id: 'message-form' do %>
 
-
-
-
-<div class="col-md-12">
-<div class="jarviswidget jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
-
-	<header>
-		<span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
-		<h2 class="font-md"><strong>Activity Log </strong></h2>				
-	</header>
-
-	<div>
-		<!-- MAIN PANEL -->
-		<div role="main">
-
-			<!-- MAIN CONTENT -->
-			<div>
-
-				<!-- row -->
-				<div class="row">
-
-					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-
-						<div class="well well-sm">
-							<!-- Timeline Content -->
-							<div class="smart-timeline">
-								<ul class="smart-timeline-list">
-									<li>
-										<div class="smart-timeline-icon">
-											<i class="fa fa-file-text"></i>
-										</div>
-										<div class="smart-timeline-time">
-											<small>just now</small>
-										</div>
-										<div class="smart-timeline-content">
-											<p>
-												<a href="javascript:void(0);"><strong>JJ Law Firm Inc.</strong></a>
-											</p>
-											<p>
-												Submitted Application
-											</p>
-
-
-											
-										</div>
-									</li>
-									<li>
-										<div class="smart-timeline-icon">
-											<i class="fa fa-file-text"></i>
-										</div>
-										<div class="smart-timeline-time">
-											<small>1 min ago</small>
-										</div>
-										<div class="smart-timeline-content">
-											<p>
-												<strong>Meeting invite for "GENERAL GNU"</strong>
-											</p>	
-
-										</div>
-									</li>
-									<li>
-										<div class="smart-timeline-icon bg-color-greenDark">
-											<i class="fa fa-bar-chart-o"></i>
-										</div>
-										<div class="smart-timeline-time">
-											<small>5 hrs ago</small>
-										</div>
-										<div class="smart-timeline-content">
-											<p>
-												<strong class="txt-color-greenDark">24hrs User Feed</strong>
-											</p>
-
-											<div class="sparkline" 
-											data-sparkline-type="compositeline" 
-											data-sparkline-spotradius-top="5" 
-											data-sparkline-color-top="#3a6965" 
-											data-sparkline-line-width-top="3" 
-											data-sparkline-color-bottom="#2b5c59" 
-											data-sparkline-spot-color="#2b5c59" 
-											data-sparkline-minspot-color-top="#97bfbf" 
-											data-sparkline-maxspot-color-top="#c2cccc" 
-											data-sparkline-highlightline-color-top="#cce8e4" 
-											data-sparkline-highlightspot-color-top="#9dbdb9" 
-											data-sparkline-width="170px" 
-											data-sparkline-height="40px" 
-											data-sparkline-line-val="[6,4,7,8,4,3,2,2,5,6,7,4,1,5,7,9,9,8,7,6]" 
-											data-sparkline-bar-val="[4,1,5,7,9,9,8,7,6,6,4,7,8,4,3,2,2,5,6,7]"></div>
-
-											<br>
-										</div>
-									</li>
-									<li>
-										<div class="smart-timeline-icon">
-											<i class="fa fa-user"></i>
-										</div>
-										<div class="smart-timeline-time">
-											<small>yesterday</small>
-										</div>
-										<div class="smart-timeline-content">
-											<p>
-												<a href="javascript:void(0);"><strong>Update user information</strong></a>
-											</p>
-											<p>
-												Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus.
-											</p>
-
-											Tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit
-										</div>
-									</li>
-									<li>
-										<div class="smart-timeline-icon">
-											<i class="fa fa-pencil"></i>
-										</div>
-										<div class="smart-timeline-time">
-											<small>12 Mar, 2013</small>
-										</div>
-										<div class="smart-timeline-content">
-											<p>
-												<a href="javascript:void(0);"><strong>Nabi Resource Report</strong></a>
-											</p>
-											<p>
-												Ean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis.
-											</p>
-											<a href="javascript:void(0);" class="btn btn-xs btn-default">Read more</a>
-										</div>
-									</li>
-									<li class="text-center">
-										<a href="javascript:void(0)" class="btn btn-sm btn-default"><i class="fa fa-arrow-down text-muted"></i> LOAD MORE</a>
-									</li>
-								</ul>
-							</div>
-							<!-- END Timeline Content -->
-
+						<div class="alert adjusted alert-success fade in hidden">
+							<button class="close" data-dismiss="alert">
+								×
+							</button>
+							<i class="fa-fw fa-lg fa fa-exclamation"></i>
+							<strong>Message sent successfully!</strong>
 						</div>
+
+						<fieldset>
+
+							<section>
+								<label class="label">Law Firm</label>
+								<label class="input">
+									<i class="icon-append fa fa-tag"></i>
+									<%= collection_select :message, :law_firm_id, @law_firms, :id, :name, {}, style: "width: 100%" %>							
+								</label>
+							</section>
+
+							<section>
+								<label class="label">Subject</label>
+								<label class="input">
+									<i class="icon-append fa fa-tag"></i>
+									<%= text_field_tag 'message[subject]' %>
+								</label>
+							</section>
+
+							<section>
+								<label class="label">Message</label>
+								<label class="textarea">
+									<i class="icon-append fa fa-comment"></i>
+									<%= text_area_tag 'message[body]' %>
+								</label>
+							</section>
+
+						</fieldset>
+
+						<footer>
+							<button type="submit" class="btn btn-primary">Send</button>
+						</footer>
+
+						<% end %>
 
 					</div>
 
 				</div>
 
-				<!-- end row -->
-
 			</div>
-			<!-- END MAIN CONTENT -->
 
 		</div>
-		<!-- END MAIN PANEL -->
+
+
 	</div>
 
 </div>
-</div>
+ -->
+	
+	
+		<div class="col-md-12">
+			<div class="jarviswidget jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+
+				<header class="no-border">
+					<span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
+					<h2 class="font-md"><strong>Activity Log </strong></h2>	
+					<div class="widget-toolbar no-padding">
+						<%= link_to "<i class='fa fa-download'></i>".html_safe, activity_logs_admin_pdf_index_path, method: :get, class: 'btn btn-success btn-xs download-activities' %>
+					</div>			
+				</header>
+
+				<div>
+					<div class="col-md-12 no-padding activity-search-bar">
+
+						<%= simple_form_for @q, url: '', html: { method: :get, id: 'search-activity-log' } do |f| %>
+                <div class="col-md-5 no-padding-left">
+	                <%= f.input :law_firm_name_or_event_type_cont, placeholder: "Search", label: false, class: 'form-control', input_html: { id: 'search-box' } %>
+                </div>
+                <div class="col-md-3">
+									<%= f.text_field :created_at_gteq, label: false, placeholder: 'From Date', class: 'form-control datepicker', input_html: { id: 'from-date' } %>
+								</div>
+                <div class="col-md-3">
+									<%= f.text_field :created_at_lteq, label: false, placeholder: 'To Date', class: 'form-control datepicker', input_html: { id: 'to-date' } %>
+								</div>
+								<div class="col-md-1 no-padding text-right">
+									<button id="reset-activity-log-btn" class="btn btn-sm btn-danger no-margin">
+										<i class="fa fa-times"></i>
+									</button>
+								</div>
+            <% end %>
+					</div>
+
+					<div class="clearfix"></div>
+					<!-- MAIN PANEL -->
+					<div role="main">
+
+						<!-- MAIN CONTENT -->
+						<div style="height: 500px;overflow-y: scroll;">
+
+							<!-- row -->
+							<div class="row">
+
+								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+									<div class="well well-sm">
+										<!-- Timeline Content -->
+										<div class="smart-timeline">
+											<ul class="smart-timeline-list">
+
+												<%= render partial: 'activity_log', locals: {activity_logs: @activity_logs} %>
+											</ul>
+										</div>
+										<!-- END Timeline Content -->
+
+									</div>
+
+								</div>
+
+							</div>
+
+							<!-- end row -->
+
+						</div>
+						<!-- END MAIN CONTENT -->
+
+					</div>
+					<!-- END MAIN PANEL -->
+				</div>
+
+			</div>
+		</div>
 
 
-<div class="clearfix"></div>
+		<div class="clearfix"></div>

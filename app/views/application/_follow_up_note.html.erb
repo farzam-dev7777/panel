@@ -5,4 +5,10 @@
 	by <%= "#{message.sender}" unless message.sender.blank? %></em>
 </span>	
 <div class="clearfix"></div>
+<%- if message.sender == current_user.email %>
+	<div class="delete-note" data-id = "<%= message.id %>">
+		<i class="fa fa-trash"></i>
+	</div>
+<% end %>
+<div class="clearfix"></div>
 <hr class="note-seperator" />

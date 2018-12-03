@@ -1,9 +1,10 @@
 $(document).ready(function(){
 
+  $('.datetimepicker').datetimepicker();
+
 	// Create a new todo task
 	$("#todo-task-form").submit(function(e){
 		e.preventDefault();
-		debugger;
 		$.ajax({
 		  url: "/todo_tasks/",
 		  method: "post",

@@ -1,8 +1,13 @@
 class BaseController < ApplicationController
+  # include CanCan::ControllerAdditions
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :authenticate_user!
+  before_filter :authenticate_user!
 
   helper_method :current_law_firm, :activities, :notifications, :unread_notifications_count
+
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to root_url, :alert => exception.message
+  end
 
   protected
 
@@ -10,14 +15,13 @@ class BaseController < ApplicationController
     added_attrs = [:username, :email, :password, :password_confirmation, :remember_me]
     devise_parameter_sanitizer.permit :sign_up, keys: added_attrs
     devise_parameter_sanitizer.permit :account_update, keys: added_attrs
-  end
 
-  def current_law_firm
-		current_user.law_firm
+    update_attrs = [:password, :password_confirmation, :current_password]
+    devise_parameter_sanitizer.permit :account_update, keys: update_attrs
   end
 
   def activities
-		@logs ||= current_law_firm.activity_logs
+		@logs ||= current_law_firm.try(:activity_logs)
   end
 
   def notifications

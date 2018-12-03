@@ -12,18 +12,23 @@ set :branch, :external
 # set :nginx_server_name, 'pns-staging.in'
 
 # ask(:password, nil, echo: false)
-server '159.203.21.120', user: 'root', port: 22, password: fetch(:password), roles: %w{web app db}
+# server '159.203.21.120', user: 'root', port: 22, password: fetch(:password), roles: %w{web app db}
 # server '162.208.50.227', user: 'admin', roles: %w{app db web}
+#external-new
+server '159.203.10.57', user: 'root', port: 22, password: fetch(:password), roles: %w{web app db}
 
 set :deploy_via, :remote_cache
+set :rvm_custom_path, '/usr/share/rvm/'
+set :rvm_ruby_version, '2.4.0'
 
 set :unicorn_rack_env, :external
 
 set :ssh_options, {
   config: false,
-  # forward_agent: true,
-  # auth_methods: %w(publickey),
-  user: 'root'
+  forward_agent: true,
+  auth_methods: %w(publickey),
+  user: 'root',
+  paranoid: true
 }
 
 set :conditionally_migrate, true    

@@ -1,0 +1,2 @@
+class ThirdPartyVendor < ApplicationRecord
+end

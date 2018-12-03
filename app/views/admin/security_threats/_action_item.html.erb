@@ -1,0 +1,19 @@
+<p>
+	<table class="table table-striped">
+		<tr>
+			<th>Law Firm</th>
+			<th>Status</th>
+			<th>Next Notification</th>
+		</tr>
+
+		<% @action_items.each do |item| %>
+		<tr>
+			<td><%= item.law_firm.name %></td>
+			<td><%= item.status.try(:humanize) %></td>
+			<td>
+				<%= item.queued_notifications.pending.first.try(:trigger_at).strftime("%d %b %Y at %I:%M %p") if item.queued_notifications.pending && item.queued_notifications.pending.first %>	
+			</td>
+		</tr>
+		<% end %>
+	</table>
+</p>

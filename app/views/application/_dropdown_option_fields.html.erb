@@ -7,8 +7,10 @@
       <%= f.input :value %>
     </div>
     <div class="col-md-12">
-      <%= f.input :score %>
+      <div class="score-rating"></div>
+      <%= f.input :score, as: :hidden, input_html: { class: 'score-holder' } %>
     </div>
   </div>
-  <%= link_to_remove_association "Remove Option", f, { wrapper_class: 'dropdown-options' } %>
+  <hr>
+  <%= link_to_remove_association "Remove Option", f, { wrapper_class: 'dropdown-options', class: 'btn btn-sm btn-danger white-text' } %>
 </div>
