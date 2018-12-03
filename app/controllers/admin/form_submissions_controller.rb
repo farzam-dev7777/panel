@@ -30,6 +30,10 @@ class Admin::FormSubmissionsController < Admin::BaseController
     FormSubmission.log_activity('information_security_policy_review_started', true, @form_submission, current_admin_user) if @form_submission && !log
   end
 
+  def download_submission_pdf
+    binding.pry
+  end
+
   def process_step
   end
 

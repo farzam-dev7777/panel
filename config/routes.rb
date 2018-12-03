@@ -75,6 +75,7 @@ Rails.application.routes.draw do
         post :save_and_follow_up
         post :approve
         post :decline
+        get  :download_submission_pdf
       end
       collection do
         post :mark_as_checked
