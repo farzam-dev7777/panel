@@ -32,10 +32,10 @@ class Admin::FormSubmissionsController < Admin::BaseController
 
   def download_submission_pdf
     @form_submission = FormSubmission.find(params[:id])
-
+    
     pdf = WickedPdf.new.pdf_from_string(
       render_to_string("admin/pdf/submission_body.html.erb", layout: "pdf.html.erb"),
-      # locals: {:form_submission => @form_submission},
+      locals: {:form_submission => @form_submission},
       header: {
         content: render_to_string("admin/pdf/submission_header.html.erb", layout: "pdf.html.erb")
       },

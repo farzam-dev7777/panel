@@ -100,8 +100,38 @@
    </div>
 </div>
 
+<% i = 1 %>
+<% @form_submission.form_values.each_with_index do |field, index| %>  
+   <% if field.form_field.type === "MultiSelectField" %>
+      <% answers = field.multi_select_value %>
+      <div class="col-md-12">
+         <div class="quer-oe">
+            <div class="question-sec">
+               <b class="que"><i><%= i %>.</i><%= field.form_field.label %></b>
+               <ul class="sele-">
+                  <% if answers.size === 0 %>
+                     <li>N/A</li>
+                  <% else %>
+                     <% answers.each do |ans| %>
+                        <% if ans != "" %>
+                           <li><%= ans %></li>
+                        <% end %>
+                     <% end %>
+                  <% end %>
+               </ul> 
+            </div>
+         </div>
+      </div>
+      <% i = i+1 %>
+   <% end %>
 
-<div class="col-md-12">
+<% end %>
+
+
+
+
+
+<!--<div class="col-md-12">
    <div class="quer-oe">
       <b class="que"><i>1.</i>List all information security related policies that are in force at your law firm</b>
       <div class="top-info">
@@ -250,7 +280,7 @@
    </div>
 </div>
 
-
+-->
 
 
 
