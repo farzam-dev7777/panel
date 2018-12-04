@@ -1,7 +1,11 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700|Roboto:400,500,700,900');
 @charset "utf-8";
 /* CSS Document */
-html { font-size: 100%; font-family: 'Open Sans', sans-serif; color: #8064a2; }
-body { color: #8064a2; font-size: 15px; }
+* {
+    font-family: 'Roboto', sans-serif;
+}
+html { font-size: 100%;  , sans-serif; color: #8064a2; }
+body { color: #8064a2; font-size: 13px; }
 dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, legend, input, textarea, p, blockquote, th, td { margin: 0; padding: 0 }
 table { border-collapse: collapse; border-spacing: 0 }
 fieldset, img { border: 0 }
@@ -19,15 +23,18 @@ img { max-width: 100%; }
 /*************************************************/
 
 
+
 .top-info, .tabl-format { border-collapse: collapse; display: table; width: 100%; }
 .top-info > ul, .tabl-format ul { display: table-row; }
 .top-info-text { text-align: right; }
 .top-info-text h5 { font-size: 28px; font-weight: bold; }
 .tabl-format { margin: 30px 0; }
-.tabl-format ul li { border: 1px solid rgb(75, 172, 198); display: table-cell; }
+.tabl-format ul li { display: table-cell; }
 .top-info, .tabl-format { border-collapse: collapse; display: table; margin: 20px 0; width: 100%; }
-.tabl-format > ul:nth-child(2n+1) li { background-color: rgb(210, 234, 240); }
-.tabl-format ul li { border: 1px solid rgb(75, 172, 198); color: rgb(49, 132, 155); display: table-cell; padding: 7px 15px; }
+.tabl-format ul:first-child { border-top: 1px solid rgb(75, 172, 198);  }
+.tabl-format ul:last-child { border-bottom: 1px solid rgb(75, 172, 198);  }
+.tabl-format > ul:nth-child(2n) li { background-color: rgb(210, 234, 240); }
+.tabl-format ul li {color: rgb(49, 132, 155); display: table-cell; padding: 7px 15px; }
 .top-info ul { display: table-row }
 .top-info li { display: table-cell; }
 .tab-con > b { display: block; font-size: 20px; line-height: normal; margin: 0 0 10px; }
@@ -47,8 +54,11 @@ img { max-width: 100%; }
 .question-sec > i { font-style: normal; text-decoration: underline; }
 .sele-sub { padding: 0 0 0 25px; }
 .fot-text { float: right; margin: 20px 0 0; }
-footer { border-top: 1px solid rgb(128, 100, 162); display: table; width: 100%;     padding-top: 5px;}
-header { border-bottom: 1px solid rgb(128, 100, 162); display: table; margin: 0 0 30px; width: 100%;    padding-bottom: 5px; }
+footer { border-top: 1px solid rgb(128, 100, 162); display: table; width: 100%; }
+header { border-bottom: 1px solid rgb(128, 100, 162); display: table; margin: 0 0 30px; width: 100%; }
+
+
+
 .hight10{height: 10px;}
 .hight20{height: 20px;}
 .hight30{height: 30px;}
