@@ -4,7 +4,7 @@
       <% field = v.object.form_field %>
       <div class="<%= field.group_form_id ? follow_up_class(params[:id], v.object.id, 'FormValue') : '' %> field-wrapper-<%= field.id %>">        
         <div class="<%= get_form_value_field_wrapper_class(sub_fields, group_form, form_values, v.index) %>" data-show-when-field-id="<%= show_when_field_id(v.object) %>" data-show-when-value="<%= show_when_value(v.object) %>" data-custom-logic="<%= custom_logic(v.object) %>">
-          <div class="<%= get_form_value_field_class(sub_fields, group_form, form_values) %>ggigg">
+          <div class="<%= get_form_value_field_class(sub_fields, group_form, form_values) %>">
             <%- if !group_form %>
               <div class="note-wrapper">
                 <% follow_up = @follow_ups.select{ |follow_up| follow_up.loggable_id == v.object.id }.first %>
