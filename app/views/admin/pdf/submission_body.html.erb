@@ -5,15 +5,15 @@
    <div class="top-info-text">
       <h5>SEAL : Assessment Report</h5>
       <ul>
-         <li>Firm Name: <b>White & Case LLP</b></li>
-         <li>Firm ID: 947ca32f</li>
-         <li>Status: <b>Certified</b></li>
+         <li>Firm Name: <b><%= @form_submission.law_firm.try(:name) %></b></li>
+         <li>Firm ID: <%= @form_submission.law_firm.users.first.try(:username) %></li>
+         <li>Status: <b><%= @form_submission.formatted_status %></b></li>
       </ul>
       <ul>
-         <li>Total Score:3.3</li>
-         <li>Assessor Score : 3.5</li>
-         <li>System Score: 1.5</li>
-         <li>Responsive Score: 5.0</li>
+         <li>Total Score: <%= @form_submission.total_score %></li>
+         <li>Assessor Score : <%= @form_submission.assessor_score %></li>
+         <li>System Score: <%= @form_submission.system_score %></li>
+         <li>Responsive Score: <%= @form_submission.assessor_score %></li>
       </ul>
    </div>
 </div>
