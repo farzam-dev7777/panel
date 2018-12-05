@@ -1,0 +1,10 @@
+
+<% if file_attachments.size === 0 %>
+  <li>N/A</li>
+<% else %>
+  <%- file_attachments.each do |file_attachment| %>
+    <li><%= file_attachment.try(:file).try(:file).try(:filename) %></li>
+  <% end %>
+<% end %>
+
+

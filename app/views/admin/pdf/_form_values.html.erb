@@ -1,0 +1,24 @@
+<%#= form_value.form_field.type.underscore %>
+<div class="col-md-12">
+  <div class="quer-oe">
+    <% if sub_questions %>
+      <div class="to-po-z"> 
+        <i><%= serial + 1 %>.</i><%= form_value.form_field.label %>
+        <%- begin %>
+          <%= render "admin/pdf/#{form_value.form_field.type.underscore}", form_value: form_value, serial: serial, sub_questions: sub_questions %>  
+          <% rescue %>
+            <%= render "admin/pdf/text", form_value: form_value, serial: serial, sub_questions: sub_questions %>  
+          <% end %>
+      </div>
+    <% else %>
+      <div class="question-sec"> 
+        <b class="que"><i><%= serial + 1 %>.</i><%= form_value.form_field.label %></b> 
+        <%- begin %>
+          <%= render "admin/pdf/#{form_value.form_field.type.underscore}", form_value: form_value, serial: serial, sub_questions: sub_questions %>  
+        <% rescue %>
+          <%= render "admin/pdf/text", form_value: form_value, serial: serial, sub_questions: sub_questions %>  
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

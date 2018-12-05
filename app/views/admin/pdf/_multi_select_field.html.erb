@@ -1,0 +1,12 @@
+<% answers = form_value.multi_select_value %>
+<ul class="sele-">
+   <% if answers.size === 0 %>
+      <li>N/A</li>
+   <% else %>
+      <% answers.each do |ans| %>
+         <% if ans != "" %>
+            <li><%= ans %></li>
+         <% end %>
+      <% end %>
+   <% end %>
+</ul> 

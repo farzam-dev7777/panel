@@ -30,7 +30,7 @@ img { max-width: 100%; }
 .top-info-text h5 { font-size: 28px; font-weight: bold; }
 .tabl-format { margin: 30px 0; }
 .tabl-format ul li { display: table-cell; }
-.top-info, .tabl-format { border-collapse: collapse; display: table; margin: 20px 0; width: 100%; }
+.top-info, .tabl-format { border-collapse: collapse; display: table; margin: 20px 30px; width: 95%; }
 .tabl-format ul:first-child { border-top: 1px solid rgb(75, 172, 198);  }
 .tabl-format ul:last-child { border-bottom: 1px solid rgb(75, 172, 198);  }
 .tabl-format > ul:nth-child(2n) li { background-color: rgb(210, 234, 240); }
@@ -41,7 +41,7 @@ img { max-width: 100%; }
 .tab-con ol { padding: 0 0 0 25px; }
 .tab-con > i { display: block; font-style: normal; margin: 10px 0; text-decoration: underline; }
 .tab-con p { margin: 10px 0 0; }
-.top-info li { border: 1px solid rgb(0, 0, 0); display: table-cell; padding: 8px 15px; }
+.top-info li { border: 1px solid #8064a2; display: table-cell; padding: 8px 15px; text-align: center;}
 .que > i { color: rgb(0, 112, 192); font-style: normal; margin: 0 10px 0 0; }
 .question-sec > em { display: block; font-size: 15px; font-style: normal; padding: 0 0 0 25px; text-align: left; }
 .top-info-text li { list-style: outside none none; }
@@ -49,7 +49,7 @@ img { max-width: 100%; }
 .to-po-z { padding: 0 0 0 50px; }
 .to-po-z > i { color: rgb(0, 112, 192); font-size: 15px; font-style: normal; font-weight: bold; margin: 0 10px 0 0; }
 .to-po-z > em { display: block; font-style: normal; line-height: 25px; padding: 0 0 0 35px; }
-.to-po-z .top-info { margin: 20px 0; }
+.to-po-z .top-info { margin: 20px 30px; }
 .sele- { padding: 10px 0 20px 50px; }
 .question-sec > i { font-style: normal; text-decoration: underline; }
 .sele-sub { padding: 0 0 0 25px; }

@@ -10,10 +10,10 @@
          <li>Status: <b><%= @form_submission.formatted_status %></b></li>
       </ul>
       <ul>
-         <li>Total Score: <%= @form_submission.total_score %></li>
+         <li>Total Score: <%= @form_submission.law_firm.total_calculated_score %></li>
          <li>Assessor Score : <%= @form_submission.assessor_score %></li>
          <li>System Score: <%= @form_submission.system_score %></li>
-         <li>Responsive Score: <%= @form_submission.assessor_score %></li>
+         <li>Responsive Score: <%= @form_submission.law_firm.responsiveness_rate %></li>
       </ul>
    </div>
 </div>
@@ -100,31 +100,13 @@
    </div>
 </div>
 
-<% i = 1 %>
-<% @form_submission.form_values.each_with_index do |field, index| %>  
-   <% if field.form_field.type === "MultiSelectField" %>
-      <% answers = field.multi_select_value %>
-      <div class="col-md-12">
-         <div class="quer-oe">
-            <div class="question-sec">
-               <b class="que"><i><%= i %>.</i><%= field.form_field.label %></b>
-               <ul class="sele-">
-                  <% if answers.size === 0 %>
-                     <li>N/A</li>
-                  <% else %>
-                     <% answers.each do |ans| %>
-                        <% if ans != "" %>
-                           <li><%= ans %></li>
-                        <% end %>
-                     <% end %>
-                  <% end %>
-               </ul> 
-            </div>
-         </div>
-      </div>
-      <% i = i+1 %>
-   <% end %>
 
+<% @form_submission.form_values.includes(:form_field).where(form_fields: {parent_id: nil}).each_with_index do |form_value, index| %>  
+  <% children_form_values = FormValue.includes(:form_field).where(submittable: @form_submission, form_fields: { parent_id: form_value.form_field_id }) %>
+  <%= render "admin/pdf/form_values", form_value: form_value, serial: index, sub_questions: false %>
+  <% children_form_values.each_with_index do |fv, idx| %>
+    <%= render "admin/pdf/form_values", form_value: fv, serial: idx, sub_questions: true %>
+  <% end %>
 <% end %>
 
 
@@ -262,7 +244,8 @@
 
 
 
-
+-->
+<div class="page-break"></div>
 <div class="col-md-12">
    <div class="quer-oe">
       <div class="question-sec">
@@ -279,10 +262,6 @@
       </div>
    </div>
 </div>
-
--->
-
-
 
 <div class="col-md-12">
    <div class="quer-oe">
