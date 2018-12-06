@@ -8,7 +8,112 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" />
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <%= wicked_pdf_stylesheet_link_tag "pdf" %>
+    <style>
+      @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700|Roboto:400,500,700,900');
+      @charset "utf-8";
+      /* CSS Document */
+      * {
+          font-family: 'Roboto', sans-serif;
+      }
+      html { font-size: 100%;  , sans-serif; color: #8064a2; }
+      body { color: #8064a2; font-size: 13px; }
+      dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, legend, input, textarea, p, blockquote, th, td { margin: 0; padding: 0 }
+      table { border-collapse: collapse; border-spacing: 0 }
+      fieldset, img { border: 0 }
+      sub, sup { position: relative; font-size: 75%; line-height: 0; vertical-align: baseline }
+      sup { top: -0.5em }
+      sub { bottom: -0.25em }
+      a img { border: 0; display: block }
+      a:active, a:focus, a:hover, input[type="image"], select:focus, input, input[type="button"]:focus, :focus { outline: 0; text-decoration: none; }
+      .clearfix { *zoom:1
+      }
+      a:hover, a:focus { color: #333; }
+      .clearfix:before, .clearfix:after { display: block; content: ""; line-height: 0 }
+      .clearfix:after { clear: both }
+      img { max-width: 100%; }
+      /*************************************************/
+
+
+
+      .top-info, .tabl-format { border-collapse: collapse; display: table; width: 100%; }
+      .top-info > ul, .tabl-format ul { display: table-row; }
+      .top-info-text { text-align: right; }
+      .top-info-text h5 { font-size: 28px; font-weight: bold; }
+      .tabl-format { margin: 30px 0; }
+      .tabl-format ul li { display: table-cell; }
+      .top-info, .tabl-format { border-collapse: collapse; display: table; margin: 20px 30px; width: 95%; }
+      .tabl-format ul:first-child { border-top: 1px solid rgb(75, 172, 198);  }
+      .tabl-format ul:last-child { border-bottom: 1px solid rgb(75, 172, 198);  }
+      .tabl-format > ul:nth-child(2n) li { background-color: rgb(210, 234, 240); }
+      .tabl-format ul li {color: rgb(49, 132, 155); display: table-cell; padding: 7px 15px; }
+      .top-info ul { display: table-row }
+      .top-info li { display: table-cell; }
+      .tab-con > b { display: block; font-size: 20px; line-height: normal; margin: 0 0 10px; }
+      .tab-con ol { padding: 0 0 0 25px; }
+      .tab-con > i { display: block; font-style: normal; margin: 10px 0; text-decoration: underline; }
+      .tab-con p { margin: 10px 0 0; }
+      .top-info li { border: 1px solid #8064a2; display: table-cell; padding: 8px 15px; text-align: center;}
+      .que > i { color: rgb(0, 112, 192); font-style: normal; margin: 0 10px 0 0; }
+      .question-sec > em { display: block; font-size: 15px; font-style: normal; padding: 0 0 0 25px; text-align: left; }
+      .top-info-text li { list-style: outside none none; }
+      .question-sec { margin: 20px 0; }
+      .to-po-z { padding: 0 0 0 50px; }
+      .to-po-z > i { color: rgb(0, 112, 192); font-size: 15px; font-style: normal; font-weight: bold; margin: 0 10px 0 0; }
+      .to-po-z > em { display: block; font-style: normal; line-height: 25px; padding: 0 0 0 35px; }
+      .to-po-z .top-info { margin: 20px 30px; }
+      .sele- { padding: 10px 0 20px 50px; }
+      .question-sec > i { font-style: normal; text-decoration: underline; }
+      .sele-sub { padding: 0 0 0 25px; }
+      .header-text { float: right; margin: 20px 0 0;text-align: right;    color: #655f5f; }
+      .fot-text { float: right; margin: 20px 0 0;text-align: right;    color: #655f5f; }
+      footer { border-top: 1px solid #655f5f; display: table; width: 100%; padding-top: 3px; }
+      header { border-bottom: 1px solid #655f5f; color: #655f5f;display: table; margin: 0 0 30px; width: 100%; }
+
+
+
+      .hight10{height: 10px;}
+      .hight20{height: 20px;}
+      .hight30{height: 30px;}
+      .hight40{height: 40px;}
+      .hight50{height: 50px;}
+      .hight60{height: 60px;}
+      .hight70{height: 70px;}
+      .hight80{height: 80px;}
+      .hight90{height: 90px;}
+      .hight100{height: 100px;}
+      .hight120{height: 120px;}
+      .hight150{height: 150px;}
+      .hight180{height: 180px;}
+      .hight200{height: 200px;}
+      .hight250{height: 250px;}
+      .page-break { display:block; clear:both; page-break-after:always; }
+
+      @media print {
+          .tabl-format ul li { 
+          color: rgb(49, 132, 155) !important; 
+        }
+        .tabl-forsmat ul li b{ 
+          color: rgb(49, 132, 155) !important; 
+        }
+        .tabl-format > ul:nth-child(2n+1) li {
+          background-color: rgb(210, 234, 240) !important;
+        }
+        .top-info-text h5{color: rgb(51, 51, 51) !important;}
+        .top-info-text li{color: rgb(51, 51, 51) !important;}
+        .top-info-text b{color: rgb(51, 51, 51) !important;}
+      }
+
+      @media print {
+        .titl > li i, .titl > li b, .titl > li em{ color:#fff !important;}
+      }
+
+
+
+      @media print {
+      body {-webkit-print-color-adjust: exact;}
+      }
+    </style>
+
   </head>
   <body>
     <div class="main-form">

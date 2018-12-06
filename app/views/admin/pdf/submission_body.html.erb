@@ -5,7 +5,7 @@
   <div class="top-info-text">
     <h5>SEAL : Assessment Report</h5>
     <ul>
-      <li>Firm Name: <b><%= @form_submission.law_firm.try(:name) %></b></li>
+      <li>Firm Name: <b><%= @form_submission.law_firm[:name] %></b></li>
       <li>Firm ID: <%= @form_submission.law_firm.users.first.try(:username) %></li>
       <li>Status: <b><%= @form_submission.formatted_status %></b></li>
     </ul>
@@ -17,6 +17,7 @@
     </ul>
   </div>
 </div>
+
 
 <div class="hight100"></div>
 
@@ -30,9 +31,9 @@
     </ul>
     <ul>
       <li><b>Date of Submission</b></li>
-      <li>Sep 27, 2018 12:44 PM</li>
+      <li><%= DateField.stringify_date(@form_submission.submitted_on) %></li>
       <li><b>Artifacts Submitted</b></li>
-      <li>No</li>
+      <li>----</li>
     </ul>
     <ul>
       <li>&nbsp;</li>
