@@ -1,18 +1,14 @@
-
 <div class="top-info">
   <ul>
     <li><b>Provider</b></li>
     <li><b>Amount Covered</b></li>
     <li><b>Date of Expiry</b></li>
   </ul>
-  <ul>
-    <li>XXXXX</li>
-    <li>XXXXX</li>
-    <li>XXXXX</li>
-  </ul>
-  <ul>
-    <li>XXXXX</li>
-    <li>XXXXX</li>
-    <li>XXXXX</li>
-  </ul>
+  <% form_value.render_cyber_security_insurance_fields.each do |cyber_security_insurance_fields| %>
+    <ul>
+      <li><%= cyber_security_insurance_fields.company %></li>
+      <li><%= cyber_security_insurance_fields.coverage %></li>
+      <li><%= DateField.stringify_date(cyber_security_insurance_fields.date_of_expiry) %></li>
+    </ul>
+  <% end %>
 </div>

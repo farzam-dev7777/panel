@@ -1,3 +1,4 @@
+<%#- binding.pry %>
 <div class="top-info">
   <ul>
     <li><b>Policy Type</b></li>
@@ -6,18 +7,15 @@
     <li><b>Socialized with</b></li>
     <li><b>Upload Policy</b></li>
   </ul>
-  <ul>
-    <li>XXXXX</li>
-    <li>XXXXX</li>
-    <li>XXXXX</li>
-    <li>XXXXX</li>
-    <li>XXXXX</li>
-  </ul>
-  <ul>
-    <li>XXXXX</li>
-    <li>XXXXX</li>
-    <li>XXXXX</li>
-    <li>XXXXX</li>
-    <li>XXXXX</li>
-  </ul>
+  <% form_value.render_information_security_policy_fields.each do |information_security_policy_field| %>
+    <ul>
+      <li><%= information_security_policy_field.policy %></li>
+      <li><%= DateField.stringify_date(information_security_policy_field.last_reviewed)  %></li>
+      <li><%= DateField.stringify_date(information_security_policy_field.last_updated)  %></li>
+      <li><%= information_security_policy_field.communication_status %></li>
+      <li>
+        <%= render(partial: 'admin/pdf/file_attachment_table', locals: { file_attachments: information_security_policy_field.file_attachments }) %>
+      </li>
+    </ul> 
+  <% end %>
 </div>

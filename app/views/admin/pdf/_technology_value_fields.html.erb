@@ -1,0 +1,37 @@
+<ul>
+  <li>
+    <% if form_value.vendor? %>
+      <%= form_value.vendor %>
+    <% else %>
+      N/A
+    <% end %>
+  </li>
+  <li>
+    <% if form_value.platform? %>
+      <%= form_value.platform %>
+    <% else %>
+      N/A
+    <% end %>
+  </li>
+  <li>
+    <% if form_value.version? %>
+      <%= form_value.version %>
+    <% else %>
+      N/A
+    <% end %>
+  </li>
+  <li>
+    <% if form_value.service_pack? %>
+      <%= form_value.service_pack %>
+    <% else %>
+      N/A
+    <% end %>
+  </li>
+ <li>
+    <% if form_value.supported? %>
+      <%= form_value.supported %>
+    <% else %>
+      N/A
+    <% end %>
+  </li>
+</ul>

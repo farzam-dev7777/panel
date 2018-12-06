@@ -1,27 +1,58 @@
 <div class="top-info">
   <ul>
     <li>Network Discovery</li>
-    <li>XXXXX</li>
-    <li>Never</li>
+    <li><%= DateField.stringify_date(form_value.render_activity_time_log_fields[:network_discovery]) %></li>
+    <li> 
+      <% if form_value.render_activity_time_log_fields[:network_discovery] %>
+      <%=  "-" %>
+      <% else %>
+      <%=  "Naver" %>
+      <% end %>
+    </li>
   </ul>
   <ul>
-    <li>Network Discovery</li>
-    <li>XXXXX</li>
-    <li>Never</li>
+    <li>Penetration Testing</li>
+    <li><%= DateField.stringify_date(form_value.render_activity_time_log_fields[:penetration_testing]) %></li>
+    <li> 
+      <% if form_value.render_activity_time_log_fields[:penetration_testing] %>
+      <%=  "-" %>
+      <% else %>
+      <%=  "Naver" %>
+      <% end %>
+    </li>
   </ul>
   <ul>
-    <li>Network Discovery</li>
-    <li>XXXXX</li>
-    <li>Never</li>
+    <li>Vulnerability Assessment</li>
+    <li><%= DateField.stringify_date(form_value.render_activity_time_log_fields[:vulnerability_assessment]) %></li>
+    <li> 
+      <% if form_value.render_activity_time_log_fields[:vulnerability_assessment] %>
+      <%=  "-" %>
+      <% else %>
+      <%=  "Naver" %>
+      <% end %>
+    </li>
   </ul>
   <ul>
-    <li>Network Discovery</li>
-    <li>XXXXX</li>
-    <li>Never</li>
+    <li>Hardware Refresh</li>
+    <li><%= DateField.stringify_date(form_value.render_activity_time_log_fields[:hardware_refresh]) %></li>
+    <li> 
+      <% if form_value.render_activity_time_log_fields[:hardware_refresh] %>
+      <%=  "-" %>
+      <% else %>
+      <%=  "Naver" %>
+      <% end %>
+    </li>
   </ul>
   <ul>
-    <li>Network Discovery</li>
-    <li>XXXXX</li>
-    <li>Never</li>
+    <li>Hardware Inventory</li>
+    <li><%= DateField.stringify_date(form_value.render_activity_time_log_fields[:hardware_inventory]) %></li>
+    <li> 
+      <% if form_value.render_activity_time_log_fields[:hardware_inventory] %>
+      <%=  "-" %>
+      <% else %>
+      <%=  "Naver" %>
+      <% end %>
+    </li>
   </ul>
+  s
 </div>

@@ -1,0 +1,9 @@
+<% if file_attachments.size === 0 %>
+  <p>N/A</p>
+<% else %>
+  <%- file_attachments.each_with_index do |file_attachment, index| %>
+    <p> <%= index+1 %>. <%= file_attachment.try(:file).try(:file).try(:filename) %></p>
+  <% end %>
+<% end %>
+
+

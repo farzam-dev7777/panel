@@ -3,12 +3,10 @@
     <li><b>Standard</b></li>
     <li><b>Compliance Status</b></li>
   </ul>
-  <ul>
-    <li>XXXXX</li>
-    <li>YYYYY</li>
-  </ul>
-  <ul>
-    <li>XXXXX</li>
-    <li>YYYYY</li>
-  </ul>
+  <% form_value.render_cyber_security_standard_fields.each do |cyber_security_standard_fields| %>
+    <ul>
+      <li><%= cyber_security_standard_fields[:standard] %></li>
+      <li><%= cyber_security_standard_fields[:status] %></li>
+    </ul>
+  <% end %>
 </div>

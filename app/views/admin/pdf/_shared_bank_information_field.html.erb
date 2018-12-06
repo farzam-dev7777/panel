@@ -3,15 +3,12 @@
     <li><b>Name</b></li>
     <li><b>Purpose</b></li>
     <li><b>Level of Access</b></li>
-  </ul>
-  <ul>
-    <li>XXXXX</li>
-    <li>XXXXX</li>
-    <li>XXXXX</li>
-  </ul>
-  <ul>
-    <li>XXXXX</li>
-    <li>XXXXX</li>
-    <li>XXXXX</li>
-  </ul>
+  </ul> 
+  <% form_value.render_shared_bank_information_fields.each do |shared_bank_information_fields| %>
+    <ul>
+      <li><%= shared_bank_information_fields.name %></li>
+      <li><%= shared_bank_information_fields.purpose %></li>
+      <li><%= shared_bank_information_fields.level_of_access %></li>
+    </ul>
+  <% end %>
 </div>

@@ -6,18 +6,14 @@
     <li><b>Encrypted<br>(At rest)</b></li>
     <li><b>Location of Data<br>(Country)</b></li>
   </ul>
-  <ul>
-    <li>XXXXX</li>
-    <li>XXXXX</li>
-    <li>XXXXX</li>
-    <li>XXXXX</li>
-    <li>XXXXX</li>
-  </ul>
-  <ul>
-    <li>XXXXX</li>
-    <li>XXXXX</li>
-    <li>XXXXX</li>
-    <li>XXXXX</li>
-    <li>XXXXX</li>
-  </ul>
+  <% form_value.render_cloud_provider_fields.each do |cloud_provider| %>
+    <ul>
+      <li><%= cloud_provider.name %></li>
+      <li><%= cloud_provider.service %></li>
+      <li><%= cloud_provider.encrypted_in_flight %></li>
+      <li><%= cloud_provider.encrypted_at_rest %></li>
+      <li><%= cloud_provider.data_store_location_ca %></li>
+    </ul>
+  <% end %>
 </div>
+
