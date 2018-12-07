@@ -31,7 +31,7 @@
     </ul>
     <ul>
       <li><b>Date of Submission</b></li>
-      <li><%= @form_submission.submitted_on.strftime("%b %d, %Y %H:%M %p") %></li>
+      <li><%=  @form_submission.submitted_on != "" ? @form_submission.submitted_on.strftime("%b %d, %Y %H:%M %p") : 'N/A' %></li>
       <li><b>Artifacts Submitted</b></li>
       <li><%= @form_submission.status === "submitted" ? "No" : "Yes" %></li>
     </ul>
@@ -43,7 +43,7 @@
     </ul>
     <ul>
       <li><b>Date of Review</b></li>
-      <li><%= @form_submission.approved_at.strftime("%b %d, %Y") %></li>
+      <li><%=  @form_submission.approved_at.present? ? @form_submission.approved_at.strftime("%b %d, %Y") : 'N/A'  %></li>
       <li><b>Artifacts EPA</b></li>
       <li><% @form_submission.form_values.map {|fv| fv.file_attachments.count}.sum > 0 ? "Yes" : "N/A" %></li>
     </ul>
