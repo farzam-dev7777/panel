@@ -3,7 +3,7 @@
   <div class="quer-oe">
     <% if sub_questions %>
       <div class="to-po-z"> 
-        <i><%= serial + 1 %>.</i><%= form_value.form_field.label %>
+        <i><%= serial + 1 %>.</i><%= form_value.form_field.present? ? form_value.form_field.label : form_value.form_field_label %>
         <%- begin %>
           <%= render "admin/pdf/#{form_value.form_field.type.underscore}", form_value: form_value, serial: serial, sub_questions: sub_questions %>  
           <% rescue %>
@@ -12,7 +12,7 @@
       </div>
     <% else %>
       <div class="question-sec"> 
-        <b class="que"><i><%= serial + 1 %>.</i><%= form_value.form_field.label %></b> 
+        <b class="que"><i><%= serial + 1 %>.</i><%= form_value.form_field.present? ? form_value.form_field.label : form_value.form_field_label %></b> 
         <%- begin %>
           <%= render "admin/pdf/#{form_value.form_field.type.underscore}", form_value: form_value, serial: serial, sub_questions: sub_questions %>  
         <% rescue %>

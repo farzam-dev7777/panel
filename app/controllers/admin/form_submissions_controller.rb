@@ -45,7 +45,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
      )
 
     # send file for download
-    send_data pdf, :filename => "form_submission_#{Time.now}.pdf", :type => "application/pdf", :disposition => "attachment"
+    send_data pdf, :filename => "#{@form_submission.law_firm.users.first.try(:username)}_form_submission_#{Time.now}.pdf", :type => "application/pdf", :disposition => "attachment"
   end
 
   def process_step
