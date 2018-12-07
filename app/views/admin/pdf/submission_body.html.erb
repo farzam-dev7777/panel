@@ -33,7 +33,7 @@
       <li><b>Date of Submission</b></li>
       <li><%=  @form_submission.submitted_on != "" ? @form_submission.submitted_on.strftime("%b %d, %Y %H:%M %p") : 'N/A' %></li>
       <li><b>Artifacts Submitted</b></li>
-      <li><%= @form_submission.status === "submitted" ? "No" : "Yes" %></li>
+      <li><%= @form_submission.form_values.map {|fv| fv.file_attachments.count}.sum > 0 ? "Yes" : "N/A" %></li>
     </ul>
     <ul>
       <li>&nbsp;</li>
@@ -45,7 +45,7 @@
       <li><b>Date of Review</b></li>
       <li><%=  @form_submission.approved_at.present? ? @form_submission.approved_at.strftime("%b %d, %Y") : 'N/A'  %></li>
       <li><b>Artifacts EPA</b></li>
-      <li><% @form_submission.form_values.map {|fv| fv.file_attachments.count}.sum > 0 ? "Yes" : "N/A" %></li>
+      <li><%= @form_submission.status === "submitted" ? "No" : "Yes" %></li>
     </ul>
     <ul>
       <li>&nbsp;</li>
@@ -55,9 +55,9 @@
     </ul>
     <ul>
       <li><b>Date of Audit</b></li>
-      <li>Oct 17, 2018 3:00 PM</li>
+      <li><%=  @form_submission.approved_at != "" ? @form_submission.approved_at.strftime("%b %d, %Y %H:%M %p") : 'N/A' %></li>
       <li><b>Date of Artifacts deletion under EPA</b></li>
-      <li>Nov 2, 2018, 1:00AM</li>
+      <li><%=  @form_submission.approved_at != "" ? (@form_submission.approved_at + 3.days).strftime("%b %d, %Y %H:%M %p") : 'N/A' %></li>
     </ul>
     <ul>
       <li>&nbsp;</li>
@@ -67,7 +67,7 @@
     </ul>
     <ul>
       <li><b>Certification Date</b></li>
-      <li>Oct 31, 2018 11:58 AM</li>
+      <li><%=  @form_submission.approved_at != "" ? @form_submission.approved_at.strftime("%b %d, %Y %H:%M %p") : 'N/A' %></li>
       <li><b>&nbsp;</b></li>
       <li>&nbsp;</li>
     </ul>
@@ -101,13 +101,14 @@
     <i>Section: Policy</i> 
   </div>
 </div>
-
+<% i = 1; %>
 <% @form_submission.form_values.includes(:form_field).where(form_fields: {parent_id: nil}).each_with_index do |form_value, index| %>  
   <% children_form_values = FormValue.includes(:form_field).where(submittable: @form_submission, form_fields: { parent_id: form_value.form_field_id }) %>
   <%= render "admin/pdf/form_values", form_value: form_value, serial: index, sub_questions: false %>
   <% children_form_values.each_with_index do |fv, idx| %>
     <%= render "admin/pdf/form_values", form_value: fv, serial: idx, sub_questions: true %>
   <% end %>
+<% i =index + 1 %>
 <% end %>
 
 <div class="col-md-12">
@@ -120,8 +121,8 @@
 
 <div class="col-md-12">
   <div class="quer-oe">
-    <div class="question-sec"> <b class="que"><i>X.</i>OPERATING SYSTEMS</b> <em>Yes</em> </div>
-    <div class="to-po-z"> <i>X.1</i> <b>SERVER</b>
+    <div class="question-sec"> <b class="que"><i><%= i+1 %>.</i>OPERATING SYSTEMS</b> <em>Yes</em> </div>
+    <div class="to-po-z"> <i><%= i+1 %>.1</i> <b>SERVER</b>
       <div class="top-info">
         <div class="top-info">
           <% if @form_submission.technology_values.operating_systems.server.count > 0 %>
@@ -135,7 +136,7 @@
         </div>      
       </div>
     </div>
-    <div class="to-po-z"> <i>X.2</i> <b>CLIENT</b>
+    <div class="to-po-z"> <i><%= i+1 %>.2</i> <b>CLIENT</b>
       <div class="top-info">
         <div class="top-info">
           <% if @form_submission.technology_values.operating_systems.client.count > 0 %>
@@ -154,8 +155,8 @@
 
 <div class="col-md-12">
   <div class="quer-oe">
-    <div class="question-sec"> <b class="que"><i>X.</i>APPLICATIONS</b> <em>Yes</em> </div>
-    <div class="to-po-z"> <i>X.1</i> <b>SERVER</b>
+    <div class="question-sec"> <b class="que"><i><%= i+2 %>.</i>APPLICATIONS</b> <em>Yes</em> </div>
+    <div class="to-po-z"> <i><%= i+2 %>.1</i> <b>SERVER</b>
       <div class="top-info">
         <div class="top-info">
           <% if @form_submission.technology_values.web_platforms.intranet.count > 0 %>
@@ -169,7 +170,7 @@
         </div>      
       </div>
     </div>
-    <div class="to-po-z"> <i>X.2</i> <b>CLIENT</b>
+    <div class="to-po-z"> <i><%= i+2 %>.2</i> <b>CLIENT</b>
       <div class="top-info">
         <div class="top-info">
           <% if @form_submission.technology_values.web_platforms.internet.count > 0 %>
@@ -189,8 +190,8 @@
 
 <div class="col-md-12">
   <div class="quer-oe">
-    <div class="question-sec"> <b class="que"><i>X.</i>INFOSEC TECHNOLOGIES</b> <em>Yes</em> </div>
-    <div class="to-po-z"> <i>X.1</i> <b>HARDWARE</b>
+    <div class="question-sec"> <b class="que"><i><%= i+3 %>.</i>INFOSEC TECHNOLOGIES</b> <em>Yes</em> </div>
+    <div class="to-po-z"> <i><%= i+3 %>.1</i> <b>HARDWARE</b>
       <div class="top-info">
         <div class="top-info">
           <% if @form_submission.technology_values.infosec_technologies.hardware.count > 0 %>
@@ -204,7 +205,7 @@
         </div>      
       </div>
     </div>
-    <div class="to-po-z"> <i>X.2</i> <b>SOFTWARE</b>
+    <div class="to-po-z"> <i><%= i+3 %>.2</i> <b>SOFTWARE</b>
       <div class="top-info">
         <div class="top-info">
           <% if @form_submission.technology_values.infosec_technologies.software.count > 0 %>
@@ -224,8 +225,8 @@
 
 <div class="col-md-12">
   <div class="quer-oe">
-    <div class="question-sec"> <b class="que"><i>X.</i>STORAGE & ARCHIVAL</b> <em>Yes</em> </div>
-    <div class="to-po-z"> <i>X.1</i> <b>HARDWARE</b>
+    <div class="question-sec"> <b class="que"><i><%= i+4 %>.</i>STORAGE & ARCHIVAL</b> <em>Yes</em> </div>
+    <div class="to-po-z"> <i><%= i+4 %>.1</i> <b>HARDWARE</b>
       <div class="top-info">
         <div class="top-info">
           <% if @form_submission.technology_values.storage_archival.hardware.count > 0 %>
@@ -239,7 +240,7 @@
         </div>      
       </div>
     </div>
-    <div class="to-po-z"> <i>X.2</i> <b>SOFTWARE</b>
+    <div class="to-po-z"> <i><%= i+4 %>.2</i> <b>SOFTWARE</b>
       <div class="top-info">
         <div class="top-info">
           <% if @form_submission.technology_values.storage_archival.software.count > 0 %>
