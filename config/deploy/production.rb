@@ -8,18 +8,13 @@
 # server 'db.example.com', user: 'deploy', roles: %w{db}
 
 set :rails_env, :external
-set :branch, "external-staging"
-# set :nginx_server_name, 'pns-staging.in'
+set :branch, :external
 
-# ask(:password, nil, echo: false)
-# server '159.203.21.120', user: 'root', port: 22, password: fetch(:password), roles: %w{web app db}
-# server '162.208.50.227', user: 'admin', roles: %w{app db web}
-#external-new
-server '159.203.56.62', user: 'root', port: 22, password: fetch(:password), roles: %w{web app db}
+server 'ec2-35-183-102-55.ca-central-1.compute.amazonaws.com', user: 'ubuntu', port: 4321, password: fetch(:password), roles: %w{web app}
 
 set :deploy_via, :remote_cache
 set :rvm_custom_path, '/usr/share/rvm/'
-set :rvm_ruby_version, '2.4.0'
+set :rvm_ruby_version, '2.5.1'
 
 set :unicorn_rack_env, :external
 
@@ -27,8 +22,9 @@ set :ssh_options, {
   config: false,
   forward_agent: true,
   auth_methods: %w(publickey),
-  user: 'root',
-  paranoid: true
+  user: 'ubuntu',
+  paranoid: true,
+  keys: %w(~/.ssh/seal-aws-prod-ec2-central-new.pem)
 }
 
 set :conditionally_migrate, true    
