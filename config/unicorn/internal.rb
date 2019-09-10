@@ -1,4 +1,4 @@
-root = "/var/www/bluehound/current"
+root = "/var/www/platform/current"
 working_directory root
 
 pid "#{root}/tmp/pids/unicorn.pid"
@@ -10,7 +10,7 @@ worker_processes 4
 timeout 30
 preload_app true
 
-listen '/var/www/bluehound/unicorn.bluehound.sock', backlog: 64
+listen '/var/www/platform/unicorn.platform.sock', backlog: 64
 
 before_fork do |server, worker|
   Signal.trap 'TERM' do
