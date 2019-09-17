@@ -2,6 +2,8 @@ class User < ApplicationRecord
   # acts_as_messageable
   acts_as_google_authenticated :column => :username, :method => :username, :issuer => 'SEAL'
 
+  PANEL_ADMIN_USER_ROLES = ['lxp', 'lob', 'internal_lawyers']
+
   devise :database_authenticatable,
          :recoverable, :trackable, 
          :validatable, :authentication_keys => [:username]
@@ -25,6 +27,10 @@ class User < ApplicationRecord
 
   def google_qr_uri
     "data:image/png;base64,#{Base64.encode64(open(super).to_a.join)}"
+  end
+
+  def is_panel_admin_user?
+    User::PANEL_ADMIN_USER_ROLES.include?(self.role)
   end
 
   def password_complexity

@@ -3,5 +3,4 @@ $(document).ready(function(){
 	// Fetch technologies
 
   $('.datetimepicker').datetimepicker();
-
 })

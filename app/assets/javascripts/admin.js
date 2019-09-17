@@ -18,6 +18,24 @@ $(document).ready(function(){
 
 	})
 
+	//exception_request
+	$('select#exception_request_minority_owned').on('change', function() {
+		if(this.value == "Yes"){
+			$('.minority_owned_details').show()
+		}else{
+			$('.minority_owned_details').hide()
+		//	$('#exception_request_minority_owned_details').value("")
+		}
+	});
+	$('select#exception_request_women_owned').on('change', function() {
+		if(this.value == "Yes"){
+			$('.women_owned_details').show()
+		}else{
+			$('.women_owned_details').hide()
+		//	$('#exception_request_women_owned_details').value("")
+		}
+	});
+
 })
 
 function toast(text){
@@ -28,4 +46,5 @@ function toast(text){
     loader: true,
     loaderBg: '#9EC600'
 	})
-}
+} //#endregion
+

@@ -13,12 +13,13 @@ class ApplicationController < ActionController::Base
 
   def authenticate_2fa
     return false if params[:controller] == 'users/sessions' && params[:action] == 'create'
-    if (current_user) && ( current_user.role == 'superadmin' || current_user.role == 'admin' ) && request.env.fetch("PATH_INFO") == "/"
+
+    if (current_user) && ( current_user.role == 'superadmin' || current_user.role == 'admin' || current_user.is_panel_admin_user? ) && request.env.fetch("PATH_INFO") == "/"
       redirect_to admin_root_url
     end
 
     if current_user
-      return true if request.original_url.include?('sign_out') || current_user.is_an_admin?
+      return true if request.original_url.include?('sign_out') || current_user.is_an_admin? 
       unless session[:authorized]
         redirect_to new_two_factor_authentication_url unless request.original_url.include? 'two_factor_authentication/new'
       end
@@ -28,7 +29,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    if ( current_user.role == 'superadmin' || current_user.role == 'admin' )
+    if ( current_user.role == 'superadmin' || current_user.role == 'admin' || current_user.is_panel_admin_user? )
       admin_root_url
     else
     	new_two_factor_authentication_url

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181031140358) do
+ActiveRecord::Schema.define(version: 20190917184825) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -101,6 +101,16 @@ ActiveRecord::Schema.define(version: 20181031140358) do
     t.string   "encrypted_at_rest"
   end
 
+  create_table "conflict_waivers", force: :cascade do |t|
+    t.string   "name_of_law_firm"
+    t.string   "contact_details"
+    t.string   "bmo_business_contact"
+    t.text     "reason"
+    t.integer  "user_id"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
   create_table "cyber_security_insurances", force: :cascade do |t|
     t.string   "company"
     t.string   "coverage"
@@ -131,6 +141,25 @@ ActiveRecord::Schema.define(version: 20181031140358) do
     t.datetime "created_at",    precision: 6,               null: false
     t.datetime "updated_at",    precision: 6,               null: false
     t.float    "score",                       default: 0.0
+  end
+
+  create_table "exception_requests", force: :cascade do |t|
+    t.string   "requested_by"
+    t.integer  "user_id"
+    t.string   "submitted_by_email"
+    t.string   "line_of_business"
+    t.string   "lob_contact_name"
+    t.integer  "law_firm_id"
+    t.string   "request_type"
+    t.string   "law_firm_category"
+    t.boolean  "minority_owned"
+    t.text     "minority_owned_details"
+    t.boolean  "women_owned"
+    t.text     "women_owned_details"
+    t.string   "matter_name"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.text     "matter_types"
   end
 
   create_table "faq_categories", force: :cascade do |t|

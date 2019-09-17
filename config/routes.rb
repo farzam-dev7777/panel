@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     devise_for :admin_users, controllers: {
       sessions: 'admin/internal_sessions'
     }
+    
     resources :file_attachments do
       member do
         get :decrypt
@@ -83,6 +84,8 @@ Rails.application.routes.draw do
         post :set_expiry_date
       end
     end
+    resources :exception_requests
+    resources :conflict_waivers
     get '/internal_dashboard/notifications', to: 'internal_dashboard#notifications'
     resources :internal_dashboard do
       collection do

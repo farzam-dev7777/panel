@@ -12,6 +12,7 @@ class LawFirm < ApplicationRecord
   has_many :locations
   has_many :jurisdictions
   has_many :history_submissions
+  has_many :exception_requests
 
   serialize :practice_area, Array
   serialize :type_of_matters_your_law_firm_handles_for_us, Array
