@@ -4,7 +4,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
   layout 'admin', :except => :show
 
   before_action :follow_ups, except: :index
-  before_action :before_steps, only: [:policy_step, :process_step]
+  before_action :before_steps, only: [:pricing_step, :process_step]
   before_action :before_non_dynamic_forms, only: [:technology_step, :history_step]
 
   helper_method :next_step_path, :current_step_path, :steps, :previous_step_path, 
@@ -23,7 +23,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
     @form_submission = FormSubmission.find(params[:id])
   end
 
-  def policy_step
+  def pricing_step
     @form_submission = FormSubmission.find(params[:id])
     log = ActivityLog.find_by(loggable_id: @form_submission.id, loggable_type: 'FormSubmission', law_firm_id: @form_submission.law_firm_id)
     
@@ -245,7 +245,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
     @form_submission = FormSubmission.find_by(id: params[:id])
 
     @follow_ups = case current_step
-                  when :policy
+                  when :pricing
                     @form_submission.follow_ups.policy.decorate
                   when :process
                     @form_submission.follow_ups.process.decorate
@@ -390,7 +390,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
   end
 
   def steps
-    [:policy, :process, :technology, :history]
+    [:pricing, :process, :technology, :history]
   end
 
   def wizard_path(step)

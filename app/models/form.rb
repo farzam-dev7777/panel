@@ -4,7 +4,7 @@ class Form < ApplicationRecord
     enable
   end
 
-  STEPS = ['policy', 'process']
+  STEPS = ['pricing', 'relationship', 'diversity', 'innovation', 'resourcing']
 
   has_many :logics
 

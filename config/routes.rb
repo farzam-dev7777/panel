@@ -67,7 +67,7 @@ Rails.application.routes.draw do
 
     resources :form_submissions do
       member do
-        get :policy_step
+        get :pricing_step
         get :process_step
         get :technology_step
         get :history_step
@@ -119,7 +119,7 @@ Rails.application.routes.draw do
   resources :file_attachments
   resources :form_submissions do
     member do
-      get :policy_step
+      get :pricing_step
       get :process_step
       get :technology_step
       get :history_step

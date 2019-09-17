@@ -47,7 +47,7 @@ class FormSubmission < ApplicationRecord
 
   def self.generate_initial_submissions(law_firm, current_user)
     submission = FormSubmission.new
-    submission.form_id = Form.where(step: 'policy').last.try(:id)
+    submission.form_id = Form.where(step: 'pricing').last.try(:id)
     submission.form_process_id = Form.where(step: 'process').last.try(:id)
     submission.law_firm_id = law_firm.id
     submission.status = 'sent'
