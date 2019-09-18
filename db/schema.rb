@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190918175138) do
+ActiveRecord::Schema.define(version: 20190918184647) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -425,6 +425,25 @@ ActiveRecord::Schema.define(version: 20190918175138) do
     t.integer  "form_submission_id"
     t.integer  "follow_up_id"
     t.datetime "deleted_at",         precision: 6
+  end
+
+  create_table "panel_requests", force: :cascade do |t|
+    t.string   "requested_by"
+    t.integer  "user_id"
+    t.string   "submitted_by_email"
+    t.string   "line_of_business"
+    t.string   "lob_contact_name"
+    t.integer  "law_firm_id"
+    t.string   "request_type"
+    t.string   "law_firm_category"
+    t.string   "minority_owned"
+    t.text     "minority_owned_details"
+    t.string   "women_owned"
+    t.text     "women_owned_details"
+    t.string   "matter_name"
+    t.text     "matter_types"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "queued_notifications", force: :cascade do |t|

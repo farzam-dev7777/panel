@@ -1,0 +1,89 @@
+<style>
+	input, textarea, select { padding: 0px !important; margin: 0px; background: transparent; }
+</style>
+
+
+<div class="clearfix"></div>
+<div class="container">
+	<div class="table-responsive">
+    <%= simple_form_for [:admin, @panel_request] do |f| %>
+    
+			<table class="table table-striped">
+				<tbody>
+          <tr>
+            <td class="text-right" width="20%"><strong>Requested By</strong></td>
+            <td>
+              <%= f.input :requested_by, label: false %>
+            </td>
+          </tr>
+          <tr>
+            <td class="text-right" width="20%"><strong>Submitted By</strong></td>
+            <td>
+              <%= f.input :submitted_by_email, label: false, :input_html => { :value => @current_admin_user_email } %>
+              <%= f.input :user_id, :as => :hidden, :input_html => { :value => @current_admin_user_id } %>
+              <%= f.input :request_type, :as => :hidden, :input_html => { :value => "ADD_TO_LAW_FIRM_PANEL" } %>
+            </td>
+          </tr>
+          <tr>
+            <td class="text-right" width="20%"><strong>Line of Business</strong></td>
+            <td><%= f.input :line_of_business, label: false, collection: PanelRequest::LOB_LIST %></td>
+          </tr>
+          <tr>
+            <td class="text-right" width="20%"><strong>LOB Contact Name</strong></td>
+            <td><%= f.input :lob_contact_name, label: false %></td>
+          </tr>
+          <tr>
+            <td class="text-right" width="20%"><strong>Law Firm</strong></td>
+            <td><%= f.input :law_firm_id, label: false, collection: @law_firms.map{ |law_firm| ["#{law_firm.name} - #{law_firm.id}", law_firm.id] } %></td>
+          </tr>
+          <!-- <tr>
+            <td class="text-right" width="20%"><strong>Request Type</strong></td>
+            <td><%= f.input :request_type, label: false, collection: PanelRequest::REQUEST_TYPE.map{|k,v| [v,k]} %></td>
+          </tr> -->
+          <tr>
+            <td class="text-right" width="20%"><strong>Law Firm ID</strong></td>
+            <td><%= f.input :law_firm_id, label: false, collection: [1,2,3] %></td>
+          </tr>
+          <tr>
+            <td class="text-right" width="20%"><strong>Law firm Category</strong></td>
+            <td><%= f.input :law_firm_category, label: false, collection:PanelRequest::LAW_FIRM_CATEGORIES.map{ |k,v| [v,k]} %>
+              <p style="color: #949494;display:none" id="panel_notification" class="text-left"><em>Exception not required, firm already on
+                  Panel.</em></p>
+            </td>
+          </tr>
+          <tr>
+            <td class="text-right" width="20%"><strong>Minority Owned</strong></td>
+            <td><%= f.input :minority_owned, label: false, collection: PanelRequest::MINORITY_OWNED_TYPE  %></td>
+          </tr>
+          <tr class="minority_owned_details"  style="display:none;">
+            <td class="text-right" width="20%"><strong>Minority Owned Details</strong></td>
+            <td><%= f.input :minority_owned_details, label: false%></td>
+          </tr>
+          <tr>
+            <td class="text-right" width="20%"><strong>Women Owned</strong></td>
+            <td><%= f.input :women_owned, label: false, collection: PanelRequest::WOMEN_OWNED_TYPE %></td>
+          </tr>
+          <tr class="women_owned_details" style="display:none;">
+            <td class="text-right" width="20%"><strong>Women Owned Details</strong></td>
+            <td><%= f.input :women_owned_details, label: false %></td>
+          </tr>
+          <!-- <tr class="matter_name">
+            <td class="text-right" width="20%"><strong>Matter Name</strong></td>
+            <td><%= f.input :matter_name, label: false, input_html: { autocomplete: 'off' } %></td>
+          </tr> -->
+          <tr>
+            <td class="text-right" width="20%"><strong>Matter Types</strong></td>
+            <td><%= f.input :matter_types, label: false, collection: PanelRequest::MATTER_TYPES, multiple: false, input_html: { multiple: false }%></td>
+          </tr>
+
+						<tr>
+							<td colspan="2">
+                  <%=link_to 'Cancel', @panel_request.new_record? ? admin_exception_requests_path : admin_law_firm_path, class: 'btn btn-danger btn-sm' %>
+								<%= f.button :submit, @panel_request.new_record? ? "Submit Request" : "Update Request", class: "" %>
+							</td>
+						</tr>
+				</tbody>
+			</table>
+		<% end %>
+	</div>
+</div>

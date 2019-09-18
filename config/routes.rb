@@ -89,6 +89,7 @@ Rails.application.routes.draw do
       end
     end
     resources :exception_requests
+    resources :panel_requests
     resources :conflict_waivers
     get '/internal_dashboard/notifications', to: 'internal_dashboard#notifications'
     resources :internal_dashboard do
