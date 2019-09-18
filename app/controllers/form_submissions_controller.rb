@@ -80,6 +80,7 @@ class FormSubmissionsController < BaseController
   end
   
   def relationship_step
+
   end
 
   def diversity_step
@@ -108,7 +109,7 @@ class FormSubmissionsController < BaseController
   # end
 
   def logics
-    @logics ||= current_step == :pricing ? @form_submission.form.try(:all_logics) : @form_submission.form_process.try(:all_logics)
+    @logics ||= current_step == :pricing ? @form_submission.form.try(:all_logics) : @form_submission.send("form_#{current_step}").try(:all_logics)
   end
 
   def edit
@@ -184,7 +185,7 @@ class FormSubmissionsController < BaseController
 
     @follow_ups = case current_step
                   when :pricing
-                    @form_submission.follow_ups.policy.decorate
+                    @form_submission.follow_ups.pricing.decorate
                   when :relationship
                     @form_submission.follow_ups.relationship.decorate
                   when :diversity

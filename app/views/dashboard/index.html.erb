@@ -369,9 +369,9 @@
 												<span class="label label-<%= submission_status_class(submission) %>">
 													<%= submission.try(:formatted_status) %>
 												</span>
-												<td>
+												<!----><td>
 													<%= submission.try(:formatted_evidence_status) %>
-												</td>
+												</td>-->
 												<% if submission.try(:status) == 'decertified' %>	
 													<br><em><%= submission.try(:reason) %></em>
 												<% end %>

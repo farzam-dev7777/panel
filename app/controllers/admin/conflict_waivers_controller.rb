@@ -15,7 +15,7 @@ class Admin::ConflictWaiversController < Admin::BaseController
   end
 
   def create
-    binding.pry
+
     @conflict_waiver = ConflictWaiver.new(conflict_waivers_params)
 
     if @conflict_waiver.save

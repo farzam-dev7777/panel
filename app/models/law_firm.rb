@@ -70,9 +70,6 @@ class LawFirm < ApplicationRecord
     self.max_users || USER_LIMIT
   end
 
-  def name
-    self.public_uid  
-  end
 
   def generate_a_new_user
     username = SecureRandom.hex(4)

@@ -39,9 +39,6 @@ class Admin::FormSubmissionsController < Admin::BaseController
   def innovation_step
   end
 
-  def resourcing_step
-  end
-
   def download_submission_pdf
     @form_submission = FormSubmission.find(params[:id])
     
@@ -60,14 +57,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
     send_data pdf, :filename => "#{@form_submission.law_firm.users.first.try(:username)}_form_submission_#{Time.now}.pdf", :type => "application/pdf", :disposition => "attachment"
   end
 
-  def process_step
-  end
-
-  def technology_step
-    @security_threats = SecurityThreat.all
-  end
-
-  def history_step
+  def resourcing_step
     total_score = 0
     score_counter = 0
     @form_submission = FormSubmission.find(params[:id])
@@ -258,7 +248,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
 
     @follow_ups = case current_step
                     when :pricing
-                      @form_submission.follow_ups.policy.decorate
+                      @form_submission.follow_ups.pricing.decorate
                     when :relationship
                       @form_submission.follow_ups.relationship.decorate
                     when :diversity
@@ -438,7 +428,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
   end
 
   def last_step
-    current_step_path.include? "history_step"
+    current_step_path.include? "resourcing_step"
   end
   
   def form_submissions_params
