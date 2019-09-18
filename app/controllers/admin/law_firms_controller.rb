@@ -88,8 +88,29 @@ class Admin::LawFirmsController < Admin::BaseController
       ff.save
     end
 
-    Form.where(step: 'process').last.form_fields.each do |form_field|
-      next if new_form_submission.form_process.try(:form_fields).map(&:label).include? form_field.label
+    Form.where(step: 'relationship').last.form_fields.each do |form_field|
+      next if new_form_submission.form_relationship.try(:form_fields).map(&:label).include? form_field.label
+      ff = form_field.amoeba_dup
+      ff.formable_id = new_form_submission.form.id
+      ff.save
+    end
+
+    Form.where(step: 'diversity').last.form_fields.each do |form_field|
+      next if new_form_submission.form_diversity.try(:form_fields).map(&:label).include? form_field.label
+      ff = form_field.amoeba_dup
+      ff.formable_id = new_form_submission.form.id
+      ff.save
+    end
+
+    Form.where(step: 'innovation').last.form_fields.each do |form_field|
+      next if new_form_submission.form_innovation.try(:form_fields).map(&:label).include? form_field.label
+      ff = form_field.amoeba_dup
+      ff.formable_id = new_form_submission.form.id
+      ff.save
+    end
+
+    Form.where(step: 'resourcing').last.form_fields.each do |form_field|
+      next if new_form_submission.form_resourcing.try(:form_fields).map(&:label).include? form_field.label
       ff = form_field.amoeba_dup
       ff.formable_id = new_form_submission.form.id
       ff.save

@@ -8,6 +8,10 @@ module Submittable
     belongs_to :form_process, class_name: Form
     belongs_to :form_policy, class_name: Form, foreign_key: 'form_id'
     belongs_to :form_pricing, class_name: Form, foreign_key: 'form_id'
+    belongs_to :form_relationship, class_name: Form, foreign_key: 'form_id'
+    belongs_to :form_diversity, class_name: Form, foreign_key: 'form_id'
+    belongs_to :form_innovation, class_name: Form, foreign_key: 'form_id'
+    belongs_to :form_resourcing, class_name: Form, foreign_key: 'form_id'
   end
 
   def build_values(form_fields, step = 'pricing')

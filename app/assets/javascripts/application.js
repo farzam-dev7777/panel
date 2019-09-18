@@ -48,7 +48,7 @@
 //= require underscore
 //= require rateyo
 //= require qTip2
-//= require sweetalert
+// require sweetalert
 // require swal.min
 // require swal.common
 //= require download.js

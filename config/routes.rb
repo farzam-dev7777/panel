@@ -69,6 +69,10 @@ Rails.application.routes.draw do
     resources :form_submissions do
       member do
         get :pricing_step
+        get :relationship_step
+        get :diversity_step
+        get :innovation_step
+        get :resourcing_step
         get :process_step
         get :technology_step
         get :history_step
@@ -123,6 +127,10 @@ Rails.application.routes.draw do
   resources :form_submissions do
     member do
       get :pricing_step
+      get :relationship_step
+      get :diversity_step
+      get :innovation_step
+      get :resourcing_step
       get :process_step
       get :technology_step
       get :history_step

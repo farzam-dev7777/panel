@@ -21,6 +21,7 @@
             <td>
               <%= f.input :submitted_by_email, label: false, :input_html => { :value => @current_admin_user_email } %>
               <%= f.input :user_id, :as => :hidden, :input_html => { :value => @current_admin_user_id } %>
+              <%= f.input :request_type, :as => :hidden, :input_html => { :value => "EXCEPTION" } %>
             </td>
           </tr>
           <tr>
@@ -35,17 +36,20 @@
             <td class="text-right" width="20%"><strong>Law Firm</strong></td>
             <td><%= f.input :law_firm_id, label: false, collection: @law_firms.map{ |law_firm| ["#{law_firm.name} - #{law_firm.id}", law_firm.id] } %></td>
           </tr>
-          <tr>
+          <!-- <tr>
             <td class="text-right" width="20%"><strong>Request Type</strong></td>
             <td><%= f.input :request_type, label: false, collection: ExceptionRequest::REQUEST_TYPE.map{|k,v| [v,k]} %></td>
-          </tr>
+          </tr> -->
           <tr>
             <td class="text-right" width="20%"><strong>Law Firm ID</strong></td>
-            <td><%= f.input :matter_types, label: false, collection: [1,2,3] %></td>
+            <td><%= f.input :law_firm_id, label: false, collection: [1,2,3] %></td>
           </tr>
           <tr>
             <td class="text-right" width="20%"><strong>Law firm Category</strong></td>
-            <td><%= f.input :law_firm_category, label: false, collection:ExceptionRequest::LAW_FIRM_CATEGORIES.map{ |k,v| [v,k]} %></td>
+            <td><%= f.input :law_firm_category, label: false, collection:ExceptionRequest::LAW_FIRM_CATEGORIES.map{ |k,v| [v,k]} %>
+              <p style="color: #949494;display:none" id="panel_notification" class="text-left"><em>Exception not required, firm already on
+                  Panel.</em></p>
+            </td>
           </tr>
           <tr>
             <td class="text-right" width="20%"><strong>Minority Owned</strong></td>

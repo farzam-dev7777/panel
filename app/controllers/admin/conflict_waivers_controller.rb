@@ -15,7 +15,7 @@ class Admin::ConflictWaiversController < Admin::BaseController
   end
 
   def create
-
+    binding.pry
     @conflict_waiver = ConflictWaiver.new(conflict_waivers_params)
 
     if @conflict_waiver.save
@@ -24,7 +24,8 @@ class Admin::ConflictWaiversController < Admin::BaseController
     else
      
       flash[:alert] = "There was an error submiting the Conflict Waiver"
-      redirect_back fallback_location: new_admin_conflict_waiver_path
+      render :new
+
       
     end
     
@@ -34,10 +35,10 @@ class Admin::ConflictWaiversController < Admin::BaseController
   	@conflict_waiver = ConflictWaiver.find(params[:id])
     if @conflict_waiver.update_attributes(conflict_waivers_params)
       flash[:notice] = "Conflict Waiver updated"
-      redirect_to admin_conflict_waiver_path(@conflict_waiver)
+      redirect_to :admin_conflict_waivers
     else
-      flash[:alert] = "error"
-      redirect_back fallback_location: admin_conflict_waivers
+      flash[:alert] = "There was an error submiting the Conflict Waiver"
+      render :new
     end
   end
 
@@ -61,8 +62,7 @@ class Admin::ConflictWaiversController < Admin::BaseController
   def conflict_waivers_params
     
     params.require(:conflict_waiver).permit(
-      :name_of_law_firm, :contact_details, :user_id, :bmo_business_contact,
-      :reason
+      :name_of_law_firm, :contact_details, :user_id, :bmo_business_contact, :reason
     )
   end
 

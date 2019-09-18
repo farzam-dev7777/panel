@@ -11,7 +11,11 @@ class Admin::ExceptionRequestsController < Admin::BaseController
   end
 
   def show
-    
+    @exception_request = ExceptionRequest.find(params[:id])
+    if !@exception_request.user.try(:google_secret)
+      @exception_request.user.try(:set_google_secret)
+    end
+    add_breadcrumb "#{@exception_request.requested_by}", :admin_exception_request_path 
   end
 
   def create

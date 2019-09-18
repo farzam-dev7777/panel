@@ -5,7 +5,7 @@
 			<ul id="sparks" class="text-left">
 				<li class="sparks-info">
 					<a href="/admin/law_firms?filter=onboarded">
-						<h5 class="current-month-info"> Onboarded 
+						<h5 class="current-month-info"> Exception 
 							<span class="txt-color">
 								- <%= LawFirm.onboarded.count %> -
 							</span>
@@ -14,14 +14,14 @@
 				</li>
 				<li class="sparks-info">
 					<a href="/admin/law_firms?filter=under_process">
-						<h5 class="current-month-info"> In Process 
+						<h5 class="current-month-info"> RF
 							<span>- <%= LawFirm.in_process.count %> -</span>
 						</h5>
 					</a>
 				</li>
 				<li class="sparks-info">
 					<a href="/admin/law_firms?filter=certified">
-						<h5 class="current-month-info"> Certified 
+						<h5 class="current-month-info"> PANEL 
 							<span>
 								- <%= LawFirm.certified.count %> -
 							</span>
@@ -30,7 +30,7 @@
 				</li>
 				<li class="sparks-info">
 					<a href="/admin/law_firms?filter=decertified">
-						<h5 class="current-month-info"> Decertified 
+						<h5 class="current-month-info"> REJECTED 
 							<span>- <%= LawFirm.decertified.count %> -</span>
 						</h5>
 					</a>

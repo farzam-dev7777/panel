@@ -11,7 +11,8 @@
     <!--[if IE]>
 		  <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
 		<![endif]-->
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" integrity="sha256-iXUYfkbVl5itd4bAkFH5mjMEN5ld9t3OHvXX3IU8UxU=" crossorigin="anonymous" />
   </head>
 
   <body class="smart-style-6">
@@ -63,7 +64,7 @@
 						<a href="/admin/conflict_waivers/new"><i class="fa fa-list"></i> Conflict Waiver</a>
 					</li>
 					<li>
-						<a href="#"><i class="fa fa-list"></i> Panel Request Form</a>
+						<a href="/admin/panel_requests/new"><i class="fa fa-list"></i> Panel Request Form</a>
 					</li>
 				</ul>
 				<!-- end dropdown-menu-->
@@ -111,10 +112,8 @@
 					</ul>
 				</li>
 			</ul>
-
-			
-
 		</div>
+		
 		<!-- end pulled right: nav area -->
 
 	</header>
@@ -163,12 +162,26 @@
 				<li class="">
 					<a href="/admin/form_submissions" title="blank_"><i class="fa fa-lg fa-fw fa-book"></i> <span class="menu-item-parent">Submissions</span></a>
 				</li> 
-				<li class="<%= active_menu_item('/admin/security_threats') %>">
+				<li class="nav-item  nav-dropdown  ">
+						<a class="nav-link  nav-dropdown-toggle " href="#"><i class="fa fa-lg fa-fw fa-book"></i> <span class="menu-item-parent">New Submissions</span></a>
+						<ul class="nav-dropdown-items"> 
+							<li class="nav-item <%= active_menu_item('/admin/exception_requests') %>">
+								<a href="/admin/exception_requests" title="blank_"><i class="fa fa-lg fa-fw fa-list"></i> <span class="menu-item-parent">Exception Requests</span></a>
+							</li>
+							<li class="nav-item <%= active_menu_item('/admin/conflict_waivers') %>">
+								<a href="/admin/conflict_waivers" title="blank_"><i class="fa fa-lg fa-fw fa-list"></i> <span class="menu-item-parent">Conflict Waiver</span></a>
+							</li>
+							<li class="nav-item <%= active_menu_item('/admin/panel_requests') %>">
+								<a href="/admin/panel_requests" title="blank_"><i class="fa fa-lg fa-fw fa-list"></i> <span class="menu-item-parent">Panel Request Form</span></a>
+							</li>
+						</ul>
+					</li>
+				<!-- <li class="<%= active_menu_item('/admin/security_threats') %>">
 					<a href="/admin/security_threats" title="blank_"><i class="fa fa-lg fa-fw fa-shield"></i> <span class="menu-item-parent">Security Threats</span></a>
-				</li>
-				<li class="<%= active_menu_item('/admin/security_alerts') %>">
+				</li> -->
+				<!-- <li class="<%= active_menu_item('/admin/security_alerts') %>">
 					<a href="/admin/security_alerts" title="blank_"><i class="fa fa-lg fa-fw fa-newspaper-o"></i> <span class="menu-item-parent">Security News Alerts</span></a>
-				</li>
+				</li> -->
 				<li class="<%= active_menu_item('/admin/frequently_asked_questions') %>">
 					<a href="/admin/frequently_asked_questions" title="blank_"><i class="fa fa-lg fa-fw fa-newspaper-o"></i> <span class="menu-item-parent">FAQs</span></a>
 				</li>
@@ -180,19 +193,19 @@
 						<a href="<%= edit_admin_system_setting_path(SystemSetting.last || SystemSetting.create) %>" title="blank_"><i class="fa fa-lg fa-fw fa-cog"></i> <span class="menu-item-parent">System Settings</span></a>
 					</li>
 				<% end %>
+			
 
 
+				
 
-				<li class="<%= active_menu_item('/admin/exception_requests') %>">
-					<a href="/admin/exception_requests" title="blank_"><i class="fa fa-lg fa-fw fa-briefcase"></i> <span class="menu-item-parent">Exception Requests</span></a>
-				</li>
 			</ul>
+			
 		</nav>
 
 		<span class="minifyme" data-action="minifyMenu"> 
 			<i class="fa fa-arrow-circle-left hit"></i> 
 		</span>
-
+		
 	</aside>
 	<!-- END NAVIGATION -->
 	
@@ -311,8 +324,9 @@
 		</div>
 
 		<script async defer type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+		
     <%= javascript_include_tag 'application' %>
-
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 
 		<script>
 			// PAGE RELATED SCRIPTS

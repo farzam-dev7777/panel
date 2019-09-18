@@ -1446,3 +1446,9 @@ body.smart-style-6 .btn-primary.btn-certified{
 textarea{
   border-bottom: 1px solid #ccc !important;
 }
+#new_exception_request .help-block {
+  text-align: left;
+}
+.simple_form .help-block {
+  text-align: left;
+}

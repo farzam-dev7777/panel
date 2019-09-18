@@ -19,7 +19,7 @@ class ExceptionRequest < ApplicationRecord
   MINORITY_OWNED_TYPE = ["Yes", "No"]
   WOMEN_OWNED_TYPE = ["Yes", "No"]
 
-  validates_presence_of :requested_by
+  validates_presence_of :requested_by, :submitted_by_email, :line_of_business, :lob_contact_name, :law_firm_category, :minority_owned, :women_owned, :matter_name
 
   belongs_to :law_firm
 end
