@@ -306,7 +306,7 @@ $(document).ready(function(){
     $(this).parent().parent().find('.text-for-multi').removeClass('hidden').show();
   })
 
-  if (window.location.pathname.indexOf("/policy_step") > -1 ||
+  if (window.location.pathname.indexOf("/pricing_step") > -1 ||
       window.location.pathname.indexOf("/process_step") > -1 || 
       window.location.pathname.indexOf("/technology_step") > -1 || 
       window.location.pathname.indexOf("/history_step") > -1) {

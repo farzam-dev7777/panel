@@ -378,7 +378,7 @@
 												</td>
 												<td>
 													<% if submission.try(:status) != 'approved' %>
-														<%= link_to 'View', policy_step_form_submission_path(submission, readonly: "true"), class: "btn btn-outline-primary btn-xs" %>	
+														<%= link_to 'View', pricing_step_form_submission_path(submission, readonly: "true"), class: "btn btn-outline-primary btn-xs" %>	
 													<% else %>
 														<%= link_to 'View', "", class: "btn btn-outline-primary btn-xs", onclick: "alert('Disabled')" %>	
 													<% end %>

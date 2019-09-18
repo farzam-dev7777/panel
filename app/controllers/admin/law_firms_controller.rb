@@ -81,7 +81,7 @@ class Admin::LawFirmsController < Admin::BaseController
     new_form_submission.assessor_score = nil
     new_form_submission.expiry_date = nil
 
-    Form.where(step: 'policy').last.form_fields.each do |form_field|
+    Form.where(step: 'pricing').last.form_fields.each do |form_field|
       next if new_form_submission.form.try(:form_fields).map(&:label).include? form_field.label
       ff = form_field.amoeba_dup
       ff.formable_id = new_form_submission.form.id

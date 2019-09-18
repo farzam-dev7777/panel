@@ -5,7 +5,7 @@ class FormSubmissionsController < BaseController
   load_and_authorize_resource
   
   before_action :follow_ups, except: :index
-  before_action :before_steps, only: [:policy_step, :process_step]
+  before_action :before_steps, only: [:pricing_step, :process_step]
   before_action :before_non_dynamic_forms, only: [:technology_step, :history_step]
 
   before_action :prevent_resubmission, only: [:update, :submit_forms]
@@ -69,7 +69,7 @@ class FormSubmissionsController < BaseController
     @form_submission = FormSubmission.new(form: @form)
   end
 
-  def policy_step
+  def pricing_step
     @form_submission = FormSubmission.find(params[:id])
     if(@form_submission.status == 'sent')
       @form_submission.status = 'started'
@@ -95,7 +95,7 @@ class FormSubmissionsController < BaseController
   end
 
   def logics
-    @logics ||= current_step == :policy ? @form_submission.form.try(:all_logics) : @form_submission.form_process.try(:all_logics)
+    @logics ||= current_step == :pricing ? @form_submission.form.try(:all_logics) : @form_submission.form_process.try(:all_logics)
   end
 
   def edit
@@ -170,7 +170,7 @@ class FormSubmissionsController < BaseController
     @form_submission = FormSubmission.find_by(id: params[:id])
 
     @follow_ups = case current_step
-                  when :policy
+                  when :pricing
                     @form_submission.follow_ups.policy.decorate
                   when :process
                     @form_submission.follow_ups.policy.decorate
@@ -187,8 +187,8 @@ class FormSubmissionsController < BaseController
     @form_submission.follow_ups.review.map(&:loggable).each do |form_value|
       if form_value.try(:form_field).try(:formable)
         case form_value.form_field.formable.name
-        when 'Policy'
-          stats[:policy] = (stats[:policy] || 0) + 1
+        when 'Pricing'
+          stats[:pricing] = (stats[:pricing] || 0) + 1
         when 'Process'
           stats[:process] = (stats[:process] || 0) + 1
         end 
@@ -212,7 +212,7 @@ private
   end
 
   def steps
-    [:policy, :process, :technology, :history]
+    [:pricing, :process, :technology, :history]
   end
 
   def wizard_path(step)
@@ -254,7 +254,7 @@ private
   end
 
   def first_step
-    current_step_path.include? "policy_step"
+    current_step_path.include? "pricing_step"
   end
   
   def form_submissions_params

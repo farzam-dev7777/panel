@@ -7,6 +7,7 @@ class FollowUp < ApplicationRecord
 	scope :review,  		-> { where(status: 'review') }
 	scope :resolved,  	-> { where(status: 'resolved') }
 
+	scope :pricing,  		-> { where(loggable_type: FormValue) }
 	scope :policy,  		-> { where(loggable_type: FormValue) }
 	scope :process,  		-> { where(loggable_type: FormValue) }
 	scope :technology,  -> { where(loggable_type: TechnologyValue) }
