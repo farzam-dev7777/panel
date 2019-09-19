@@ -41,20 +41,152 @@ $(document).ready(function(){
 			$('#exception_request_women_owned_details').val(" ")
 		}
 	});
+
+
 	if($('select#exception_request_law_firm_category').val() == "PANEL"){
 		$('#panel_notification').show()
-		$('#new_exception_request .form-submit-btn ').attr('disabled','true')
+	
+		$('#new_exception_request .form-submit-btn, .edit_exception_request  .form-submit-btn').attr('disabled','true')
 	}
 	$('select#exception_request_law_firm_category').on('change', function() {
+		
 		if(this.value == "PANEL"){
 			$('#panel_notification').show()
-			$('#new_exception_request .form-submit-btn ').attr('disabled','true')
+			$('#new_exception_request .form-submit-btn, .edit_exception_request  .form-submit-btn').attr('disabled','true')
 		}else{
 		  $('#panel_notification').hide()
-		  $('#new_exception_request .form-submit-btn ').removeAttr('disabled')
+		  $('#new_exception_request .form-submit-btn, .edit_exception_request  .form-submit-btn').removeAttr('disabled')
+		}
+	});
+	if($('select#exception_request_law_firm_name').val()){
+		if($('select#exception_request_law_firm_name').val() != "New" ||  $('select#exception_request_law_firm_name').val() == ""){
+		 $('.firmDetails').show()
+			 if($('select#exception_request_law_firm_name').val()){
+				 //$('select#exception_request_law_firm_id').val(this.value).prop('selected', true);
+				 $.ajax({
+					 url: "/admin/law_firms/get_detail",
+					 method: "post",
+					 data: {id : $('select#exception_request_law_firm_name').val()}
+				 })
+					 .done(function( data ) {
+						 if(data){
+							 
+							 $('.firmDetails .firmName').html(data.data.name)
+							 $('.firmDetails .firmEmail').html(data.data.email)
+							 $('.firmDetails .firmPhone').html(data.data.phone)
+							 $('.firmDetails').show()
+						 }
+					 });
+			 }
+		}
+	 }
+	 $('select#exception_request_law_firm_name').on('change', function() {
+		 if(this.value){
+			 //$('select#exception_request_law_firm_id').val(this.value).prop('selected', true);
+			 $.ajax({
+				 url: "/admin/law_firms/get_detail",
+				 method: "post",
+				 data: {id : this.value}
+			 })
+				 .done(function( data ) {
+					 if(data){
+						 
+						 $('.firmDetails .firmName').html(data.data.name)
+						 $('.firmDetails .firmEmail').html(data.data.email)
+						 $('.firmDetails .firmPhone').html(data.data.phone)
+						 $('.firmDetails').show()
+					 }
+				 });
+		 }
+		 
+	 });
+
+	//panel_request
+	if($('select#panel_request_minority_owned').val() == "Yes"){
+		$('.minority_owned_details').show()
+	}
+	$('select#panel_request_minority_owned').on('change', function() {
+		if(this.value == "Yes"){
+			$('.minority_owned_details').show()
+		}else{
+			$('.minority_owned_details').hide()
+			$('#panel_request_minority_owned_details').val(" ")
+		}
+	});
+	if($('select#panel_request_women_owned').val() == "Yes"){
+		$('.women_owned_details').show()
+	}
+	$('select#panel_request_women_owned').on('change', function() {
+		if(this.value == "Yes"){
+			$('.women_owned_details').show()
+		}else{
+			$('.women_owned_details').hide()
+			$('#panel_request_women_owned_details').val(" ")
 		}
 	});
 
+
+	if($('select#panel_request_law_firm_category').val() == "PANEL"){
+		$('#panel_notification').show()
+	
+		$('#new_panel_request .form-submit-btn, .edit_panel_request  .form-submit-btn').attr('disabled','true')
+	}
+	$('select#panel_request_law_firm_category').on('change', function() {
+		
+		if(this.value == "PANEL"){
+			$('#panel_notification').show()
+			$('#new_panel_request .form-submit-btn, .edit_panel_request  .form-submit-btn').attr('disabled','true')
+		}else{
+		  $('#panel_notification').hide()
+		  $('#new_panel_request .form-submit-btn, .edit_panel_request  .form-submit-btn').removeAttr('disabled')
+		}
+	});
+
+
+	if($('select#panel_request_law_firm_name').val()){
+	 if($('select#panel_request_law_firm_name').val() != "New" ||  $('select#panel_request_law_firm_name').val() == ""){
+		$('.firmDetails').show()
+			if($('select#panel_request_law_firm_name').val()){
+				//$('select#panel_request_law_firm_id').val(this.value).prop('selected', true);
+				$.ajax({
+					url: "/admin/law_firms/get_detail",
+					method: "post",
+					data: {id : $('select#panel_request_law_firm_name').val()}
+				})
+					.done(function( data ) {
+						if(data){
+							
+							$('.firmDetails .firmName').html(data.data.name)
+							$('.firmDetails .firmEmail').html(data.data.email)
+							$('.firmDetails .firmPhone').html(data.data.phone)
+							$('.firmDetails').show()
+						}
+					});
+			}
+	 }
+	}
+	$('select#panel_request_law_firm_name').on('change', function() {
+		if(this.value){
+			//$('select#panel_request_law_firm_id').val(this.value).prop('selected', true);
+			$.ajax({
+				url: "/admin/law_firms/get_detail",
+				method: "post",
+				data: {id : this.value}
+			})
+				.done(function( data ) {
+					if(data){
+						
+						$('.firmDetails .firmName').html(data.data.name)
+						$('.firmDetails .firmEmail').html(data.data.email)
+						$('.firmDetails .firmPhone').html(data.data.phone)
+						$('.firmDetails').show()
+					}
+				});
+		}
+		
+	});
+
+	
 })
 
 function toast(text){

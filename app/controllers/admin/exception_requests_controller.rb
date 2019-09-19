@@ -15,6 +15,7 @@ class Admin::ExceptionRequestsController < Admin::BaseController
     if !@exception_request.user.try(:google_secret)
       @exception_request.user.try(:set_google_secret)
     end
+    @law_firms = LawFirm.find_by_id(@exception_request.law_firm_name)
     add_breadcrumb "#{@exception_request.requested_by}", :admin_exception_request_path 
   end
 
@@ -42,8 +43,11 @@ class Admin::ExceptionRequestsController < Admin::BaseController
       flash[:notice] = "Exception request updated"
       redirect_to admin_exception_request_path(@exception_request)
     else
-      flash[:alert] = "error"
-      redirect_back fallback_location: admin_exception_requests
+      @law_firms = LawFirm.all
+      @current_admin_user_email = current_admin_user.email
+      @current_admin_user_id = current_admin_user.id
+      flash[:alert] = "There was an error submiting the exception request"
+      render :new
     end
   end
 
@@ -73,7 +77,7 @@ class Admin::ExceptionRequestsController < Admin::BaseController
       :requested_by, :submitted_by_email, :user_id, :line_of_business,
       :lob_contact_name, :law_firm_id, :request_type,
       :law_firm_category, :minority_owned, :minority_owned_details,
-      :women_owned, :women_owned_details, :matter_name   #, matter_types: []
+      :women_owned, :women_owned_details, :matter_name, :law_firm_name   #, matter_types: []
     )
   end
 

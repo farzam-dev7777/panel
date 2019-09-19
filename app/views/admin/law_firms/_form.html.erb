@@ -26,10 +26,21 @@
 					</tr> -->
 
 					<tr>
-							<td class="text-right" width="20%"><strong>Name</strong></td>
-							<td><%= f.input :name, label: false %></td>
-						</tr>
-
+						<td class="text-right" width="20%"><strong>Name</strong></td>
+						<td><%= f.input :name, label: false %></td>
+					</tr>
+					<tr>
+						<td class="text-right" width="20%"><strong>Email</strong></td>
+						<td><%= f.input :email, label: false %></td>
+					</tr>
+					<tr>
+						<td class="text-right" width="20%"><strong>Phone</strong></td>
+						<td><%= f.input :phone, label: false %></td>
+					</tr>
+					<tr>
+						<td class="text-right" width="20%"><strong>Description</strong></td>
+						<td><%= f.input :description, label: false %></td>
+					</tr>
 					<tr>
 						<td class="text-right" width="20%"><strong>Initial Date of Engagement with BMO</strong></td>
 						<td><%= f.input :initial_date_of_engagement_with_the_bank, as: :datepicker, label: false, input_html: { autocomplete: 'off', class: 'text-left datepicker' } %></td>

@@ -1452,3 +1452,10 @@ textarea{
 .simple_form .help-block {
   text-align: left;
 }
+.firmDetails .col-md-12 {
+  border-bottom: 1px solid #ccc;
+  padding: 4px;
+}
+.firmDetails {
+  text-align: left;
+}

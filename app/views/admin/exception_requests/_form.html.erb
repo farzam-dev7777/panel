@@ -34,7 +34,25 @@
           </tr>
           <tr>
             <td class="text-right" width="20%"><strong>Law Firm</strong></td>
-            <td><%= f.input :law_firm_id, label: false, collection: @law_firms.map{ |law_firm| ["#{law_firm.name} - #{law_firm.id}", law_firm.id] } %></td>
+            <td><%= f.input :law_firm_name, label: false, collection: @law_firms.map{ |law_firm| ["#{law_firm.name} - #{law_firm.id}", law_firm.id] }, prompt: "Select Firm" %>
+              <div style="display: none;" class="firmDetails">
+                <div class="col-md-8 tab-pane ">
+                  <div class="col-md-12">
+                    <div class="col-md-4 column">Name</div>
+                    <div class="col-md-8 data firmName"></div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="col-md-4 column">Email</div>		
+                    <div class="col-md-8 data firmEmail"></div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="col-md-4 column">Phone</div>		
+                    <div class="col-md-8 data firmPhone"></div>
+                  </div>
+                </div>
+              </div>
+            
+            </td>
           </tr>
           <!-- <tr>
             <td class="text-right" width="20%"><strong>Request Type</strong></td>
@@ -42,7 +60,7 @@
           </tr> -->
           <tr>
             <td class="text-right" width="20%"><strong>Law Firm ID</strong></td>
-            <td><%= f.input :law_firm_id, label: false, collection: [1,2,3] %></td>
+            <td><%= f.input :law_firm_id, label: false, collection: @law_firms.map{ |law_firm| [law_firm.id, law_firm.id] } , input_html: { readonly: true } %></td>
           </tr>
           <tr>
             <td class="text-right" width="20%"><strong>Law firm Category</strong></td>

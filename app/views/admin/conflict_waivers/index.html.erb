@@ -44,7 +44,7 @@
 														<td><%= conflict_waiver.bmo_business_contact %></td>
 														<td>
 															<%= link_to "Edit", edit_admin_conflict_waiver_path(conflict_waiver), class: "btn btn-xs btn-primary" %>	
-															<% link_to "Delete", admin_conflict_waiver_path(conflict_waiver), method: :delete, class: "btn btn-xs btn-danger", data: { confirm: "Are you you want to delete?" } %>	
+															<%= link_to "view", admin_conflict_waiver_path(conflict_waiver), class: "btn btn-xs btn-secondary" %>	
 														</td>
 													</tr>
 												<% end %>

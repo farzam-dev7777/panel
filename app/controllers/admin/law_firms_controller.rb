@@ -167,6 +167,11 @@ class Admin::LawFirmsController < Admin::BaseController
     end
   end
 
+  def get_detail
+    @law_firm = LawFirm.find(params[:id])
+    render json: { data: @law_firm }
+  end
+
   private
 
   def law_firms_params

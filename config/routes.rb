@@ -19,6 +19,7 @@ Rails.application.routes.draw do
         post :decertify
         post :add_internal_note
         post :remove_internal_note
+        post :get_detail
       end
     end
 
@@ -89,7 +90,7 @@ Rails.application.routes.draw do
       end
     end
     resources :exception_requests
-    resources :panel_requests
+    resources :panel_requests 
     resources :conflict_waivers
     get '/internal_dashboard/notifications', to: 'internal_dashboard#notifications'
     resources :internal_dashboard do

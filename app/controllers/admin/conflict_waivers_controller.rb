@@ -11,7 +11,7 @@ class Admin::ConflictWaiversController < Admin::BaseController
   end
 
   def show
-    
+    @conflict_waiver = ConflictWaiver.find(params[:id])
   end
 
   def create
