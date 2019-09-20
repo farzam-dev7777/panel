@@ -172,12 +172,21 @@ class Admin::LawFirmsController < Admin::BaseController
     render json: { data: @law_firm }
   end
 
+  def add_by_submission
+   
+    @law_firm = LawFirm.new
+    respond_to do |format|
+      format.js
+    end
+  end
+
   private
 
   def law_firms_params
   	params.require(:law_firm).permit(
       :name, :description, :email, :phone, :temp_password,
       :temp_password_confirmation, :relationship_manager_email,
+      :relationship_manager_name, :relationship_manager_phone,
       :law_firm_type, :principle_name, :principle_title,
       :principle_contact_info, :parent_company, :sister_firm,
       :initial_date_of_engagement_with_the_bank,

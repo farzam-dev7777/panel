@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190919162901) do
+ActiveRecord::Schema.define(version: 20190920191705) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -162,6 +162,9 @@ ActiveRecord::Schema.define(version: 20190919162901) do
     t.datetime "updated_at",             null: false
     t.text     "matter_types"
     t.string   "law_firm_name"
+    t.string   "business_manager_name"
+    t.string   "business_manager_phone"
+    t.string   "business_manager_email"
   end
 
   create_table "faq_categories", force: :cascade do |t|
@@ -340,6 +343,8 @@ ActiveRecord::Schema.define(version: 20190919162901) do
     t.text     "type_of_services_your_law_firm_provides_generally"
     t.text     "confidentiality_level_of_matters_that_are_handled"
     t.string   "number_of_lawyers"
+    t.string   "relationship_manager_name"
+    t.string   "relationship_manager_phone"
   end
 
   create_table "locations", force: :cascade do |t|
@@ -450,6 +455,9 @@ ActiveRecord::Schema.define(version: 20190919162901) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.string   "law_firm_name"
+    t.string   "business_manager_name"
+    t.string   "business_manager_phone"
+    t.string   "business_manager_email"
   end
 
   create_table "queued_notifications", force: :cascade do |t|

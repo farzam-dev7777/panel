@@ -34,13 +34,14 @@
 	<!-- </div> -->
 
 	<!-- <div class="col-lg-2 pull-right"> -->
-		<a class="btn btn-sm btn-primary pull-right begin-recertification-btn" data-id="<%= @law_firm.id %>">Begin Recertification Process</a>
+		<a class="btn btn-sm btn-primary pull-right begin-recertification-btn" data-id="<%= @law_firm.id %>">Send RFI Questionnaire again			</a>
 	<!-- </div> -->
 <% end %>
 
 <% if(!@law_firm.form_submissions.any?) %>
 	<!-- <div class="col-lg-2 pull-right"> -->
-		<a class="btn btn-sm btn-primary pull-right begin-certification-btn" data-id="<%= @law_firm.id %>">Begin Certification Process</a>
+		<a class="btn btn-sm btn-primary pull-right begin-certification-btn" data-id="<%= @law_firm.id %>">Send RFI Questionnaire
+			</a>
 	<!-- </div> -->
 <% end %>
 

@@ -77,6 +77,7 @@ class Admin::PanelRequestsController < Admin::BaseController
     params.require(:panel_request).permit(
       :requested_by, :submitted_by_email, :user_id, :line_of_business,
       :lob_contact_name, :law_firm_id, :request_type,
+      :business_manager_name, :business_manager_phone, :business_manager_email,
       :law_firm_category, :minority_owned, :minority_owned_details,
       :women_owned, :women_owned_details, :law_firm_name
     )

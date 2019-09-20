@@ -14,12 +14,15 @@ Rails.application.routes.draw do
       member do
         get :begin_certification_process
         get :begin_recertification_process
+      
       end
       collection do
         post :decertify
         post :add_internal_note
         post :remove_internal_note
         post :get_detail
+        get :add_by_submission
+        
       end
     end
 

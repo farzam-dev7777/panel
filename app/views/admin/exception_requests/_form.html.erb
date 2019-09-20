@@ -3,6 +3,27 @@
 </style>
 
 
+<!-- Modal -->
+<div id="addNewFirmModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modal Header</h4>
+      </div>
+      <div class="modal-body">
+        <p>Some text in the modal.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 <div class="clearfix"></div>
 <div class="container">
 	<div class="table-responsive">
@@ -54,10 +75,29 @@
             
             </td>
           </tr>
+          <!--tr>
+            <td>
+                <a  data-remote='true' href='/admin/law_firms/add_by_submission'   data-target="#addNewFirmModal" id="addNewFirm" >Add New Firm </a>
+            </td>
+          </tr-->
+          
           <!-- <tr>
             <td class="text-right" width="20%"><strong>Request Type</strong></td>
             <td><%= f.input :request_type, label: false, collection: ExceptionRequest::REQUEST_TYPE.map{|k,v| [v,k]} %></td>
           </tr> -->
+          <tr>
+              <td class="text-right" width="20%"><strong>Business Manager Name</strong></td>
+              <td><%= f.input :business_manager_name, label: false %></td>
+            </tr>
+            <tr>
+              <td class="text-right" width="20%"><strong>Business Manager Email</strong></td>
+              <td><%= f.input :business_manager_email, label: false %></td>
+            </tr>
+            <tr>
+              <td class="text-right" width="20%"><strong>Business Manager Phone</strong></td>
+              <td><%= f.input :business_manager_phone, label: false %></td>
+            </tr>
+            <tr>
           <tr>
             <td class="text-right" width="20%"><strong>Law Firm ID</strong></td>
             <td><%= f.input :law_firm_id, label: false, collection: @law_firms.map{ |law_firm| [law_firm.id, law_firm.id] } , input_html: { readonly: true } %></td>

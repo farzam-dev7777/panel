@@ -186,6 +186,24 @@ $(document).ready(function(){
 		
 	});
 
+	// $('#addNewFirm').click(function(){
+	// 	$.ajax({
+	// 		url: "/admin/law_firms/get_detail",
+	// 		method: "post",
+	// 		data: {id : this.value}
+	// 	})
+	// 		.done(function( data ) {
+	// 			if(data){
+					
+	// 				$('.firmDetails .firmName').html(data.data.name)
+	// 				$('.firmDetails .firmEmail').html(data.data.email)
+	// 				$('.firmDetails .firmPhone').html(data.data.phone)
+	// 				$('.firmDetails').show()
+	// 			}
+	// 		});
+	// })
+
+	
 	
 })
 
