@@ -153,9 +153,9 @@ ActiveRecord::Schema.define(version: 20190920191705) do
     t.integer  "law_firm_id"
     t.string   "request_type"
     t.string   "law_firm_category"
-    t.text     "minority_owned"
+    t.string   "minority_owned"
     t.text     "minority_owned_details"
-    t.text     "women_owned"
+    t.string   "women_owned"
     t.text     "women_owned_details"
     t.string   "matter_name"
     t.datetime "created_at",             null: false

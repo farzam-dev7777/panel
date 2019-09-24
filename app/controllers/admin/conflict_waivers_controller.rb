@@ -62,7 +62,7 @@ class Admin::ConflictWaiversController < Admin::BaseController
   def conflict_waivers_params
     
     params.require(:conflict_waiver).permit(
-      :name_of_law_firm, :contact_details, :user_id, :bmo_business_contact, :reason
+      :name_of_law_firm, :contact_details, :user_id, :bmo_business_contact, :reason, :confirm_waiver
     )
   end
 

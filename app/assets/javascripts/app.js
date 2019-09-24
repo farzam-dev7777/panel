@@ -603,7 +603,7 @@ $(document).ready(function(){
       type: "warning",
       showCancelButton: true,
       confirmButtonColor: "#DD6B55",
-      confirmButtonText: "Yes, begin certification!",
+      confirmButtonText: "Yes, send RFI Questionnaire!",
       cancelButtonText: "Cancel",
       closeOnConfirm: true,
       closeOnCancel: true
@@ -614,7 +614,7 @@ $(document).ready(function(){
           method: 'GET',
           url: href,
           success: function() {
-            toastr.success("", "Certification process has begun")
+            toastr.success("", "RFI Questionnaire is sent")
             window.location.reload();
           },
           error: function(response) {}
@@ -1068,7 +1068,7 @@ $(document).ready(function(){
     var data = $(this).data();
     swal({
       title: "Are you sure?",
-      text: "Once submitted, the Policy and Process sections will not be available for editing unless reopened by the SEAL Administrator.The Technology and History sections will remain open for updates.",
+      text: "Once submitted, the Policy and Process sections will not be available for editing unless reopened by the Panel Administrator.The Technology and History sections will remain open for updates.",
       type: "warning",
       showCancelButton: true,
       confirmButtonColor: "#DD6B55",

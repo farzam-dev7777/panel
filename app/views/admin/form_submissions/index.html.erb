@@ -18,8 +18,8 @@
 
 			<% @form_submissions.each do |submission| %>
 				<tr>
-					<td><%= link_to submission.law_firm.try(:name), admin_law_firm_path(submission.law_firm) %></td>
-					<td><%= submission.score || '-' %></td>
+					<td><%= link_to submission.law_firm.try(:name), admin_law_firm_path(submission.law_firm) if submission.law_firm %></td>
+					<td><%= submission.try(:score) || '-' %></td>
 
 					<td><span class="label label-<%= submission_status_class(submission) %>"><%= submission.status.try(:humanize) %></span></td>
 					<!-- <td class="text-center">

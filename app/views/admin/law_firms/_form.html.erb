@@ -5,14 +5,14 @@
 	<% if @law_firm.new_record? %>
 		<span>Onboard a law firm</span>
 	<% else %>
-		<span>Editing <%= @law_firm.users.first.try(:username) %></span>
+		<span>Editing <%= @law_firm.name %></span>
 	<% end %>
 <% end %>
 <h2>
 	<% if @law_firm.new_record? %>
 		<strong>Onboard a law firm</strong>
 	<% else %>
-		<strong>Editing <%= @law_firm.users.first.try(:username) %></strong>
+		<strong>Editing <%= @law_firm.name %></strong>
 	<% end %>
 </h2>
 <div class="table-responsive">
