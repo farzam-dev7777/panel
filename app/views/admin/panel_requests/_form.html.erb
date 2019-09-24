@@ -19,7 +19,7 @@
           <tr>
             <td class="text-right" width="20%"><strong>Submitted By</strong></td>
             <td>
-              <%= f.input :submitted_by_email, label: false, :input_html => { :value => @current_admin_user_email } %>
+              <%= f.input :submitted_by_email, label: false, :input_html => { :value => @current_admin_user_email, :readonly => true } %>
               <%= f.input :user_id, :as => :hidden, :input_html => { :value => @current_admin_user_id } %>
               <%= f.input :request_type, :as => :hidden, :input_html => { :value => "ADD_TO_LAW_FIRM_PANEL" } %>
             </td>
