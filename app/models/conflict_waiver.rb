@@ -4,6 +4,7 @@ class ConflictWaiver < ApplicationRecord
   belongs_to :user
   belongs_to :law_firm
   has_many :activity_logs
+  has_many :reviews, as: :reviewable
 
   validates_presence_of :name_of_law_firm, :contact_details, :bmo_business_contact, :reason
 
@@ -17,6 +18,17 @@ class ConflictWaiver < ApplicationRecord
   
   def confirm_waiver_must_be_true
     errors.add(:confirm_waiver, "you must confirm that this waiver is not covered by the above waivers") if self.confirm_waiver != true
+  end
+
+  def can_user_change_status?(current_user)
+    if current_user.role === 'lxp'
+      self.lxp_status != 'approved'
+    else
+    end
+  end
+
+  def fully_approved?
+    self.lxp_status === 'approved' && self.internal_lawyers_status === 'approved'
   end
 
   def log_activity(event_type, notify = false, current_user)

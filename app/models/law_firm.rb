@@ -13,6 +13,7 @@ class LawFirm < ApplicationRecord
   has_many :jurisdictions
   has_many :history_submissions
   has_many :exception_requests
+  has_many :conflict_waivers
 
   serialize :practice_area, Array
   serialize :type_of_matters_your_law_firm_handles_for_us, Array

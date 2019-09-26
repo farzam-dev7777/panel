@@ -1,7 +1,7 @@
 class ConflictWaiversController < BaseController
     
   def index 
-    @conflict_waivers = ConflictWaiver.where(user_id: current_user.id)
+    @conflict_waivers = current_law_firm.conflict_waivers
     add_breadcrumb "Conflict Waiver", :conflict_waivers_path
   end
 
@@ -10,7 +10,7 @@ class ConflictWaiversController < BaseController
   end
 
   def create
-    @conflict_waiver = ConflictWaiver.new(conflict_waivers_params)
+    @conflict_waiver = current_law_firm.conflict_waivers.build(conflict_waivers_params)
     if @conflict_waiver.save
       @conflict_waiver.log_activity('conflict_waiver_submited', true, current_user)
       ConflictWaiverMailer.form_submited_notification_to_lxp(@conflict_waiver).deliver_now

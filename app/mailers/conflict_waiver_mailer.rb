@@ -1,4 +1,6 @@
 class ConflictWaiverMailer < ApplicationMailer
+	default from: "info@panel.grcx.io"
+	layout 'mailer'
 
   def form_submited_notification_to_lxp(conflict_waiver)
 		@conflict_waiver = conflict_waiver

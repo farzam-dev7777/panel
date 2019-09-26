@@ -62,6 +62,17 @@ Rails.application.configure do
   #   :enable_starttls_auto => true
   # }
 
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :user_name => '59a49ef19f604a',
+    :password => '6f8af86f36acb5',
+    :address => 'smtp.mailtrap.io',
+    :domain => 'smtp.mailtrap.io',
+    :port => '2525',
+    :authentication => :cram_md5
+  }
+
+
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 

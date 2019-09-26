@@ -11,7 +11,7 @@
 				<tbody> 
           <tr>
             <td class="text-right" width="20%"><strong>Name of law firm</strong></td>
-            <td><%= f.input :name_of_law_firm, label: false %></td>
+            <td><%= f.input :name_of_law_firm, label: false, input_html: { value: current_user.law_firm.name, readonly: true } %></td>
           </tr>
           <tr>
             <td class="text-right" width="20%"><strong>Contact details</strong></td>
@@ -26,7 +26,7 @@
           </tr>
           <tr>
             <td class="text-right" width="20%"><strong>Reason for Request</strong></td>
-            <td><%= f.input :reason, label: false %></td>
+            <td><%= f.input :reason, label: false, input_html: { rows: 5 } %></td>
           </tr>
           <tr>
              <td>

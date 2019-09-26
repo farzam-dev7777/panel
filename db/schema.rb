@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190925152926) do
+ActiveRecord::Schema.define(version: 20190926193240) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -108,11 +108,12 @@ ActiveRecord::Schema.define(version: 20190925152926) do
     t.string   "bmo_business_contact"
     t.text     "reason"
     t.integer  "user_id"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",              precision: 6, null: false
+    t.datetime "updated_at",              precision: 6, null: false
     t.boolean  "confirm_waiver"
     t.string   "lxp_status"
     t.string   "internal_lawyers_status"
+    t.integer  "law_firm_id"
   end
 
   create_table "cyber_security_insurances", force: :cascade do |t|
@@ -156,13 +157,13 @@ ActiveRecord::Schema.define(version: 20190925152926) do
     t.integer  "law_firm_id"
     t.string   "request_type"
     t.string   "law_firm_category"
-    t.text     "minority_owned"
+    t.string   "minority_owned"
     t.text     "minority_owned_details"
-    t.text     "women_owned"
+    t.string   "women_owned"
     t.text     "women_owned_details"
     t.string   "matter_name"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",             precision: 6, null: false
+    t.datetime "updated_at",             precision: 6, null: false
     t.text     "matter_types"
     t.string   "law_firm_name"
     t.string   "business_manager_name"
@@ -455,8 +456,8 @@ ActiveRecord::Schema.define(version: 20190925152926) do
     t.text     "women_owned_details"
     t.string   "matter_name"
     t.text     "matter_types"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",             precision: 6, null: false
+    t.datetime "updated_at",             precision: 6, null: false
     t.string   "law_firm_name"
     t.string   "business_manager_name"
     t.string   "business_manager_phone"
@@ -473,6 +474,18 @@ ActiveRecord::Schema.define(version: 20190925152926) do
     t.datetime "updated_at",               precision: 6,                 null: false
     t.float    "severity_negative_factor"
     t.index ["deleted_at"], name: "index_queued_notifications_on_deleted_at", using: :btree
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.integer  "reviewable_id"
+    t.string   "reviewable_type"
+    t.string   "status"
+    t.string   "status_from"
+    t.text     "description"
+    t.integer  "actor_id"
+    t.integer  "assigned_to_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   create_table "security_alerts", force: :cascade do |t|

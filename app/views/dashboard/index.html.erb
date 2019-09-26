@@ -33,24 +33,60 @@
 
 		<header>
 			<span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
-			<h2 class="font-md"><strong>Security Threats </strong></h2>				
+			<h2 class="font-md"><strong>Conflict Waivers </strong></h2>				
 		</header>
 
 		<div>
 
 			<div>
-				<!-- widget edit box -->
 				<div class="jarviswidget-editbox">
 					<div>
 						<label>Title:</label>
 						<input type="text" />
 					</div>
 				</div>
-				<!-- end widget edit box -->
+
+				
+					</div>
+
+					<% if current_law_firm.conflict_waivers.order(created_at: :desc).limit(5).size > 0 %>
+						<%- current_law_firm.conflict_waivers.each do |conflict_waiver| %>
+							<%= conflict_waiver.name_of_law_firm %>
+						<% end %>
+					<% else %>
+						<em class="text-center"> Not Available </em>
+					<% end %>
+
+				</div>
+
+			</div>
+
+
+		</div>
+
+	</div>
+
+<!--<div class="col-md-6">
+	<div class="jarviswidget security-threats jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+
+
+		<header>
+			<span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
+			<h2 class="font-md"><strong>Security Threats </strong></h2>				
+		</header>
+
+		<div>
+
+			<div>
+				<div class="jarviswidget-editbox">
+					<div>
+						<label>Title:</label>
+						<input type="text" />
+					</div>
+				</div>
 
 				<% if @action_items.any? %>
 				<div class="widget-body no-padding smart-form sec-threats-latest">
-					<!-- content goes here -->
 					
 					<% if (@action_items.select{|a| a.status != 'complete' && a.security_threat.severity_level.name == 'critical'}).count > 0 %>
 						<h5 class="todo-group-title"><i class="fa fa-warning"></i> Critical</h5>
@@ -90,7 +126,6 @@
 							<% end %>
 						</ul>
 
-						<!-- end content -->
 					</div>
 
 
@@ -105,7 +140,7 @@
 
 		</div>
 
-	</div>
+	</div>-->
 
 	<div class="col-md-6">
 
