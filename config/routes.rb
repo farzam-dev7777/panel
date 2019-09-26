@@ -152,6 +152,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :conflict_waivers
+
   resources :technology_values do
     collection do
       post :import

@@ -32,9 +32,16 @@ class Admin::ConflictWaiversController < Admin::BaseController
   end
 
   def update
+   
   	@conflict_waiver = ConflictWaiver.find(params[:id])
     if @conflict_waiver.update_attributes(conflict_waivers_params)
-      flash[:notice] = "Conflict Waiver updated"
+      
+       if params[:conflict_waiver][:lxp_status].present?
+        @current_user =  User.find_by_id(@conflict_waiver.user_id)
+        @conflict_waiver.log_activity('conflict_waiver_status_updated_by_lxp', true, @current_user)
+        #ConflictWaiverMailer.form_submited_notification_to_lxp(@conflict_waiver).deliver_now
+       end
+      flash[:notice] = "Conflict Status updated"
       redirect_to :admin_conflict_waivers
     else
       flash[:alert] = "There was an error submiting the Conflict Waiver"
@@ -42,6 +49,7 @@ class Admin::ConflictWaiversController < Admin::BaseController
     end
   end
 
+   
   def new
   	@conflict_waiver = ConflictWaiver.new
     @current_admin_user_email = current_admin_user.email
@@ -62,7 +70,7 @@ class Admin::ConflictWaiversController < Admin::BaseController
   def conflict_waivers_params
     
     params.require(:conflict_waiver).permit(
-      :name_of_law_firm, :contact_details, :user_id, :bmo_business_contact, :reason, :confirm_waiver
+      :name_of_law_firm, :contact_details, :user_id, :bmo_business_contact, :reason, :confirm_waiver, :lxp_status
     )
   end
 

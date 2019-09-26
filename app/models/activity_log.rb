@@ -29,7 +29,9 @@ class ActivityLog < ApplicationRecord
     logout: "You last logged out at ",
     expiry_date_changed: "Expiry date changed ",
     technologies_updated: "Law firm has updated their technologies",
-    history_updated: "Law firm has updated their history"
+    history_updated: "Law firm has updated their history",
+    conflict_waiver_submited: "New Conflict waiver submited",
+    conflict_waiver_status_updated_by_lxp: "Conflict waiver status updated",
   }.freeze
 
 	def self.log(object)

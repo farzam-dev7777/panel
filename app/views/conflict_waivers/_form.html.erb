@@ -1,0 +1,53 @@
+<style>
+	input, textarea, select { padding: 0px !important; margin: 0px; background: transparent; }
+</style>
+
+<div class="clearfix"></div>
+<div class="container">
+  <h2>Request For Conflict Waivers</h2>
+	<div class="table-responsive">
+		<%= simple_form_for [@conflict_waiver] do |f| %>
+			<table class="table table-striped">
+				<tbody> 
+          <tr>
+            <td class="text-right" width="20%"><strong>Name of law firm</strong></td>
+            <td><%= f.input :name_of_law_firm, label: false %></td>
+          </tr>
+          <tr>
+            <td class="text-right" width="20%"><strong>Contact details</strong></td>
+            <td>
+              <%= f.input :contact_details, label: false %>
+              <%= f.input :user_id, :as => :hidden, :input_html => { :value => @current_user_id } %>
+            </td>
+          </tr>
+          <tr>
+            <td class="text-right" width="20%"><strong>BMO Business contact</strong></td>
+            <td><%= f.input :bmo_business_contact, label: false %></td>
+          </tr>
+          <tr>
+            <td class="text-right" width="20%"><strong>Reason for Request</strong></td>
+            <td><%= f.input :reason, label: false %></td>
+          </tr>
+          <tr>
+             <td>
+               
+             </td>
+             <td class="text-left">
+                <label class="checkbox" style="padding-left: 0px">
+                    <%= f.input :confirm_waiver, label: "I confirm that It’s not covered by the above waivers" %>
+                    </a>
+                  </label>
+             </td>
+          </tr>
+         
+						<tr>
+							<td colspan="2">
+                  <%=link_to 'Cancel', @conflict_waiver.new_record? ? admin_exception_requests_path : admin_law_firm_path, class: 'btn btn-danger btn-sm' %>
+								<%= f.button :submit, @conflict_waiver.new_record? ? "Submit Request" : "Update Request", class: "" %>
+							</td>
+						</tr>
+				</tbody>
+			</table>
+		<% end %>
+	</div>
+</div>
