@@ -6,14 +6,13 @@ class Review < ApplicationRecord
   after_save :update_reviewable_status
   
   def update_reviewable_status
-    binding.pry
     if self.reviewable.class.to_s === 'ConflictWaiver'
       if self.actor.role === 'lxp'
         self.reviewable.lxp_status = self.status
-        if self.status === 'approved'
-          # self.reviewable.internal_lawyer_id = self.assigned_to_id
+        if self.status === 'APPROVES'
+           self.reviewable.assigned_to_id = self.assigned_to_id
         end
-      elsif self.actor.role === 'internal_lawyer'
+      elsif self.actor.role === 'internal_lawyers'
         self.reviewable.internal_lawyers_status = self.status
       end
     end

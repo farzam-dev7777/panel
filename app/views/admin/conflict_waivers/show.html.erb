@@ -68,16 +68,17 @@
 												<%= f.input :reviewable_type, label: false, as: :hidden, input_html: { value: @conflict_waiver.class.to_s } %>
 												<%= f.input :reviewable_id, label: false, as: :hidden, input_html: { value: @conflict_waiver.id } %>
 											</td>
-										<tr>
-											<td class="text-right" width="20%"><strong>Assign to</strong></td>
-											<td>
-												<%= f.input :assigned_to, label: false, collection: User.where(role: "lxp").map{|user| [user.id, user.email] } %>
-											</td>
-										</tr>
+										
 										<tr>
 											<td class="text-right" width="20%"><strong>Status</strong></td>
-											<td><%= f.input :status, label: false, collection: ["approved", "reject"] %></td>
-										</tr>
+											<td><%= f.input :status, label: false, collection: ConflictWaiver::CONFLICT_WAIVER_STATUS.map{|value,key| [key, value]}%></td>
+                    </tr>
+                    <tr style="display:none;" class="internal_lawyers_box">
+                        <td class="text-right" width="20%"><strong>Assign to</strong></td>
+                        <td>
+                          <%= f.input :assigned_to_id, label: false, collection: User.where(role: "internal_lawyers").map{|user| [user.email, user.id] } %>
+                        </td>
+                      </tr>
 										<tr>
 												<td colspan="2">
 													<%= link_to 'Cancel', @conflict_waiver.new_record? ? admin_exception_requests_path : admin_conflict_waiver_path, class: 'btn btn-danger btn-sm' %>

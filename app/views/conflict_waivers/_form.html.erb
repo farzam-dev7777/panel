@@ -17,7 +17,7 @@
             <td class="text-right" width="20%"><strong>Contact details</strong></td>
             <td>
               <%= f.input :contact_details, label: false %>
-              <%= f.input :user_id, :as => :hidden, :input_html => { :value => @current_user_id } %>
+              <%= f.input :user_id, :as => :hidden, :input_html => { value: @current_user.id } %>
             </td>
           </tr>
           <tr>

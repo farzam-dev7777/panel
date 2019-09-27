@@ -11,6 +11,7 @@ class ConflictWaiversController < BaseController
 
   def create
     @conflict_waiver = current_law_firm.conflict_waivers.build(conflict_waivers_params)
+    @current_user = current_user
     if @conflict_waiver.save
       @conflict_waiver.log_activity('conflict_waiver_submited', true, current_user)
       ConflictWaiverMailer.form_submited_notification_to_lxp(@conflict_waiver).deliver_now
@@ -24,7 +25,8 @@ class ConflictWaiversController < BaseController
   end
 
   def update
-  	@conflict_waiver = ConflictWaiver.find(params[:id])
+    @conflict_waiver = ConflictWaiver.find(params[:id])
+
     if @conflict_waiver.update_attributes(conflict_waivers_params)
       flash[:notice] = "Conflict Waiver updated"
       redirect_to :conflict_waivers
@@ -54,7 +56,7 @@ class ConflictWaiversController < BaseController
   def conflict_waivers_params
     
     params.require(:conflict_waiver).permit(
-      :name_of_law_firm, :contact_details, :user_id, :bmo_business_contact, :reason, :confirm_waiver
+      :name_of_law_firm, :contact_details, :user_id, :bmo_business_contact, :reason, :confirm_waiver, :assigned_to_id
     )
   end
 

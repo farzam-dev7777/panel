@@ -27,7 +27,7 @@ class Admin::ReviewsController < Admin::BaseController
   private
 
   def review_params
-    params.require(:review).permit(:description, :status)
+    params.require(:review).permit(:description, :status, :assigned_to_id)
   end
 
 end

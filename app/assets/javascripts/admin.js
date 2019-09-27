@@ -186,6 +186,16 @@ $(document).ready(function(){
 		
 	});
 
+	$('select#review_status').chosen().change(function() {
+		if(this.value == "APPROVES"){
+			$(".internal_lawyers_box").show()
+			
+		}else{
+			$(".internal_lawyers_box").hide()
+			$('select#review_assigned_to').val('').trigger('chosen:updated');
+		}
+	});
+
 	// $('#addNewFirm').click(function(){
 	// 	$.ajax({
 	// 		url: "/admin/law_firms/get_detail",

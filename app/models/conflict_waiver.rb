@@ -22,13 +22,13 @@ class ConflictWaiver < ApplicationRecord
 
   def can_user_change_status?(current_user)
     if current_user.role === 'lxp'
-      self.lxp_status != 'approved'
+      self.lxp_status != 'APPROVES'
     else
     end
   end
 
   def fully_approved?
-    self.lxp_status === 'approved' && self.internal_lawyers_status === 'approved'
+    self.lxp_status === 'APPROVES' && self.internal_lawyers_status === 'APPROVES'
   end
 
   def log_activity(event_type, notify = false, current_user)
