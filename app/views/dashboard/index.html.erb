@@ -1,71 +1,76 @@
 <div class="row">
 	<div class="col-md-12">
-	    <article class="col-sm-12">
-	      <div class="jarviswidget">
-	          <header>
-	            <span class="widget-icon"> <i class="fa fa-bar-chart"></i> </span>
-	            <h2><strong>Roster</strong> Status </h2>
-	          </header>
-	          <div class="no-padding">
-	            <div class="widget-body">
-	              <div id="myTabContent" class="tab-content">
-	                <div class="tab-pane fade active in padding-10 no-padding-bottom" id="s1">
-	                  <div class="row no-space text-center">
-	                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-												<p><b><%= certification_status(current_law_firm) %></b> 
-											  <b><%= link_to 'Submit Request Conflict Waiver', new_conflict_waiver_path, html_options = {class: 'btn btn-primary btn-lg dashboard-certificate-button'}   %></b></p>
-	                    </div>
-	                  </div>
-	                </div>
-	              </div>
-	            </div>
-	          </div>
-	        </div>
-	      </article>
-	    </div>
+		<article class="col-sm-12">
+			<div class="jarviswidget">
+				<header>
+					<span class="widget-icon"> <i class="fa fa-bar-chart"></i> </span>
+					<h2><strong>Roster</strong> Status </h2>
+				</header>
+				<div class="no-padding">
+					<div class="widget-body">
+						<div id="myTabContent" class="tab-content">
+							<div class="tab-pane fade active in padding-10 no-padding-bottom" id="s1">
+								<div class="row no-space text-center">
+									<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+										<p><b><%= certification_status(current_law_firm) %></b> 
+										<b><%= link_to 'Submit Request Conflict Waiver', new_conflict_waiver_path, html_options = {class: 'btn btn-primary btn-lg dashboard-certificate-button'}   %></b></p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</article>
+	</div>
 </div>
 
 <div class="clearfix"></div>
-
+<div class="row">
 <div class="col-md-6">
 	<div class="jarviswidget security-threats jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
-
-
 		<header>
 			<span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
 			<h2 class="font-md"><strong>Conflict Waivers </strong></h2>				
 		</header>
-
 		<div>
+			
+							
+					
+				<% if current_law_firm.conflict_waivers.order(created_at: :desc).limit(5).size > 0 %>
+				<div class="table-responsive">
+						<table class="table table-bordered text-center content-in-jarvis">
+							<tr>
+								<th class="text-center">Name of law firm</th>
+								<th class="text-center">Date of submission</th>
+								<th class="text-center">LXP Status</th>
+								<th class="text-center">Lawyer Status</th>
+								<th class="text-center">Action</th>
+							</tr>
+								<%- current_law_firm.conflict_waivers.each do |conflict_waiver|  %>
 
-			<div>
-				<div class="jarviswidget-editbox">
-					<div>
-						<label>Title:</label>
-						<input type="text" />
-					</div>
+									<tr>
+											<td><%= conflict_waiver.name_of_law_firm %></td>
+											<td><%= conflict_waiver.created_at.strftime("%d %b, %Y") %></td>
+											<td><%= conflict_waiver.lxp_status %></td>
+											<td><%= conflict_waiver.internal_lawyers_status %></td>
+											<td>
+													<% if conflict_waiver.try(:lxp_status) != 'APPROVES' %>
+														<%= link_to 'Edit', edit_conflict_waiver_path(conflict_waiver), class: "btn btn-outline-primary btn-xs" %>	
+													<% end %>
+														<%= link_to 'View', conflict_waiver_path(conflict_waiver), class: "btn btn-outline-primary btn-xs" %>	
+											</td>
+									</tr>
+								<% end %>
+						</table>
 				</div>
-
-				
-					</div>
-
-					<% if current_law_firm.conflict_waivers.order(created_at: :desc).limit(5).size > 0 %>
-						<%- current_law_firm.conflict_waivers.each do |conflict_waiver| %>
-							<%= conflict_waiver.name_of_law_firm %>
-						<% end %>
-					<% else %>
-						<em class="text-center"> Not Available </em>
-					<% end %>
-
+				<% else %>
+					<h4 class="text-center">There are no Conflict waivers submissions to review yet</h4>
+				<% end %>
 				</div>
-
 			</div>
-
-
-		</div>
-
 	</div>
-
+ 
 <!--<div class="col-md-6">
 	<div class="jarviswidget security-threats jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
 

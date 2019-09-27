@@ -33,7 +33,9 @@
                 <td><%= conflict_waiver.contact_details %></td>
                 <td><%= conflict_waiver.bmo_business_contact %></td>
                 <td>
-                  <%= link_to "Edit", edit_conflict_waiver_path(conflict_waiver), class: "btn btn-xs btn-primary" %>
+                  <% if conflict_waiver.try(:lxp_status) != 'APPROVES' %>
+                    <%= link_to "Edit", edit_conflict_waiver_path(conflict_waiver), class: "btn btn-xs btn-primary" %>
+                  <% end %>  
                   <%= link_to "view", conflict_waiver_path(conflict_waiver), class: "btn btn-xs btn-secondary" %>
                 </td>
               </tr>
