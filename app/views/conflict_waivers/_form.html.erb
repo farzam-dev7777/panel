@@ -4,6 +4,8 @@
 
 <div class="clearfix"></div>
 <div class="container">
+
+  	<%= link_to "<i class='fa fa-long-arrow-left'></i>".html_safe, conflict_waivers_path, class: "btn btn-sm btn-default" %>
   <h2>Request For Conflict Waivers</h2>
 	<div class="table-responsive">
 		<%= simple_form_for [@conflict_waiver] do |f| %>
