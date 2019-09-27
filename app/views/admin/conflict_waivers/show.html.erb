@@ -73,12 +73,14 @@
 											<td class="text-right" width="20%"><strong>Status</strong></td>
 											<td><%= f.input :status, label: false, collection: ConflictWaiver::CONFLICT_WAIVER_STATUS.map{|value,key| [key, value]}%></td>
                     </tr>
-                    <tr style="display:none;" class="internal_lawyers_box">
+                    <%- if @current_user.role === "lxp" %>
+                      <tr style="display:none;" class="internal_lawyers_box">
                         <td class="text-right" width="20%"><strong>Assign to</strong></td>
                         <td>
                           <%= f.input :assigned_to_id, label: false, collection: User.where(role: "internal_lawyers").map{|user| [user.email, user.id] } %>
                         </td>
                       </tr>
+                    <% end %> 
 										<tr>
 												<td colspan="2">
 													<%= link_to 'Cancel', @conflict_waiver.new_record? ? admin_exception_requests_path : admin_conflict_waiver_path, class: 'btn btn-danger btn-sm' %>

@@ -23,7 +23,8 @@ class ConflictWaiver < ApplicationRecord
   def can_user_change_status?(current_user)
     if current_user.role === 'lxp'
       self.lxp_status != 'APPROVES'
-    else
+    elsif current_user.role === 'internal_lawyers'
+      self.internal_lawyers_status != 'APPROVES'
     end
   end
 

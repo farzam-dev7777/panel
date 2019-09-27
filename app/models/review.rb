@@ -7,10 +7,11 @@ class Review < ApplicationRecord
   
   def update_reviewable_status
     if self.reviewable.class.to_s === 'ConflictWaiver'
-      if self.actor.role === 'lxp'
+      if self.actor.role === ''; ''
         self.reviewable.lxp_status = self.status
         if self.status === 'APPROVES'
            self.reviewable.assigned_to_id = self.assigned_to_id
+          
         end
       elsif self.actor.role === 'internal_lawyers'
         self.reviewable.internal_lawyers_status = self.status
