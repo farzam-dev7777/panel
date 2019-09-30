@@ -9,6 +9,7 @@ class Admin::ReviewsController < Admin::BaseController
   end
   
   def create
+
     @reviewable = params[:review][:reviewable_type].constantize.find_by(id: params[:review][:reviewable_id])
     @review = @reviewable.reviews.build(review_params.merge(
       {
@@ -18,15 +19,22 @@ class Admin::ReviewsController < Admin::BaseController
     ))
     if @review.save
       @conflict_waiver = ConflictWaiver.find_by_id(params[:review][:reviewable_id])
-      if current_user.role === 'lxp' && ( review_params[:status] == 'APPROVES' && review_params[:assigned_to_id].present?)
-        ConflictWaiverMailer.form_status_notification_to_internal_lawyer(@conflict_waiver).deliver_now
-        ConflictWaiverMailer.form_status_approved_notification_to_law_firm_by_lxp(@conflict_waiver).deliver_now 
+      if current_user.role === 'lxp' && ( review_params[:status] == 'APPROVED' && review_params[:assigned_to_id].present?)
+  
+        ConflictWaiverMailer.form_status_notification_to_internal_lawyer(@conflict_waiver,params[:review][:assigned_to_id]).deliver_now
+        #ConflictWaiverMailer.form_status_approved_notification_to_law_firm_by_lxp(@conflict_waiver).deliver_now 
       elsif
-        current_user.role === 'internal_lawyers' && ( review_params[:status] == 'APPROVES' && review_params[:assigned_to_id].present?)
+        current_user.role === 'internal_lawyers' && ( review_params[:status] == 'APPROVED' && review_params[:assigned_to_id].present?)
+        ConflictWaiverMailer.form_status_notification_to_lxp_by_internal_lawyers(@conflict_waiver).deliver_now 
+        ConflictWaiverMailer.form_status_notification_to_user(@conflict_waiver).deliver_now
       else
-        ConflictWaiverMailer.form_status_notification_to_law_firm_by_internal_lawyers(@conflict_waiver).deliver_now 
+
+        ConflictWaiverMailer.form_status_notification_to_user(@conflict_waiver).deliver_now
       end
+     
       redirect_to :back, notice: "Review Added"
+
+
     else
       flash.now[:alert] = @review.errors.full_messages.join(', ')
       render :new

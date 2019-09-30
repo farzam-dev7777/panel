@@ -7,9 +7,9 @@ class Review < ApplicationRecord
   
   def update_reviewable_status
     if self.reviewable.class.to_s === 'ConflictWaiver'
-      if self.actor.role === ''; ''
+      if self.actor.role === 'lxp';
         self.reviewable.lxp_status = self.status
-        if self.status === 'APPROVES'
+        if self.status === 'APPROVED'
            self.reviewable.assigned_to_id = self.assigned_to_id
           
         end
@@ -20,4 +20,8 @@ class Review < ApplicationRecord
     self.reviewable.save
   end
 
+  def status_show
+
+    ConflictWaiver::CONFLICT_WAIVER_STATUS[self.status.to_sym]
+   end
 end

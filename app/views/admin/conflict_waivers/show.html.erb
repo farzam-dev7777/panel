@@ -36,12 +36,13 @@
                 </div>
                 <div class="col-md-12">
                   <div class="col-md-4 column">LXP Status</div>
-                  <div class="col-md-8 data"><%= @conflict_waiver.lxp_status %></div>
+                  <div class="col-md-8 data"><%=  @conflict_waiver.lxp_status_show   %></div>
                 </div>
                 <div class="col-md-12">
                   <div class="col-md-4 column">Internal Lawyers Status</div>
-                  <div class="col-md-8 data"><%= @conflict_waiver.internal_lawyers_status %></div>
+                  <div class="col-md-8 data"><%= @conflict_waiver.internal_lawyers_status_show %></div>
                 </div>
+                
                 <div class="col-md-12">
                   <div class="col-md-4 column">Waiver Fully Approved</div>
                   <div class="col-md-8 data"><%= @conflict_waiver.fully_approved? ? "Yes" : "No" %></div>
@@ -79,7 +80,7 @@
                   <tr>
                     <td colspan="2">
                       <%= link_to 'Cancel', @conflict_waiver.new_record? ? admin_exception_requests_path : admin_conflict_waiver_path, class: 'btn btn-danger btn-sm' %>
-                      <%= f.button :submit, @conflict_waiver.new_record? ? "Submit Request" : "Update Status", class: "" %>
+                      <%= f.button :submit, @conflict_waiver.new_record? ? "Submit Request" : "Update Status", class:  @current_user.role === "lxp" ? "lxp_sttaus" : "laywr_status" %>
                     </td>
                   </tr>
                 </tbody>
@@ -100,7 +101,7 @@
     <div class="jarviswidget jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
       <header class="no-border">
         <span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
-        <h2 class="font-md"><strong>Reviews Log </strong></h2>
+        <h2 class="font-md"><strong>Review Logs </strong></h2>
       </header>
       <div>
         <div class="clearfix"></div>
@@ -126,7 +127,7 @@
                         <div class="smart-timeline-content">
                           <p>
                             <strong>
-                            <%= review.actor.email %> change status to <%= review.status %>
+                            <%= review.actor.email %> change status to <%= review.status_show %>
                             <strong>
                           </p>
                           <p>

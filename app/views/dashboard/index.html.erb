@@ -52,10 +52,10 @@
 									<tr>
 											<td><%= conflict_waiver.name_of_law_firm %></td>
 											<td><%= conflict_waiver.created_at.strftime("%d %b, %Y") %></td>
-											<td><%= conflict_waiver.lxp_status %></td>
-											<td><%= conflict_waiver.internal_lawyers_status %></td>
+											<td><%= conflict_waiver.lxp_status_show %></td>
+											<td><%= conflict_waiver.internal_lawyers_status_show %></td>
 											<td>
-													<% if conflict_waiver.try(:lxp_status) != 'APPROVES' %>
+													<% if conflict_waiver.try(:lxp_status) != 'APPROVED' %>
 														<%= link_to 'Edit', edit_conflict_waiver_path(conflict_waiver), class: "btn btn-outline-primary btn-xs" %>	
 													<% end %>
 														<%= link_to 'View', conflict_waiver_path(conflict_waiver), class: "btn btn-outline-primary btn-xs" %>	

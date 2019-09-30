@@ -12,8 +12,8 @@ class ConflictWaiver < ApplicationRecord
 
   CONFLICT_WAIVER_STATUS = {
     "ALREADY_COVERED": "Already Covered",
-    "APPROVES": "Approves",
-    "REJECTS": "Rejects"
+    "APPROVED": "Approved",
+    "REJECTED": "Rejected"
   }
   
   def confirm_waiver_must_be_true
@@ -22,16 +22,23 @@ class ConflictWaiver < ApplicationRecord
 
   def can_user_change_status?(current_user)
     if current_user.role === 'lxp'
-      self.lxp_status != 'APPROVES'
+      self.lxp_status != 'APPROVED'
     elsif current_user.role === 'internal_lawyers'
-      self.internal_lawyers_status != 'APPROVES'
+      self.internal_lawyers_status != 'APPROVED'
     end
   end
 
   def fully_approved?
-    self.lxp_status === 'APPROVES' && self.internal_lawyers_status === 'APPROVES'
+    self.lxp_status === 'APPROVED' && self.internal_lawyers_status === 'APPROVED'
   end
 
+  def lxp_status_show
+    ConflictWaiver::CONFLICT_WAIVER_STATUS[self.lxp_status.to_sym]
+  end
+  def internal_lawyers_status_show
+    ConflictWaiver::CONFLICT_WAIVER_STATUS[self.lxp_status.to_sym]
+  end
+  
   def log_activity(event_type, notify = false, current_user)
 
   	object = {

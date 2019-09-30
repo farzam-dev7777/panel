@@ -187,7 +187,7 @@ $(document).ready(function(){
 	});
 
 	$('select#review_status').chosen().change(function() {
-		if(this.value == "APPROVES"){
+		if(this.value == "APPROVED"){
 			$(".internal_lawyers_box").show()
 			
 		}else{
@@ -196,6 +196,8 @@ $(document).ready(function(){
 		}
 	});
 
+
+	
 	// $('#addNewFirm').click(function(){
 	// 	$.ajax({
 	// 		url: "/admin/law_firms/get_detail",
@@ -216,7 +218,29 @@ $(document).ready(function(){
 	
 	
 })
-
+$('.lxp_sttaus').on('click', function(e){
+	
+	 if($('select#review_status').chosen().val() == "APPROVED"){
+		
+		swal({
+			title: "Are you sure you would like to approve this, this will notify and require further approval from the selected lawyer.",
+			text: "",
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#DD6B55",
+			confirmButtonText: "Ok",
+			cancelButtonText: "Cancel",
+			closeOnConfirm: true,
+			closeOnCancel: true
+		},
+		function(isConfirm){
+			if (isConfirm) {
+			 $('#new_review').submit()
+			}
+		});
+	 }
+	 return false
+	});
 function toast(text){
 	$.toast({
     heading: 'Information',

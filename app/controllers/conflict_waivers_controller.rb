@@ -14,7 +14,9 @@ class ConflictWaiversController < BaseController
     @current_user = current_user
     if @conflict_waiver.save
       @conflict_waiver.log_activity('conflict_waiver_submited', true, current_user)
+     
       ConflictWaiverMailer.form_submited_notification_to_lxp(@conflict_waiver).deliver_now
+      ConflictWaiverMailer.form_submited_notification_to_user(@conflict_waiver).deliver_now
       flash[:notice] = "Conflict Waiver saved"
       redirect_to :conflict_waivers
     else
@@ -29,6 +31,8 @@ class ConflictWaiversController < BaseController
 
     if @conflict_waiver.update_attributes(conflict_waivers_params)
       flash[:notice] = "Conflict Waiver updated"
+      ConflictWaiverMailer.form_update_notification_to_user(@conflict_waiver).deliver_now
+      ConflictWaiverMailer.form_updated_notification_to_lxp(@conflict_waiver).deliver_now
       redirect_to :conflict_waivers
     else
       flash[:alert] = "There was an error submiting the Conflict Waiver"
