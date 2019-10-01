@@ -53,7 +53,7 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = true
 
   #config.action_controller.asset_host = ENV['MAILJET_ACTIVE_DOMAIN']
-  #config.action_mailer.asset_host = ENV['MAILJET_ACTIVE_DOMAIN']
+  config.action_mailer.asset_host = ENV['MAILJET_ACTIVE_DOMAIN']
 
   # config.action_mailer.smtp_settings = {
   #   :address        => 'in-v3.mailjet.com',

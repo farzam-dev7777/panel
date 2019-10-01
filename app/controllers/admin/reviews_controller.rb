@@ -17,21 +17,38 @@ class Admin::ReviewsController < Admin::BaseController
         status_from: current_user.role === 'lxp' ? @reviewable.lxp_status : @reviewable.internal_lawyers_status
       }
     ))
+    
     if @review.save
-      @conflict_waiver = ConflictWaiver.find_by_id(params[:review][:reviewable_id])
-      if current_user.role === 'lxp' && ( review_params[:status] == 'APPROVED' && review_params[:assigned_to_id].present?)
-  
-        ConflictWaiverMailer.form_status_notification_to_internal_lawyer(@conflict_waiver,params[:review][:assigned_to_id]).deliver_now
-        #ConflictWaiverMailer.form_status_approved_notification_to_law_firm_by_lxp(@conflict_waiver).deliver_now 
-      elsif
-        current_user.role === 'internal_lawyers' && ( review_params[:status] == 'APPROVED' && review_params[:assigned_to_id].present?)
-        ConflictWaiverMailer.form_status_notification_to_lxp_by_internal_lawyers(@conflict_waiver).deliver_now 
-        ConflictWaiverMailer.form_status_notification_to_user(@conflict_waiver).deliver_now
-      else
+      if params[:review][:reviewable_type] == "ExceptionRequest"
+        @exception_request = ExceptionRequest.find_by_id(params[:review][:reviewable_id])
+        if current_user.role === 'lxp' && ( review_params[:status] == 'APPROVED' && review_params[:assigned_to_id].present?)
+          ExceptionRequestMailer.form_status_notification_to_lob(@exception_request).deliver_now
+          ExceptionRequestMailer.form_status_notification_to_law_firm(@exception_request).deliver_now
+        elsif current_user.role === 'lxp' && review_params[:assigned_to_id].present?
+          ExceptionRequestMailer.form_status_notification_to_internal_lawyer(@exception_request,params[:review][:assigned_to_id]).deliver_now
+        elsif
+          current_user.role === 'internal_lawyers' && ( review_params[:status] == 'APPROVED' && review_params[:assigned_to_id].present?)
+          ExceptionRequestMailer.form_status_notification_to_lxp(@exception_request).deliver_now
+          
+        else
+          ExceptionRequestMailer.form_status_notification_to_lxp(@exception_request).deliver_now
+          ExceptionRequestMailer.form_status_notification_to_lob(@exception_request).deliver_now
+        end
 
-        ConflictWaiverMailer.form_status_notification_to_user(@conflict_waiver).deliver_now
+      else
+        @conflict_waiver = ConflictWaiver.find_by_id(params[:review][:reviewable_id])
+        if current_user.role === 'lxp' && ( review_params[:status] == 'APPROVED' && review_params[:assigned_to_id].present?)
+    
+          ConflictWaiverMailer.form_status_notification_to_internal_lawyer(@conflict_waiver,params[:review][:assigned_to_id]).deliver_now
+          #ConflictWaiverMailer.form_status_approved_notification_to_law_firm_by_lxp(@conflict_waiver).deliver_now 
+        elsif
+          current_user.role === 'internal_lawyers' && ( review_params[:status] == 'APPROVED' && review_params[:assigned_to_id].present?)
+          ConflictWaiverMailer.form_status_notification_to_lxp_by_internal_lawyers(@conflict_waiver).deliver_now 
+          ConflictWaiverMailer.form_status_notification_to_user(@conflict_waiver).deliver_now
+        else
+          ConflictWaiverMailer.form_status_notification_to_user(@conflict_waiver).deliver_now
+        end
       end
-     
       redirect_to :back, notice: "Review Added"
 
 

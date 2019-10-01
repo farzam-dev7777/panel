@@ -1,0 +1,267 @@
+<style>
+    div#gauge * {
+      top: -25px;
+    }
+  </style>
+  
+  <div class="col-lg-3">
+    <%= link_to "<i class='fa fa-long-arrow-left'></i>".html_safe, admin_exception_requests_path, class: "btn btn-sm btn-default" %>
+    <%= link_to "<i class='fa fa-pencil-square-o'></i> Edit".html_safe, edit_admin_exception_request_path, class: "btn btn-sm btn-primary m-l-15 no-border" %>
+  </div>
+   
+  <div class="col-lg-12">
+      <div class="jarviswidget">
+    
+        <header>
+        </header>
+    
+        <!-- widget div-->
+        <div>
+          
+          <!-- widget edit box -->
+          
+          <!-- end widget edit box -->
+          
+          <!-- widget content -->
+          <div class="widget-body no-padding">
+    
+            <!-- widget body text-->
+            
+            <div class="tab-content padding-10">
+              <div class="tab-pane fade in active">
+                <div class="col-md-8">
+                  <div class="col-md-12">
+                    <div class="col-md-4 column">Requested By	</div>
+                    <div class="col-md-8 data"><%= @exception_request.requested_by %></div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="col-md-4 column">Submitted By</div>		
+                    <div class="col-md-8 data"><%= @exception_request.submitted_by_email %></div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="col-md-4 column">Line of Business	</div>		
+                    <div class="col-md-8 data"><%= @exception_request.requested_by %><%= @exception_request.line_of_business %></div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="col-md-4 column">Law Firm</div>		
+                    <div class="col-md-8 data">
+                        <div style="" class="firmDetails">
+                          <div class="col-md-8 tab-pane ">
+                            <div class="col-md-12">
+                              <div class="col-md-4 column">Name</div>
+                              <div class="col-md-8 data firmName"><%= @law_firms.name %></div>
+                            </div>
+                            <div class="col-md-12">
+                              <div class="col-md-4 column">Email</div>		
+                              <div class="col-md-8 data firmEmail"><%= @law_firms.email %></div>
+                            </div>
+                            <div class="col-md-12">
+                              <div class="col-md-4 column">Phone</div>		
+                              <div class="col-md-8 data firmPhone"><%= @law_firms.phone %></div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                      <div class="col-md-4 column">Business Manager Name</div>
+                      <div class="col-md-8 data"><%= @exception_request.business_manager_name %></div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="col-md-4 column">Business Manager Email</div>		
+                      <div class="col-md-8 data"><%= @exception_request.business_manager_email %></div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="col-md-4 column">Business Manager Phone	</div>		
+                      <div class="col-md-8 data"><%= @exception_request.business_manager_phone %></div>
+                    </div>
+                  <div class="col-md-12">
+                    <div class="col-md-4 column">LOB Contact Name	</div>		
+                    <div class="col-md-8 data"><%= @exception_request.lob_contact_name %></div>
+                  </div>
+                  <div class="col-md-12">
+                      <div class="col-md-4 column">Law Firm ID</div>		
+                      <div class="col-md-8 data"><%= @exception_request.law_firm_id %></div>
+                    </div>
+                  <div class="col-md-12">
+                      <div class="col-md-4 column">Request type</div>		
+                      <div class="col-md-8 data"><%= @exception_request.request_type %></div>
+                    </div>
+                  <div class="col-md-12">
+                    <div class="col-md-4 column">Law firm Category</div>		
+                    <div class="col-md-8 data"><%= @exception_request.law_firm_category %></div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="col-md-4 column">Minority Owned</div>		
+                    <div class="col-md-8 data"><%= @exception_request.minority_owned %></div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="col-md-4 column">Minority Owned Details</div>		
+                    <div class="col-md-8 data"><%= @exception_request.minority_owned_details %></div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="col-md-4 column">Women Owned</div>		
+                    <div class="col-md-8 data"><%= @exception_request.women_owned %></div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="col-md-4 column">Women Owned Details</div>		
+                    <div class="col-md-8 data"><%= @exception_request.women_owned_details %></div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="col-md-4 column">Matter Name</div>		
+                    <div class="col-md-8 data"><%= @exception_request.matter_name %></div>
+                  </div>	
+                  <div class="col-md-12">
+                    <div class="col-md-4 column">Matter Types</div>		
+                    <div class="col-md-8 data"></div>
+                  </div>	
+                  <div class="col-md-12">
+                    <div class="col-md-4 column">LXP Status</div>
+                    <div class="col-md-8 data"><%=  @exception_request.lxp_status_show   %></div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="col-md-4 column">Internal Lawyers Status</div>
+                    <div class="col-md-8 data"><%= @exception_request.internal_lawyers_status_show %></div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="col-md-4 column">Waiver Fully Approved</div>
+                    <div class="col-md-8 data"><%= @exception_request.fully_approved? ? "Yes" : "No" %></div>
+                  </div>
+                </div>
+              
+                <div class="clearfix"></div>
+    
+              </div>
+  
+            </div>
+            
+            <!-- end widget body text-->
+            
+          </div>
+          <!-- end widget content -->
+          
+        </div>
+        <!-- end widget div -->
+  
+        <div class="container">
+          <%- if @exception_request.can_user_change_status?(current_user) %>
+          <div class="table-responsive">
+            <%= simple_form_for [:admin, Review.new()] do |f| %>
+            <table class="table table-striped">
+              <tbody>
+                <% if @current_user.role != "lob"    %>
+                  <tr>
+                    <td class="text-right" width="20%"><strong>Comment</strong></td>
+                    <td>
+                      <%= f.input :description, label: false %>
+                      <%= f.input :reviewable_type, label: false, as: :hidden, input_html: { value: @exception_request.class.to_s } %>
+                      <%= f.input :reviewable_id, label: false, as: :hidden, input_html: { value: @exception_request.id } %>
+                    </td>
+                  </tr>	
+                <% end %>		
+                <% if @exception_request.waiting_for_internal_lawyers_approval? %>	
+                 <tr>
+                  <td class="text-right" width="20%"><strong>Status</strong></td>
+                  <td><%= f.input :status, label: false, collection: ExceptionRequest::EXCEPTION_REQUEST_STATUS.map{|value,key| [key, value]}%></td>
+                </tr> 
+                <% end %>	
+                <%- if @current_user.role === "lxp" && @exception_request.internal_lawyers_status.blank? %>
+                <tr class="internal_lawyers_box">
+                  <td class="text-right" width="20%"><strong>Assign to</strong></td>
+                  <td>
+                    <%= f.input :assigned_to_id, label: false, collection: User.where(role: "internal_lawyers").map{|user| [user.email, user.id] } %>
+                  </td>
+                </tr>
+                <% end %> 
+                <% if @current_user.role != "lob"  %>
+                <tr>
+                  <td colspan="2">
+                    <%= link_to 'Cancel', @exception_request.new_record? ? admin_exception_requests_path : admin_conflict_waiver_path, class: 'btn btn-danger btn-sm' %>
+                    <%= f.button :submit, @exception_request.new_record? ? "Submit Request" : "Update Status", class:  @current_user.role === "lxp" ? "lxp_sttaus" : "laywr_status" %>
+                  </td>
+                </tr>
+                <% end %> 
+              </tbody>
+            </table>
+            <% end %>
+          </div>
+          <% end %>
+        </div>
+      </div>
+      <!-- end widget -->			
+  </div>
+    
+  <div class="col-md-12">
+      <div class="jarviswidget jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+        <header class="no-border">
+          <span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
+          <h2 class="font-md"><strong>Review Logs </strong></h2>
+        </header>
+        <div>
+          <div class="clearfix"></div>
+          <!-- MAIN PANEL -->
+          <div role="main">
+            <!-- MAIN CONTENT -->
+            <div style="height: 500px;overflow-y: scroll;">
+              <!-- row -->
+              <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                  <div class="well well-sm">
+                    <!-- Timeline Content -->
+                    <div class="smart-timeline">
+                      <ul class="smart-timeline-list">
+                        <% @exception_request.reviews.reverse.each do |review| %>
+                        <% if review.status_from.blank? && review.status.blank? && review.assigned_to_id.present? %>
+                          <li data-id="<%= review.id %>">
+                              <div class="smart-timeline-icon">
+                                R
+                              </div>
+                              <div class="smart-timeline-time">
+                                <small><%= review.created_at.strftime('%d %b %Y at %I:%M %p') %></small>
+                              </div>
+                              <div class="smart-timeline-content">
+                                <p>
+                                  <strong>
+                                  <%= review.actor.email %> assigned exception request to internal lawyer for approval.
+                                  <strong>
+                                </p>
+                                <p>
+                                  <%= review.description %>
+                                </p>
+                              </div>
+                            </li>
+                        <% else %>
+                          <li data-id="<%= review.id %>">
+                            <div class="smart-timeline-icon">
+                              R
+                            </div>
+                            <div class="smart-timeline-time">
+                              <small><%= review.created_at.strftime('%d %b %Y at %I:%M %p') %></small>
+                            </div>
+                            <div class="smart-timeline-content">
+                              <p>
+                                <strong>
+                                <%= review.actor.email %> change status to <%= review.status_show %>
+                                <strong>
+                              </p>
+                              <p>
+                                <%= review.description %>
+                              </p>
+                            </div>
+                          </li>
+                          <% end %>
+                        <% end %>
+                      </ul>
+                    </div>
+                    <!-- END Timeline Content -->
+                  </div>
+                </div>
+              </div>
+              <!-- end row -->
+            </div>
+            <!-- END MAIN CONTENT -->
+          </div>
+          <!-- END MAIN PANEL -->
+        </div>
+      </div>
+    </div>

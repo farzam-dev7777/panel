@@ -17,11 +17,27 @@ class Review < ApplicationRecord
         self.reviewable.internal_lawyers_status = self.status
       end
     end
+    if self.reviewable.class.to_s === 'ExceptionRequest'
+      if self.actor.role === 'lxp';
+        self.reviewable.lxp_status = self.status
+        self.reviewable.lxp_id = self.actor_id
+        if self.status === 'APPROVED' || self.status.blank?
+          self.reviewable.internal_lawyers_id = self.assigned_to_id
+        end
+      elsif self.actor.role === 'internal_lawyers'
+        self.reviewable.internal_lawyers_status = self.status
+      end
+    end
     self.reviewable.save
   end
 
   def status_show
-
-    ConflictWaiver::CONFLICT_WAIVER_STATUS[self.status.to_sym]
+    if self.status.present?
+      if self.reviewable_type == "ExceptionRequest"
+        ExceptionRequest::EXCEPTION_REQUEST_STATUS[self.status.to_sym]
+      else
+        ConflictWaiver::CONFLICT_WAIVER_STATUS[self.status.to_sym]
+      end
+    end
    end
 end

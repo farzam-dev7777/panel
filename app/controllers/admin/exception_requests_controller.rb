@@ -5,13 +5,20 @@ class Admin::ExceptionRequestsController < Admin::BaseController
   add_breadcrumb "Dashboard", :root_path
 
   def index
-    @q = ExceptionRequest.ransack(params[:q])
-    @exception_requests = @q.result.order('created_at DESC')
+    if current_user.role === "lxp"
+      @exception_requests = ExceptionRequest.order('created_at DESC')
+    elsif current_user.role === "internal_lawyers"
+      @exception_requests = ExceptionRequest.where(internal_lawyers_id: current_user.id).order('created_at DESC')
+    else
+      @exception_requests = ExceptionRequest.where(user_id: current_user.id).order('created_at DESC')
+    end
+   
     add_breadcrumb "Exception request", :admin_exception_requests_path
   end
 
   def show
     @exception_request = ExceptionRequest.find(params[:id])
+
     if !@exception_request.user.try(:google_secret)
       @exception_request.user.try(:set_google_secret)
     end
@@ -24,12 +31,14 @@ class Admin::ExceptionRequestsController < Admin::BaseController
     @exception_request = ExceptionRequest.new(exception_requests_params)
 
     if @exception_request.save
+      ExceptionRequestMailer.form_submission_notification_to_lob(@exception_request).deliver_now
+      ExceptionRequestMailer.form_submission_notification_to_lxp(@exception_request).deliver_now
       flash[:notice] = "Exception request saved"
       redirect_to :admin_exception_requests
     else
       @law_firms = LawFirm.all
-      @current_admin_user_email = current_admin_user.email
-      @current_admin_user_id = current_admin_user.id
+      @current_admin_user_email = current_user.email
+      @current_admin_user_id = current_user.id
       flash[:alert] = "There was an error submiting the exception request"
       render :new
       

@@ -238,8 +238,9 @@ $('.lxp_sttaus').on('click', function(e){
 			 $('#new_review').submit()
 			}
 		});
+		return false
 	 }
-	 return false
+	 
 	});
 function toast(text){
 	$.toast({
