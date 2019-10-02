@@ -21,14 +21,27 @@ class Admin::ReviewsController < Admin::BaseController
 
     if @review.save
       if params[:review][:reviewable_type] == "ExceptionRequest"
+        
         @exception_request = ExceptionRequest.find_by_id(params[:review][:reviewable_id])
-        if current_user.role === 'lxp' && ( review_params[:status] == 'APPROVED' && review_params[:assigned_to_id].present?)
+        if current_user.role === 'lxp' && review_params[:status] == 'APPROVED'
+          # pay tyep
+          if params[:review][:pay_type] == "THIRD_PAARTY_PAY"
+            signer_email =  @exception_request.user.email
+            signer_name =  @exception_request.user.username
+            @exception_request.send_retainer_for_esigning(signer_email, signer_name)
+
+          elsif params[:review][:pay_type] == "BANK_PAY"
+            signer_email =  @exception_request.law_firm.user.email
+            signer_name =  @exception_request.law_firm.user.username
+            @exception_request.send_retainer_for_esigning(signer_email, signer_name)
+          end
+
           ExceptionRequestMailer.form_status_notification_to_lob(@exception_request).deliver_now
           ExceptionRequestMailer.form_status_notification_to_law_firm(@exception_request).deliver_now
         elsif current_user.role === 'lxp' && review_params[:assigned_to_id].present?
           ExceptionRequestMailer.form_status_notification_to_internal_lawyer(@exception_request,params[:review][:assigned_to_id]).deliver_now
         elsif
-          current_user.role === 'internal_lawyers' && ( review_params[:status] == 'APPROVED' && review_params[:assigned_to_id].present?)
+          current_user.role === 'internal_lawyers' && review_params[:status] == 'APPROVED'
           ExceptionRequestMailer.form_status_notification_to_lxp(@exception_request).deliver_now
         else
           if current_user.role === 'internal_lawyers'

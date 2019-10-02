@@ -72,6 +72,12 @@ class ExceptionRequest < ApplicationRecord
     JSON.parse(self.read_attribute(:matter_types) || '{}').reject(&:blank?)
   end
 
+  def pay_type_show
+    if self.pay_type.present?
+      ExceptionRequest::EXCEPTION_REQUEST_PAY_TYPE[self.pay_type.to_sym]
+    end
+  end
+
   def send_retainer_for_esigning(signer_email, signer_name)
     args = {
       envelope_args: {

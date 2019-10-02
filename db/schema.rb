@@ -170,12 +170,12 @@ ActiveRecord::Schema.define(version: 20191002144917) do
     t.string   "business_manager_name"
     t.string   "business_manager_phone"
     t.string   "business_manager_email"
-    t.string   "docusign_envelope_id"
     t.string   "lxp_status"
     t.integer  "lxp_id"
     t.string   "internal_lawyers_status"
     t.integer  "internal_lawyers_id"
     t.string   "pay_type"
+    t.string   "docusign_envelope_id"
   end
 
   create_table "faq_categories", force: :cascade do |t|
@@ -537,8 +537,9 @@ ActiveRecord::Schema.define(version: 20191002144917) do
 
   create_table "system_settings", force: :cascade do |t|
     t.float    "score_threshold"
-    t.datetime "created_at",      precision: 6, null: false
-    t.datetime "updated_at",      precision: 6, null: false
+    t.datetime "created_at",            precision: 6, null: false
+    t.datetime "updated_at",            precision: 6, null: false
+    t.text     "docusign_access_token"
   end
 
   create_table "technologies", force: :cascade do |t|

@@ -115,6 +115,16 @@
               <div class="col-md-4 column">Waiver Fully Approved</div>
               <div class="col-md-8 data"><%= @exception_request.fully_approved? ? "Yes" : "No" %></div>
             </div>
+            <% if @exception_request.docusign_envelope_id.present? %>
+             <div class="col-md-12">
+                <div class="col-md-4 column">Pay Type</div>
+                <div class="col-md-8 data"><%= @exception_request.pay_type_show %></div>
+              </div>
+              <div class="col-md-12">
+                  <div class="col-md-4 column">Document Status</div>
+                  <div class="col-md-8 data"><%= @exception_request.docusign_retainer_envelope.status %></div>
+                </div>
+            <% end %>	
           </div>
         
           <div class="clearfix"></div>
