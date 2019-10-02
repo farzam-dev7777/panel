@@ -53,8 +53,8 @@ class Admin::ExceptionRequestsController < Admin::BaseController
       redirect_to admin_exception_request_path(@exception_request)
     else
       @law_firms = LawFirm.all
-      @current_admin_user_email = current_admin_user.email
-      @current_admin_user_id = current_admin_user.id
+      @current_admin_user_email = current_user.email
+      @current_admin_user_id = current_user.id
       flash[:alert] = "There was an error submiting the exception request"
       render :new
     end
@@ -63,8 +63,8 @@ class Admin::ExceptionRequestsController < Admin::BaseController
   def new
   	@exception_request = ExceptionRequest.new
     @law_firms = LawFirm.all
-    @current_admin_user_email = current_admin_user.email
-    @current_admin_user_id = current_admin_user.id
+    @current_admin_user_email = current_user.email
+    @current_admin_user_id = current_user.id
   end
 
   def edit
@@ -87,7 +87,7 @@ class Admin::ExceptionRequestsController < Admin::BaseController
       :lob_contact_name, :law_firm_id, :request_type,
       :law_firm_category, :minority_owned, :minority_owned_details,
       :business_manager_name, :business_manager_phone, :business_manager_email,
-      :women_owned, :women_owned_details, :matter_name, :law_firm_name   #, matter_types: []
+      :women_owned, :women_owned_details, :matter_name, :law_firm_name
     )
   end
 

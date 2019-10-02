@@ -29,10 +29,12 @@ class Admin::ReviewsController < Admin::BaseController
         elsif
           current_user.role === 'internal_lawyers' && ( review_params[:status] == 'APPROVED' && review_params[:assigned_to_id].present?)
           ExceptionRequestMailer.form_status_notification_to_lxp(@exception_request).deliver_now
-          
         else
-          ExceptionRequestMailer.form_status_notification_to_lxp(@exception_request).deliver_now
-          ExceptionRequestMailer.form_status_notification_to_lob(@exception_request).deliver_now
+          if current_user.role === 'internal_lawyers'
+            ExceptionRequestMailer.form_status_notification_to_lxp(@exception_request).deliver_now
+          else
+            ExceptionRequestMailer.form_status_notification_to_lob(@exception_request).deliver_now
+          end
         end
 
       else
@@ -61,7 +63,7 @@ class Admin::ReviewsController < Admin::BaseController
   private
 
   def review_params
-    params.require(:review).permit(:description, :status, :assigned_to_id)
+    params.require(:review).permit(:description, :status, :assigned_to_id, :pay_type)
   end
 
 end

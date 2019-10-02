@@ -242,6 +242,36 @@ $('.lxp_sttaus').on('click', function(e){
 	 }
 	 
 	});
+$('.lxp_excepation_sttaus').on('click', function(e){
+
+	if($('select#review_status').chosen().val() == "APPROVED"){
+		PAY_TYPE = $('select#review_pay_type').chosen().val()
+		// if(PAY_TYPE == "BANK_PAY"){
+		// 	message = ""
+		// }else{
+
+		// }
+
+		swal({
+			title: "Are you sure you would like to approve this.",
+			text: "",
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#DD6B55",
+			confirmButtonText: "Ok",
+			cancelButtonText: "Cancel",
+			closeOnConfirm: true,
+			closeOnCancel: true
+		},
+		function(isConfirm){
+			if (isConfirm) {
+			$('#new_review').submit()
+			}
+		});
+		return false
+	}
+	
+	});
 function toast(text){
 	$.toast({
     heading: 'Information',

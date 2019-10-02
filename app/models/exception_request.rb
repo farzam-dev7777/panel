@@ -46,6 +46,10 @@ class ExceptionRequest < ApplicationRecord
     "APPROVED": "Approved",
     "REJECTED": "Rejected"
   }
+  EXCEPTION_REQUEST_PAY_TYPE = {
+    "BANK_PAY": "Bank Pay",
+    "THIRD_PAARTY_PAY": "Third Party Pay"
+  }
 
   def waiting_for_internal_lawyers_approval?
     self.lxp_id.present? && self.internal_lawyers_id.present? &&  self.lxp_status.nil?

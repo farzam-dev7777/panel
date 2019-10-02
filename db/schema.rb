@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191001173038) do
+ActiveRecord::Schema.define(version: 20191002043306) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -174,6 +174,7 @@ ActiveRecord::Schema.define(version: 20191001173038) do
     t.integer  "lxp_id"
     t.string   "internal_lawyers_status"
     t.integer  "internal_lawyers_id"
+    t.string   "pay_type"
   end
 
   create_table "faq_categories", force: :cascade do |t|

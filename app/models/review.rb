@@ -4,6 +4,8 @@ class Review < ApplicationRecord
   belongs_to :assigned_to, class_name: 'User'
 
   after_save :update_reviewable_status
+
+  attr_accessor :pay_type
   
   def update_reviewable_status
     if self.reviewable.class.to_s === 'ConflictWaiver'
@@ -22,6 +24,8 @@ class Review < ApplicationRecord
         self.reviewable.lxp_status = self.status
         self.reviewable.lxp_id = self.actor_id
         if self.status === 'APPROVED' || self.status.blank?
+
+          #self.reviewable.pay_type = self.pay_type
           self.reviewable.internal_lawyers_id = self.assigned_to_id
         end
       elsif self.actor.role === 'internal_lawyers'

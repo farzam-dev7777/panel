@@ -1,2 +1,23 @@
-<%= render "#{current_user.role}_show" %>
+<style>
+    div#gauge * {
+      top: -25px;
+    }
+  </style>
+  
+  <div class="col-lg-3">
+    <%= link_to "<i class='fa fa-long-arrow-left'></i>".html_safe, admin_exception_requests_path, class: "btn btn-sm btn-default" %>
+    <% if current_user.role == "lob" %>
+      <%= link_to "<i class='fa fa-pencil-square-o'></i> Edit".html_safe, edit_admin_exception_request_path, class: "btn btn-sm btn-primary m-l-15 no-border" %>
+    <% end %>
+  </div>
+
+   
+  <div class="col-lg-12">
+    <div class="jarviswidget">
+      <%= render "exception_request"  %>
+    </div>
+  </div>  
+
+
+ <%= render "#{current_user.role}_show" %>
 
