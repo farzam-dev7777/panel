@@ -25,7 +25,7 @@ class Review < ApplicationRecord
         self.reviewable.lxp_id = self.actor_id
         if self.status === 'APPROVED' || self.status.blank?
 
-          #self.reviewable.pay_type = self.pay_type
+          self.reviewable.pay_type = self.pay_type
           self.reviewable.internal_lawyers_id = self.assigned_to_id
         end
       elsif self.actor.role === 'internal_lawyers'
