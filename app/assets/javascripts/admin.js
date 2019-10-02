@@ -244,14 +244,14 @@ $('.lxp_excepation_sttaus').on('click', function(e){
 
 	if($('select#review_status').chosen().val() == "APPROVED"){
 		PAY_TYPE = $('select#review_pay_type').chosen().val()
-		// if(PAY_TYPE == "BANK_PAY"){
-		// 	message = ""
-		// }else{
-
-		// }
+		if(PAY_TYPE == "BANK_PAY"){
+			message = "Confirm To Emails Retainer and Forms to Law firm to fill/sign ?"
+		}else{
+			message = "Confirm To Emails Retainer to LOB to sign"
+		}
 
 		swal({
-			title: "Are you sure you would like to approve this.",
+			title: message,
 			text: "",
 			type: "warning",
 			showCancelButton: true,

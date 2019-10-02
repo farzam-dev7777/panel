@@ -35,8 +35,16 @@ class ConflictWaiver < ApplicationRecord
   def lxp_status_show
     ConflictWaiver::CONFLICT_WAIVER_STATUS[self.lxp_status.try(:to_sym)]
   end
+
   def internal_lawyers_status_show
-    ConflictWaiver::CONFLICT_WAIVER_STATUS[self.lxp_status.try(:to_sym)]
+    if self.lxp_status.present?
+      ConflictWaiver::CONFLICT_WAIVER_STATUS[self.lxp_status.to_sym]
+    end
+  end
+  def internal_lawyers_status_show
+    if self.lxp_status.present?
+     ConflictWaiver::CONFLICT_WAIVER_STATUS[self.lxp_status.to_sym]
+    end
   end
   
   def log_activity(event_type, notify = false, current_user)
