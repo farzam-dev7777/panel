@@ -55,7 +55,9 @@
           </tr>
           <tr>
             <td class="text-right" width="20%"><strong>Law Firm</strong></td>
-            <td><%= f.input :law_firm_name, label: false, collection: @law_firms.map{ |law_firm| ["#{law_firm.name} - #{law_firm.id}", law_firm.id] }, prompt: "Select Firm" %>
+            <td>
+              <%= f.input :law_firm_name, label: false, collection: @law_firms.map{ |law_firm| ["#{law_firm.name} - #{law_firm.id}", law_firm.id] }, prompt: "Select Firm" %>
+              <%= f.input :law_firm_id, as: :hidden %>
               <div style="display: none;" class="firmDetails">
                 <div class="col-md-8 tab-pane ">
                   <div class="col-md-12">
@@ -97,11 +99,6 @@
               <td class="text-right" width="20%"><strong>Business Manager Phone</strong></td>
               <td><%= f.input :business_manager_phone, label: false %></td>
             </tr>
-            <tr>
-          <tr>
-            <td class="text-right" width="20%"><strong>Law Firm ID</strong></td>
-            <td><%= f.input :law_firm_id, label: false, collection: @law_firms.map{ |law_firm| [law_firm.id, law_firm.id] } , input_html: { readonly: true } %></td>
-          </tr>
           <tr>
             <td class="text-right" width="20%"><strong>Law firm Category</strong></td>
             <td><%= f.input :law_firm_category, label: false, collection:ExceptionRequest::LAW_FIRM_CATEGORIES.map{ |k,v| [v,k]} %>
@@ -131,7 +128,7 @@
           </tr>
           <tr>
             <td class="text-right" width="20%"><strong>Matter Types</strong></td>
-            <td><%= f.input :matter_types, label: false, collection: ExceptionRequest::MATTER_TYPES, multiple: false, input_html: { multiple: false }%></td>
+            <td><%= f.input :matter_types, label: false, collection: ExceptionRequest::MATTER_TYPES, multiple: false, input_html: { multiple: false, multiple: true }%></td>
           </tr>
 
 						<tr>

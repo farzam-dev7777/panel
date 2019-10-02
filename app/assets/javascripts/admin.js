@@ -70,19 +70,19 @@ $(document).ready(function(){
 				 })
 					 .done(function( data ) {
 						 if(data){
-							 
-							 $('.firmDetails .firmName').html(data.data.name)
-							 $('.firmDetails .firmEmail').html(data.data.email)
-							 $('.firmDetails .firmPhone').html(data.data.phone)
-							 $('.firmDetails').show()
+								$("#exception_request_law_firm_id").val(data.data.id);
+								$('.firmDetails .firmName').html(data.data.name)
+								$('.firmDetails .firmEmail').html(data.data.email)
+								$('.firmDetails .firmPhone').html(data.data.phone)
+								$('.firmDetails').show()
 						 }
 					 });
 			 }
 		}
 	 }
 	 $('select#exception_request_law_firm_name').on('change', function() {
-		 if(this.value){
-			 //$('select#exception_request_law_firm_id').val(this.value).prop('selected', true);
+			$("#exception_request_law_firm_id").val(""); 
+			if(this.value){
 			 $.ajax({
 				 url: "/admin/law_firms/get_detail",
 				 method: "post",
@@ -90,7 +90,7 @@ $(document).ready(function(){
 			 })
 				 .done(function( data ) {
 					 if(data){
-						 
+						 $("#exception_request_law_firm_id").val(data.data.id);
 						 $('.firmDetails .firmName').html(data.data.name)
 						 $('.firmDetails .firmEmail').html(data.data.email)
 						 $('.firmDetails .firmPhone').html(data.data.phone)
@@ -155,7 +155,6 @@ $(document).ready(function(){
 				})
 					.done(function( data ) {
 						if(data){
-							
 							$('.firmDetails .firmName').html(data.data.name)
 							$('.firmDetails .firmEmail').html(data.data.email)
 							$('.firmDetails .firmPhone').html(data.data.phone)
@@ -175,10 +174,9 @@ $(document).ready(function(){
 			})
 				.done(function( data ) {
 					if(data){
-						
-						$('.firmDetails .firmName').html(data.data.name)
-						$('.firmDetails .firmEmail').html(data.data.email)
-						$('.firmDetails .firmPhone').html(data.data.phone)
+						$('.firmDetails .firmName').html(data.data.name);
+						$('.firmDetails .firmEmail').html(data.data.email);
+						$('.firmDetails .firmPhone').html(data.data.phone);
 						$('.firmDetails').show()
 					}
 				});

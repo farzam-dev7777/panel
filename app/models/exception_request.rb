@@ -69,4 +69,8 @@ class ExceptionRequest < ApplicationRecord
       ExceptionRequest::EXCEPTION_REQUEST_STATUS[self.internal_lawyers_status.to_sym]
     end
   end
+
+  def matter_types
+    JSON.parse(self.read_attribute(:matter_types)).reject(&:blank?)
+  end
 end
