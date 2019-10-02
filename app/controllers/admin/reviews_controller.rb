@@ -14,10 +14,11 @@ class Admin::ReviewsController < Admin::BaseController
     @review = @reviewable.reviews.build(review_params.merge(
       {
         actor_id: current_user.id,
+        pay_type: params[:review][:pay_type],
         status_from: current_user.role === 'lxp' ? @reviewable.lxp_status : @reviewable.internal_lawyers_status
       }
     ))
-    
+
     if @review.save
       if params[:review][:reviewable_type] == "ExceptionRequest"
         @exception_request = ExceptionRequest.find_by_id(params[:review][:reviewable_id])
