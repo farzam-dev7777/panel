@@ -8,8 +8,15 @@ class Admin::SystemSettingsController < Admin::BaseController
   end
 
   def update
-  	@settings.update_attributes(settings_params)
-		render json: :ok
+    if @settings.update_attributes(settings_params)
+      if request.xhr?
+        render json: :ok
+      else
+        redirect_to :back, notice: "Settings saved"
+      end
+    else
+      redirect_to :back, alert: "Settings NOT saved"
+    end
   end
 
   def edit
@@ -23,11 +30,11 @@ class Admin::SystemSettingsController < Admin::BaseController
 
   def find_system_settings
     @severity_levels = SeverityLevel.all
-    @settings = SystemSetting.last || SystemSetting.create
+    @settings = SystemSetting.fetch
   end
 
   def settings_params
-  	params.require(:system_setting).permit(:score_threshold)
+  	params.require(:system_setting).permit(:score_threshold, :docusign_access_token)
   end
 
 end
