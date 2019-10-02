@@ -20,6 +20,7 @@ gem 'wkhtmltopdf-binary'
 gem 'google-authenticator-rails', '~> 1.6.1'
 gem 'rollbar'
 gem 'country_select'
+gem 'docusign_esign'
 
 gem 'public_uid'
 gem 'mixpanel-ruby'

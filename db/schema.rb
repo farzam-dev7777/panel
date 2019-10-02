@@ -163,19 +163,27 @@ ActiveRecord::Schema.define(version: 20191002043306) do
     t.string   "women_owned"
     t.text     "women_owned_details"
     t.string   "matter_name"
+<<<<<<< HEAD
     t.datetime "created_at",              precision: 6, null: false
     t.datetime "updated_at",              precision: 6, null: false
+=======
+    t.datetime "created_at",             precision: 6, null: false
+    t.datetime "updated_at",             precision: 6, null: false
+>>>>>>> docusign
     t.text     "matter_types"
     t.string   "law_firm_name"
     t.string   "business_manager_name"
     t.string   "business_manager_phone"
     t.string   "business_manager_email"
     t.string   "docusign_envelope_id"
+<<<<<<< HEAD
     t.string   "lxp_status"
     t.integer  "lxp_id"
     t.string   "internal_lawyers_status"
     t.integer  "internal_lawyers_id"
     t.string   "pay_type"
+=======
+>>>>>>> docusign
   end
 
   create_table "faq_categories", force: :cascade do |t|
