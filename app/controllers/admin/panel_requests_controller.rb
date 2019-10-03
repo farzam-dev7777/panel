@@ -21,9 +21,7 @@ class Admin::PanelRequestsController < Admin::BaseController
   end
 
   def create
-
     @panel_request = PanelRequest.new(panel_requests_params)
-
     if @panel_request.save
       flash[:notice] = "Panel request saved"
       redirect_to :admin_panel_requests
@@ -53,15 +51,14 @@ class Admin::PanelRequestsController < Admin::BaseController
   end
 
   def new
-  	@panel_request = PanelRequest.new
-    @law_firms = LawFirm.all
+    @panel_request = PanelRequest.new
+    @panel_request.build_law_firm
     @current_admin_user_email = current_admin_user.email
     @current_admin_user_id = current_admin_user.id
   end
 
   def edit
     @panel_request = PanelRequest.find(params[:id])
-    @law_firms = LawFirm.all
     @current_admin_user_email = @panel_request.submitted_by_email
     @current_admin_user_id = @panel_request.user_id
 
@@ -79,7 +76,7 @@ class Admin::PanelRequestsController < Admin::BaseController
       :lob_contact_name, :law_firm_id, :request_type,
       :business_manager_name, :business_manager_phone, :business_manager_email,
       :law_firm_category, :minority_owned, :minority_owned_details,
-      :women_owned, :women_owned_details, :law_firm_name
+      :women_owned, :women_owned_details, :law_firm_name,  matter_types: [], law_firm_attributes: [:name, :email, :phone, :description, :relationship_manager_name, :relationship_manager_email, :relationship_manager_phone, :temp_password, :temp_password_confirmation ]
     )
   end
 

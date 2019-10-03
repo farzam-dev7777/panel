@@ -47,7 +47,7 @@ class LawFirm < ApplicationRecord
   RESPONSIVENESS_SCORE_WEIGHTAGE = 0.4
   ASSESSOR_SCORE_WEIGHTAGE = 0.2
 
-  attr_accessor :temp_password
+  attr_accessor :temp_password, :temp_password_confirmation
 
   def password_complexity
     return true if temp_password.blank? && !self.new_record?

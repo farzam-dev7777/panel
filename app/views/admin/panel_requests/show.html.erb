@@ -29,91 +29,95 @@
 						
 						<div class="tab-content padding-10">
 							<div class="tab-pane fade in active">
-								<div class="col-md-8">
+								<div class="col-md-12">
 									<div class="col-md-12">
-										<div class="col-md-4 column">Requested By	</div>
-										<div class="col-md-8 data"><%= @panel_request.requested_by %></div>
+										<div class="col-md-3 column">Requested By	</div>
+										<div class="col-md-9 data"><%= @panel_request.requested_by %></div>
 									</div>
 									<div class="col-md-12">
-										<div class="col-md-4 column">Submitted By</div>		
-										<div class="col-md-8 data"><%= @panel_request.submitted_by_email %></div>
+										<div class="col-md-3 column">Submitted By</div>		
+										<div class="col-md-9 data"><%= @panel_request.submitted_by_email %></div>
 									</div>
 									<div class="col-md-12">
-										<div class="col-md-4 column">Line of Business	</div>		
-										<div class="col-md-8 data"><%= @panel_request.requested_by %><%= @panel_request.line_of_business %></div>
+										<div class="col-md-3 column">Line of Business	</div>		
+										<div class="col-md-9 data"><%= @panel_request.requested_by %><%= @panel_request.line_of_business %></div>
 									</div>
 									<div class="col-md-12">
-										<div class="col-md-4 column">Law Firm</div>		
-										<div class="col-md-8 data">
+										<div class="col-md-3 column">LOB Contact Name	</div>		
+										<div class="col-md-9 data"><%= @panel_request.lob_contact_name %></div>
+									</div>
+									<div class="col-md-12">
+										<div class="col-md-3 column">Business Manager Name</div>
+										<div class="col-md-9 data"><%= @panel_request.business_manager_name %></div>
+									</div>
+									<div class="col-md-12">
+										<div class="col-md-3 column">Business Manager Email</div>		
+										<div class="col-md-9 data"><%= @panel_request.business_manager_email %></div>
+									</div>
+									<div class="col-md-12">
+										<div class="col-md-3 column">Business Manager Phone	</div>		
+										<div class="col-md-9 data"><%= @panel_request.business_manager_phone %></div>
+									</div>	
+									<div class="col-md-12">
+											<div class="col-md-3 column">Law firm Category</div>		
+											<div class="col-md-9 data"><%= @panel_request.law_firm_category %></div>
+										</div>		
+									<div class="col-md-12">
+										<div class="col-md-3 column">Law Firm</div>		
+										<div class="col-md-9 data">
 												<div style="" class="firmDetails">
-													<div class="col-md-8 tab-pane ">
+													<div class="col-md-9 tab-pane ">
 														<div class="col-md-12">
-															<div class="col-md-4 column">Name</div>
-															<div class="col-md-8 data firmName"><%= @law_firms.name %></div>
+															<div class="col-md-3 column">Name : </div>
+															<div class="col-md-9 data firmName"><%= @panel_request.law_firm.name %></div>
 														</div>
 														<div class="col-md-12">
-															<div class="col-md-4 column">Email</div>		
-															<div class="col-md-8 data firmEmail"><%= @law_firms.email %></div>
+															<div class="col-md-3 column">Email : </div>		
+															<div class="col-md-9 data firmEmail"><%= @panel_request.law_firm.email %></div>
 														</div>
 														<div class="col-md-12">
-															<div class="col-md-4 column">Phone</div>		
-															<div class="col-md-8 data firmPhone"><%= @law_firms.phone %></div>
+															<div class="col-md-3 column">Phone : </div>		
+															<div class="col-md-9 data firmPhone"><%= @panel_request.law_firm.phone %></div>
+														</div>
+														<div class="col-md-12">
+															<div class="col-md-3 column">Description : </div>		
+															<div class="col-md-9 data firmPhone"><%= @panel_request.law_firm.description %></div>
+														</div>
+														<div class="col-md-12">
+															<div class="col-md-3 column">Relationship Manager Name :	</div>		
+															<div class="col-md-9 data firmPhone"><%= @panel_request.law_firm.relationship_manager_name %></div>
+														</div>
+														<div class="col-md-12">
+															<div class="col-md-3 column">Relationship Manager Email : </div>		
+															<div class="col-md-9 data firmPhone"><%= @panel_request.law_firm.relationship_manager_email %></div>
+														</div>
+														<div class="col-md-12">
+															<div class="col-md-3 column">Relationship Manager Phone : </div>		
+															<div class="col-md-9 data firmPhone"><%= @panel_request.law_firm.relationship_manager_phone %></div>
 														</div>
 													</div>
 												</div>
 										</div>
 									</div>
 									<div class="col-md-12">
-											<div class="col-md-4 column">Business Manager Name</div>
-											<div class="col-md-8 data"><%= @panel_request.business_manager_name %></div>
-										</div>
-										<div class="col-md-12">
-											<div class="col-md-4 column">Business Manager Email</div>		
-											<div class="col-md-8 data"><%= @panel_request.business_manager_email %></div>
-										</div>
-										<div class="col-md-12">
-											<div class="col-md-4 column">Business Manager Phone	</div>		
-											<div class="col-md-8 data"><%= @panel_request.business_manager_phone %></div>
-										</div>
-									<div class="col-md-12">
-										<div class="col-md-4 column">LOB Contact Name	</div>		
-										<div class="col-md-8 data"><%= @panel_request.lob_contact_name %></div>
+										<div class="col-md-3 column">Minority Owned</div>		
+										<div class="col-md-9 data"><%= @panel_request.minority_owned %></div>
 									</div>
 									<div class="col-md-12">
-											<div class="col-md-4 column">Law Firm ID</div>		
-											<div class="col-md-8 data"><%= @panel_request.law_firm_id %></div>
-										</div>
-									<div class="col-md-12">
-											<div class="col-md-4 column">Request type</div>		
-											<div class="col-md-8 data"><%= @panel_request.request_type %></div>
-										</div>
-									<div class="col-md-12">
-										<div class="col-md-4 column">Law firm Category</div>		
-										<div class="col-md-8 data"><%= @panel_request.law_firm_category %></div>
+										<div class="col-md-3 column">Minority Owned Details</div>		
+										<div class="col-md-9 data"><%= @panel_request.minority_owned_details %></div>
 									</div>
 									<div class="col-md-12">
-										<div class="col-md-4 column">Minority Owned</div>		
-										<div class="col-md-8 data"><%= @panel_request.minority_owned %></div>
+										<div class="col-md-3 column">Women Owned</div>		
+										<div class="col-md-9 data"><%= @panel_request.women_owned %></div>
 									</div>
 									<div class="col-md-12">
-										<div class="col-md-4 column">Minority Owned Details</div>		
-										<div class="col-md-8 data"><%= @panel_request.minority_owned_details %></div>
+										<div class="col-md-3 column">Women Owned Details</div>		
+										<div class="col-md-9 data"><%= @panel_request.women_owned_details %></div>
 									</div>
 									<div class="col-md-12">
-										<div class="col-md-4 column">Women Owned</div>		
-										<div class="col-md-8 data"><%= @panel_request.women_owned %></div>
-									</div>
-									<div class="col-md-12">
-										<div class="col-md-4 column">Women Owned Details</div>		
-										<div class="col-md-8 data"><%= @panel_request.women_owned_details %></div>
-									</div>
-									<div class="col-md-12">
-										<div class="col-md-4 column">Matter Name</div>		
-										<div class="col-md-8 data"><%= @panel_request.matter_name %></div>
-									</div>	
-									<div class="col-md-12">
-										<div class="col-md-4 column">Matter Types</div>		
-										<div class="col-md-8 data"></div>
+										<div class="col-md-3 column">Matter Types</div>		
+										<div class="col-md-9 data"><%= @panel_request.matter_types.join(", ") %></div>
 									</div>	
 								</div>
 							

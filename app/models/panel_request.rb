@@ -4,6 +4,8 @@ class PanelRequest < ApplicationRecord
 
   self.per_page = 10
   belongs_to :user
+  belongs_to :law_firm
+  accepts_nested_attributes_for :law_firm
 
   LOB_LIST = ["Canadian P&C", "Capital Markets", "Corporate", "Technology & Operations", "US P&C", "Wealth Management"]
   REQUEST_TYPE = {
@@ -21,5 +23,8 @@ class PanelRequest < ApplicationRecord
 
   validates_presence_of :requested_by, :submitted_by_email, :line_of_business, :lob_contact_name, :law_firm_category, :minority_owned, :women_owned
 
-  belongs_to :law_firm
+  def matter_types
+    JSON.parse(self.read_attribute(:matter_types) || '{}').reject(&:blank?)
+  end
+
 end

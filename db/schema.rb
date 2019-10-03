@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191002144917) do
+ActiveRecord::Schema.define(version: 20191003163528) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -347,7 +347,6 @@ ActiveRecord::Schema.define(version: 20191002144917) do
     t.boolean  "profile_completed",                                               default: false
     t.integer  "max_users"
     t.string   "public_uid"
-    t.string   "temp_password_confirmation"
     t.boolean  "updated_by_lawfirm",                                              default: false
     t.datetime "initial_date_of_engagement_with_the_bank",          precision: 6
     t.text     "type_of_matters_your_law_firm_handles_for_us"

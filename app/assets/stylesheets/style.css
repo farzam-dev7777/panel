@@ -160,7 +160,11 @@ span.sub-fields-arrow:before {
   font-size: 14px;
   margin-bottom: 5px;
 }
-
+.col-md-9.data {
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
 .fa.timeline-icon {
 	padding: 18px 19px;
 	color: #fff;
