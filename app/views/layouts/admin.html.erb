@@ -168,10 +168,11 @@
 						<a href="/admin/exception_requests" title="blank_"><i class="fa fa-lg fa-fw fa-list"></i> <span class="menu-item-parent">Exception Requests</span></a>
 					</li>
 				<% end %>
-
-				<!-- <li class="<%= active_menu_item('/admin/conflict_waivers') %>">
-					<a href="/admin/conflict_waivers" title="blank_"><i class="fa fa-lg fa-fw fa-list"></i> <span class="menu-item-parent">Conflict Waiver</span></a>
-				</li> -->
+				<% if current_user && (  current_user.role == 'lxp' || current_user.role == 'internal_lawyers' ) %>
+					<li class="<%= active_menu_item('/admin/conflict_waivers') %>">
+						<a href="/admin/conflict_waivers" title="blank_"><i class="fa fa-lg fa-fw fa-list"></i> <span class="menu-item-parent">Conflict Waiver</span></a>
+					</li>
+					<% end %>	
 				<% if current_user && current_user.role == 'lxp' %>
 					<li class="<%= active_menu_item('/admin/panel_requests') %>">
 						<a href="/admin/panel_requests" title="blank_"><i class="fa fa-lg fa-fw fa-list"></i> <span class="menu-item-parent">Panel Request Form</span></a>
