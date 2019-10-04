@@ -49,9 +49,9 @@
               <td><%= exception_request.submitted_by_email %></td>
               <td><%= exception_request.lob_contact_name %></td>
               <td>
-                <!-- <% if exception_request.try(:lxp_status) != 'APPROVED' %>
-                  <%= link_to "Review", edit_admin_exception_request_path(exception_request), class: "btn btn-xs btn-primary" %>
-                <% end %>	 -->
+                <% if current_user.role == 'lob' &&  exception_request.try(:lxp_status) != 'APPROVED' %>
+                  <%= link_to "Edit", edit_admin_exception_request_path(exception_request), class: "btn btn-xs btn-primary" %>
+                <% end %> 
                 <%= link_to "Review", admin_exception_request_path(exception_request), class: "btn btn-xs btn-secondary" %>	
               </td>
             </tr>

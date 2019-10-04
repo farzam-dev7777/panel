@@ -23,8 +23,11 @@ class Review < ApplicationRecord
       if self.actor.role === 'lxp';
         self.reviewable.lxp_status = self.status
         self.reviewable.lxp_id = self.actor_id
+        if self.assigned_to_id.present?
+          self.reviewable.internal_lawyers_id = self.assigned_to_id
+        end
         if self.status === 'APPROVED' || self.status.blank?
-
+          
           self.reviewable.pay_type = self.pay_type
           
         end

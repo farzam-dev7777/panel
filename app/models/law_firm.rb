@@ -80,6 +80,7 @@ class LawFirm < ApplicationRecord
                              password_confirmation: self.temp_password_confirmation,
                              role: 'master_user',
                              law_firm_id: self.id)
+                      
     user.set_google_secret
   end
 

@@ -50,26 +50,30 @@
 				<span> <a href="/users/sign_out" title="Sign Out" data-action="userLogout" data-logout-msg="You can improve your security further after logging out by closing this opened browser"><i class="fa fa-sign-out"></i></a> </span>
 			</div>
 			<!-- end logout button -->
-			<div class="project-context form_dropdown pull-right">
+			<!--<div class="project-context form_dropdown pull-right">
 
 				<span class="label">Form</span>
 				<span class="project-selector dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-angle-down"></i></span>
 	
-				<!-- Suggestion: populate this list with fetch and push technique -->
-				<ul class="dropdown-menu">
-					<li>
-						<a href="/admin/exception_requests/new"><i class="fa fa-list"></i> Exception Requests</a>
-					</li>
-					<li>
+			 
+				 <ul class="dropdown-menu">
+					<% if current_user && current_user.role == 'lob' %>
+						<li>
+							<a href="/admin/exception_requests/new"><i class="fa fa-list"></i> Add New Exception Requests</a>
+						</li>
+					<% end %>
+				  <li>
 						<a href="/admin/conflict_waivers/new"><i class="fa fa-list"></i> Conflict Waiver</a>
-					</li>
-					<li>
-						<a href="/admin/panel_requests/new"><i class="fa fa-list"></i> Panel Request Form</a>
-					</li>
-				</ul>
-				<!-- end dropdown-menu-->
+					</li>  
+					<% if current_user && current_user.role == 'lxp' %>
+						<li>
+							<a href="/admin/panel_requests/new"><i class="fa fa-list"></i> Panel Request Form</a>
+						</li>
+					<% end %>
+				</ul> 
+			 
 	
-			</div>
+			</div>-->
 		<!-- <div class="onboard-btn white-text pull-right">
 			<%= link_to new_admin_law_firm_path, class: "white-text pull-right" do %>
 				<i class="fa fa-arrow-circle-up" aria-hidden="true"></i> Onboard
@@ -155,22 +159,24 @@
 				<li class="<%= active_menu_item('/admin') %>">
 					<a href="/admin" title="blank_"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Dashboard</span></a>
 				</li>
+
 				<li class="<%= active_menu_item('/admin/law_firms') %>">
 					<a href="/admin/law_firms" title="blank_"><i class="fa fa-lg fa-fw fa-briefcase"></i> <span class="menu-item-parent">Law Firms</span></a>
 				</li>
+				<% if current_user && ( current_user.role == 'lob' || current_user.role == 'lxp' || current_user.role == 'internal_lawyers' ) %>
+					<li class="<%= active_menu_item('/admin/exception_requests') %>">
+						<a href="/admin/exception_requests" title="blank_"><i class="fa fa-lg fa-fw fa-list"></i> <span class="menu-item-parent">Exception Requests</span></a>
+					</li>
+				<% end %>
 
-				<li class="<%= active_menu_item('/admin/exception_requests') %>">
-					<a href="/admin/exception_requests" title="blank_"><i class="fa fa-lg fa-fw fa-list"></i> <span class="menu-item-parent">Exception Requests</span></a>
-				</li>
-
-				<li class="<%= active_menu_item('/admin/conflict_waivers') %>">
+				<!-- <li class="<%= active_menu_item('/admin/conflict_waivers') %>">
 					<a href="/admin/conflict_waivers" title="blank_"><i class="fa fa-lg fa-fw fa-list"></i> <span class="menu-item-parent">Conflict Waiver</span></a>
-				</li>
-
-				<li class="<%= active_menu_item('/admin/panel_requests') %>">
-					<a href="/admin/panel_requests" title="blank_"><i class="fa fa-lg fa-fw fa-list"></i> <span class="menu-item-parent">Panel Request Form</span></a>
-				</li>
-				
+				</li> -->
+				<% if current_user && current_user.role == 'lxp' %>
+					<li class="<%= active_menu_item('/admin/panel_requests') %>">
+						<a href="/admin/panel_requests" title="blank_"><i class="fa fa-lg fa-fw fa-list"></i> <span class="menu-item-parent">Panel Request Form</span></a>
+					</li>
+				<% end %>
 				<!-- <li class="">
 					<a href="/admin/form_submissions" title="blank_"><i class="fa fa-lg fa-fw fa-book"></i> <span class="menu-item-parent">Submissions</span></a>
 				</li>  -->
