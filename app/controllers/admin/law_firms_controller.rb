@@ -12,6 +12,7 @@ class Admin::LawFirmsController < Admin::BaseController
 
   def show
     @law_firm = LawFirm.find(params[:id])
+    @panel_request = PanelRequest.find_by_law_firm_id(@law_firm.id)
     if !@law_firm.user.try(:google_secret)
       @law_firm.user.try(:set_google_secret)
     end

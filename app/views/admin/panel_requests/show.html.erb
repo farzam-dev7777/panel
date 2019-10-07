@@ -96,8 +96,9 @@
 															<div class="col-md-9 data firmPhone"><%= @panel_request.law_firm.relationship_manager_phone %></div>
 														</div>
 
-														<%= link_to "View Law Firm", admin_law_firm_url(@panel_request.law_firm), class: "btn btn-xs btn-secondary" %>	
+														
 														<div class="col-md-12">
+																<%= link_to "View Law Firm", admin_law_firm_url(@panel_request.law_firm), class: "btn btn-xs btn-secondary" %>	
 														<% if(@panel_request.law_firm.form_submissions.any? && @panel_request.law_firm.form_submissions.latest.status == 'approved') %>
 																<!-- <div class="col-lg-1 pull-right"> -->
 																	<a class="btn btn-sm btn-danger decertify-btn " data-id='<%= @panel_request.law_firm.id %>' data-name='<%= @panel_request.law_firm.name %>'>Decertify</a>

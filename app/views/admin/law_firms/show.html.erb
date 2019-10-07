@@ -66,22 +66,30 @@
 
 				</li>
 
-				<li>
+				<!-- <li>
 					<a data-toggle="tab" href="#hr2"> <i class="fa fa-lg fa-arrow-circle-o-up"></i> <span class="hidden-mobile hidden-tablet"> History </span></a>
-				</li>
+				</li> -->
 
 				<li>
-					<a data-toggle="tab" href="#hr3"> <i class="fa fa-lg fa-book"></i> <span class="hidden-mobile hidden-tablet"> Submissions </span></a>
+					<a data-toggle="tab" href="#hr3"> <i class="fa fa-lg fa-book"></i> <span class="hidden-mobile hidden-tablet"> RFI </span></a>
 				</li>
-
+<!-- 
 				<li>
 					<a data-toggle="tab" href="#hrst"> <i class="fa fa-lg fa-lock"></i> <span class="hidden-mobile hidden-tablet"> Security Threats </span></a>
 				</li>
 
 				<li>
 					<a data-toggle="tab" href="#hr4"> <i class="fa fa-lg fa-sticky-note-o"></i> <span class="hidden-mobile hidden-tablet"> Internal Notes </span></a>
+				</li> -->
+				<li>
+					<a data-toggle="tab" href="#hr5"> <i class="fa fa-lg fa-book"></i> <span class="hidden-mobile hidden-tablet"> Exception Requests </span></a>
 				</li>
-
+				<li>
+					<a data-toggle="tab" href="#hr6"> <i class="fa fa-lg fa-book"></i> <span class="hidden-mobile hidden-tablet"> Conflict Waiver </span></a>
+				</li>
+				<li>
+					<a data-toggle="tab" href="#hr7"> <i class="fa fa-lg fa-book"></i> <span class="hidden-mobile hidden-tablet"> Panel Request </span></a>
+				</li>
 			</ul>	
 			
 		</header>
@@ -105,9 +113,38 @@
 					<div class="tab-pane fade in active" id="hr1">
 						<div class="col-md-8">
 							<div class="col-md-12">
+								<div class="col-md-4 column">Law Firm Name </div>
+								<div class="col-md-8 data"><%= @law_firm.name %></div>
+							</div>
+							<div class="col-md-12">
 								<div class="col-md-4 column">Username</div>
 								<div class="col-md-8 data"><%= !@law_firm.user.try(:username).blank? ? @law_firm.users.first.try(:username) : '-' %></div>
 							</div>
+							<div class="col-md-12">
+								<div class="col-md-4 column">Email </div>
+								<div class="col-md-8 data"><%= @law_firm.email %></div>
+							</div>
+							<div class="col-md-12">
+								<div class="col-md-4 column">Phone </div>
+								<div class="col-md-8 data"><%= @law_firm.phone %></div>
+							</div>
+							<div class="col-md-12">
+								<div class="col-md-4 column">Description </div>
+								<div class="col-md-8 data"><%= @law_firm.description %></div>
+							</div>
+							<div class="col-md-12">
+								<div class="col-md-4 column">Relationship Manager Name	</div>
+								<div class="col-md-8 data"><%= @law_firm.relationship_manager_name %></div>
+							</div>
+							<div class="col-md-12">
+								<div class="col-md-4 column">Relationship Manager Email </div>
+								<div class="col-md-8 data"><%= @law_firm.relationship_manager_email %></div>
+							</div>
+							<div class="col-md-12">
+								<div class="col-md-4 column">Relationship Manager Phone </div>
+								<div class="col-md-8 data"><%= @law_firm.relationship_manager_phone %></div>
+							</div>
+	
 							<div class="col-md-12">
 								<div class="col-md-4 column">Initial Date of Engagement with BMO</div>		
 								<div class="col-md-8 data"><%= @law_firm.initial_date_of_engagement_with_the_bank && @law_firm.initial_date_of_engagement_with_the_bank.in_time_zone('Eastern Time (US & Canada)').strftime(LawFirm::DATE_FORMAT) %></div>
@@ -386,8 +423,157 @@
 						</form>
 					</div>
 
+					<div class="tab-pane fade" id="hr5">
 
+							<div class="col-lg-12">
+	
+								<% if @law_firm.exception_requests.count > 0 %>
+								<div class="table-responsive">
+									<table class="table table-bordered text-center content-in-jarvis">
+	
+										<tr>
+											<th class="text-center">Request By</th>
+											<th class="text-center">Submitted By	</th>
+											<th class="text-center">LXP Status</th>
+											<th class="text-center">Internal Lawyers Status</th>
+											<th class="text-center">Pay Type</th>
+											<th class="text-center">Document Status</th>
+											<th colspan="2" class="text-center">Action</th>
+										</tr>
+	
+										<% @law_firm.exception_requests.each do |exception_request| %>
+											<tr>
+												<td><%= exception_request.requested_by %></td>
+												<td><%= exception_request.submitted_by_email %></td>
+												<td><%= exception_request.lxp_status_show %></td>
+												<td><%= exception_request.internal_lawyers_status_show %></td>
+												<td>
+													<% if exception_request.docusign_envelope_id.present? %>
+														<%= exception_request.pay_type_show %>
+													<% end %>	
+												</td>
+												<td>
+													<% if exception_request.docusign_envelope_id.present? %>
+														<%= exception_request.docusign_retainer_envelope.status %>
+													<% end %>	
+												</td>
+												<td>
+													<%= link_to "View Request", admin_exception_request_path(exception_request), class: "btn btn-outline-primary btn-xs" %>	
+												</td>
+											</tr>
+											
+										<% end %>
+	
+									</table>
+									<div class="clearfix"></div>
+	
+	
+								</div>
+								<% else %>
+									<h4 class="text-center no-submissions">There are no Exception Requests submitted</h4>
+								<% end %>
+							</div>
+	
+					</div>
+					<div class="tab-pane fade" id="hr6">
 
+							<div class="col-lg-12">
+	
+									<% if @law_firm.conflict_waivers.count > 0 %>
+									<div class="table-responsive">
+										<table class="table table-bordered text-center content-in-jarvis">
+		
+											<tr>
+												<th class="text-center">Contact details	</th>
+												<th class="text-center">BMO business contact	</th>
+												<th class="text-center">LXP Status</th>
+												<th class="text-center">Internal Lawyers Status</th>
+												<th colspan="2" class="text-center">Action</th>
+											</tr>
+		
+											<% @law_firm.conflict_waivers.each do |conflict_waiver| %>
+												<tr>
+													<td><%= conflict_waiver.contact_details %></td>
+													<td><%= conflict_waiver.bmo_business_contact %></td>
+													<td><%= conflict_waiver.lxp_status_show %></td>
+													<td><%= conflict_waiver.internal_lawyers_status_show %></td>	
+													<td>
+														<%= link_to "View Request", admin_conflict_waiver_path(conflict_waiver), class: "btn btn-outline-primary btn-xs" %>	
+													</td>
+												</tr>
+												
+											<% end %>
+		
+										</table>
+										<div class="clearfix"></div>
+		
+		
+									</div>
+									<% else %>
+										<h4 class="text-center no-submissions">There are no Conflict Waiver submitted</h4>
+									<% end %>
+								</div>
+	
+	
+							
+					</div>
+					<div class="tab-pane fade" id="hr7">
+							<div class="col-md-12">
+									<div class="col-md-12">
+										<div class="col-md-3 column">Requested By	</div>
+										<div class="col-md-9 data"><%= @panel_request.requested_by %></div>
+									</div>
+									<div class="col-md-12">
+										<div class="col-md-3 column">Submitted By</div>		
+										<div class="col-md-9 data"><%= @panel_request.submitted_by_email %></div>
+									</div>
+									<div class="col-md-12">
+										<div class="col-md-3 column">Line of Business	</div>		
+										<div class="col-md-9 data"><%= @panel_request.requested_by %><%= @panel_request.line_of_business %></div>
+									</div>
+									<div class="col-md-12">
+										<div class="col-md-3 column">LOB Contact Name	</div>		
+										<div class="col-md-9 data"><%= @panel_request.lob_contact_name %></div>
+									</div>
+									<div class="col-md-12">
+										<div class="col-md-3 column">Business Manager Name</div>
+										<div class="col-md-9 data"><%= @panel_request.business_manager_name %></div>
+									</div>
+									<div class="col-md-12">
+										<div class="col-md-3 column">Business Manager Email</div>		
+										<div class="col-md-9 data"><%= @panel_request.business_manager_email %></div>
+									</div>
+									<div class="col-md-12">
+										<div class="col-md-3 column">Business Manager Phone	</div>		
+										<div class="col-md-9 data"><%= @panel_request.business_manager_phone %></div>
+									</div>	
+									<div class="col-md-12">
+											<div class="col-md-3 column">Law firm Category</div>		
+											<div class="col-md-9 data"><%= @panel_request.law_firm_category %></div>
+										</div>		
+								 
+									<div class="col-md-12">
+										<div class="col-md-3 column">Minority Owned</div>		
+										<div class="col-md-9 data"><%= @panel_request.minority_owned %></div>
+									</div>
+									<div class="col-md-12">
+										<div class="col-md-3 column">Minority Owned Details</div>		
+										<div class="col-md-9 data"><%= @panel_request.minority_owned_details %></div>
+									</div>
+									<div class="col-md-12">
+										<div class="col-md-3 column">Women Owned</div>		
+										<div class="col-md-9 data"><%= @panel_request.women_owned %></div>
+									</div>
+									<div class="col-md-12">
+										<div class="col-md-3 column">Women Owned Details</div>		
+										<div class="col-md-9 data"><%= @panel_request.women_owned_details %></div>
+									</div>
+									<div class="col-md-12">
+										<div class="col-md-3 column">Matter Types</div>		
+										<div class="col-md-9 data"><%= @panel_request.matter_types.join(", ") %></div>
+									</div>	
+								</div>
+					</div>
 				</div>
 				
 				<!-- end widget body text-->
