@@ -815,7 +815,12 @@ ul.internal-notes li div p {
   margin: 0 auto;
   width: 675px !important;
 }
-
+.lob_dashboard .current-stats ul#sparks {
+  width: 900px !important;
+}
+.lob_dashboard #sparks li h5.current-month-info{
+  font-size: 10px !important;
+}
 .current-stats ul#sparks li span{
   color: #fff !important
 }

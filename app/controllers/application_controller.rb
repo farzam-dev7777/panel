@@ -15,7 +15,12 @@ class ApplicationController < ActionController::Base
     return false if params[:controller] == 'users/sessions' && params[:action] == 'create'
 
     if (current_user) && ( current_user.role == 'superadmin' || current_user.role == 'admin' || current_user.is_panel_admin_user? ) && request.env.fetch("PATH_INFO") == "/"
-      redirect_to admin_root_url
+      if current_user.role == "lob"
+        redirect_to lob_root_url
+      else
+        redirect_to admin_root_url
+      end
+      
     end
 
     if current_user
@@ -30,7 +35,11 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     if ( current_user.role == 'superadmin' || current_user.role == 'admin' || current_user.is_panel_admin_user? )
-      admin_root_url
+      if current_user.role == "lob"
+        redirect_to lob_root_url
+      else
+        redirect_to admin_root_url
+      end
     else
     	new_two_factor_authentication_url
     end

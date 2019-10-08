@@ -106,6 +106,37 @@ Rails.application.routes.draw do
     end
     root to: "internal_dashboard#index"
   end
+
+  namespace :lob do
+    devise_for :admin_users, controllers: {
+      sessions: 'admin/internal_sessions'
+    }
+    
+    
+    resources :law_firms do 
+      member do
+        get :begin_certification_process
+        get :begin_recertification_process
+      
+      end
+      collection do
+        post :decertify
+        post :add_internal_note
+        post :remove_internal_note
+        post :get_detail
+        get :add_by_submission
+      end
+    end
+
+    resources :activity_logs do
+      collection do
+        get :mark_as_read
+      end
+    end
+   
+    resources :exception_requests
+    root to: "internal_dashboard#index"
+  end
   
   # resources :law_firms
   resources :security_alerts
