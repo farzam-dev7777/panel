@@ -108,11 +108,7 @@ Rails.application.routes.draw do
   end
 
   namespace :lob do
-    devise_for :admin_users, controllers: {
-      sessions: 'admin/internal_sessions'
-    }
-    
-    
+
     resources :law_firms do 
       member do
         get :begin_certification_process

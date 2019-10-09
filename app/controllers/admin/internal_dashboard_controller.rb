@@ -9,8 +9,10 @@ class Admin::InternalDashboardController < Admin::BaseController
 
   def index
     @law_firms = LawFirm.distinct.joins(:form_submissions).order('law_firms.updated_at DESC').limit(5)
-    @activity_logs = ActivityLog.where('created_at > ?', ACTIVITY_LOG_DAYS.days.ago).order('created_at DESC')
-    @security_threats = SecurityThreat.distinct.joins('INNER JOIN action_items ON action_items.security_threat_id =  security_threats.id').joins('INNER JOIN queued_notifications ON queued_notifications.action_item_id = action_items.id').where('queued_notifications.triggered = false').limit(5)
+    @panel_requests = PanelRequest.where(user_id: current_user.id).order('created_at DESC').limit(5)
+    @exception_requests_submitted = ExceptionRequest.where( lxp_status: [nil, ""]).count()
+    @confilictc_requests_submitted = ConflictWaiver.where(lxp_status: [nil, ""]).count()
+    @panel_requests_submitted = PanelRequest.where(user_id: current_user.id).count()
   end
 
   def show
