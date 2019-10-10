@@ -92,7 +92,9 @@ Rails.application.routes.draw do
         post :set_expiry_date
       end
     end
-    resources :exception_requests
+    resources :exception_requests do
+      get :download_pdf 
+    end
     resources :panel_requests 
     resources :conflict_waivers
     resources :reviews

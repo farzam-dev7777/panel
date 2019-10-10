@@ -123,28 +123,64 @@ class ExceptionRequest < ApplicationRecord
     end
   end
 
-  # def get_document_list
-  #   begin
-  #     configuration = DocuSign_eSign::Configuration.new
-  #     configuration.host = Rails.application.secrets[:docusign]["base_path"]
-  #     api_client = DocuSign_eSign::ApiClient.new configuration
-  #     api_client.default_headers["Authorization"] = "Bearer #{SystemSetting.fetch.docusign_access_token}"
-  #     envelopesApi = DocuSign_eSign::EnvelopesApi.new api_client
-  #     doclist = envelopesApi.list_documents Rails.application.secrets[:docusign]["account_id"], self.docusign_envelope_id
+  def get_document_name
+    configuration = DocuSign_eSign::Configuration.new
+    configuration.host = Rails.application.secrets[:docusign]["base_path"]
+    api_client = DocuSign_eSign::ApiClient.new configuration
+    api_client.default_headers["Authorization"] = "Bearer #{SystemSetting.fetch.docusign_access_token}"
+    envelopesApi = DocuSign_eSign::EnvelopesApi.new api_client
+    doc_item = envelopesApi.list_documents Rails.application.secrets[:docusign]["account_id"], self.docusign_envelope_id
 
+    doc_item = doc_item.envelope_documents[0]
+    document_id = doc_item.name
+  end
+  def get_document_list
+    begin
+      configuration = DocuSign_eSign::Configuration.new
+      configuration.host = Rails.application.secrets[:docusign]["base_path"]
+      api_client = DocuSign_eSign::ApiClient.new configuration
+      api_client.default_headers["Authorization"] = "Bearer #{SystemSetting.fetch.docusign_access_token}"
+      envelopesApi = DocuSign_eSign::EnvelopesApi.new api_client
+      doc_item = envelopesApi.list_documents Rails.application.secrets[:docusign]["account_id"], self.docusign_envelope_id
 
+      doc_item = doc_item.envelope_documents[0]
+      document_id = doc_item.document_id
+      
+      temp_file = envelopesApi.get_document Rails.application.secrets[:docusign]["account_id"], document_id, self.docusign_envelope_id
+      # find the matching document information item
+      # doc_item = doc_item.find { |item| item['document_id'] == document_id }
 
-  #     document_id = doclist.envelope_documents[0].document_id
-  #     temp_file = envelopesApi.get_document Rails.application.secrets[:docusign]["account_id"], document_id, self.docusign_envelope_id
+      doc_name = doc_item.name
+      has_pdf_suffix = doc_name.upcase.end_with? '.PDF'
+      pdf_file = has_pdf_suffix
 
+      # Add ".pdf" if it's a content or summary doc and doesn't already end in .pdf
+      if doc_item.type == "content" || (doc_item.type == "summary" && !has_pdf_suffix)
+          doc_name += ".pdf"
+          pdf_file = true
+      end
+      # Add .zip as appropriate
+      if doc_item.type == "zip"
+          doc_name += ".zip"
+      end
+      # Return the file information
+      if pdf_file
+        mime_type = 'application/pdf'
+      elsif doc_item.type == 'zip'
+        mime_type = 'application/zip'
+      else
+        mime_type = 'application/octet-stream'
+      end
 
+      #{'mime_type' => mime_type, 'doc_name' => doc_name, 'data' => }
+      File.binread(temp_file.path)
 
-  #     binding.pry
-  #   rescue Exception => e
-  #     puts e
-  #     nil
-  #   end
-  # end
+      
+    rescue Exception => e
+      puts e
+      nil
+    end
+  end
 
 
   
