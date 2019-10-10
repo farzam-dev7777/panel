@@ -13,7 +13,9 @@
 								<div class="row no-space text-center">
 									<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 										<p><b><%= certification_status(current_law_firm) %></b> 
-										<b><%= link_to 'Submit Request Conflict Waiver', new_conflict_waiver_path, html_options = {class: 'btn btn-primary btn-lg dashboard-certificate-button'}   %></b></p>
+										<% if @panel_request.law_firm_category == "PANEL"%>
+											<b><%= link_to 'Submit Request Conflict Waiver', new_conflict_waiver_path, html_options = {class: 'btn btn-primary btn-lg dashboard-certificate-button'}   %></b></p>
+										<% end %>	
 									</div>
 								</div>
 							</div>

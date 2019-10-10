@@ -126,21 +126,21 @@ $(document).ready(function(){
 	});
 
 
-	if($('select#panel_request_law_firm_category').val() == "PANEL"){
-		$('#panel_notification').show()
+	// if($('select#panel_request_law_firm_category').val() == "PANEL"){
+	// 	$('#panel_notification').show()
 	
-		$('#new_panel_request .form-submit-btn, .edit_panel_request  .form-submit-btn').attr('disabled','true')
-	}
-	$('select#panel_request_law_firm_category').on('change', function() {
+	// 	$('#new_panel_request .form-submit-btn, .edit_panel_request  .form-submit-btn').attr('disabled','true')
+	// }
+	// $('select#panel_request_law_firm_category').on('change', function() {
 		
-		if(this.value == "PANEL"){
-			$('#panel_notification').show()
-			$('#new_panel_request .form-submit-btn, .edit_panel_request  .form-submit-btn').attr('disabled','true')
-		}else{
-		  $('#panel_notification').hide()
-		  $('#new_panel_request .form-submit-btn, .edit_panel_request  .form-submit-btn').removeAttr('disabled')
-		}
-	});
+	// 	if(this.value == "PANEL"){
+	// 		$('#panel_notification').show()
+	// 		$('#new_panel_request .form-submit-btn, .edit_panel_request  .form-submit-btn').attr('disabled','true')
+	// 	}else{
+	// 	  $('#panel_notification').hide()
+	// 	  $('#new_panel_request .form-submit-btn, .edit_panel_request  .form-submit-btn').removeAttr('disabled')
+	// 	}
+	// });
 
 
 	if($('select#panel_request_law_firm_name').val()){

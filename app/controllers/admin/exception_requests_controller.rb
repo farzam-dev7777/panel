@@ -18,6 +18,7 @@ class Admin::ExceptionRequestsController < Admin::BaseController
 
   def show
     @exception_request = ExceptionRequest.find(params[:id])
+    #@exception_request.get_document_list
 
     if !@exception_request.user.try(:google_secret)
       @exception_request.user.try(:set_google_secret)
@@ -29,7 +30,7 @@ class Admin::ExceptionRequestsController < Admin::BaseController
   def create
 
     @exception_request = ExceptionRequest.new(exception_requests_params)
-
+    authorize! :create, @exception_request
     if @exception_request.save
       ExceptionRequestMailer.form_submission_notification_to_lob(@exception_request).deliver_now
       ExceptionRequestMailer.form_submission_notification_to_lxp(@exception_request).deliver_now
@@ -61,7 +62,8 @@ class Admin::ExceptionRequestsController < Admin::BaseController
   end
 
   def new
-  	@exception_request = ExceptionRequest.new
+    @exception_request = ExceptionRequest.new
+    authorize! :create, @exception_request
     @law_firms = LawFirm.all
     @current_admin_user_email = current_user.email
     @current_admin_user_id = current_user.id

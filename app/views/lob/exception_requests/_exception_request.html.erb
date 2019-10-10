@@ -103,16 +103,16 @@
               <div class="col-md-4 column">Matter Types</div>		
               <div class="col-md-8 data"><%= @exception_request.matter_types.join(", ") %></div>
             </div>	
-            <div class="col-md-12">
+            <!-- <div class="col-md-12">
               <div class="col-md-4 column">LXP Status</div>
               <div class="col-md-8 data"><%=  @exception_request.lxp_status_show   %></div>
             </div>
             <div class="col-md-12">
               <div class="col-md-4 column">Internal Lawyers Status</div>
               <div class="col-md-8 data"><%= @exception_request.internal_lawyers_status_show %></div>
-            </div>
+            </div> -->
             <div class="col-md-12">
-              <div class="col-md-4 column">Waiver Fully Approved</div>
+              <div class="col-md-4 column">Waiver Approved</div>
               <div class="col-md-8 data"><%= @exception_request.fully_approved? ? "Yes" : "No" %></div>
             </div>
             <% if @exception_request.docusign_envelope_id.present? %>

@@ -21,7 +21,7 @@ class Admin::ConflictWaiversController < Admin::BaseController
   def create
 
     @conflict_waiver = ConflictWaiver.new(conflict_waivers_params)
-
+    authorize! :create, @conflict_waiver
     if @conflict_waiver.save
       flash[:notice] = "Conflict Waiver saved"
       redirect_to :admin_conflict_waivers
@@ -53,9 +53,11 @@ class Admin::ConflictWaiversController < Admin::BaseController
 
    
   def new
-  	@conflict_waiver = ConflictWaiver.new
+    @conflict_waiver = ConflictWaiver.new
+    authorize! :create, @conflict_waiver
     @current_admin_user_email = current_admin_user.email
     @current_admin_user_id = current_admin_user.id
+    
   end
 
   def edit

@@ -123,6 +123,31 @@ class ExceptionRequest < ApplicationRecord
     end
   end
 
+  # def get_document_list
+  #   begin
+  #     configuration = DocuSign_eSign::Configuration.new
+  #     configuration.host = Rails.application.secrets[:docusign]["base_path"]
+  #     api_client = DocuSign_eSign::ApiClient.new configuration
+  #     api_client.default_headers["Authorization"] = "Bearer #{SystemSetting.fetch.docusign_access_token}"
+  #     envelopesApi = DocuSign_eSign::EnvelopesApi.new api_client
+  #     doclist = envelopesApi.list_documents Rails.application.secrets[:docusign]["account_id"], self.docusign_envelope_id
+
+
+
+  #     document_id = doclist.envelope_documents[0].document_id
+  #     temp_file = envelopesApi.get_document Rails.application.secrets[:docusign]["account_id"], document_id, self.docusign_envelope_id
+
+
+
+  #     binding.pry
+  #   rescue Exception => e
+  #     puts e
+  #     nil
+  #   end
+  # end
+
+
+  
   def make_envelope(args)
     # create the envelope definition with the template_id
     envelope_definition = DocuSign_eSign::EnvelopeDefinition.new({

@@ -5,7 +5,11 @@ class Admin::BaseController < ApplicationController
 	layout 'admin'
 
 	rescue_from CanCan::AccessDenied do |exception|
-    redirect_to :back, :alert => exception.message
+    if request.env["HTTP_REFERER"].blank?
+      redirect_to admin_root_url, :alert => exception.message
+    else
+      redirect_to :back, :alert => exception.message
+    end
   end
 
   def current_admin_user
