@@ -18,13 +18,18 @@ class Admin::ExceptionRequestsController < Admin::BaseController
 
   def show
     @exception_request = ExceptionRequest.find(params[:id])
-    #@exception_request.get_document_list
-
     if !@exception_request.user.try(:google_secret)
       @exception_request.user.try(:set_google_secret)
     end
     @law_firms = LawFirm.find_by_id(@exception_request.law_firm_name)
     add_breadcrumb "#{@exception_request.requested_by}", :admin_exception_request_path 
+  end
+
+  def download_pdf
+    
+    @exception_request = ExceptionRequest.find(params[:exception_request_id])
+    document_name = @exception_request.get_document_name.gsub(".pdf","-signed.pdf")
+    send_data @exception_request.get_document_list, filename: document_name
   end
 
   def create
