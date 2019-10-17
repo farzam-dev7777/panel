@@ -1014,7 +1014,6 @@ $(document).ready(function(){
 
     if(!message || message == "")
       return
-
     $.ajax({
       url: "/admin/follow_ups",
       method: 'post',
@@ -1023,7 +1022,7 @@ $(document).ready(function(){
       context: $(this).parent().parent().parent(),
       success: function(response) {
         $(this).find('div.note').prepend(response)
-        window.location.reload();
+        //window.location.reload();
       }
     })
     wrapper = $('.field-wrapper-' + field_wrapper_id);
