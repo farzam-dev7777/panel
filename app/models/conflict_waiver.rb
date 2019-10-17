@@ -41,9 +41,10 @@ class ConflictWaiver < ApplicationRecord
       ConflictWaiver::CONFLICT_WAIVER_STATUS[self.lxp_status.to_sym]
     end
   end
+  
   def internal_lawyers_status_show
-    if self.lxp_status.present?
-     ConflictWaiver::CONFLICT_WAIVER_STATUS[self.lxp_status.to_sym]
+    if self.internal_lawyers_status.present?
+     ConflictWaiver::CONFLICT_WAIVER_STATUS[self.internal_lawyers_status.to_sym]
     end
   end
   

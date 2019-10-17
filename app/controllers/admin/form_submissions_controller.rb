@@ -331,7 +331,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
           redirect_to :admin_law_firms
         end
       else
-        redirect_to history_step_admin_form_submission_path(@form_submission), alert: "The score (#{@form_submission.system_score}) is below system's threshold (#{SystemSetting.score_threshold}). You cannot approve the law firm" 
+        redirect_to resourcing_step_admin_form_submission_path(@form_submission), alert: "The score (#{@form_submission.system_score}) is below system's threshold (#{SystemSetting.score_threshold}). You cannot approve the law firm" 
       end
       
     end
