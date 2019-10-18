@@ -1015,6 +1015,37 @@ $(document).ready(function(){
     if(!message || message == "")
       return
     $.ajax({
+      url: "/follow_ups",
+      method: 'post',
+      async: false,
+      data: data,
+      context: $(this).parent().parent().parent(),
+      success: function(response) {
+        $(this).find('div.note').prepend(response)
+        window.location.reload();
+      }
+    })
+    wrapper = $('.field-wrapper-' + field_wrapper_id);
+    if(wrapper.hasClass('need-follow-up')){
+      wrapper.removeClass('need-follow-up');
+    }
+  })
+  $('.add-note-admin').on('click', function(e){
+    e.preventDefault();
+    var data;
+
+    if( _.isEmpty($(this).data()) ){
+      data = $(this).find('input').data();
+    } else {
+      data = $(this).data();
+    }
+    var field_wrapper_id = data.field_wrapper_id;
+    message = $(this).parent().parent().find('textarea.note').val();
+    data.message = message;
+
+    if(!message || message == "")
+      return
+    $.ajax({
       url: "/admin/follow_ups",
       method: 'post',
       async: false,
@@ -1022,7 +1053,7 @@ $(document).ready(function(){
       context: $(this).parent().parent().parent(),
       success: function(response) {
         $(this).find('div.note').prepend(response)
-        //window.location.reload();
+        window.location.reload();
       }
     })
     wrapper = $('.field-wrapper-' + field_wrapper_id);

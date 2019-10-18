@@ -2,51 +2,53 @@
   <span>Conflict Waiver</span>
 <% end %>
 <div class="clearfix"></div>
-<div class="col-lg-12">
-  	<%= link_to "<i class='fa fa-long-arrow-left'></i>".html_safe, '/', class: "btn btn-sm btn-default" %>
-  <div class="jarviswidget jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
-    <header>
-      <span class="widget-icon"> <i class="fa fa-briefcase"></i> </span>
-      <h2>Conflict Waiver</h2>
-    </header>
-    <!-- widget div-->
-    <div>
-      <!-- widget edit box -->
-      <div class="jarviswidget-editbox">
-        <!-- This area used as dropdown edit box -->
-      </div>
-      <!-- end widget edit box -->
-      <!-- widget content -->
-      <div class="widget-body no-padding">
-        <table id="dt_basic" class="table table-striped table-bordered table-hover" width="100%">
-          <thead>
-            <tr style="background: #007ac3;color: #fff;">
-              <th>Name of law firm</th>
-              <th>Contact details</th>
-              <th>BMO business  contact</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @conflict_waivers.each do |conflict_waiver| %>
-              <tr>
-                <td><%= conflict_waiver.name_of_law_firm %></td>
-                <td><%= conflict_waiver.contact_details %></td>
-                <td><%= conflict_waiver.bmo_business_contact %></td>
-                <td>
-                  <% if conflict_waiver.try(:lxp_status) != 'APPROVED' %>
-                    <%= link_to "Edit", edit_conflict_waiver_path(conflict_waiver), class: "btn btn-xs btn-primary" %>
-                  <% end %>  
-                  <%= link_to "view", conflict_waiver_path(conflict_waiver), class: "btn btn-xs btn-secondary" %>
-                </td>
+<div class="container">
+  <div class="col-lg-12">
+      <%= link_to "<i class='fa fa-long-arrow-left'></i>".html_safe, '/', class: "btn btn-sm btn-default" %>
+    <div class="jarviswidget jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
+      <header>
+        <span class="widget-icon"> <i class="fa fa-briefcase"></i> </span>
+        <h2>Conflict Waiver</h2>
+      </header>
+      <!-- widget div-->
+      <div>
+        <!-- widget edit box -->
+        <div class="jarviswidget-editbox">
+          <!-- This area used as dropdown edit box -->
+        </div>
+        <!-- end widget edit box -->
+        <!-- widget content -->
+        <div class="widget-body no-padding">
+          <table id="dt_basic" class="table table-striped table-bordered table-hover" width="100%">
+            <thead>
+              <tr style="background: #007ac3;color: #fff;">
+                <th>Name of law firm</th>
+                <th>Contact details</th>
+                <th>BMO business  contact</th>
+                <th>Action</th>
               </tr>
-            <% end %>
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              <% @conflict_waivers.each do |conflict_waiver| %>
+                <tr>
+                  <td><%= conflict_waiver.name_of_law_firm %></td>
+                  <td><%= conflict_waiver.contact_details %></td>
+                  <td><%= conflict_waiver.bmo_business_contact %></td>
+                  <td>
+                    <% if conflict_waiver.try(:lxp_status) != 'APPROVED' %>
+                      <%= link_to "Edit", edit_conflict_waiver_path(conflict_waiver), class: "btn btn-xs btn-primary" %>
+                    <% end %>  
+                    <%= link_to "view", conflict_waiver_path(conflict_waiver), class: "btn btn-xs btn-secondary" %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        <!-- end widget content -->
       </div>
-      <!-- end widget content -->
+      <!-- end widget div -->
     </div>
-    <!-- end widget div -->
+    <!-- end widget -->
   </div>
-  <!-- end widget -->
 </div>

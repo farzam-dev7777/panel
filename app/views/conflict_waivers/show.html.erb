@@ -3,82 +3,64 @@
 			top: -25px;
 		}
 	</style>
-	
-	<div class="col-lg-3">
-		<%= link_to "<i class='fa fa-long-arrow-left'></i>".html_safe, conflict_waivers_path, class: "btn btn-sm btn-default" %>
-		<% if @conflict_waiver.try(:lxp_status) != 'APPROVED' %>
-			<%= link_to "<i class='fa fa-pencil-square-o'></i> Edit".html_safe, edit_conflict_waiver_path, class: "btn btn-sm btn-primary m-l-15 no-border" %>
-		<% end %>
-	</div>
-	 
-	<div class="col-lg-12">
-			<div class="jarviswidget">
-		
-				<header>
-				</header>
-		
-				<!-- widget div-->
-				<div>
-					
-					<!-- widget edit box -->
-					
-					<!-- end widget edit box -->
-					
-					<!-- widget content -->
-					<div class="widget-body no-padding">
-		
-						<!-- widget body text-->
-						
-						<div class="tab-content padding-10">
-							<div class="tab-pane fade in active">
-								<div class="col-md-8">
-									<div class="col-md-12">
-										<div class="col-md-4 column">Name of law firm	</div>
-										<div class="col-md-8 data"><%= @conflict_waiver.name_of_law_firm %></div>
-									</div>
-									<div class="col-md-12">
-										<div class="col-md-4 column">Contact details</div>		
-										<div class="col-md-8 data"><%= @conflict_waiver.contact_details %></div>
-									</div>
-									<div class="col-md-12">
-										<div class="col-md-4 column">BMO Business contact	</div>		
-										<div class="col-md-8 data"><%= @conflict_waiver.bmo_business_contact %></div>
-									</div>
-									<div class="col-md-12">
-										<div class="col-md-4 column">Reason for Request	</div>		
-										<div class="col-md-8 data"><%= @conflict_waiver.reason %></div>
-									</div>
-									<div class="col-md-12">
-											<div class="col-md-4 column">LXP Status</div>
-											<div class="col-md-8 data"><%= @conflict_waiver.lxp_status_show %></div>
-										</div>
-			
-										<div class="col-md-12">
-											<div class="col-md-4 column">Internal Lawyers Status</div>
-											<div class="col-md-8 data"><%= @conflict_waiver.internal_lawyers_status_show %></div>
-										</div>
-			
-										<div class="col-md-12">
-											<div class="col-md-4 column">Waiver Fully Approved</div>
-											<div class="col-md-8 data"><%= @conflict_waiver.fully_approved? ? "Yes" : "No" %></div>
-										</div>
-									</div>
-								</div>
-								
-								<div class="clearfix"></div>
-		
-							</div>
-	
-						</div>
-						
-						<!-- end widget body text-->
-						
-					</div>
-					<!-- end widget content -->
-					
-				</div>
-				<!-- end widget div -->
-				
-			</div>
-			<!-- end widget -->			
+	<div class="container">
+		<div class="col-lg-3">
+			<%= link_to "<i class='fa fa-long-arrow-left'></i>".html_safe, conflict_waivers_path, class: "btn btn-sm btn-default" %>
+			<% if @conflict_waiver.try(:lxp_status) != 'APPROVED' %>
+				<%= link_to "<i class='fa fa-pencil-square-o'></i> Edit".html_safe, edit_conflict_waiver_path, class: "btn btn-sm btn-primary m-l-15 no-border" %>
+			<% end %>
 		</div>
+	</div>
+
+ 
+	
+	<div class="clearfix"></div>
+	<div class="container">
+		<div class="col-lg-12 col-md-12 col-sm-12">
+			<div class="jarviswidget jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+				<header>
+					<span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
+					<h2 class="font-md"><strong>New Conflict Waivers Request </strong></h2>				
+				</header>
+				<div class="no-padding">
+					<div class="jarviswidget-editbox"></div>
+					<!-- widget content -->
+					<div class="widget-body">
+						<div class="col-md-8">
+							<div class="col-md-12">
+								<div class="col-md-4 column">Name of law firm	</div>
+								<div class="col-md-8 data"><%= @conflict_waiver.name_of_law_firm %></div>
+							</div>
+							<div class="col-md-12">
+								<div class="col-md-4 column">Contact details</div>		
+								<div class="col-md-8 data"><%= @conflict_waiver.contact_details %></div>
+							</div>
+							<div class="col-md-12">
+								<div class="col-md-4 column">BMO Business contact	</div>		
+								<div class="col-md-8 data"><%= @conflict_waiver.bmo_business_contact %></div>
+							</div>
+							<div class="col-md-12">
+								<div class="col-md-4 column">Reason for Request	</div>		
+								<div class="col-md-8 data"><%= @conflict_waiver.reason %></div>
+							</div>
+							<div class="col-md-12">
+									<div class="col-md-4 column">LXP Status</div>
+									<div class="col-md-8 data"><%= @conflict_waiver.lxp_status_show %></div>
+								</div>
+	
+								<div class="col-md-12">
+									<div class="col-md-4 column">Internal Lawyers Status</div>
+									<div class="col-md-8 data"><%= @conflict_waiver.internal_lawyers_status_show %></div>
+								</div>
+	
+								<div class="col-md-12">
+									<div class="col-md-4 column">Waiver Fully Approved</div>
+									<div class="col-md-8 data"><%= @conflict_waiver.fully_approved? ? "Yes" : "No" %></div>
+								</div>
+							</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+		 

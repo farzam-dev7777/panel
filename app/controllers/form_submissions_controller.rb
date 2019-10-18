@@ -19,6 +19,7 @@ class FormSubmissionsController < BaseController
   end
 
   def show
+   
     redirect_to technology_step_form_submission_path
   end
 
@@ -84,6 +85,7 @@ class FormSubmissionsController < BaseController
   end
 
   def diversity_step
+
   end
 
   def innovation_step

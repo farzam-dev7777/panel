@@ -146,7 +146,11 @@ Rails.application.routes.draw do
       get :service_packs
     end
   end
-  
+  resources :follow_ups do
+    collection do
+      post :review
+    end
+  end
   resources :technology_forms
   resources :history_forms
   resources :action_items do 

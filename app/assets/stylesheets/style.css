@@ -375,9 +375,11 @@ div.link-to-add > * {
 }
 
 div.note {
+  height: 140px;
   max-height: 250px;
   overflow-y: scroll;
   margin-bottom: 10px;
+  margin-top: 20px;
 }
 div.note h5 {
   color: #000; margin-bottom: 0px
@@ -1476,4 +1478,16 @@ textarea{
 }
 #logo img {
   padding-left: 17px;
+}
+.simple_form a.btn-sm,.simple_form .form-submit-btn {
+  font-size: 12px;
+  font-weight: bold;
+  padding: 5px 20px !important;
+  border-radius: 0;
+}
+.simple_form table {
+  background: #fff;
+}
+.simple_form .table-striped>tbody>tr:nth-of-type(odd) {
+  background-color: #fff;
 }

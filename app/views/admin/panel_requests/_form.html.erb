@@ -3,142 +3,140 @@
 </style>
 
 
-<div class="clearfix"></div>
-<div class="container">
-	<div class="table-responsive">
-    <%= simple_form_for [:admin, @panel_request] do |f| %>
-    
-			<table class="table table-striped">
-				<tbody>
-          <tr>
-            <td class="text-right" width="20%"><strong>Requested By</strong></td>
-            <td>
-              <%= f.input :requested_by, label: false %>
-            </td>
-          </tr>
-          <tr>
-            <td class="text-right" width="20%"><strong>Submitted By</strong></td>
-            <td>
-              <%= f.input :submitted_by_email, label: false, :input_html => { :value => @current_admin_user_email, :readonly => true } %>
-              <%= f.input :user_id, :as => :hidden, :input_html => { :value => @current_admin_user_id } %>
-              <%= f.input :request_type, :as => :hidden, :input_html => { :value => "ADD_TO_LAW_FIRM_PANEL" } %>
-            </td>
-          </tr>
-          <tr>
-            <td class="text-right" width="20%"><strong>Line of Business</strong></td>
-            <td><%= f.input :line_of_business, label: false, collection: PanelRequest::LOB_LIST %></td>
-          </tr>
-          <tr>
-            <td class="text-right" width="20%"><strong>LOB Contact Name</strong></td>
-            <td><%= f.input :lob_contact_name, label: false %></td>
-          </tr>
-          <tr>
-              <td class="text-right" width="20%"><strong>Business Manager Name</strong></td>
-              <td><%= f.input :business_manager_name, label: false %></td>
-            </tr>
-            <tr>
-              <td class="text-right" width="20%"><strong>Business Manager Email</strong></td>
-              <td><%= f.input :business_manager_email, label: false %></td>
-            </tr>
-            <tr>
-              <td class="text-right" width="20%"><strong>Business Manager Phone</strong></td>
-              <td><%= f.input :business_manager_phone, label: false %></td>
-            </tr>
-            <tr>
-              <td class="text-right" width="20%"><strong>Law firm Category</strong></td>
-              <td><%= f.input :law_firm_category, label: false, collection:PanelRequest::LAW_FIRM_CATEGORIES.map{ |k,v| [v,k]} %>
-                <p style="color: #949494;display:none" id="panel_notification" class="text-left"><em>Exception not required, firm already on
-                    Panel.</em></p>
-              </td>
-            </tr>
-          <tr>
-            <td class="text-right" width="20%"><strong>Law Firm</strong></td>
-            <td class="text-left">
-              <%= f.simple_fields_for :law_firm do |field| %>
-                <div class="well">
-                    <table class="table table-striped">
-                        <tbody>
-                            <tr>
-                              <td class="text-right" width="20%"><strong>Name</strong></td>
-                              <td><%= field.input :name, label: false %></td>
-                            </tr>
-                            <tr>
-                              <td class="text-right" width="20%"><strong>Email</strong></td>
-                              <td><%= field.input :email, label: false %></td>
-                            </tr>
-                            <tr>
-                              <td class="text-right" width="20%"><strong>Phone</strong></td>
-                              <td><%= field.input :phone, label: false %></td>
-                            </tr>
-                            <tr>
-                              <td class="text-right" width="20%"><strong>Description</strong></td>
-                              <td><%= field.input :description, label: false %></td>
-                            </tr>
-                            <tr>
-                              <td class="text-right" width="20%"><strong>Relationship Manager Name</strong></td>
-                              <td><%= field.input :relationship_manager_name, label: false %></td>
-                            </tr>
-                            <tr>
-                              <td class="text-right" width="20%"><strong>Relationship Manager Email</strong></td>
-                              <td><%= field.input :relationship_manager_email, label: false %></td>
-                            </tr>
-                            <tr>
-                              <td class="text-right" width="20%"><strong>Relationship Manager Phone</strong></td>
-                              <td><%= field.input :relationship_manager_phone, label: false %></td>
-                            </tr>
-                            <tr>
-                              <td class="text-right" width="20%"><strong>Temp. Password</strong></td>
-                              <td>
-                                <%= field.input :temp_password, autocomplete: "off", label: false, input_html: { class: 'set-password' } %>
-                                <p style="color: #949494;" class="text-left"><em>Minimum 10 characters required</em></p>	
-                              </td>
-                            </tr>
-                              <tr>
-                              <td class="text-right" width="20%"><strong>Confirm Password</strong></td>
-                              <td>
-                                <%= field.input :temp_password_confirmation, autocomplete: "off", label: false, input_html: { class: 'set-password' } %>
-                              </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-              <% end %>
-            </td>
-          </tr>
-          
-          <tr>
-            <td class="text-right" width="20%"><strong>Minority Owned</strong></td>
-            <td><%= f.input :minority_owned, label: false, collection: PanelRequest::MINORITY_OWNED_TYPE  %></td>
-          </tr>
-          <tr class="minority_owned_details"  style="display:none;">
-            <td class="text-right" width="20%"><strong>Minority Owned Details</strong></td>
-            <td><%= f.input :minority_owned_details, label: false%></td>
-          </tr>
-          <tr>
-            <td class="text-right" width="20%"><strong>Women Owned</strong></td>
-            <td><%= f.input :women_owned, label: false, collection: PanelRequest::WOMEN_OWNED_TYPE %></td>
-          </tr>
-          <tr class="women_owned_details" style="display:none;">
-            <td class="text-right" width="20%"><strong>Women Owned Details</strong></td>
-            <td><%= f.input :women_owned_details, label: false %></td>
-          </tr>
-          <!-- <tr class="matter_name">
-            <td class="text-right" width="20%"><strong>Matter Name</strong></td>
-            <td><%= f.input :matter_name, label: false, input_html: { autocomplete: 'off' } %></td>
-          </tr> -->
-          <tr>
-            <td class="text-right" width="20%"><strong>Matter Types</strong></td>
-            <td><%= f.input :matter_types, label: false, collection: PanelRequest::MATTER_TYPES,  input_html: { multiple: true }%></td>
-          </tr>
 
-						<tr>
-							<td colspan="2">
-                  <%=link_to 'Cancel', @panel_request.new_record? ? admin_exception_requests_path : admin_law_firm_path, class: 'btn btn-danger btn-sm' %>
-								<%= f.button :submit, @panel_request.new_record? ? "Submit Request" : "Update Request", class: "" %>
-							</td>
-						</tr>
-				</tbody>
-			</table>
-		<% end %>
-	</div>
+<div class="table-responsive">
+  <%= simple_form_for [:admin, @panel_request] do |f| %>
+  
+    <table class="table table-striped">
+      <tbody>
+        <tr>
+          <td class="text-right" width="20%"><strong>Requested By</strong></td>
+          <td>
+            <%= f.input :requested_by, label: false %>
+          </td>
+        </tr>
+        <tr>
+          <td class="text-right" width="20%"><strong>Submitted By</strong></td>
+          <td>
+            <%= f.input :submitted_by_email, label: false, :input_html => { :value => @current_admin_user_email, :readonly => true } %>
+            <%= f.input :user_id, :as => :hidden, :input_html => { :value => @current_admin_user_id } %>
+            <%= f.input :request_type, :as => :hidden, :input_html => { :value => "ADD_TO_LAW_FIRM_PANEL" } %>
+          </td>
+        </tr>
+        <tr>
+          <td class="text-right" width="20%"><strong>Line of Business</strong></td>
+          <td><%= f.input :line_of_business, label: false, collection: PanelRequest::LOB_LIST %></td>
+        </tr>
+        <tr>
+          <td class="text-right" width="20%"><strong>LOB Contact Name</strong></td>
+          <td><%= f.input :lob_contact_name, label: false %></td>
+        </tr>
+        <tr>
+            <td class="text-right" width="20%"><strong>Business Manager Name</strong></td>
+            <td><%= f.input :business_manager_name, label: false %></td>
+          </tr>
+          <tr>
+            <td class="text-right" width="20%"><strong>Business Manager Email</strong></td>
+            <td><%= f.input :business_manager_email, label: false %></td>
+          </tr>
+          <tr>
+            <td class="text-right" width="20%"><strong>Business Manager Phone</strong></td>
+            <td><%= f.input :business_manager_phone, label: false %></td>
+          </tr>
+          <tr>
+            <td class="text-right" width="20%"><strong>Law firm Category</strong></td>
+            <td><%= f.input :law_firm_category, label: false, collection:PanelRequest::LAW_FIRM_CATEGORIES.map{ |k,v| [v,k]} %>
+              <p style="color: #949494;display:none" id="panel_notification" class="text-left"><em>Exception not required, firm already on
+                  Panel.</em></p>
+            </td>
+          </tr>
+        <tr>
+          <td class="text-right" width="20%"><strong>Law Firm</strong></td>
+          <td class="text-left">
+            <%= f.simple_fields_for :law_firm do |field| %>
+              <div class="well">
+                  <table class="table table-striped">
+                      <tbody>
+                          <tr>
+                            <td class="text-right" width="20%"><strong>Name</strong></td>
+                            <td><%= field.input :name, label: false %></td>
+                          </tr>
+                          <tr>
+                            <td class="text-right" width="20%"><strong>Email</strong></td>
+                            <td><%= field.input :email, label: false %></td>
+                          </tr>
+                          <tr>
+                            <td class="text-right" width="20%"><strong>Phone</strong></td>
+                            <td><%= field.input :phone, label: false %></td>
+                          </tr>
+                          <tr>
+                            <td class="text-right" width="20%"><strong>Description</strong></td>
+                            <td><%= field.input :description, label: false %></td>
+                          </tr>
+                          <tr>
+                            <td class="text-right" width="20%"><strong>Relationship Manager Name</strong></td>
+                            <td><%= field.input :relationship_manager_name, label: false %></td>
+                          </tr>
+                          <tr>
+                            <td class="text-right" width="20%"><strong>Relationship Manager Email</strong></td>
+                            <td><%= field.input :relationship_manager_email, label: false %></td>
+                          </tr>
+                          <tr>
+                            <td class="text-right" width="20%"><strong>Relationship Manager Phone</strong></td>
+                            <td><%= field.input :relationship_manager_phone, label: false %></td>
+                          </tr>
+                          <tr>
+                            <td class="text-right" width="20%"><strong>Temp. Password</strong></td>
+                            <td>
+                              <%= field.input :temp_password, autocomplete: "off", label: false, input_html: { class: 'set-password' } %>
+                              <p style="color: #949494;" class="text-left"><em>Minimum 10 characters required</em></p>	
+                            </td>
+                          </tr>
+                            <tr>
+                            <td class="text-right" width="20%"><strong>Confirm Password</strong></td>
+                            <td>
+                              <%= field.input :temp_password_confirmation, autocomplete: "off", label: false, input_html: { class: 'set-password' } %>
+                            </td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+            <% end %>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="text-right" width="20%"><strong>Minority Owned</strong></td>
+          <td><%= f.input :minority_owned, label: false, collection: PanelRequest::MINORITY_OWNED_TYPE  %></td>
+        </tr>
+        <tr class="minority_owned_details"  style="display:none;">
+          <td class="text-right" width="20%"><strong>Minority Owned Details</strong></td>
+          <td><%= f.input :minority_owned_details, label: false%></td>
+        </tr>
+        <tr>
+          <td class="text-right" width="20%"><strong>Women Owned</strong></td>
+          <td><%= f.input :women_owned, label: false, collection: PanelRequest::WOMEN_OWNED_TYPE %></td>
+        </tr>
+        <tr class="women_owned_details" style="display:none;">
+          <td class="text-right" width="20%"><strong>Women Owned Details</strong></td>
+          <td><%= f.input :women_owned_details, label: false %></td>
+        </tr>
+        <!-- <tr class="matter_name">
+          <td class="text-right" width="20%"><strong>Matter Name</strong></td>
+          <td><%= f.input :matter_name, label: false, input_html: { autocomplete: 'off' } %></td>
+        </tr> -->
+        <tr>
+          <td class="text-right" width="20%"><strong>Matter Types</strong></td>
+          <td><%= f.input :matter_types, label: false, collection: PanelRequest::MATTER_TYPES,  input_html: { multiple: true }%></td>
+        </tr>
+
+          <tr>
+            <td colspan="2">
+                <%=link_to 'Cancel', @panel_request.new_record? ? admin_exception_requests_path : admin_law_firm_path, class: 'btn btn-danger btn-sm' %>
+              <%= f.button :submit, @panel_request.new_record? ? "Submit Request" : "Update Request", class: "" %>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+  <% end %>
 </div>

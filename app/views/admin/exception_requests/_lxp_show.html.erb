@@ -1,129 +1,117 @@
-  <div class="clearfix"></div>
-    <div class="col-lg-12">
-      <div class="jarviswidget">
-        
-        <div class="container">
-          <% if @exception_request.internal_lawyers_status.blank?  %>   
-            <div class="table-responsive">
-              <%= simple_form_for [:admin, Review.new()] do |f| %>
-              <table class="table table-striped">
-                <tbody>
-                  <tr>
-                    <td class="text-right" width="20%"><strong>Comment</strong></td>
-                    <td>
-                      <%= f.input :description, label: false %>
-                      <%= f.input :reviewable_type, label: false, as: :hidden, input_html: { value: @exception_request.class.to_s } %>
-                      <%= f.input :reviewable_id, label: false, as: :hidden, input_html: { value: @exception_request.id } %>
-                    </td>
-                  </tr>		
-                  <!-- <% if @exception_request.waiting_for_internal_lawyers_approval? %>	
-                    <tr>
-                    <td class="text-right" width="20%"><strong>Status</strong></td>
-                    <td><%= f.input :status, label: false, collection: ExceptionRequest::EXCEPTION_REQUEST_STATUS.map{|value,key| [key, value]}%></td>
-                  </tr> 
-                  <% end %>	 -->
-                  <%- if @exception_request.internal_lawyers_id.blank? %>
-                  <tr class="internal_lawyers_box">
-                    <td class="text-right" width="20%"><strong>Assign to</strong></td>
-                    <td>
-                      <%= f.input :assigned_to_id, label: false, collection: User.where(role: "internal_lawyers").map{|user| [user.email, user.id] } %>
-                    </td>
-                  </tr>
-                  <% end %> 
-                  <tr>
-                    <td colspan="2">
-                      <%= link_to 'Cancel', @exception_request.new_record? ? admin_exception_requests_path : admin_conflict_waiver_path, class: 'btn btn-danger btn-sm' %>
-                      <%= f.button :submit, @exception_request.new_record? ? "Submit Request" : "Update Status", class:  @current_user.role === "lxp" ? "lxp_sttaus" : "laywr_status" %>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-              <% end %>
-            </div>
-          <% end %>
 
-          <% if @exception_request.internal_lawyers_status.present? && @exception_request.lxp_status.blank?   %>
-            <div class="table-responsive">
-              <%= simple_form_for [:admin, Review.new()] do |f| %>
-              <table class="table table-striped">
-                <tbody>
+<div class="col-lg-12 col-md-12 col-sm-12">
+  <div class="jarviswidget jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+    <header>
+      <span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
+      <h2 class="font-md"><strong>Add Review </strong></h2>				
+    </header>
+    <div class="  ">
+      <div class="jarviswidget-editbox"></div>
+      <!-- widget content -->
+      <div class="widget-body">
+        <% if @exception_request.internal_lawyers_status.blank?  %>   
+          <div class="table-responsive">
+            <%= simple_form_for [:admin, Review.new()] do |f| %>
+            <table class="table table-striped">
+              <tbody>
+                <tr>
+                  <td class="text-right" width="20%"><strong>Comment</strong></td>
+                  <td>
+                    <%= f.input :description, label: false %>
+                    <%= f.input :reviewable_type, label: false, as: :hidden, input_html: { value: @exception_request.class.to_s } %>
+                    <%= f.input :reviewable_id, label: false, as: :hidden, input_html: { value: @exception_request.id } %>
+                  </td>
+                </tr>		
+                <!-- <% if @exception_request.waiting_for_internal_lawyers_approval? %>	
                   <tr>
-                    <td class="text-right" width="20%"><strong>Comment</strong></td>
-                    <td>
-                      <%= f.input :description, label: false %>
-                      <%= f.input :reviewable_type, label: false, as: :hidden, input_html: { value: @exception_request.class.to_s } %>
-                      <%= f.input :reviewable_id, label: false, as: :hidden, input_html: { value: @exception_request.id } %>
-                    </td>
-                  </tr>		
-                  <% #if @exception_request.waiting_for_internal_lawyers_approval? %>	
-                    <tr>
-                      <td class="text-right" width="20%"><strong>Pay Type</strong></td>
-                      <td><%= f.input :pay_type, label: false, collection: ExceptionRequest::EXCEPTION_REQUEST_PAY_TYPE.map{|value,key| [key, value]}%></td>
-                    </tr> 
-                    <tr>
-                    <td class="text-right" width="20%"><strong>Status</strong></td>
-                    <td><%= f.input :status, label: false, collection: ExceptionRequest::EXCEPTION_REQUEST_STATUS.map{|value,key| [key, value]}%></td>
+                  <td class="text-right" width="20%"><strong>Status</strong></td>
+                  <td><%= f.input :status, label: false, collection: ExceptionRequest::EXCEPTION_REQUEST_STATUS.map{|value,key| [key, value]}%></td>
+                </tr> 
+                <% end %>	 -->
+                <%- if @exception_request.internal_lawyers_id.blank? %>
+                <tr class="internal_lawyers_box">
+                  <td class="text-right" width="20%"><strong>Assign to</strong></td>
+                  <td>
+                    <%= f.input :assigned_to_id, label: false, collection: User.where(role: "internal_lawyers").map{|user| [user.email, user.id] } %>
+                  </td>
+                </tr>
+                <% end %> 
+                <tr>
+                  <td colspan="2">
+                    <%= link_to 'Cancel', @exception_request.new_record? ? admin_exception_requests_path : admin_conflict_waiver_path, class: 'btn btn-danger btn-sm' %>
+                    <%= f.button :submit, @exception_request.new_record? ? "Submit Request" : "Update Status", class:  @current_user.role === "lxp" ? "lxp_sttaus" : "laywr_status" %>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <% end %>
+          </div>
+        <% end %>
+
+        <% if @exception_request.internal_lawyers_status.present? && @exception_request.lxp_status.blank?   %>
+          <div class="table-responsive">
+            <%= simple_form_for [:admin, Review.new()] do |f| %>
+            <table class="table table-striped">
+              <tbody>
+                <tr>
+                  <td class="text-right" width="20%"><strong>Comment</strong></td>
+                  <td>
+                    <%= f.input :description, label: false %>
+                    <%= f.input :reviewable_type, label: false, as: :hidden, input_html: { value: @exception_request.class.to_s } %>
+                    <%= f.input :reviewable_id, label: false, as: :hidden, input_html: { value: @exception_request.id } %>
+                  </td>
+                </tr>		
+                <% #if @exception_request.waiting_for_internal_lawyers_approval? %>	
+                  <tr>
+                    <td class="text-right" width="20%"><strong>Pay Type</strong></td>
+                    <td><%= f.input :pay_type, label: false, collection: ExceptionRequest::EXCEPTION_REQUEST_PAY_TYPE.map{|value,key| [key, value]}%></td>
                   </tr> 
+                  <tr>
+                  <td class="text-right" width="20%"><strong>Status</strong></td>
+                  <td><%= f.input :status, label: false, collection: ExceptionRequest::EXCEPTION_REQUEST_STATUS.map{|value,key| [key, value]}%></td>
+                </tr> 
+                
+                <% #end %>	 
+                <tr>
+                  <td colspan="2">
+                    <%= link_to 'Cancel', @exception_request.new_record? ? admin_exception_requests_path : admin_conflict_waiver_path, class: 'btn btn-danger btn-sm' %>
+                    <%= f.button :submit, @exception_request.new_record? ? "Submit Request" : "Update Status", class:  @current_user.role === "lxp" ? "lxp_excepation_sttaus" : "laywr_status" %>
+                  </td>
+                </tr>
                   
-                  <% #end %>	 
-                  <tr>
-                    <td colspan="2">
-                      <%= link_to 'Cancel', @exception_request.new_record? ? admin_exception_requests_path : admin_conflict_waiver_path, class: 'btn btn-danger btn-sm' %>
-                      <%= f.button :submit, @exception_request.new_record? ? "Submit Request" : "Update Status", class:  @current_user.role === "lxp" ? "lxp_excepation_sttaus" : "laywr_status" %>
-                    </td>
-                  </tr>
-                    
 
-                </tbody>
-              </table>
-              <% end %>
-            </div>
-          <% end %>
-        </div>
+              </tbody>
+            </table>
+            <% end %>
+          </div>
+        <% end %>
       </div>
-      <!-- end widget -->			
     </div>
-  <div class="col-md-12">
-      <div class="jarviswidget jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
-        <header class="no-border">
-          <span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
-          <h2 class="font-md"><strong>Review Logs </strong></h2>
-        </header>
-        <div>
-          <div class="clearfix"></div>
-          <!-- MAIN PANEL -->
-          <div role="main">
-            <!-- MAIN CONTENT -->
-            <div style="height: 500px;overflow-y: scroll;">
-              <!-- row -->
-              <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                  <div class="well well-sm">
-                    <!-- Timeline Content -->
-                    <div class="smart-timeline">
-                      <ul class="smart-timeline-list">
-                        <% @exception_request.reviews.reverse.each do |review| %>
-                        <% if review.status_from.blank? && review.status.blank? && review.assigned_to_id.present? %>
-                          <li data-id="<%= review.id %>">
-                              <div class="smart-timeline-icon">
-                                R
-                              </div>
-                              <div class="smart-timeline-time">
-                                <small><%= review.created_at.strftime('%d %b %Y at %I:%M %p') %></small>
-                              </div>
-                              <div class="smart-timeline-content">
-                                <p>
-                                  <strong>
-                                  <%= review.actor.email %> assigned exception request to internal lawyer for approval.
-                                  <strong>
-                                </p>
-                                <p>
-                                  <%= review.description %>
-                                </p>
-                              </div>
-                            </li>
-                        <% else %>
-                          <li data-id="<%= review.id %>">
+  </div>
+</div>
+  
+<div class="col-md-12">
+    <div class="jarviswidget jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+      <header class="no-border">
+        <span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
+        <h2 class="font-md"><strong>Review Logs </strong></h2>
+      </header>
+      <div>
+        <div class="clearfix"></div>
+        <!-- MAIN PANEL -->
+        <div role="main">
+          <!-- MAIN CONTENT -->
+          <div style="height: 500px;overflow-y: scroll;">
+            <!-- row -->
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="well well-sm">
+                  <!-- Timeline Content -->
+                  <div class="smart-timeline">
+                    <ul class="smart-timeline-list">
+                      <% @exception_request.reviews.reverse.each do |review| %>
+                      <% if review.status_from.blank? && review.status.blank? && review.assigned_to_id.present? %>
+                        <li data-id="<%= review.id %>">
                             <div class="smart-timeline-icon">
                               R
                             </div>
@@ -133,7 +121,7 @@
                             <div class="smart-timeline-content">
                               <p>
                                 <strong>
-                                <%= review.actor.email %> change status to <%= review.status_show %>
+                                <%= review.actor.email %> assigned exception request to internal lawyer for approval.
                                 <strong>
                               </p>
                               <p>
@@ -141,19 +129,38 @@
                               </p>
                             </div>
                           </li>
-                          <% end %>
+                      <% else %>
+                        <li data-id="<%= review.id %>">
+                          <div class="smart-timeline-icon">
+                            R
+                          </div>
+                          <div class="smart-timeline-time">
+                            <small><%= review.created_at.strftime('%d %b %Y at %I:%M %p') %></small>
+                          </div>
+                          <div class="smart-timeline-content">
+                            <p>
+                              <strong>
+                              <%= review.actor.email %> change status to <%= review.status_show %>
+                              <strong>
+                            </p>
+                            <p>
+                              <%= review.description %>
+                            </p>
+                          </div>
+                        </li>
                         <% end %>
-                      </ul>
-                    </div>
-                    <!-- END Timeline Content -->
+                      <% end %>
+                    </ul>
                   </div>
+                  <!-- END Timeline Content -->
                 </div>
               </div>
-              <!-- end row -->
             </div>
-            <!-- END MAIN CONTENT -->
+            <!-- end row -->
           </div>
-          <!-- END MAIN PANEL -->
+          <!-- END MAIN CONTENT -->
         </div>
+        <!-- END MAIN PANEL -->
       </div>
     </div>
+  </div>
