@@ -295,7 +295,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
         redirect_to :admin_law_firms
       end
     else
-      redirect_to history_step_admin_form_submission_path(@form_submission), alert: "You haven't added any follow up notes." 
+      redirect_to resourcing_step_admin_form_submission_path(@form_submission), alert: "You haven't added any follow up notes." 
     end
   end
 
