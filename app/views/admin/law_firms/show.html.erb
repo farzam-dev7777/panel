@@ -454,7 +454,7 @@
 												</td>
 												<td>
 													<% if exception_request.docusign_envelope_id.present? %>
-														<%= exception_request.docusign_retainer_envelope.status %>
+														<%= exception_request.docusign_retainer_envelope.try(:status) %>
 													<% end %>	
 												</td>
 												<td>

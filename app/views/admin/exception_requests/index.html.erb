@@ -8,6 +8,21 @@
       <span class="widget-icon"> <i class="fa fa-briefcase"></i> </span>
       <h2>Exception Requests</h2>
     </header>
+
+    <%= search_form_for [:admin, @q] do |f| %>
+
+      <%= f.label :requested_by_cont %>
+      <%= f.search_field :requested_by_cont %>
+
+      <%= f.label :submitted_by_email_cont %>
+      <%= f.search_field :submitted_by_email_cont %>
+
+      <%= f.label :law_firm_id_eq %>
+      <%= f.select :law_firm_id_eq, options_from_collection_for_select(LawFirm.all, "id", "name", @q.law_firm_id_eq), {:include_blank => 'Select law firm'} %>
+
+      <%= f.submit "Search", class: "btn btn-primary" %>
+    <% end %>
+
     <% if current_user.role == "lob" %>
 		  <div class="no-padding">
 				<div class="widget-body">

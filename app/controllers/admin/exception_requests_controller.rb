@@ -5,12 +5,13 @@ class Admin::ExceptionRequestsController < Admin::BaseController
   add_breadcrumb "Dashboard", :root_path
 
   def index
+    @q = ExceptionRequest.ransack(params[:q])
     if current_user.role === "lxp"
-      @exception_requests = ExceptionRequest.order('created_at DESC')
+      @exception_requests = @q.result(distinct: true).order('created_at DESC')
     elsif current_user.role === "internal_lawyers"
-      @exception_requests = ExceptionRequest.where(internal_lawyers_id: current_user.id).order('created_at DESC')
+      @exception_requests = @q.result(distinct: true).where(internal_lawyers_id: current_user.id).order('created_at DESC')
     else
-      @exception_requests = ExceptionRequest.where(user_id: current_user.id).order('created_at DESC')
+      @exception_requests = @q.result(distinct: true).where(user_id: current_user.id).order('created_at DESC')
     end
    
     add_breadcrumb "Exception request", :admin_exception_requests_path
