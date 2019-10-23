@@ -131,7 +131,7 @@
 						</div>
 						<div class="col-md-12">
 							<div class="col-md-3 column">Matter Types</div>		
-							<div class="col-md-9 data"><%= @panel_request.matter_types.join(", ") %></div>
+							<div class="col-md-9 data"><%= @panel_request.matter_types.is_a?(Array) ? @panel_request.matter_types.join(", ") : "" %></div>
 						</div>	
 					</div>
         </div>
