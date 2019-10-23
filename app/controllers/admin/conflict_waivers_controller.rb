@@ -5,11 +5,12 @@ class Admin::ConflictWaiversController < Admin::BaseController
   add_breadcrumb "Dashboard", :root_path
 
   def index 
+    @q = ConflictWaiver.ransack(params[:q])
     if current_user.role === "internal_lawyers"
-      @conflict_waivers = ConflictWaiver.where(assigned_to_id: current_user.id).order('created_at DESC')
+      @conflict_waivers = @q.result(distinct: true).where(assigned_to_id: current_user.id).order('created_at DESC')
     else
       @q = ConflictWaiver.ransack(params[:q])
-      @conflict_waivers = @q.result.order('created_at DESC')
+      @conflict_waivers = @q.result(distinct: true).order('created_at DESC')
     end
     add_breadcrumb "Conflict Waiver", :admin_conflict_waivers_path
   end

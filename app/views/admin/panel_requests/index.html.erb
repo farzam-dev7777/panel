@@ -8,6 +8,29 @@
     <span class="widget-icon"> <i class="fa fa-briefcase"></i> </span>
     <h2>Panel Requests</h2>
   </header>
+  <%= search_form_for [:admin, @q] do |f| %>
+    <div class="row" style="padding-top: 20px;">
+      <div class="col-xs-12 col-sm-12">
+        <h2 style="margin: 0px 0px 10px;">Search Filter</h2>
+      </div>
+      <div class="col-xs-12 col-sm-4">
+          <strong><%= f.label :requested_by_cont, label: false  %></strong>
+          <%= f.search_field :requested_by_cont %>
+      </div>
+      <div class="col-xs-12 col-sm-4">
+          <strong><%= f.label :submitted_by_email_cont %></strong>
+          <%= f.search_field :submitted_by_email_cont %>
+      </div>
+      <div class="col-xs-12 col-sm-4">
+        <strong><%= f.label :law_firm_id_eq %> </strong>
+        <%= f.select :law_firm_id_eq, options_from_collection_for_select(LawFirm.all, "id", "name", @q.law_firm_id_eq), {:include_blank => 'Select law firm'} %>
+      </div>
+      <div class="col-xs-12 text-right" style="margin-top: 20px;">
+          <%= f.submit "Search", class: "btn btn-primary" %>
+          <%= f.submit "Reset", type: "reset", value: "Reset",  class: "btn btn-primary" %>
+      </div>
+    </div>        
+  <% end %>
   <div class="col-lg-12">
     <div class="no-padding">
       <div class="widget-body">

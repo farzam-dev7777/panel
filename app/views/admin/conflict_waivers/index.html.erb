@@ -8,6 +8,26 @@
       <span class="widget-icon"> <i class="fa fa-briefcase"></i> </span>
       <h2>Conflict Waiver</h2>
     </header>
+    <%= search_form_for [:admin, @q] do |f| %>
+      <div class="row" style="padding-top: 20px;">
+        <div class="col-xs-12 col-sm-12">
+          <h2 style="margin: 0px 0px 10px;">Search Filter</h2>
+        </div>
+        <div class="col-xs-12 col-sm-4">
+            <strong><%= f.label :name_of_law_firm_cont, label: false  %></strong>
+            <%= f.search_field :name_of_law_firm_cont %>
+        </div>
+        <div class="col-xs-12 col-sm-4">
+            <strong><%= f.label :contact_details_cont %></strong>
+            <%= f.search_field :contact_details_cont %>
+        </div>
+        <div class="col-xs-12 text-right" style="margin-top: 20px;">
+            <%= f.submit "Search", class: "btn btn-primary" %>
+            <%= f.submit "Reset", type: "reset", value: "Reset",  class: "btn btn-primary" %>
+        </div>
+        
+      </div>        
+    <% end %>
     <!-- widget div-->
     <div>
       <!-- widget edit box -->

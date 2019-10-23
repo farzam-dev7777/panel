@@ -5,7 +5,8 @@ class Lob::ExceptionRequestsController < Lob::BaseController
   add_breadcrumb "Dashboard", :root_path
 
   def index
-    @exception_requests = ExceptionRequest.where(user_id: current_user.id).order('created_at DESC')   
+    @q = ExceptionRequest.ransack(params[:q])
+    @exception_requests = @q.result(distinct: true).where(user_id: current_user.id).order('created_at DESC')   
     add_breadcrumb "Exception request", :admin_exception_requests_path
   end
 
