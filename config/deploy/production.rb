@@ -7,10 +7,10 @@
 # server 'example.com', user: 'deploy', roles: %w{app web}, other_property: :other_value
 # server 'db.example.com', user: 'deploy', roles: %w{db}
 
-set :rails_env, :external
-set :branch, :external
+set :rails_env, :production
+set :branch, :production
 
-server 'ec2-35-183-102-55.ca-central-1.compute.amazonaws.com', user: 'ubuntu', port: 4321, password: fetch(:password), roles: %w{web app}
+server 'ec2-35-182-139-127.ca-central-1.compute.amazonaws.com', user: 'ubuntu', port: 4321, password: fetch(:password), roles: %w{web app}
 
 set :deploy_via, :remote_cache
 set :rvm_custom_path, '/usr/share/rvm/'
@@ -24,7 +24,7 @@ set :ssh_options, {
   auth_methods: %w(publickey),
   user: 'ubuntu',
   paranoid: true,
-  keys: %w(~/.ssh/seal-aws-prod-ec2-central-new.pem)
+  keys: %w(~/.ssh/panel-aws-key-pair.pem)
 }
 
 set :conditionally_migrate, true    

@@ -1,13 +1,13 @@
-set :rails_env, :external
+set :rails_env, :production
 set :branch, :staging
 
-server 'ec2-35-182-224-140.ca-central-1.compute.amazonaws.com', user: 'ubuntu', port: 4321, password: fetch(:password), roles: %w{web app}
+server 'ec2-35-182-139-127.ca-central-1.compute.amazonaws.com', user: 'ubuntu', port: 4321, password: fetch(:password), roles: %w{web app}
 
 set :deploy_via, :remote_cache
 set :rvm_custom_path, '/usr/share/rvm/'
 set :rvm_ruby_version, '2.5.1'
 
-set :unicorn_rack_env, :external
+set :unicorn_rack_env, :production
 
 set :ssh_options, {
   config: false,
@@ -15,7 +15,7 @@ set :ssh_options, {
   auth_methods: %w(publickey),
   user: 'ubuntu',
   paranoid: true,
-  keys: %w(~/.ssh/seal-staging-aws.pem)
+  keys: %w(~/.ssh/panel-aws-key-pair.pem)
 }
 
 set :conditionally_migrate, true
