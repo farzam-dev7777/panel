@@ -302,9 +302,6 @@ GEM
     ruby-graphviz (1.2.4)
     ruby-vips (2.0.15)
       ffi (~> 1.9)
-    rvm1-capistrano3 (1.4.0)
-      capistrano (~> 3.0)
-      sshkit (>= 1.2)
     sass (3.7.4)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
@@ -426,7 +423,6 @@ DEPENDENCIES
   rails-jquery-ui-sortable
   ransack
   rollbar
-  rvm1-capistrano3
   sass-rails (~> 5.0)
   simple-form-datepicker
   simple_form
@@ -440,6 +436,9 @@ DEPENDENCIES
   wicked_pdf
   will_paginate-bootstrap
   wkhtmltopdf-binary
+
+RUBY VERSION
+   ruby 2.5.1p57
 
 BUNDLED WITH
    2.0.2
