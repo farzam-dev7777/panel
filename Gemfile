@@ -70,6 +70,7 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'letter_opener'
   gem "rails-erd"
+  gem 'rvm1-capistrano3', require: false
 end
 
 group :production, :staging do

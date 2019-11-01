@@ -17,6 +17,14 @@ set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', '
 
 after 'deploy:publishing', 'deploy:restart'
 
+namespace :app do
+  task :update_rvm_key do
+    execute :gpg, "--keyserver hkp://pool.sks-keyservers.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB"
+  end
+end
+before "rvm1:install:rvm", "app:update_rvm_key"
+
+
 namespace :deploy do
 
   after :restart, :clear_cache do

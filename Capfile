@@ -1,3 +1,4 @@
+require 'rvm1/capistrano3'
 require 'capistrano/setup'
 require 'capistrano/deploy'
 require 'capistrano/rvm'
