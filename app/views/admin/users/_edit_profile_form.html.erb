@@ -1,0 +1,86 @@
+<style>
+	input, textarea, select { padding: 0px !important; margin: 0px; background: transparent; }
+</style>
+
+
+<div class="clearfix"></div>
+<div class="container">
+	<div class="table-responsive">
+
+    <%= 
+    simple_form_for([:admin,@user], 
+    :url => url_for(:action => 'update_profile', :controller => 'users'),
+    :method => 'post', html: { class: '' }) do |f| %>
+    
+			<table class="table table-striped">
+				<tbody> 
+          <tr>
+            <td class="text-right" width="20%"><strong>First Name</strong></td>
+            <td><%= f.input :first_name, label: false %></td>
+          </tr>
+          <tr>
+            <td class="text-right" width="20%"><strong>Last Name</strong></td>
+            <td><%= f.input :last_name, label: false %></td>
+          </tr>
+          <% if @user.new_record? %>
+            <tr>
+              <td class="text-right" width="20%"><strong>Email</strong></td>
+              <td>
+                <%= f.input :email, label: false %>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-right" width="20%"><strong>Username</strong></td>
+              <td>
+                <%= f.input :username, label: false %>
+              </td>
+            </tr>
+          <% else %>
+            <tr>
+              <td class="text-right" width="20%"><strong>Email</strong></td>
+              <td>
+                <%= f.input :email, label: false, autocomplete: "off", input_html: { disabled: true } %>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-right" width="20%"><strong>Username</strong></td>
+              <td>
+                <%= f.input :username, label: false, autocomplete: "off", input_html: { disabled: true } %>
+              </td>
+            </tr>
+          <% end %>
+          
+          <tr>
+              <td class="text-right" width="20%"><strong>Password</strong></td>
+              <td>
+                <%= f.input :password, autocomplete: "off", label: false, input_html: { class: 'set-password' } %>
+                <p style="color: #949494;" class="text-left"><em>Minimum 10 characters required</em></p>	
+              </td>
+            </tr>
+            <tr>
+              <td class="text-right" width="20%"><strong>Confirm Password</strong></td>
+              <td>
+                <%= f.input :password_confirmation, autocomplete: "off", label: false, input_html: { class: 'set-password' } %>
+              </td>
+            </tr>
+          <% if current_user.role == "lob" %>
+            <tr class="lob_details" > 
+              <td class="text-right" width="20%"><strong>Line of business</strong></td>
+              <td><%= f.input :line_of_business, label: false, collection: PanelRequest::LOB_LIST %></td>
+            </tr> 
+            <tr class="lob_details" >
+              <td class="text-right" width="20%"><strong>Lob contact name</strong></td>
+              <td><%= f.input :lob_contact_name, label: false %></td>
+            </tr>
+          <% end %>
+          <tr>
+            <td colspan="2">
+             
+              <%= f.button :submit, @user.new_record? ? "Create User" : "Update User", class: "" %>
+            </td>
+          </tr>
+				</tbody>
+			</table>
+		<% end %>
+	</div>
+</div>

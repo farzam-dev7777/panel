@@ -17,7 +17,7 @@
       
       <div class="tab-content padding-10">
         <div class="tab-pane fade in active">
-          <div class="col-md-8">
+          <div class="col-md-10">
             <div class="col-md-12">
               <div class="col-md-4 column">Requested By	</div>
               <div class="col-md-8 data"><%= @exception_request.requested_by %></div>
@@ -28,27 +28,46 @@
             </div>
             <div class="col-md-12">
               <div class="col-md-4 column">Line of Business	</div>		
-              <div class="col-md-8 data"><%= @exception_request.requested_by %><%= @exception_request.line_of_business %></div>
+              <div class="col-md-8 data"><%= @exception_request.line_of_business %></div>
             </div>
             <div class="col-md-12">
               <div class="col-md-4 column">Law Firm</div>		
               <div class="col-md-8 data">
-                  <div style="" class="firmDetails">
-                    <div class="col-md-8 tab-pane ">
-                      <div class="col-md-12">
-                        <div class="col-md-4 column">Name</div>
-                        <div class="col-md-8 data firmName"><%= @law_firms.name %></div>
-                      </div>
-                      <div class="col-md-12">
-                        <div class="col-md-4 column">Email</div>		
-                        <div class="col-md-8 data firmEmail"><%= @law_firms.email %></div>
-                      </div>
-                      <div class="col-md-12">
-                        <div class="col-md-4 column">Phone</div>		
-                        <div class="col-md-8 data firmPhone"><%= @law_firms.phone %></div>
-                      </div>
-                    </div>
+                <div class="col-md-12 ">
+                  <div class="col-md-12">
+                    <div class="col-md-6 column">Law Firm Category : </div>
+                    <div class="col-md-6 data firmName"><%= @law_firm.law_firm_category %></div>
                   </div>
+                  <div class="col-md-12">
+                    <div class="col-md-6 column">Name : </div>
+                    <div class="col-md-6 data firmName"><%= @law_firm.name %></div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="col-md-6 column">Email : </div>		
+                    <div class="col-md-6 data firmEmail"><%= @law_firm.user.email %></div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="col-md-6 column">Phone : </div>		
+                    <div class="col-md-6 data firmPhone"><%= @law_firm.phone %></div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="col-md-6 column">Description : </div>		
+                    <div class="col-md-6 data firmPhone"><%= @law_firm.description %></div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="col-md-6 column">Relationship Manager Name :	</div>		
+                    <div class="col-md-6 data firmPhone"><%= @law_firm.relationship_manager_name %></div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="col-md-6 column">Relationship Manager Email : </div>		
+                    <div class="col-md-6 data firmPhone"><%= @law_firm.relationship_manager_email %></div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="col-md-6 column">Relationship Manager Phone : </div>		
+                    <div class="col-md-6 data firmPhone"><%= @law_firm.relationship_manager_phone %></div>
+                  </div>
+                  
+                </div>
               </div>
             </div>
             <div class="col-md-12">
