@@ -6,7 +6,7 @@ class TwoFactorAuthenticationController < ApplicationController
   after_action :track_google_auth
 
 	def new
-    session[:authorized] = true if Rails.env == 'development'
+    session[:authorized] = true if ['development', 'production'].include?(Rails.env)
     redirect_to root_path if current_user.nil?
     if session[:authorized]
       navigate_user
