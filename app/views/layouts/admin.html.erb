@@ -49,6 +49,15 @@
 			<div id="logout" class="btn-header transparent pull-right">
 				<span> <a href="/users/sign_out" title="Sign Out" data-action="userLogout" data-logout-msg="You can improve your security further after logging out by closing this opened browser"><i class="fa fa-sign-out"></i></a> </span>
 			</div>
+			<% if current_user.role == "superadmin" %>
+				<div id="profile" class="btn-header transparent pull-right">
+					<span> <a href="/users/edit/" title="Edit Profile" data-action="userLogout" ><i class="fa fa-user"></i></a> </span>
+				</div>
+			<% else %>	
+				<div id="profile" class="btn-header transparent pull-right">
+					<span> <a href="/admin/users/edit_profile/<%= current_user.id %>" title="Edit Profile" data-action="userLogout" ><i class="fa fa-user"></i></a> </span>
+				</div>
+			<% end %>	
 			<!-- end logout button -->
 			<!--<div class="project-context form_dropdown pull-right">
 
@@ -196,6 +205,9 @@
 				<% if current_user && current_user.role == 'superadmin' %>
 					<li class="<%= active_menu_item(edit_admin_system_setting_path(SystemSetting.last || SystemSetting.create)) %>">
 						<a href="<%= edit_admin_system_setting_path(SystemSetting.last || SystemSetting.create) %>" title="blank_"><i class="fa fa-lg fa-fw fa-cog"></i> <span class="menu-item-parent">System Settings</span></a>
+					</li>
+					<li class="<%= active_menu_item('/admin/users/') %>">
+						<a href="/admin/users/" title="blank_"><i class="fa fa-lg fa-fw fa-user"></i> <span class="menu-item-parent">Users Manage</span></a>
 					</li>
 				<% end %>
 			

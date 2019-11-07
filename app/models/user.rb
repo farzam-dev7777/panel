@@ -6,13 +6,7 @@ class User < ApplicationRecord
 
   devise :database_authenticatable,
          :recoverable, :trackable, 
-         :validatable, :authentication_keys => [:username]
-
-  validates :username,
-    :presence => true,
-    :uniqueness => {
-      :case_sensitive => false
-    }
+         :authentication_keys => [:username]
 
   has_one :law_firm
   has_many :activity_logs, as: :loggable
@@ -21,10 +15,43 @@ class User < ApplicationRecord
 
   default_scope { where("deactivated_at IS NULL") }
 
-  attr_accessor :login
+  attr_accessor :login, :send_password_reset_link
 
   validate :password_complexity
 
+  before_create :send_password_reset_link
+  before_save :validate_username
+  validates_presence_of  :email, :role
+  validates_presence_of :password, if: :need_password_validation?
+  validates_presence_of :password_confirmation, if: :need_password_validation?
+  validates :username,
+    :presence => true,
+    :uniqueness => {
+      :case_sensitive => false
+    }
+
+  def email=(email)
+    self.username = email
+    super
+  end
+
+  def need_password_validation?
+    !self.new_record? && !self.password.blank? && !self.password_confirmation.blank?
+  end
+
+  def send_password_reset_link_email
+    if self.send_password_reset_link
+      self.password  = self.password_confirmation = SecureRandom.hex(12)
+      UserMailer.send_password_reset_link(self).deliver!
+    end
+  end
+
+  def reset_password_link_url
+    self.send(:set_reset_password_token)
+    self.save(validate: false)
+    Rails.application.routes.url_helpers.edit_user_password_path(reset_password_token: self.reset_password_token)
+  end
+  
   def google_qr_uri
     "data:image/png;base64,#{Base64.encode64(open(super).to_a.join)}"
   end
@@ -34,7 +61,7 @@ class User < ApplicationRecord
   end
 
   def password_complexity
-    return true if password.blank? && !self.new_record?
+    return true if (password.blank? && !self.new_record?) || self.send_password_reset_link
     if password != password_confirmation
       errors.add :password, "both passwords should match" 
     end

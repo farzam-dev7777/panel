@@ -13,7 +13,6 @@ class ApplicationController < ActionController::Base
 
   def authenticate_2fa
     return false if params[:controller] == 'users/sessions' && params[:action] == 'create'
-
     if (current_user) && ( current_user.role == 'superadmin' || current_user.role == 'admin' || current_user.is_panel_admin_user? ) && request.env.fetch("PATH_INFO") == "/"
       if current_user.role == "lob"
         redirect_to lob_root_url
