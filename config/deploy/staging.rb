@@ -1,4 +1,4 @@
-set :rails_env, :production
+set :rails_env, :staging
 set :branch, :staging
 
 server 'ec2-35-182-139-127.ca-central-1.compute.amazonaws.com', user: 'ubuntu', port: 4321, password: fetch(:password), roles: %w{web app}
@@ -7,7 +7,7 @@ set :deploy_via, :remote_cache
 set :rvm_custom_path, '/usr/share/rvm/'
 set :rvm_ruby_version, '2.5.1'
 
-set :unicorn_rack_env, :production
+set :unicorn_rack_env, :staging
 
 set :ssh_options, {
   config: false,
