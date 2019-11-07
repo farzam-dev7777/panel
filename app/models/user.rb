@@ -19,8 +19,7 @@ class User < ApplicationRecord
 
   validate :password_complexity
 
-  before_create :send_password_reset_link
-  before_save :validate_username
+  before_create :send_password_reset_link_email
   validates_presence_of  :email, :role
   validates_presence_of :password, if: :need_password_validation?
   validates_presence_of :password_confirmation, if: :need_password_validation?
@@ -51,7 +50,7 @@ class User < ApplicationRecord
     self.save(validate: false)
     Rails.application.routes.url_helpers.edit_user_password_path(reset_password_token: self.reset_password_token)
   end
-  
+
   def google_qr_uri
     "data:image/png;base64,#{Base64.encode64(open(super).to_a.join)}"
   end
@@ -76,13 +75,6 @@ class User < ApplicationRecord
   def login
     @login || self.username
   end
-
-  def validate_username
-    if User.where(email: username).exists?
-      errors.add(:username, :invalid)
-    end
-  end
-
 
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup

@@ -46,11 +46,9 @@
           <% end %>
           <%- if f.object.new_record? %>
             <tr>
-              <td>
-                Send Password Reset Link
-              </td>
-              <td>
-                <%= f.input :send_password_reset_link, as: :boolean %>
+              <td class="text-right" width="20%"><strong>Allow user to select their own password</strong></td>
+              <td class="text-left">
+                <%= f.input :send_password_reset_link, as: :boolean, label: false %>
               </td>
             </tr>
           <% end %>

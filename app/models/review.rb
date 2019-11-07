@@ -16,7 +16,7 @@ class Review < ApplicationRecord
           
         end
       elsif self.actor.role === 'internal_lawyers'
-        self.reviewable.internal_lawyers_status = self.status
+        self.reviewable.internal_lawyers_status = self.status.blank? ? self.reviewable.internal_lawyers_status : self.status
       end
     end
     if self.reviewable.class.to_s === 'ExceptionRequest'
@@ -32,8 +32,7 @@ class Review < ApplicationRecord
           
         end
       elsif self.actor.role === 'internal_lawyers'
-        
-        self.reviewable.internal_lawyers_status = self.status
+        self.reviewable.internal_lawyers_status = self.status.blank? ? self.reviewable.internal_lawyers_status : self.status
         self.reviewable.internal_lawyers_id = self.actor_id
       end
     end
