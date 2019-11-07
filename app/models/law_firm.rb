@@ -47,7 +47,7 @@ class LawFirm < ApplicationRecord
   RESPONSIVENESS_SCORE_WEIGHTAGE = 0.4
   ASSESSOR_SCORE_WEIGHTAGE = 0.2
 
-  attr_accessor :temp_password, :temp_password_confirmation
+  attr_accessor :temp_password, :temp_password_confirmation, :email
 
   def password_complexity
     return true if temp_password.blank? && !self.new_record?
@@ -74,8 +74,8 @@ class LawFirm < ApplicationRecord
 
   def generate_a_new_user
     username = SecureRandom.hex(4)
-    user = self.create_user!(email: "#{username}#{EMAIL_PREFIX}", 
-                             username: username, 
+    user = self.create_user!(email:email, 
+                             username: email, 
                              password: self.temp_password,
                              password_confirmation: self.temp_password_confirmation,
                              role: 'master_user',

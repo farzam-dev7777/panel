@@ -49,6 +49,15 @@
 			<div id="logout" class="btn-header transparent pull-right">
 				<span> <a href="/users/sign_out" title="Sign Out" data-action="userLogout" data-logout-msg="You can improve your security further after logging out by closing this opened browser"><i class="fa fa-sign-out"></i></a> </span>
 			</div>
+			<% if current_user.role == "superadmin" %>
+				<div id="profile" class="btn-header transparent pull-right">
+					<span> <a href="/users/edit/" title="Edit Profile" data-action="userLogout" ><i class="fa fa-user"></i></a> </span>
+				</div>
+			<% else %>	
+				<div id="profile" class="btn-header transparent pull-right">
+					<span> <a href="/admin/users/edit_profile/<%= current_user.id %>" title="Edit Profile" data-action="userLogout" ><i class="fa fa-user"></i></a> </span>
+				</div>
+			<% end %>	
 			<!-- end logout button -->
 			<!--<div class="project-context form_dropdown pull-right">
 
@@ -165,17 +174,17 @@
 				</li>
 				<% if current_user && ( current_user.role == 'lob' || current_user.role == 'lxp' || current_user.role == 'internal_lawyers' ) %>
 					<li class="<%= active_menu_item('/admin/exception_requests') %>">
-						<a href="/admin/exception_requests" title="blank_"><i class="fa fa-lg fa-fw fa-list"></i> <span class="menu-item-parent">Exception Requests</span></a>
+						<a href="/admin/exception_requests" title="blank_"><i class="fa fa-lg fa-fw fa-exclamation"></i> <span class="menu-item-parent">Exception Requests</span></a>
 					</li>
 				<% end %>
 				<% if current_user && (  current_user.role == 'lxp' || current_user.role == 'internal_lawyers' ) %>
 					<li class="<%= active_menu_item('/admin/conflict_waivers') %>">
-						<a href="/admin/conflict_waivers" title="blank_"><i class="fa fa-lg fa-fw fa-list"></i> <span class="menu-item-parent">Conflict Waiver</span></a>
+						<a href="/admin/conflict_waivers" title="blank_"><i class="fa fa-lg fa-fw fa-thumbs-o-up"></i> <span class="menu-item-parent">Conflict Waiver</span></a>
 					</li>
 					<% end %>	
 				<% if current_user && current_user.role == 'lxp' %>
 					<li class="<%= active_menu_item('/admin/panel_requests') %>">
-						<a href="/admin/panel_requests" title="blank_"><i class="fa fa-lg fa-fw fa-list"></i> <span class="menu-item-parent">Panel Request Form</span></a>
+						<a href="/admin/panel_requests" title="blank_"><i class="fa fa-lg fa-fw fa-check"></i> <span class="menu-item-parent">Panel Request Form</span></a>
 					</li>
 				<% end %>
 				<!-- <li class="">
@@ -194,6 +203,9 @@
 					<a href="/admin/faq_categories" title="blank_"><i class="fa fa-lg fa-fw fa-newspaper-o"></i> <span class="menu-item-parent">FAQ Categories</span></a>
 				</li> -->
 				<% if current_user && current_user.role == 'superadmin' %>
+					<li class="<%= active_menu_item('/admin/users/') %>">
+						<a href="/admin/users/" title="blank_"><i class="fa fa-lg fa-fw fa-user"></i> <span class="menu-item-parent">Manage Users</span></a>
+					</li>
 					<li class="<%= active_menu_item(edit_admin_system_setting_path(SystemSetting.last || SystemSetting.create)) %>">
 						<a href="<%= edit_admin_system_setting_path(SystemSetting.last || SystemSetting.create) %>" title="blank_"><i class="fa fa-lg fa-fw fa-cog"></i> <span class="menu-item-parent">System Settings</span></a>
 					</li>

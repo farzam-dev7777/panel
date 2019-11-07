@@ -22,7 +22,7 @@ class Admin::ExceptionRequestsController < Admin::BaseController
     if !@exception_request.user.try(:google_secret)
       @exception_request.user.try(:set_google_secret)
     end
-    @law_firms = LawFirm.find_by_id(@exception_request.law_firm_name)
+    @law_firms = LawFirm.find_by_id(@exception_request.law_firm_id)
     add_breadcrumb "#{@exception_request.requested_by}", :admin_exception_request_path 
   end
 

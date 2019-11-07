@@ -192,7 +192,7 @@ class Admin::LawFirmsController < Admin::BaseController
       :principle_contact_info, :parent_company, :sister_firm,
       :initial_date_of_engagement_with_the_bank,
       :confidentiality_level_of_matters_that_are_handled,
-      :number_of_lawyers,
+      :number_of_lawyers, :law_firm_category, 
       locations_attributes: [
         :id, :address1, :address2,
         :city, :province, :postal_code,

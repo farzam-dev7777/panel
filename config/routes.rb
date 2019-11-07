@@ -4,6 +4,13 @@ Rails.application.routes.draw do
     devise_for :admin_users, controllers: {
       sessions: 'admin/internal_sessions'
     }
+    resources :users do
+      collection do
+        get :edit_profile 
+        get 'edit_profile/:id' => 'users#edit_profile', :as => "users_edit_profile"
+        post 'update_profile/:id' => 'users#update_profile', :as => "users_update_profile"
+      end
+    end
     
     resources :file_attachments do
       member do
@@ -110,7 +117,13 @@ Rails.application.routes.draw do
   end
 
   namespace :lob do
-
+    resources :users do
+      collection do
+        get :edit_profile 
+        get 'edit_profile/:id' => 'users#edit_profile', :as => "users_edit_profile"
+        post 'update_profile/:id' => 'users#update_profile', :as => "users_update_profile"
+      end
+    end
     resources :law_firms do 
       member do
         get :begin_certification_process
@@ -132,7 +145,15 @@ Rails.application.routes.draw do
       end
     end
    
-    resources :exception_requests
+    resources :exception_requests do
+      collection do
+        get :select_law_firm 
+        get 'select_law_firm/:id' => 'exception_requests#select_law_firm'
+        get ':law_firm_id/new' => 'exception_requests#new', :as => "exception_request_new"
+      end
+    end
+
+    
     root to: "internal_dashboard#index"
   end
   

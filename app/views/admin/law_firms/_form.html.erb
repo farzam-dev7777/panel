@@ -24,15 +24,20 @@
 						<td class="text-right" width="20%"><strong>Type</strong></td>
 						<td><%= f.input :law_firm_type, label: false, collection: LawFirm::COMPANY_TYPES, input_html: { autocomplete: 'off', class: 'text-left' }, prompt: 'Please Select a Type' %></td>
 					</tr> -->
-
+					<tr>
+						<td class="text-right" width="20%"><strong>Category</strong></td>
+						<td><%= f.input :law_firm_category, label: false, collection: ExceptionRequest::LAW_FIRM_CATEGORIES.map{ |k,v| [v,k]}, input_html: { autocomplete: 'off', class: 'text-left' }, prompt: 'Please Select a Category' %></td>
+					</tr>
 					<tr>
 						<td class="text-right" width="20%"><strong>Name</strong></td>
 						<td><%= f.input :name, label: false %></td>
 					</tr>
-					<tr>
-						<td class="text-right" width="20%"><strong>Email</strong></td>
-						<td><%= f.input :email, label: false %></td>
-					</tr>
+					<% if @law_firm.new_record? %>
+						<tr>
+							<td class="text-right" width="20%"><strong>Email</strong></td>
+							<td><%= f.input :email, label: false %></td>
+						</tr>
+					<% end %>
 					<tr>
 						<td class="text-right" width="20%"><strong>Phone</strong></td>
 						<td><%= f.input :phone, label: false %></td>
