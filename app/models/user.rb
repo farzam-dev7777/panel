@@ -93,6 +93,7 @@ class User < ApplicationRecord
     self.password = self.password_confirmation = SecureRandom.hex(10) + "@A!123"
     self.deactivated_at = Time.now
   end
+
   def password_complexity
     return true if (password.blank? && !self.new_record?) || self.send_password_reset_link
     if password != password_confirmation

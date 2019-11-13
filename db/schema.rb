@@ -108,8 +108,8 @@ ActiveRecord::Schema.define(version: 20191113191452) do
     t.string   "bmo_business_contact"
     t.text     "reason"
     t.integer  "user_id"
-    t.datetime "created_at",              precision: 6, null: false
-    t.datetime "updated_at",              precision: 6, null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
     t.boolean  "confirm_waiver"
     t.string   "lxp_status"
     t.string   "internal_lawyers_status"
@@ -158,24 +158,24 @@ ActiveRecord::Schema.define(version: 20191113191452) do
     t.integer  "law_firm_id"
     t.string   "request_type"
     t.string   "law_firm_category"
-    t.string   "minority_owned"
+    t.text     "minority_owned"
     t.text     "minority_owned_details"
-    t.string   "women_owned"
+    t.text     "women_owned"
     t.text     "women_owned_details"
     t.string   "matter_name"
-    t.datetime "created_at",              precision: 6, null: false
-    t.datetime "updated_at",              precision: 6, null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
     t.text     "matter_types"
     t.string   "law_firm_name"
     t.string   "business_manager_name"
     t.string   "business_manager_phone"
     t.string   "business_manager_email"
-    t.string   "docusign_envelope_id"
     t.string   "lxp_status"
     t.integer  "lxp_id"
     t.string   "internal_lawyers_status"
     t.integer  "internal_lawyers_id"
     t.string   "pay_type"
+    t.string   "docusign_envelope_id"
     t.text     "notes"
   end
 
@@ -464,8 +464,8 @@ ActiveRecord::Schema.define(version: 20191113191452) do
     t.text     "women_owned_details"
     t.string   "matter_name"
     t.text     "matter_types"
-    t.datetime "created_at",             precision: 6, null: false
-    t.datetime "updated_at",             precision: 6, null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.string   "law_firm_name"
     t.string   "business_manager_name"
     t.string   "business_manager_phone"

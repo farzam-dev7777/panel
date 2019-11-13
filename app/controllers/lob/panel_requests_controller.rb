@@ -5,7 +5,6 @@ class Lob::PanelRequestsController < Lob::BaseController
   add_breadcrumb "Dashboard", :root_path
 
   def index
-
     @q = PanelRequest.ransack(params[:q])
     @panel_requests = @q.result(distinct: true).where(user_id: current_user.id).order('created_at DESC')   
     add_breadcrumb "Panel request", :lob_panel_requests_path
@@ -70,6 +69,16 @@ class Lob::PanelRequestsController < Lob::BaseController
  
 
   private
+  def panel_requests_params_test
+    params.require(:panel_request).permit(
+      :requested_by, :submitted_by_email, :user_id, :line_of_business,
+      :lob_contact_name, :law_firm_id, :request_type,
+      :business_manager_name, :business_manager_phone, 
+      :business_manager_email, :minority_owned, :minority_owned_details,
+      :women_owned, :women_owned_details, :law_firm_name, 
+      matter_types: []
+    )
+  end
 
   def panel_requests_params
     params.require(:panel_request).permit(
@@ -77,8 +86,10 @@ class Lob::PanelRequestsController < Lob::BaseController
       :lob_contact_name, :law_firm_id, :request_type,
       :business_manager_name, :business_manager_phone, 
       :business_manager_email, :minority_owned, :minority_owned_details,
-      :women_owned, :women_owned_details, :law_firm_name,  matter_types: [], 
-      law_firm_attributes: [:name, :law_firm_category, 
+      :women_owned, :women_owned_details, :law_firm_name, 
+      matter_types: [], 
+      law_firm_attributes: [
+        :name, :law_firm_category, 
         :email, :phone, :description, :relationship_manager_name, 
         :relationship_manager_email, :relationship_manager_phone ,
         users_attributes: [:email, :role, :empty_user]
