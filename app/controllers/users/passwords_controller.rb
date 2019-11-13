@@ -5,8 +5,10 @@ class Users::PasswordsController < Devise::PasswordsController
 
 
   def update
-    user = resource_class.find_by(reset_password_token: params["user"]["reset_password_token"])
+    #binding.pry
+    user = resource_class.with_deactivated.find_by(reset_password_token: params["user"]["reset_password_token"])
     if user
+      #binding.pry
       user.password = params["user"]["password"]
       user.password_confirmation = params["user"]["password_confirmation"]
       if user && user.save

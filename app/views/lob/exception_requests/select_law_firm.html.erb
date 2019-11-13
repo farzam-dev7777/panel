@@ -14,7 +14,7 @@
       border-radius: 5px;
       color: #000;
       background: #f4363669;
-      padding: 8px 17px;
+      padding: 12px 17px 1px 17px;
       margin-top: 20px;
       margin-bottom: 20px;
     }
@@ -25,7 +25,7 @@
     <div class="jarviswidget jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
       <header>
         <span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
-        <h2 class="font-md"><strong>Submit Exception Request </strong></h2>				
+        <h2 class="font-md"><strong>Law Firm </strong></h2>				
       </header>
       <div class="no-padding">
         <div class="jarviswidget-editbox"></div>
@@ -34,8 +34,8 @@
           <div class="table-responsive" style=" min-height: 300px; ">
             <% if @law_firm %>
               <tbody>
-                  <div class="col-md-12">
-                      <div class="col-md-3 column">Law Firm Details</div>		
+                  <div class="col-md-12 select_law_firm">
+                      <div class="col-md-3 column title">Law Firm Details : </div>		
                       <div class="col-md-9 data">
                           <div style="" class="firmDetails">
                             <div class="col-md-9 tab-pane ">
@@ -49,7 +49,7 @@
                               </div>
                               <div class="col-md-12">
                                 <div class="col-md-6 column">Email : </div>		
-                                <div class="col-md-6 data firmEmail"><%= @law_firm.user.email %></div>
+                                <div class="col-md-6 data firmEmail"><%= @law_firm.email %></div>
                               </div>
                               <div class="col-md-12">
                                 <div class="col-md-6 column">Phone : </div>		
@@ -98,7 +98,7 @@
                 <div class="col-md-1">OR</div>
                 <div class="col-md-6">
                     <div class="col-md-8">
-                        <a href="#" class="btn btn-primary">Create A New Law Firm</a>
+                        <b><%= link_to 'Create A New Law Firm', "law_firm_new/create", html_options = {class: 'btn btn-primary btn-lg dashboard-certificate-button'}   %></b></p>
                     </div>
                 </div>
                 <% end %>

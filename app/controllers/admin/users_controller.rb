@@ -59,6 +59,23 @@ class Admin::UsersController < Admin::BaseController
     end
   end
 
+  def send_user_info
+    @user = User.with_deactivated.find_by(id: params[:id])
+    if @user
+      @user.send_user_info_with_password
+      head :ok
+    end
+  end
+
+  def send_user_info_with_certification
+    @user = User.with_deactivated.find_by(id: params[:id])
+    if @user
+      @user.send_user_info_with_rfi
+      head :ok
+    end
+  end
+
+
   private
 
   def users_params

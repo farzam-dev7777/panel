@@ -595,15 +595,16 @@ $(document).ready(function(){
     });
   })
 
-  $('.begin-certification-btn').on('click', function(e){
-    href  = "/admin/law_firms/" + $(this).data('id') + "/begin_certification_process";
+ 
+  $('.send-user-info-btn').on('click', function(e){
+    href  = "/admin/users/send_user_info/"+ $(this).data('id');
     swal({
       title: "Are you sure?",
       text: "",
       type: "warning",
       showCancelButton: true,
       confirmButtonColor: "#DD6B55",
-      confirmButtonText: "Yes, send RFI Questionnaire!",
+      confirmButtonText: "Yes, send User info!",
       cancelButtonText: "Cancel",
       closeOnConfirm: true,
       closeOnCancel: true
@@ -614,7 +615,35 @@ $(document).ready(function(){
           method: 'GET',
           url: href,
           success: function() {
-            toastr.success("", "RFI Questionnaire is sent")
+            toastr.success("", "User info is sent")
+            window.location.reload();
+          },
+          error: function(response) {}
+        })
+      }
+    });
+  })
+
+  $('.send-user-info-begin-certification-btn').on('click', function(e){
+    href  = "/admin/users/send_user_info_with_certification/"+ $(this).data('id');
+    swal({
+      title: "Are you sure?",
+      text: "",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "Yes, send User info with RFI!",
+      cancelButtonText: "Cancel",
+      closeOnConfirm: true,
+      closeOnCancel: true
+    },
+    function(isConfirm){
+      if (isConfirm) {
+        $.ajax({
+          method: 'GET',
+          url: href,
+          success: function() {
+            toastr.success("", "User info is sent with RFI")
             window.location.reload();
           },
           error: function(response) {}

@@ -1491,3 +1491,46 @@ textarea{
 .simple_form .table-striped>tbody>tr:nth-of-type(odd) {
   background-color: #fff;
 }
+.form-submit-btn {
+  font-size: 12px;
+  font-weight: bold;
+  padding: 7px 20px !important;
+  border-radius: 0;
+  height: 28px;
+}
+.back-btn .waves-effect.btn{
+  margin-left: 0 !important;
+}
+.select_law_firm{
+  padding: 20px;
+}
+.select_law_firm .column.title{
+  font-size: 15px;
+}
+.select_law_firm .tab-pane{
+  margin-bottom: 20px;
+}
+.select_law_firm .tab-pane .col-md-12{
+  padding-bottom: 10px;
+}
+
+.select_law_firm .tab-pane .data{
+  font-weight: normal;
+}
+.view-request .col-md-12{
+  padding-bottom: 10px;
+}
+.view-request .col-md-12 > .col-md-8.data > .col-md-12  {
+  border: 1px solid #cccc;
+  padding: 10px;
+  text-align: left;
+}
+.view-request .col-md-12 .column{
+  font-weight: bold;
+}
+.view-request .tab-pane .data{
+  font-weight: normal;
+}
+.border-bottom{
+  border-bottom: 1px solid #cccc;
+}

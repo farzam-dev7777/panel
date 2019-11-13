@@ -52,14 +52,14 @@
               </td>
             </tr>
           <% end %>
-          <tr>
+          <tr class="hide_password_option">
             <td class="text-right" width="20%"><strong>Password</strong></td>
             <td>
               <%= f.input :password, autocomplete: "off", label: false, input_html: { class: 'set-password' } %>
               <p style="color: #949494;" class="text-left"><em>Minimum 10 characters required</em></p>	
             </td>
           </tr>
-          <tr>
+          <tr class="hide_password_option">
             <td class="text-right" width="20%"><strong>Confirm Password</strong></td>
             <td>
               <%= f.input :password_confirmation, autocomplete: "off", label: false, input_html: { class: 'set-password' } %>

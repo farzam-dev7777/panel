@@ -6,5 +6,15 @@ class UserMailer < ApplicationMailer
     @user = user
     mail(to: @user.email, subject: "New User Created - Reset Password Link")
   end
+
+  def send_user_info_with_password(user)
+    @user = user
+    mail(to: @user.email, subject: "Reset Password Link")
+  end
+
+  def send_user_info_with_password_with_rif(user)
+    @user = user
+    mail(to: @user.email, subject: "Reset Password Link and begin RFI")
+  end
   
 end

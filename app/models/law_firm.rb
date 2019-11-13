@@ -25,10 +25,14 @@ class LawFirm < ApplicationRecord
   accepts_nested_attributes_for :jurisdictions, allow_destroy: true
   accepts_nested_attributes_for :users, allow_destroy: true
 
-  after_create :generate_a_new_user
+  #after_create :generate_a_new_user 
   # acts_as_messageable
 
-  validate :password_complexity
+  validates_presence_of :name, :phone
+
+  before_create :set_law_firm_email_to_user_email
+
+  #validate :password_complexity
 
   USER_LIMIT = 3
 
@@ -47,9 +51,15 @@ class LawFirm < ApplicationRecord
   RESPONSIVENESS_SCORE_WEIGHTAGE = 0.4
   ASSESSOR_SCORE_WEIGHTAGE = 0.2
 
-  attr_accessor :temp_password, :temp_password_confirmation, :email
+  attr_accessor :temp_password, :temp_password_confirmation
+
+  def set_law_firm_email_to_user_email
+    self.email ||= self.users.try(:first).try(:email)
+  end
 
   def password_complexity
+    
+    return true if self.user_id?
     return true if temp_password.blank? && !self.new_record?
     errors.add :temp_password, "must be present" if temp_password.blank?
     if temp_password != temp_password_confirmation
@@ -60,7 +70,7 @@ class LawFirm < ApplicationRecord
   end
 
   def user
-    User.where(law_firm_id: self.id).order(created_at: :asc).first
+    User.with_deactivated.where(law_firm_id: self.id, role: "master_user").order(created_at: :asc).first
   end
 
   def approved_and_scored
@@ -73,6 +83,7 @@ class LawFirm < ApplicationRecord
 
 
   def generate_a_new_user
+    return true if self.user_id?
     username = SecureRandom.hex(4)
     user = self.create_user!(email:email, 
                              username: email, 

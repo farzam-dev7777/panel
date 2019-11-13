@@ -5,7 +5,7 @@
 
 
 <div class="table-responsive">
-  <%= simple_form_for [:admin, @panel_request] do |f| %>
+  <%= simple_form_for [:lob, @panel_request] do |f| %>
   
     <table class="table table-striped">
       <tbody>
@@ -18,10 +18,9 @@
         <tr>
           <td class="text-right" width="20%"><strong>Submitted By</strong></td>
           <td>
-            <%= f.input :submitted_by_email, label: false, :input_html => { :value => @current_admin_user_email, :readonly => true } %>
-            <%= f.input :user_id, :as => :hidden, :input_html => { :value => @current_admin_user_id } %>
+            <%= f.input :submitted_by_email, label: false, :input_html => { :value => @current_lob_user_email, :readonly => true } %>
+            <%= f.input :user_id, :as => :hidden, :input_html => { :value => @current_lob_user_id } %>
             <%= f.input :request_type, :as => :hidden, :input_html => { :value => "ADD_TO_LAW_FIRM_PANEL" } %>
-            
           </td>
         </tr>
         <tr>
@@ -53,14 +52,21 @@
                       <tbody>
                           <tr>
                             <td class="text-right" width="20%"><strong>Name</strong></td>
-                            <td><%= field.input :name, label: false %>
+                            <td>
+                              <%= field.input :name, label: false %>
                               <%= field.input :law_firm_category, :as => :hidden, :input_html => { :value => "PANEL" } %>
                             </td>
                           </tr>
-                          <tr>
-                            <td class="text-right" width="20%"><strong>Email</strong></td>
-                            <td><%= field.input :email, label: false %></td>
-                          </tr>
+                          <%= field.simple_fields_for :users do |user_field| %>
+                            <tr>
+                              <td class="text-right" width="20%"><strong>Email</strong></td>
+                              <td><%= user_field.input :email, label: false %>
+                                <%= user_field.input :role, :as => :hidden, label: false, :input_html => { :value => "master_user" }%>
+                                <%= user_field.input :empty_user, :as => :hidden, label: false, :input_html => { :value => true }%>
+                              </td>
+                            </tr>
+                           
+                          <% end %>
                           <tr>
                             <td class="text-right" width="20%"><strong>Phone</strong></td>
                             <td><%= field.input :phone, label: false %></td>
@@ -81,7 +87,7 @@
                             <td class="text-right" width="20%"><strong>Relationship Manager Phone</strong></td>
                             <td><%= field.input :relationship_manager_phone, label: false %></td>
                           </tr>
-                          <tr>
+                          <!-- <tr>
                             <td class="text-right" width="20%"><strong>Temp. Password</strong></td>
                             <td>
                               <%= field.input :temp_password, autocomplete: "off", label: false, input_html: { class: 'set-password' } %>
@@ -93,7 +99,7 @@
                             <td>
                               <%= field.input :temp_password_confirmation, autocomplete: "off", label: false, input_html: { class: 'set-password' } %>
                             </td>
-                          </tr>
+                          </tr> -->
                       </tbody>
                   </table>
               </div>
@@ -128,7 +134,7 @@
 
           <tr>
             <td colspan="2">
-                <%=link_to 'Cancel', @panel_request.new_record? ? admin_exception_requests_path : admin_law_firm_path, class: 'btn btn-danger btn-sm' %>
+                <%=link_to 'Cancel', @panel_request.new_record? ? lob_panel_requests_path : lob_panel_requests_path, class: 'btn btn-danger btn-sm' %>
               <%= f.button :submit, @panel_request.new_record? ? "Submit Request" : "Update Request", class: "" %>
             </td>
           </tr>

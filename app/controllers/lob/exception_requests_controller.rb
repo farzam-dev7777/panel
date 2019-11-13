@@ -80,7 +80,25 @@ class Lob::ExceptionRequestsController < Lob::BaseController
     
   end
  
+  def law_firm_new  
+    @law_firm = LawFirm.new
+    @current_user_id = current_user.id
+  end
 
+  def law_firm_create
+    @law_firm = LawFirm.new(law_firms_params)
+    @current_user_id = current_user.id
+  	if @law_firm.save
+
+      flash[:notice] = "New Law firm created"
+      redirect_to exception_request_new_lob_exception_requests_path(@law_firm)
+
+      
+  	else
+  		flash.now[:alert] = @law_firm.errors.full_messages.join(',')
+  		render :law_firm_new
+  	end
+  end
   private
 
   def exception_requests_params
@@ -91,6 +109,14 @@ class Lob::ExceptionRequestsController < Lob::BaseController
       :law_firm_category, :minority_owned, :minority_owned_details,
       :business_manager_name, :business_manager_phone, :business_manager_email,
       :women_owned, :women_owned_details, :matter_name, :law_firm_name, matter_types: []
+    )
+  end
+
+  def law_firms_params
+    params.require(:law_firm).permit(
+      :name, :description, :email, :phone, :user_id, :relationship_manager_email,
+      :relationship_manager_name, :relationship_manager_phone,
+      :law_firm_type, :law_firm_category
     )
   end
 

@@ -13,13 +13,20 @@ class User < ApplicationRecord
 
   belongs_to :law_firm
 
-  default_scope { where("deactivated_at IS NULL") }
+  default_scope { where(deactivated_at: nil) }
 
-  attr_accessor :login, :send_password_reset_link
+  scope :with_deactivated, -> { unscope(where: :deactivated_at) }
 
+  attr_accessor :login, :send_password_reset_link, :empty_user
+
+  before_validation :create_empty_user, if: :empty_user
   validate :password_complexity
 
+  validates_uniqueness_of :email
+
+
   before_create :send_password_reset_link_email
+  
   validates_presence_of  :email, :role
   validates_presence_of :password, if: :need_password_validation?
   validates_presence_of :password_confirmation, if: :need_password_validation?
@@ -51,6 +58,14 @@ class User < ApplicationRecord
     Rails.application.routes.url_helpers.edit_user_password_path(reset_password_token: self.reset_password_token)
   end
 
+  def send_user_info_with_password
+    UserMailer.send_user_info_with_password(self).deliver!
+  end
+  
+  def send_user_info_with_rfi
+    UserMailer.send_user_info_with_password_with_rif(self).deliver!
+  end
+
   def google_qr_uri
     "data:image/png;base64,#{Base64.encode64(open(super).to_a.join)}"
   end
@@ -59,6 +74,10 @@ class User < ApplicationRecord
     User::PANEL_ADMIN_USER_ROLES.include?(self.role)
   end
 
+  def create_empty_user
+    self.password = self.password_confirmation = SecureRandom.hex(10) + "@A!123"
+    self.deactivated_at = Time.now
+  end
   def password_complexity
     return true if (password.blank? && !self.new_record?) || self.send_password_reset_link
     if password != password_confirmation
@@ -124,6 +143,10 @@ class User < ApplicationRecord
 
   def is_a_master_user?
     role == 'master_user'
+  end
+
+  def is_deactivated?
+    self.deactivated_at.present?
   end
 
 end
