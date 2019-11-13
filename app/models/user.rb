@@ -55,7 +55,22 @@ class User < ApplicationRecord
   def reset_password_link_url
     self.send(:set_reset_password_token)
     self.save(validate: false)
-    Rails.application.routes.url_helpers.edit_user_password_path(reset_password_token: self.reset_password_token)
+    Rails.application.routes.url_helpers.edit_user_password_url(reset_password_token: self.reset_password_token)
+  end
+
+  def activate!
+    self.update_attributes(deactivated_at: nil)
+  end
+
+  def send_two_fa
+    self.two_fa_key = SecureRandom.hex(3).upcase
+    self.two_fa_key_expires_at = Time.now + 60.seconds
+    self.save(validate: false)
+    UserMailer.send_two_fa(self).deliver!
+  end
+
+  def authentic_email_two_factor?(code)
+    self.two_fa_key === code && self.two_fa_key_expires_at >= Time.now
   end
 
   def send_user_info_with_password

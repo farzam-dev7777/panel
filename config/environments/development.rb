@@ -49,6 +49,8 @@ Rails.application.configure do
 
   # config.action_mailer.delivery_method = :letter_opener
   config.action_mailer.default_url_options = { host: ENV['MAILJET_ACTIVE_DOMAIN'], port: 3000 }
+  Rails.application.routes.default_url_options[:host] = ENV['MAILJET_ACTIVE_DOMAIN']
+  Rails.application.routes.default_url_options[:port] = 3000
   config.action_mailer.delivery_method = :mailjet
   config.action_mailer.perform_deliveries = true
 

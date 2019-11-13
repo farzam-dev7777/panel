@@ -241,7 +241,11 @@ Rails.application.routes.draw do
     get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'    
     patch 'users/update' => 'users/registrations#update', :as => 'user_registration'
   end
-  resources :two_factor_authentication
+  resources :two_factor_authentication do
+    collection do
+      get :send_two_factor_auth_again
+    end
+  end
   namespace :users do
   end
 

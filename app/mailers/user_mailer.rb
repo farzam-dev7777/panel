@@ -16,5 +16,10 @@ class UserMailer < ApplicationMailer
     @user = user
     mail(to: @user.email, subject: "Reset Password Link and begin RFI")
   end
+
+  def send_two_fa(user)
+    @user = user
+    mail(to: @user.email, subject: "One Time Password - 2 Factor Authentication")
+  end
   
 end

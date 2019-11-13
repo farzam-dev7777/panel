@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-us" id="extr-page">
 <head>
-	<title>SEAL | 2 Factor Authentication</title>
+	<title>Panel | 2 Factor Authentication</title>
 	<%= csrf_meta_tags %>
 
 	<%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -57,25 +57,28 @@
 					</div>
 				</div>
 
-
 				
 				<div class="col-lg-6 col-md-offset-3 no-padding tfa-wrapper">
-					<h2 class="text-center" style="color: #fff;"><%= current_user.sign_in_count == 1 ? "Setup " : "" %>2 Factor Authentication</h2>
-
-						<div class="text-center">
-							<% if current_user.sign_in_count == 1 %>
-								<%= image_tag current_user.google_qr_uri %>
-								<br />
-								<p style="color: #fff;margin: 10px">Please download/open Google Authenticator App for on your <a style="color: #ccc" target="_blank" style="color: #fff;" href="https://itunes.apple.com/ca/app/google-authenticator/id388497605?mt=8"> iOS</a> or <a target="_blank" style="color: #ccc" href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en_CA">Android</a> device.</p>
-								
-							<% end %>
+					<%- if notice %>
+						<div class="alert alert-success" role="alert">
+							<%= notice %>
 						</div>
+					<% end %>
+
+					<%- if alert %>
+						<div class="alert alert-info" role="alert">
+							<%= alert %>
+						</div>
+					<% end %>
+					<h2 class="text-center" style="color: #fff;">2 Factor Authentication</h2>
+
+						<p style="color: #fff;margin: 10px">Please check your email for authentication code.</p>	
 
 					<form method="POST" action="/two_factor_authentication">
 						<div class="col-md-12">
 							<div class="col-md-11 no-padding">
 								<input style="color: #fff" type="text" placeholder="XXXXXX" name="code" class="form-control">
-								<p style="color: #fff;"><i> Don't know what this is? <a href="/google-authenticator.png" style="color: #ccc" target="_blank">Click here</a> to learn more</i></p>
+								<p style="color: #fff;"><i> Didn't get the code in the email? <a href="/two_factor_authentication/send_two_factor_auth_again" style="color: #ccc">Click here</a> to resend</i></p>
 							</div>
 							<div class="col-md-1 no-padding">
 								<input class="btn btn-primary" type="submit" value="Verify">
