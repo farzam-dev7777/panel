@@ -4,7 +4,7 @@
 		}
 	</style>
 	<div class="container">
-		<div class="col-lg-3">
+		<div class="col-lg-3 back-btn">
 			<%= link_to "<i class='fa fa-long-arrow-left'></i>".html_safe, conflict_waivers_path, class: "btn btn-sm btn-default" %>
 			<% if @conflict_waiver.try(:lxp_status) != 'APPROVED' %>
 				<%= link_to "<i class='fa fa-pencil-square-o'></i> Edit".html_safe, edit_conflict_waiver_path, class: "btn btn-sm btn-primary m-l-15 no-border" %>

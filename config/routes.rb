@@ -7,6 +7,8 @@ Rails.application.routes.draw do
     resources :users do
       collection do
         get :edit_profile 
+        get 'send_user_info/:id' => 'users#send_user_info', :as => "send_user_info"
+        get 'send_user_info_with_certification/:id' => 'users#send_user_info_with_certification', :as => "send_user_info_with_certification"
         get 'edit_profile/:id' => 'users#edit_profile', :as => "users_edit_profile"
         post 'update_profile/:id' => 'users#update_profile', :as => "users_update_profile"
       end
@@ -144,12 +146,14 @@ Rails.application.routes.draw do
         get :mark_as_read
       end
     end
-   
+    resources :panel_requests
     resources :exception_requests do
       collection do
         get :select_law_firm 
         get 'select_law_firm/:id' => 'exception_requests#select_law_firm'
         get ':law_firm_id/new' => 'exception_requests#new', :as => "exception_request_new"
+        get ':law_firm_new/create' => 'exception_requests#law_firm_new', :as => "law_firm_new_create"
+        post :law_firm_create
       end
     end
 
@@ -237,7 +241,11 @@ Rails.application.routes.draw do
     get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'    
     patch 'users/update' => 'users/registrations#update', :as => 'user_registration'
   end
-  resources :two_factor_authentication
+  resources :two_factor_authentication do
+    collection do
+      get :send_two_factor_auth_again
+    end
+  end
   namespace :users do
   end
 

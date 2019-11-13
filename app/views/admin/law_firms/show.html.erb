@@ -4,7 +4,7 @@
 	}
 </style>
 
-<div class="col-lg-3">
+<div class="col-lg-3 back-btn">
 	<%= link_to "<i class='fa fa-long-arrow-left'></i>".html_safe, admin_law_firms_path, class: "btn btn-sm btn-default" %>
 	<%= link_to "<i class='fa fa-pencil-square-o'></i> Edit".html_safe, edit_admin_law_firm_path, class: "btn btn-sm btn-primary m-l-15 no-border" %>
 </div>
@@ -40,9 +40,15 @@
 
 <% if(!@law_firm.form_submissions.any?) %>
 	<!-- <div class="col-lg-2 pull-right"> -->
+	<% if(@law_firm.user.is_deactivated?) %>
+		<a class="btn btn-sm btn-primary pull-right send-user-info-btn" data-id="<%= @law_firm.user.id %>">Send user information and create new password link </a>
+		<a class="btn btn-sm btn-secondary pull-right send-user-info-begin-certification-btn" data-id="<%= @law_firm.user.id %>">Send RFI Questionnaire with user active password link </a>
+		
+		<% else %>	
 		<a class="btn btn-sm btn-primary pull-right begin-certification-btn" data-id="<%= @law_firm.id %>">Send RFI Questionnaire
 			</a>
-	<!-- </div> -->
+		<% end %>	
+<!-- </div> -->
 <% end %>
 
 <% end %>

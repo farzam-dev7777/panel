@@ -3,7 +3,7 @@
       top: -25px;
     }
   </style>
-  <div class="col-lg-3">
+  <div class="col-lg-3 back-btn">
     <%= link_to "<i class='fa fa-long-arrow-left'></i>".html_safe, lob_exception_requests_path, class: "btn btn-sm btn-default" %>
     <% if current_user.role == "lob" %>
       <%= link_to "<i class='fa fa-pencil-square-o'></i> Edit".html_safe, edit_lob_exception_request_path, class: "btn btn-sm btn-primary m-l-15 no-border" %>
@@ -28,3 +28,4 @@
     </div>
   </div>
 
+ 

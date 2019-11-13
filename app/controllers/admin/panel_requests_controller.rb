@@ -15,7 +15,7 @@ class Admin::PanelRequestsController < Admin::BaseController
     if !@panel_request.user.try(:google_secret)
       @panel_request.user.try(:set_google_secret)
     end
-    @law_firms = LawFirm.find_by_id(@panel_request.law_firm_name)
+    @law_firms = LawFirm.find_by_id(@panel_request.law_firm_id)
     add_breadcrumb "#{@panel_request.requested_by}", :admin_exception_request_path 
     add_breadcrumb "#{@panel_request.requested_by}", :admin_panel_request_path 
   end

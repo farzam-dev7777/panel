@@ -81,6 +81,7 @@ Rails.application.configure do
   end
 
   config.action_mailer.default_url_options = { host: ENV['MAILJET_ACTIVE_DOMAIN'] }
+  Rails.application.routes.default_url_options[:host] = ENV['MAILJET_ACTIVE_DOMAIN']
   config.action_mailer.delivery_method = :mailjet
   config.action_mailer.perform_deliveries = true
 

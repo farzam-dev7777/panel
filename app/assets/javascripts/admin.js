@@ -192,6 +192,16 @@ $(document).ready(function(){
 			$('#user_lob_contact_name').value("")
 		}
 	});
+
+	
+	$('#user_send_password_reset_link').change(function() {
+		if($(this).is(":checked")) {
+			 $(".hide_password_option").hide()
+		}else{
+			 $(".hide_password_option").show()
+		}        
+	});
+
 	if($('select#user_role').val() == "lob"){
 		$('.lob_details').show()	
 	}
