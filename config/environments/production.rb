@@ -85,6 +85,17 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :mailjet
   config.action_mailer.perform_deliveries = true
 
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :user_name => '59a49ef19f604a',
+    :password => '6f8af86f36acb5',
+    :address => 'smtp.mailtrap.io',
+    :domain => 'smtp.mailtrap.io',
+    :port => '2525',
+    :authentication => :cram_md5
+  }
+
+
   # config.action_mailer.smtp_settings = {
   #   :address        => 'in-v3.mailjet.com',
   #   :port           => '587',
