@@ -24,8 +24,9 @@ class ExceptionRequestMailer < ApplicationMailer
 	end
 
 	def form_status_notification_to_lob(exception_request)
+		
 		@exception_request = exception_request
-		@user = User.find_by_id(exception_request.user_id)
+		@user = User.with_deactivated.find_by_id(exception_request.user_id)
 		mail(to: @user.email, subject: "Your Exception Request status has been updated.")
 	end
 	
@@ -37,7 +38,8 @@ class ExceptionRequestMailer < ApplicationMailer
 
 	def form_status_notification_to_law_firm(exception_request)
 		@exception_request = exception_request
-		@user = User.find_by_id(exception_request.law_firm_id)
+		@exception_request.law_firm.user_id
+		@user = User.with_deactivated.find_by_id(	@exception_request.law_firm.user_id)
 		mail(to: @user.email, subject: "Exception Request status has been updated.")
 	end
 

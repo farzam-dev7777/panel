@@ -171,7 +171,7 @@
 								<div class="col-md-8 data"><%= @law_firm.locations.map{|location| [location.city, location.province, location.country].reject(&:nil?).join(',') }.join("<br />").html_safe %></div>
 							</div>
 						</div>
-
+						<a class="btn btn-sm btn-primary pull-right send-user-info-btn" data-id="<%= @law_firm.user.id %>">Send new password link </a>
 						<div class="clearfix"></div>
 
 						<% if(@law_firm.form_submissions.try(:latest).try(:status) == 'approved') %>
