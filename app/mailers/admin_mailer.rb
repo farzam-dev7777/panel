@@ -1,6 +1,8 @@
 class AdminMailer < ApplicationMailer
+
+  default from: "info@panel.grcx.io"
   
-  ADMIN_EMAIL = 'gagan@metawarelabs.com'
+  ADMIN_EMAIL = 'info@panel.grcx.io'
 
   def forms_submitted(form_submission)
   	@law_firm = form_submission.law_firm
