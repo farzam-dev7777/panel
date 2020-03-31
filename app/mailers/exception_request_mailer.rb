@@ -43,6 +43,15 @@ class ExceptionRequestMailer < ApplicationMailer
 		mail(to: @user.email, subject: "Exception Request status has been updated.")
 	end
 
+	def engage_non_panel_firm_notification_to_lxp(exception_request)
+		@exception_request = exception_request
+		@user = User.find_by_id(exception_request.user_id)
+		@lxpusers = User.where(role: 'lxp')
+		@lxpusers.each do |lxpuser| 
+			mail(to: lxpuser.email, subject: "A New Exception Request try to submited with below search criteria.")
+		end
+	end
+
 	# def form_updated_notification_to_lxp(conflict_waiver)
 	# 	@conflict_waiver = conflict_waiver
 	# 	@user = @conflict_waiver.try(:user)

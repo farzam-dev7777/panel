@@ -46,3 +46,4 @@ class PanelRequest < ApplicationRecord
   end
 
 end
+

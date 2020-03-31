@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191113191452) do
+ActiveRecord::Schema.define(version: 20200325150737) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,19 +19,19 @@ ActiveRecord::Schema.define(version: 20191113191452) do
     t.integer  "security_threat_id"
     t.integer  "law_firm_id"
     t.string   "status"
-    t.datetime "created_at",         precision: 6, null: false
-    t.datetime "updated_at",         precision: 6, null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
   end
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
     t.text     "body"
-    t.string   "resource_id",                 null: false
-    t.string   "resource_type",               null: false
+    t.string   "resource_id",   null: false
+    t.string   "resource_type", null: false
     t.string   "author_type"
     t.integer  "author_id"
-    t.datetime "created_at",    precision: 6
-    t.datetime "updated_at",    precision: 6
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id", using: :btree
     t.index ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
@@ -43,8 +43,8 @@ ActiveRecord::Schema.define(version: 20191113191452) do
     t.string   "custom_message"
     t.string   "loggable_type"
     t.integer  "loggable_id"
-    t.datetime "created_at",     precision: 6, null: false
-    t.datetime "updated_at",     precision: 6, null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.boolean  "read"
     t.boolean  "notify"
     t.string   "email"
@@ -61,29 +61,29 @@ ActiveRecord::Schema.define(version: 20191113191452) do
     t.date     "hardware_inventory"
     t.date     "software_inventory"
     t.integer  "form_value_id"
-    t.datetime "created_at",                     precision: 6,                 null: false
-    t.datetime "updated_at",                     precision: 6,                 null: false
-    t.boolean  "network_discovery_never",                      default: false
-    t.boolean  "penetration_testing_never",                    default: false
-    t.boolean  "vulnerability_assessment_never",               default: false
-    t.boolean  "hardware_refresh_never",                       default: false
-    t.boolean  "hardware_inventory_never",                     default: false
-    t.boolean  "software_inventory_never",                     default: false
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
+    t.boolean  "network_discovery_never",        default: false
+    t.boolean  "penetration_testing_never",      default: false
+    t.boolean  "vulnerability_assessment_never", default: false
+    t.boolean  "hardware_refresh_never",         default: false
+    t.boolean  "hardware_inventory_never",       default: false
+    t.boolean  "software_inventory_never",       default: false
   end
 
   create_table "admin_users", force: :cascade do |t|
-    t.string   "email",                                default: "", null: false
-    t.string   "encrypted_password",                   default: "", null: false
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at", precision: 6
-    t.datetime "remember_created_at",    precision: 6
-    t.integer  "sign_in_count",                        default: 0,  null: false
-    t.datetime "current_sign_in_at",     precision: 6
-    t.datetime "last_sign_in_at",        precision: 6
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
-    t.datetime "created_at",             precision: 6,              null: false
-    t.datetime "updated_at",             precision: 6,              null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.string   "role"
     t.index ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
@@ -94,8 +94,8 @@ ActiveRecord::Schema.define(version: 20191113191452) do
     t.string   "name"
     t.string   "service"
     t.string   "data_store_location_ca"
-    t.datetime "created_at",             precision: 6, null: false
-    t.datetime "updated_at",             precision: 6, null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.string   "cloud_type"
     t.string   "data"
     t.string   "encrypted_in_flight"
@@ -117,14 +117,22 @@ ActiveRecord::Schema.define(version: 20191113191452) do
     t.integer  "assigned_to_id"
   end
 
+  create_table "countries", force: :cascade do |t|
+    t.integer  "country_id"
+    t.string   "name"
+    t.string   "iso"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "cyber_security_insurances", force: :cascade do |t|
     t.string   "company"
     t.string   "coverage"
     t.string   "coverage_amount"
     t.string   "policy"
     t.string   "form_value_id"
-    t.datetime "created_at",      precision: 6, null: false
-    t.datetime "updated_at",      precision: 6, null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.date     "date_of_expiry"
     t.string   "standing"
   end
@@ -135,8 +143,8 @@ ActiveRecord::Schema.define(version: 20191113191452) do
     t.date     "date_of_certification"
     t.date     "renewal"
     t.integer  "form_value_id"
-    t.datetime "created_at",            precision: 6, null: false
-    t.datetime "updated_at",            precision: 6, null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
     t.string   "status"
   end
 
@@ -144,9 +152,9 @@ ActiveRecord::Schema.define(version: 20191113191452) do
     t.string   "key"
     t.string   "value"
     t.integer  "form_field_id"
-    t.datetime "created_at",    precision: 6,               null: false
-    t.datetime "updated_at",    precision: 6,               null: false
-    t.float    "score",                       default: 0.0
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.float    "score",         default: 0.0
   end
 
   create_table "exception_requests", force: :cascade do |t|
@@ -158,13 +166,13 @@ ActiveRecord::Schema.define(version: 20191113191452) do
     t.integer  "law_firm_id"
     t.string   "request_type"
     t.string   "law_firm_category"
-    t.text     "minority_owned"
+    t.string   "minority_owned"
     t.text     "minority_owned_details"
-    t.text     "women_owned"
+    t.string   "women_owned"
     t.text     "women_owned_details"
     t.string   "matter_name"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
     t.text     "matter_types"
     t.string   "law_firm_name"
     t.string   "business_manager_name"
@@ -174,22 +182,30 @@ ActiveRecord::Schema.define(version: 20191113191452) do
     t.integer  "lxp_id"
     t.string   "internal_lawyers_status"
     t.integer  "internal_lawyers_id"
-    t.string   "pay_type"
     t.string   "docusign_envelope_id"
+    t.string   "pay_type"
     t.text     "notes"
+    t.boolean  "is_work",                   default: false
+    t.text     "reason"
+    t.string   "payer"
+    t.text     "matter_types_search"
+    t.text     "sub_matter_types_search"
+    t.text     "jurisdiction_types_search"
+    t.text     "countries_search"
+    t.text     "states_search"
   end
 
   create_table "faq_categories", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "file_attachments", force: :cascade do |t|
     t.string   "file"
     t.integer  "form_value_id"
-    t.datetime "created_at",      precision: 6, null: false
-    t.datetime "updated_at",      precision: 6, null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.text     "iv"
     t.text     "key"
     t.string   "attachable_type"
@@ -202,8 +218,8 @@ ActiveRecord::Schema.define(version: 20191113191452) do
     t.integer  "loggable_id"
     t.string   "status"
     t.integer  "note_id"
-    t.datetime "created_at",         precision: 6, null: false
-    t.datetime "updated_at",         precision: 6, null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
   end
 
   create_table "form_fields", force: :cascade do |t|
@@ -212,8 +228,8 @@ ActiveRecord::Schema.define(version: 20191113191452) do
     t.boolean  "required"
     t.string   "label"
     t.string   "type"
-    t.datetime "created_at",                 precision: 6, null: false
-    t.datetime "updated_at",                 precision: 6, null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.integer  "form_id"
     t.integer  "formable_id"
     t.string   "formable_type"
@@ -232,12 +248,12 @@ ActiveRecord::Schema.define(version: 20191113191452) do
 
   create_table "form_submissions", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",           precision: 6,                 null: false
-    t.datetime "updated_at",           precision: 6,                 null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.integer  "form_id"
     t.integer  "form_process_id"
-    t.boolean  "submitted",                          default: false
-    t.datetime "submitted_on",         precision: 6
+    t.boolean  "submitted",            default: false
+    t.datetime "submitted_on"
     t.integer  "law_firm_id"
     t.float    "total_score"
     t.string   "status"
@@ -246,9 +262,9 @@ ActiveRecord::Schema.define(version: 20191113191452) do
     t.float    "system_score"
     t.date     "expiry_date"
     t.integer  "locked_by_id"
-    t.datetime "locked_at",            precision: 6
+    t.datetime "locked_at"
     t.integer  "last_submitted_by_id"
-    t.datetime "approved_at",          precision: 6
+    t.datetime "approved_at"
     t.string   "evidence_status"
     t.integer  "form_relationship_id"
     t.integer  "form_diversity_id"
@@ -260,12 +276,12 @@ ActiveRecord::Schema.define(version: 20191113191452) do
     t.integer  "form_field_id"
     t.integer  "submittable_id"
     t.string   "value"
-    t.datetime "created_at",         precision: 6,                 null: false
-    t.datetime "updated_at",         precision: 6,                 null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.string   "submittable_type"
     t.string   "form_field_label"
     t.string   "file_value"
-    t.boolean  "checked",                          default: false
+    t.boolean  "checked",            default: false
     t.string   "form_value_iv"
     t.string   "form_value_key"
     t.text     "multi_select_value"
@@ -273,8 +289,8 @@ ActiveRecord::Schema.define(version: 20191113191452) do
 
   create_table "forms", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.boolean  "group_form"
     t.string   "step"
   end
@@ -282,8 +298,8 @@ ActiveRecord::Schema.define(version: 20191113191452) do
   create_table "frequently_asked_questions", force: :cascade do |t|
     t.string   "question"
     t.text     "answer"
-    t.datetime "created_at",      precision: 6, null: false
-    t.datetime "updated_at",      precision: 6, null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.integer  "faq_category_id"
   end
 
@@ -294,10 +310,10 @@ ActiveRecord::Schema.define(version: 20191113191452) do
     t.string   "source"
     t.string   "data_loss"
     t.text     "incident_details"
-    t.datetime "created_at",         precision: 6,                 null: false
-    t.datetime "updated_at",         precision: 6,                 null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.integer  "form_submission_id"
-    t.boolean  "checked",                          default: false
+    t.boolean  "checked",            default: false
   end
 
   create_table "information_security_policies", force: :cascade do |t|
@@ -306,8 +322,8 @@ ActiveRecord::Schema.define(version: 20191113191452) do
     t.date     "last_updated"
     t.string   "freq_of_review"
     t.integer  "form_value_id"
-    t.datetime "created_at",           precision: 6, null: false
-    t.datetime "updated_at",           precision: 6, null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
     t.string   "upload_policy"
     t.string   "independent_review"
     t.string   "communication_status"
@@ -317,16 +333,22 @@ ActiveRecord::Schema.define(version: 20191113191452) do
     t.text     "message"
     t.integer  "sender_id"
     t.integer  "law_firm_id"
-    t.datetime "created_at",  precision: 6, null: false
-    t.datetime "updated_at",  precision: 6, null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "jurisdiction_types", force: :cascade do |t|
+    t.string   "jurisdiction_type"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
   create_table "jurisdictions", force: :cascade do |t|
     t.string   "country"
     t.string   "city"
     t.integer  "law_firm_id"
-    t.datetime "created_at",  precision: 6, null: false
-    t.datetime "updated_at",  precision: 6, null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "law_firms", force: :cascade do |t|
@@ -334,8 +356,8 @@ ActiveRecord::Schema.define(version: 20191113191452) do
     t.string   "description"
     t.string   "email"
     t.string   "phone"
-    t.datetime "created_at",                                        precision: 6,                 null: false
-    t.datetime "updated_at",                                        precision: 6,                 null: false
+    t.datetime "created_at",                                                        null: false
+    t.datetime "updated_at",                                                        null: false
     t.integer  "user_id"
     t.string   "relationship_manager_email"
     t.string   "law_firm_type"
@@ -345,11 +367,11 @@ ActiveRecord::Schema.define(version: 20191113191452) do
     t.string   "principle_name"
     t.string   "principle_title"
     t.text     "principle_contact_info"
-    t.boolean  "profile_completed",                                               default: false
+    t.boolean  "profile_completed",                                 default: false
     t.integer  "max_users"
     t.string   "public_uid"
-    t.boolean  "updated_by_lawfirm",                                              default: false
-    t.datetime "initial_date_of_engagement_with_the_bank",          precision: 6
+    t.boolean  "updated_by_lawfirm",                                default: false
+    t.datetime "initial_date_of_engagement_with_the_bank"
     t.text     "type_of_matters_your_law_firm_handles_for_us"
     t.text     "type_of_services_your_law_firm_provides_generally"
     t.text     "confidentiality_level_of_matters_that_are_handled"
@@ -357,6 +379,41 @@ ActiveRecord::Schema.define(version: 20191113191452) do
     t.string   "relationship_manager_name"
     t.string   "relationship_manager_phone"
     t.string   "law_firm_category"
+  end
+
+  create_table "law_firms_countries", force: :cascade do |t|
+    t.integer  "law_firm_id"
+    t.integer  "country_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "law_firms_jurisdiction_types", id: false, force: :cascade do |t|
+    t.integer  "law_firm_id"
+    t.integer  "jurisdiction_type_id"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  create_table "law_firms_matter_types", id: false, force: :cascade do |t|
+    t.integer  "law_firm_id"
+    t.integer  "matter_type_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  create_table "law_firms_states", force: :cascade do |t|
+    t.integer  "law_firm_id"
+    t.integer  "state_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "law_firms_sub_matter_types", id: false, force: :cascade do |t|
+    t.integer  "law_firm_id"
+    t.integer  "sub_matter_type_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
   end
 
   create_table "locations", force: :cascade do |t|
@@ -367,8 +424,8 @@ ActiveRecord::Schema.define(version: 20191113191452) do
     t.string   "country"
     t.string   "postal_code"
     t.integer  "law_firm_id"
-    t.datetime "created_at",  precision: 6, null: false
-    t.datetime "updated_at",  precision: 6, null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "logics", force: :cascade do |t|
@@ -378,8 +435,8 @@ ActiveRecord::Schema.define(version: 20191113191452) do
     t.string   "logic_to_be_applied"
     t.string   "values"
     t.string   "perform_action"
-    t.datetime "created_at",          precision: 6, null: false
-    t.datetime "updated_at",          precision: 6, null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
   end
 
   create_table "mailboxer_conversation_opt_outs", force: :cascade do |t|
@@ -391,27 +448,27 @@ ActiveRecord::Schema.define(version: 20191113191452) do
   end
 
   create_table "mailboxer_conversations", force: :cascade do |t|
-    t.string   "subject",                  default: ""
-    t.datetime "created_at", precision: 6,              null: false
-    t.datetime "updated_at", precision: 6,              null: false
+    t.string   "subject",    default: ""
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   create_table "mailboxer_notifications", force: :cascade do |t|
     t.string   "type"
     t.text     "body"
-    t.string   "subject",                            default: ""
+    t.string   "subject",              default: ""
     t.string   "sender_type"
     t.integer  "sender_id"
     t.integer  "conversation_id"
-    t.boolean  "draft",                              default: false
+    t.boolean  "draft",                default: false
     t.string   "notification_code"
     t.string   "notified_object_type"
     t.integer  "notified_object_id"
     t.string   "attachment"
-    t.datetime "updated_at",           precision: 6,                 null: false
-    t.datetime "created_at",           precision: 6,                 null: false
-    t.boolean  "global",                             default: false
-    t.datetime "expires",              precision: 6
+    t.datetime "updated_at",                           null: false
+    t.datetime "created_at",                           null: false
+    t.boolean  "global",               default: false
+    t.datetime "expires"
     t.index ["conversation_id"], name: "index_mailboxer_notifications_on_conversation_id", using: :btree
     t.index ["notified_object_id", "notified_object_type"], name: "index_mailboxer_notifications_on_notified_object_id_and_type", using: :btree
     t.index ["sender_id", "sender_type"], name: "index_mailboxer_notifications_on_sender_id_and_sender_type", using: :btree
@@ -421,18 +478,24 @@ ActiveRecord::Schema.define(version: 20191113191452) do
   create_table "mailboxer_receipts", force: :cascade do |t|
     t.string   "receiver_type"
     t.integer  "receiver_id"
-    t.integer  "notification_id",                                          null: false
-    t.boolean  "is_read",                                  default: false
-    t.boolean  "trashed",                                  default: false
-    t.boolean  "deleted",                                  default: false
+    t.integer  "notification_id",                            null: false
+    t.boolean  "is_read",                    default: false
+    t.boolean  "trashed",                    default: false
+    t.boolean  "deleted",                    default: false
     t.string   "mailbox_type",    limit: 25
-    t.datetime "created_at",                 precision: 6,                 null: false
-    t.datetime "updated_at",                 precision: 6,                 null: false
-    t.boolean  "is_delivered",                             default: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+    t.boolean  "is_delivered",               default: false
     t.string   "delivery_method"
     t.string   "message_id"
     t.index ["notification_id"], name: "index_mailboxer_receipts_on_notification_id", using: :btree
     t.index ["receiver_id", "receiver_type"], name: "index_mailboxer_receipts_on_receiver_id_and_receiver_type", using: :btree
+  end
+
+  create_table "matter_types", force: :cascade do |t|
+    t.string   "matter_type"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "notes", force: :cascade do |t|
@@ -442,11 +505,11 @@ ActiveRecord::Schema.define(version: 20191113191452) do
     t.string   "step"
     t.integer  "admin_user_id"
     t.string   "sender"
-    t.datetime "created_at",         precision: 6, null: false
-    t.datetime "updated_at",         precision: 6, null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
     t.integer  "form_submission_id"
     t.integer  "follow_up_id"
-    t.datetime "deleted_at",         precision: 6
+    t.datetime "deleted_at"
   end
 
   create_table "panel_requests", force: :cascade do |t|
@@ -473,13 +536,13 @@ ActiveRecord::Schema.define(version: 20191113191452) do
   end
 
   create_table "queued_notifications", force: :cascade do |t|
-    t.datetime "trigger_at",               precision: 6
+    t.datetime "trigger_at"
     t.integer  "trigger_id"
     t.integer  "action_item_id"
-    t.boolean  "triggered",                              default: false
-    t.datetime "deleted_at",               precision: 6
-    t.datetime "created_at",               precision: 6,                 null: false
-    t.datetime "updated_at",               precision: 6,                 null: false
+    t.boolean  "triggered",                default: false
+    t.datetime "deleted_at"
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
     t.float    "severity_negative_factor"
     t.index ["deleted_at"], name: "index_queued_notifications_on_deleted_at", using: :btree
   end
@@ -502,17 +565,17 @@ ActiveRecord::Schema.define(version: 20191113191452) do
     t.text     "description"
     t.string   "severity"
     t.string   "link"
-    t.datetime "created_at",  precision: 6, null: false
-    t.datetime "updated_at",  precision: 6, null: false
-    t.datetime "alert_date",  precision: 6
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.datetime "alert_date"
   end
 
   create_table "security_threats", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
     t.integer  "severity_level_id"
-    t.datetime "created_at",               precision: 6, null: false
-    t.datetime "updated_at",               precision: 6, null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.float    "severity_negative_factor"
     t.text     "vendor"
     t.text     "platform"
@@ -523,8 +586,8 @@ ActiveRecord::Schema.define(version: 20191113191452) do
   create_table "severity_levels", force: :cascade do |t|
     t.string   "name"
     t.string   "color"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "shared_bank_informations", force: :cascade do |t|
@@ -532,14 +595,29 @@ ActiveRecord::Schema.define(version: 20191113191452) do
     t.string   "name"
     t.string   "purpose"
     t.string   "level_of_access"
-    t.datetime "created_at",      precision: 6, null: false
-    t.datetime "updated_at",      precision: 6, null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  create_table "states", force: :cascade do |t|
+    t.string   "name"
+    t.string   "iso"
+    t.integer  "country_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "sub_matter_types", force: :cascade do |t|
+    t.string   "sub_matter_type"
+    t.integer  "matter_type_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   create_table "system_settings", force: :cascade do |t|
     t.float    "score_threshold"
-    t.datetime "created_at",            precision: 6, null: false
-    t.datetime "updated_at",            precision: 6, null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
     t.text     "docusign_access_token"
   end
 
@@ -549,8 +627,8 @@ ActiveRecord::Schema.define(version: 20191113191452) do
     t.string   "version"
     t.string   "service_pack"
     t.string   "supported"
-    t.datetime "created_at",        precision: 6, null: false
-    t.datetime "updated_at",        precision: 6, null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.string   "platform_category"
     t.string   "platform_type"
     t.index ["platform", "version"], name: "index_technologies_on_platform_and_version", using: :btree
@@ -567,12 +645,12 @@ ActiveRecord::Schema.define(version: 20191113191452) do
     t.string   "version"
     t.string   "service_pack"
     t.string   "supported"
-    t.datetime "created_at",         precision: 6,                 null: false
-    t.datetime "updated_at",         precision: 6,                 null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.integer  "law_firm_id"
     t.integer  "form_submission_id"
     t.integer  "technology_id"
-    t.boolean  "checked",                          default: false
+    t.boolean  "checked",            default: false
   end
 
   create_table "third_party_vendors", force: :cascade do |t|
@@ -580,8 +658,8 @@ ActiveRecord::Schema.define(version: 20191113191452) do
     t.string   "vendor_name"
     t.string   "area"
     t.string   "confidentiality_agreement"
-    t.datetime "created_at",                precision: 6, null: false
-    t.datetime "updated_at",                precision: 6, null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   create_table "todo_tasks", force: :cascade do |t|
@@ -589,8 +667,8 @@ ActiveRecord::Schema.define(version: 20191113191452) do
     t.string   "title"
     t.string   "message"
     t.string   "severity"
-    t.datetime "created_at",  precision: 6, null: false
-    t.datetime "updated_at",  precision: 6, null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "triggers", force: :cascade do |t|
@@ -598,31 +676,31 @@ ActiveRecord::Schema.define(version: 20191113191452) do
     t.string   "action_type"
     t.string   "message"
     t.integer  "severity_level_id"
-    t.datetime "created_at",        precision: 6, null: false
-    t.datetime "updated_at",        precision: 6, null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                                default: "",    null: false
-    t.string   "username",                             default: "",    null: false
-    t.string   "encrypted_password",                   default: "",    null: false
+    t.string   "email",                  default: "",    null: false
+    t.string   "username",               default: "",    null: false
+    t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at", precision: 6
-    t.datetime "remember_created_at",    precision: 6
-    t.integer  "sign_in_count",                        default: 0,     null: false
-    t.datetime "current_sign_in_at",     precision: 6
-    t.datetime "last_sign_in_at",        precision: 6
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,     null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
-    t.datetime "created_at",             precision: 6,                 null: false
-    t.datetime "updated_at",             precision: 6,                 null: false
-    t.datetime "deactivated_at",         precision: 6
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.datetime "deactivated_at"
     t.string   "otp_secret_key"
     t.string   "google_secret"
     t.string   "role"
     t.integer  "law_firm_id"
-    t.boolean  "new_password_set",                     default: false
-    t.datetime "qr_code_confirmed_at",   precision: 6
+    t.boolean  "new_password_set",       default: false
+    t.datetime "qr_code_confirmed_at"
     t.string   "first_name"
     t.string   "last_name"
     t.string   "line_of_business"
@@ -638,17 +716,17 @@ ActiveRecord::Schema.define(version: 20191113191452) do
     t.string   "vendor_type"
     t.string   "application"
     t.integer  "form_value_id"
-    t.datetime "created_at",    precision: 6, null: false
-    t.datetime "updated_at",    precision: 6, null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "versions", force: :cascade do |t|
-    t.string   "item_type",                null: false
-    t.integer  "item_id",                  null: false
-    t.string   "event",                    null: false
+    t.string   "item_type",  null: false
+    t.integer  "item_id",    null: false
+    t.string   "event",      null: false
     t.string   "whodunnit"
     t.text     "object"
-    t.datetime "created_at", precision: 6
+    t.datetime "created_at"
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
   end
 

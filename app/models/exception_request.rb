@@ -37,7 +37,9 @@ class ExceptionRequest < ApplicationRecord
   MINORITY_OWNED_TYPE = ["Yes", "No"]
   WOMEN_OWNED_TYPE = ["Yes", "No"]
 
-  validates_presence_of :requested_by, :submitted_by_email, :line_of_business, :lob_contact_name, :minority_owned, :women_owned, :matter_name
+  EXCEPTION_REQUEST_REASON = ["Experties", "Cost", "Designated Counsel", "No Panel Firm"]
+  EXCEPTION_REQUEST_PAYER =  ["Bank Pay", "Customer Pay"]
+  #validates_presence_of :requested_by, :submitted_by_email, :line_of_business, :lob_contact_name, :minority_owned, :women_owned, :matter_name
 
   belongs_to :law_firm
 
@@ -221,6 +223,36 @@ class ExceptionRequest < ApplicationRecord
     # Add the TemplateRole objects to the envelope object
     envelope_definition.template_roles = [signer, lxp]
     envelope_definition
+  end
+
+  def matter_types_formated
+    if self.matter_types_search.present?
+      MatterType.find(self.matter_types_search).matter_type 
+    end
+  end
+
+  def sub_matter_types_formated
+    if self.sub_matter_types_search.present?
+      SubMatterType.find(self.sub_matter_types_search).sub_matter_type 
+    end
+  end
+
+  def jurisdiction_types_formated
+    if self.jurisdiction_types_search.present?
+      JurisdictionType.find(self.jurisdiction_types_search).jurisdiction_type 
+    end
+  end
+
+  def countries_formated
+    if self.countries_search.present?
+      Country.find(self.countries_search).name 
+    end
+  end
+
+  def states_formated
+    if self.states_search.present?
+      State.find(self.states_search).name 
+    end
   end
 
 end
