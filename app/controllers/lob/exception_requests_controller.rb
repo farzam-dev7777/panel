@@ -72,7 +72,7 @@ class Lob::ExceptionRequestsController < Lob::BaseController
         flash[:notice] = "Engage Non Panel Firm Request Updated"
         redirect_to lob_exception_request_path
       end
-     
+      ExceptionRequestMailer.engage_new_non_panel_firm_notification_to_lxp(@exception_request).deliver_now
     else
       @law_firms = LawFirm.all
       @current_admin_user_email = current_user.email
