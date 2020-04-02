@@ -39,6 +39,13 @@ class ExceptionRequest < ApplicationRecord
 
   EXCEPTION_REQUEST_REASON = ["Experties", "Cost", "Designated Counsel", "No Panel Firm"]
   EXCEPTION_REQUEST_PAYER =  ["Bank Pay", "Customer Pay"]
+  INVOLVED_ENGAGEMENT = [
+    "Merger & Acquisition",
+    "Litigation",
+    "Personam Identifiable information > 10,000 records",
+    "Combination of confidential information with over 10,000 records",
+    "None of the above"
+  ]
   #validates_presence_of :requested_by, :submitted_by_email, :line_of_business, :lob_contact_name, :minority_owned, :women_owned, :matter_name
 
   belongs_to :law_firm

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200325150737) do
+ActiveRecord::Schema.define(version: 20200401133454) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -171,8 +171,8 @@ ActiveRecord::Schema.define(version: 20200325150737) do
     t.string   "women_owned"
     t.text     "women_owned_details"
     t.string   "matter_name"
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
+    t.datetime "created_at",                                                       null: false
+    t.datetime "updated_at",                                                       null: false
     t.text     "matter_types"
     t.string   "law_firm_name"
     t.string   "business_manager_name"
@@ -185,7 +185,7 @@ ActiveRecord::Schema.define(version: 20200325150737) do
     t.string   "docusign_envelope_id"
     t.string   "pay_type"
     t.text     "notes"
-    t.boolean  "is_work",                   default: false
+    t.boolean  "is_work",                                          default: false
     t.text     "reason"
     t.string   "payer"
     t.text     "matter_types_search"
@@ -193,6 +193,12 @@ ActiveRecord::Schema.define(version: 20200325150737) do
     t.text     "jurisdiction_types_search"
     t.text     "countries_search"
     t.text     "states_search"
+    t.boolean  "niche_preferred_external_counsel_panel_law_firms", default: false
+    t.text     "niche_expertise"
+    t.boolean  "required_unique_geography",                        default: false
+    t.text     "geographic_location"
+    t.string   "involved_engagement"
+    t.text     "reson_other"
   end
 
   create_table "faq_categories", force: :cascade do |t|
@@ -379,6 +385,7 @@ ActiveRecord::Schema.define(version: 20200325150737) do
     t.string   "relationship_manager_name"
     t.string   "relationship_manager_phone"
     t.string   "law_firm_category"
+    t.boolean  "firm_use_on_regular_basis",                         default: false
   end
 
   create_table "law_firms_countries", force: :cascade do |t|

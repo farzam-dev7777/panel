@@ -6,7 +6,7 @@ class Lob::ExceptionRequestsController < Lob::BaseController
 
   def index
     @q = ExceptionRequest.ransack(params[:q])
-    @exception_requests = @q.result(distinct: true).where(user_id: current_user.id).order('created_at DESC')   
+    @exception_requests = @q.result(distinct: true).where(user_id: current_user.id, ).order('created_at DESC')   
     add_breadcrumb "Exception request", :admin_exception_requests_path
   end
 
@@ -24,22 +24,19 @@ class Lob::ExceptionRequestsController < Lob::BaseController
     @exception_request = ExceptionRequest.new(exception_requests_params)
     @law_firm = LawFirm.find_by_id(params[:exception_request][:law_firm_id])
     if @exception_request.save
-
       if params[:exception_request][:is_work] === "Yes"
         ExceptionRequestMailer.engage_non_panel_firm_notification_to_lxp(@exception_request).deliver_now
-        flash[:notice] = "Exception request saved"
+        flash[:notice] = "Engage Non Panel Firm Request Created"
         redirect_to :lob_exception_requests
       else
         redirect_to exception_request_new_engage_lob_exception_requests_path(@exception_request)
         # ExceptionRequestMailer.form_submission_notification_to_lob(@exception_request).deliver_now
         # ExceptionRequestMailer.form_submission_notification_to_lxp(@exception_request).deliver_now
       end
-     
-      
     else
       @current_admin_user_email = current_user.email
       @current_admin_user_id = current_user.id
-      flash[:alert] = "There was an error submiting the exception request"
+      flash[:alert] = "There was an error submiting Engage non Panel Firm Request Created"
       render :new, :law_firm_id => params[:exception_request][:law_firm_id]
       
     end
@@ -53,17 +50,34 @@ class Lob::ExceptionRequestsController < Lob::BaseController
     @current_admin_user_id = current_user.id
   end
 
+  def update_engage_non_panel_firm
+    @exception_request = ExceptionRequest.find_by_id(params[:exception_request_id])
+    @law_firm = @exception_request.law_firm
+   
+  end
+
   def update
-    binding.pry
-  	@exception_request = ExceptionRequest.find(params[:id])
+    @exception_request = ExceptionRequest.find(params[:id])
     if @exception_request.update_attributes(exception_requests_params)
-      flash[:notice] = "Exception request updated"
-      redirect_to lob_exception_request_path
+      if @exception_request.law_firm_id.present? 
+        @law_firm = LawFirm.find(@exception_request.law_firm_id)
+        @law_firm.update_attributes(exception_request_law_firms_params) 
+        flash[:notice] = "Engage Non Panel Firm Request Submitted"
+        redirect_to lob_exception_request_path
+      else
+        @law_firm = LawFirm.new(exception_request_law_firms_params)
+        @law_firm.save
+        @exception_request.law_firm_id = @law_firm.id
+        @exception_request.save
+        flash[:notice] = "Engage Non Panel Firm Request Updated"
+        redirect_to lob_exception_request_path
+      end
+     
     else
       @law_firms = LawFirm.all
       @current_admin_user_email = current_user.email
       @current_admin_user_id = current_user.id
-      flash[:alert] = "There was an error submiting the exception request"
+      flash[:alert] = "There was an error submiting the Non Panel Firm Request"
       render :new
     end
   end
@@ -171,8 +185,10 @@ class Lob::ExceptionRequestsController < Lob::BaseController
       :lob_contact_name, :law_firm_id, :request_type,
       :law_firm_category, :minority_owned, :minority_owned_details,
       :business_manager_name, :business_manager_phone, :business_manager_email, :is_work, :payer,
+      :niche_preferred_external_counsel_panel_law_firms, :niche_expertise, :required_unique_geography, :geographic_location,
+      :involved_engagement, :reson_other, :reason,
       :matter_types_search, :sub_matter_types_search, :jurisdiction_types_search, :countries_search, :states_search,
-      :women_owned, :women_owned_details, :matter_name, :law_firm_name, matter_types: [], reason: []
+      :women_owned, :women_owned_details, :matter_name, :law_firm_name, matter_types: []
     )
   end
 
@@ -180,7 +196,17 @@ class Lob::ExceptionRequestsController < Lob::BaseController
     params.require(:law_firm).permit(
       :name, :description, :email, :phone, :user_id, :relationship_manager_email,
       :relationship_manager_name, :relationship_manager_phone,
-      :law_firm_type, :law_firm_category,
+      :law_firm_type, :law_firm_category, :firm_use_on_regular_basis,
+      #law_firms_matter_types_attributes: [:matter_type_id]
+      matter_type_ids:[], sub_matter_type_ids: [], jurisdiction_type_ids: [], state_ids: [], country_ids: []
+    )
+  end
+
+  def exception_request_law_firms_params
+    params[:exception_request].require(:law_firm).permit(
+      :name, :description, :email, :phone, :user_id, :relationship_manager_email,
+      :relationship_manager_name, :relationship_manager_phone,
+      :law_firm_type, :law_firm_category, :firm_use_on_regular_basis,
       #law_firms_matter_types_attributes: [:matter_type_id]
       matter_type_ids:[], sub_matter_type_ids: [], jurisdiction_type_ids: [], state_ids: [], country_ids: []
     )

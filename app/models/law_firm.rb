@@ -165,4 +165,12 @@ class LawFirm < ApplicationRecord
   def self.onboarded
     LawFirm.where('id NOT IN (SELECT DISTINCT(law_firm_id) FROM form_submissions)')
   end
+
+  def show_matter_types
+    if self.matter_types && self.matter_types.count > 0
+      self.matter_types.map(&:matter_type).join(",")
+    else
+      "No Matter Selected"
+    end
+  end
 end
