@@ -1,0 +1,78 @@
+<style>
+	input, textarea, select { padding: 0px !important; margin: 0px; background: transparent; }
+</style>
+
+<div class="table-responsive">
+  <%= simple_form_for [:lob, @matter_intake] do |f| %>
+    <table class="table table-striped">
+      <tbody>
+        <tr>
+          <td class="text-right" width="20%"><strong>Submitter Name</strong></td>
+          <td>
+            <%= f.input :submitter_name, label: false, :input_html => { :value => @current_lob_user.try(:full_name) } %>
+            <%= f.input :user_id, :as => :hidden, label: false, :input_html => { :value => @current_lob_user.id } %>
+          </td>
+        </tr>
+        <tr>
+          <td class="text-right" width="20%"><strong>LOB Contact Name </strong></td>
+          <td><%= f.input :lob_contact_name, label: false, collection: PanelRequest::LOB_LIST %></td>
+        </tr>
+        <tr>
+          <td class="text-right" width="20%"><strong>Name of Matter/Client </strong></td>
+          <td><%= f.input :name_of_matter_client, label: false %></td>
+        </tr>
+        <tr>
+          <td class="text-right" width="20%"><strong>Type of Matter </strong></td>
+          <td><%= f.input :matter_type_id, label: false, collection: MatterType.all.map{|mt| [mt.matter_type, mt.id] } %></td>
+        </tr>
+        <tr>
+          <td class="text-right" width="20%"><strong>Matter Description </strong></td>
+          <td><%= f.input :matter_description, label: false %></td>
+        </tr>
+        <tr>
+          <td class="text-right" width="20%"><strong>How will this matter be paid? </strong></td>
+          <td><%= f.input :mode_of_payment, label: false, collection: [["Cash", "Cash"], ["Bank Transfer", "Bank Transfer"]] %></td>
+        </tr>
+        <tr>
+          <td class="text-right" width="20%"><strong>Law Firm Suggested </strong></td>
+          <td><%= f.input :law_firm_id, label: false, collection: LawFirm.all.map{|lf| [lf.name, lf.id] } %></td>
+        </tr>
+        <tr>
+          <td class="text-right" width="20%"><strong>BMO lawyer name </strong></td>
+          <td><%= f.input :bmo_lawyer_name, label: false %></td>
+        </tr>
+        <tr>
+          <td class="text-right" width="20%"><strong>Budget amount, if already negotiated with the law firm </strong></td>
+          <td><%= f.input :budget_amount, label: false %></td>
+        </tr>
+        <tr>
+          <td class="text-right" width="20%"><strong>LOB contact to create PO </strong></td>
+          <td><%= f.input :lob_contact_for_po, label: false %></td>
+        </tr>
+        <tr>
+          <td class="text-right" width="20%"><strong>Cost Centre for legal fees </strong></td>
+          <td><%= f.input :cost_centre_for_legal_fees, label: false %></td>
+        </tr>
+        <tr>
+          <td class="text-right" width="20%"><strong>Business Paying for this Matter </strong></td>
+          <td><%= f.input :business_paying_for_matter, label: false %></td>
+        </tr>
+        <tr>
+          <td class="text-right" width="20%"><strong>Group Paying for this Matter </strong></td>
+          <td><%= f.input :group_paying_for_matter, label: false %></td>
+        </tr>
+        <tr>
+          <td class="text-right" width="20%"><strong>Paying Entity </strong></td>
+          <td><%= f.input :paying_entity, label: false %></td>
+        </tr>
+
+        <tr>
+          <td colspan="2">
+              <%=link_to 'Cancel', @matter_intake.new_record? ? new_lob_matter_intake_path : new_lob_matter_intake_path, class: 'btn btn-danger btn-sm' %>
+            <%= f.button :submit, @matter_intake.new_record? ? "Submit Matter Intake" : "Update Matter Intake", class: "" %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  <% end %>
+</div>

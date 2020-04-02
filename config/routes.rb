@@ -141,6 +141,8 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :matter_intakes
+
     resources :activity_logs do
       collection do
         get :mark_as_read

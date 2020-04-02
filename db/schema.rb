@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20200401133454) do
+=======
+ActiveRecord::Schema.define(version: 20200401173126) do
+>>>>>>> 4f56a8335fe4c62e2e5b9d16d885c828a38fe2e2
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -497,6 +501,30 @@ ActiveRecord::Schema.define(version: 20200401133454) do
     t.string   "message_id"
     t.index ["notification_id"], name: "index_mailboxer_receipts_on_notification_id", using: :btree
     t.index ["receiver_id", "receiver_type"], name: "index_mailboxer_receipts_on_receiver_id_and_receiver_type", using: :btree
+  end
+
+  create_table "matter_intakes", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "submitter_name"
+    t.string   "lob_contact_name"
+    t.string   "name_of_matter_client"
+    t.integer  "matter_type_id"
+    t.text     "matter_description"
+    t.string   "mode_of_payment"
+    t.integer  "law_firm_id"
+    t.string   "bmo_lawyer_name"
+    t.integer  "lawyer_id"
+    t.string   "budget_amount"
+    t.integer  "lob_id"
+    t.string   "lob_contact_for_po"
+    t.string   "cost_centre_for_legal_fees"
+    t.string   "paying_entity"
+    t.string   "business_paying_for_matter"
+    t.string   "group_paying_for_matter"
+    t.string   "status"
+    t.datetime "lob_submitted_at"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   create_table "matter_types", force: :cascade do |t|
