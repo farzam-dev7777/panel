@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200325150737) do
+ActiveRecord::Schema.define(version: 20200401173126) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -171,8 +171,8 @@ ActiveRecord::Schema.define(version: 20200325150737) do
     t.string   "women_owned"
     t.text     "women_owned_details"
     t.string   "matter_name"
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
+    t.datetime "created_at",                                                       null: false
+    t.datetime "updated_at",                                                       null: false
     t.text     "matter_types"
     t.string   "law_firm_name"
     t.string   "business_manager_name"
@@ -185,7 +185,7 @@ ActiveRecord::Schema.define(version: 20200325150737) do
     t.string   "docusign_envelope_id"
     t.string   "pay_type"
     t.text     "notes"
-    t.boolean  "is_work",                   default: false
+    t.boolean  "is_work",                                          default: false
     t.text     "reason"
     t.string   "payer"
     t.text     "matter_types_search"
@@ -193,6 +193,12 @@ ActiveRecord::Schema.define(version: 20200325150737) do
     t.text     "jurisdiction_types_search"
     t.text     "countries_search"
     t.text     "states_search"
+    t.boolean  "niche_preferred_external_counsel_panel_law_firms", default: false
+    t.text     "niche_expertise"
+    t.boolean  "required_unique_geography",                        default: false
+    t.text     "geographic_location"
+    t.string   "involved_engagement"
+    t.text     "reson_other"
   end
 
   create_table "faq_categories", force: :cascade do |t|
@@ -379,6 +385,7 @@ ActiveRecord::Schema.define(version: 20200325150737) do
     t.string   "relationship_manager_name"
     t.string   "relationship_manager_phone"
     t.string   "law_firm_category"
+    t.boolean  "firm_use_on_regular_basis",                         default: false
   end
 
   create_table "law_firms_countries", force: :cascade do |t|
@@ -490,6 +497,30 @@ ActiveRecord::Schema.define(version: 20200325150737) do
     t.string   "message_id"
     t.index ["notification_id"], name: "index_mailboxer_receipts_on_notification_id", using: :btree
     t.index ["receiver_id", "receiver_type"], name: "index_mailboxer_receipts_on_receiver_id_and_receiver_type", using: :btree
+  end
+
+  create_table "matter_intakes", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "submitter_name"
+    t.string   "lob_contact_name"
+    t.string   "name_of_matter_client"
+    t.integer  "matter_type_id"
+    t.text     "matter_description"
+    t.string   "mode_of_payment"
+    t.integer  "law_firm_id"
+    t.string   "bmo_lawyer_name"
+    t.integer  "lawyer_id"
+    t.string   "budget_amount"
+    t.integer  "lob_id"
+    t.string   "lob_contact_for_po"
+    t.string   "cost_centre_for_legal_fees"
+    t.string   "paying_entity"
+    t.string   "business_paying_for_matter"
+    t.string   "group_paying_for_matter"
+    t.string   "status"
+    t.datetime "lob_submitted_at"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   create_table "matter_types", force: :cascade do |t|

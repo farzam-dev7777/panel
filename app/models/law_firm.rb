@@ -24,6 +24,7 @@ class LawFirm < ApplicationRecord
   has_many :countries, :through => :law_firms_countries
   has_many :law_firms_states
   has_many :states, :through => :law_firms_states
+  has_many :matter_intakes
 
   serialize :practice_area, Array
   serialize :type_of_matters_your_law_firm_handles_for_us, Array

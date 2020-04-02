@@ -12,6 +12,7 @@ class User < ApplicationRecord
   has_many :activity_logs, as: :loggable
 
   belongs_to :law_firm
+  has_many   :matter_intakes
 
   default_scope { where(deactivated_at: nil) }
 
@@ -35,6 +36,10 @@ class User < ApplicationRecord
     :uniqueness => {
       :case_sensitive => false
     }
+
+  def full_name
+    [self.first_name, self.last_name].compact.join(' ')
+  end
 
   def email=(email)
     self.username = email
