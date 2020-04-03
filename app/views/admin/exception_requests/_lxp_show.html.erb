@@ -22,12 +22,10 @@
                     <%= f.input :reviewable_id, label: false, as: :hidden, input_html: { value: @exception_request.id } %>
                   </td>
                 </tr>		
-                <!-- <% if @exception_request.waiting_for_internal_lawyers_approval? %>	
                   <tr>
                   <td class="text-right" width="20%"><strong>Status</strong></td>
                   <td><%= f.input :status, label: false, collection: ExceptionRequest::EXCEPTION_REQUEST_STATUS.map{|value,key| [key, value]}%></td>
                 </tr> 
-                <% end %>	 -->
                 <%- if @exception_request.internal_lawyers_id.blank? %>
                 <tr class="internal_lawyers_box">
                   <td class="text-right" width="20%"><strong>Assign to</strong></td>

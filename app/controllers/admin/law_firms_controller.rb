@@ -24,8 +24,7 @@ class Admin::LawFirmsController < Admin::BaseController
   	if @law_firm.save
       # Pass true as a 2nd arg if admin wants to send the activity as notification as well
       @law_firm.log_activity('account_created', true, current_user)
-
-      @law_firm.user.send_reset_password_instructions
+      #@law_firm.user.send_reset_password_instructions
 
   		redirect_to :admin_law_firms
   	else
@@ -181,6 +180,31 @@ class Admin::LawFirmsController < Admin::BaseController
     end
   end
 
+  def get_sub_matter_types
+    if params[:id]
+      render json: { data: SubMatterType.where(matter_type_id: params[:id]) }
+    else
+      render json: { data: [] }
+    end
+  end
+
+  def get_state
+    if params[:id]
+      @countries = Country.select("country_id").where(id: params[:id])
+      render json: { data: State.where(country_id: @countries) }
+    else
+      render json: { data: [] }
+    end
+  end
+
+  def get_law_firm_list
+    if params[:matter_type].present? ||  params[:sub_matter_type].present? || params[:jurisdiction_type].present? || params[:country].present? || params[:state].present?
+      render json: { data: LawFirm.all }
+    else
+      render json: { data: [] }
+    end
+  end
+
   private
 
   def law_firms_params
@@ -204,6 +228,7 @@ class Admin::LawFirmsController < Admin::BaseController
         :password_confirmation, :_destroy
       ],
       practice_area: [],
+      matter_type_ids:[], sub_matter_type_ids: [], jurisdiction_type_ids: [], state_ids: [], country_ids: [],
       type_of_matters_your_law_firm_handles_for_us: [],
       type_of_services_your_law_firm_provides_generally: [],
       confidentiality_level_of_matters_that_are_handled: []
