@@ -64,9 +64,11 @@ class ExceptionRequest < ApplicationRecord
   end
 
   EXCEPTION_REQUEST_STATUS = {
+    "": "Select",
     "ALREADY_COVERED": "Already Covered",
     "APPROVED": "Approved",
     "REJECTED": "Rejected"
+    
   }
   EXCEPTION_REQUEST_PAY_TYPE = {
     "BANK_PAY": "Bank Pay",

@@ -26,13 +26,13 @@ class Admin::ReviewsController < Admin::BaseController
           if current_user.role === 'lxp' && review_params[:status] == 'APPROVED'
             # pay tyep
             if params[:review][:pay_type] == "THIRD_PAARTY_PAY"
-              @user = User.with_deactivated.find_by_id(@exception_request.law_firm.user_id)
+              @user = User.with_deactivated.find_by_id(@exception_request.user_id)
               signer_email =  @user.email
               signer_name =  @user.username
               @exception_request.send_retainer_for_esigning(signer_email, signer_name)
 
             elsif params[:review][:pay_type] == "BANK_PAY"
-              @user = User.with_deactivated.find_by_id(@exception_request.law_firm.user_id)
+              @user = User.with_deactivated.find_by_id(@exception_request.user_id)
 
               signer_email =  @user.email
               signer_name =  @user.username

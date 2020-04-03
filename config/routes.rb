@@ -21,11 +21,15 @@ Rails.application.routes.draw do
     end
     resources :law_firms do 
       member do
+        
         get :begin_certification_process
         get :begin_recertification_process
       
       end
       collection do
+        post :get_sub_matter_types 
+        post :get_state
+        post :get_law_firm_list
         post :decertify
         post :add_internal_note
         post :remove_internal_note
