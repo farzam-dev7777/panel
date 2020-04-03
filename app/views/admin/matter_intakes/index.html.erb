@@ -1,0 +1,74 @@
+<% content_for :page_title do %>
+  <span>Matter Intakes</span>
+  <% end %>
+  <div class="clearfix"></div>
+
+  <div class="col-lg-12">
+<div class="jarviswidget jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
+  <header>
+    <span class="widget-icon"> <i class="fa fa-briefcase"></i> </span>
+    <h2>Matter Intakes</h2>
+  </header>
+  
+  <div class="col-lg-12">
+    <div class="no-padding">
+      <div class="widget-body">
+        <div id="myTabContent" class="tab-content">
+          <div class="tab-pane fade active in padding-10 no-padding-bottom" id="s1">
+            <div class="row no-space text-center">
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <p><b><%= certification_status(current_law_firm) %></b> 
+                  <b><%= link_to 'Submit New Matter Intake', new_admin_matter_intake_path, html_options = {class: 'btn btn-primary btn-lg dashboard-certificate-button'}   %></b>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- widget div-->
+    <div>
+      <!-- widget edit box -->
+      <div class="jarviswidget-editbox">
+        <!-- This area used as dropdown edit box -->
+      </div>
+      <!-- end widget edit box -->
+      <!-- widget content -->
+      <div class="widget-body no-padding">
+        <table id="dt_basic" class="table table-striped table-bordered table-hover" width="100%">
+          <thead>
+            <tr style="background: #007ac3;color: #fff;">
+              <th>Submitter Name</th>
+              <th>LOB Contact Name</th>
+              <th>Name of Matter/Client</th>
+              <th>Type of Matter</th> 
+              <th>Law Firm Suggested</th>
+              <th>BMO lawyer name</th>
+              <th>Budget amount</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @matter_intakes.each do |matter_intake| %>
+              <tr class="" data-id="<%= matter_intake.id %>">
+                <td><%= matter_intake.submitter_name %></td>
+                <td><%= matter_intake.lob_contact_name %></td>
+                <td><%= matter_intake.name_of_matter_client %></td>
+                <td><%= matter_intake.matter_type.try(:matter_type) %></td>
+                <td><%= matter_intake.law_firm.try(:name) %></td>
+                <td><%= matter_intake.bmo_lawyer_name %></td>
+                <td><%= matter_intake.budget_amount %></td>
+                <td>
+                  <%= link_to "review", review_admin_matter_intake_path(matter_intake), class: "btn btn-xs btn-secondary" %>	
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <!-- end widget content -->
+    </div>
+    <!-- end widget div -->
+  </div>
+  <!-- end widget -->
+</div>

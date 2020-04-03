@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20200401173126) do
+=======
+ActiveRecord::Schema.define(version: 20200402183254) do
+>>>>>>> 8ed38c53f7e74b516ae966a16f2f8f2ec13aa87f
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -519,8 +523,26 @@ ActiveRecord::Schema.define(version: 20200401173126) do
     t.string   "group_paying_for_matter"
     t.string   "status"
     t.datetime "lob_submitted_at"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
+    t.string   "legal_group_of_bmo_lawyer"
+    t.string   "work_area"
+    t.boolean  "is_ore_reportable",              default: false
+    t.boolean  "is_otherwise_reportable",        default: false
+    t.boolean  "is_syndicate_matter",            default: false
+    t.boolean  "is_conceal_imanage_workspace",   default: false
+    t.boolean  "is_paper_file",                  default: false
+    t.string   "jurisdiction"
+    t.string   "firm_type"
+    t.string   "name_of_panel_firm"
+    t.string   "name_of_non_panel_firm"
+    t.string   "type_of_price"
+    t.boolean  "is_alternative_fee_arrangement", default: false
+    t.string   "afa_details"
+    t.string   "additional_matter_contact"
+    t.string   "other_matter_issues"
+    t.datetime "lawyer_reviewed_at"
+    t.string   "other_party"
   end
 
   create_table "matter_types", force: :cascade do |t|

@@ -39,6 +39,12 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :matter_intakes do 
+      member do 
+        get :review
+      end
+    end
+
     resources :activity_logs do
       collection do
         get :mark_as_read

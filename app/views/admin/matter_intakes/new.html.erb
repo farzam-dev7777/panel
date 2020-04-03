@@ -1,0 +1,164 @@
+<style>
+  div#gauge * {
+    top: -25px;
+  }
+
+  input, textarea, select { padding: 0px !important; margin: 0px; background: transparent; }
+</style>
+  
+<div class="col-lg-3 back-btn">
+  <%= link_to "<i class='fa fa-long-arrow-left'></i>".html_safe, admin_matter_intakes_path, class: "btn btn-sm btn-default" %>
+</div>
+
+<div class="clearfix"></div>
+
+<div class="col-lg-12 col-md-12 col-sm-12">
+  <div class="jarviswidget jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+    <header>
+      <span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
+      <h2 class="font-md"><strong> Matter Intakes - Complete Form-B</strong></h2>				
+    </header>
+
+    <div class="table-responsive">
+      <%= simple_form_for [:admin, @matter_intake] do |f| %>
+        <table class="table table-striped">
+          <tbody>
+            <tr>
+              <td class="text-right" width="20%"><strong>BMO lawyer name </strong></td>
+              <td>
+                <%= f.input :bmo_lawyer_name, label: false, collection: InternalLawyer.all.map {|il| [il.full_name, il.full_name, {'data-id'=>il.id}]} %>
+                <%= f.input :lawyer_id, as: :hidden, label: false %>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-right" width="20%"><strong>Legal Group of BMO Lawyer </strong></td>
+              <td>
+                <%= f.input :legal_group_of_bmo_lawyer, label: false, collection: MatterIntake::LegalGroupBMOLawyer %>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-right" width="20%"><strong>Work Area </strong></td>
+              <td>
+                <%= f.input :work_area, label: false, collection: MatterIntake::WorkArea %>
+              </td>
+            </tr>
+            <tr class="work_area_reportable" style="display: none;">
+              <td class="text-right" width="20%"><strong>Is this matter ORE reportable? </strong></td>
+              <td>
+                <%= f.input :is_ore_reportable, label: false, collection: [['Yes', true], ["No", false]] %>
+              </td>
+            </tr>
+            <tr class="work_area_reportable" style="display: none;">
+              <td class="text-right" width="20%"><strong>Is this matter otherwise reportable? </strong></td>
+              <td>
+                <%= f.input :is_otherwise_reportable, label: false, collection: [['Yes', true], ["No", false]] %>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-right" width="20%"><strong>Is this a syndicate matter? </strong></td>
+              <td>
+                <%= f.input :is_syndicate_matter, label: false, collection: [['Yes', true], ["No", false]] %>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-right" width="20%"><strong>Conceal iManage Workspace? </strong></td>
+              <td>
+                <%= f.input :is_conceal_imanage_workspace, label: false, collection: [['Yes', true], ["No", false]] %>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-right" width="20%"><strong>Paper file? </strong></td>
+              <td>
+                <%= f.input :is_paper_file, label: false, collection: [['Yes', true], ["No", false]] %>
+              </td>
+            </tr>
+            <tr>
+            <td class="text-right" width="20%"><strong>Matter name </strong></td>
+              <td><%= f.input :name_of_matter_client, label: false %></td>
+            </tr>
+            <tr>
+            <td class="text-right" width="20%"><strong>Matter Description </strong></td>
+              <td><%= f.input :matter_description, label: false %></td>
+            </tr>
+            <tr>
+            <td class="text-right" width="20%"><strong>Legal Entity </strong></td>
+              <td><%= f.input :paying_entity, label: false %></td>
+            </tr>
+            <tr>
+            <td class="text-right" width="20%"><strong>Business Paying for this Matter </strong></td>
+              <td><%= f.input :business_paying_for_matter, label: false %></td>
+            </tr>
+            <tr>
+              <td class="text-right" width="20%"><strong>Group Paying for this Matter </strong></td>
+              <td><%= f.input :group_paying_for_matter, label: false %></td>
+            </tr>
+            <tr>
+              <td class="text-right" width="20%"><strong>Jurisdiction </strong></td>
+              <td><%= f.input :jurisdiction, label: false, collection: MatterIntake::Jurisdiction %></td>
+            </tr>
+            <tr>
+            <td class="text-right" width="20%"><strong>How will this matter be paid? </strong></td>
+              <td><%= f.input :mode_of_payment, label: false, collection: [["Cash", "Cash"], ["Bank Transfer", "Bank Transfer"]] %></td>
+            </tr>
+            <tr>
+              <td class="text-right" width="20%"><strong>Cost Centre for legal fees </strong></td>
+              <td><%= f.input :cost_centre_for_legal_fees, label: false %></td>
+            </tr>
+            <tr>
+              <td class="text-right" width="20%"><strong>LOB contact to create PO </strong></td>
+              <td><%= f.input :lob_contact_for_po, label: false %></td>
+            </tr>
+            <tr>
+              <td class="text-right" width="20%"><strong>Panel or Non-Panel Firm </strong></td>
+              <td><%= f.input :firm_type, label: false, collection: MatterIntake::FirmType %></td>
+            </tr>
+            <tr class="panel_firm" style="display: none;">
+              <td class="text-right" width="20%"><strong>Name of Panel Firm </strong></td>
+              <td><%= f.input :name_of_panel_firm, label: false %></td>
+            </tr>
+            <tr class="non_panel_firm" style="display: none;">
+              <td class="text-right" width="20%"><strong>Name of Non-Panel Firm </strong></td>
+              <td><%= f.input :name_of_non_panel_firm, label: false %></td>
+            </tr>
+            <tr>
+              <td class="text-right" width="20%"><strong>Type of Pricing </strong></td>
+              <td><%= f.input :type_of_price, label: false, collection: MatterIntake::TypeOfPrice %></td>
+            </tr>
+            <tr class="alternative_fee" style="display: none;">
+              <td class="text-right" width="20%"><strong>Is there an Alternative Fee Arrangement? </strong></td>
+              <td>
+                <%= f.input :is_alternative_fee_arrangement, label: false, collection: [['Yes', true], ["No", false]] %>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-right" width="20%"><strong>AFA Details </strong></td>
+              <td><%= f.input :afa_details, label: false %></td>
+            </tr>
+            <tr>
+              <td class="text-right" width="20%"><strong>Other Party (Other than BMO) </strong></td>
+              <td><%= f.input :other_party, label: false, collection: MatterIntake::OtherParty %></td>
+            </tr>
+            <tr>
+              <td class="text-right" width="20%"><strong>Additional Matter Contact (not specified elsewhere) </strong></td>
+              <td><%= f.input :additional_matter_contact, label: false %></td>
+            </tr>
+            <tr>
+              <td class="text-right" width="20%"><strong>Budget amount, if already negotiated with the law firm </strong></td>
+              <td><%= f.input :budget_amount, label: false %></td>
+            </tr>
+            <tr>
+              <td class="text-right" width="20%"><strong>Other Matter Issues (not specified elsewhere) </strong></td>
+              <td><%= f.input :other_matter_issues, label: false %></td>
+            </tr>
+            <tr>
+            <td colspan="2">
+                <%=link_to 'Cancel', @matter_intake.new_record? ? new_admin_matter_intake_path : new_admin_matter_intake_path, class: 'btn btn-danger btn-sm' %>
+              <%= f.button :submit, @matter_intake.new_record? ? "Submit Matter Intake" : "Submit Matter Intake", class: "" %>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      <% end %>
+    </div>
+  </div>
+</div>
