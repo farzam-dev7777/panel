@@ -42,6 +42,29 @@ $(document).ready(function(){
 		}
 	});
 
+	if($('select#exception_request_niche_preferred_external_counsel_panel_law_firms').val() == "Yes"){
+		$('.niche_preferred_external_details').show()
+	}
+	$('select#exception_request_niche_preferred_external_counsel_panel_law_firms').on('change', function() {
+		if(this.value == "true"){
+			$('.niche_preferred_external_details').show()
+		}else{
+			$('.niche_preferred_external_details').hide()
+			$('#exception_request_niche_expertise').val(" ")
+		}
+	});
+
+	if($('select#exception_request_required_unique_geography').val() == "Yes"){
+		$('.required_unique_geography_details').show()
+	}
+	$('select#exception_request_required_unique_geography').on('change', function() {
+		if(this.value == "true"){
+			$('.required_unique_geography_details').show()
+		}else{
+			$('.required_unique_geography_details').hide()
+			$('#exception_request_geographic_location').val(" ")
+		}
+	});
 
 	if($('select#exception_request_law_firm_category').val() == "PANEL"){
 		$('#panel_notification').show()
@@ -539,7 +562,6 @@ $(".simple_form.edit_exception_request").validate();
 // 		});
 // });
 
-
 $('select#matter_intake_bmo_lawyer_name').on('change', function() {
 	var id = $('option:selected', this).attr('data-id')
 	$('#matter_intake_lawyer_id').val(id);
@@ -614,3 +636,10 @@ $(document).ready(function() {
 		}
 	});
 })
+ 
+$(".next-btn-exception").click(function () {
+	$( "#tabs-exception" ).tabs( "option", "active", $("#tabs-exception").tabs('option', 'active')+1 );
+});
+$(".prev-btn-exception").click(function () {
+	$( "#tabs-exception" ).tabs( "option", "active", $("#tabs-exception").tabs('option', 'active')-1 );
+});

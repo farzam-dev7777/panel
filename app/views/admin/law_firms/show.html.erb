@@ -39,8 +39,8 @@
 <% end %>
 
 <% if(!@law_firm.form_submissions.any?) %>
-	<!-- <div class="col-lg-2 pull-right"> -->
-	<% if(@law_firm.user.is_deactivated?) %>
+
+	<% if @law_firm.user && @law_firm.user.is_deactivated? %>
 		<a class="btn btn-sm btn-primary pull-right send-user-info-btn" data-id="<%= @law_firm.user.id %>">Send user information and create new password link </a>
 		<a class="btn btn-sm btn-secondary pull-right send-user-info-begin-certification-btn" data-id="<%= @law_firm.user.id %>">Send RFI Questionnaire with user active password link </a>
 		
