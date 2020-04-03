@@ -538,3 +538,79 @@ $(".simple_form.edit_exception_request").validate();
 // 				return false;
 // 		});
 // });
+
+
+$('select#matter_intake_bmo_lawyer_name').on('change', function() {
+	var id = $('option:selected', this).attr('data-id')
+	$('#matter_intake_lawyer_id').val(id);
+});
+
+$('select#matter_intake_work_area').on('change', function() {
+	var work_area = this.value;
+	if(work_area === "Regulatory") {
+		$('.work_area_reportable').show()
+	} else {
+		$('.work_area_reportable').hide()
+	}
+})
+
+$(document).ready(function() {
+	var matter_intake_firm_type = $('select#matter_intake_firm_type > option:selected').val();
+	var matter_intake_type_of_price = $('select#matter_intake_type_of_price > option:selected').val();
+
+	// Handle on load case
+	if(matter_intake_firm_type === "Panel") {
+		$('.panel_firm').show()
+		$('.non_panel_firm').hide()
+	} else if(matter_intake_firm_type === "Non-Panel") {
+		$('.panel_firm').hide()
+		$('.non_panel_firm').show()
+	} else if (matter_intake_firm_type === "Panel & Non-Panel Firms") {
+		$('.panel_firm').show()
+		$('.non_panel_firm').show()
+	} else {
+		$('.panel_firm').hide()
+		$('.non_panel_firm').hide()
+	}
+	
+	$('select#matter_intake_firm_type').on('change', function() {
+		var selectedValue = this.value;
+		if(selectedValue === "Panel") {
+			$('.panel_firm').show()
+			$('.non_panel_firm').hide()
+		} else if(selectedValue === "Non-Panel") {
+			$('.panel_firm').hide()
+			$('.non_panel_firm').show()
+		} else if (selectedValue === "Panel & Non-Panel Firms") {
+			$('.panel_firm').show()
+			$('.non_panel_firm').show()
+		} else {
+			$('.panel_firm').hide()
+			$('.non_panel_firm').hide()
+		}
+	});
+
+	// Handle on Load
+	var type_of_price = ["Hourly Billing", "Work done at no cost"];
+	
+	if(type_of_price.includes(matter_intake_type_of_price)) {
+		$('.alternative_fee').show();
+		$('#matter_intake_is_alternative_fee_arrangement').val("true")
+	} else {
+		$('.alternative_fee').hide();
+		$('#matter_intake_is_alternative_fee_arrangement').val("false")
+	}
+
+	$('select#matter_intake_type_of_price').on('change', function() {
+		var selectedValue = this.value;
+		if(type_of_price.includes(selectedValue)) {
+			$('.alternative_fee').show();
+			$("#matter_intake_is_alternative_fee_arrangement option[value='true']").attr("selected", "selected")
+			$("#matter_intake_is_alternative_fee_arrangement option[value='false']").attr("selected", null)
+		} else {
+			$('.alternative_fee').hide();
+			$("#matter_intake_is_alternative_fee_arrangement option[value='true']").attr("selected", null)
+			$("#matter_intake_is_alternative_fee_arrangement option[value='false']").attr("selected", "selected")
+		}
+	});
+})

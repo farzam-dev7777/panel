@@ -1,0 +1,90 @@
+<style>
+  div#gauge * {
+    top: -25px;
+  }
+</style>
+  
+<div class="col-lg-3 back-btn">
+  <%= link_to "<i class='fa fa-long-arrow-left'></i>".html_safe, admin_matter_intakes_path, class: "btn btn-sm btn-default" %>
+  <%= link_to "<i class='fa fa-pencil-square-o'></i> Edit".html_safe, edit_admin_matter_intake_path, class: "btn btn-sm btn-primary m-l-15 no-border" %>
+</div>
+
+<div class="clearfix"></div>
+
+<div class="col-lg-12 col-md-12 col-sm-12">
+  <div class="jarviswidget jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+    <header>
+      <span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
+      <h2 class="font-md"><strong> Matter Intake </strong></h2>				
+    </header>
+    <div class="  ">
+      <div class="jarviswidget-editbox"></div>
+      <!-- widget content -->
+      <div class="widget-body no-padding view-request">
+        <div class="tab-content padding-10 view-request">
+          <div class="tab-pane fade in active">
+            <div class="col-md-10">
+              <div class="col-md-12">
+                <div class="col-md-3 column">Submitter Name:	</div>
+                <div class="col-md-9 data"><%= @matter_intake.submitter_name %></div>
+              </div>
+              <div class="col-md-12">
+                <div class="col-md-3 column">LOB Contact Name:	</div>
+                <div class="col-md-9 data"><%= @matter_intake.lob_contact_name %></div>
+              </div>
+              <div class="col-md-12">
+                <div class="col-md-3 column">Name of Matter/Client:	</div>
+                <div class="col-md-9 data"><%= @matter_intake.name_of_matter_client %></div>
+              </div>
+              <div class="col-md-12">
+                <div class="col-md-3 column">Type of Matter:	</div>
+                <div class="col-md-9 data"><%= @matter_intake.matter_type.try(:matter_type) %></div>
+              </div>
+              <div class="col-md-12">
+                <div class="col-md-3 column">Matter Description:	</div>
+                <div class="col-md-9 data"><%= @matter_intake.matter_description %></div>
+              </div>
+              <div class="col-md-12">
+                <div class="col-md-3 column">How will this matter be paid?:	</div>
+                <div class="col-md-9 data"><%= @matter_intake.mode_of_payment %></div>
+              </div>
+              <div class="col-md-12">
+                <div class="col-md-3 column">Law Firm Suggested:	</div>
+                <div class="col-md-9 data"><%= @matter_intake.law_firm.try(:name) %></div>
+              </div>
+              <div class="col-md-12">
+                <div class="col-md-3 column">BMO lawyer name:	</div>
+                <div class="col-md-9 data"><%= @matter_intake.bmo_lawyer_name %></div>
+              </div>
+              <div class="col-md-12">
+                <div class="col-md-3 column">Budget amount, if already negotiated with the law firm:	</div>
+                <div class="col-md-9 data"><%= @matter_intake.budget_amount %></div>
+              </div>
+              <div class="col-md-12">
+                <div class="col-md-3 column">LOB contact to create PO:	</div>
+                <div class="col-md-9 data"><%= @matter_intake.lob_contact_for_po %></div>
+              </div>
+              <div class="col-md-12">
+                <div class="col-md-3 column">Cost Centre for legal fees:	</div>
+                <div class="col-md-9 data"><%= @matter_intake.cost_centre_for_legal_fees %></div>
+              </div>
+              <div class="col-md-12">
+                <div class="col-md-3 column">Business Paying for this Matter:	</div>
+                <div class="col-md-9 data"><%= @matter_intake.business_paying_for_matter %></div>
+              </div>
+              <div class="col-md-12">
+                <div class="col-md-3 column">Group Paying for this Matter:	</div>
+                <div class="col-md-9 data"><%= @matter_intake.group_paying_for_matter %></div>
+              </div>
+              <div class="col-md-12">
+                <div class="col-md-3 column">Paying Entity:	</div>
+                <div class="col-md-9 data"><%= @matter_intake.paying_entity %></div>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

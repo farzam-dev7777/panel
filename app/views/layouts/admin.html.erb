@@ -181,7 +181,12 @@
 					<li class="<%= active_menu_item('/admin/conflict_waivers') %>">
 						<a href="/admin/conflict_waivers" title="blank_"><i class="fa fa-lg fa-fw fa-thumbs-o-up"></i> <span class="menu-item-parent">Conflict Waiver</span></a>
 					</li>
-					<% end %>	
+				<% end %>	
+				<% if current_user && current_user.role == 'internal_lawyers' %>
+					<li class="<%= active_menu_item('/admin/matter_intakes') %>">
+						<a href="/admin/matter_intakes" title="blank_"><i class="fa fa-lg fa-fw fa-briefcase"></i> <span class="menu-item-parent">Matter Intakes</span></a>
+					</li>
+				<% end %>	
 				<% if current_user && current_user.role == 'lxp' %>
 					<li class="<%= active_menu_item('/admin/panel_requests') %>">
 						<a href="/admin/panel_requests" title="blank_"><i class="fa fa-lg fa-fw fa-check"></i> <span class="menu-item-parent">Panel Request Form</span></a>

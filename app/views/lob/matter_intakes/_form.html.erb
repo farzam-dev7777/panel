@@ -15,7 +15,7 @@
         </tr>
         <tr>
           <td class="text-right" width="20%"><strong>LOB Contact Name </strong></td>
-          <td><%= f.input :lob_contact_name, label: false, collection: PanelRequest::LOB_LIST %></td>
+          <td><%= f.input :lob_contact_name, label: false, collection: MatterIntake::LOB_CONTACT_NAMES %></td>
         </tr>
         <tr>
           <td class="text-right" width="20%"><strong>Name of Matter/Client </strong></td>
@@ -39,7 +39,10 @@
         </tr>
         <tr>
           <td class="text-right" width="20%"><strong>BMO lawyer name </strong></td>
-          <td><%= f.input :bmo_lawyer_name, label: false %></td>
+          <td>
+            <%= f.input :bmo_lawyer_name, label: false, collection: InternalLawyer.all.map {|il| [il.full_name, il.full_name, {'data-id'=>il.id}]} %>
+            <%= f.input :lawyer_id, as: :hidden, label: false %>
+          </td>
         </tr>
         <tr>
           <td class="text-right" width="20%"><strong>Budget amount, if already negotiated with the law firm </strong></td>
