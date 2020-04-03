@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200402183254) do
+ActiveRecord::Schema.define(version: 20200403180430) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -511,7 +511,7 @@ ActiveRecord::Schema.define(version: 20200402183254) do
     t.string   "bmo_lawyer_name"
     t.integer  "lawyer_id"
     t.string   "budget_amount"
-    t.integer  "lob_id"
+    t.integer  "lxp_id"
     t.string   "lob_contact_for_po"
     t.string   "cost_centre_for_legal_fees"
     t.string   "paying_entity"
@@ -539,6 +539,8 @@ ActiveRecord::Schema.define(version: 20200402183254) do
     t.string   "other_matter_issues"
     t.datetime "lawyer_reviewed_at"
     t.string   "other_party"
+    t.string   "matter_number"
+    t.datetime "lxp_reviewed_at"
   end
 
   create_table "matter_types", force: :cascade do |t|

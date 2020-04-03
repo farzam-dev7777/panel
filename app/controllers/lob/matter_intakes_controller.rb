@@ -30,7 +30,7 @@ class Lob::MatterIntakesController < Lob::BaseController
       @matter_intake.update_attributes(status: "waiting_for_lawyer_review", lob_submitted_at: Time.now)
       @matter_intake.send_notification_to_lawyer
       flash[:notice] = "Matter intake saved"
-      redirect_to :lob_matter_intake
+      redirect_to :lob_matter_intakes
     else
       flash[:alert] = "There was an error initiating matter intake request. #{@matter_intake.errors.full_messages.join(', ')}" 
       @matter_intake = MatterIntake.new

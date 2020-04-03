@@ -15,4 +15,20 @@ class MatterIntakeMailer < ApplicationMailer
     end
   end
 
+  def send_notification_to_lawyer_for_matter_open(matter_intake)
+    @matter_intake = matter_intake
+    # Sending email to lawyer
+    if @matter_intake.lawyer.present? && @matter_intake.lawyer.email.present?
+      mail(to: @matter_intake.lawyer.email, subject: "New Matter open in T360")
+    end
+  end
+
+  def send_notification_to_lxp_for_matter_open(matter_intake)
+    @matter_intake = matter_intake
+    # Sending email to lob
+    if @matter_intake.user_id.present? && @matter_intake.user.email.present?
+      mail(to: @matter_intake.user.email, subject: "New Matter open in T360")
+    end
+  end
+
 end

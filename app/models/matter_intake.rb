@@ -56,4 +56,9 @@ class MatterIntake < ApplicationRecord
   def send_notification_to_lxp
     MatterIntakeMailer.send_notification_to_lxp_for_form_submission(self).deliver_now
   end
+
+  def send_notification_to_lawyer_and_lxp
+    MatterIntakeMailer.send_notification_to_lxp_for_matter_open(self).deliver_now
+    MatterIntakeMailer.send_notification_to_lawyer_for_matter_open(self).deliver_now
+  end
 end

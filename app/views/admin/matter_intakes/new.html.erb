@@ -26,8 +26,8 @@
             <tr>
               <td class="text-right" width="20%"><strong>BMO lawyer name </strong></td>
               <td>
-                <%= f.input :bmo_lawyer_name, label: false, collection: InternalLawyer.all.map {|il| [il.full_name, il.full_name, {'data-id'=>il.id}]} %>
-                <%= f.input :lawyer_id, as: :hidden, label: false %>
+                <%= f.input :bmo_lawyer_name, label: false, :input_html => { :value => current_user.try(:full_name) } %>
+                <%= f.input :lawyer_id, as: :hidden, label: false, :input_html => { :value => current_user.try(:id) } %>
               </td>
             </tr>
             <tr>

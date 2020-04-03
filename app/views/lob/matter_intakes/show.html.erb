@@ -6,7 +6,9 @@
   
 <div class="col-lg-3 back-btn">
   <%= link_to "<i class='fa fa-long-arrow-left'></i>".html_safe, lob_matter_intakes_path, class: "btn btn-sm btn-default" %>
-  <%= link_to "<i class='fa fa-pencil-square-o'></i> Edit".html_safe, edit_lob_matter_intake_path, class: "btn btn-sm btn-primary m-l-15 no-border" %>
+  <% if @matter_intake.status === "waiting_for_lawyer_review" %>
+    <%= link_to "<i class='fa fa-pencil-square-o'></i> Edit".html_safe, edit_lob_matter_intake_path, class: "btn btn-sm btn-primary m-l-15 no-border" %>
+  <% end %>
 </div>
 
 <div class="clearfix"></div>

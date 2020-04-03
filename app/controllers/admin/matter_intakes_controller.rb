@@ -6,16 +6,20 @@ class Admin::MatterIntakesController < Admin::BaseController
 
   def index
     @q = MatterIntake.ransack(params[:q])
+    @current_user = current_user
     if current_user.role === "internal_lawyers"
-      @matter_intakes = @q.result(distinct: true).where(status: "waiting_for_lawyer_review").or(@q.result(distinct: true).where(status: "waiting_for_lawyer_update")).order('created_at DESC')
+      @matter_intakes = @q.result(distinct: true).where(lawyer_id: current_user.id).order('created_at DESC')
+    elsif current_user.role === "lxp"
+      @matter_intakes = @q.result(distinct: true).where(status: "waiting_for_lxp_review").order('created_at DESC')
+    else
+      @matter_intakes = []
     end
-   
     add_breadcrumb "Matter Intakes", :admin_matter_intakes_path
   end
 
   def new
     @matter_intake = MatterIntake.new
-    @current_lxp_user = current_user
+    @current_user = current_user
   end
 
   def show
@@ -23,6 +27,10 @@ class Admin::MatterIntakesController < Admin::BaseController
   end
 
   def review
+    @matter_intake = MatterIntake.find_by(id: params[:id])
+  end
+
+  def lxp_review
     @matter_intake = MatterIntake.find_by(id: params[:id])
   end
 
@@ -36,8 +44,6 @@ class Admin::MatterIntakesController < Admin::BaseController
       redirect_to :admin_matter_intakes
     else
       flash[:alert] = "There was an error initiating matter intake request. #{@matter_intake.errors.full_messages.join(', ')}" 
-      # @matter_intake = MatterIntake.new
-      # @current_lxp_user = current_user
       render :new
     end
 
@@ -46,9 +52,15 @@ class Admin::MatterIntakesController < Admin::BaseController
   def update
     @matter_intake = MatterIntake.find_by(id: params[:id])
     if @matter_intake.present? && @matter_intake.update_attributes(matter_intake_params)
-      @matter_intake.update_attributes(lawyer_reviewed_at: Time.now, status: 'waiting_for_lxp_review')
-      @matter_intake.send_notification_to_lxp
-      flash[:notice] = "Matter intake form saved."
+      if current_user.role === "internal_lawyers"
+        @matter_intake.update_attributes(lawyer_reviewed_at: Time.now, status: 'waiting_for_lxp_review')
+        @matter_intake.send_notification_to_lxp
+        flash[:notice] = "Matter intake Form-B saved."
+      elsif current_user.role === "lxp" && @matter_intake.matter_number.present?
+        @matter_intake.update_attributes(lxp_reviewed_at: Time.now, status: 'matter_open', lxp_id: current_user.id)
+        @matter_intake.send_notification_to_lawyer_and_lxp
+        flash[:notice] = "Matter opened in T360 with matter number #{@matter_intake.matter_number}."
+      end
       redirect_to admin_matter_intakes_path
     else
       flash[:alert] = "There was an error updating matter intake request. #{@matter_intake.errors.full_messages.join(', ')}"
@@ -68,7 +80,7 @@ class Admin::MatterIntakesController < Admin::BaseController
       :is_otherwise_reportable, :is_syndicate_matter, :is_conceal_imanage_workspace, :is_paper_file,
       :jurisdiction, :firm_type, :name_of_panel_firm, :name_of_non_panel_firm, :type_of_price,
       :is_alternative_fee_arrangement, :afa_details, :additional_matter_contact, :other_matter_issues,
-      :lawyer_reviewed_at, :other_party
+      :lawyer_reviewed_at, :other_party, :matter_number
     )
   end
 

@@ -38,6 +38,7 @@ Rails.application.routes.draw do
     resources :matter_intakes do 
       member do 
         get :review
+        get :lxp_review
       end
     end
 
