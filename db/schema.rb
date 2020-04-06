@@ -115,6 +115,7 @@ ActiveRecord::Schema.define(version: 20200406184458) do
     t.string   "internal_lawyers_status"
     t.integer  "law_firm_id"
     t.integer  "assigned_to_id"
+    t.text     "retainer_language"
   end
 
   create_table "countries", force: :cascade do |t|
