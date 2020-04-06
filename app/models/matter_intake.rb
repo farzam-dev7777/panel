@@ -93,7 +93,7 @@ class MatterIntake < ApplicationRecord
       actor_id: current_user.id,
       reviewable_type: self.class.to_s,
       reviewable_id: self.id,
-      description: "#{current_user.try(:full_name)} mark matter open in T360 with matter number #{self.matter_number}.",
+      description: "#{current_user.try(:full_name)} marked matter open in T360 with matter number #{self.matter_number}.",
       status: "matter_open"
     )
   end
