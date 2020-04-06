@@ -789,5 +789,33 @@ if($('select#law_firm_country_ids').val()){
 		});
 }
 
-
 */
+
+$('.lxp_rejects').on('click', function() {
+	var matter_intake_id = $('#matter_intake_id').val();
+	if(matter_intake_id) {
+		$.ajax({
+			url: "/admin/matter_intakes/lxp_rejects",
+			method: "POST",
+			data: {id : matter_intake_id}
+		})
+			.done(function( data ) {
+				window.location.href = "/admin/matter_intakes"
+				setTimeout(() => {
+					swal({
+						title: "Success",
+						icon: "success",
+						text: "Matter intake form succesfully returns to lawyer for updation."
+					});
+				}, 300)
+			})
+			.error(function (error) {
+				swal({
+					title: "Ops!",
+					icon: "error",
+					text: "Something went wrong. Matter intake form failed to reject."
+				});
+			})
+	}
+ 
+});

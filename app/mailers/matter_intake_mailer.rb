@@ -31,4 +31,12 @@ class MatterIntakeMailer < ApplicationMailer
     end
   end
 
+  def send_notification_to_lawyer_form_needs_updation(matter_intake)
+    @matter_intake = matter_intake
+
+    if @matter_intake.lawyer.present? && @matter_intake.lawyer.email.present?
+      mail(to: @matter_intake.lawyer.email, subject: "Matter intake form needs updation")
+    end
+  end
+
 end

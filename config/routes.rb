@@ -44,6 +44,9 @@ Rails.application.routes.draw do
         get :review
         get :lxp_review
       end
+      collection do 
+        post :lxp_rejects
+      end
     end
 
     resources :activity_logs do

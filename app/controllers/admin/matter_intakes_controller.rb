@@ -10,7 +10,7 @@ class Admin::MatterIntakesController < Admin::BaseController
     if current_user.role === "internal_lawyers"
       @matter_intakes = @q.result(distinct: true).where(lawyer_id: current_user.id).order('created_at DESC')
     elsif current_user.role === "lxp"
-      @matter_intakes = @q.result(distinct: true).where(status: "waiting_for_lxp_review").order('created_at DESC')
+      @matter_intakes = @q.result(distinct: true).where(status: "waiting_for_lxp_review").or(@q.result(distinct: true).where(status: "matter_open")).order('created_at DESC')
     else
       @matter_intakes = []
     end
@@ -55,9 +55,11 @@ class Admin::MatterIntakesController < Admin::BaseController
       if current_user.role === "internal_lawyers"
         @matter_intake.update_attributes(lawyer_reviewed_at: Time.now, status: 'waiting_for_lxp_review')
         @matter_intake.send_notification_to_lxp
+        @matter_intake.add_log_for_lawyer_submission_to_lxp(current_user)
         flash[:notice] = "Matter intake Form-B saved."
       elsif current_user.role === "lxp" && @matter_intake.matter_number.present?
         @matter_intake.update_attributes(lxp_reviewed_at: Time.now, status: 'matter_open', lxp_id: current_user.id)
+        @matter_intake.add_log_matter_open_by_lxp(current_user)
         @matter_intake.send_notification_to_lawyer_and_lxp
         flash[:notice] = "Matter opened in T360 with matter number #{@matter_intake.matter_number}."
       end
@@ -68,6 +70,24 @@ class Admin::MatterIntakesController < Admin::BaseController
       @current_lxp_user = current_user
       render :review,  id: @matter_intake.id
     end
+  end
+
+  def lxp_rejects
+    @matter_intake = MatterIntake.find_by(id: params[:id])
+    if current_user.role === "lxp"
+      if @matter_intake.update_attributes(lxp_reviewed_at: Time.now, status: 'waiting_for_lawyer_update', lxp_id: current_user.id)
+        @matter_intake.add_log_for_lxp_rejects_and_returns_to_lawyer(current_user)
+        @matter_intake.send_notification_to_lawyer_form_needs_updation
+        render json: {
+          message: "Successfully rejects matter intake form."
+        }
+      else 
+        render json: {
+          errors: "Failed to rejects matter intake form."
+        }, status: 404
+      end
+    end
+
   end
 
   private
