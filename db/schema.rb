@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200403180430) do
+ActiveRecord::Schema.define(version: 20200406171650) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -115,6 +115,7 @@ ActiveRecord::Schema.define(version: 20200403180430) do
     t.string   "internal_lawyers_status"
     t.integer  "law_firm_id"
     t.integer  "assigned_to_id"
+    t.text     "retainer_language"
   end
 
   create_table "countries", force: :cascade do |t|
