@@ -18,6 +18,7 @@ class Admin::MatterIntakesController < Admin::BaseController
   end
 
   def new
+    @form_type = params[:form_type]
     @matter_intake = MatterIntake.new
     @current_user = current_user
   end

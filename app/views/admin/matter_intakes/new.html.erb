@@ -28,6 +28,7 @@
               <td>
                 <%= f.input :bmo_lawyer_name, label: false, :input_html => { :value => current_user.try(:full_name) } %>
                 <%= f.input :lawyer_id, as: :hidden, label: false, :input_html => { :value => current_user.try(:id) } %>
+                <%= f.input :form_type, as: :hidden, label: false, :input_html => { :value => @form_type } %>
               </td>
             </tr>
             <tr>
@@ -96,6 +97,16 @@
               <td class="text-right" width="20%"><strong>Jurisdiction </strong></td>
               <td><%= f.input :jurisdiction, label: false, collection: MatterIntake::Jurisdiction %></td>
             </tr>
+            <% if @form_type == "litigation" %>
+              <tr>
+                <td class="text-right" width="20%"><strong>Branch </strong></td>
+                <td><%= f.input :branch, label: false %></td>
+              </tr>
+              <tr>
+                <td class="text-right" width="20%"><strong>Will outside counsel be engaged?  </strong></td>
+                <td><%= f.input :outside_counsel_engaged, label: false, collection: MatterIntake::OutsideCounselEngaged %></td>
+              </tr>
+            <% end %>
             <tr>
             <td class="text-right" width="20%"><strong>How will this matter be paid? </strong></td>
               <td><%= f.input :mode_of_payment, label: false, collection: [["Cash", "Cash"], ["Bank Transfer", "Bank Transfer"]] %></td>
@@ -134,6 +145,14 @@
               <td class="text-right" width="20%"><strong>AFA Details </strong></td>
               <td><%= f.input :afa_details, label: false %></td>
             </tr>
+            <% if @form_type == "litigation" %>
+              <tr>
+                <td class="text-right" width="20%"><strong>Could this matter be reimbursed? </strong></td>
+                <td>
+                  <%= f.input :can_reimbursed_matter, label: false, collection: [['Yes', true], ["No", false]] %>
+                </td>
+              </tr>
+            <% end %>
             <tr>
               <td class="text-right" width="20%"><strong>Other Party (Other than BMO) </strong></td>
               <td><%= f.input :other_party, label: false, collection: MatterIntake::OtherParty %></td>
@@ -151,6 +170,182 @@
               <td><%= f.input :other_matter_issues, label: false %></td>
             </tr>
             <tr>
+            <% if @form_type == "litigation" %>
+              <tr>
+                <td class="text-right" width="20%"><strong>Background/Key Facts (other than matter description </strong></td>
+                <td><%= f.input :key_facts, label: false %></td>
+              </tr>
+              <tr>
+                <td class="text-right" width="20%"><strong>Legal Analysis </strong></td>
+                <td><%= f.input :legal_analysis, label: false %></td>
+              </tr>
+              <tr>
+                <td class="text-right" width="20%"><strong>Stage of Litigation </strong></td>
+                <td><%= f.input :stage_of_litigation, label: false, collection: MatterIntake::StageOfLitigation %></td>
+              </tr>
+              <tr>
+                <td class="text-right" width="20%"><strong>Allegation of Employee Misconduct? </strong></td>
+                <td>
+                  <%= f.input :allegation_of_employee_misconduct, label: false, collection: [['Yes', true], ["No", false]] %>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-right" width="20%"><strong>Primary Issue </strong></td>
+                <td><%= f.input :primary_issue, label: false, collection: MatterIntake::PrimaryIssue %></td>
+              </tr>
+              <tr>
+                <td class="text-right" width="20%"><strong>Secondary Issue </strong></td>
+                <td><%= f.input :secondary_issue, label: false, collection: MatterIntake::SecondaryIssue %></td>
+              </tr>
+              <tr>
+                <td class="text-right" width="20%"><strong>What Party is BMO in this action? </strong></td>
+                <td><%= f.input :bmo_party, label: false, collection: MatterIntake::BMOParty %></td>
+              </tr>
+              <tr>
+                <td class="text-right" width="20%"><strong>Opposing Counsel Firm </strong></td>
+                <td><%= f.input :opposing_counsel_firm, label: false %></td>
+              </tr>
+              <tr>
+                <td class="text-right" width="20%"><strong>Written Legal Notice Required </strong></td>
+                <td><%= f.input :written_legal_notice_required, label: false, as: :boolean %></td>
+              </tr>
+              <tr>
+                <td class="text-right" width="20%"><strong>Arbitration Offered </strong></td>
+                <td>
+                  <%= f.input :arbitration_offered, label: false, collection: [['Yes', true], ["No", false]] %>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-right" width="20%"><strong>Arbitration Accepted </strong></td>
+                <td>
+                  <%= f.input :arbitration_accepted, label: false, collection: [['Yes', true], ["No", false]] %>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-right" width="20%"><strong>Branch Manager/Investment Advisor Name </strong></td>
+                <td><%= f.input :branch_manager_investment_advisor, label: false %></td>
+              </tr>
+              <tr>
+                <td class="text-right" width="20%"><strong>Region (Canadian P&C) </strong></td>
+                <td><%= f.input :region_name, label: false, collection: MatterIntake::Region %></td>
+              </tr>
+              <tr>
+                <td class="text-right" width="20%"><strong>Date Suit Filed </strong></td>
+                <td><%= f.input :date_suit_filed, label: false, as: :date, html5: true %></td>
+              </tr>
+              <tr>
+                <td class="text-right" width="20%"><strong>Unquantified Claim </strong></td>
+                <td>
+                  <%= f.input :unquantified_claim, label: false, collection: [['Yes', true], ["No", false]] %>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-right" width="20%"><strong>Valued at $50,000 or more </strong></td>
+                <td>
+                  <%= f.input :valued_at, label: false %>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-right" width="20%"><strong>Amount Claimed from BMO 1 </strong></td>
+                <td>
+                  <%= f.input :amount_claimed_from_bmo_1, label: false %>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-right" width="20%"><strong>Amount Claimed 1 currency </strong></td>
+                <td><%= f.input :amount_claimed_1_currency, label: false, collection: MatterIntake::AmountCurrency %></td>
+              </tr>
+              <tr>
+                <td class="text-right" width="20%"><strong>Amount Claimed from BMO 2 </strong></td>
+                <td>
+                  <%= f.input :amount_claimed_from_bmo_2, label: false %>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-right" width="20%"><strong>Amount Claimed 2 currency </strong></td>
+                <td><%= f.input :amount_claimed_2_currency, label: false, collection: MatterIntake::AmountCurrency %></td>
+              </tr>
+              <tr>
+                <td class="text-right" width="20%"><strong>Amount Claimed by BMO </strong></td>
+                <td>
+                  <%= f.input :amount_claimed_by_bmo, label: false %>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-right" width="20%"><strong>Amount Claimed by BMO currency </strong></td>
+                <td><%= f.input :amount_claimed_by_bmo_currency, label: false, collection: MatterIntake::AmountCurrency %></td>
+              </tr>
+              <tr>
+                <td class="text-right" width="20%"><strong>Breakdown of Claim Amount </strong></td>
+                <td><%= f.input :breakdown_of_claim_amount, label: false %></td>
+              </tr>
+              <tr>
+                <td class="text-right" width="20%"><strong>Court Name </strong></td>
+                <td><%= f.input :court_name, label: false %></td>
+              </tr>
+              <tr>
+                <td class="text-right" width="20%"><strong>Case Caption </strong></td>
+                <td><%= f.input :case_caption, label: false %></td>
+              </tr>
+              <tr>
+                <td class="text-right" width="20%"><strong>Court Type </strong></td>
+                <td><%= f.input :court_type, label: false, collection: MatterIntake::CourtType %></td>
+              </tr>
+              <tr>
+                <td class="text-right" width="20%"><strong>Docket Number </strong></td>
+                <td><%= f.input :docket_number, label: false %></td>
+              </tr>
+              <tr>
+                <td class="text-right" width="20%"><strong>Comset Issues </strong></td>
+                <td><%= f.input :comset_issues, label: false, collection: MatterIntake::ComsetIssues %></td>
+              </tr>
+              <tr>
+                <td class="text-right" width="20%"><strong>Comset Ref: </strong></td>
+                <td><%= f.input :comset_ref, label: false %></td>
+              </tr>
+              <tr>
+                <td class="text-right" width="20%"><strong>M&I Matter </strong></td>
+                <td>
+                  <%= f.input :mi_matter, label: false, collection: [['Yes', true], ["No", false]] %>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-right" width="20%"><strong>Nature of Events </strong></td>
+                <td><%= f.input :nature_of_events, label: false %></td>
+              </tr>
+              <tr>
+                <td class="text-right" width="20%"><strong>Process Type Level 1 </strong></td>
+                <td><%= f.input :process_type_level_1, label: false, collection: MatterIntake::ProcessTypeLevel1 %></td>
+              </tr>
+              <tr>
+                <td class="text-right" width="20%"><strong>Process Type Level 2 </strong></td>
+                <td><%= f.input :process_type_level_2, label: false, collection: MatterIntake::ProcessTypeLevel2 %></td>
+              </tr>
+              <tr>
+                <td class="text-right" width="20%"><strong>Product Type Level 1 </strong></td>
+                <td><%= f.input :product_type_level_1, label: false, collection: MatterIntake::ProductTypeLevel1 %></td>
+              </tr>
+              <tr>
+                <td class="text-right" width="20%"><strong>Product Type Level 2 </strong></td>
+                <td><%= f.input :product_type_level_2, label: false, collection: MatterIntake::ProductTypeLevel2 %></td>
+              </tr>
+              <tr>
+                <td class="text-right" width="20%"><strong>Event Type Level 1 </strong></td>
+                <td><%= f.input :event_type_level_1, label: false, collection: MatterIntake::EventTypeLevel1 %></td>
+              </tr>
+              <tr>
+                <td class="text-right" width="20%"><strong>Event Type Level 2 </strong></td>
+                <td><%= f.input :event_type_level_2, label: false, collection: MatterIntake::EventTypeLevel2 %></td>
+              </tr>
+              <tr>
+                <td class="text-right" width="20%"><strong>Business Activity Level 1 </strong></td>
+                <td><%= f.input :business_activity_level_1, label: false, collection: MatterIntake::BusinessActivityLevel1 %></td>
+              </tr>
+              <tr>
+                <td class="text-right" width="20%"><strong>Business Activity Level 2 </strong></td>
+                <td><%= f.input :business_activity_level_2, label: false, collection: MatterIntake::BusinessActivityLevel2 %></td>
+              </tr>
+            <% end %>
             <td colspan="2">
                 <%=link_to 'Cancel', @matter_intake.new_record? ? new_admin_matter_intake_path : new_admin_matter_intake_path, class: 'btn btn-danger btn-sm' %>
               <%= f.button :submit, @matter_intake.new_record? ? "Submit Matter Intake" : "Submit Matter Intake", class: "" %>
