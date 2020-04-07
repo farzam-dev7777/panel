@@ -51,6 +51,106 @@ class MatterIntake < ApplicationRecord
 
   FirmType = ['Panel', 'Non-Panel', 'Panel & Non-Panel Firms']
 
+  OutsideCounselEngaged = ["Internal", "External"]
+
+  StageOfLitigation = [
+    'Option1',
+    'Option2',
+    'Option3'
+  ]
+
+  PrimaryIssue = [
+    'Option1',
+    'Option2',
+    'Option3'
+  ]
+
+  SecondaryIssue = [
+    'Option1',
+    'Option2',
+    'Option3'
+  ]
+
+  BMOParty = [
+    "Defendant",
+    "Plaintiff",
+    "Third Party Defendant",
+    "Third Party Plaintiff",
+    "Co-Defendant",
+    "Non-Party"
+  ]
+
+  Region = [
+    "Canadian",
+    "P&C"
+  ]
+
+  AmountCurrency = [
+    'Option1',
+    'Option2',
+    'Option3'
+  ]
+
+  CourtType = [
+    'Option1',
+    'Option2',
+    'Option3'
+  ]
+
+  ComsetIssues = [
+    'Option1',
+    'Option2',
+    'Option3'
+  ]
+
+  ProcessTypeLevel1 = [
+    'Option1',
+    'Option2',
+    'Option3'
+  ]
+
+  ProcessTypeLevel2 = [
+    'Option1',
+    'Option2',
+    'Option3'
+  ]
+
+  ProductTypeLevel1 = [
+    'Option1',
+    'Option2',
+    'Option3'
+  ]
+
+  ProductTypeLevel2 = [
+    'Option1',
+    'Option2',
+    'Option3'
+  ]
+
+  EventTypeLevel1 = [
+    'Option1',
+    'Option2',
+    'Option3'
+  ]
+
+  EventTypeLevel2 = [
+    'Option1',
+    'Option2',
+    'Option3'
+  ]
+
+  BusinessActivityLevel1 = [
+    'Option1',
+    'Option2',
+    'Option3'
+  ]
+
+  BusinessActivityLevel2 = [
+    'Option1',
+    'Option2',
+    'Option3'
+  ]
+
   def send_notification_to_lawyer
     MatterIntakeMailer.send_notification_to_lawyer_for_form_submission(self).deliver_now
   end

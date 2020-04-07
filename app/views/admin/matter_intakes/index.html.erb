@@ -18,8 +18,9 @@
             <div class="tab-pane fade active in padding-10 no-padding-bottom" id="s1">
               <div class="row no-space text-center">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                  <p><b><%= certification_status(current_law_firm) %></b> 
-                    <b><%= link_to 'Submit New Matter Intake', new_admin_matter_intake_path, html_options = {class: 'btn btn-primary btn-lg dashboard-certificate-button'}   %></b>
+                  <p> 
+                    <b><%= link_to 'Submit New Matter Intake (General Intake)', new_admin_matter_intake_path(form_type: "general"), html_options = {class: 'btn btn-primary btn-lg dashboard-certificate-button'}   %></b>
+                    <b><%= link_to 'Submit New Matter Intake (Litigation Intake)', new_admin_matter_intake_path(form_type: "litigation"), html_options = {class: 'btn btn-primary btn-lg dashboard-certificate-button'}   %></b>
                   </p>
                 </div>
               </div>
@@ -73,8 +74,8 @@
                     <% if matter_intake.status === "waiting_for_lxp_review" %>
                       <%= link_to "review", lxp_review_admin_matter_intake_path(matter_intake), class: "btn btn-xs btn-secondary" %>
                     <% end %>
-                    <%= link_to "view", admin_matter_intake_path(matter_intake), class: "btn btn-xs btn-secondary" %>		
                   <% end %>
+                  <%= link_to "view", admin_matter_intake_path(matter_intake), class: "btn btn-xs btn-secondary" %>
                 </td>
               </tr>
             <% end %>
