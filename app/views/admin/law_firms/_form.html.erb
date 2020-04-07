@@ -69,23 +69,23 @@
 					</tr> -->
 					<tr class="matter_type">
 						<td class="text-right" width="20%"><strong>Select Matter Type</strong></td>
-						<td><%= f.input :matter_types, label: false, collection: MatterType.all.map{|mt| [mt.matter_type, mt.id] } , input_html: { multiple: true }   %></td>
+						<td><%= f.input :matter_type_ids, label: false, collection: MatterType.all.map{|mt| [mt.matter_type, mt.id] } , input_html: { multiple: true }   %></td>
 					</tr>
 					<tr class="sub_matter_type_box" style="display:none" >
-						<td class="text-right" width="20%"><strong>Select Sub Matter Typ</strong></td>
-						<td class="sub_matter_type"><%= f.input :sub_matter_types, label: false, collection: [] , input_html: { multiple: true }   %></td>
+						<td class="text-right" width="20%"><strong>Select Sub Matter Type</strong></td>
+						<td class="sub_matter_type"><%= f.input :sub_matter_type_ids, label: false, collection: SubMatterType.all.map{|mt| [mt.sub_matter_type, mt.id] } , input_html: { multiple: true }   %></td>
 					</tr>
 					<tr>
 						<td class="text-right" width="20%"><strong>Select Jurisdiction Type</strong></td>
-						<td class="jurisdiction_type"><%= f.input :jurisdiction_types, label: false, collection: JurisdictionType.all.map{|mt| [mt.jurisdiction_type, mt.id] } , input_html: { multiple: true }   %></td>
+						<td class="jurisdiction_type"><%= f.input :jurisdiction_type_ids, label: false, collection: JurisdictionType.all.map{|mt| [mt.jurisdiction_type, mt.id] } , input_html: { multiple: true }   %></td>
 					</tr>
 					<tr>
 						<td class="text-right" width="20%"><strong>Select Country</strong></td>
-						<td class="country_type"><%= f.input :countries, label: false, collection: Country.all.map{|mt| [mt.name, mt.id] } , input_html: { multiple: true }   %></td>
+						<td class="country_type"><%= f.input :country_ids, label: false, collection: Country.all.map{|mt| [mt.name, mt.id] } , input_html: { multiple: true }   %></td>
 					</tr>
 					<tr class="state_type_box" style="display:none">
 						<td class="text-right" width="20%"><strong>Select State/Provinc</strong></td>
-						<td class="state_type"><%= f.input :states, label: false, collection: State.all.map{|mt| [mt.name, mt.id] } , input_html: { multiple: true }   %></td>
+						<td class="state_type"><%= f.input :state_ids, label: false, collection: State.all.map{|mt| [mt.name, mt.id] } , input_html: { multiple: true }   %></td>
 					</tr>
 					<!-- <tr>
 						<td class="text-right" width="20%"><strong>Type of services your law firm provides generally</strong></td>

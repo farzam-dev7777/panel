@@ -55,7 +55,7 @@
             </tr>
             <tr class="jurisdiction_type">
               <td class="text-right" width="20%"><strong>Select Jurisdiction Type</strong></td>
-               <td><%= field.input :jurisdiction_type_ids, label: false,  collection: JurisdictionType.all.map{|mt| [mt.jurisdiction_type, mt.id] }, input_html: { multiple: true }   %> </td>
+               <td><%= field.input :jurisdiction_type_ids, label: false,  collection: SubMatterType.all.map{|mt| [mt.sub_matter_type, mt.id] }, input_html: { multiple: true }   %> </td>
             </tr>
             <tr class="country_type">
               <td class="text-right" width="20%"><strong>Select Country</strong></td>

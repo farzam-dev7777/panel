@@ -117,7 +117,30 @@ class Lob::ExceptionRequestsController < Lob::BaseController
 
   def get_law_firm_list
     if params[:matter_type].present? ||  params[:sub_matter_type].present? || params[:jurisdiction_type].present? || params[:country].present? || params[:state].present?
-      render json: { data: LawFirm.all }
+     
+      law_firm_ids = []
+      if params[:matter_type].present?
+        lawFirms1 =  LawFirmsMatterType.where(matter_type_id: params[:matter_type]).pluck(:law_firm_id)
+        law_firm_ids = law_firm_ids + lawFirms1
+      end
+      if params[:sub_matter_type].present?
+        lawFirms2 =  LawFirmsSubMatterType.where(sub_matter_type_id: params[:sub_matter_type]).pluck(:law_firm_id)
+        law_firm_ids = law_firm_ids + lawFirms2
+      end
+      if params[:jurisdiction_type].present?
+        lawFirms3 =  LawFirmsJurisdictionType.where(jurisdiction_type_id: params[:jurisdiction_type]).pluck(:law_firm_id)
+        law_firm_ids = law_firm_ids + lawFirms3
+      end
+      if params[:country].present?
+        lawFirms4 = LawFirmsCountry.where(country_id: params[:country]).pluck(:law_firm_id)
+        law_firm_ids = law_firm_ids + lawFirms4
+      end
+      if params[:state].present?
+        lawFirms5 = LawFirmsState.where(state_id: params[:state]).pluck(:law_firm_id)
+        law_firm_ids = law_firm_ids + lawFirms5
+      end 
+      @law_firms = LawFirm.where(law_firm_category: "PANEL", id: law_firm_ids.uniq)
+      render json: { data: @law_firms }
     else
       render json: { data: [] }
     end
