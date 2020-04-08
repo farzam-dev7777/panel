@@ -23,12 +23,18 @@ class Admin::MatterIntakesController < Admin::BaseController
     @current_user = current_user
   end
 
+  def edit
+    @matter_intake = MatterIntake.find_by(id: params[:id])
+    @current_user = current_user
+  end
+
   def show
     @matter_intake = MatterIntake.find_by(id: params[:id])
   end
 
   def review
     @matter_intake = MatterIntake.find_by(id: params[:id])
+    @current_user = current_user
   end
 
   def lxp_review
@@ -101,7 +107,15 @@ class Admin::MatterIntakesController < Admin::BaseController
       :is_otherwise_reportable, :is_syndicate_matter, :is_conceal_imanage_workspace, :is_paper_file,
       :jurisdiction, :firm_type, :name_of_panel_firm, :name_of_non_panel_firm, :type_of_price,
       :is_alternative_fee_arrangement, :afa_details, :additional_matter_contact, :other_matter_issues,
-      :lawyer_reviewed_at, :other_party, :matter_number
+      :lawyer_reviewed_at, :other_party, :matter_number, :form_type, :key_facts, :legal_analysis, :stage_of_litigation,
+      :allegation_of_employee_misconduct, :primary_issue, :secondary_issue, :bmo_party, :opposing_counsel_firm,
+      :written_legal_notice_required, :arbitration_offered, :arbitration_accepted, :branch_manager_investment_advisor,
+      :region_name, :date_suit_filed, :unquantified_claim, :valued_at, :amount_claimed_from_bmo_1, :amount_claimed_1_currency,
+      :amount_claimed_from_bmo_2, :amount_claimed_2_currency, :amount_claimed_by_bmo, :amount_claimed_by_bmo_currency,
+      :breakdown_of_claim_amount, :court_name, :case_caption, :court_type, :docket_number, :comset_issues, :comset_ref,
+      :mi_matter, :nature_of_events, :process_type_level_1, :process_type_level_2, :product_type_level_1, :product_type_level_2,
+      :event_type_level_1, :event_type_level_2, :business_activity_level_1, :business_activity_level_2, :can_reimbursed_matter,
+      :branch, :outside_counsel_engaged
     )
   end
 

@@ -6,6 +6,11 @@
   
 <div class="col-lg-3 back-btn">
   <%= link_to "<i class='fa fa-long-arrow-left'></i>".html_safe, admin_matter_intakes_path, class: "btn btn-sm btn-default" %>
+  <% if @current_user.role === "internal_lawyers" %>
+    <% if @matter_intake.status === "waiting_for_lxp_review" %>
+    <%= link_to "<i class='fa fa-pencil-square-o'></i> Edit".html_safe, edit_admin_matter_intake_path(id: @matter_intake.id), class: "btn btn-sm btn-primary m-l-15 no-border" %>
+    <% end %>
+  <% end %>
 </div>
 
 <div class="clearfix"></div>
