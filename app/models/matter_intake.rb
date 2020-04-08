@@ -22,53 +22,260 @@ class MatterIntake < ApplicationRecord
   ]
 
   LegalGroupBMOLawyer = [
-    'BMO Group 1',
-    'BMO Group 2',
-    'BMO Group 3',
+    "Capital Markets",
+    "Canadian P&C",
+    "Corporate Affairs",
+    "Technology & Operations",
+    "Wealth Management"
   ]
 
   WorkArea = [
-    'Regulatory',
-    'Board Reporting',
-    'Work Area 2',
-    'Work Area 3'
+    "Contractual Transactions (non-lending)",
+    "Corporate Governance",
+    "Employment (non-action)",
+    "General Customer Inquiries",
+    "Intellectual Property",
+    "Legal Administration",
+    "Lending & Financing (inc. Secured Transactions and Workouts)",
+    "M&A",
+    "Marketing",
+    "New Products",
+    "Real Estate",
+    "Regulatory",
+    "Tax",
+    "Wills/Estates"
   ]
 
-  Jurisdiction = ["Canada", "United States of America"]
+  WorkAreaLitigation = [
+    "Litigation"
+  ]
+
+  Jurisdiction = [
+    "AFRICA",
+    "ASIA (NOT CHINA)",
+    "ASIA PACIFIC & OCEANIA (NOT HONG KONG)",
+    "BARBADOS",
+    "BRAZIL",
+    "CANADA",
+    "CANADA - ALBERTA",
+    "CANADA - BRITISH COLUMBIA",
+    "CANADA - MANITOBA",
+    "CANADA - NEW BRUNSWICK",
+    "CANADA - NEWFOUNDLAND AND LABRADOR",
+    "CANADA - NORTHWEST TERRITORIES",
+    "CANADA - NOVA SCOTIA",
+    "CANADA - NUNAVUT",
+    "CANADA - ONTARIO",
+    "CANADA - PRINCE EDWARD ISLAND",
+    "CANADA - QUEBEC",
+    "CANADA - SASKATCHEWAN",
+    "CANADA - YUKON",
+    "CENTRAL AMERICA",
+    "CHINA",
+    "EUROPE (NOT UK OR IRELAND)",
+    "HONG KONG",
+    "IRELAND",
+    "MENA (MIDDLE EAST & NORTH AFRICA)",
+    "NORTH AMERICA",
+    "OTHER INTERNATIONAL",
+    "SOUTH AMERICA (NOT BRAZIL)",
+    "UNITED KINGDOM",
+    "UNITED STATES",
+    "UNITED STATES - ALABAMA",
+    "UNITED STATES - ALASKA",
+    "UNITED STATES - ARIZONA",
+    "UNITED STATES - ARKANSAS",
+    "UNITED STATES - CALIFORNIA",
+    "UNITED STATES - COLORADO",
+    "UNITED STATES - CONNECTICUIT",
+    "UNITED STATES - DELAWARE",
+    "UNITED STATES - FLORIDA",
+    "UNITED STATES - GEORGIA",
+    "UNITED STATES - HAWAII",
+    "UNITED STATES - IDAHO",
+    "UNITED STATES - ILLINOIS",
+    "UNITED STATES - INDIANA",
+    "UNITED STATES - IOWA",
+    "UNITED STATES - KANSAS",
+    "UNITED STATES - KENTUCKY",
+    "UNITED STATES - LOUISIANA",
+    "UNITED STATES - MAINE",
+    "UNITED STATES - MARYLAND",
+    "UNITED STATES - MASSACHUSETTS",
+    "UNITED STATES - MICHIGAN",
+    "UNITED STATES - MINNESOTA",
+    "UNITED STATES - MISSISSIPPI",
+    "UNITED STATES - MISSOURI",
+    "UNITED STATES - MONTANA",
+    "UNITED STATES - NEBRASKA",
+    "UNITED STATES - NEVADA",
+    "UNITED STATES - NEW HAMPSHIRE",
+    "UNITED STATES - NEW JERSEY",
+    "UNITED STATES - NEW MEXICO",
+    "UNITED STATES - NEW YORK",
+    "UNITED STATES - NORTH CAROLINA",
+    "UNITED STATES - NORTH DAKOTA",
+    "UNITED STATES - OHIO",
+    "UNITED STATES - OKLAHOMA",
+    "UNITED STATES - OREGON",
+    "UNITED STATES - PENNSYLVANIA",
+    "UNITED STATES - RHODE ISLAND",
+    "UNITED STATES - SOUTH CAROLINA",
+    "UNITED STATES - SOUTH DAKOTA",
+    "UNITED STATES - TENNESSEE",
+    "UNITED STATES - TEXAS",
+    "UNITED STATES - UTAH",
+    "UNITED STATES - VERMONT",
+    "UNITED STATES - VIRGINIA",
+    "UNITED STATES - WASHINGTON",
+    "UNITED STATES - WASHINGTON D.C.",
+    "UNITED STATES - WEST VIRGINIA",
+    "UNITED STATES - WISCONSIN",
+    "UNITED STATES - WYOMING"
+  ]
+
+  Business = [
+    "Canadian P&C",
+    "Capital Markets",
+    "Corporate",
+    "U.S. P&C",
+    "Wealth Management"
+  ]
+
+  MatterBePaidOptions = [
+    "A third party or BMO’s customer is paying",
+    "BMO is paying but will be reimbursed by a third party or BMO’s customer",
+    "BMO is paying",
+    "Internal"
+  ]
+
+  LegalEntity = [
+    "Bank of Montreal",
+    "BMO Assurance",
+    "BMO Capital Markets",
+    "BMO Harris",
+    "BMO Invest",
+    "BMO Investorline",
+    "BMO Nesbitt CAD",
+    "BMO Trust Company",
+    "BMO USD"
+  ]
 
   TypeOfPrice = [
-    'Hourly Billing',
-    'Work done at no cost',
-    'Option3',
-    'Option4'
+    "Hourly Billing",
+    "Cap and Collar",
+    "Capped Fee",
+    "Fixed Fee and Collar",
+    "Fixed Fee by Matter",
+    "Fixed Fee by Phase",
+    "Monthly Retainer Fee",
+    "Success Fee",
+    "Work done at no cost"
   ]
 
   OtherParty = [
-    'Option1',
-    'Option2',
-    'Option3'
+    "Borrower",
+    "Counterparty",
+    "Defendant",
+    "Guarantor",
+    "Opposing Party",
+    "Plaintiff",
+    "Vendor"
   ]
 
   FirmType = ['Panel', 'Non-Panel', 'Panel & Non-Panel Firms']
 
-  OutsideCounselEngaged = ["Internal", "External"]
+  OutsideCounselEngaged = [
+    "Yes, BMO is paying and will not be reimbursed",
+    "Yes, a third party or BMO’s customer is paying",
+    "Yes, BMO is paying but will be reimbursed by a third party or BMO’s customer",
+    "N/A Internal – no law firm will be engaged"
+  ]
 
   StageOfLitigation = [
-    'Option1',
-    'Option2',
-    'Option3'
+    "Preliminary (Pre-pleading) Stage/Motions",
+    "Pleadings",
+    "Discovery",
+    "Dispositive Motions (Motion to strike/dismiss, summary judgment)",
+    "Class Certification",
+    "Mediation",
+    "Trial",
+    "Appeal",
+    "Stayed/Dormant"
   ]
 
   PrimaryIssue = [
-    'Option1',
-    'Option2',
-    'Option3'
+    "Account Agreement Dispute (Inc. Trading)",
+    "Account Management/Performance (Inc. Losses)",
+    "Advice (Inc. Tax and Investment)",
+    "Breach of Fiduciary Duty",
+    "Collections",
+    "Collusion (Inc. Anti-trust Issues)",
+    "Conflict of Interest",
+    "Construction Liens",
+    "Consumer Legislation Violations",
+    "Contractual Disputes",
+    "Conversion",
+    "Creditor Insurance",
+    "Demarketing",
+    "Discrimination/Harassment",
+    "Dismissal (Wrongful and Constructive)",
+    "Disputed Fees/Charges/Comm",
+    "Environmental",
+    "Estates/POA",
+    "Ethics/Code of Conduct",
+    "Fraud/Theft (Inc. Forgery)",
+    "Insolvency",
+    "Insurance (Inc. Disability)",
+    "IP-Trademarks/Patents/Copyrights Claims",
+    "KYC/Suitability",
+    "Lender Liability",
+    "Misrepresentation",
+    "Negligence",
+    "Privacy/Information Claims",
+    "Prospectus/Offering Misrepresentation",
+    "Regulatory Issues (Inc. Policies and Procedures)",
+    "Restrictive Covenants/Confidentiality Agreements",
+    "Sanctions/AML Regulations",
+    "Supervision",
+    "Trading Issues/Disputes (Inc. FX, Interest)"
   ]
 
   SecondaryIssue = [
-    'Option1',
-    'Option2',
-    'Option3'
+    "Account Agreement Dispute (Inc. Trading)",
+    "Account Management/Performance (Inc. Losses)",
+    "Advice (Inc. Tax and Investment)",
+    "Breach of Fiduciary Duty",
+    "Collections",
+    "Collusion (Inc. Anti-trust Issues)",
+    "Conflict of Interest",
+    "Construction Liens",
+    "Consumer Legislation Violations",
+    "Contractual Disputes",
+    "Conversion",
+    "Creditor Insurance",
+    "Demarketing",
+    "Discrimination/Harassment",
+    "Dismissal (Wrongful and Constructive)",
+    "Disputed Fees/Charges/Comm",
+    "Environmental",
+    "Estates/POA",
+    "Ethics/Code of Conduct",
+    "Fraud/Theft (Inc. Forgery)",
+    "Insolvency",
+    "Insurance (Inc. Disability)",
+    "IP-Trademarks/Patents/Copyrights Claims",
+    "KYC/Suitability",
+    "Lender Liability",
+    "Misrepresentation",
+    "Negligence",
+    "Privacy/Information Claims",
+    "Prospectus/Offering Misrepresentation",
+    "Regulatory Issues (Inc. Policies and Procedures)",
+    "Restrictive Covenants/Confidentiality Agreements",
+    "Sanctions/AML Regulations",
+    "Supervision",
+    "Trading Issues/Disputes (Inc. FX, Interest)"
   ]
 
   BMOParty = [
@@ -81,32 +288,78 @@ class MatterIntake < ApplicationRecord
   ]
 
   Region = [
-    "Canadian",
-    "P&C"
+    "British Columbia & Yukon",
+    "Prairies Central (incl. Ontario Northern Getaway and North Western Ontario)",
+    "Greater Ontario (incl. Peterborough, Kingston, Greater Lakelands and surrounding areas)",
+    "Greater Toronto (incl. Durham and Barrie)",
+    "Quebec & Eastern Ontario (incl. National Capital Region, Ottawa Valley and Seaway)",
+    "Atlantic Provinces",
+    "Headquarters",
+    "Specialized Sales Group (SSG)"
   ]
 
   AmountCurrency = [
-    'Option1',
-    'Option2',
-    'Option3'
+    "CAD",
+    "USD",
+    "AUD",
+    "GBP",
+    "CHF",
+    "EUR"
   ]
 
   CourtType = [
-    'Option1',
-    'Option2',
-    'Option3'
-  ]
+    "ADR",
+    "Federal",
+    "Non-US",
+    "Regulatory / Admin",
+    "State"
+  ] 
 
   ComsetIssues = [
-    'Option1',
-    'Option2',
-    'Option3'
+    "Adequacy of books and records",
+    "Churning and excessive trading",
+    "Client priority rule violations",
+    "Conflict of interest",
+    "Failure to execute orders",
+    "Failure to follow client instructions",
+    "Falsification/forgery of documents",
+    "Inappropriate personal financial dealings",
+    "Insider trading/self dealing",
+    "Internal control violations",
+    "Investment advice",
+    "Losses",
+    "Manipulation and wash trading",
+    "Misrepresentation",
+    "Money laundering",
+    "Prospectus, exemptions and related matters",
+    "Supervision",
+    "Theft or fraud",
+    "Trading outside jurisdiction",
+    "Transfer of accounts",
+    "Unauthorized or discretionary trading",
+    "Unsuitable investments",
+    "Violation of commission or other SRO's order",
+    "Violation of IIROC order",
+    "Other"
   ]
 
   ProcessTypeLevel1 = [
-    'Option1',
-    'Option2',
-    'Option3'
+    "Capture and Document Transactions",
+    "Deliver Products and Services",
+    "Develop, Design and Maintain Products, Services and General Business Capabilities",
+    "Market Products and Services",
+    "Sell/Reach Agreement to Conduct Specific Business",
+    "Take on and Maintain Clients/Customers, Counterparties and Trade Relationships",
+    "Perform Settlements and Closing Activities",
+    "Perform Transaction Accounting",
+    "Manage Human Resources",
+    "Manage Information Technology",
+    "Manage Financial Reporting and Taxation",
+    "Manage Capital, Funding and Liquidity",
+    "Manage Suppliers and Outsourcing Service Suppliers",
+    "Manage Physical Assets and Facilities",
+    "Manage Compliance, Legal, Governance and Audit",
+    "Manage Risk Systems"
   ]
 
   ProcessTypeLevel2 = [
@@ -116,39 +369,43 @@ class MatterIntake < ApplicationRecord
   ]
 
   ProductTypeLevel1 = [
-    'Option1',
-    'Option2',
-    'Option3'
-  ]
-
-  ProductTypeLevel2 = [
-    'Option1',
-    'Option2',
-    'Option3'
+    "Capital Raising",
+    "Corporate Finance Services",
+    "Retail Credit",
+    "Commercial Credit",
+    "Deposits",
+    "Cash Management, Payments and Settlements",
+    "Trust/Investment Management",
+    "Investment Products",
+    "Brokerage",
+    "Not Product Related",
+    "Non-Banking Product"
   ]
 
   EventTypeLevel1 = [
-    'Option1',
-    'Option2',
-    'Option3'
-  ]
-
-  EventTypeLevel2 = [
-    'Option1',
-    'Option2',
-    'Option3'
+    "Internal Fraud",
+    "External Fraud",
+    "Employment Practices and Workplace Safety",
+    "Clients, Products and Business Practices",
+    "Disasters and Public Safety",
+    "Technology and Infrastructure Failures",
+    "Execution, Delivery and Process Management"
   ]
 
   BusinessActivityLevel1 = [
-    'Option1',
-    'Option2',
-    'Option3'
-  ]
-
-  BusinessActivityLevel2 = [
-    'Option1',
-    'Option2',
-    'Option3'
+    "Corporate Finance",
+    "Trading and Sales",
+    "Retail Banking",
+    "Commercial Banking",
+    "Clearing",
+    "Agency Services",
+    "Asset Management",
+    "Retail Brokerage",
+    "Private Banking",
+    "Corporate Areas",
+    "Insurance",
+    "Card Services",
+    "Branch Banking"
   ]
 
   def send_notification_to_lawyer

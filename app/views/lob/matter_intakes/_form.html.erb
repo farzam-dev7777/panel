@@ -31,11 +31,11 @@
         </tr>
         <tr>
           <td class="text-right" width="20%"><strong>How will this matter be paid? </strong></td>
-          <td><%= f.input :mode_of_payment, label: false, collection: [["Cash", "Cash"], ["Bank Transfer", "Bank Transfer"]] %></td>
+          <td><%= f.input :mode_of_payment, label: false, collection: MatterIntake::MatterBePaidOptions %></td>
         </tr>
         <tr>
           <td class="text-right" width="20%"><strong>Law Firm Suggested </strong></td>
-          <td><%= f.input :law_firm_id, label: false, collection: LawFirm.all.map{|lf| [lf.name, lf.id] } %></td>
+          <td><%= f.input :law_firm_id, label: false, collection: LawFirm.where(law_firm_category: "PANEL").map{|lf| [lf.name, lf.id] } %></td>
         </tr>
         <tr>
           <td class="text-right" width="20%"><strong>BMO lawyer name </strong></td>
@@ -58,15 +58,15 @@
         </tr>
         <tr>
           <td class="text-right" width="20%"><strong>Business Paying for this Matter </strong></td>
-          <td><%= f.input :business_paying_for_matter, label: false %></td>
+          <td><%= f.input :business_paying_for_matter, label: false, collection: MatterIntake::Business %></td>
         </tr>
         <tr>
           <td class="text-right" width="20%"><strong>Group Paying for this Matter </strong></td>
-          <td><%= f.input :group_paying_for_matter, label: false %></td>
+          <td><%= f.input :group_paying_for_matter, label: false, collection: [] %></td>
         </tr>
         <tr>
           <td class="text-right" width="20%"><strong>Paying Entity </strong></td>
-          <td><%= f.input :paying_entity, label: false %></td>
+          <td><%= f.input :paying_entity, label: false, collection: MatterIntake::LegalEntity %></td>
         </tr>
 
         <tr>

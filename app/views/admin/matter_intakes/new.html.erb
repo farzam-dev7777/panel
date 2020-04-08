@@ -40,7 +40,7 @@
             <tr>
               <td class="text-right" width="20%"><strong>Work Area </strong></td>
               <td>
-                <%= f.input :work_area, label: false, collection: MatterIntake::WorkArea %>
+                <%= f.input :work_area, label: false, collection: @form_type == "litigation" ? MatterIntake::WorkAreaLitigation : MatterIntake::WorkArea  %>
               </td>
             </tr>
             <tr class="work_area_reportable" style="display: none;">
@@ -83,15 +83,15 @@
             </tr>
             <tr>
             <td class="text-right" width="20%"><strong>Legal Entity </strong></td>
-              <td><%= f.input :paying_entity, label: false %></td>
+              <td><%= f.input :paying_entity, label: false, collection: MatterIntake::LegalEntity %></td>
             </tr>
             <tr>
             <td class="text-right" width="20%"><strong>Business Paying for this Matter </strong></td>
-              <td><%= f.input :business_paying_for_matter, label: false %></td>
+              <td><%= f.input :business_paying_for_matter, label: false, collection: MatterIntake::Business %></td>
             </tr>
             <tr>
               <td class="text-right" width="20%"><strong>Group Paying for this Matter </strong></td>
-              <td><%= f.input :group_paying_for_matter, label: false %></td>
+              <td><%= f.input :group_paying_for_matter, label: false, collection: [] %></td>
             </tr>
             <tr>
               <td class="text-right" width="20%"><strong>Jurisdiction </strong></td>
@@ -109,7 +109,7 @@
             <% end %>
             <tr>
             <td class="text-right" width="20%"><strong>How will this matter be paid? </strong></td>
-              <td><%= f.input :mode_of_payment, label: false, collection: [["Cash", "Cash"], ["Bank Transfer", "Bank Transfer"]] %></td>
+              <td><%= f.input :mode_of_payment, label: false, collection: MatterIntake::MatterBePaidOptions %></td>
             </tr>
             <tr>
               <td class="text-right" width="20%"><strong>Cost Centre for legal fees </strong></td>
@@ -319,7 +319,7 @@
               </tr>
               <tr>
                 <td class="text-right" width="20%"><strong>Process Type Level 2 </strong></td>
-                <td><%= f.input :process_type_level_2, label: false, collection: MatterIntake::ProcessTypeLevel2 %></td>
+                <td><%= f.input :process_type_level_2, label: false, collection: [] %></td>
               </tr>
               <tr>
                 <td class="text-right" width="20%"><strong>Product Type Level 1 </strong></td>
@@ -327,7 +327,7 @@
               </tr>
               <tr>
                 <td class="text-right" width="20%"><strong>Product Type Level 2 </strong></td>
-                <td><%= f.input :product_type_level_2, label: false, collection: MatterIntake::ProductTypeLevel2 %></td>
+                <td><%= f.input :product_type_level_2, label: false, collection: [] %></td>
               </tr>
               <tr>
                 <td class="text-right" width="20%"><strong>Event Type Level 1 </strong></td>
@@ -335,7 +335,7 @@
               </tr>
               <tr>
                 <td class="text-right" width="20%"><strong>Event Type Level 2 </strong></td>
-                <td><%= f.input :event_type_level_2, label: false, collection: MatterIntake::EventTypeLevel2 %></td>
+                <td><%= f.input :event_type_level_2, label: false, collection: [] %></td>
               </tr>
               <tr>
                 <td class="text-right" width="20%"><strong>Business Activity Level 1 </strong></td>
@@ -343,7 +343,7 @@
               </tr>
               <tr>
                 <td class="text-right" width="20%"><strong>Business Activity Level 2 </strong></td>
-                <td><%= f.input :business_activity_level_2, label: false, collection: MatterIntake::BusinessActivityLevel2 %></td>
+                <td><%= f.input :business_activity_level_2, label: false, collection: [] %></td>
               </tr>
             <% end %>
             <td colspan="2">
