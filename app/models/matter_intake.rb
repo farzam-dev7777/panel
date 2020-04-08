@@ -146,7 +146,7 @@ class MatterIntake < ApplicationRecord
     "A third party or BMO’s customer is paying",
     "BMO is paying but will be reimbursed by a third party or BMO’s customer",
     "BMO is paying",
-    "Internal"
+    "N/A Internal – no law firm will be engaged"
   ]
 
   LegalEntity = [

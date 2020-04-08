@@ -1236,3 +1236,46 @@ $('select#matter_intake_business_activity_level_1').on('change', function() {
 	$('#matter_intake_business_activity_level_2').html(options);
 	$("#matter_intake_business_activity_level_2").trigger("chosen:updated")
 })
+
+$(document).ready(function() {
+	var mode_of_payment = $('select#matter_intake_mode_of_payment > option:selected').val();
+
+	if(mode_of_payment == 'N/A Internal – no law firm will be engaged') {
+		$('.internal-matter').hide()
+	} 
+
+})
+
+$('select#matter_intake_mode_of_payment').on('change', function() {
+	if(this.value == 'N/A Internal – no law firm will be engaged') {
+		$('.internal-matter').hide()
+	} else {
+		$('.internal-matter').show()
+		var matter_intake_firm_type = $('select#matter_intake_firm_type > option:selected').val();
+		var matter_intake_type_of_price = $('select#matter_intake_type_of_price > option:selected').val();
+		var type_of_price = ["Hourly Billing", "Work done at no cost"];
+		
+		// Handle on load case
+		if(matter_intake_firm_type === "Panel") {
+			$('.panel_firm').show()
+			$('.non_panel_firm').hide()
+		} else if(matter_intake_firm_type === "Non-Panel") {
+			$('.panel_firm').hide()
+			$('.non_panel_firm').show()
+		} else if (matter_intake_firm_type === "Panel & Non-Panel Firms") {
+			$('.panel_firm').show()
+			$('.non_panel_firm').show()
+		} else {
+			$('.panel_firm').hide()
+			$('.non_panel_firm').hide()
+		}
+	
+		if(type_of_price.includes(matter_intake_type_of_price)) {
+			$('.alternative_fee').show();
+			$('#matter_intake_is_alternative_fee_arrangement').val("true")
+		} else {
+			$('.alternative_fee').hide();
+			$('#matter_intake_is_alternative_fee_arrangement').val("false")
+		}
+	}
+})
