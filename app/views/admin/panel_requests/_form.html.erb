@@ -57,10 +57,16 @@
                               <%= field.input :law_firm_category, :as => :hidden, :input_html => { :value => "PANEL" } %>
                             </td>
                           </tr>
-                          <tr>
-                            <td class="text-right" width="20%"><strong>Email</strong></td>
-                            <td><%= field.input :email, label: false %></td>
-                          </tr>
+                          <%= field.simple_fields_for :users do |user_field| %>
+                            <tr>
+                              <td class="text-right" width="20%"><strong>Email</strong></td>
+                              <td><%= user_field.input :email, label: false %>
+                                <%= user_field.input :role, :as => :hidden, label: false, :input_html => { :value => "master_user" }%>
+                                <%= user_field.input :empty_user, :as => :hidden, label: false, :input_html => { :value => true }%>
+                              </td>
+                            </tr>
+                           
+                          <% end %>
                           <tr>
                             <td class="text-right" width="20%"><strong>Phone</strong></td>
                             <td><%= field.input :phone, label: false %></td>
