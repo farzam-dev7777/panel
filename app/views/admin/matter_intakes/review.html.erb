@@ -178,7 +178,7 @@
             </tr>
             <tr>
             <td class="text-right" width="20%"><strong>How will this matter be paid? </strong></td>
-              <td><%= f.input :mode_of_payment, label: false, collection: [["Cash", "Cash"], ["Bank Transfer", "Bank Transfer"]] %></td>
+              <td><%= f.input :mode_of_payment, label: false, collection: MatterIntake::MatterBePaidOptions %></td>
             </tr>
             <tr>
               <td class="text-right" width="20%"><strong>Cost Centre for legal fees </strong></td>
@@ -194,7 +194,7 @@
             </tr>
             <tr class="panel_firm" style="display: none;">
               <td class="text-right" width="20%"><strong>Name of Panel Firm </strong></td>
-              <td><%= f.input :name_of_panel_firm, label: false %></td>
+              <td><%= f.input :name_of_panel_firm, label: false, collection: LawFirm.where(law_firm_category: "PANEL") %></td>
             </tr>
             <tr class="non_panel_firm" style="display: none;">
               <td class="text-right" width="20%"><strong>Name of Non-Panel Firm </strong></td>
@@ -210,7 +210,7 @@
                 <%= f.input :is_alternative_fee_arrangement, label: false, collection: [['Yes', true], ["No", false]] %>
               </td>
             </tr>
-            <tr>
+            <tr class="alternative_fee" style="display: none;">
               <td class="text-right" width="20%"><strong>AFA Details </strong></td>
               <td><%= f.input :afa_details, label: false %></td>
             </tr>

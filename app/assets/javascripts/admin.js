@@ -525,11 +525,14 @@ $('select#matter_intake_bmo_lawyer_name').on('change', function() {
 });
 
 $('select#matter_intake_work_area').on('change', function() {
-	var work_area = this.value;
-	if(work_area === "Regulatory") {
-		$('.work_area_reportable').show()
-	} else {
-		$('.work_area_reportable').hide()
+	var form_type = $('#matter_intake_form_type').val();
+	if(form_type === "general") {
+		var work_area = this.value;
+		if(work_area === "Regulatory") {
+			$('.work_area_reportable').show()
+		} else {
+			$('.work_area_reportable').hide()
+		}
 	}
 })
 
@@ -575,21 +578,25 @@ $(document).ready(function() {
 	if(type_of_price.includes(matter_intake_type_of_price)) {
 		$('.alternative_fee').show();
 		$('#matter_intake_is_alternative_fee_arrangement').val("true")
+		$("#matter_intake_is_alternative_fee_arrangement").trigger("chosen:updated")
 	} else {
 		$('.alternative_fee').hide();
 		$('#matter_intake_is_alternative_fee_arrangement').val("false")
+		$('#matter_intake_afa_details').val('')
+		$("#matter_intake_is_alternative_fee_arrangement").trigger("chosen:updated")
 	}
 
 	$('select#matter_intake_type_of_price').on('change', function() {
 		var selectedValue = this.value;
 		if(type_of_price.includes(selectedValue)) {
 			$('.alternative_fee').show();
-			$("#matter_intake_is_alternative_fee_arrangement option[value='true']").attr("selected", "selected")
-			$("#matter_intake_is_alternative_fee_arrangement option[value='false']").attr("selected", null)
+			$('#matter_intake_is_alternative_fee_arrangement').val("true")
+			$("#matter_intake_is_alternative_fee_arrangement").trigger("chosen:updated")
 		} else {
 			$('.alternative_fee').hide();
-			$("#matter_intake_is_alternative_fee_arrangement option[value='true']").attr("selected", null)
-			$("#matter_intake_is_alternative_fee_arrangement option[value='false']").attr("selected", "selected")
+			$('#matter_intake_afa_details').val('')
+			$('#matter_intake_is_alternative_fee_arrangement').val("false")
+			$("#matter_intake_is_alternative_fee_arrangement").trigger("chosen:updated")
 		}
 	});
 })
@@ -1238,15 +1245,23 @@ $('select#matter_intake_business_activity_level_1').on('change', function() {
 })
 
 $(document).ready(function() {
+	// general intake
 	var mode_of_payment = $('select#matter_intake_mode_of_payment > option:selected').val();
 
 	if(mode_of_payment == 'N/A Internal – no law firm will be engaged') {
 		$('.internal-matter').hide()
 	} 
 
+	// litigation inhtake
+	var mode_of_payment_litigation = $('select#matter_intake_outside_counsel_engaged > option:selected').val();
+
+	if(mode_of_payment_litigation == 'N/A Internal – no law firm will be engaged') {
+		$('.internal-matter').hide()
+	} 
+
 })
 
-$('select#matter_intake_mode_of_payment').on('change', function() {
+$('select#matter_intake_mode_of_payment, select#matter_intake_outside_counsel_engaged').on('change', function() {
 	if(this.value == 'N/A Internal – no law firm will be engaged') {
 		$('.internal-matter').hide()
 	} else {
@@ -1273,9 +1288,12 @@ $('select#matter_intake_mode_of_payment').on('change', function() {
 		if(type_of_price.includes(matter_intake_type_of_price)) {
 			$('.alternative_fee').show();
 			$('#matter_intake_is_alternative_fee_arrangement').val("true")
+			$("#matter_intake_is_alternative_fee_arrangement").trigger("chosen:updated")
 		} else {
 			$('.alternative_fee').hide();
 			$('#matter_intake_is_alternative_fee_arrangement').val("false")
+			$('#matter_intake_afa_details').val('')
+			$("#matter_intake_is_alternative_fee_arrangement").trigger("chosen:updated")
 		}
 	}
 })
