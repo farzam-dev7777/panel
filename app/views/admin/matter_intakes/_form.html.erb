@@ -22,13 +22,13 @@
             <%= f.input :work_area, label: false, collection: @form_type == "litigation" ? MatterIntake::WorkAreaLitigation : MatterIntake::WorkArea  %>
           </td>
         </tr>
-        <tr class="work_area_reportable" style="display: none;">
+        <tr class="work_area_reportable" style="<%= @form_type === 'general' ? 'display: none;' : '' %>">
           <td class="text-right" width="20%"><strong>Is this matter ORE reportable? </strong></td>
           <td>
             <%= f.input :is_ore_reportable, label: false, collection: [['Yes', true], ["No", false]] %>
           </td>
         </tr>
-        <tr class="work_area_reportable" style="display: none;">
+        <tr class="work_area_reportable" style="<%= @form_type === 'general' ? 'display: none;' : '' %>">
           <td class="text-right" width="20%"><strong>Is this matter otherwise reportable? </strong></td>
           <td>
             <%= f.input :is_otherwise_reportable, label: false, collection: [['Yes', true], ["No", false]] %>
@@ -86,10 +86,12 @@
             <td><%= f.input :outside_counsel_engaged, label: false, collection: MatterIntake::OutsideCounselEngaged %></td>
           </tr>
         <% end %>
-        <tr>
-          <td class="text-right" width="20%"><strong>How will this matter be paid? </strong></td>
-          <td><%= f.input :mode_of_payment, label: false, collection: MatterIntake::MatterBePaidOptions %></td>
-        </tr>
+        <% if @form_type == "general" %>
+          <tr>
+            <td class="text-right" width="20%"><strong>How will this matter be paid? </strong></td>
+            <td><%= f.input :mode_of_payment, label: false, collection: MatterIntake::MatterBePaidOptions %></td>
+          </tr>
+        <% end %>
         <tr class="internal-matter">
           <td class="text-right" width="20%"><strong>Cost Centre for legal fees </strong></td>
           <td><%= f.input :cost_centre_for_legal_fees, label: false %></td>
@@ -104,7 +106,7 @@
         </tr>
         <tr class="panel_firm internal-matter" style="display: none;">
           <td class="text-right" width="20%"><strong>Name of Panel Firm </strong></td>
-          <td><%= f.input :name_of_panel_firm, label: false %></td>
+          <td><%= f.input :name_of_panel_firm, label: false, collection: LawFirm.where(law_firm_category: "PANEL") %></td>
         </tr>
         <tr class="non_panel_firm internal-matter" style="display: none;">
           <td class="text-right" width="20%"><strong>Name of Non-Panel Firm </strong></td>
@@ -120,7 +122,7 @@
             <%= f.input :is_alternative_fee_arrangement, label: false, collection: [['Yes', true], ["No", false]] %>
           </td>
         </tr>
-        <tr class="internal-matter">
+        <tr class="alternative_fee internal-matter">
           <td class="text-right" width="20%"><strong>AFA Details </strong></td>
           <td><%= f.input :afa_details, label: false %></td>
         </tr>
@@ -140,10 +142,12 @@
           <td class="text-right" width="20%"><strong>Additional Matter Contact (not specified elsewhere) </strong></td>
           <td><%= f.input :additional_matter_contact, label: false %></td>
         </tr>
-        <tr class="internal-matter">
-          <td class="text-right" width="20%"><strong>Budget amount, if already negotiated with the law firm </strong></td>
-          <td><%= f.input :budget_amount, label: false %></td>
-        </tr>
+        <% if @form_type == "general" %>
+          <tr class="internal-matter">
+            <td class="text-right" width="20%"><strong>Budget amount, if already negotiated with the law firm </strong></td>
+            <td><%= f.input :budget_amount, label: false %></td>
+          </tr>
+        <% end %>
         <tr class="internal-matter">
           <td class="text-right" width="20%"><strong>Other Matter Issues (not specified elsewhere) </strong></td>
           <td><%= f.input :other_matter_issues, label: false %></td>
@@ -186,7 +190,7 @@
           </tr>
           <tr class="internal-matter">
             <td class="text-right" width="20%"><strong>Written Legal Notice Required </strong></td>
-            <td><%= f.input :written_legal_notice_required, label: false, as: :boolean %></td>
+            <td style="text-align: left;"><%= f.input :written_legal_notice_required, label: false, as: :boolean %></td>
           </tr>
           <tr class="internal-matter">
             <td class="text-right" width="20%"><strong>Arbitration Offered </strong></td>
@@ -210,7 +214,7 @@
           </tr>
           <tr class="internal-matter">
             <td class="text-right" width="20%"><strong>Date Suit Filed </strong></td>
-            <td><%= f.input :date_suit_filed, label: false, as: :date, html5: true %></td>
+            <td style="text-align: left;"><%= f.input :date_suit_filed, label: false, as: :date, html5: true %></td>
           </tr>
           <tr class="internal-matter">
             <td class="text-right" width="20%"><strong>Unquantified Claim </strong></td>

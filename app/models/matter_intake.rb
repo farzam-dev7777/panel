@@ -12,13 +12,10 @@ class MatterIntake < ApplicationRecord
   # validates_presence_of  :if => Proc.new { |matter_intake| matter_intake.user_id.present? }
 
   LOB_CONTACT_NAMES = [
-    "MANISH",
-    "KHEM CHAND",
-    "RAHUL",
-    "VISHAL",
-    "MANPREET SINGH",
-    "JASDEEP SINGH",
-    "SANDEEP"
+    "Alan Elliott",
+    "Julian Webb",
+    "Jennie Montgomery",
+    "Christina Harrison"
   ]
 
   LegalGroupBMOLawyer = [
