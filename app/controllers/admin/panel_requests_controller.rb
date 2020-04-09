@@ -66,6 +66,13 @@ class Admin::PanelRequestsController < Admin::BaseController
     add_breadcrumb "#{@panel_request.requested_by}", :admin_panel_request_path 
     
   end
+
+  def download_pdf
+    
+    @panel_request = PanelRequest.find(params[:panel_request_id])
+    document_name = @panel_request.get_document_name.gsub(".pdf","-signed.pdf")
+    send_data @panel_request.get_document_list, filename: document_name
+  end
  
 
   private

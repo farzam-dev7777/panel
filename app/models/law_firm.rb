@@ -56,7 +56,7 @@ class LawFirm < ApplicationRecord
   NUMBER_OF_LAWYERS = ["<10", "<100", "<1000", ">1000"]
   
   JURISDICTION_COUNTRIES = ["Canada","United States of America"].freeze
-
+  LAW_FRIM_STATUS = ['Activate', 'Deactivate']
   EMAIL_PREFIX = "@check.com"
   TIME_FORMAT = "%d %b %y, %I:%M %Z"
   DATE_FORMAT = "%d %b %y"

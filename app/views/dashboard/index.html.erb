@@ -199,7 +199,7 @@
 											<div class="tab-pane fade in active" id="a1">
 
 												<div class="row">
-													<% if @security_alerts.any? %>
+													<% if @security_alerts && @security_alerts.any? %>
 														<% @security_alerts.each do |alert| %>
 															<div class="col-xs-2 col-sm-1">
 																<time datetime="2014-09-20" class="icon">

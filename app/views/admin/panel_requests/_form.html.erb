@@ -127,10 +127,6 @@
           <td class="text-right" width="20%"><strong>Matter Name</strong></td>
           <td><%= f.input :matter_name, label: false, input_html: { autocomplete: 'off' } %></td>
         </tr> -->
-        <tr>
-          <td class="text-right" width="20%"><strong>Matter Types</strong></td>
-          <td><%= f.input :matter_types, label: false, collection: PanelRequest::MATTER_TYPES,  input_html: { multiple: true }%></td>
-        </tr>
 
           <tr>
             <td colspan="2">

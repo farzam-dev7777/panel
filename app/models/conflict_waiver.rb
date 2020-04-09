@@ -12,9 +12,16 @@ class ConflictWaiver < ApplicationRecord
 
   CONFLICT_WAIVER_STATUS = {
     "ALREADY_COVERED": "Already Covered",
-    "APPROVED": "Approved",
+    "APPROVED": "Request Approval Form Lawyer",
     "REJECTED": "Rejected"
   }
+
+  CONFLICT_WAIVER_STATUS_LAWYER = {
+    "APPROVED": "Approve",
+    "REJECTED": "Rejected",
+    "REQUEST_INFO": "Request info ",
+  }
+
 
   RETAINER_LANGUAGE_TYPE = [
   "An issuer or selling security holder in an underwriting",
@@ -32,7 +39,7 @@ class ConflictWaiver < ApplicationRecord
 
   def can_user_change_status?(current_user)
     if current_user.role === 'lxp'
-      self.lxp_status != 'APPROVED'
+      self.lxp_status != 'APPROVED' || self.internal_lawyers_status === 'REQUEST_INFO'  
     elsif current_user.role === 'internal_lawyers'
       self.internal_lawyers_status != 'APPROVED'
     end
@@ -54,7 +61,14 @@ class ConflictWaiver < ApplicationRecord
   
   def internal_lawyers_status_show
     if self.internal_lawyers_status.present?
-     ConflictWaiver::CONFLICT_WAIVER_STATUS[self.internal_lawyers_status.to_sym]
+      if self.internal_lawyers_status === "REQUEST_INFO"
+        ConflictWaiver::CONFLICT_WAIVER_STATUS[self.internal_lawyers_status.to_sym]
+      elsif self.internal_lawyers_status === "APPROVED" 
+        ConflictWaiver::CONFLICT_WAIVER_STATUS_LAWYER[self.internal_lawyers_status.to_sym]
+      else
+        ConflictWaiver::CONFLICT_WAIVER_STATUS[self.internal_lawyers_status.to_sym]
+      end
+
     end
   end
   

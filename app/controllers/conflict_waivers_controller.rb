@@ -48,6 +48,7 @@ class ConflictWaiversController < BaseController
 
   def edit
     @conflict_waiver = ConflictWaiver.find(params[:id])
+    @current_user = @conflict_waiver.user
     @current_user_id = @conflict_waiver.user_id
 
     add_breadcrumb "#{@conflict_waiver.name_of_law_firm}", :conflict_waiver_path 

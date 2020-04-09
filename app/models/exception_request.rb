@@ -7,6 +7,7 @@ class ExceptionRequest < ApplicationRecord
   belongs_to :law_firm
   has_many :activity_logs
   has_many :reviews, as: :reviewable
+  serialize :reason, Array
 
   LOB_LIST = ["Canadian P&C / Services bancaires Particuliers et entreprises - Canada","Capital Markets / Marché des capitaux","Corporate / Services d'entreprise","Technology & Operations / Technologie et opérations (T&O)","US P&C / Services bancaires Particuliers et entreprises - É.-U.","Wealth Management / Gestion de patrimonie"]
   REQUEST_TYPE = {
@@ -65,11 +66,18 @@ class ExceptionRequest < ApplicationRecord
 
   EXCEPTION_REQUEST_STATUS = {
     "": "Select",
-    "ALREADY_COVERED": "Already Covered",
+    "REQUEST_TO_LAWYER": "Request Lawyer Approval",
     "APPROVED": "Approved",
     "REJECTED": "Rejected"
     
   }
+
+  EXCEPTION_REQUEST_STATUS_LAWYER= {
+    "": "Select",
+    "APPROVED": "Approved",
+    "REJECTED": "Rejected"
+  }
+  
   EXCEPTION_REQUEST_PAY_TYPE = {
     "BANK_PAY": "Bank Pay",
     "THIRD_PAARTY_PAY": "Third Party Pay"
@@ -80,7 +88,7 @@ class ExceptionRequest < ApplicationRecord
   end
   
   def fully_approved?
-    self.lxp_status === 'APPROVED' && self.internal_lawyers_status === 'APPROVED'
+    self.lxp_status === 'APPROVED' && self.docusign_retainer_envelope.try(:status) === 'completed'
   end
 
   def lxp_status_show
@@ -108,10 +116,10 @@ class ExceptionRequest < ApplicationRecord
     args = {
       envelope_args: {
         template_id: Rails.application.secrets[:docusign]["retainer_template_id"],
-        signer_email: signer_email,
-        signer_name: signer_name,
-        lxp_email: Rails.application.secrets[:lxp_contact]["email"],
-        lxp_name: Rails.application.secrets[:lxp_contact]["name"]
+        signer_email: 'manish+lob@metawarelabs.com',
+        signer_name: "Manish - LOB",
+        lxp_email: 'manish+lxp@metawarelabs.com',#Rails.application.secrets[:lxp_contact]["email"],
+        lxp_name: "Manish - LXP" #Rails.application.secrets[:lxp_contact]["name"]
       },
       base_path: Rails.application.secrets[:docusign]["base_path"],
       account_id: Rails.application.secrets[:docusign]["account_id"],

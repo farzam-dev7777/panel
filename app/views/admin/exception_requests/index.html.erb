@@ -68,18 +68,20 @@
           </thead>
           <tbody>
             <% @exception_requests.each do |exception_request| %>
-            <tr class="" data-id="<%= exception_request.id %>">
-              <% if exception_request.law_firm_id.present? %>
-                <td><%= exception_request.requested_by %></td>
-                <td><%= exception_request.line_of_business %></td>
-                <td><%= exception_request.law_firm.try(:name) %></td>
-                <td>
-                  <% if current_user.role == 'lob' &&  exception_request.try(:lxp_status) != 'APPROVED' %>
-                    <%= link_to "Edit", edit_admin_exception_request_path(exception_request), class: "btn btn-xs btn-primary" %>
-                  <% end %> 
-                  <%= link_to "Review", admin_exception_request_path(exception_request), class: "btn btn-xs btn-secondary" %>	
-                </td>
-              </tr>
+            <% if exception_request.law_firm_id.present? && exception_request.requested_by != nil  %>
+              <tr class="" data-id="<%= exception_request.id %>">
+                <% if exception_request.law_firm_id.present? %>
+                  <td><%= exception_request.requested_by %></td>
+                  <td><%= exception_request.line_of_business %></td>
+                  <td><%= exception_request.law_firm.try(:name) %></td>
+                  <td>
+                    <% if current_user.role == 'lob' &&  exception_request.try(:lxp_status) != 'APPROVED' %>
+                      <%= link_to "Edit", edit_admin_exception_request_path(exception_request), class: "btn btn-xs btn-primary" %>
+                    <% end %> 
+                    <%= link_to "Review", admin_exception_request_path(exception_request), class: "btn btn-xs btn-secondary" %>	
+                  </td>
+                </tr>
+                <% end %>
               <% end %>
             <% end %>
           </tbody>

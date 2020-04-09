@@ -29,6 +29,13 @@ class ExceptionRequestMailer < ApplicationMailer
 		@user = User.with_deactivated.find_by_id(exception_request.user_id)
 		mail(to: @user.email, subject: "Your Engage Non Panel Request status has been updated.")
 	end
+	def form_status_notification_to_lob_for_sign(exception_request)
+		
+		@exception_request = exception_request
+		@user = User.with_deactivated.find_by_id(exception_request.user_id)
+		mail(to: @user.email, subject: "Your Engage Non Panel Request status has been approved and send Non Panel Retainer.")
+	end
+	
 	
 	def form_status_notification_to_lxp(exception_request)
 		@exception_request = exception_request

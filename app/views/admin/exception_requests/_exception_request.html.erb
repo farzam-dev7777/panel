@@ -15,6 +15,18 @@
         <div class="tab-pane fade in active">
           <div class="col-md-10">
             <div class="col-md-12 ">
+              <div class="col-md-4 column">Reason For New Nngage Non Panel Firm	:	</div>
+              <div class="col-md-8 data"><%= @exception_request.reason.reject(&:blank?).join(", ") %></div>
+            </div>
+             <div class="col-md-12 ">
+              <div class="col-md-4 column">Payer Type	:	</div>
+              <div class="col-md-8 data"><%= @exception_request.payer %></div>
+            </div>
+            <div class="col-md-12 ">
+              <div class="col-md-4 column">Requested By :	</div>
+              <div class="col-md-8 data"><%= @exception_request.requested_by %></div>
+            </div>
+            <div class="col-md-12 ">
               <div class="col-md-4 column">Requested By :	</div>
               <div class="col-md-8 data"><%= @exception_request.requested_by %></div>
             </div>
@@ -100,10 +112,6 @@
               <div class="col-md-8 data"><%= @exception_request.fully_approved? ? "Yes" : "No" %></div>
             </div>
             <% if @exception_request.docusign_envelope_id.present? %>
-             <div class="col-md-12">
-                <div class="col-md-4 column">Pay Type</div>
-                <div class="col-md-8 data"><%= @exception_request.pay_type_show %></div>
-              </div>
               <div class="col-md-12">
                 <div class="col-md-4 column">Document Status</div>
                 <div class="col-md-8 data"><%= @exception_request.docusign_retainer_envelope.try(:status) %></div>

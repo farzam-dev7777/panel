@@ -44,7 +44,11 @@ class Review < ApplicationRecord
       if self.reviewable_type == "ExceptionRequest"
         ExceptionRequest::EXCEPTION_REQUEST_STATUS[self.status.to_sym]
       else
-        ConflictWaiver::CONFLICT_WAIVER_STATUS[self.status.to_sym]
+        if  ConflictWaiver::CONFLICT_WAIVER_STATUS[self.status.to_sym]
+          ConflictWaiver::CONFLICT_WAIVER_STATUS[self.status.to_sym]
+        else
+          ConflictWaiver::CONFLICT_WAIVER_STATUS_LAWYER[self.status.to_sym]
+        end  
       end
     end
    end

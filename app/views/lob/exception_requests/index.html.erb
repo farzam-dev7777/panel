@@ -67,7 +67,7 @@
           </thead>
           <tbody>
             <% @exception_requests.each do |exception_request| %>
-            <% if exception_request.law_firm_id.present? %>
+            <% if exception_request.law_firm_id.present? && exception_request.requested_by != nil  %>
               <tr class="" data-id="<%= exception_request.id %>">
                 <td><%= exception_request.requested_by %></td>
                 <td><%= exception_request.line_of_business %></td>
@@ -76,7 +76,7 @@
                   <% if current_user.role == 'lob' &&  exception_request.try(:lxp_status) != 'APPROVED' %>
                     <%= link_to "Edit", exception_request_update_engage_lob_exception_requests_path(exception_request), class: "btn btn-xs btn-primary" %>
                   <% end %> 
-                  <%= link_to "Review", lob_exception_requests_path(exception_request), class: "btn btn-xs btn-secondary" %>	
+                  <%= link_to "Review", lob_exception_request_path(exception_request), class: "btn btn-xs btn-secondary" %>	
                 </td>
               </tr>
             <% end %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200406184458) do
+ActiveRecord::Schema.define(version: 20200409085020) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -387,6 +387,7 @@ ActiveRecord::Schema.define(version: 20200406184458) do
     t.string   "relationship_manager_phone"
     t.string   "law_firm_category"
     t.boolean  "firm_use_on_regular_basis",                         default: false
+    t.string   "status"
   end
 
   create_table "law_firms_countries", force: :cascade do |t|
@@ -628,6 +629,11 @@ ActiveRecord::Schema.define(version: 20200406184458) do
     t.string   "business_manager_name"
     t.string   "business_manager_phone"
     t.string   "business_manager_email"
+    t.string   "status"
+    t.string   "lxp_status"
+    t.integer  "lxp_id"
+    t.string   "docusign_envelope_id"
+    t.text     "notes"
   end
 
   create_table "queued_notifications", force: :cascade do |t|
@@ -802,6 +808,7 @@ ActiveRecord::Schema.define(version: 20200406184458) do
     t.string   "lob_contact_name"
     t.string   "two_fa_key"
     t.datetime "two_fa_key_expires_at"
+    t.string   "status"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end

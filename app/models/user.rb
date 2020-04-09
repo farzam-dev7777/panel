@@ -3,7 +3,7 @@ class User < ApplicationRecord
   acts_as_google_authenticated :column => :username, :method => :username, :issuer => 'SEAL'
 
   PANEL_ADMIN_USER_ROLES = ['lxp', 'lob', 'internal_lawyers']
-
+  USER_STATUS = ['Activate', 'Deactivate']
   devise :database_authenticatable,
          :recoverable, :trackable, 
          :authentication_keys => [:username]

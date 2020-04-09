@@ -195,16 +195,28 @@ $(document).ready(function(){
 		}
 		
 	});
-
-	$('select#review_status').chosen().change(function() {
-		if(this.value == "APPROVED"){
-			$(".internal_lawyers_box").show()
+	// Exceptation Request approval Processs 
+	$('.exceptationRequestProcesss select#review_status').chosen().change(function() {
+		if(this.value == "REQUEST_TO_LAWYER"){
+			$(".exceptationRequestProcesss  .internal_lawyers_box").show()
 			
 		}else{
-			$(".internal_lawyers_box").hide()
-			$('select#review_assigned_to').val('').trigger('chosen:updated');
+			$(".exceptationRequestProcesss .internal_lawyers_box").hide()
+			$('.exceptationRequestProcesss select#review_assigned_to_id').val('').trigger('chosen:updated');
 		}
 	});
+	// conflict Waiver approval Processs
+	$('.conflictWaiverProcesss select#review_status').chosen().change(function() {
+		if(this.value == "APPROVED"){
+			$(".conflictWaiverProcesss  .internal_lawyers_box").show()
+			
+		}else{
+			$(".conflictWaiverProcesss .internal_lawyers_box").hide()
+			$('.conflictWaiverProcesss select#review_assigned_to_id').val('').trigger('chosen:updated');
+		}
+	});
+
+
 
 	$('select#user_role').chosen().change(function() {
 		if(this.value == "lob"){
@@ -251,7 +263,7 @@ $(document).ready(function(){
 })
 $('.lxp_sttaus').on('click', function(e){
 	
-	 if($('select#review_status').chosen().val() == "APPROVED"){
+	 if($('select#review_status').chosen().val() == "REQUEST_TO_LAWYER"){
 		
 		swal({
 			title: "Are you sure you would like to approve this, this will notify and require further approval from the selected lawyer.",
@@ -272,16 +284,8 @@ $('.lxp_sttaus').on('click', function(e){
 		return false
 	 }
 	 
-	});
-$('.lxp_excepation_sttaus').on('click', function(e){
-
-	if($('select#review_status').chosen().val() == "APPROVED"){
-		PAY_TYPE = $('select#review_pay_type').chosen().val()
-		if(PAY_TYPE == "BANK_PAY"){
-			message = "Confirm To Emails Retainer and Forms to Law firm to fill/sign ?"
-		}else{
-			message = "Confirm To Emails Retainer to LOB to sign"
-		}
+	if($('select#review_status').chosen().val() == "PANEL_RETAINER"){
+		message = "Confirm To Emails Retainer to LOB to sign"
 
 		swal({
 			title: message,
@@ -301,8 +305,38 @@ $('.lxp_excepation_sttaus').on('click', function(e){
 		});
 		return false
 	}
-	
+	 
 	});
+// $('.lxp_excepation_sttaus').on('click', function(e){
+
+// 	if($('select#review_status').chosen().val() == "APPROVED"){
+// 		PAY_TYPE = $('select#review_pay_type').chosen().val()
+// 		if(PAY_TYPE == "BANK_PAY"){
+// 			message = "Confirm To Emails Retainer and Forms to Law firm to fill/sign ?"
+// 		}else{
+// 			message = "Confirm To Emails Retainer to LOB to sign"
+// 		}
+
+// 		swal({
+// 			title: message,
+// 			text: "",
+// 			type: "warning",
+// 			showCancelButton: true,
+// 			confirmButtonColor: "#DD6B55",
+// 			confirmButtonText: "Ok",
+// 			cancelButtonText: "Cancel",
+// 			closeOnConfirm: true,
+// 			closeOnCancel: true
+// 		},
+// 		function(isConfirm){
+// 			if (isConfirm) {
+// 			$('#new_review').submit()
+// 			}
+// 		});
+// 		return false
+// 	}
+	
+// 	});
 	
 function toast(text){
 	$.toast({
@@ -697,25 +731,25 @@ if($('.adminLawFirm select#law_firm_country_ids').val()){
 }
 
 
-
-/*
-$('select#law_firm_matter_type_ids').on('change', function() {
+//panelRequestNew start
+ 
+$('.panelRequestNew select#panel_request_law_firm_attributes_matter_type_ids').on('change', function() {
 	if(this.value){
 		
 		$.ajax({
 			url: "/lob/exception_requests/get_sub_matter_types",
 			method: "post",
-			data: {id : $('select#law_firm_matter_type_ids').val()}
+			data: {id : $('.panelRequestNew select#panel_request_law_firm_attributes_matter_type_ids').val()}
 		})
 			.done(function( data ) {
 				if(data){
-					$('.sub_matter_type_box').show()
+					$('.panelRequestNew .sub_matter_type_box').show()
 					var options = "<option value=''> Select Sub Matter Type</option>";
 					for (var i=0; i < data.data.length; i++){
 						options += "<option value="+data.data[i].id+">"+data.data[i].sub_matter_type+"</option>";
 					};
-					$('#law_firm_sub_matter_type_ids').html(options);
-					$("#law_firm_sub_matter_type_ids").trigger("chosen:updated");       // updates chosen
+					$('.panelRequestNew #panel_request_law_firm_attributes_sub_matter_type_ids').html(options);
+					$(".panelRequestNew #panel_request_law_firm_attributes_sub_matter_type_ids").trigger("chosen:updated");       // updates chosen
 					return false;    
 				}
 			});
@@ -724,34 +758,34 @@ $('select#law_firm_matter_type_ids').on('change', function() {
 
 
 
-if($('select#law_firm_matter_type_ids').val()){
-		
-		$.ajax({
-			url: "/lob/exception_requests/get_sub_matter_types",
-			method: "post",
-			data: {id : $('select#law_firm_matter_type_ids').val()}
-		})
-			.done(function( data ) {
-				if(data){
-					$('.sub_matter_type_box').show()
-					var options = "<option value=''> Select Sub Matter Type</option>";
-					for (var i=0; i < data.data.length; i++){
-						options += "<option value="+data.data[i].id+">"+data.data[i].sub_matter_type+"</option>";
-					};
-					$('#law_firm_sub_matter_type_ids').html(options);
-					$("#law_firm_sub_matter_type_ids").trigger("chosen:updated");       // updates chosen
-					return false;    
-				}
-			});
+if($('.panelRequestNew select#panel_request_law_firm_attributes_matter_type_ids').val()){
+	$('.sub_matter_type_box').show()
+		// $.ajax({
+		// 	url: "/lob/exception_requests/get_sub_matter_types",
+		// 	method: "post",
+		// 	data: {id : $('.panelRequestNew select#panel_request_law_firm_attributes_matter_type_ids').val()}
+		// })
+		// 	.done(function( data ) {
+		// 		if(data){
+		// 			$('.sub_matter_type_box').show()
+		// 			var options = "<option value=''> Select Sub Matter Type</option>";
+		// 			for (var i=0; i < data.data.length; i++){
+		// 				options += "<option value="+data.data[i].id+">"+data.data[i].sub_matter_type+"</option>";
+		// 			};
+		// 			$('.panelRequestNew #panel_request_law_firm_attributes_sub_matter_type_ids').html(options);
+		// 			$(".panelRequestNew #panel_request_law_firm_attributes_sub_matter_type_ids").trigger("chosen:updated");       // updates chosen
+		// 			return false;    
+		// 		}
+		// 	});
 }
 
-$('select#law_firm_country_ids').on('change', function() {
+$('.panelRequestNew select#panel_request_law_firm_attributes_country_ids').on('change', function() {
 	if(this.value){
 		
 		$.ajax({
 			url: "/lob/exception_requests/get_state",
 			method: "post",
-			data: {id : $('select#law_firm_country_ids').val()}
+			data: {id : $('.panelRequestNew select#panel_request_law_firm_attributes_country_ids').val()}
 		})
 			.done(function( data ) {
 				if(data){
@@ -760,8 +794,8 @@ $('select#law_firm_country_ids').on('change', function() {
 					for (var i=0; i < data.data.length; i++){
 						options += "<option value="+data.data[i].id+">"+data.data[i].name+"</option>";
 					};
-					$('#law_firm_states_ids').html(options);
-					$("#law_firm_states_ids").trigger("chosen:updated");       // updates chosen
+					$('.panelRequestNew #panel_request_law_firm_attributes_state_ids').html(options);
+					$(".panelRequestNew #panel_request_law_firm_attributes_state_ids").trigger("chosen:updated");       // updates chosen
 					return false;    
 				}
 			});
@@ -769,28 +803,28 @@ $('select#law_firm_country_ids').on('change', function() {
 	
 });
 
-if($('select#law_firm_country_ids').val()){
-
-	$.ajax({
-		url: "/lob/exception_requests/get_state",
-		method: "post",
-		data: {id : $('select#law_firm_country_ids').val()}
-	})
-		.done(function( data ) {
-			if(data){
-				$('.state_type_box').show()
-				var options = "<option value=''> Select State</option>";
-				for (var i=0; i < data.data.length; i++){
-					options += "<option value="+data.data[i].id+">"+data.data[i].name+"</option>";
-				};
-				$('#law_firm_states_ids').html(options);
-				$("#law_firm_states_ids").trigger("chosen:updated");       // updates chosen
-				return false;    
-			}
-		});
+if($('.panelRequestNew select#panel_request_law_firm_attributes_country_ids').val()){
+	$('.state_type_box').show()
+	// $.ajax({
+	// 	url: "/lob/exception_requests/get_state",
+	// 	method: "post",
+	// 	data: {id : $('select#law_firm_country_ids').val()}
+	// })
+	// 	.done(function( data ) {
+	// 		if(data){
+	// 			$('.state_type_box').show()
+	// 			var options = "<option value=''> Select State</option>";
+	// 			for (var i=0; i < data.data.length; i++){
+	// 				options += "<option value="+data.data[i].id+">"+data.data[i].name+"</option>";
+	// 			};
+	// 			$('#law_firm_states_ids').html(options);
+	// 			$("#law_firm_states_ids").trigger("chosen:updated");       // updates chosen
+	// 			return false;    
+	// 		}
+	// 	});
 }
 
-*/
+//panelRequestNew end
 
 $('.lxp_rejects').on('click', function() {
 	var matter_intake_id = $('#matter_intake_id').val();

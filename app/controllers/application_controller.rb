@@ -42,6 +42,7 @@ class ApplicationController < ActionController::Base
         admin_root_url
       end
     else
+      
       current_user.send_two_fa
     	new_two_factor_authentication_url
     end

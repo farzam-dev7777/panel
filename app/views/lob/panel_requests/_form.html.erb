@@ -4,7 +4,7 @@
 
 
 
-<div class="table-responsive">
+<div class="table-responsive panelRequestNew">
   <%= simple_form_for [:lob, @panel_request] do |f| %>
   
     <table class="table table-striped">
@@ -21,6 +21,7 @@
             <%= f.input :submitted_by_email, label: false, :input_html => { :value => @current_lob_user_email, :readonly => true } %>
             <%= f.input :user_id, :as => :hidden, :input_html => { :value => @current_lob_user_id } %>
             <%= f.input :request_type, :as => :hidden, :input_html => { :value => "ADD_TO_LAW_FIRM_PANEL" } %>
+            <%= f.input :status, :as => :hidden, :input_html => { :value => "Deactivate" } %>
           </td>
         </tr>
         <tr>
@@ -55,6 +56,7 @@
                             <td>
                               <%= field.input :name, label: false %>
                               <%= field.input :law_firm_category, :as => :hidden, :input_html => { :value => "PANEL" } %>
+                              <%= field.input :status, :as => :hidden, :input_html => { :value => "Deactivate" } %>
                             </td>
                           </tr>
                           <%= field.simple_fields_for :users do |user_field| %>
@@ -63,6 +65,7 @@
                               <td><%= user_field.input :email, label: false %>
                                 <%= user_field.input :role, :as => :hidden, label: false, :input_html => { :value => "master_user" }%>
                                 <%= user_field.input :empty_user, :as => :hidden, label: false, :input_html => { :value => true }%>
+                                <%= user_field.input :status, :as => :hidden, :input_html => { :value => "Deactivate" } %>
                               </td>
                             </tr>
                            
@@ -86,6 +89,26 @@
                           <tr>
                             <td class="text-right" width="20%"><strong>Relationship Manager Phone</strong></td>
                             <td><%= field.input :relationship_manager_phone, label: false %></td>
+                          </tr>
+                          <tr class="matter_type">
+                            <td class="text-right" width="20%"><strong>Select Matter Type</strong></td>
+                            <td><%= field.input :matter_type_ids, label: false, collection: MatterType.all.map{|mt| [mt.matter_type, mt.id] } , input_html: { multiple: true }   %></td>
+                          </tr>
+                          <tr class="sub_matter_type_box" style="display:none" >
+                            <td class="text-right" width="20%"><strong>Select Sub Matter Type</strong></td>
+                            <td class="sub_matter_type"><%= field.input :sub_matter_type_ids, label: false, collection: SubMatterType.all.map{|mt| [mt.sub_matter_type, mt.id] } , input_html: { multiple: true }   %></td>
+                          </tr>
+                          <tr>
+                            <td class="text-right" width="20%"><strong>Select Jurisdiction Type</strong></td>
+                            <td class="jurisdiction_type"><%= field.input :jurisdiction_type_ids, label: false, collection: JurisdictionType.all.map{|mt| [mt.jurisdiction_type, mt.id] } , input_html: { multiple: true }   %></td>
+                          </tr>
+                          <tr>
+                            <td class="text-right" width="20%"><strong>Select Country</strong></td>
+                            <td class="country_type"><%= field.input :country_ids, label: false, collection: Country.all.map{|mt| [mt.name, mt.id] } , input_html: { multiple: true }   %></td>
+                          </tr>
+                          <tr class="state_type_box" style="display:none">
+                            <td class="text-right" width="20%"><strong>Select State/Province</strong></td>
+                            <td class="state_type"><%= field.input :state_ids, label: false, collection: State.all.map{|mt| [mt.name, mt.id] } , input_html: { multiple: true }   %></td>
                           </tr>
                           <!-- <tr>
                             <td class="text-right" width="20%"><strong>Temp. Password</strong></td>
@@ -127,10 +150,6 @@
           <td class="text-right" width="20%"><strong>Matter Name</strong></td>
           <td><%= f.input :matter_name, label: false, input_html: { autocomplete: 'off' } %></td>
         </tr> -->
-        <tr>
-          <td class="text-right" width="20%"><strong>Matter Types</strong></td>
-          <td><%= f.input :matter_types, label: false, collection: PanelRequest::MATTER_TYPES,  input_html: { multiple: true }%></td>
-        </tr>
 
           <tr>
             <td colspan="2">

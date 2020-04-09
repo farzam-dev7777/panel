@@ -52,7 +52,7 @@
             </div>
           </div>
           <div class="clearfix"></div>
-          <div class="container">
+          <div class="container conflictWaiverProcesss">
             <%- if @conflict_waiver.can_user_change_status?(current_user) %>
             <div class="table-responsive">
               <%= simple_form_for [:admin, Review.new()] do |f| %>
@@ -65,10 +65,19 @@
                       <%= f.input :reviewable_type, label: false, as: :hidden, input_html: { value: @conflict_waiver.class.to_s } %>
                       <%= f.input :reviewable_id, label: false, as: :hidden, input_html: { value: @conflict_waiver.id } %>
                     </td>
-                  <tr>
-                    <td class="text-right" width="20%"><strong>Status</strong></td>
-                    <td><%= f.input :status, label: false, collection: ConflictWaiver::CONFLICT_WAIVER_STATUS.map{|value,key| [key, value]}%></td>
-                  </tr>
+
+                  <%- if @current_user.role === "lxp" %> 
+                    <tr>
+                      <td class="text-right" width="20%"><strong>Status</strong></td>
+                      <td><%= f.input :status, label: false, collection: ConflictWaiver::CONFLICT_WAIVER_STATUS.map{|value,key| [key, value]}%></td>
+                    </tr>
+                  <% end %>  
+                  <%- if @current_user.role === "internal_lawyers" %>
+                     <tr>
+                      <td class="text-right" width="20%"><strong>Status</strong></td>
+                      <td><%= f.input :status, label: false, collection: ConflictWaiver::CONFLICT_WAIVER_STATUS_LAWYER.map{|value,key| [key, value]}%></td>
+                    </tr>
+                  <% end %> 
                   <%- if @current_user.role === "lxp" %>
                   <tr style="display:none;" class="internal_lawyers_box">
                     <td class="text-right" width="20%"><strong>Assign to</strong></td>
@@ -97,6 +106,8 @@
     </div>
     <!-- end widget -->
   </div>
+
+  <% if @conflict_waiver.reviews.count > 0 %>
   <div class="col-md-12">
     <div class="jarviswidget jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
       <header class="no-border">
@@ -155,3 +166,4 @@
       </div>
     </div>
   </div>
+  <% end %>
