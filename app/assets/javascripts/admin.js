@@ -477,21 +477,21 @@ $('.searchLawFirm').on('click', function() {
 		})
 			.done(function( data ) {
 				var html = "<table>";
-				// if(data){
-				// 		for (var i=0; i < data.data.length; i++){
-				// 			html += 
-				// 			`<tr id=lawFirm_`+data.data[i].id+`>
-				// 					<td><input name="exception_request[law_firm_id]" type="radio" value="`+data.data[i].id+`" /></td>
-				// 					<td>`+data.data[i].name+`</td>
-				// 					<td>`+data.data[i].email+`</td>
-				// 					<td>`+data.data[i].phone+`(`+data.data[i].phone+`)</td>
-				// 				</tr>`;	
-				// 			//options += "<option value="+data.data[i].id+">"+data.data[i].sub_matter_type+"</option>";
-				// 		};
+				if(data){
+						for (var i=0; i < data.data.length; i++){
+							html += 
+							`<tr id=lawFirm_${data.data[i].id}>
+									<td><input name="exception_request[law_firm_id]" type="radio" value="${data.data[i].id}" /></td>
+									<td>${data.data[i].name}</td>
+									<td>${data.data[i].email}</td>
+									<td>${data.data[i].phone}(${data.data[i].phone})</td>
+								</tr>`;	
+							//options += "<option value="+data.data[i].id+">"+data.data[i].sub_matter_type+"</option>";
+						};
 						
-				// }else{
-				// 	html += "<tr><td>No Law Firm Match Your criteria<td></tr>";		
-				// }
+				}else{
+					html += "<tr><td>No Law Firm Match Your criteria<td></tr>";		
+				}
 				 html += "</table>";		
 				 $('.law_firm_list table#dt_basic').find('tbody').html(html)
 				 $('.law_firm_list').show()
