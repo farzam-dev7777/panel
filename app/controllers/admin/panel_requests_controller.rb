@@ -52,7 +52,8 @@ class Admin::PanelRequestsController < Admin::BaseController
 
   def new
     @panel_request = PanelRequest.new
-    @panel_request.build_law_firm
+    @law_firm =  @panel_request.build_law_firm
+    @user = @law_firm.users.build     
     @current_admin_user_email = current_admin_user.email
     @current_admin_user_id = current_admin_user.id
   end
@@ -65,19 +66,43 @@ class Admin::PanelRequestsController < Admin::BaseController
     add_breadcrumb "#{@panel_request.requested_by}", :admin_panel_request_path 
     
   end
+
+  def download_pdf
+    
+    @panel_request = PanelRequest.find(params[:panel_request_id])
+    document_name = @panel_request.get_document_name.gsub(".pdf","-signed.pdf")
+    send_data @panel_request.get_document_list, filename: document_name
+  end
  
 
   private
-
-  def panel_requests_params
-    
+  def panel_requests_params_test
     params.require(:panel_request).permit(
       :requested_by, :submitted_by_email, :user_id, :line_of_business,
       :lob_contact_name, :law_firm_id, :request_type,
-      :business_manager_name, :business_manager_phone, :business_manager_email,
-      :law_firm_category, :minority_owned, :minority_owned_details,
-      :women_owned, :women_owned_details, :law_firm_name,  matter_types: [], law_firm_attributes: [:name, :email, :phone, :description, :relationship_manager_name, :relationship_manager_email, :relationship_manager_phone, :temp_password, :temp_password_confirmation ]
+      :business_manager_name, :business_manager_phone, 
+      :business_manager_email, :minority_owned, :minority_owned_details,
+      :women_owned, :women_owned_details, :law_firm_name, 
+      matter_types: []
     )
   end
+
+  def panel_requests_params
+    params.require(:panel_request).permit(
+      :requested_by, :submitted_by_email, :user_id, :line_of_business,
+      :lob_contact_name, :law_firm_id, :request_type,
+      :business_manager_name, :business_manager_phone, 
+      :business_manager_email, :minority_owned, :minority_owned_details,
+      :women_owned, :women_owned_details, :law_firm_name, 
+      matter_types: [], 
+      law_firm_attributes: [
+        :name, :law_firm_category, 
+        :email, :phone, :description, :relationship_manager_name, 
+        :relationship_manager_email, :relationship_manager_phone ,
+        users_attributes: [:email, :role, :empty_user]
+      ]
+    )
+  end
+  
 
 end

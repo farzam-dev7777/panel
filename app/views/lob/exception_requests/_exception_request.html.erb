@@ -15,16 +15,24 @@
         <div class="tab-pane fade in active">
           <div class="col-md-10">
             <div class="col-md-12 ">
+              <div class="col-md-4 column">Reason For New Nngage Non Panel Firm	:	</div>
+              <div class="col-md-8 data"><%= @exception_request.reason.reject(&:blank?).join(", ") %></div>
+            </div>
+             <div class="col-md-12 ">
+              <div class="col-md-4 column">Payer Type	:	</div>
+              <div class="col-md-8 data"><%= @exception_request.payer %></div>
+            </div>
+            <div class="col-md-12 ">
               <div class="col-md-4 column">Requested By :	</div>
               <div class="col-md-8 data"><%= @exception_request.requested_by %></div>
             </div>
             <div class="col-md-12">
-              <div class="col-md-4 column">Submitted By :</div>		
-              <div class="col-md-8 data"><%= @exception_request.submitted_by_email %></div>
-            </div>
-            <div class="col-md-12">
               <div class="col-md-4 column">Line of Business :	</div>		
               <div class="col-md-8 data"><%= @exception_request.line_of_business %></div>
+            </div>
+            <div class="col-md-12">
+              <div class="col-md-4 column">LOB Contact Name :	</div>		
+              <div class="col-md-8 data"><%= @exception_request.lob_contact_name %></div>
             </div>
             <div class="col-md-12">
               <div class="col-md-4 column">Law Firm :</div>		
@@ -47,57 +55,34 @@
                     <div class="col-md-6 data firmPhone"><%= @exception_request.law_firm.phone %></div>
                   </div>
                   <div class="col-md-12">
-                    <div class="col-md-6 column">Description : </div>		
-                    <div class="col-md-6 data firmPhone"><%= @exception_request.law_firm.description %></div>
+                    <div class="col-md-6 column">Would You use this firm on a regular basis? : </div>		
+                    <div class="col-md-6 data firmPhone"><%= @exception_request.law_firm.relationship_manager_name ? "Yes" : "No" %></div>
                   </div>
                   <div class="col-md-12">
-                    <div class="col-md-6 column">Relationship Manager Name :	</div>		
-                    <div class="col-md-6 data firmPhone"><%= @exception_request.law_firm.relationship_manager_name %></div>
-                  </div>
-                  <div class="col-md-12">
-                    <div class="col-md-6 column">Relationship Manager Email : </div>		
-                    <div class="col-md-6 data firmPhone"><%= @exception_request.law_firm.relationship_manager_email %></div>
-                  </div>
-                  <div class="col-md-12">
-                    <div class="col-md-6 column">Relationship Manager Phone : </div>		
-                    <div class="col-md-6 data firmPhone"><%= @exception_request.law_firm.relationship_manager_phone %></div>
+                    <div class="col-md-6 column">Would You use this firm on a regular basis? :	</div>		
+                    <div class="col-md-6 data firmPhone"><%= @exception_request.law_firm.show_matter_types %></div>
                   </div>
                   
                 </div>
               </div>
             </div>
             <div class="col-md-12">
-                <div class="col-md-4 column">Business Manager Name :</div>
-                <div class="col-md-8 data"><%= @exception_request.business_manager_name %></div>
+                <div class="col-md-4 column">IS this a specific niche expertise that is not already available from one of the preferred external counsel panel law firms ?	:</div>
+                <div class="col-md-8 data"><%= @exception_request.niche_preferred_external_counsel_panel_law_firms ? "Yes" : "No" %></div>
               </div>
               <div class="col-md-12">
-                <div class="col-md-4 column">Business Manager Email :</div>		
-                <div class="col-md-8 data"><%= @exception_request.business_manager_email %></div>
+                <div class="col-md-4 column">IS this a specific niche expertise that is not already available from one of the preferred external counsel panel law firms ? :</div>		
+                <div class="col-md-8 data"><%= @exception_request.niche_expertise %></div>
               </div>
               <div class="col-md-12">
-                <div class="col-md-4 column">Business Manager Phone	:</div>		
-                <div class="col-md-8 data"><%= @exception_request.business_manager_phone %></div>
+                <div class="col-md-4 column">Does this firm practice in a required unique geography that is not already available from one of the preferred outside counsel Panel Law firms?	:</div>		
+                <div class="col-md-8 data"><%= @exception_request.required_unique_geography ? "Yes" : "No" %></div>
               </div>
             <div class="col-md-12">
-              <div class="col-md-4 column">LOB Contact Name	: </div>		
-              <div class="col-md-8 data"><%= @exception_request.lob_contact_name %></div>
+              <div class="col-md-4 column">Would engagements of this firm involve the following	: </div>		
+              <div class="col-md-8 data"><%= @exception_request.involved_engagement %></div>
             </div>
-            <div class="col-md-12">
-                <div class="col-md-4 column">Law Firm ID :</div>		
-                <div class="col-md-8 data"><%= @exception_request.law_firm_id %></div>
-              </div>
-            <div class="col-md-12">
-              <div class="col-md-4 column">Request type :</div>		
-              <div class="col-md-8 data"><%= @exception_request.request_type %></div>
-            </div>
-            <div class="col-md-12">
-              <div class="col-md-4 column">Minority Owned :</div>		
-              <div class="col-md-8 data"><%= @exception_request.minority_owned %></div>
-            </div>
-            <div class="col-md-12">
-              <div class="col-md-4 column">Minority Owned Details :</div>		
-              <div class="col-md-8 data"><%= @exception_request.minority_owned_details %></div>
-            </div>
+           
             <div class="col-md-12">
               <div class="col-md-4 column">Women Owned :</div>		
               <div class="col-md-8 data"><%= @exception_request.women_owned %></div>
@@ -107,13 +92,9 @@
               <div class="col-md-8 data"><%= @exception_request.women_owned_details %></div>
             </div>
             <div class="col-md-12">
-              <div class="col-md-4 column">Matter Name :</div>		
-              <div class="col-md-8 data"><%= @exception_request.matter_name %></div>
-            </div>	
-            <div class="col-md-12">
-              <div class="col-md-4 column">Matter Types :</div>		
-              <div class="col-md-8 data"><%= @exception_request.matter_types.join(", ") %></div>
-            </div>	
+              <div class="col-md-4 column">Please confirm the reason(s) , there than theses listed above, that this firm should be considered for the preferred outside counsel Panel :</div>		
+              <div class="col-md-8 data"><%= @exception_request.reson_other %></div>
+            </div>
             <div class="col-md-12">
               <div class="col-md-4 column">LXP Status :</div>
               <div class="col-md-8 data"><%=  @exception_request.lxp_status_show ? @exception_request.lxp_status_show : "-" %></div>
@@ -127,10 +108,6 @@
               <div class="col-md-8 data"><%= @exception_request.fully_approved? ? "Yes" : "No" %></div>
             </div>
             <% if @exception_request.docusign_envelope_id.present? %>
-             <div class="col-md-12">
-                <div class="col-md-4 column">Pay Type</div>
-                <div class="col-md-8 data"><%= @exception_request.pay_type_show %></div>
-              </div>
               <div class="col-md-12">
                 <div class="col-md-4 column">Document Status</div>
                 <div class="col-md-8 data"><%= @exception_request.docusign_retainer_envelope.try(:status) %></div>

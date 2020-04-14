@@ -48,6 +48,7 @@ class ConflictWaiversController < BaseController
 
   def edit
     @conflict_waiver = ConflictWaiver.find(params[:id])
+    @current_user = @conflict_waiver.user
     @current_user_id = @conflict_waiver.user_id
 
     add_breadcrumb "#{@conflict_waiver.name_of_law_firm}", :conflict_waiver_path 
@@ -60,7 +61,7 @@ class ConflictWaiversController < BaseController
   def conflict_waivers_params
     
     params.require(:conflict_waiver).permit(
-      :name_of_law_firm, :contact_details, :user_id, :bmo_business_contact, :reason, :confirm_waiver, :assigned_to_id
+      :name_of_law_firm, :contact_details, :user_id, :bmo_business_contact, :reason, :confirm_waiver, :assigned_to_id, :retainer_language
     )
   end
 

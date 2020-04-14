@@ -3,7 +3,7 @@
 </style>
 
 <div class="clearfix"></div>
-<div class="container">
+<div class="" style=" padding: 10px; ">
   <h2>Request For Conflict Waivers</h2>
 	<div class="table-responsive">
 		<%= simple_form_for [@conflict_waiver] do |f| %>
@@ -33,7 +33,7 @@
                
              </td>
              <td class="text-left">
-                <p> a) an issuer or selling security holder in an underwriting; </p>
+                <%# <p> a) an issuer or selling security holder in an underwriting; </p>
                 <p> b) a borrower in a normal course borrowing/mortgage transaction when we are already
                 represented by other counsel;</p>   
                 <p>c) a customer in the ordinary course of our business;
@@ -46,8 +46,8 @@
                 <p> f) a party in a transaction to which we are not a party but where you acted on our
                 behalf in a previous lending transaction with that party, provided that (i) the current
                 transaction is unrelated to the previous lending transaction and (ii) it will have no
-                bearing and/impact on the previous lending transaction.</p>
-
+                bearing and/impact on the previous lending transaction.</p> %>
+                <%= f.input :retainer_language, as: :radio_buttons, label: false, collection: ConflictWaiver::RETAINER_LANGUAGE_TYPE  %>
                 <label class="checkbox" style="padding-left: 0px">
                   <%= f.input :confirm_waiver, label: "I confirm that It’s not covered by the above waivers" %>
                   </a>

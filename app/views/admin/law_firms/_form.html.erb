@@ -15,7 +15,7 @@
 		<strong>Editing <%= @law_firm.name %></strong>
 	<% end %>
 </h2>
-<div class="table-responsive">
+<div class="table-responsive adminLawFirm">
 	<%= simple_form_for([:admin, @law_firm]) do |f| %>
 		<table class="table table-striped">
 			<tbody>
@@ -26,25 +26,21 @@
 					</tr> -->
 					<tr>
 						<td class="text-right" width="20%"><strong>Category</strong></td>
-						<td><%= f.input :law_firm_category, label: false, collection: ExceptionRequest::LAW_FIRM_CATEGORIES.map{ |k,v| [v,k]}, input_html: { autocomplete: 'off', class: 'text-left' }, prompt: 'Please Select a Category' %></td>
+						<td><%= f.input :law_firm_category, label: false, collection: ExceptionRequest::LAW_FIRM_CATEGORIES.map{ |k,v| [v,k]}, input_html: { autocomplete: 'off', class: 'text-left' }, prompt: 'Please Select a Category' , required: true %></td>
 					</tr>
 					<tr>
 						<td class="text-right" width="20%"><strong>Name</strong></td>
-						<td><%= f.input :name, label: false %></td>
+						<td><%= f.input :name, label: false , required: true %></td>
 					</tr>
 					<% if @law_firm.new_record? %>
 						<tr>
 							<td class="text-right" width="20%"><strong>Email</strong></td>
-							<td><%= f.input :email, label: false %></td>
+							<td><%= f.input :email, label: false , required: true %></td>
 						</tr>
 					<% end %>
 					<tr>
 						<td class="text-right" width="20%"><strong>Phone</strong></td>
 						<td><%= f.input :phone, label: false %></td>
-					</tr>
-					<tr>
-						<td class="text-right" width="20%"><strong>Description</strong></td>
-						<td><%= f.input :description, label: false %></td>
 					</tr>
 					<tr>
 						<td class="text-right" width="20%"><strong>Relationship Manager Name</strong></td>
@@ -67,11 +63,30 @@
 						<td><%= f.input :initial_date_of_engagement_with_the_bank, as: :datepicker, label: false, input_html: { autocomplete: 'off', class: 'text-left datepicker' } %></td>
 					</tr>
 
-					<tr>
+					<!-- <tr>
 						<td class="text-right" width="20%"><strong>Types of matters your law firm has handled for us to date</strong></td>
 						<td><%= f.input :type_of_matters_your_law_firm_handles_for_us, label: false, collection: LawFirm::TYPES_OF_MATTERS_FOR_US, input_html: { autocomplete: 'off', class: 'text-left', multiple: true } %></td>
+					</tr> -->
+					<tr class="matter_type">
+						<td class="text-right" width="20%"><strong>Select Matter Type</strong></td>
+						<td><%= f.input :matter_type_ids, label: false, collection: MatterType.all.map{|mt| [mt.matter_type, mt.id] } , input_html: { multiple: true }   %></td>
 					</tr>
-
+					<tr class="sub_matter_type_box" style="display:none" >
+						<td class="text-right" width="20%"><strong>Select Sub Matter Type</strong></td>
+						<td class="sub_matter_type"><%= f.input :sub_matter_type_ids, label: false, collection: SubMatterType.all.map{|mt| [mt.sub_matter_type, mt.id] } , input_html: { multiple: true }   %></td>
+					</tr>
+					<tr>
+						<td class="text-right" width="20%"><strong>Select Jurisdiction Type</strong></td>
+						<td class="jurisdiction_type"><%= f.input :jurisdiction_type_ids, label: false, collection: JurisdictionType.all.map{|mt| [mt.jurisdiction_type, mt.id] } , input_html: { multiple: true }   %></td>
+					</tr>
+					<tr>
+						<td class="text-right" width="20%"><strong>Select Country</strong></td>
+						<td class="country_type"><%= f.input :country_ids, label: false, collection: Country.all.map{|mt| [mt.name, mt.id] } , input_html: { multiple: true }   %></td>
+					</tr>
+					<tr class="state_type_box" style="display:none">
+						<td class="text-right" width="20%"><strong>Select State/Province</strong></td>
+						<td class="state_type"><%= f.input :state_ids, label: false, collection: State.all.map{|mt| [mt.name, mt.id] } , input_html: { multiple: true }   %></td>
+					</tr>
 					<!-- <tr>
 						<td class="text-right" width="20%"><strong>Type of services your law firm provides generally</strong></td>
 						<td><%= f.input :type_of_services_your_law_firm_provides_generally, label: false, collection: LawFirm::TYPES_OF_MATTERS, input_html: { autocomplete: 'off', class: 'text-left', multiple: true } %></td>
@@ -96,14 +111,14 @@
 						<% if @law_firm.new_record? %>
 							<td class="text-right" width="20%"><strong>Temp. Password</strong></td>
 							<td>
-								<%= f.input :temp_password, autocomplete: "off", label: false, input_html: { class: 'set-password' } %>
+								<%= f.input :temp_password, autocomplete: "off", label: false, input_html: { class: 'set-password' } , required: true %>
 								<p style="color: #949494;" class="text-left"><em>Minimum 10 characters required</em></p>	
 							</td>
 						</tr>
 							<tr>
 							<td class="text-right" width="20%"><strong>Confirm Password</strong></td>
 							<td>
-								<%= f.input :temp_password_confirmation, autocomplete: "off", label: false, input_html: { class: 'set-password' } %>
+								<%= f.input :temp_password_confirmation, autocomplete: "off", label: false, input_html: { class: 'set-password' }, required: true %>
 							</td>
 						</tr>
 						<% else %>
@@ -131,13 +146,13 @@
 					</tr> -->
 
 					
-						<tr>
+						<!-- <tr>
 							<td colspan="2">
 								<div class="col-md-12 no-padding" style="margin-bottom: 15px">
-									<!-- <div class="col-md-4"><label><strong>City</strong></label></div> -->
-									<div class="col-md-3"><label><strong>Country</strong></label></div>
-									<!-- <div class="col-md-4"><label><strong>State/Province</strong></label></div> -->
-								</div>
+								 <div class="col-md-4"><label><strong>City</strong></label></div> -->
+								<!--	<div class="col-md-3"><label><strong>Country</strong></label></div>
+								<div class="col-md-4"><label><strong>State/Province</strong></label></div> -->
+							<!--	</div>
 								<%= f.simple_fields_for :locations do |field| %>
 							    <%= render partial: "location_fields", locals: {f: field} %>
 							  <% end %>
@@ -145,7 +160,7 @@
 							    <%= link_to_add_association '<span href="javascript:void(0);" class="btn btn-primary btn-sm"><i class="fa fa-plus-circle"></i> Add Law Firm\'s Location(s)</span>'.html_safe, f, :locations %>
 							  </div>
 						  </td>
-					  </tr>
+					  </tr> -->
 
 						<!-- <tr>
 							<td colspan="2">

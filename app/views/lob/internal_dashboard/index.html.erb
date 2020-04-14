@@ -76,19 +76,21 @@
 						</thead>
 						<tbody>
 							<% @exception_requests.each do |exception_request| %>
-							<tr class="" data-id="<%= exception_request.id %>">
-								<td><%= exception_request.requested_by %></td>
-								<td><%= exception_request.submitted_by_email %></td>
-								<td><%= exception_request.lob_contact_name %></td>
-								<td><%= exception_request.lxp_status_show %></td>
-								<td><%= exception_request.internal_lawyers_status_show %></td>
-								<td>
-									<% if current_user.role == 'lob' &&  exception_request.try(:lxp_status) != 'APPROVED' %>
-										<%= link_to "Edit", edit_lob_exception_request_path(exception_request), class: "btn btn-xs btn-primary" %>
-									<% end %> 
-									<%= link_to "Review", lob_exception_request_path(exception_request), class: "btn btn-xs btn-secondary" %>	
-								</td>
-							</tr>
+							<% if exception_request.law_firm_id.present? && exception_request.requested_by != nil  %>
+								<tr class="" data-id="<%= exception_request.id %>">
+									<td><%= exception_request.requested_by %></td>
+									<td><%= exception_request.submitted_by_email %></td>
+									<td><%= exception_request.lob_contact_name %></td>
+									<td><%= exception_request.lxp_status_show %></td>
+									<td><%= exception_request.internal_lawyers_status_show %></td>
+									<td>
+										<% if current_user.role == 'lob' &&  exception_request.try(:lxp_status) != 'APPROVED' %>
+											<%= link_to "Edit", edit_lob_exception_request_path(exception_request), class: "btn btn-xs btn-primary" %>
+										<% end %> 
+										<%= link_to "Review", lob_exception_request_path(exception_request), class: "btn btn-xs btn-secondary" %>	
+									</td>
+								</tr>
+								<% end %>
 							<% end %>
 						</tbody>
 					</table>

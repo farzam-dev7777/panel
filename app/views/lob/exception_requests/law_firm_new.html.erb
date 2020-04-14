@@ -44,6 +44,27 @@
               <td class="text-right" width="20%"><strong>Relationship Manager Phone</strong></td>
               <td><%= field.input :relationship_manager_phone, label: false %></td>
             </tr>
+
+            <tr class="matter_type">
+              <td class="text-right" width="20%"><strong>Select Matter Type</strong></td>
+               <td><%= field.input :matter_type_ids, label: false, collection: MatterType.all.map{|mt| [mt.matter_type, mt.id] }, input_html: { multiple: true }  %> </td>
+            </tr>
+            <tr class="sub_matter_type_box" style="display:none">
+              <td class="text-right" width="20%"><strong>Select Sub Matter Type</strong></td>
+               <td class="sub_matter_type" width="80%"><%= field.input :sub_matter_type_ids, label: false, collection: [] , input_html: { multiple: true } %> </td>
+            </tr>
+            <tr class="jurisdiction_type">
+              <td class="text-right" width="20%"><strong>Select Jurisdiction Type</strong></td>
+               <td><%= field.input :jurisdiction_type_ids, label: false,  collection: SubMatterType.all.map{|mt| [mt.sub_matter_type, mt.id] }, input_html: { multiple: true }   %> </td>
+            </tr>
+            <tr class="country_type">
+              <td class="text-right" width="20%"><strong>Select Country</strong></td>
+               <td><%= field.input :country_ids, label: false, collection: Country.all.map{|mt| [mt.name, mt.id] }, input_html: { multiple: true }  %> </td>
+            </tr>
+            <tr class="state_type_box" style="display:none">
+              <td class="text-right" width="20%"><strong>Select State/Province</strong></td>
+               <td class="state_type"><%= field.input :state_ids, label: false, collection: State.all.map{|mt| [mt.name, mt.id] }, input_html: { multiple: true }   %> </td>
+            </tr>
             <!-- <tr>
               <td class="text-right" width="20%"><strong>Temp. Password</strong></td>
               <td>

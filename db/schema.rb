@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191113191452) do
+ActiveRecord::Schema.define(version: 20200409085020) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -115,6 +115,15 @@ ActiveRecord::Schema.define(version: 20191113191452) do
     t.string   "internal_lawyers_status"
     t.integer  "law_firm_id"
     t.integer  "assigned_to_id"
+    t.text     "retainer_language"
+  end
+
+  create_table "countries", force: :cascade do |t|
+    t.integer  "country_id"
+    t.string   "name"
+    t.string   "iso"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "cyber_security_insurances", force: :cascade do |t|
@@ -163,8 +172,8 @@ ActiveRecord::Schema.define(version: 20191113191452) do
     t.string   "women_owned"
     t.text     "women_owned_details"
     t.string   "matter_name"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",                                                       null: false
+    t.datetime "updated_at",                                                       null: false
     t.text     "matter_types"
     t.string   "law_firm_name"
     t.string   "business_manager_name"
@@ -177,6 +186,20 @@ ActiveRecord::Schema.define(version: 20191113191452) do
     t.string   "docusign_envelope_id"
     t.string   "pay_type"
     t.text     "notes"
+    t.boolean  "is_work",                                          default: false
+    t.text     "reason"
+    t.string   "payer"
+    t.text     "matter_types_search"
+    t.text     "sub_matter_types_search"
+    t.text     "jurisdiction_types_search"
+    t.text     "countries_search"
+    t.text     "states_search"
+    t.boolean  "niche_preferred_external_counsel_panel_law_firms", default: false
+    t.text     "niche_expertise"
+    t.boolean  "required_unique_geography",                        default: false
+    t.text     "geographic_location"
+    t.string   "involved_engagement"
+    t.text     "reson_other"
   end
 
   create_table "faq_categories", force: :cascade do |t|
@@ -321,6 +344,12 @@ ActiveRecord::Schema.define(version: 20191113191452) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "jurisdiction_types", force: :cascade do |t|
+    t.string   "jurisdiction_type"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
   create_table "jurisdictions", force: :cascade do |t|
     t.string   "country"
     t.string   "city"
@@ -357,6 +386,43 @@ ActiveRecord::Schema.define(version: 20191113191452) do
     t.string   "relationship_manager_name"
     t.string   "relationship_manager_phone"
     t.string   "law_firm_category"
+    t.boolean  "firm_use_on_regular_basis",                         default: false
+    t.string   "status"
+  end
+
+  create_table "law_firms_countries", force: :cascade do |t|
+    t.integer  "law_firm_id"
+    t.integer  "country_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "law_firms_jurisdiction_types", id: false, force: :cascade do |t|
+    t.integer  "law_firm_id"
+    t.integer  "jurisdiction_type_id"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  create_table "law_firms_matter_types", id: false, force: :cascade do |t|
+    t.integer  "law_firm_id"
+    t.integer  "matter_type_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  create_table "law_firms_states", force: :cascade do |t|
+    t.integer  "law_firm_id"
+    t.integer  "state_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "law_firms_sub_matter_types", id: false, force: :cascade do |t|
+    t.integer  "law_firm_id"
+    t.integer  "sub_matter_type_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
   end
 
   create_table "locations", force: :cascade do |t|
@@ -435,6 +501,99 @@ ActiveRecord::Schema.define(version: 20191113191452) do
     t.index ["receiver_id", "receiver_type"], name: "index_mailboxer_receipts_on_receiver_id_and_receiver_type", using: :btree
   end
 
+  create_table "matter_intakes", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "submitter_name"
+    t.string   "lob_contact_name"
+    t.string   "name_of_matter_client"
+    t.integer  "matter_type_id"
+    t.text     "matter_description"
+    t.string   "mode_of_payment"
+    t.integer  "law_firm_id"
+    t.string   "bmo_lawyer_name"
+    t.integer  "lawyer_id"
+    t.string   "budget_amount"
+    t.integer  "lxp_id"
+    t.string   "lob_contact_for_po"
+    t.string   "cost_centre_for_legal_fees"
+    t.string   "paying_entity"
+    t.string   "business_paying_for_matter"
+    t.string   "group_paying_for_matter"
+    t.string   "status"
+    t.datetime "lob_submitted_at"
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
+    t.string   "legal_group_of_bmo_lawyer"
+    t.string   "work_area"
+    t.boolean  "is_ore_reportable",                 default: false
+    t.boolean  "is_otherwise_reportable",           default: false
+    t.boolean  "is_syndicate_matter",               default: false
+    t.boolean  "is_conceal_imanage_workspace",      default: false
+    t.boolean  "is_paper_file",                     default: false
+    t.string   "jurisdiction"
+    t.string   "firm_type"
+    t.string   "name_of_panel_firm"
+    t.string   "name_of_non_panel_firm"
+    t.string   "type_of_price"
+    t.boolean  "is_alternative_fee_arrangement",    default: false
+    t.string   "afa_details"
+    t.string   "additional_matter_contact"
+    t.string   "other_matter_issues"
+    t.datetime "lawyer_reviewed_at"
+    t.string   "other_party"
+    t.string   "matter_number"
+    t.datetime "lxp_reviewed_at"
+    t.string   "form_type"
+    t.string   "branch"
+    t.string   "outside_counsel_engaged"
+    t.boolean  "can_reimbursed_matter",             default: false
+    t.text     "key_facts"
+    t.string   "legal_analysis"
+    t.string   "stage_of_litigation"
+    t.boolean  "allegation_of_employee_misconduct", default: false
+    t.string   "primary_issue"
+    t.string   "secondary_issue"
+    t.string   "bmo_party"
+    t.string   "opposing_counsel_firm"
+    t.boolean  "written_legal_notice_required",     default: false
+    t.boolean  "arbitration_offered",               default: false
+    t.boolean  "arbitration_accepted",              default: false
+    t.string   "branch_manager_investment_advisor"
+    t.date     "date_suit_filed"
+    t.boolean  "unquantified_claim",                default: false
+    t.string   "valued_at"
+    t.string   "amount_claimed_from_bmo_1"
+    t.string   "amount_claimed_1_currency"
+    t.string   "amount_claimed_from_bmo_2"
+    t.string   "amount_claimed_2_currency"
+    t.string   "amount_claimed_by_bmo"
+    t.string   "amount_claimed_by_bmo_currency"
+    t.string   "breakdown_of_claim_amount"
+    t.string   "court_name"
+    t.string   "case_caption"
+    t.string   "docket_number"
+    t.string   "comset_issues"
+    t.string   "comset_ref"
+    t.string   "mi_matter"
+    t.string   "region_name"
+    t.string   "nature_of_events"
+    t.string   "process_type_level_1"
+    t.string   "process_type_level_2"
+    t.string   "product_type_level_1"
+    t.string   "product_type_level_2"
+    t.string   "event_type_level_1"
+    t.string   "event_type_level_2"
+    t.string   "business_activity_level_1"
+    t.string   "business_activity_level_2"
+    t.string   "court_type"
+  end
+
+  create_table "matter_types", force: :cascade do |t|
+    t.string   "matter_type"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "notes", force: :cascade do |t|
     t.integer  "law_firm_id"
     t.string   "message_type"
@@ -470,6 +629,11 @@ ActiveRecord::Schema.define(version: 20191113191452) do
     t.string   "business_manager_name"
     t.string   "business_manager_phone"
     t.string   "business_manager_email"
+    t.string   "status"
+    t.string   "lxp_status"
+    t.integer  "lxp_id"
+    t.string   "docusign_envelope_id"
+    t.text     "notes"
   end
 
   create_table "queued_notifications", force: :cascade do |t|
@@ -534,6 +698,22 @@ ActiveRecord::Schema.define(version: 20191113191452) do
     t.string   "level_of_access"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+  end
+
+  create_table "states", force: :cascade do |t|
+    t.string   "name"
+    t.string   "iso"
+    t.integer  "country_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "sub_matter_types", force: :cascade do |t|
+    t.string   "sub_matter_type"
+    t.integer  "matter_type_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+
   end
 
   create_table "system_settings", force: :cascade do |t|
@@ -629,6 +809,7 @@ ActiveRecord::Schema.define(version: 20191113191452) do
     t.string   "lob_contact_name"
     t.string   "two_fa_key"
     t.datetime "two_fa_key_expires_at"
+    t.string   "status"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end

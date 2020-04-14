@@ -174,14 +174,19 @@
 				</li>
 				<% if current_user && ( current_user.role == 'lob' || current_user.role == 'lxp' || current_user.role == 'internal_lawyers' ) %>
 					<li class="<%= active_menu_item('/admin/exception_requests') %>">
-						<a href="/admin/exception_requests" title="blank_"><i class="fa fa-lg fa-fw fa-exclamation"></i> <span class="menu-item-parent">Exception Requests</span></a>
+						<a href="/admin/exception_requests" title="blank_"><i class="fa fa-lg fa-fw fa-exclamation"></i> <span class="menu-item-parent">Engage Non Panel Firm</span></a>
 					</li>
 				<% end %>
 				<% if current_user && (  current_user.role == 'lxp' || current_user.role == 'internal_lawyers' ) %>
 					<li class="<%= active_menu_item('/admin/conflict_waivers') %>">
 						<a href="/admin/conflict_waivers" title="blank_"><i class="fa fa-lg fa-fw fa-thumbs-o-up"></i> <span class="menu-item-parent">Conflict Waiver</span></a>
 					</li>
-					<% end %>	
+				<% end %>	
+				<% if current_user && ( current_user.role == 'internal_lawyers' || current_user.role == 'lxp') %>
+					<li class="<%= active_menu_item('/admin/matter_intakes') %>">
+						<a href="/admin/matter_intakes" title="blank_"><i class="fa fa-lg fa-fw fa-briefcase"></i> <span class="menu-item-parent">Matter Intakes</span></a>
+					</li>
+				<% end %>	
 				<% if current_user && current_user.role == 'lxp' %>
 					<li class="<%= active_menu_item('/admin/panel_requests') %>">
 						<a href="/admin/panel_requests" title="blank_"><i class="fa fa-lg fa-fw fa-check"></i> <span class="menu-item-parent">Panel Request Form</span></a>
@@ -267,30 +272,26 @@
 
 			<!-- end col -->
 			<div class="col-lg-12 table-striped table-hover">
-				<div class="col-lg-12 table-striped table-hover">
-					<div class="container">
-						<div class="col-md-12 ">
-							<% if !flash[:notice].blank? %>
-								<div class="row">
-									<div class="col-lg-12">
-										<p class="alert alert-success"><%= flash[:notice] %></p>
-									</div>
+				<div class="container">
+					<div class="col-md-12 ">
+						<% if !flash[:notice].blank? %>
+							<div class="row">
+								<div class="col-lg-12">
+									<p class="alert alert-success"><%= flash[:notice] %></p>
 								</div>
-							<% end %>
-							<% if !flash[:alert].blank? %>
-								<div class="row">
-									<div class="col-lg-12">
-										<p class="alert alert-warning"><%= flash[:alert] %></p>
-									</div>
+							</div>
+						<% end %>
+						<% if !flash[:alert].blank? %>
+							<div class="row">
+								<div class="col-lg-12">
+									<p class="alert alert-warning"><%= flash[:alert] %></p>
 								</div>
-							<% end %>
-						</div>	
-					</div>
-					<div class="container">
-						<%= yield %>
-					</div>
-			    
-
+							</div>
+						<% end %>
+					</div>	
+				</div>
+				<div class="container">
+					<%= yield %>
 				</div>
 			</div>
 			

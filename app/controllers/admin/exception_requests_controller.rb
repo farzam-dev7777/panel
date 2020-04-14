@@ -94,7 +94,8 @@ class Admin::ExceptionRequestsController < Admin::BaseController
       :requested_by, :submitted_by_email, :user_id, :line_of_business,
       :lob_contact_name, :law_firm_id, :request_type,
       :law_firm_category, :minority_owned, :minority_owned_details,
-      :business_manager_name, :business_manager_phone, :business_manager_email,
+      :business_manager_name, :business_manager_phone, :business_manager_email, :is_work,
+      :matter_types_search, :sub_matter_types_search, :jurisdiction_types_search, :countries_search, :states_search,
       :women_owned, :women_owned_details, :matter_name, :law_firm_name, matter_types: []
     )
   end

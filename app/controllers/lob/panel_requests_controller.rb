@@ -24,6 +24,7 @@ class Lob::PanelRequestsController < Lob::BaseController
     @panel_request = PanelRequest.new(panel_requests_params)
     if @panel_request.save
       flash[:notice] = "Panel request saved"
+      PanelRequestMailer.panel_request_notification_to_lxp(@panel_request).deliver_now
       redirect_to :lob_panel_requests
     else
       @law_firms = LawFirm.all
@@ -37,9 +38,10 @@ class Lob::PanelRequestsController < Lob::BaseController
   end
 
   def update
-  	@panel_request = PanelRequest.find(params[:id])
-    if @panel_request.update_attributes(panel_requests_params)
+    @panel_request = PanelRequest.find(params[:id])
+    if @panel_request.update_attributes(update_panel_requests_params)
       flash[:notice] = "Panel request updated"
+      PanelRequestMailer.panel_request_update_notification_to_lxp(@panel_request).deliver_now
       redirect_to lob_panel_request_path(@panel_request)
     else
       @law_firms = LawFirm.all
@@ -60,6 +62,9 @@ class Lob::PanelRequestsController < Lob::BaseController
 
   def edit
     @panel_request = PanelRequest.find(params[:id])
+    @law_firm = @panel_request.law_firm
+    @user = @law_firm.user
+
     @current_lob_user_email = @panel_request.submitted_by_email
     @current_lob_user_id = @panel_request.user_id
 
@@ -68,8 +73,15 @@ class Lob::PanelRequestsController < Lob::BaseController
   end
  
 
+  def download_pdf
+    
+    @panel_request = PanelRequest.find(params[:panel_request_id])
+    document_name = @panel_request.get_document_name.gsub(".pdf","-signed.pdf")
+    send_data @panel_request.get_document_list, filename: document_name
+  end
+
   private
-  def panel_requests_params_test
+  def panel_requests_params_update
     params.require(:panel_request).permit(
       :requested_by, :submitted_by_email, :user_id, :line_of_business,
       :lob_contact_name, :law_firm_id, :request_type,
@@ -86,13 +98,45 @@ class Lob::PanelRequestsController < Lob::BaseController
       :lob_contact_name, :law_firm_id, :request_type,
       :business_manager_name, :business_manager_phone, 
       :business_manager_email, :minority_owned, :minority_owned_details,
-      :women_owned, :women_owned_details, :law_firm_name, 
-      matter_types: [], 
+      :women_owned, :women_owned_details, :law_firm_name, :status,
       law_firm_attributes: [
-        :name, :law_firm_category, 
+        :name, :law_firm_category, :status,
         :email, :phone, :description, :relationship_manager_name, 
         :relationship_manager_email, :relationship_manager_phone ,
-        users_attributes: [:email, :role, :empty_user]
+        matter_type_ids:[], sub_matter_type_ids: [], jurisdiction_type_ids: [], state_ids: [], country_ids: [],
+        users_attributes: [:email, :role, :empty_user, :status]
+      ]
+    )
+  end
+  def update_panel_requests_params
+    params.require(:panel_request).permit(
+      :requested_by, :submitted_by_email, :user_id, :line_of_business,
+      :lob_contact_name, :law_firm_id, :request_type,
+      :business_manager_name, :business_manager_phone, 
+      :business_manager_email, :minority_owned, :minority_owned_details,
+      :women_owned, :women_owned_details, :law_firm_name, :status,
+      law_firm_attributes: [
+        :id, :name, :law_firm_category, :status,
+        :email, :phone, :description, :relationship_manager_name, 
+        :relationship_manager_email, :relationship_manager_phone ,
+        matter_type_ids:[], sub_matter_type_ids: [], jurisdiction_type_ids: [], state_ids: [], country_ids: [],
+        users_attributes: [:id, :email, :role, :empty_user, :status]
+      ]
+    )
+  end
+  def panel_requests_params
+    params.require(:panel_request).permit(
+      :requested_by, :submitted_by_email, :user_id, :line_of_business,
+      :lob_contact_name, :law_firm_id, :request_type,
+      :business_manager_name, :business_manager_phone, 
+      :business_manager_email, :minority_owned, :minority_owned_details,
+      :women_owned, :women_owned_details, :law_firm_name, :status,
+      law_firm_attributes: [
+        :name, :law_firm_category, :status,
+        :email, :phone, :description, :relationship_manager_name, 
+        :relationship_manager_email, :relationship_manager_phone ,
+        matter_type_ids:[], sub_matter_type_ids: [], jurisdiction_type_ids: [], state_ids: [], country_ids: [],
+        users_attributes: [:email, :role, :empty_user, :status]
       ]
     )
   end

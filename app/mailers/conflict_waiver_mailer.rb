@@ -59,6 +59,19 @@ class ConflictWaiverMailer < ApplicationMailer
 	def form_status_notification_to_lxp_by_internal_lawyers(conflict_waiver)
 		@conflict_waiver = conflict_waiver
 		@user = User.find_by_id(conflict_waiver.user_id)
-		mail(to: @user.email, subject: "#{conflict_waiver.name_of_law_firm} status has been updatd.")
+		@lxpusers = User.where(role: 'lxp')
+		@lxpusers.each do |lxpuser| 
+			mail(to: lxpuser.email, subject: "#{conflict_waiver.name_of_law_firm} status has been updatd.")
+		end
+
+	end
+	def form_status_notification_to_lxp_for_info_internal_lawyers(conflict_waiver)
+		@conflict_waiver = conflict_waiver
+		@user = User.find_by_id(conflict_waiver.user_id)
+		@lawyer = User.find_by_id(conflict_waiver.assigned_to_id)
+		@lxpusers = User.where(role: 'lxp')
+		@lxpusers.each do |lxpuser| 
+			mail(to: lxpuser.email, subject: "Lawyer Requested For More Info")
+		end
 	end
 end

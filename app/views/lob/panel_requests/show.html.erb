@@ -90,6 +90,26 @@
 																<div class="col-md-6 column">Relationship Manager Phone : </div>		
 																<div class="col-md-6 data firmPhone"><%= @panel_request.law_firm.relationship_manager_phone %></div>
 															</div>
+															<div class="col-md-12">
+																<div class="col-md-6 column">Select Matter Type : </div>		
+																<div class="col-md-6 data firmPhone"><%= @panel_request.law_firm.matter_types.map(&:matter_type).join(", ") %></div>
+															</div>
+															<div class="col-md-12">
+																<div class="col-md-6 column">Select Sub Matter Type : </div>		
+																<div class="col-md-6 data firmPhone"><%= @panel_request.law_firm.sub_matter_types.map(&:sub_matter_type).join(", ") %></div>
+															</div>
+															<div class="col-md-12">
+																<div class="col-md-6 column">Select Jurisdiction Type : </div>		
+																<div class="col-md-6 data firmPhone"><%= @panel_request.law_firm.jurisdiction_types.map(&:jurisdiction_type).join(", ") %></div>
+															</div>
+															<div class="col-md-12">
+																<div class="col-md-6 column">Select Country : </div>		
+																<div class="col-md-6 data firmPhone"><%= @panel_request.law_firm.countries.map(&:name).join(", ") %></div>
+															</div>
+															<div class="col-md-12">
+																<div class="col-md-6 column">Select State/Province : </div>		
+																<div class="col-md-6 data firmPhone"><%= @panel_request.law_firm.states.map(&:name).join(", ") %></div>
+															</div>
 															
 														</div>
 													</div>
@@ -109,12 +129,32 @@
 											<div class="col-md-12">
 												<div class="col-md-3 column">Women Owned Details</div>		
 												<div class="col-md-9 data"><%= @panel_request.women_owned_details %></div>
+											</div>	
+
+											<div class="col-md-12">
+												<div class="col-md-3 column">LXP Status :</div>
+												<div class="col-md-9 data"><%=  @panel_request.lxp_status_show ? @panel_request.lxp_status_show : "-" %></div>
 											</div>
 											<div class="col-md-12">
-												<div class="col-md-3 column">Matter Types</div>		
-												<div class="col-md-9 data"><%= @panel_request.matter_types.is_a?(Array) ? @panel_request.matter_types.join(", ") : "" %></div>
-											</div>	
+												<div class="col-md-3 column">Panel Approved :</div>
+												<div class="col-md-9 data"><%= @panel_request.fully_approved? ? "Yes" : "No" %></div>
+											</div>
+											<% if @panel_request.docusign_envelope_id.present? %>
+												<div class="col-md-12">
+													<div class="col-md-3 column">Document Status</div>
+													<div class="col-md-9 data"><%= @panel_request.docusign_retainer_envelope.try(:status) %></div>
+												</div>
+												<% if @panel_request.docusign_retainer_envelope.try(:status) == "completed"%>
+													<div class="col-md-12">
+														<div class="col-md-3 column">Download Document</div>
+														<div class="col-md-9 data">
+															<%= link_to "Download Document", admin_panel_request_download_pdf_path(@panel_request), class: "" %>
+														</div>
+													</div>
+												<% end %>	
+											<% end %>	
 										</div>
+										
 										<div class="clearfix"></div>
 								</div>
 						</div>

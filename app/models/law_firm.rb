@@ -14,6 +14,17 @@ class LawFirm < ApplicationRecord
   has_many :history_submissions
   has_many :exception_requests
   has_many :conflict_waivers
+  has_many :law_firms_matter_types
+  has_many :matter_types, :through => :law_firms_matter_types
+  has_many :law_firms_sub_matter_types
+  has_many :sub_matter_types, :through => :law_firms_sub_matter_types
+  has_many :law_firms_jurisdiction_types
+  has_many :jurisdiction_types, :through => :law_firms_jurisdiction_types
+  has_many :law_firms_countries
+  has_many :countries, :through => :law_firms_countries
+  has_many :law_firms_states
+  has_many :states, :through => :law_firms_states
+  has_many :matter_intakes
 
   serialize :practice_area, Array
   serialize :type_of_matters_your_law_firm_handles_for_us, Array
@@ -24,6 +35,8 @@ class LawFirm < ApplicationRecord
   accepts_nested_attributes_for :locations, allow_destroy: true
   accepts_nested_attributes_for :jurisdictions, allow_destroy: true
   accepts_nested_attributes_for :users, allow_destroy: true
+
+  accepts_nested_attributes_for :law_firms_matter_types, allow_destroy: true
 
   #after_create :generate_a_new_user 
   # acts_as_messageable
@@ -43,7 +56,7 @@ class LawFirm < ApplicationRecord
   NUMBER_OF_LAWYERS = ["<10", "<100", "<1000", ">1000"]
   
   JURISDICTION_COUNTRIES = ["Canada","United States of America"].freeze
-
+  LAW_FRIM_STATUS = ['Activate', 'Deactivate']
   EMAIL_PREFIX = "@check.com"
   TIME_FORMAT = "%d %b %y, %I:%M %Z"
   DATE_FORMAT = "%d %b %y"
@@ -152,5 +165,13 @@ class LawFirm < ApplicationRecord
   end
   def self.onboarded
     LawFirm.where('id NOT IN (SELECT DISTINCT(law_firm_id) FROM form_submissions)')
+  end
+
+  def show_matter_types
+    if self.matter_types && self.matter_types.count > 0
+      self.matter_types.map(&:matter_type).join(",")
+    else
+      "No Matter Selected"
+    end
   end
 end

@@ -21,17 +21,31 @@ Rails.application.routes.draw do
     end
     resources :law_firms do 
       member do
+        
         get :begin_certification_process
         get :begin_recertification_process
       
       end
       collection do
+        post :get_sub_matter_types 
+        post :get_state
+        post :get_law_firm_list
         post :decertify
         post :add_internal_note
         post :remove_internal_note
         post :get_detail
         get :add_by_submission
         
+      end
+    end
+
+    resources :matter_intakes do 
+      member do 
+        get :review
+        get :lxp_review
+      end
+      collection do 
+        post :lxp_rejects
       end
     end
 
@@ -104,7 +118,9 @@ Rails.application.routes.draw do
     resources :exception_requests do
       get :download_pdf 
     end
-    resources :panel_requests 
+    resources :panel_requests do
+      get :download_pdf 
+    end
     resources :conflict_waivers
     resources :reviews
     get '/internal_dashboard/notifications', to: 'internal_dashboard#notifications'
@@ -141,17 +157,27 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :matter_intakes
+
     resources :activity_logs do
       collection do
         get :mark_as_read
       end
     end
-    resources :panel_requests
+    resources :panel_requests do
+      get :download_pdf 
+    end
     resources :exception_requests do
       collection do
+        get :engage_non_panel_firm 
+        post :get_sub_matter_types 
+        post :get_state
+        post :get_law_firm_list
         get :select_law_firm 
         get 'select_law_firm/:id' => 'exception_requests#select_law_firm'
         get ':law_firm_id/new' => 'exception_requests#new', :as => "exception_request_new"
+        get ':exception_request_id/new_engage_non_panel_firm' => 'exception_requests#new_engage_non_panel_firm', :as => "exception_request_new_engage"
+        get ':exception_request_id/update_engage_non_panel_firm' => 'exception_requests#update_engage_non_panel_firm', :as => "exception_request_update_engage"
         get ':law_firm_new/create' => 'exception_requests#law_firm_new', :as => "law_firm_new_create"
         post :law_firm_create
       end
