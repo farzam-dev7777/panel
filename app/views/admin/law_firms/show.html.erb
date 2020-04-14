@@ -39,8 +39,8 @@
 <% end %>
 
 <% if(!@law_firm.form_submissions.any?) %>
-
-	<% if @law_firm.user && @law_firm.user.is_deactivated? %>
+	<!-- <div class="col-lg-2 pull-right"> -->
+	<% if(@law_firm.user.try(:is_deactivated?)) %>
 		<a class="btn btn-sm btn-primary pull-right send-user-info-btn" data-id="<%= @law_firm.user.id %>">Send user information and create new password link </a>
 		<a class="btn btn-sm btn-secondary pull-right send-user-info-begin-certification-btn" data-id="<%= @law_firm.user.id %>">Send RFI Questionnaire with user active password link </a>
 		
@@ -171,7 +171,9 @@
 								<div class="col-md-8 data"><%= @law_firm.locations.map{|location| [location.city, location.province, location.country].reject(&:nil?).join(',') }.join("<br />").html_safe %></div>
 							</div>
 						</div>
-						<a class="btn btn-sm btn-primary pull-right send-user-info-btn" data-id="<%= @law_firm.user.id %>">Send new password link </a>
+						<% if @law_firm.user.try(:id)%>
+							<a class="btn btn-sm btn-primary pull-right send-user-info-btn" data-id="<%= @law_firm.user.id %>">Send new password link </a>
+						<% end %>
 						<div class="clearfix"></div>
 
 						<% if(@law_firm.form_submissions.try(:latest).try(:status) == 'approved') %>
@@ -228,7 +230,7 @@
 
 									<div class="cd-timeline-content">
 										<h2>
-											<strong class="<%= activity_source_class(activity) %>"><%= activity.custom_message || activity.event_type.titleize %></strong>
+											<strong class="<%= activity_source_class(activity) %>"><%= activity.custom_message || activity.event_type.try(:titleize) %></strong>
 										</h2>
 										<em>(<%= activity.source == 'AdminUser' ? 'Bank' : 'Law Firm' %>)</em>
 										<span class="cd-date"><%= activity.created_at.strftime('%d %b at %I:%M %p') %></span>

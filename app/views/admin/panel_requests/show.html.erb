@@ -71,7 +71,7 @@
 													</div>
 													<div class="col-md-12">
 														<div class="col-md-6 column">Email : </div>		
-														<div class="col-md-6 data firmEmail"><%= @panel_request.law_firm.user.email %></div>
+														<div class="col-md-6 data firmEmail"> <%= !@panel_request.law_firm.user.try(:email).blank? ? @panel_request.law_firm.user.try(:email) : '-' %></div>
 													</div>
 													<div class="col-md-12">
 														<div class="col-md-6 column">Phone : </div>		
@@ -127,7 +127,7 @@
 		
 														<% if(!@panel_request.law_firm.form_submissions.any?) %>
 															<!-- <div class="col-lg-2 pull-right"> -->
-																	<% if(@panel_request.law_firm.user.is_deactivated?) %>
+																	<% if(@panel_request.law_firm.user.try(:is_deactivated?)) %>
 																	<a class="btn btn-sm btn-primary pull-right send-user-info-btn" data-id="<%= @panel_request.law_firm.user.id %>">Send user information and create new password link </a>
 																	<a class="btn btn-sm btn-secondary pull-right send-user-info-begin-certification-btn" data-id="<%= @panel_request.law_firm.user.id %>">Send RFI Questionnaire with user active password link </a>
 																	
