@@ -82,7 +82,8 @@ Rails.application.configure do
 
   # config.action_mailer.default_url_options = { host: ENV['MAILJET_ACTIVE_DOMAIN'] }
   config.action_mailer.default_url_options = { host: "panel.grcx.io" }
-  
+  config.action_controller.default_url_options = { host: "panel.grcx.io" }
+
   if ENV["RAILS_LOG_TO_STDOUT"].present?
     logger           = ActiveSupport::Logger.new(STDOUT)
     logger.formatter = config.log_formatter
