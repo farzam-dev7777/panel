@@ -108,6 +108,9 @@ Rails.application.configure do
     :authentication => :cram_md5
   }
 
+  config.action_mailer.default_url_options = { host: "panel.grcx.io" }
+  config.action_controller.asset_host = "panel.grcx.io"
+
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 end
