@@ -7,7 +7,7 @@ class ConflictWaiverMailer < ApplicationMailer
 		@user = @conflict_waiver.try(:user)
 		@lxpusers = User.where(role: 'lxp')
 		@lxpusers.each do |lxpuser| 
-			mail(to: lxpuser.email, subject: "#{@conflict_waiver.name_of_law_firm} has been submitted.")
+			mail(to: lxpuser.email, subject: "#{@conflict_waiver.name_of_law_firm} has submitted a conflict waiver.")
 		end
 	end
 
@@ -47,13 +47,13 @@ class ConflictWaiverMailer < ApplicationMailer
 	def form_status_approved_notification_to_law_firm_by_lxp(conflict_waiver)
 		@conflict_waiver = conflict_waiver
 		@user = User.find_by_id(conflict_waiver.user_id)
-		mail(to: @user.email, subject: "#{conflict_waiver.name_of_law_firm}  status has been Appove .")
+		mail(to: @user.email, subject: "#{conflict_waiver.name_of_law_firm} status has been Approved.")
 	end
 
 	def form_status_notification_to_law_firm_by_lxp(conflict_waiver)
 		@conflict_waiver = conflict_waiver
 		@user = User.find_by_id(conflict_waiver.user_id)
-		mail(to: @user.email, subject: "#{conflict_waiver.name_of_law_firm}  status has been updatd.")
+		mail(to: @user.email, subject: "#{conflict_waiver.name_of_law_firm} status has been updated.")
 	end
 
 	def form_status_notification_to_lxp_by_internal_lawyers(conflict_waiver)
@@ -61,7 +61,7 @@ class ConflictWaiverMailer < ApplicationMailer
 		@user = User.find_by_id(conflict_waiver.user_id)
 		@lxpusers = User.where(role: 'lxp')
 		@lxpusers.each do |lxpuser| 
-			mail(to: lxpuser.email, subject: "#{conflict_waiver.name_of_law_firm} status has been updatd.")
+			mail(to: lxpuser.email, subject: "#{conflict_waiver.name_of_law_firm} status has been updated.")
 		end
 
 	end
@@ -71,7 +71,7 @@ class ConflictWaiverMailer < ApplicationMailer
 		@lawyer = User.find_by_id(conflict_waiver.assigned_to_id)
 		@lxpusers = User.where(role: 'lxp')
 		@lxpusers.each do |lxpuser| 
-			mail(to: lxpuser.email, subject: "Lawyer Requested For More Info")
+			mail(to: lxpuser.email, subject: "Lawyer requested more information")
 		end
 	end
 end

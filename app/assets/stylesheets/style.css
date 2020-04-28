@@ -1556,3 +1556,13 @@ textarea{
 .form-group label.error{
   color: #ff0000;
 }
+
+.checkbox, .radio {
+  text-align: left;
+}
+
+#project-context body.smart-style-6>:first-child, body.smart-style-6 #project-selector, body.smart-style-6 .header-dropdown-list>li>.dropdown-toggle, body.smart-style-6 .project-context>:first-child, body.smart-style-6 .project-selector {
+  color: #fff !important;
+  text-shadow: none;
+  text-align: right;
+}

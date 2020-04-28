@@ -116,10 +116,10 @@ class ExceptionRequest < ApplicationRecord
     args = {
       envelope_args: {
         template_id: Rails.application.secrets[:docusign]["retainer_template_id"],
-        signer_email: 'manish+lob@metawarelabs.com',
+        signer_email: 'manpreet+lob@metawarelabs.com',
         signer_name: "Manish - LOB",
-        lxp_email: 'manish+lxp@metawarelabs.com',#Rails.application.secrets[:lxp_contact]["email"],
-        lxp_name: "Manish - LXP" #Rails.application.secrets[:lxp_contact]["name"]
+        lxp_email: Rails.application.secrets[:lxp_contact]["email"],
+        lxp_name: Rails.application.secrets[:lxp_contact]["name"]
       },
       base_path: Rails.application.secrets[:docusign]["base_path"],
       account_id: Rails.application.secrets[:docusign]["account_id"],
