@@ -9,6 +9,8 @@ class Users::PasswordsController < Devise::PasswordsController
     if user
       user.password = params["user"]["password"]
       user.password_confirmation = params["user"]["password_confirmation"]
+      # this is done to bypass set new password page related to 2 Factor auth
+      user.new_password_set = true
       if user && user.save
         redirect_to :root, notice: "Password updated, please login"
       else

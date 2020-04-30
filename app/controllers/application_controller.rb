@@ -25,9 +25,9 @@ class ApplicationController < ActionController::Base
     if current_user
       return true
       #return true if request.original_url.include?('sign_out') || current_user.is_an_admin? 
-      unless session[:authorized]
-        redirect_to new_two_factor_authentication_url unless request.original_url.include? 'two_factor_authentication/new'
-      end
+      # unless session[:authorized]
+      #   redirect_to new_two_factor_authentication_url unless request.original_url.include? 'two_factor_authentication/new'
+      # end
     else
       false
     end
