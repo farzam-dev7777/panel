@@ -63,6 +63,8 @@
               <th>Requested By</th>
               <th>Line of Business</th>
               <th>Law Firm Name</th>
+              <th>LXP Status</th>
+              <th>Lawyer Status</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -74,6 +76,8 @@
                   <td><%= exception_request.requested_by %></td>
                   <td><%= exception_request.line_of_business %></td>
                   <td><%= exception_request.law_firm.try(:name) %></td>
+                  <td><%= exception_request.lxp_status %></td>
+                  <td><%= exception_request.internal_lawyers_status %></td>
                   <td>
                     <% if current_user.role == 'lob' &&  exception_request.try(:lxp_status) != 'APPROVED' %>
                       <%= link_to "Edit", edit_admin_exception_request_path(exception_request), class: "btn btn-xs btn-primary" %>
