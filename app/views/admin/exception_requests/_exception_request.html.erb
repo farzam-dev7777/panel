@@ -44,27 +44,27 @@
                 <div class="col-md-12 ">
                   <div class="col-md-12">
                     <div class="col-md-6 column">Law Firm Category : </div>
-                    <div class="col-md-6 data firmName"><%= @exception_request.law_firm.law_firm_category %></div>
+                    <div class="col-md-6 data firmName"><%= @exception_request.law_firm.try(:law_firm_category) %></div>
                   </div>
                   <div class="col-md-12">
                     <div class="col-md-6 column">Name : </div>
-                    <div class="col-md-6 data firmName"><%= @exception_request.law_firm.name %></div>
+                    <div class="col-md-6 data firmName"><%= @exception_request.law_firm.try(:name) %></div>
                   </div>
                   <div class="col-md-12">
                     <div class="col-md-6 column">Email : </div>		
-                    <div class="col-md-6 data firmEmail"><%= @exception_request.law_firm.email %></div>
+                    <div class="col-md-6 data firmEmail"><%= @exception_request.law_firm.try(:email) %></div>
                   </div>
                   <div class="col-md-12">
                     <div class="col-md-6 column">Phone : </div>		
-                    <div class="col-md-6 data firmPhone"><%= @exception_request.law_firm.phone %></div>
+                    <div class="col-md-6 data firmPhone"><%= @exception_request.law_firm.try(:phone) %></div>
                   </div>
                   <div class="col-md-12">
                     <div class="col-md-6 column">Would You use this firm on a regular basis? : </div>		
-                    <div class="col-md-6 data firmPhone"><%= @exception_request.law_firm.relationship_manager_name ? "Yes" : "No" %></div>
+                    <div class="col-md-6 data firmPhone"><%= @exception_request.law_firm.try(:relationship_manager_name) ? "Yes" : "No" %></div>
                   </div>
                   <div class="col-md-12">
                     <div class="col-md-6 column">Would You use this firm on a regular basis? :	</div>		
-                    <div class="col-md-6 data firmPhone"><%= @exception_request.law_firm.show_matter_types %></div>
+                    <div class="col-md-6 data firmPhone"><%= @exception_request.law_firm.try(:show_matter_types) %></div>
                   </div>
                   
                 </div>

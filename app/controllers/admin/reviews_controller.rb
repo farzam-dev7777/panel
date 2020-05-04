@@ -57,7 +57,11 @@ class Admin::ReviewsController < Admin::BaseController
             user_name =  @user.username
 
             @panel_request.send_retainer_for_esigning(lob_email, lob_name, user_email, user_name)
-            PanelRequestMailer.notification_for_retainer_to_lob(@panel_request).deliver_now
+            if review_params[:status] == 'PANEL_RETAINER'
+              PanelRequestMailer.notification_for_retainer_to_law_firm(@panel_request).deliver_now
+            else
+              PanelRequestMailer.notification_for_retainer_to_lob(@panel_request).deliver_now
+            end
             PanelRequestMailer.notification_for_retainer_to_user(@panel_request).deliver_now
           elsif current_user.role === 'lxp' &&  review_params[:status] == 'REJECTED'
             PanelRequestMailer.notification_for_rejected_to_user(@panel_request).deliver_now

@@ -34,6 +34,12 @@ class PanelRequestMailer < ApplicationMailer
 		@user = User.find_by_id(@panel_request.user_id)
 		mail(to: @user.email, subject: "Your Panel Request status has been updated.")
 	end
+	def notification_for_retainer_to_law_firm(panel_request)
+		@panel_request = panel_request
+		@user = User.find_by_id(@panel_request.user_id)
+		@law_firm = @panel_request.law_firm
+		mail(to: @law_firm.email, subject: "Your Panel Request status has been updated.")
+	end
 	def notification_for_retainer_to_user(panel_request)
 		@panel_request = panel_request
 		@user = @panel_request.law_firm.user
