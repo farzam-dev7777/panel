@@ -59,11 +59,11 @@
             </tr>
             <tr class="country_type">
               <td class="text-right" width="20%"><strong>Select Country</strong></td>
-               <td><%= field.input :country_ids, label: false, collection: Country.all.map{|mt| [mt.name, mt.id] }, input_html: { multiple: true }  %> </td>
+               <td><%= field.input :country_ids, label: false, collection: Country.all.map{|mt| [mt.name, mt.id] }, input_html: { multiple: false }  %> </td>
             </tr>
             <tr class="state_type_box" style="display:none">
               <td class="text-right" width="20%"><strong>Select State/Province</strong></td>
-               <td class="state_type"><%= field.input :state_ids, label: false, collection: State.all.map{|mt| [mt.name, mt.id] }, input_html: { multiple: true }   %> </td>
+               <td class="state_type"><%= field.input :state_ids, label: false, collection: State.all.map{|mt| [mt.name, mt.id] }, input_html: { multiple: false }   %> </td>
             </tr>
             <!-- <tr>
               <td class="text-right" width="20%"><strong>Temp. Password</strong></td>
