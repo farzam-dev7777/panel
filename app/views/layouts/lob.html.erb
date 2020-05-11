@@ -15,7 +15,7 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" integrity="sha256-iXUYfkbVl5itd4bAkFH5mjMEN5ld9t3OHvXX3IU8UxU=" crossorigin="anonymous" />
   </head>
 
-  <body class="smart-style-6">
+  <body class="">
   <!-- #HEADER -->
 	<header id="header" class="sp-navbar">
 		<div id="logo-group">
@@ -34,9 +34,9 @@
 		</div>
 		<div class="project-context user-info">
 			<span class="project-selector dropdown-toggle" data-toggle="dropdown">
-				<%= image_tag "user-image.jpg", alt:"User", class:"user-image" %> 
+				<%= image_tag "https://ui-avatars.com/api/?name=John+Doe&background=0051CA&color=fff", alt:"User", class:"user-image" %> 
 				<span class="drop-down-icon">
-					<%= image_tag "drop-down-icon.svg", alt:"User" %>
+					<%= image_tag "drop-down-icon.svg", alt:"Drop menu" %>
 				</span>
 			</span>
 			<ul class="dropdown-menu">
@@ -50,24 +50,29 @@
 	<!-- END HEADER -->
 	<div class="sp-main-page">
 		<div class="left-side">
-			<nav class="sp-sidebar">
-				<ul>
-					<li class="<%= active_menu_item('/lob') %>">
-						<a href="/lob" title="blank_"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Dashboard</span></a>
-					</li>
-					<% if current_user && current_user.role == 'lob'  %>
-						<li class="<%= active_menu_item('/lob/exception_requests') %>">
-							<a href="/lob/exception_requests" title="blank_"><i class="fa fa-lg fa-fw fa-exclamation"></i> <span class="menu-item-parent">Engage Non Panel Firm</span></a>
+			<div class="sticky-left-side">
+				<nav class="sp-sidebar">
+					<ul>
+						<li class="<%= active_menu_item('/lob') %>">
+							<a href="/lob" title="blank_"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Dashboard</span></a>
 						</li>
-						<li class="<%= active_menu_item('/lob/panel_requests') %>">
-							<a href="/lob/panel_requests" title="blank_"><i class="fa fa-lg fa-fw fa-check"></i> <span class="menu-item-parent">Panel Request Form</span></a>
-						</li>
-						<li>
-							<a href="/lob/matter_intakes"><i class="fa fa-lg fa-fw fa-briefcase"></i> Matter Intakes</a>
-						</li>
-					<% end %>
-				</ul>
-			</nav>
+						<% if current_user && current_user.role == 'lob'  %>
+							<li class="<%= active_menu_item('/lob/exception_requests') %>">
+								<a href="/lob/exception_requests" title="blank_"><i class="fa fa-lg fa-fw fa-exclamation"></i> <span class="menu-item-parent">Engage Non Panel Firm</span></a>
+							</li>
+							<li class="<%= active_menu_item('/lob/panel_requests') %>">
+								<a href="/lob/panel_requests" title="blank_"><i class="fa fa-lg fa-fw fa-check"></i> <span class="menu-item-parent">Panel Request Form</span></a>
+							</li>
+							<li>
+								<a href="/lob/matter_intakes"><i class="fa fa-lg fa-fw fa-briefcase"></i> Matter Intakes</a>
+							</li>
+						<% end %>
+					</ul>
+				</nav>
+				<div class="bmo-logo">
+					<%= image_tag "BMO-logo-footer.svg", alt:"BMO Logo" %>
+				</div>
+			</div>
 		</div>
 		<div class="right-side">
 			<div class="container" style="display:none;">

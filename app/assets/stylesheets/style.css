@@ -1268,19 +1268,19 @@ li.create-option.highlighted a {
 }
 
 .form-submit-btn {
-  padding: 5px 20px !important;
+  /* padding: 5px 20px !important;
   background: #007ac3 !important;
   color: #fff !important;
   border: none !important;
   font-weight: bold !important;
   font-size: 12px !important;
-  text-transform: uppercase !important;
+  text-transform: uppercase !important; */
 }
 
 .form-submit-btn:hover {
-  background: #f9f9f9;
+  /* background: #f9f9f9;
   color: #007ac3;
-  border: 1px solid #007ac3;
+  border: 1px solid #007ac3; */
 }
 
 .tab-next-btn {
@@ -1494,10 +1494,10 @@ textarea{
   padding-left: 17px;
 }
 .simple_form a.btn-sm,.simple_form .form-submit-btn {
-  font-size: 12px;
+  /* font-size: 12px;
   font-weight: bold;
   padding: 5px 20px !important;
-  border-radius: 0;
+  border-radius: 0; */
 }
 .simple_form table {
   background: #fff;
@@ -1506,11 +1506,11 @@ textarea{
   background-color: #fff;
 }
 .form-submit-btn {
-  font-size: 12px;
+  /* font-size: 12px;
   font-weight: bold;
   padding: 7px 20px !important;
   border-radius: 0;
-  height: 28px;
+  height: 28px; */
 }
 .back-btn .waves-effect.btn{
   margin-left: 0 !important;
