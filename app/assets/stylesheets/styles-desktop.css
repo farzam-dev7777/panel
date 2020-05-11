@@ -92,7 +92,7 @@ body{
   background-color: #FFFFFF;
   border-right: 1px solid #D7DFE9 !important;
   /* min-height: 100vh; */
-  min-height: calc(100vh - 72px);
+  min-height: calc(100vh - 0px);
 }
 .sticky-left-side{
   position: sticky;
