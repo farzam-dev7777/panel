@@ -57,7 +57,7 @@
 <div class="col-lg-12 col-md-12 col-sm-12">
 	<div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
 		<div class="page-header-sp">
-			<div class="page-title">Panel Requests</div>
+			<div class="page-title">Engage Non Panel Firms</div>
 			<div></div>
   	</div>		
 		<div class="no-padding">
@@ -89,12 +89,12 @@
 										<div class="action-fields">
 											<% if current_user.role == 'lob' &&  exception_request.try(:lxp_status) != 'APPROVED' %>
 												<!--<%= link_to "Edit", edit_lob_exception_request_path(exception_request), class: "btn btn-xs btn-primary" %>-->
-												<a class="action-btn" href="/lob/exception_requests/1/edit">
+												<a class="action-btn" href="/lob/exception_requests/#{exception_request.id}/edit">
 													<%= image_tag "edit-icon.svg", alt:"Edit" %>
 												</a>
 											<% end %> 
 											<!--<%= link_to "Review", lob_exception_request_path(exception_request), class: "btn btn-xs btn-secondary" %>-->
-											<a class="action-btn" href="/lob/exception_requests/1">
+											<a class="action-btn" href="/lob/exception_requests/#{exception_request.id}">
 												<%= image_tag "view-icon.svg", alt:"View" %>
 											</a>
 										</div>
@@ -110,11 +110,11 @@
 	</div>
 </div>
 
-<!-- Active Law Firms -->
+<!-- Panel Requests -->
 <div class="col-lg-12 col-md-12 col-sm-12">
 	<div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
 		<div class="page-header-sp">
-			<div class="page-title">Active Law Firms</div>
+			<div class="page-title">Panel Requests</div>
 			<div></div>
   	</div>			
 		<div class="no-padding">
@@ -125,67 +125,36 @@
 					<table id="" class="table table-decoration table-bordered" width="100%">
 						<thead>
 							<tr>
-								<th>Firm Name</th>
+								<th>Requested By</th>
+								<th>Law Firm Name</th>
 								<th>Status</th>
-								<th>Last Updated</th>
-								<th>Score</th>
+								<th>LXP Status</th>
+								<th>Action</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>
-									<div class="firm-name">
-										<div class="name-avatar"><img src="https://ui-avatars.com/api/?name=Citadel+Legal&background=0051CA&color=fff&rounded=falus"></div>
-										<div>Citadel Legal Inc.</>
-									</div>
-								</td>
-								<td>
-									<div class="status">Approved</div>
-								</td>
-								<td>
-									<div class="date-time">18 April, 2020, 3:27 EST</div>
-								</td>
-								<td>
-									<div class="star-rating"><!-- score-rating -->
-										<div>4.5</div>
-										<div class="score">
-											<span><%= image_tag "full-star.svg", alt:"score" %></span>
-											<span><%= image_tag "full-star.svg", alt:"score" %></span>
-											<span><%= image_tag "full-star.svg", alt:"score" %></span>
-											<span><%= image_tag "full-star.svg", alt:"score" %></span>
-											<span><%= image_tag "blank-star.svg", alt:"score" %></span>
+							<% @panel_requests.each do |panel_request| %>
+							<% if panel_request.law_firm_id.present? && panel_request.requested_by != nil  %>
+								<tr class="" data-id="<%= panel_request.id %>">
+									<td><%= panel_request.requested_by %></td>
+									<td><%= panel_request&.law_firm&.name %></td>
+									<td><%= panel_request.status %></td>
+									<td><%= panel_request.lxp_status %></td>
+									<td>
+										<div class="action-fields">
+											<% if current_user.role == 'lob' &&  panel_request.try(:lxp_status) != 'APPROVED' %>
+												<a class="action-btn" href="/lob/panel_requests/#{panel_request.id}/edit">
+													<%= image_tag "edit-icon.svg", alt:"Edit" %>
+												</a>
+											<% end %> 
+											<a class="action-btn" href="/lob/panel_requests/#{panel_request.id}">
+												<%= image_tag "view-icon.svg", alt:"View" %>
+											</a>
 										</div>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<div class="firm-name">
-										<div class="name-avatar">
-											<img src="https://ui-avatars.com/api/?name=Citadel+Legal&background=0051CA&color=fff&rounded=falus">
-										</div>
-										<div>Citadel Legal Inc.</>
-									</div>
-								</td>
-								<td>
-									<div class="status">Approved</div>
-								</td>
-								<td>
-									<div class="date-time">18 April, 2020, 3:27 EST</div>
-								</td>
-								<td>
-									<div class="star-rating"><!-- score-rating -->
-										<div>4.5</div>
-										<div class="score">
-											<span><%= image_tag "full-star.svg", alt:"score" %></span>
-											<span><%= image_tag "full-star.svg", alt:"score" %></span>
-											<span><%= image_tag "full-star.svg", alt:"score" %></span>
-											<span><%= image_tag "full-star.svg", alt:"score" %></span>
-											<span><%= image_tag "blank-star.svg", alt:"score" %></span>
-										</div>
-									</div>
-								</td>
-							</tr>
+									</td>
+								</tr>
+								<% end %>
+							<% end %>
 						</tbody>
 					</table>
 				</div>
@@ -193,4 +162,4 @@
 		</div>
 	</div>
 </div>
-<!-- Active Law Firms END -->
+<!-- Panel Requests END -->
