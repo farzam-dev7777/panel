@@ -143,11 +143,11 @@
 									<td>
 										<div class="action-fields">
 											<% if current_user.role == 'lob' &&  panel_request.try(:lxp_status) != 'APPROVED' %>
-												<a class="action-btn" href="/lob/panel_requests/#{panel_request.id}/edit">
+												<a class="action-btn" href="/lob/panel_requests/<%= panel_request.id %>/edit">
 													<%= image_tag "edit-icon.svg", alt:"Edit" %>
 												</a>
 											<% end %> 
-											<a class="action-btn" href="/lob/panel_requests/#{panel_request.id}">
+											<a class="action-btn" href="/lob/panel_requests/<% panel_request.id %>">
 												<%= image_tag "view-icon.svg", alt:"View" %>
 											</a>
 										</div>
@@ -180,40 +180,52 @@
 						<thead>
 							<tr>
 								<th>Submitter Name</th>
+								<th>LOB Contact Name</th>
 								<th>Type of Matter</th>
-								<th>Status</th>
+								<th>Law Firm Suggested</th>
 								<th>BMO lawyer name</th>
+								<th>Budget amount</th>
+								<th>Status</th>
 								<th>Action</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>
-									<div class="firm-name">
-										<div class="name-avatar"><img src="https://ui-avatars.com/api/?name=Citadel+Legal&background=0051CA&color=fff&rounded=falus"></div>
-										<div>Citadel Legal Inc.</div>
-									</div>
-								</td>
-								<td>
-									Corporate Governance / Gouvernance d'entreprise
-								</td>
-								<td>
-									<div class="status red">Waiting For Lawyer Review</div>
-								</td>
-								<td>
-									Demo lawyer
-								</td>
-								<td>
-									<div class="action-fields">
-										<a class="action-btn" href="">
-											<%= image_tag "edit-icon.svg", alt:"Edit" %>
-										</a>
-										<a class="action-btn" href="#">
-											<%= image_tag "view-icon.svg", alt:"View" %>
-										</a>
-									</div>
-								</td>
-							</tr>
+							<% @matter_intakes.each do |matter_intake| %>
+								<tr data-id="<%= matter_intake.id %>">
+									<td>
+										<div class="firm-name">
+											<div class="name-avatar"><img src="https://ui-avatars.com/api/?name=<%=matter_intake&.submitter_name&.gsub(" ", "+")%>&background=0051CA&color=fff&rounded=falus"></div>
+											<div><%= matter_intake&.submitter_name %></div>
+										</div>
+									</td>
+									<td><%= matter_intake.lob_contact_name %></td>
+									<td>
+										<%= matter_intake&.matter_type&.matter_type %>
+									</td>
+									<td><%= matter_intake&.law_firm&.name %></td>
+									<td>
+										<%= matter_intake&.bmo_lawyer_name %>
+									</td>
+									<td><%= matter_intake.budget_amount %></td>
+									<td>
+										<span class="<%= matter_intake&.status === "matter_open" ? 'label label-success' : 'label label-default' %>"> 
+											<%= matter_intake.try(:status).try(:titleize) %>
+										</span>
+									</td>
+									<td>
+										<div class="action-fields">
+											<% if matter_intake.status === "waiting_for_lawyer_review" %>
+												<a class="action-btn" href="/lob/matter_intakes/<%= matter_intake.id %>/edit">
+													<%= image_tag "edit-icon.svg", alt:"Edit" %>
+												</a>
+											<% end %>
+											<a class="action-btn" href="/lob/matter_intakes/<%= matter_intake.id %>">
+												<%= image_tag "view-icon.svg", alt:"View" %>
+											</a>
+										</div>
+									</td>
+								</tr>
+							<% end %>
 						</tbody>
 					</table>
 				</div>
