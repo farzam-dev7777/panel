@@ -308,15 +308,20 @@ nav ul li a:active {
   border-radius: 150px;
 }
 .table-decoration tbody tr td .status{
-  background-color: #FF0B37;
   font-weight: 500;
   color: #FFFFFF;
   display: inline-block;
   font-size: 12px;
-  padding: 2px 4px;
+  padding: 3px 6px;
   border-radius: 50px;
   min-width: 75px;
   text-align: center;
+}
+.table-decoration tbody tr td .status.red{
+  background-color: #FF0B37 !important;
+}
+.table-decoration tbody tr td .status.green{
+  background-color: #2DCA73 !important;
 }
 .table-decoration tbody tr td .date-time{
   color: #7E858E;
@@ -658,6 +663,6 @@ nav ul li a:active {
 }
 /* Tab UI design */
 .sp-tab-block{
-  
+
 }
 /* Tab UI design END */
