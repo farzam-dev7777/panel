@@ -1,5 +1,6 @@
+
 <div id="tabs-exception" class="tabs">
-  <ul>
+  <ul class="sp-tabs-nav">
     <li>
       <a href="#tabs-reason">Confirm the reason</a>
     </li>
@@ -10,6 +11,7 @@
       <a href="#tabs-provide">Provide Details </a>
     </li>
   </ul>
+  <div class="sp-form sp-form-bg">
   <%= simple_form_for [:lob, @exception_request] do |f| %>
     <div id="tabs-reason">
       <div class="row">
@@ -23,7 +25,7 @@
                   </tr>
                   <tr>
                     <td colspan="2">
-                      <a class="tab-next-btn next-btn-exception" data-tab="tabs-payer">Next</a>  
+                      <a class="btn-type-primary tab-next-btn next-btn-exception" data-tab="tabs-payer">Next</a>  
                     </td>
                   </tr>
                 </tbody>
@@ -204,5 +206,8 @@
         </div>
       </div>
     </div>
-    <% end %>  
+  <% end %> 
+  </div>
 </div>
+
+
