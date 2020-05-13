@@ -29,6 +29,13 @@
   }
   .page-header-sp{
     width: 100% !important;
+    flex-direction: column;
+    align-items: baseline;
+  }
+  .page-header-btn{
+    font-size: 14px;
+    margin-top: 15px;
+    display: inline-flex;
   }
   .top-status-card{
     flex-direction: column;
@@ -48,11 +55,11 @@
   #dashboard_menu {
     display: none;
     position: fixed;
-    z-index: 999;
+    z-index: 99;
     width: 100%;
     background-color: rgb(255, 255, 255);
     padding-top: 25px;
-    top: 119px;
+    top: 118px;
     border-top: 1px solid #ccc;
     -webkit-box-shadow: 0px 13px 14px -6px rgba(0,0,0,0.2);
     -moz-box-shadow: 0px 13px 14px -6px rgba(0,0,0,0.2);
@@ -65,7 +72,7 @@
     background-color: #fff;
     display: flex;
     justify-content: space-between;
-    padding: 8px;
+    padding: 8px 12px;
     align-items: center;
   }
   .dashboard-title{
