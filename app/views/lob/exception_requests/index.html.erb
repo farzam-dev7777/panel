@@ -84,12 +84,12 @@
                 <td>
                   <div class="action-fields">
                   <% if current_user.role == 'lob' &&  exception_request.try(:lxp_status) != 'APPROVED' %>
-                    <a class="action-btn" href="/lob/exception_requests/4/update_engage_non_panel_firm">
+                    <a class="action-btn" href="/lob/exception_requests/<%= exception_request.id %>/update_engage_non_panel_firm">
                       <%= image_tag "edit-icon.svg", alt:"Edit" %>
                     </a>
                     <!--<%= link_to "Edit", exception_request_update_engage_lob_exception_requests_path(exception_request), class: "btn btn-xs btn-primary" %>-->
                   <% end %> 
-                  <a class="action-btn" href="/lob/exception_requests/4">
+                  <a class="action-btn" href="/lob/exception_requests/<%= exception_request.id %>">
                      <%= image_tag "view-icon.svg", alt:"View" %>
                   </a>
                   <!--<%= link_to "Review", lob_exception_request_path(exception_request), class: "btn btn-xs btn-secondary" %>-->

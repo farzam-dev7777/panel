@@ -252,7 +252,7 @@ nav ul li a:active {
   border-radius: 4px;
   padding: 10px 15px;
 }
-.page-header-btn:hover{
+.page-header-btn:hover, .page-header-btn:focus{
   color: #FFFFFF;
 }
 .table-decoration{

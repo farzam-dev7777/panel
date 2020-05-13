@@ -89,11 +89,11 @@
               <td>
                 <div class="action-fields">
                   <!--<%= link_to "Edit", edit_lob_panel_request_path(panel_request), class: "action-btn" %>-->	
-                  <a class="action-btn" href="/lob/panel_requests/1/edit">
+                  <a class="action-btn" href="/lob/panel_requests/<%= panel_request.id %>/edit">
                     <%= image_tag "edit-icon.svg", alt:"Edit" %>
                   </a>
                   <!--<%= link_to "view", lob_panel_request_path(panel_request), class: "action-btn" %>-->
-                  <a class="action-btn" href="/lob/panel_requests/1">
+                  <a class="action-btn" href="/lob/panel_requests/<%= panel_request.id %>">
                     <%= image_tag "view-icon.svg", alt:"View" %>
                   </a>
                 </div>
