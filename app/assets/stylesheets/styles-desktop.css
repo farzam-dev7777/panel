@@ -466,14 +466,15 @@ nav ul li a:active {
   height: auto !important;
 }
 .btn-type-default{
-  border: 1px solid #7E858E;
-  border-radius: 4px;
-  padding: 10px 15px;
-  font-weight: normal;
-  color: #7E858E;
-  font-size: 14px;
-  line-height: 21px;
-  display: inline-flex;
+  border: 1px solid #7E858E !important;
+  border-radius: 4px !important;
+  padding: 10px 15px !important;
+  font-weight: normal !important;
+  color: #7E858E !important;
+  font-size: 14px !important;
+  line-height: 21px !important;
+  display: inline-flex !important;
+  background-color: transparent !important;
 }
 .back-edit-actions{
   display: flex;
@@ -672,21 +673,69 @@ nav ul li a:active {
 }
 .sp-tab-block .ui-widget-content .ui-tabs-nav{
   margin-bottom: 30px;
+  padding: 0px !important;
 }
 .sp-tab-block .ui-widget-content .ui-tabs-nav .sp-tabs-nav{
   margin-bottom: 30px;
 }
-.sp-tab-block .ui-widget-content .ui-tabs-nav .sp-tabs-nav .ui-state-default .ui-tabs-anchor{
-  /* box-shadow: 0px 2px 0px 0 #0B69FF !important; */
-  border: 0px solid #f5f5f5 !important;
-  border-bottom: 1px solid #ddd !important;
-  background-color: transparent !important;
+.ui-widget-content{
+  background: unset !important;
 }
 .ui-tabs .ui-tabs-nav li a{
   border-radius: 0;
-  background-color: transparent !important;
+  background-color: #FBFBFB !important;
   border: 0px solid #F5F5F5 !important;
-  border-bottom: 0px solid #ddd !important;
   color: rgba(126, 133, 142, 0.6);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  text-transform: uppercase;
+  padding: 8px !important;
+}
+.ui-tabs .ui-tabs-nav li.ui-tabs-active a{
+  box-shadow: 0px 2px 0 #0B69FF !important;
+  color: #171F46 !important;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  margin: 0px !important;
+}
+.sp-form .sp-checkbox-inline .form-group .checkbox+.checkbox, .radio+.radio {
+  margin-top: 10px;
+}
+.sp-form .sp-checkbox-inline .form-group{
+  display: flex;
+  font-weight: 500;
+  font-size: 14px;
+  color: #171F46;
+}
+.sp-form .sp-checkbox-inline .form-group .checkbox label{
+  font-weight: 500;
+  font-size: 14px;
+  color: #171F46;
+  margin-right: 20px;
+}
+.sp-form .sp-checkbox-inline .form-group .radio label{
+  font-weight: 500;
+  font-size: 14px;
+  color: #171F46;
+  margin-right: 20px;
+}
+.sp-form .np-btn{
+  margin-top: 25px;
+  display: flex;
+}
+.sp-form .np-btn a{
+  margin-right: 15px;
+}
+.sp-form .np-btn a:last-child{
+  margin-right: 0px;
+}
+.ui-tabs .ui-tabs-panel{
+  padding: 0px !important;
 }
 /* Tab UI design END */
+.form-field-alignment{
+  display: flex;
+  align-items: flex-end;
+}
