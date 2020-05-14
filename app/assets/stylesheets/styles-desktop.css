@@ -64,6 +64,7 @@ body{
   margin-top: 13px; */
   margin-top: 13px !important;
   left: -75px;
+  padding: 0px;
 }
 .user-info{
   padding: 0px 15px 0px 0px;
@@ -81,6 +82,9 @@ body{
 .user-info .dropdown-menu > li > a{
   padding: 10px 15px;
   font-size: 14px;
+}
+.user-info .dropdown-menu > li > a:hover{
+  background-color: #0052ca;
 }
 /* Top navbar END */
 /* Main page layout */
@@ -457,7 +461,7 @@ nav ul li a:active {
   border-radius: 2px !important;
   margin-bottom: 15px;
   margin-top: 10px !important;
-  padding: 0px 10px;
+  padding: 0px 10px !important;
   box-sizing: border-box;
   height: 38px;
 }
