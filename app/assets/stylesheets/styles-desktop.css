@@ -307,7 +307,11 @@ nav ul li a:active {
   width: 35px;
   border-radius: 150px;
 }
-.table-decoration tbody tr td .status{
+/* .table-decoration tbody tr td .status{
+  
+} */
+.table-decoration tbody tr td .status.red{
+  background-color: #FF0B37 !important;
   font-weight: 500;
   color: #FFFFFF;
   display: inline-block;
@@ -317,11 +321,38 @@ nav ul li a:active {
   min-width: 75px;
   text-align: center;
 }
-.table-decoration tbody tr td .status.red{
-  background-color: #FF0B37 !important;
-}
 .table-decoration tbody tr td .status.green{
   background-color: #2DCA73 !important;
+  font-weight: 500;
+  color: #FFFFFF;
+  display: inline-block;
+  font-size: 12px;
+  padding: 3px 6px;
+  border-radius: 50px;
+  min-width: 75px;
+  text-align: center;
+}
+.table-decoration tbody tr td .status .label-success{
+  background-color: #2DCA73 !important;
+  font-weight: 500;
+  color: #FFFFFF;
+  display: inline-block;
+  font-size: 12px;
+  padding: 3px 6px;
+  border-radius: 50px;
+  min-width: 75px;
+  text-align: center;
+}
+.table-decoration tbody tr td .status .label-default{
+  background-color: #FF0B37 !important;
+  font-weight: 500;
+  color: #FFFFFF;
+  display: inline-block;
+  font-size: 12px;
+  padding: 3px 6px;
+  border-radius: 50px;
+  min-width: 75px;
+  text-align: center;
 }
 .table-decoration tbody tr td .date-time{
   color: #7E858E;

@@ -220,9 +220,11 @@
 									</td>
 									<td><%= matter_intake.budget_amount %></td>
 									<td>
-										<span class="<%= matter_intake&.status === "matter_open" ? 'label label-success' : 'label label-default' %>"> 
-											<%= matter_intake.try(:status).try(:titleize) %>
-										</span>
+										<div class="status">
+											<span class="<%= matter_intake&.status === "matter_open" ? 'label label-success' : 'label label-default' %>"> 
+												<%= matter_intake.try(:status).try(:titleize) %>
+											</span>
+										</div>
 									</td>
 									<td>
 										<div class="action-fields">

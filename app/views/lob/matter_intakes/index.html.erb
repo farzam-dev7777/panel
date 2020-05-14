@@ -55,9 +55,11 @@
                 <td><%= matter_intake.bmo_lawyer_name %></td>
                 <td><%= matter_intake.budget_amount %></td>
                 <td>
+                  <div class="status">
                   <span class="<%= matter_intake.status === "matter_open" ? 'label label-success' : 'label label-default' %>"> 
                     <%= matter_intake.status.try(:titleize) %>
                   </span>
+                  </div>
                 </td>
                 <td>
                   <div class="action-fields">
