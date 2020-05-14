@@ -13,27 +13,31 @@
 		<![endif]-->
 		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" integrity="sha256-iXUYfkbVl5itd4bAkFH5mjMEN5ld9t3OHvXX3IU8UxU=" crossorigin="anonymous" />
-  </head>
+		<!-- Mobile main menu Start -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script> 
+		$(document).ready(function(){
+			$("#menu_toggle").click(function(){
+				$("#dashboard_menu").slideToggle("");
+			});
+		});
+		</script>
+		<!-- Mobile main menu Start End -->
+	</head>
 
-  <body class="smart-style-6">
+  <body class="">
 	
 	
   <!-- #HEADER -->
-	<header id="header">
+	<header id="header" class="sp-navbar">
 		<div id="logo-group">
 
 			<!-- PLACE YOUR LOGO HERE -->
-			<span id="logo"> <a href="/admin"><%= image_tag "panel-white.png", alt:"PANEL" %></a> </span>
+			<span id="logo"> <a href="/admin"><%= image_tag "seal-logo.png", alt:"PANEL" %></a> </span>
 			<!-- END LOGO PLACEHOLDER -->
-
-			<!-- Note: The activity badge color changes when clicked and resets the number to 0
-				 Suggestion: You may want to set a flag when this happens to tick off all checked messages / notifications -->
-
-			<!-- AJAX-DROPDOWN : control this dropdown height, look and feel from the LESS variable file -->
-			<!-- END AJAX-DROPDOWN -->
 		</div>
 
-		<div class="col-md-6 col-md-offset-1 text-center portal-type">
+		<div class="text-center portal-type">
 			<p>
 				<% if current_user.role == "lxp" %>
 					LXP Dashboard
@@ -47,9 +51,10 @@
 			</p>
 		</div>
 
-		<!-- logout button -->
+		<!-- logout button 
+		
 			<div id="logout" class="btn-header transparent pull-right">
-				<span> <a href="/users/sign_out" title="Sign Out" data-action="userLogout" data-logout-msg="You can improve your security further after logging out by closing this opened browser"><i class="fa fa-sign-out"></i></a> </span>
+				<span> <a href="/users/sign_out" title="Sign Out" data-action="userLogout" data-logout-msg="You can improve your security further after logging out by closing this opened browser">Logout</a> </span>
 			</div>
 			<% if current_user.role == "superadmin" %>
 				<div id="profile" class="btn-header transparent pull-right">
@@ -59,219 +64,137 @@
 				<div id="profile" class="btn-header transparent pull-right">
 					<span> <a href="/admin/users/edit_profile/<%= current_user.id %>" title="Edit Profile" data-action="userLogout" ><i class="fa fa-user"></i></a> </span>
 				</div>
-			<% end %>	
+			<% end %>	-->
 			<!-- end logout button -->
-			<!--<div class="project-context form_dropdown pull-right">
-
-				<span class="label">Form</span>
-				<span class="project-selector dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-angle-down"></i></span>
-	
-			 
-				 <ul class="dropdown-menu">
-					<% if current_user && current_user.role == 'lob' %>
-						<li>
-							<a href="/admin/exception_requests/new"><i class="fa fa-list"></i> Add New Exception Requests</a>
-						</li>
-					<% end %>
-				  <li>
-						<a href="/admin/conflict_waivers/new"><i class="fa fa-list"></i> Conflict Waiver</a>
-					</li>  
-					<% if current_user && current_user.role == 'lxp' %>
-						<li>
-							<a href="/admin/panel_requests/new"><i class="fa fa-list"></i> Panel Request Form</a>
-						</li>
-					<% end %>
-				</ul> 
-			 
-	
-			</div>-->
-		<!-- <div class="onboard-btn white-text pull-right">
-			<%= link_to new_admin_law_firm_path, class: "white-text pull-right" do %>
-				<i class="fa fa-arrow-circle-up" aria-hidden="true"></i> Onboard
-			<% end %>
-		</div> -->
-	
-
-		
-		<!-- #TOGGLE LAYOUT BUTTONS -->
-		<!-- pulled right: nav area -->
-		<div class="pull-right">
-			
-			<!-- #MOBILE -->
-			<!-- Top menu profile link : this shows only when top menu is active -->
-			<ul id="mobile-profile-img" class="header-dropdown-list hidden-xs padding-5">
-				<li class="">
-					<a href="#" class="dropdown-toggle no-margin userdropdown" data-toggle="dropdown"> 
-						<!-- <img src="/assets/avatars/sunny.png" alt="John Doe" class="online" />   -->
-					</a>
-					<ul class="dropdown-menu pull-right">
-						<li>
-							<a href="javascript:void(0);" class="padding-10 padding-top-0 padding-bottom-0"><i class="fa fa-cog"></i> Setting</a>
-						</li>
-						<li class="divider"></li>
-						<li>
-							<a href="#ajax/profile.html" class="padding-10 padding-top-0 padding-bottom-0"> <i class="fa fa-user"></i> <u>P</u>rofile</a>
-						</li>
-						<li class="divider"></li>
-						<li>
-							<a href="javascript:void(0);" class="padding-10 padding-top-0 padding-bottom-0" data-action="toggleShortcut"><i class="fa fa-arrow-down"></i> <u>S</u>hortcut</a>
-						</li>
-						<li class="divider"></li>
-						<li>
-							<a href="javascript:void(0);" class="padding-10 padding-top-0 padding-bottom-0" data-action="launchFullscreen"><i class="fa fa-arrows-alt"></i> Full <u>S</u>creen</a>
-						</li>
-						<li class="divider"></li>
-						<li>
-							<a href="/admin/admin_users/sign_out" class="padding-10 padding-top-5 padding-bottom-5" data-action="userLogout"><i class="fa fa-sign-out fa-lg"></i> <strong><u>L</u>ogout</strong></a>
-						</li>
-					</ul>
-				</li>
+			<div class="project-context user-info">
+			<span class="project-selector dropdown-toggle" data-toggle="dropdown">
+				<%= image_tag "https://ui-avatars.com/api/?name=John+Doe&background=0051CA&color=fff", alt:"User", class:"user-image" %> 
+				<span class="drop-down-icon">
+					<%= image_tag "drop-down-icon.svg", alt:"Drop menu" %>
+				</span>
+			</span>
+			<ul class="dropdown-menu">
+				<% if current_user.role == "superadmin" %>
+					<li id="profile" class="">
+						<a href="/users/edit/" title="Edit Profile" data-action="userLogout" >Profile</a>
+					</li>
+				<% else %>	
+					<li id="profile" class="">
+						<a href="/admin/users/edit_profile/<%= current_user.id %>" title="Edit Profile" data-action="userLogout" >Profile</a>
+					</li>
+				<% end %>
+				<li role="separator" class="divider"></li>
+				<li><a href="/users/sign_out" title="Sign Out" data-action="userLogout" data-logout-msg="You can improve your security further after logging out by closing this opened browser">Logout</a></li>
 			</ul>
+			<!-- end dropdown-menu-->
 		</div>
-		
-		<!-- end pulled right: nav area -->
-
 	</header>
 	<!-- END HEADER -->
-
-	<!-- #NAVIGATION -->
-	<!-- Left panel : Navigation area -->
-	<!-- Note: This width of the aside area can be adjusted through LESS/SASS variables -->
-	<aside id="left-panel">
-
-		<!-- User info -->
-		<div class="login-info">
-			<span> <!-- User image size is adjusted inside CSS, it should stay as is --> 
-				
-				<a style="padding-top: 0" href="javascript:void(0);" id="show-shortcut" data-action="toggleShortcut">
-					<!-- <img src="/assets/avatars/sunny.png" alt="me" class="online" />  -->
-					
-					<!-- <i class="fa fa-angle-down"></i> -->
-				</a> 
-				
-			</span>
-		</div>
-		<!-- end user info -->
-
-		<!-- NAVIGATION : This navigation is also responsive
-
-		To make this navigation dynamic please make sure to link the node
-		(the reference to the nav > ul) after page load. Or the navigation
-		will not initialize.
-		-->
-		<nav>
-			<!-- 
-			NOTE: Notice the gaps after each icon usage <i></i>..
-			Please note that these links work a bit different than
-			traditional href="" links. See documentation for details.
-			-->
-
-			<ul>
-				<li class="<%= active_menu_item('/admin') %>">
-					<a href="/admin" title="blank_"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Dashboard</span></a>
-				</li>
-
-				<li class="<%= active_menu_item('/admin/law_firms') %>">
-					<a href="/admin/law_firms" title="blank_"><i class="fa fa-lg fa-fw fa-briefcase"></i> <span class="menu-item-parent">Law Firms</span></a>
-				</li>
-				<% if current_user && ( current_user.role == 'lob' || current_user.role == 'lxp' || current_user.role == 'internal_lawyers' ) %>
-					<li class="<%= active_menu_item('/admin/exception_requests') %>">
-						<a href="/admin/exception_requests" title="blank_"><i class="fa fa-lg fa-fw fa-exclamation"></i> <span class="menu-item-parent">Engage Non Panel Firm</span></a>
-					</li>
-				<% end %>
-				<% if current_user && (  current_user.role == 'lxp' || current_user.role == 'internal_lawyers' ) %>
-					<li class="<%= active_menu_item('/admin/conflict_waivers') %>">
-						<a href="/admin/conflict_waivers" title="blank_"><i class="fa fa-lg fa-fw fa-thumbs-o-up"></i> <span class="menu-item-parent">Conflict Waiver</span></a>
-					</li>
+<div class="sp-main-page">
+	<div class="left-side">
+		<div class="main-mobile-mneu">
+			<div class="dashboard-title">
+				<% if current_user.role == "lxp" %>
+					LXP Dashboard
+				<% elsif current_user.role == "lop" %>
+					LOP Dashboard
+				<% elsif current_user.role == "internal_lawyers" %>
+					Internal Lawyers Dashboard
+				<% else %>
+					Bank Portal
 				<% end %>	
-				<% if current_user && ( current_user.role == 'internal_lawyers' || current_user.role == 'lxp') %>
-					<li class="<%= active_menu_item('/admin/matter_intakes') %>">
-						<a href="/admin/matter_intakes" title="blank_"><i class="fa fa-lg fa-fw fa-briefcase"></i> <span class="menu-item-parent">Matter Intakes</span></a>
-					</li>
-				<% end %>	
-				<% if current_user && current_user.role == 'lxp' %>
-					<li class="<%= active_menu_item('/admin/panel_requests') %>">
-						<a href="/admin/panel_requests" title="blank_"><i class="fa fa-lg fa-fw fa-check"></i> <span class="menu-item-parent">Panel Request Form</span></a>
-					</li>
-				<% end %>
-				<!-- <li class="">
-					<a href="/admin/form_submissions" title="blank_"><i class="fa fa-lg fa-fw fa-book"></i> <span class="menu-item-parent">Submissions</span></a>
-				</li>  -->
-				<!-- <li class="<%= active_menu_item('/admin/security_threats') %>">
-					<a href="/admin/security_threats" title="blank_"><i class="fa fa-lg fa-fw fa-shield"></i> <span class="menu-item-parent">Security Threats</span></a>
-				</li> -->
-				<!-- <li class="<%= active_menu_item('/admin/security_alerts') %>">
-					<a href="/admin/security_alerts" title="blank_"><i class="fa fa-lg fa-fw fa-newspaper-o"></i> <span class="menu-item-parent">Security News Alerts</span></a>
-				</li> -->
-				<!-- <li class="<%= active_menu_item('/admin/frequently_asked_questions') %>">
-					<a href="/admin/frequently_asked_questions" title="blank_"><i class="fa fa-lg fa-fw fa-newspaper-o"></i> <span class="menu-item-parent">FAQs</span></a>
-				</li>
-				<li class="<%= active_menu_item('/admin/faq_categories') %>">
-					<a href="/admin/faq_categories" title="blank_"><i class="fa fa-lg fa-fw fa-newspaper-o"></i> <span class="menu-item-parent">FAQ Categories</span></a>
-				</li> -->
-				<% if current_user && current_user.role == 'superadmin' %>
-					<li class="<%= active_menu_item('/admin/users/') %>">
-						<a href="/admin/users/" title="blank_"><i class="fa fa-lg fa-fw fa-user"></i> <span class="menu-item-parent">Manage Users</span></a>
-					</li>
-					<li class="<%= active_menu_item(edit_admin_system_setting_path(SystemSetting.last || SystemSetting.create)) %>">
-						<a href="<%= edit_admin_system_setting_path(SystemSetting.last || SystemSetting.create) %>" title="blank_"><i class="fa fa-lg fa-fw fa-cog"></i> <span class="menu-item-parent">System Settings</span></a>
-					</li>
-				<% end %>
-			
-
-
-				
-
-			</ul>
-			
-		</nav>
-
-		<span class="minifyme" data-action="minifyMenu"> 
-			<i class="fa fa-arrow-circle-left hit"></i> 
-		</span>
-		
-	</aside>
-	<!-- END NAVIGATION -->
-	
-	<!-- #MAIN PANEL -->
-	<div id="main" role="main">
-
-		<!-- RIBBON -->
-		<div id="ribbon">
-
-			<!-- breadcrumb -->
-			<ol class="breadcrumb">
-		    <!-- <li>Home</li>
-		    <li>Dashboard</li> -->
-
-		    
-		  </ol>
-			<!-- end breadcrumb -->
-
-			<!-- You can also add more buttons to the
-			ribbon for further usability
-
-			Example below:
-
-			<span class="ribbon-button-alignment pull-right" style="margin-right:25px">
-				<a href="#" id="search" class="btn btn-ribbon hidden-xs" data-title="search"><i class="fa fa-grid"></i> Change Grid</a>
-				<span id="add" class="btn btn-ribbon hidden-xs" data-title="add"><i class="fa fa-plus"></i> Add</span>
-				<button id="search" class="btn btn-ribbon" data-title="search"><i class="fa fa-search"></i> <span class="hidden-mobile">Search</span></button>
-			</span> -->
-
+			</div>
+			<div id="menu_toggle"><%= image_tag "menu-icon.svg", alt:"Menu_icon" %></div>
 		</div>
-		<!-- END RIBBON -->
-
+		<div class="sticky-left-side" id="dashboard_menu">
+			<nav class="sp-sidebar">
+				<ul>
+					<li class="<%= active_menu_item('/admin') %>">
+						<a href="/admin" title="blank_"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Dashboard</span></a>
+					</li>
+					<li class="<%= active_menu_item('/admin/law_firms') %>">
+						<a href="/admin/law_firms" title="blank_"><i class="fa fa-lg fa-fw fa-briefcase"></i> <span class="menu-item-parent">Law Firms</span></a>
+					</li>
+					<% if current_user && ( current_user.role == 'lob' || current_user.role == 'lxp' || current_user.role == 'internal_lawyers' ) %>
+						<li class="<%= active_menu_item('/admin/exception_requests') %>">
+							<a href="/admin/exception_requests" title="blank_"><i class="fa fa-lg fa-fw fa-exclamation"></i> <span class="menu-item-parent">Engage Non Panel Firm</span></a>
+						</li>
+					<% end %>
+					<% if current_user && (  current_user.role == 'lxp' || current_user.role == 'internal_lawyers' ) %>
+						<li class="<%= active_menu_item('/admin/conflict_waivers') %>">
+							<a href="/admin/conflict_waivers" title="blank_"><i class="fa fa-lg fa-fw fa-thumbs-o-up"></i> <span class="menu-item-parent">Conflict Waiver</span></a>
+						</li>
+					<% end %>	
+					<% if current_user && ( current_user.role == 'internal_lawyers' || current_user.role == 'lxp') %>
+						<li class="<%= active_menu_item('/admin/matter_intakes') %>">
+							<a href="/admin/matter_intakes" title="blank_"><i class="fa fa-lg fa-fw fa-briefcase"></i> <span class="menu-item-parent">Matter Intakes</span></a>
+						</li>
+					<% end %>	
+					<% if current_user && current_user.role == 'lxp' %>
+						<li class="<%= active_menu_item('/admin/panel_requests') %>">
+							<a href="/admin/panel_requests" title="blank_"><i class="fa fa-lg fa-fw fa-check"></i> <span class="menu-item-parent">Panel Request Form</span></a>
+						</li>
+					<% end %>
+					<% if current_user && current_user.role == 'superadmin' %>
+						<li class="<%= active_menu_item('/admin/users/') %>">
+							<a href="/admin/users/" title="blank_"><i class="fa fa-lg fa-fw fa-user"></i> <span class="menu-item-parent">Manage Users</span></a>
+						</li>
+						<li class="<%= active_menu_item(edit_admin_system_setting_path(SystemSetting.last || SystemSetting.create)) %>">
+							<a href="<%= edit_admin_system_setting_path(SystemSetting.last || SystemSetting.create) %>" title="blank_"><i class="fa fa-lg fa-fw fa-cog"></i> <span class="menu-item-parent">System Settings</span></a>
+						</li>
+					<% end %>
+				</ul>
+			</nav>
+			<div class="bmo-logo">
+				<%= image_tag "BMO-logo-footer.svg", alt:"BMO Logo" %>
+			</div>
+		</div>
+	</div>
+	<div class="right-side">
 		<!-- #MAIN CONTENT -->
-
-			
 			<!-- col -->
 			<div class="col-xs-12 col-lg-12">
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 page-title no-margin">
 					<%= yield :page_buttons %>
 				</div>
 			</div>
+			<!-- end col -->
+			<div class="col-lg-12 table-striped table-hover">
+				<div class="">
+					<div class="col-md-12 ">
+						<% if !flash[:notice].blank? %>
+							<div class="row">
+								<div class="col-lg-12">
+									<p class="alert alert-success"><%= flash[:notice] %></p>
+								</div>
+							</div>
+						<% end %>
+						<% if !flash[:alert].blank? %>
+							<div class="row">
+								<div class="col-lg-12">
+									<p class="alert alert-warning"><%= flash[:alert] %></p>
+								</div>
+							</div>
+						<% end %>
+					</div>	
+				</div>
+				<div class="">
+					<%= yield %>
+				</div>
+			</div>
+		<!-- END #MAIN CONTENT -->
+	</div>
+</div>
 
+	<!-- #MAIN PANEL -->
+	<div id="main" role="main" style="display:none;">
+		<!-- #MAIN CONTENT -->
+			<!-- col -->
+			<div class="col-xs-12 col-lg-12">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 page-title no-margin">
+					<%= yield :page_buttons %>
+				</div>
+			</div>
 			<!-- end col -->
 			<div class="col-lg-12 table-striped table-hover">
 				<div class="container">
@@ -296,15 +219,9 @@
 					<%= yield %>
 				</div>
 			</div>
-			
-
-		<!-- end row -->
-		
 		<!-- END #MAIN CONTENT -->
-
 	</div>
 	<!-- END #MAIN PANEL -->
-
 	<!-- #PAGE FOOTER -->
 	<!-- <div class="page-footer">
 		<div class="row">
@@ -314,7 +231,6 @@
 		</div>
 	</div> -->
 	<!-- END FOOTER -->
-
 	<!-- #SHORTCUT AREA : With large tiles (activated via clicking user name tag)
 		 Note: These tiles are completely responsive, you can add as many as you like -->
 	<!-- <div id="shortcut">
@@ -345,18 +261,13 @@
 		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 		      </div>
 		    </div>
-
 		  </div>
 		</div>
-
 		<script async defer type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
-		
     <%= javascript_include_tag 'application' %>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
-
 		<script>
 			// PAGE RELATED SCRIPTS
-
 			/* chart colors default */
 			var $chrt_border_color = "#efefef";
 			var $chrt_grid_color = "#DDD"

@@ -32,8 +32,6 @@
 			<!-- PLACE YOUR LOGO HERE -->
 			<span id="logo"> <a href="/lob"><%= image_tag "seal-logo.png", alt:"PANEL" %></a> </span>
 			<!-- END LOGO PLACEHOLDER -->
-			<!-- AJAX-DROPDOWN : control this dropdown height, look and feel from the LESS variable file -->
-			<!-- END AJAX-DROPDOWN -->
 		</div>
 
 		<div class="text-center portal-type">
@@ -58,8 +56,8 @@
 	<div class="sp-main-page">
 		<div class="left-side">
 			<div class="main-mobile-mneu">
-			<div class="dashboard-title">LOB Dashboard</div>
-			<div id="menu_toggle"><%= image_tag "menu-icon.svg", alt:"Menu_icon" %></div>
+				<div class="dashboard-title">LOB Dashboard</div>
+				<div id="menu_toggle"><%= image_tag "menu-icon.svg", alt:"Menu_icon" %></div>
 			</div>
 			<div class="sticky-left-side" id="dashboard_menu">
 				<nav class="sp-sidebar">
@@ -86,7 +84,7 @@
 			</div>
 		</div>
 		<div class="right-side">
-			<div class="container" style="display:none;">
+			<div class="">
 				<div class="col-md-12">
 					<% if !flash[:notice].blank? %>
 						<div class="row">
