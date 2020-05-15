@@ -159,7 +159,7 @@
 				</div>
 			</div>
 			<!-- end col -->
-			<div class="col-lg-12 table-striped table-hover">
+			<div class="">
 				<div class="">
 					<div class="col-md-12 ">
 						<% if !flash[:notice].blank? %>
@@ -185,66 +185,6 @@
 		<!-- END #MAIN CONTENT -->
 	</div>
 </div>
-
-	<!-- #MAIN PANEL -->
-	<div id="main" role="main" style="display:none;">
-		<!-- #MAIN CONTENT -->
-			<!-- col -->
-			<div class="col-xs-12 col-lg-12">
-				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 page-title no-margin">
-					<%= yield :page_buttons %>
-				</div>
-			</div>
-			<!-- end col -->
-			<div class="col-lg-12 table-striped table-hover">
-				<div class="container">
-					<div class="col-md-12 ">
-						<% if !flash[:notice].blank? %>
-							<div class="row">
-								<div class="col-lg-12">
-									<p class="alert alert-success"><%= flash[:notice] %></p>
-								</div>
-							</div>
-						<% end %>
-						<% if !flash[:alert].blank? %>
-							<div class="row">
-								<div class="col-lg-12">
-									<p class="alert alert-warning"><%= flash[:alert] %></p>
-								</div>
-							</div>
-						<% end %>
-					</div>	
-				</div>
-				<div class="container">
-					<%= yield %>
-				</div>
-			</div>
-		<!-- END #MAIN CONTENT -->
-	</div>
-	<!-- END #MAIN PANEL -->
-	<!-- #PAGE FOOTER -->
-	<!-- <div class="page-footer">
-		<div class="row">
-			<div class="col-xs-12 col-sm-6">
-				<span class="txt-color-white">SmartAdmin 1.8.x <span class="hidden-xs"> - Web Application Framework</span> © 2014-2016</span>
-			</div>
-		</div>
-	</div> -->
-	<!-- END FOOTER -->
-	<!-- #SHORTCUT AREA : With large tiles (activated via clicking user name tag)
-		 Note: These tiles are completely responsive, you can add as many as you like -->
-	<!-- <div id="shortcut">
-		<ul>
-			<li>
-				<a href="index.html" class="jarvismetro-tile big-cubes bg-color-blue"> <span class="iconbox"> <i class="fa fa-envelope fa-4x"></i> <span>Mail <span class="label pull-right bg-color-darken">14</span></span> </span> </a>
-			</li>
-		</ul>
-	</div> -->
-	<!-- END SHORTCUT AREA -->
-
-		
-
-
 		<div id="securityThreat" class="modal fade" role="dialog">
 		  <div class="modal-dialog">
 

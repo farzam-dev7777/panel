@@ -120,7 +120,7 @@ div#dt_basic_length .select2 {
 }*/
 
 .login-page{ 
-		background: #0079C1 !important;
+	background: #0079C1 !important;
   background-image: url('/assets/bg.png') !important;
   background-image: url('/assets/bg.png'), linear-gradient(#0079C1, #0079C1) !important;
   background-size: cover !important;

@@ -769,8 +769,39 @@ nav ul li a:active {
 .ui-tabs .ui-tabs-panel{
   padding: 0px !important;
 }
+.sp-tab-block .dashboard-tab li >a{
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  color: rgba(126, 133, 142, 0.6);
+  border: 0px;
+}
+.sp-tab-block .dashboard-tab li.active{
+  background: transparent;
+  border: 0px;
+}
+.sp-tab-block .dashboard-tab li.active > a{
+  color: #171F46;
+  box-shadow: 0px 2px 0 #0B69FF !important;
+  margin-top: 0px !important;
+}
+.sp-tab-block .dashboard-tab > li{
+  margin-bottom: 0px !important;
+}
+.sp-tab-block .dashboard-tab>li.active>a, .sp-tab-block .dashboard-tab>li.active>a:focus, .sp-tab-block .dashboard-tab>li.active>a:hover{
+  background-color: transparent !important;
+  border: 0px;
+}
+.sp-tab-block .dashboard-tab>li>a:focus, .sp-tab-block .dashboard-tab>li>a:hover{
+  background-color: transparent;
+  border: 0px;
+}
 /* Tab UI design END */
 .form-field-alignment{
   display: flex;
   align-items: flex-end;
+}
+.send-password-link .btn-type-primary{
+  display: inline-block;
+  margin-bottom: 15px;
 }
