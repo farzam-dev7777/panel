@@ -413,6 +413,9 @@ nav ul li a:active {
   right: 0; */
   padding: 0px;
 }
+.sp-filter{
+  width: 100%;
+}
 .sp-filter-fields .card-body{
   background-color: #FFFFFF;
   border:1px solid #D7DFE9;
@@ -499,6 +502,7 @@ nav ul li a:active {
   padding: 10px 15px !important;
   font-weight: normal !important;
   height: auto !important;
+  display: inline-flex;
 }
 .btn-type-default{
   border: 1px solid #7E858E !important;

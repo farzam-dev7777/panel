@@ -9,10 +9,10 @@
 	<div class="page-header-sp">
 		<div class="page-title m-top-zero"><%= @law_firm.name %></div>
 		<div class="back-edit-actions">
-			<a class="btn-type-default" href="/lob/panel_requests">
+			<a class="btn-type-default" href="/admin/law_firms">
 				<%= image_tag "chevron-back-icon.svg", alt:"Back" %>
 			</a>
-			<%= link_to "Edit".html_safe, edit_lob_panel_request_path, class: "btn-type-primary" %>
+			<%= link_to "Edit".html_safe, edit_admin_law_firm_path, class: "btn-type-primary" %>
 		</div>
 	</div>
 	<!-- Page Header -->
@@ -212,18 +212,19 @@
 						<div class="sp-form-bg show-data-fields">
 							<% if @law_firm.form_submissions.any? %>
 								<div class="table-responsive">
-									<table class="table table-bordered text-center content-in-jarvis">
+									<table class="table table-decoration table-bordered">
 										<tr>
-											<th class="text-center">Score</th>
-											<th class="text-center">Status</th>
-											<th class="text-center">Approved At</th>
-											<th class="text-center">Expiry Date</th>
-											<th colspan="2" class="text-center">Action</th>
+											<th>Score</th>
+											<th>Status</th>
+											<th>Approved At</th>
+											<th>Expiry Date</th>
+											<th>Submission</th>
+											<th width="8%">Action</th>
 										</tr>
 										<% @law_firm.form_submissions.each do |submission| %>
 										<tr>
 											<td><%= @law_firm.total_calculated_score(submission) || '-' %></td>
-											<td class="text-center">
+											<td>
 												<span class="label label-<%= submission_status_class(submission) %>">
 													<%= submission.formatted_status %>
 												</span>
@@ -231,7 +232,7 @@
 													<br><em><%= submission.try(:reason) %></em>
 												<% end %>
 											</td>
-											<td class="text-center">
+											<td>
 												<%= submission.approved_at %>
 											</td>
 											<td class="text-center">
@@ -378,13 +379,13 @@
 							<div class="table-responsive">
 								<table class="table table-bordered text-center content-in-jarvis">
 									<tr>
-										<th class="text-center">Request By</th>
-										<th class="text-center">Submitted By	</th>
-										<th class="text-center">LXP Status</th>
-										<th class="text-center">Internal Lawyers Status</th>
-										<th class="text-center">Pay Type</th>
-										<th class="text-center">Document Status</th>
-										<th colspan="2" class="text-center">Action</th>
+										<th>Request By</th>
+										<th>Submitted By	</th>
+										<th>LXP Status</th>
+										<th>Internal Lawyers Status</th>
+										<th>Pay Type</th>
+										<th>Document Status</th>
+										<th width="8%">Action</th>
 									</tr>
 									<% @law_firm.exception_requests.each do |exception_request| %>
 									<tr>
@@ -421,14 +422,14 @@
 	
 									<% if @law_firm.conflict_waivers.count > 0 %>
 									<div class="table-responsive">
-										<table class="table table-bordered text-center content-in-jarvis">
+										<table class="table table-decoration table-bordered">
 		
 											<tr>
-												<th class="text-center">Contact details	</th>
-												<th class="text-center">BMO business contact	</th>
-												<th class="text-center">LXP Status</th>
-												<th class="text-center">Internal Lawyers Status</th>
-												<th colspan="2" class="text-center">Action</th>
+												<th>Contact details	</th>
+												<th>BMO business contact	</th>
+												<th>LXP Status</th>
+												<th>Internal Lawyers Status</th>
+												<th width="8%">Action</th>
 											</tr>
 		
 											<% @law_firm.conflict_waivers.each do |conflict_waiver| %>
@@ -469,6 +470,8 @@
 										<div class="field-label">Submitted By</div>		
 										<div class="field-data"><%= @panel_request.submitted_by_email %></div>
 									</div>
+								</div>
+								<div class="row">
 									<div class="col-xs-12 col-md-6">
 										<div class="field-label">Line of Business	</div>		
 										<div class="field-data"><%= @panel_request.requested_by %><%= @panel_request.line_of_business %></div>
@@ -477,6 +480,8 @@
 										<div class="field-label">LOB Contact Name	</div>		
 										<div class="field-data"><%= @panel_request.lob_contact_name %></div>
 									</div>
+								</div>
+								<div class="row">
 									<div class="col-xs-12 col-md-6">
 										<div class="field-label">Business Manager Name</div>
 										<div class="field-data"><%= @panel_request.business_manager_name %></div>
@@ -485,6 +490,8 @@
 										<div class="field-label">Business Manager Email</div>		
 										<div class="field-data"><%= @panel_request.business_manager_email %></div>
 									</div>
+								</div>
+								<div class="row">
 									<div class="col-xs-12 col-md-6">
 										<div class="field-label">Business Manager Phone	</div>		
 										<div class="field-data"><%= @panel_request.business_manager_phone %></div>
@@ -492,7 +499,9 @@
 									<div class="col-xs-12 col-md-6">
 										<div class="field-label">Law firm Category</div>		
 										<div class="field-data"><%= @panel_request.law_firm_category %></div>
-									</div>		
+									</div>
+								</div>
+								<div class="row">		
 									<div class="col-xs-12 col-md-6">
 										<div class="field-label">Minority Owned</div>		
 										<div class="field-data"><%= @panel_request.minority_owned %></div>
@@ -501,6 +510,8 @@
 										<div class="field-label">Minority Owned Details</div>		
 										<div class="field-data"><%= @panel_request.minority_owned_details %></div>
 									</div>
+								</div>
+								<div class="row">
 									<div class="col-xs-12 col-md-6">
 										<div class="field-label">Women Owned</div>		
 										<div class="field-data"><%= @panel_request.women_owned %></div>
@@ -509,10 +520,13 @@
 										<div class="field-label">Women Owned Details</div>		
 										<div class="field-data"><%= @panel_request.women_owned_details %></div>
 									</div>
+								</div>
+								<div class="row">
 									<div class="col-xs-12 col-md-6">
 										<div class="field-label">Matter Types</div>		
 										<div class="field-data"><%= @panel_request.matter_types.is_a?(Array) ? @panel_request.matter_types.join(", ") : "" %></div>
 									</div>	
+								</div>
 							</div>
 						<% end %>	
 					</div>

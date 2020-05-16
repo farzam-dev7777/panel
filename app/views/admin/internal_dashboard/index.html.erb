@@ -121,7 +121,11 @@
 									<td><%= conflict_waiver&.contact_details %></td>
 									<td><%= conflict_waiver&.bmo_business_contact %></td>
 									<td>
-										<%= link_to "view", admin_conflict_waiver_path(conflict_waiver), class: "btn btn-xs btn-secondary" %>
+										<div class="action-fields">
+											<a class="action-btn" href="/admin/conflict_waivers/<%= conflict_waiver.id %>">
+												<%= image_tag "view-icon.svg", alt:"View" %>
+											</a>
+										</div>
 									</td>
 								</tr>
 							<% end %>
