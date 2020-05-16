@@ -57,8 +57,8 @@
                             <%= f.select :law_firm_id_eq, options_from_collection_for_select(LawFirm.all, "id", "name", @q.law_firm_id_eq), {:include_blank => 'Select law firm'} %>
                         </div>
                         <div class="col-xs-12 col-md-12 text-right" style="">
-                            <%= f.submit "Search", class: "btn-type-primary btn btn-primary" %>
-                            <%= f.submit "Reset", type: "reset", value: "Reset",  class: "btn-type-default btn btn-primary" %>
+                            <%= f.submit "Search", class: "btn-type-primary" %>
+                            <%= f.submit "Reset", type: "reset", value: "Reset",  class: "btn-type-default" %>
                         </div>
                       </div>        
                     <% end %>

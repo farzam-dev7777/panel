@@ -18,165 +18,165 @@
         
         <!-- widget content -->
 				<div class="view-request">
-						<div class="tab-content view-request">
-							<div class="sp-form-bg show-data-fields">
-								<div class="row">
+					<div class="tab-content view-request">
+						<div class="sp-form-bg show-data-fields">
+							<div class="row">
+								<div class="col-xs-12 col-md-6">
+									<div class="field-label">Requested By	</div>
+									<div class="field-data"><%= @panel_request.requested_by %></div>
+								</div>
+								<div class="col-xs-12 col-md-6">
+									<div class="field-label">Submitted By</div>		
+									<div class="field-data"><%= @panel_request.submitted_by_email %></div>
+								</div>
+								<div class="col-xs-12 col-md-12">
+									<div class="field-label">Line of Business	</div>		
+									<div class="field-data"><%= @panel_request.requested_by %><%= @panel_request.line_of_business %></div>
+								</div>
+								<div class="col-xs-12 col-md-6">
+									<div class="field-label">LOB Contact Name	</div>		
+									<div class="field-data"><%= @panel_request.lob_contact_name %></div>
+								</div>
+								<div class="col-xs-12 col-md-6">
+									<div class="field-label">Business Manager Name</div>
+									<div class="field-data"><%= @panel_request.business_manager_name %></div>
+								</div>
+								<div class="col-xs-12 col-md-6">
+									<div class="field-label">Business Manager Email</div>		
+									<div class="field-data"><%= @panel_request.business_manager_email %></div>
+								</div>
+								<div class="col-xs-12 col-md-6">
+									<div class="field-label">Business Manager Phone	</div>		
+									<div class="field-data"><%= @panel_request.business_manager_phone %></div>
+								</div>	
+								<div class="col-xs-12 col-md-6">
+									<div class="field-label">Law firm Category</div>		
+									<div class="field-data"><%= @panel_request.law_firm_category %></div>
+								</div>		
+								<div class="col-md-12">
+									<div class="inner-label">Law Firm :</div>		
+									<div class="row inner-form-field">
 										<div class="col-xs-12 col-md-6">
-											<div class="field-label">Requested By	</div>
-											<div class="field-data"><%= @panel_request.requested_by %></div>
+											<div class="field-label">Law Firm Category : </div>
+											<div class="field-data"><%= @panel_request.law_firm.law_firm_category %></div>
 										</div>
 										<div class="col-xs-12 col-md-6">
-											<div class="field-label">Submitted By</div>		
-											<div class="field-data"><%= @panel_request.submitted_by_email %></div>
+											<div class="field-label">Name : </div>
+											<div class="field-data"><%= @panel_request.law_firm.name %></div>
+										</div>
+										<div class="col-xs-12 col-md-6">
+											<div class="field-label">Email : </div>		
+											<div class="field-data"> <%= !@panel_request.law_firm.user.try(:email).blank? ? @panel_request.law_firm.user.try(:email) : '-' %></div>
+										</div>
+										<div class="col-xs-12 col-md-6">
+											<div class="field-label">Phone : </div>		
+											<div class="field-data"><%= @panel_request.law_firm.phone %></div>
 										</div>
 										<div class="col-xs-12 col-md-12">
-											<div class="field-label">Line of Business	</div>		
-											<div class="field-data"><%= @panel_request.requested_by %><%= @panel_request.line_of_business %></div>
+											<div class="field-label">Description : </div>		
+											<div class="field-data"><%= @panel_request.law_firm.description %></div>
 										</div>
 										<div class="col-xs-12 col-md-6">
-											<div class="field-label">LOB Contact Name	</div>		
-											<div class="field-data"><%= @panel_request.lob_contact_name %></div>
+											<div class="field-label">Relationship Manager Name :	</div>		
+											<div class="field-data"><%= @panel_request.law_firm.relationship_manager_name %></div>
 										</div>
 										<div class="col-xs-12 col-md-6">
-											<div class="field-label">Business Manager Name</div>
-											<div class="field-data"><%= @panel_request.business_manager_name %></div>
+											<div class="field-label">Relationship Manager Email : </div>		
+											<div class="field-data"><%= @panel_request.law_firm.relationship_manager_email %></div>
 										</div>
 										<div class="col-xs-12 col-md-6">
-											<div class="field-label">Business Manager Email</div>		
-											<div class="field-data"><%= @panel_request.business_manager_email %></div>
+											<div class="field-label">Relationship Manager Phone : </div>		
+											<div class="field-data"><%= @panel_request.law_firm.relationship_manager_phone %></div>
 										</div>
 										<div class="col-xs-12 col-md-6">
-											<div class="field-label">Business Manager Phone	</div>		
-											<div class="field-data"><%= @panel_request.business_manager_phone %></div>
-										</div>	
-										<div class="col-xs-12 col-md-6">
-											<div class="field-label">Law firm Category</div>		
-											<div class="field-data"><%= @panel_request.law_firm_category %></div>
-										</div>		
-										<div class="col-md-12">
-											<div class="inner-label">Law Firm :</div>		
-											<div class="row inner-form-field">
-												<div class="col-xs-12 col-md-6">
-													<div class="field-label">Law Firm Category : </div>
-													<div class="field-data"><%= @panel_request.law_firm.law_firm_category %></div>
-												</div>
-												<div class="col-xs-12 col-md-6">
-													<div class="field-label">Name : </div>
-													<div class="field-data"><%= @panel_request.law_firm.name %></div>
-												</div>
-												<div class="col-xs-12 col-md-6">
-													<div class="field-label">Email : </div>		
-													<div class="field-data"> <%= !@panel_request.law_firm.user.try(:email).blank? ? @panel_request.law_firm.user.try(:email) : '-' %></div>
-												</div>
-												<div class="col-xs-12 col-md-6">
-													<div class="field-label">Phone : </div>		
-													<div class="field-data"><%= @panel_request.law_firm.phone %></div>
-												</div>
-												<div class="col-xs-12 col-md-12">
-													<div class="field-label">Description : </div>		
-													<div class="field-data"><%= @panel_request.law_firm.description %></div>
-												</div>
-												<div class="col-xs-12 col-md-6">
-													<div class="field-label">Relationship Manager Name :	</div>		
-													<div class="field-data"><%= @panel_request.law_firm.relationship_manager_name %></div>
-												</div>
-												<div class="col-xs-12 col-md-6">
-													<div class="field-label">Relationship Manager Email : </div>		
-													<div class="field-data"><%= @panel_request.law_firm.relationship_manager_email %></div>
-												</div>
-												<div class="col-xs-12 col-md-6">
-													<div class="field-label">Relationship Manager Phone : </div>		
-													<div class="field-data"><%= @panel_request.law_firm.relationship_manager_phone %></div>
-												</div>
-												<div class="col-xs-12 col-md-6">
-													<div class="field-label">Select Matter Type : </div>		
-													<div class="field-data"><%= @panel_request.law_firm.matter_types.map(&:matter_type).join(", ") %></div>
-												</div>
-												<div class="col-xs-12 col-md-6">
-													<div class="field-label">Select Sub Matter Type : </div>		
-													<div class="field-data"><%= @panel_request.law_firm.sub_matter_types.map(&:sub_matter_type).join(", ") %></div>
-												</div>
-												<div class="col-xs-12 col-md-6">
-													<div class="field-label">Select Jurisdiction Type : </div>		
-													<div class="field-data"><%= @panel_request.law_firm.jurisdiction_types.map(&:jurisdiction_type).join(", ") %></div>
-												</div>
-												<div class="col-xs-12 col-md-6">
-													<div class="field-label">Select Country : </div>		
-													<div class="field-data"><%= @panel_request.law_firm.countries.map(&:name).join(", ") %></div>
-												</div>
-												<div class="col-xs-12 col-md-6">
-													<div class="field-label">Select State/Province : </div>		
-													<div class="field-data"><%= @panel_request.law_firm.states.map(&:name).join(", ") %></div>
-												</div>
-												<div class="col-xs-12 col-md-12 text-right">
-													<%= link_to "View Law Firm", admin_law_firm_url(@panel_request.law_firm), class: "btn-type-default" %>	
-													<% if(@panel_request.law_firm.form_submissions.any? && @panel_request.law_firm.form_submissions.latest.status == 'approved') %>
-														<!-- <div class="col-lg-1 pull-right"> -->
-															<a class="btn-type-primary" data-id='<%= @panel_request.law_firm.id %>' data-name='<%= @panel_request.law_firm.name %>'>Decertify</a>
-														<!-- </div> -->
-	
-														<!-- <div class="col-lg-2 pull-right"> -->
-															<a class="btn-type-primary" data-id="<%= @panel_request.law_firm.id %>">Send RFI Questionnaire again			</a>
-														<!-- </div> -->
-													<% end %>
-	
-													<% if(!@panel_request.law_firm.form_submissions.any?) %>
-														<!-- <div class="col-lg-2 pull-right"> -->
-																<% if(@panel_request.law_firm.user.try(:is_deactivated?)) %>
-																<a class="btn-type-primary" data-id="<%= @panel_request.law_firm.user.id %>">Send user information and create new password link </a>
-																<a class="btn-type-primary" data-id="<%= @panel_request.law_firm.user.id %>">Send RFI Questionnaire with user active password link </a>
-																
-																<% else %>	
-																<a class="btn-type-primary" data-id="<%= @panel_request.law_firm.id %>">Send RFI Questionnaire
-																</a>
-																<% end %>	
-														<!-- </div> -->
-													<% end %>
-												</div>
-											</div>
+											<div class="field-label">Select Matter Type : </div>		
+											<div class="field-data"><%= @panel_request.law_firm.matter_types.map(&:matter_type).join(", ") %></div>
 										</div>
+										<div class="col-xs-12 col-md-6">
+											<div class="field-label">Select Sub Matter Type : </div>		
+											<div class="field-data"><%= @panel_request.law_firm.sub_matter_types.map(&:sub_matter_type).join(", ") %></div>
+										</div>
+										<div class="col-xs-12 col-md-6">
+											<div class="field-label">Select Jurisdiction Type : </div>		
+											<div class="field-data"><%= @panel_request.law_firm.jurisdiction_types.map(&:jurisdiction_type).join(", ") %></div>
+										</div>
+										<div class="col-xs-12 col-md-6">
+											<div class="field-label">Select Country : </div>		
+											<div class="field-data"><%= @panel_request.law_firm.countries.map(&:name).join(", ") %></div>
+										</div>
+										<div class="col-xs-12 col-md-6">
+											<div class="field-label">Select State/Province : </div>		
+											<div class="field-data"><%= @panel_request.law_firm.states.map(&:name).join(", ") %></div>
+										</div>
+										<div class="col-xs-12 col-md-12 text-right">
+											<%= link_to "View Law Firm", admin_law_firm_url(@panel_request.law_firm), class: "btn-type-default" %>	
+											<% if(@panel_request.law_firm.form_submissions.any? && @panel_request.law_firm.form_submissions.latest.status == 'approved') %>
+												<!-- <div class="col-lg-1 pull-right"> -->
+													<a class="btn-type-primary" data-id='<%= @panel_request.law_firm.id %>' data-name='<%= @panel_request.law_firm.name %>'>Decertify</a>
+												<!-- </div> -->
 
-										<div class="col-xs-12 col-md-6">
-											<div class="field-label">Minority Owned</div>		
-											<div class="field-data"><%= @panel_request.minority_owned %></div>
+												<!-- <div class="col-lg-2 pull-right"> -->
+													<a class="btn-type-primary" data-id="<%= @panel_request.law_firm.id %>">Send RFI Questionnaire again			</a>
+												<!-- </div> -->
+											<% end %>
+
+											<% if(!@panel_request.law_firm.form_submissions.any?) %>
+												<!-- <div class="col-lg-2 pull-right"> -->
+														<% if(@panel_request.law_firm.user.try(:is_deactivated?)) %>
+														<a class="btn-type-primary" data-id="<%= @panel_request.law_firm.user.id %>">Send user information and create new password link </a>
+														<a class="btn-type-primary" data-id="<%= @panel_request.law_firm.user.id %>">Send RFI Questionnaire with user active password link </a>
+														
+														<% else %>	
+														<a class="btn-type-primary" data-id="<%= @panel_request.law_firm.id %>">Send RFI Questionnaire
+														</a>
+														<% end %>	
+												<!-- </div> -->
+											<% end %>
 										</div>
-										<div class="col-xs-12 col-md-6">
-											<div class="field-label">Minority Owned Details</div>		
-											<div class="field-data"><%= @panel_request.minority_owned_details %></div>
-										</div>
-										<div class="col-xs-12 col-md-6">
-											<div class="field-label">Women Owned</div>		
-											<div class="field-data"><%= @panel_request.women_owned %></div>
-										</div>
-										<div class="col-xs-12 col-md-6">
-											<div class="field-label">Women Owned Details</div>		
-											<div class="field-data"><%= @panel_request.women_owned_details %></div>
-										</div>	
-										<div class="col-xs-12 col-md-6">
-											<div class="field-label">LXP Status :</div>
-											<div class="field-data"><%=  @panel_request.lxp_status_show ? @panel_request.lxp_status_show : "-" %></div>
-										</div>
-										<div class="col-xs-12 col-md-6">
-											<div class="field-label">Panel Approved :</div>
-											<div class="field-data"><%= @panel_request.fully_approved? ? "Yes" : "No" %></div>
-										</div>
-										<% if @panel_request.docusign_envelope_id.present? %>
-											<div class="col-md-12">
-												<div class="field-label">Document Status</div>
-												<div class="field-data"><%= @panel_request.docusign_retainer_envelope.try(:status) %></div>
-											</div>
-											<% if @panel_request.docusign_retainer_envelope.try(:status) == "completed"%>
-												<div class="col-md-12">
-													<div class="field-label">Download Document</div>
-													<div class="field-data">
-														<%= link_to "Download Document", admin_panel_request_download_pdf_path(@panel_request), class: "" %>
-													</div>
-												</div>
-											<% end %>	
-										<% end %>
 									</div>
+								</div>
+
+								<div class="col-xs-12 col-md-6">
+									<div class="field-label">Minority Owned</div>		
+									<div class="field-data"><%= @panel_request.minority_owned %></div>
+								</div>
+								<div class="col-xs-12 col-md-6">
+									<div class="field-label">Minority Owned Details</div>		
+									<div class="field-data"><%= @panel_request.minority_owned_details %></div>
+								</div>
+								<div class="col-xs-12 col-md-6">
+									<div class="field-label">Women Owned</div>		
+									<div class="field-data"><%= @panel_request.women_owned %></div>
+								</div>
+								<div class="col-xs-12 col-md-6">
+									<div class="field-label">Women Owned Details</div>		
+									<div class="field-data"><%= @panel_request.women_owned_details %></div>
+								</div>	
+								<div class="col-xs-12 col-md-6">
+									<div class="field-label">LXP Status :</div>
+									<div class="field-data"><%=  @panel_request.lxp_status_show ? @panel_request.lxp_status_show : "-" %></div>
+								</div>
+								<div class="col-xs-12 col-md-6">
+									<div class="field-label">Panel Approved :</div>
+									<div class="field-data"><%= @panel_request.fully_approved? ? "Yes" : "No" %></div>
+								</div>
+								<% if @panel_request.docusign_envelope_id.present? %>
+									<div class="col-md-12">
+										<div class="field-label">Document Status</div>
+										<div class="field-data"><%= @panel_request.docusign_retainer_envelope.try(:status) %></div>
+									</div>
+									<% if @panel_request.docusign_retainer_envelope.try(:status) == "completed"%>
+										<div class="col-md-12">
+											<div class="field-label">Download Document</div>
+											<div class="field-data">
+												<%= link_to "Download Document", admin_panel_request_download_pdf_path(@panel_request), class: "" %>
+											</div>
+										</div>
+									<% end %>	
+								<% end %>
 							</div>
 						</div>
+					</div>
         </div>
       </div>
     </div>
