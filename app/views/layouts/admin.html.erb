@@ -67,27 +67,27 @@
 			<% end %>	-->
 			<!-- end logout button -->
 			<div class="project-context user-info">
-			<span class="project-selector dropdown-toggle" data-toggle="dropdown">
-				<%= image_tag "https://ui-avatars.com/api/?name=John+Doe&background=0051CA&color=fff", alt:"User", class:"user-image" %> 
-				<span class="drop-down-icon">
-					<%= image_tag "drop-down-icon.svg", alt:"Drop menu" %>
+				<span class="project-selector dropdown-toggle" data-toggle="dropdown">
+					<%= image_tag "https://ui-avatars.com/api/?name=John+Doe&background=0051CA&color=fff", alt:"User", class:"user-image" %> 
+					<span class="drop-down-icon">
+						<%= image_tag "drop-down-icon.svg", alt:"Drop menu" %>
+					</span>
 				</span>
-			</span>
-			<ul class="dropdown-menu">
-				<% if current_user.role == "superadmin" %>
-					<li id="profile" class="">
-						<a href="/users/edit/" title="Edit Profile" data-action="userLogout" >Profile</a>
-					</li>
-				<% else %>	
-					<li id="profile" class="">
-						<a href="/admin/users/edit_profile/<%= current_user.id %>" title="Edit Profile" data-action="userLogout" >Profile</a>
-					</li>
-				<% end %>
-				<li role="separator" class="divider"></li>
-				<li><a href="/users/sign_out" title="Sign Out" data-action="userLogout" data-logout-msg="You can improve your security further after logging out by closing this opened browser">Logout</a></li>
-			</ul>
-			<!-- end dropdown-menu-->
-		</div>
+				<ul class="dropdown-menu">
+					<% if current_user.role == "superadmin" %>
+						<li id="profile" class="">
+							<a href="/users/edit/" title="Edit Profile" data-action="userLogout" >Profile</a>
+						</li>
+					<% else %>	
+						<li id="profile" class="">
+							<a href="/admin/users/edit_profile/<%= current_user.id %>" title="Edit Profile" data-action="userLogout" >Profile</a>
+						</li>
+					<% end %>
+					<li role="separator" class="divider"></li>
+					<li><a href="/users/sign_out" title="Sign Out" data-action="userLogout" data-logout-msg="You can improve your security further after logging out by closing this opened browser">Logout</a></li>
+				</ul>
+				<!-- end dropdown-menu-->
+			</div>
 	</header>
 	<!-- END HEADER -->
 <div class="sp-main-page">

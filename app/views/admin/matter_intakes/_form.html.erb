@@ -1,340 +1,299 @@
-<div class="table-responsive">
+<div class="sp-form sp-form-bg">
   <%= simple_form_for [:admin, @matter_intake] do |f| %>
-    <table class="table table-striped">
-      <tbody>
-        <tr>
-          <td class="text-right" width="20%"><strong>BMO lawyer name </strong></td>
-          <td>
-            <%= f.input :bmo_lawyer_name, label: false, :input_html => { :value => current_user.try(:full_name) } %>
-            <%= f.input :lawyer_id, as: :hidden, label: false, :input_html => { :value => current_user.try(:id) } %>
-            <%= f.input :form_type, as: :hidden, label: false, :input_html => { :value => @form_type } %>
-          </td>
-        </tr>
-        <tr>
-          <td class="text-right" width="20%"><strong>Legal Group of BMO Lawyer </strong></td>
-          <td>
-            <%= f.input :legal_group_of_bmo_lawyer, label: false, collection: MatterIntake::LegalGroupBMOLawyer %>
-          </td>
-        </tr>
-        <tr>
-          <td class="text-right" width="20%"><strong>Work Area </strong></td>
-          <td>
-            <%= f.input :work_area, label: false, collection: @form_type == "litigation" ? MatterIntake::WorkAreaLitigation : MatterIntake::WorkArea  %>
-          </td>
-        </tr>
-        <tr class="work_area_reportable" style="<%= @form_type === 'general' ? 'display: none;' : '' %>">
-          <td class="text-right" width="20%"><strong>Is this matter ORE reportable? </strong></td>
-          <td>
-            <%= f.input :is_ore_reportable, label: false, collection: [['Yes', true], ["No", false]] %>
-          </td>
-        </tr>
-        <tr class="work_area_reportable" style="<%= @form_type === 'general' ? 'display: none;' : '' %>">
-          <td class="text-right" width="20%"><strong>Is this matter otherwise reportable? </strong></td>
-          <td>
-            <%= f.input :is_otherwise_reportable, label: false, collection: [['Yes', true], ["No", false]] %>
-          </td>
-        </tr>
-        <tr>
-          <td class="text-right" width="20%"><strong>Is this a syndicate matter? </strong></td>
-          <td>
-            <%= f.input :is_syndicate_matter, label: false, collection: [['Yes', true], ["No", false]] %>
-          </td>
-        </tr>
-        <tr>
-          <td class="text-right" width="20%"><strong>Conceal iManage Workspace? </strong></td>
-          <td>
-            <%= f.input :is_conceal_imanage_workspace, label: false, collection: [['Yes', true], ["No", false]] %>
-          </td>
-        </tr>
-        <tr>
-          <td class="text-right" width="20%"><strong>Paper file? </strong></td>
-          <td>
-            <%= f.input :is_paper_file, label: false, collection: [['Yes', true], ["No", false]] %>
-          </td>
-        </tr>
-        <tr>
-        <td class="text-right" width="20%"><strong>Matter name </strong></td>
-          <td><%= f.input :name_of_matter_client, label: false %></td>
-        </tr>
-        <tr>
-        <td class="text-right" width="20%"><strong>Matter Description </strong></td>
-          <td><%= f.input :matter_description, label: false %></td>
-        </tr>
-        <tr>
-        <td class="text-right" width="20%"><strong>Legal Entity </strong></td>
-          <td><%= f.input :paying_entity, label: false, collection: MatterIntake::LegalEntity %></td>
-        </tr>
-        <tr>
-        <td class="text-right" width="20%"><strong>Business Paying for this Matter </strong></td>
-          <td><%= f.input :business_paying_for_matter, label: false, collection: MatterIntake::Business %></td>
-        </tr>
-        <tr>
-          <td class="text-right" width="20%"><strong>Group Paying for this Matter </strong></td>
-          <td><%= f.input :group_paying_for_matter, label: false, collection: [] %></td>
-        </tr>
-        <tr>
-          <td class="text-right" width="20%"><strong>Jurisdiction </strong></td>
-          <td><%= f.input :jurisdiction, label: false, collection: MatterIntake::Jurisdiction %></td>
-        </tr>
-        <% if @form_type == "litigation" %>
-          <tr>
-            <td class="text-right" width="20%"><strong>Branch </strong></td>
-            <td><%= f.input :branch, label: false %></td>
-          </tr>
-          <tr>
-            <td class="text-right" width="20%"><strong>Will outside counsel be engaged?  </strong></td>
-            <td><%= f.input :outside_counsel_engaged, label: false, collection: MatterIntake::OutsideCounselEngaged %></td>
-          </tr>
-        <% end %>
-        <% if @form_type == "general" %>
-          <tr>
-            <td class="text-right" width="20%"><strong>How will this matter be paid? </strong></td>
-            <td><%= f.input :mode_of_payment, label: false, collection: MatterIntake::MatterBePaidOptions %></td>
-          </tr>
-        <% end %>
-        <tr class="internal-matter">
-          <td class="text-right" width="20%"><strong>Cost Centre for legal fees </strong></td>
-          <td><%= f.input :cost_centre_for_legal_fees, label: false %></td>
-        </tr>
-        <tr class="internal-matter">
-          <td class="text-right" width="20%"><strong>LOB contact to create PO </strong></td>
-          <td><%= f.input :lob_contact_for_po, label: false %></td>
-        </tr>
-        <tr class="internal-matter">
-          <td class="text-right" width="20%"><strong>Panel or Non-Panel Firm </strong></td>
-          <td><%= f.input :firm_type, label: false, collection: MatterIntake::FirmType %></td>
-        </tr>
-        <tr class="panel_firm internal-matter" style="display: none;">
-          <td class="text-right" width="20%"><strong>Name of Panel Firm </strong></td>
-          <td><%= f.input :name_of_panel_firm, label: false, collection: LawFirm.where(law_firm_category: "PANEL") %></td>
-        </tr>
-        <tr class="non_panel_firm internal-matter" style="display: none;">
-          <td class="text-right" width="20%"><strong>Name of Non-Panel Firm </strong></td>
-          <td><%= f.input :name_of_non_panel_firm, label: false %></td>
-        </tr>
-        <tr class="internal-matter">
-          <td class="text-right" width="20%"><strong>Type of Pricing </strong></td>
-          <td><%= f.input :type_of_price, label: false, collection: MatterIntake::TypeOfPrice %></td>
-        </tr>
-        <tr class="alternative_fee internal-matter" style="display: none;">
-          <td class="text-right" width="20%"><strong>Is there an Alternative Fee Arrangement? </strong></td>
-          <td>
-            <%= f.input :is_alternative_fee_arrangement, label: false, collection: [['Yes', true], ["No", false]] %>
-          </td>
-        </tr>
-        <tr class="alternative_fee internal-matter">
-          <td class="text-right" width="20%"><strong>AFA Details </strong></td>
-          <td><%= f.input :afa_details, label: false %></td>
-        </tr>
-        <% if @form_type == "litigation" %>
-          <tr class="internal-matter">
-            <td class="text-right" width="20%"><strong>Could this matter be reimbursed? </strong></td>
-            <td>
-              <%= f.input :can_reimbursed_matter, label: false, collection: [['Yes', true], ["No", false]] %>
-            </td>
-          </tr>
-        <% end %>
-        <tr class="internal-matter">
-          <td class="text-right" width="20%"><strong>Other Party (Other than BMO) </strong></td>
-          <td><%= f.input :other_party, label: false, collection: MatterIntake::OtherParty %></td>
-        </tr>
-        <tr class="internal-matter">
-          <td class="text-right" width="20%"><strong>Additional Matter Contact (not specified elsewhere) </strong></td>
-          <td><%= f.input :additional_matter_contact, label: false %></td>
-        </tr>
-        <% if @form_type == "general" %>
-          <tr class="internal-matter">
-            <td class="text-right" width="20%"><strong>Budget amount, if already negotiated with the law firm </strong></td>
-            <td><%= f.input :budget_amount, label: false %></td>
-          </tr>
-        <% end %>
-        <tr class="internal-matter">
-          <td class="text-right" width="20%"><strong>Other Matter Issues (not specified elsewhere) </strong></td>
-          <td><%= f.input :other_matter_issues, label: false %></td>
-        </tr>
-        <tr>
-        <% if @form_type == "litigation" %>
-          <tr class="internal-matter">
-            <td class="text-right" width="20%"><strong>Background/Key Facts (other than matter description </strong></td>
-            <td><%= f.input :key_facts, label: false %></td>
-          </tr>
-          <tr class="internal-matter">
-            <td class="text-right" width="20%"><strong>Legal Analysis </strong></td>
-            <td><%= f.input :legal_analysis, label: false %></td>
-          </tr>
-          <tr class="internal-matter">
-            <td class="text-right" width="20%"><strong>Stage of Litigation </strong></td>
-            <td><%= f.input :stage_of_litigation, label: false, collection: MatterIntake::StageOfLitigation %></td>
-          </tr>
-          <tr class="internal-matter">
-            <td class="text-right" width="20%"><strong>Allegation of Employee Misconduct? </strong></td>
-            <td>
-              <%= f.input :allegation_of_employee_misconduct, label: false, collection: [['Yes', true], ["No", false]] %>
-            </td>
-          </tr>
-          <tr class="internal-matter">
-            <td class="text-right" width="20%"><strong>Primary Issue </strong></td>
-            <td><%= f.input :primary_issue, label: false, collection: MatterIntake::PrimaryIssue %></td>
-          </tr>
-          <tr class="internal-matter">
-            <td class="text-right" width="20%"><strong>Secondary Issue </strong></td>
-            <td><%= f.input :secondary_issue, label: false, collection: MatterIntake::SecondaryIssue %></td>
-          </tr>
-          <tr class="internal-matter">
-            <td class="text-right" width="20%"><strong>What Party is BMO in this action? </strong></td>
-            <td><%= f.input :bmo_party, label: false, collection: MatterIntake::BMOParty %></td>
-          </tr>
-          <tr class="internal-matter">
-            <td class="text-right" width="20%"><strong>Opposing Counsel Firm </strong></td>
-            <td><%= f.input :opposing_counsel_firm, label: false %></td>
-          </tr>
-          <tr class="internal-matter">
-            <td class="text-right" width="20%"><strong>Written Legal Notice Required </strong></td>
-            <td style="text-align: left;"><%= f.input :written_legal_notice_required, label: false, as: :boolean %></td>
-          </tr>
-          <tr class="internal-matter">
-            <td class="text-right" width="20%"><strong>Arbitration Offered </strong></td>
-            <td>
-              <%= f.input :arbitration_offered, label: false, collection: [['Yes', true], ["No", false]] %>
-            </td>
-          </tr>
-          <tr class="internal-matter">
-            <td class="text-right" width="20%"><strong>Arbitration Accepted </strong></td>
-            <td>
-              <%= f.input :arbitration_accepted, label: false, collection: [['Yes', true], ["No", false]] %>
-            </td>
-          </tr>
-          <tr class="internal-matter">
-            <td class="text-right" width="20%"><strong>Branch Manager/Investment Advisor Name </strong></td>
-            <td><%= f.input :branch_manager_investment_advisor, label: false %></td>
-          </tr>
-          <tr class="internal-matter">
-            <td class="text-right" width="20%"><strong>Region (Canadian P&C) </strong></td>
-            <td><%= f.input :region_name, label: false, collection: MatterIntake::Region %></td>
-          </tr>
-          <tr class="internal-matter">
-            <td class="text-right" width="20%"><strong>Date Suit Filed </strong></td>
-            <td style="text-align: left;"><%= f.input :date_suit_filed, label: false, as: :date, html5: true %></td>
-          </tr>
-          <tr class="internal-matter">
-            <td class="text-right" width="20%"><strong>Unquantified Claim </strong></td>
-            <td>
-              <%= f.input :unquantified_claim, label: false, collection: [['Yes', true], ["No", false]] %>
-            </td>
-          </tr>
-          <tr class="internal-matter">
-            <td class="text-right" width="20%"><strong>Valued at $50,000 or more </strong></td>
-            <td>
-              <%= f.input :valued_at, label: false %>
-            </td>
-          </tr>
-          <tr class="internal-matter">
-            <td class="text-right" width="20%"><strong>Amount Claimed from BMO 1 </strong></td>
-            <td>
-              <%= f.input :amount_claimed_from_bmo_1, label: false %>
-            </td>
-          </tr>
-          <tr class="internal-matter">
-            <td class="text-right" width="20%"><strong>Amount Claimed 1 currency </strong></td>
-            <td><%= f.input :amount_claimed_1_currency, label: false, collection: MatterIntake::AmountCurrency %></td>
-          </tr>
-          <tr class="internal-matter">
-            <td class="text-right" width="20%"><strong>Amount Claimed from BMO 2 </strong></td>
-            <td>
-              <%= f.input :amount_claimed_from_bmo_2, label: false %>
-            </td>
-          </tr>
-          <tr class="internal-matter">
-            <td class="text-right" width="20%"><strong>Amount Claimed 2 currency </strong></td>
-            <td><%= f.input :amount_claimed_2_currency, label: false, collection: MatterIntake::AmountCurrency %></td>
-          </tr>
-          <tr class="internal-matter">
-            <td class="text-right" width="20%"><strong>Amount Claimed by BMO </strong></td>
-            <td>
-              <%= f.input :amount_claimed_by_bmo, label: false %>
-            </td>
-          </tr>
-          <tr class="internal-matter">
-            <td class="text-right" width="20%"><strong>Amount Claimed by BMO currency </strong></td>
-            <td><%= f.input :amount_claimed_by_bmo_currency, label: false, collection: MatterIntake::AmountCurrency %></td>
-          </tr>
-          <tr class="internal-matter">
-            <td class="text-right" width="20%"><strong>Breakdown of Claim Amount </strong></td>
-            <td><%= f.input :breakdown_of_claim_amount, label: false %></td>
-          </tr>
-          <tr class="internal-matter">
-            <td class="text-right" width="20%"><strong>Court Name </strong></td>
-            <td><%= f.input :court_name, label: false %></td>
-          </tr>
-          <tr class="internal-matter">
-            <td class="text-right" width="20%"><strong>Case Caption </strong></td>
-            <td><%= f.input :case_caption, label: false %></td>
-          </tr>
-          <tr class="internal-matter">
-            <td class="text-right" width="20%"><strong>Court Type </strong></td>
-            <td><%= f.input :court_type, label: false, collection: MatterIntake::CourtType %></td>
-          </tr>
-          <tr class="internal-matter">
-            <td class="text-right" width="20%"><strong>Docket Number </strong></td>
-            <td><%= f.input :docket_number, label: false %></td>
-          </tr>
-          <tr class="internal-matter">
-            <td class="text-right" width="20%"><strong>Comset Issues </strong></td>
-            <td><%= f.input :comset_issues, label: false, collection: MatterIntake::ComsetIssues %></td>
-          </tr>
-          <tr class="internal-matter">
-            <td class="text-right" width="20%"><strong>Comset Ref: </strong></td>
-            <td><%= f.input :comset_ref, label: false %></td>
-          </tr>
-          <tr class="internal-matter">
-            <td class="text-right" width="20%"><strong>M&I Matter </strong></td>
-            <td>
-              <%= f.input :mi_matter, label: false, collection: [['Yes', true], ["No", false]] %>
-            </td>
-          </tr>
-          <tr class="internal-matter">
-            <td class="text-right" width="20%"><strong>Nature of Events </strong></td>
-            <td><%= f.input :nature_of_events, label: false %></td>
-          </tr>
-          <tr class="internal-matter">
-            <td class="text-right" width="20%"><strong>Process Type Level 1 </strong></td>
-            <td><%= f.input :process_type_level_1, label: false, collection: MatterIntake::ProcessTypeLevel1 %></td>
-          </tr>
-          <tr class="internal-matter">
-            <td class="text-right" width="20%"><strong>Process Type Level 2 </strong></td>
-            <td><%= f.input :process_type_level_2, label: false, collection: [] %></td>
-          </tr>
-          <tr class="internal-matter">
-            <td class="text-right" width="20%"><strong>Product Type Level 1 </strong></td>
-            <td><%= f.input :product_type_level_1, label: false, collection: MatterIntake::ProductTypeLevel1 %></td>
-          </tr>
-          <tr class="internal-matter">
-            <td class="text-right" width="20%"><strong>Product Type Level 2 </strong></td>
-            <td><%= f.input :product_type_level_2, label: false, collection: [] %></td>
-          </tr>
-          <tr class="internal-matter">
-            <td class="text-right" width="20%"><strong>Event Type Level 1 </strong></td>
-            <td><%= f.input :event_type_level_1, label: false, collection: MatterIntake::EventTypeLevel1 %></td>
-          </tr>
-          <tr class="internal-matter">
-            <td class="text-right" width="20%"><strong>Event Type Level 2 </strong></td>
-            <td><%= f.input :event_type_level_2, label: false, collection: [] %></td>
-          </tr>
-          <tr class="internal-matter">
-            <td class="text-right" width="20%"><strong>Business Activity Level 1 </strong></td>
-            <td><%= f.input :business_activity_level_1, label: false, collection: MatterIntake::BusinessActivityLevel1 %></td>
-          </tr>
-          <tr class="internal-matter">
-            <td class="text-right" width="20%"><strong>Business Activity Level 2 </strong></td>
-            <td><%= f.input :business_activity_level_2, label: false, collection: [] %></td>
-          </tr>
-        <% end %>
-        <td colspan="2">
-          <%=link_to 'Cancel', @matter_intake.new_record? ? new_admin_matter_intake_path : new_admin_matter_intake_path, class: 'btn btn-danger btn-sm' %>
-          <%= f.button :submit, @matter_intake.new_record? ? "Submit Matter Intake" : "Update Matter Intake", class: "" %>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+    <div class="row form-flex-wrap">
+      <div class="col-xs-12 col-md-6">
+        <label class="label">BMO lawyer name</label>
+          <%= f.input :bmo_lawyer_name, label: false, :input_html => { :value => current_user.try(:full_name) } %>
+          <%= f.input :lawyer_id, as: :hidden, label: false, :input_html => { :value => current_user.try(:id) } %>
+          <%= f.input :form_type, as: :hidden, label: false, :input_html => { :value => @form_type } %>
+      </div>
+      <div class="col-xs-12 col-md-6">
+        <label class="label">Legal Group of BMO Lawyer</label>
+        <%= f.input :legal_group_of_bmo_lawyer, label: false, collection: MatterIntake::LegalGroupBMOLawyer %>
+      </div>
+      <div class="col-xs-12 col-md-6">
+        <label class="label">Work Area</label>
+        <%= f.input :work_area, label: false, collection: @form_type == "litigation" ? MatterIntake::WorkAreaLitigation : MatterIntake::WorkArea  %>
+      </div>
+      <div class="col-xs-12 col-md-6 work_area_reportable" style="<%= @form_type === 'general' ? 'display: none;' : '' %>">
+        <label class="label">Is this matter ORE reportable?</label>
+        <%= f.input :is_ore_reportable, label: false, collection: [['Yes', true], ["No", false]] %>
+      </div>
+      <div class="col-xs-12 col-md-6 work_area_reportable" style="<%= @form_type === 'general' ? 'display: none;' : '' %>">
+        <label class="label">Is this matter otherwise reportable?</label>
+        <%= f.input :is_otherwise_reportable, label: false, collection: [['Yes', true], ["No", false]] %>
+      </div>
+      <div class="col-xs-12 col-md-6">
+        <label class="label">Is this a syndicate matter?</label>
+        <%= f.input :is_syndicate_matter, label: false, collection: [['Yes', true], ["No", false]] %>
+      </div>
+      <div class="col-xs-12 col-md-6">
+        <label class="label">Conceal iManage Workspace?</label>
+        <%= f.input :is_conceal_imanage_workspace, label: false, collection: [['Yes', true], ["No", false]] %>
+      </div>
+      <div class="col-xs-12 col-md-6">
+        <label class="label">Paper file?</label>
+        <%= f.input :is_paper_file, label: false, collection: [['Yes', true], ["No", false]] %>
+      </div>
+      <div class="col-xs-12 col-md-6">
+        <label class="label">Matter name</label>
+        <%= f.input :name_of_matter_client, label: false %>
+      </div>
+      <div class="col-xs-12 col-md-6">
+        <label class="label">Matter Description</label>
+        <%= f.input :matter_description, label: false %>
+      </div>
+      <div class="col-xs-12 col-md-6">
+        <label class="label">Legal Entity</label>
+        <%= f.input :paying_entity, label: false, collection: MatterIntake::LegalEntity %>
+      </div>
+      <div class="col-xs-12 col-md-6">
+        <label class="label">Business Paying for this Matter</label>
+        <%= f.input :business_paying_for_matter, label: false, collection: MatterIntake::Business %>
+      </div>
+      <div class="col-xs-12 col-md-6">
+        <label class="label">Group Paying for this Matter</label>
+        <%= f.input :group_paying_for_matter, label: false, collection: [] %>
+      </div>
+      <div class="col-xs-12 col-md-6">
+        <label class="label">Jurisdiction</label>
+        <%= f.input :jurisdiction, label: false, collection: MatterIntake::Jurisdiction %>
+      </div>
+      <% if @form_type == "litigation" %>
+        <div class="col-xs-12 col-md-6">
+          <label class="label">Branch</label>
+          <%= f.input :branch, label: false %>
+        </div>
+        <div class="col-xs-12 col-md-6">
+          <label class="label">Will outside counsel be engaged?</label>
+          <%= f.input :outside_counsel_engaged, label: false, collection: MatterIntake::OutsideCounselEngaged %>
+        </div>
+      <% end %>
+      <% if @form_type == "general" %>
+        <div class="col-xs-12 col-md-6">
+          <label class="label">How will this matter be paid?</label>
+          <%= f.input :mode_of_payment, label: false, collection: MatterIntake::MatterBePaidOptions %>
+        </div>
+      <% end %>
+      <div class="col-xs-12 col-md-6 internal-matter">
+        <label class="label">Cost Centre for legal fees</label>
+        <%= f.input :cost_centre_for_legal_fees, label: false %>
+      </div>
+      <div class="col-xs-12 col-md-6 internal-matter">
+        <label class="label">LOB contact to create PO</label>
+        <%= f.input :lob_contact_for_po, label: false %>
+      </div>
+      <div class="col-xs-12 col-md-6 internal-matter">
+        <label class="label">Panel or Non-Panel Firm</label>
+        <%= f.input :firm_type, label: false, collection: MatterIntake::FirmType %>
+      </div>
+      <div class="col-xs-12 col-md-6 panel_firm internal-matter" style="display: none;">
+        <label class="label">Name of Panel Firm</label>
+        <%= f.input :name_of_panel_firm, label: false, collection: LawFirm.where(law_firm_category: "PANEL") %>
+      </div>
+      <div class="col-xs-12 col-md-6 non_panel_firm internal-matter" style="display: none;">
+        <label class="label">Name of Non-Panel Firm</label>
+        <%= f.input :name_of_non_panel_firm, label: false %>
+      </div>
+      <div class="col-xs-12 col-md-6 internal-matter">
+        <label class="label">Type of Pricing</label>
+        <%= f.input :type_of_price, label: false, collection: MatterIntake::TypeOfPrice %>
+      </div>
+      <div class="col-xs-12 col-md-6 alternative_fee internal-matter" style="display: none;">
+        <label class="label">Is there an Alternative Fee Arrangement?</label>
+        <%= f.input :is_alternative_fee_arrangement, label: false, collection: [['Yes', true], ["No", false]] %>
+      </div>
+      <div class="col-xs-12 col-md-6 alternative_fee internal-matter">
+        <label class="label">AFA Details</label>
+        <%= f.input :afa_details, label: false %>
+      </div>
+      <% if @form_type == "litigation" %>
+        <div class="col-xs-12 col-md-6 internal-matter">
+          <label class="label">Could this matter be reimbursed?</label>
+          <%= f.input :can_reimbursed_matter, label: false, collection: [['Yes', true], ["No", false]] %>
+        </div>
+      <% end %>
+      <div class="col-xs-12 col-md-6 internal-matter">
+        <label class="label">Other Party (Other than BMO)</label>
+        <%= f.input :other_party, label: false, collection: MatterIntake::OtherParty %>
+      </div>
+      <div class="col-xs-12 col-md-6 internal-matter">
+        <label class="label">Additional Matter Contact (not specified elsewhere)</label>
+        <%= f.input :additional_matter_contact, label: false %>
+      </div>
+      <% if @form_type == "general" %>
+        <div class="col-xs-12 col-md-6 internal-matter">
+          <label class="label">Budget amount, if already negotiated with the law firm</label>
+          <%= f.input :budget_amount, label: false %>
+        </div>
+      <% end %>
+      <div class="col-xs-12 col-md-6 internal-matter">
+        <label class="label">Other Matter Issues (not specified elsewhere)</label>
+        <%= f.input :other_matter_issues, label: false %>
+      </div>
+      
+      <% if @form_type == "litigation" %>
+        <div class="col-xs-12 col-md-6 internal-matter">
+          <label class="label">Background/Key Facts (other than matter description</label>
+          <%= f.input :key_facts, label: false %>
+        </div>
+        <div class="col-xs-12 col-md-6 internal-matter">
+          <label class="label">Legal Analysis</label>
+          <%= f.input :legal_analysis, label: false %>
+        </div>
+        <div class="col-xs-12 col-md-6 internal-matter">
+          <label class="label">Stage of Litigation</label>
+          <%= f.input :stage_of_litigation, label: false, collection: MatterIntake::StageOfLitigation %>
+        </div>
+        <div class="col-xs-12 col-md-6 internal-matter">
+          <label class="label">Allegation of Employee Misconduct?</label>
+          <%= f.input :allegation_of_employee_misconduct, label: false, collection: [['Yes', true], ["No", false]] %>
+        </div>
+        <div class="col-xs-12 col-md-6 internal-matter">
+          <label class="label">Primary Issue</label>
+          <%= f.input :primary_issue, label: false, collection: MatterIntake::PrimaryIssue %>
+        </div>
+        <div class="col-xs-12 col-md-6 internal-matter">
+          <label class="label">Secondary Issue</label>
+          <%= f.input :secondary_issue, label: false, collection: MatterIntake::SecondaryIssue %>
+        </div>
+        <div class="col-xs-12 col-md-6 internal-matter">
+          <label class="label">What Party is BMO in this action?</label>
+          <%= f.input :bmo_party, label: false, collection: MatterIntake::BMOParty %>
+        </div>
+        <div class="col-xs-12 col-md-6 internal-matter">
+          <label class="label">Opposing Counsel Firm</label>
+          <%= f.input :opposing_counsel_firm, label: false %>
+        </div>
+        <div class="col-xs-12 col-md-6 internal-matter">
+          <label class="label">Written Legal Notice Required</label>
+          <%= f.input :written_legal_notice_required, label: false, as: :boolean %>
+        </div>
+        <div class="col-xs-12 col-md-6 internal-matter">
+          <label class="label">Arbitration Offered</label>
+          <%= f.input :arbitration_offered, label: false, collection: [['Yes', true], ["No", false]] %>
+        </div>
+        <div class="col-xs-12 col-md-6 internal-matter">
+          <label class="label">Arbitration Accepted</label>
+          <%= f.input :arbitration_accepted, label: false, collection: [['Yes', true], ["No", false]] %>
+        </div>
+        <div class="col-xs-12 col-md-6 internal-matter">
+          <label class="label">Branch Manager/Investment Advisor Name</label>
+          <%= f.input :branch_manager_investment_advisor, label: false %>
+        </div>
+        <div class="col-xs-12 col-md-6 internal-matter">
+          <label class="label">Region (Canadian P&C)</label>
+          <%= f.input :region_name, label: false, collection: MatterIntake::Region %>
+        </div>
+        <div class="col-xs-12 col-md-6 internal-matter">
+          <label class="label">Date Suit Filed</label>
+          <%= f.input :date_suit_filed, label: false, as: :date, html5: true %>
+        </div>
+        <div class="col-xs-12 col-md-6 internal-matter">
+          <label class="label">Unquantified Claim</label>
+          <%= f.input :unquantified_claim, label: false, collection: [['Yes', true], ["No", false]] %>
+        </div>
+        <div class="col-xs-12 col-md-6 internal-matter">
+          <label class="label">Valued at $50,000 or more</label>
+          <%= f.input :valued_at, label: false %>
+        </div>
+        <div class="col-xs-12 col-md-6 internal-matter">
+          <label class="label">Amount Claimed from BMO 1</label>
+          <%= f.input :amount_claimed_from_bmo_1, label: false %>
+        </div>
+        <div class="col-xs-12 col-md-6 internal-matter">
+          <label class="label">Amount Claimed 1 currency</label>
+          <%= f.input :amount_claimed_1_currency, label: false, collection: MatterIntake::AmountCurrency %>
+        </div>
+        <div class="col-xs-12 col-md-6 internal-matter">
+          <label class="label">Amount Claimed from BMO 2</label>
+          <%= f.input :amount_claimed_from_bmo_2, label: false %>
+        </div>
+        <div class="col-xs-12 col-md-6 internal-matter">
+          <label class="label">Amount Claimed 2 currency</label>
+          <%= f.input :amount_claimed_2_currency, label: false, collection: MatterIntake::AmountCurrency %>
+        </div>
+        <div class="col-xs-12 col-md-6 internal-matter">
+          <label class="label">Amount Claimed by BMO</label>
+          <%= f.input :amount_claimed_by_bmo, label: false %>
+        </div>
+        <div class="col-xs-12 col-md-6 internal-matter">
+          <label class="label">Amount Claimed by BMO currency</label>
+          <%= f.input :amount_claimed_by_bmo_currency, label: false, collection: MatterIntake::AmountCurrency %>
+        </div>
+        <div class="col-xs-12 col-md-6 internal-matter">
+          <label class="label">Breakdown of Claim Amount</label>
+          <%= f.input :breakdown_of_claim_amount, label: false %>
+        </div>
+        <div class="col-xs-12 col-md-6 internal-matter">
+          <label class="label">Court Name</label>
+          <%= f.input :court_name, label: false %>
+        </div>
+        <div class="col-xs-12 col-md-6 internal-matter">
+          <label class="label">Case Caption</label>
+          <%= f.input :case_caption, label: false %>
+        </div>
+        <div class="col-xs-12 col-md-6 internal-matter">
+          <label class="label">Court Type</label>
+          <%= f.input :court_type, label: false, collection: MatterIntake::CourtType %>
+        </div>
+        <div class="col-xs-12 col-md-6 internal-matter">
+          <label class="label">Docket Number</label>
+          <%= f.input :docket_number, label: false %>
+        </div>
+        <div class="col-xs-12 col-md-6 internal-matter">
+          <label class="label">Comset Issues</label>
+          <%= f.input :comset_issues, label: false, collection: MatterIntake::ComsetIssues %>
+        </div>
+        <div class="col-xs-12 col-md-6 internal-matter">
+          <label class="label">Comset Ref:</label>
+          <%= f.input :comset_ref, label: false %>
+        </div>
+        <div class="col-xs-12 col-md-6 internal-matter">
+          <label class="label">M&I Matter</label>
+          <%= f.input :mi_matter, label: false, collection: [['Yes', true], ["No", false]] %>
+        </div>
+        <div class="col-xs-12 col-md-6 internal-matter">
+          <label class="label">Nature of Events</label>
+          <%= f.input :nature_of_events, label: false %>
+        </div>
+        <div class="col-xs-12 col-md-6 internal-matter">
+          <label class="label">Process Type Level 1</label>
+          <%= f.input :process_type_level_1, label: false, collection: MatterIntake::ProcessTypeLevel1 %>
+        </div>
+        <div class="col-xs-12 col-md-6 internal-matter">
+          <label class="label">Process Type Level 2</label>
+          <%= f.input :process_type_level_2, label: false, collection: [] %>
+        </div>
+        <div class="col-xs-12 col-md-6 internal-matter">
+          <label class="label">Product Type Level 1</label>
+          <%= f.input :product_type_level_1, label: false, collection: MatterIntake::ProductTypeLevel1 %>
+        </div>
+        <div class="col-xs-12 col-md-6 internal-matter">
+          <label class="label">Product Type Level 2</label>
+          <%= f.input :product_type_level_2, label: false, collection: [] %>
+        </div>
+        <div class="col-xs-12 col-md-6 internal-matter">
+          <label class="label">Event Type Level 1</label>
+          <%= f.input :event_type_level_1, label: false, collection: MatterIntake::EventTypeLevel1 %>
+        </div>
+        <div class="col-xs-12 col-md-6 internal-matter">
+          <label class="label">Event Type Level 2</label>
+          <%= f.input :event_type_level_2, label: false, collection: [] %>
+        </div>
+        <div class="col-xs-12 col-md-6 internal-matter">
+          <label class="label">Business Activity Level 1</label>
+          <%= f.input :business_activity_level_1, label: false, collection: MatterIntake::BusinessActivityLevel1 %>
+        </div>
+        <div class="col-xs-12 col-md-6 internal-matter">
+          <label class="label">Business Activity Level 2</label>
+          <%= f.input :business_activity_level_2, label: false, collection: [] %>
+        </div>
+      <% end %>
+        <div class="col-xs-12 col-md-12 text-right">
+            <%=link_to 'Cancel', @matter_intake.new_record? ? new_admin_matter_intake_path : new_admin_matter_intake_path, class: 'btn-type-default' %>
+            <%= f.button :submit, @matter_intake.new_record? ? "Submit Matter Intake" : "Update Matter Intake", class: "btn-type-primary" %>
+        </div>
+    </div>
   <% end %>
 </div>
