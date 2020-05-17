@@ -100,40 +100,34 @@
 			</div>
 		</div>
 		<div class="row">
-			<tr>
+			<div class="col-xs-12 col-md-6">
 				<% if @law_firm.new_record? %>
-					<td class="text-right" width="20%"><strong>Temp. Password</strong></td>
-					<td>
-						<%= f.input :temp_password, autocomplete: "off", label: false, input_html: { class: 'set-password' } , required: true %>
-						<p style="color: #949494;" class="text-left"><em>Minimum 10 characters required</em></p>	
-					</td>
-				</tr>
-					<tr>
-					<td class="text-right" width="20%"><strong>Confirm Password</strong></td>
-					<td>
-						<%= f.input :temp_password_confirmation, autocomplete: "off", label: false, input_html: { class: 'set-password' }, required: true %>
-					</td>
-				</tr>
-				<% else %>
-					<td class="text-right" width="20%"><strong>Password</strong></td>
-					<td class="text-left">
-						<%= f.simple_fields_for :users do |field| %>
-							<div class="well">
-								<%= field.input :username, autocomplete: "off", label: false, input_html: { class: 'set-password', disabled: true } %>
-								<%= field.input :password, autocomplete: "off", label: false, input_html: { class: 'set-password', placeholder: "Password" } %>
-								<%= field.input :password_confirmation, autocomplete: "off", label: false, input_html: { class: 'set-password', placeholder: "Password Confirmation" } %>
-								<%= field.input :_destroy, label: "Remove", as: :boolean if field.object.role != "master_user" %>
-							</div>
+				<label class="label">Temp. Password<label>
+				<%= f.input :temp_password, autocomplete: "off", label: false, input_html: { class: 'set-password' } , required: true %>
+				<p style="color: #949494;" class="text-left"><em>Minimum 10 characters required</em></p>
+			</div>
+			<div class="col-xs-12 col-md-6">
+				<label class="label">Confirm Password</label>
+				<%= f.input :temp_password_confirmation, autocomplete: "off", label: false, input_html: { class: 'set-password' }, required: true %>
+			</div>
+			<% else %>
+			<div class="col-xs-12 col-md-6">
+				<label class="label">Password<label>
+					<%= f.simple_fields_for :users do |field| %>
+						<div class="well">
+							<%= field.input :username, autocomplete: "off", label: false, input_html: { class: 'set-password', disabled: true } %>
+							<%= field.input :password, autocomplete: "off", label: false, input_html: { class: 'set-password', placeholder: "Password" } %>
+							<%= field.input :password_confirmation, autocomplete: "off", label: false, input_html: { class: 'set-password', placeholder: "Password Confirmation" } %>
+							<%= field.input :_destroy, label: "Remove", as: :boolean if field.object.role != "master_user" %>
+						</div>
 						<% end %>
-					</td>
 				<% end %>
-			</tr>
 			</div>
-			<div class="row">
+		</div>
+		<div class="row">
 			<div class="col-xs-12 col-md-12">
-				<%=link_to 'Cancel', f.object.new_record? ? admin_law_firms_path : admin_law_firm_path, class: 'btn btn-danger btn-sm' %>
+				<%=link_to 'Cancel', f.object.new_record? ? admin_law_firms_path : admin_law_firm_path, class: 'btn-type-default' %>
 				<%= f.button :submit, f.object.new_record? ? 'Create' : 'Update', class: "btn-type-primary" %>
-			</div>
 			</div>
 		</div>
 	<% end %>

@@ -5,153 +5,150 @@
 
   input, textarea, select { padding: 0px !important; margin: 0px; background: transparent; }
 </style>
-  
-<div class="col-lg-3 back-btn">
-  <%= link_to "<i class='fa fa-long-arrow-left'></i>".html_safe, admin_matter_intakes_path, class: "btn btn-sm btn-default" %>
-  <button class='btn btn-danger btn-sm lxp_rejects'>Requires an Update</button>
-  <input type="hidden" value="<%= @matter_intake.id %>" id="matter_intake_id" />
-</div>
-
-<div class="clearfix"></div>
 
 <div class="col-lg-12 col-md-12 col-sm-12">
-  <div class="jarviswidget jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
-    <header>
-      <span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
-      <h2 class="font-md"><strong> Matter Intake Review (Combined Form A & B)</strong></h2>				
-    </header>
+  <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+    <div class="page-header-sp">
+      <div class="page-title m-top-zero">Matter Intake Review (Combined Form A & B)</div>
+      <div class="back-edit-actions">
+        <a class="btn-type-default" href="/admin/matter_intakes">
+          <%= image_tag "chevron-back-icon.svg", alt:"Back" %>
+        </a>
+        <button class='btn-type-primary lxp_rejects'>Requires an Update</button>
+        <input type="hidden" value="<%= @matter_intake.id %>" id="matter_intake_id" />
+      </div>
+    </div>
     <div class="  ">
-      <div class="jarviswidget-editbox"></div>
       <!-- widget content -->
-      <div class="widget-body no-padding view-request">
-        <div class="tab-content padding-10 view-request">
-          <div class="tab-pane fade in active">
-            <div class="col-md-10">
+      <div class="view-request">
+        <div class="tab-content view-request">
+          <div class="sp-form-bg show-data-fields">
+            <div class="row">
               <% if @matter_intake && @matter_intake.lob_submitted_at.present? %>
-                <div class="col-md-12">
-                  <div class="col-md-3 column">Submitter Name:	</div>
-                  <div class="col-md-9 data"><%= @matter_intake.submitter_name %></div>
+                <div class="col-xs-12 col-md-6">
+                  <div class="field-label">Submitter Name:	</div>
+                  <div class="field-data"><%= @matter_intake.submitter_name %></div>
                 </div>
               <% end %>
-              <div class="col-md-12">
-                <div class="col-md-3 column">LOB Contact Name:	</div>
-                <div class="col-md-9 data"><%= @matter_intake.lob_contact_name %></div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">LOB Contact Name:	</div>
+                <div class="field-data"><%= @matter_intake.lob_contact_name %></div>
               </div>
-              <div class="col-md-12">
-                <div class="col-md-3 column">Name of Matter/Client:	</div>
-                <div class="col-md-9 data"><%= @matter_intake.name_of_matter_client %></div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Name of Matter/Client:	</div>
+                <div class="field-data"><%= @matter_intake.name_of_matter_client %></div>
               </div>
-              <div class="col-md-12">
-                <div class="col-md-3 column">Type of Matter:	</div>
-                <div class="col-md-9 data"><%= @matter_intake.matter_type.try(:matter_type) %></div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Type of Matter:	</div>
+                <div class="field-data"><%= @matter_intake.matter_type.try(:matter_type) %></div>
               </div>
-              <div class="col-md-12">
-                <div class="col-md-3 column">Matter Description:	</div>
-                <div class="col-md-9 data"><%= @matter_intake.matter_description %></div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Matter Description:	</div>
+                <div class="field-data"><%= @matter_intake.matter_description %></div>
               </div>
-              <div class="col-md-12">
-                <div class="col-md-3 column">Law Firm Suggested:	</div>
-                <div class="col-md-9 data"><%= @matter_intake.law_firm.try(:name) %></div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Law Firm Suggested:	</div>
+                <div class="field-data"><%= @matter_intake.law_firm.try(:name) %></div>
               </div>
-              <div class="col-md-12">
-                <div class="col-md-3 column">BMO lawyer name:	</div>
-                <div class="col-md-9 data"><%= @matter_intake.bmo_lawyer_name %></div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">BMO lawyer name:	</div>
+                <div class="field-data"><%= @matter_intake.bmo_lawyer_name %></div>
               </div>
-              <div class="col-md-12">
-                <div class="col-md-3 column">Legal Group of BMO Lawyer:	</div>
-                <div class="col-md-9 data"><%= @matter_intake.legal_group_of_bmo_lawyer %></div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Legal Group of BMO Lawyer:	</div>
+                <div class="field-data"><%= @matter_intake.legal_group_of_bmo_lawyer %></div>
               </div>
-              <div class="col-md-12">
-                <div class="col-md-3 column">Work Area:	</div>
-                <div class="col-md-9 data"><%= @matter_intake.work_area %></div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Work Area:	</div>
+                <div class="field-data"><%= @matter_intake.work_area %></div>
               </div>
-              <div class="col-md-12">
-                <div class="col-md-3 column">Is this matter ORE reportable?:	</div>
-                <div class="col-md-9 data"><%= @matter_intake.is_ore_reportable === true ? 'Yes' : 'No' %></div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Is this matter ORE reportable?:	</div>
+                <div class="field-data"><%= @matter_intake.is_ore_reportable === true ? 'Yes' : 'No' %></div>
               </div>
-              <div class="col-md-12">
-                <div class="col-md-3 column">Is this matter otherwise reportable?:	</div>
-                <div class="col-md-9 data"><%= @matter_intake.is_otherwise_reportable === true ? 'Yes' : 'No' %></div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Is this matter otherwise reportable?:	</div>
+                <div class="field-data"><%= @matter_intake.is_otherwise_reportable === true ? 'Yes' : 'No' %></div>
               </div>
-              <div class="col-md-12">
-                <div class="col-md-3 column">Is this a syndicate matter?:	</div>
-                <div class="col-md-9 data"><%= @matter_intake.is_syndicate_matter === true ? 'Yes' : 'No' %></div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Is this a syndicate matter?:	</div>
+                <div class="field-data"><%= @matter_intake.is_syndicate_matter === true ? 'Yes' : 'No' %></div>
               </div>
-              <div class="col-md-12">
-                <div class="col-md-3 column">Conceal iManage Workspace?:	</div>
-                <div class="col-md-9 data"><%= @matter_intake.is_conceal_imanage_workspace === true ? 'Yes' : 'No' %></div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Conceal iManage Workspace?:	</div>
+                <div class="field-data"><%= @matter_intake.is_conceal_imanage_workspace === true ? 'Yes' : 'No' %></div>
               </div>
-              <div class="col-md-12">
-                <div class="col-md-3 column">Paper file?:	</div>
-                <div class="col-md-9 data"><%= @matter_intake.is_paper_file === true ? 'Yes' : 'No' %></div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Paper file?:	</div>
+                <div class="field-data"><%= @matter_intake.is_paper_file === true ? 'Yes' : 'No' %></div>
               </div>
-              <div class="col-md-12">
-                <div class="col-md-3 column">Paying/Legal Entity:	</div>
-                <div class="col-md-9 data"><%= @matter_intake.paying_entity %></div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Paying/Legal Entity:	</div>
+                <div class="field-data"><%= @matter_intake.paying_entity %></div>
               </div>
-              <div class="col-md-12">
-                <div class="col-md-3 column">Business Paying for this Matter:	</div>
-                <div class="col-md-9 data"><%= @matter_intake.business_paying_for_matter %></div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Business Paying for this Matter:	</div>
+                <div class="field-data"><%= @matter_intake.business_paying_for_matter %></div>
               </div>
-              <div class="col-md-12">
-                <div class="col-md-3 column">Group Paying for this Matter:	</div>
-                <div class="col-md-9 data"><%= @matter_intake.group_paying_for_matter %></div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Group Paying for this Matter:	</div>
+                <div class="field-data"><%= @matter_intake.group_paying_for_matter %></div>
               </div>
-              <div class="col-md-12">
-                <div class="col-md-3 column">Jurisdiction:	</div>
-                <div class="col-md-9 data"><%= @matter_intake.jurisdiction %></div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Jurisdiction:	</div>
+                <div class="field-data"><%= @matter_intake.jurisdiction %></div>
               </div>
-              <div class="col-md-12">
-                <div class="col-md-3 column">How will this matter be paid?:	</div>
-                <div class="col-md-9 data"><%= @matter_intake.mode_of_payment %></div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">How will this matter be paid?:	</div>
+                <div class="field-data"><%= @matter_intake.mode_of_payment %></div>
               </div>
-              <div class="col-md-12">
-                <div class="col-md-3 column">LOB contact to create PO:	</div>
-                <div class="col-md-9 data"><%= @matter_intake.lob_contact_for_po %></div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">LOB contact to create PO:	</div>
+                <div class="field-data"><%= @matter_intake.lob_contact_for_po %></div>
               </div>
-              <div class="col-md-12">
-                <div class="col-md-3 column">Cost Centre for legal fees:	</div>
-                <div class="col-md-9 data"><%= @matter_intake.cost_centre_for_legal_fees %></div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Cost Centre for legal fees:	</div>
+                <div class="field-data"><%= @matter_intake.cost_centre_for_legal_fees %></div>
               </div>
-              <div class="col-md-12">
-                <div class="col-md-3 column">Panel or Non-Panel Firm:	</div>
-                <div class="col-md-9 data"><%= @matter_intake.firm_type %></div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Panel or Non-Panel Firm:	</div>
+                <div class="field-data"><%= @matter_intake.firm_type %></div>
               </div>
-              <div class="col-md-12">
-                <div class="col-md-3 column">Name of Panel Firm:	</div>
-                <div class="col-md-9 data"><%= @matter_intake.name_of_panel_firm %></div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Name of Panel Firm:	</div>
+                <div class="field-data"><%= @matter_intake.name_of_panel_firm %></div>
               </div>
-              <div class="col-md-12">
-                <div class="col-md-3 column">Name of Non-Panel Firm:	</div>
-                <div class="col-md-9 data"><%= @matter_intake.name_of_non_panel_firm %></div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Name of Non-Panel Firm:	</div>
+                <div class="field-data"><%= @matter_intake.name_of_non_panel_firm %></div>
               </div>
-              <div class="col-md-12">
-                <div class="col-md-3 column">Type of Pricing:	</div>
-                <div class="col-md-9 data"><%= @matter_intake.type_of_price %></div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Type of Pricing:	</div>
+                <div class="field-data"><%= @matter_intake.type_of_price %></div>
               </div>
-              <div class="col-md-12">
-                <div class="col-md-3 column">Is there an Alternative Fee Arrangement?:	</div>
-                <div class="col-md-9 data"><%= @matter_intake.is_alternative_fee_arrangement === true ? 'Yes' : 'No' %></div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Is there an Alternative Fee Arrangement?:	</div>
+                <div class="field-data"><%= @matter_intake.is_alternative_fee_arrangement === true ? 'Yes' : 'No' %></div>
               </div>
-              <div class="col-md-12">
-                <div class="col-md-3 column">AFA Details:	</div>
-                <div class="col-md-9 data"><%= @matter_intake.afa_details %></div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">AFA Details:	</div>
+                <div class="field-data"><%= @matter_intake.afa_details %></div>
               </div>
-              <div class="col-md-12">
-                <div class="col-md-3 column">Other Party (Other than BMO):	</div>
-                <div class="col-md-9 data"><%= @matter_intake.other_party %></div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Other Party (Other than BMO):	</div>
+                <div class="field-data"><%= @matter_intake.other_party %></div>
               </div>
-              <div class="col-md-12">
-                <div class="col-md-3 column">Additional Matter Contact (not specified elsewhere):	</div>
-                <div class="col-md-9 data"><%= @matter_intake.additional_matter_contact %></div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Additional Matter Contact (not specified elsewhere):	</div>
+                <div class="field-data"><%= @matter_intake.additional_matter_contact %></div>
               </div>
-              <div class="col-md-12">
-                <div class="col-md-3 column">Budget amount, if already negotiated with the law firm:	</div>
-                <div class="col-md-9 data"><%= @matter_intake.budget_amount %></div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Budget amount, if already negotiated with the law firm:	</div>
+                <div class="field-data"><%= @matter_intake.budget_amount %></div>
               </div>
-              <div class="col-md-12">
-                <div class="col-md-3 column">Other Matter Issues (not specified elsewhere):	</div>
-                <div class="col-md-9 data"><%= @matter_intake.other_matter_issues %></div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Other Matter Issues (not specified elsewhere):	</div>
+                <div class="field-data"><%= @matter_intake.other_matter_issues %></div>
               </div>
             </div>
             <div class="clearfix"></div>
@@ -165,113 +162,104 @@
 <div class="clearfix"></div>
 
 <div class="col-lg-12 col-md-12 col-sm-12">
-  <div class="jarviswidget jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
-    <header>
-      <span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
-      <h2 class="font-md"><strong> Matter Intake - Complete Form-C</strong></h2>				
-    </header>
-
-    <div class="table-responsive">
-      <%= simple_form_for [:admin, @matter_intake] do |f| %>
-        <table class="table table-striped">
-          <tbody>
-            <tr>
-              <td class="text-right" width="20%"><strong>Matter Number </strong></td>
-              <td>
-                <%= f.input :matter_number, label: false %>
-              </td>
-            </tr>
-            <tr>
-            <td colspan="2">
-                <%=link_to 'Cancel', @matter_intake.new_record? ? new_admin_matter_intake_path : admin_matter_intakes_path, class: 'btn btn-danger btn-sm' %>
-              <%= f.button :submit, @matter_intake.new_record? ? "Submit Matter Number" : "Submit Matter Number", class: "" %>
-            </td>
-          </tr>
-          </tbody>
-        </table>
+  <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+    <div class="page-header-sp">
+      <div class="page-title">Matter Intake - Complete Form-C</div>
+      <div class="back-edit-actions">
+      </div>
+    </div>
+    <div class="sp-form sp-form-bg">
+      <%= simple_form_for [:admin, @matter_intake] do |f| %> 
+        <div class="row">
+          <div class="col-xs-12 col-md-6">
+            <label class="label">Matter Number</label>
+            <%= f.input :matter_number, label: false %>
+          </div>
+          <div class="col-xs-12 col-md-12 text-right">
+            <%=link_to 'Cancel', @matter_intake.new_record? ? new_admin_matter_intake_path : admin_matter_intakes_path, class: 'btn-type-default' %>
+            <%= f.button :submit, @matter_intake.new_record? ? "Submit Matter Number" : "Submit Matter Number", class: "btn-type-primary" %>
+          </div>
+        </div>
       <% end %>
   </div>
 </div>
 
 <div class="col-md-12">
   <%- if @matter_intake.reviews.size > 0 %>
-    <div class="jarviswidget jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
-      <header class="no-border">
-        <span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
-        <h2 class="font-md"><strong>Review Logs </strong></h2>
-      </header>
-      
-      <div>
-        <div class="clearfix"></div>
-        <!-- MAIN PANEL -->
-        <div role="main">
-          <!-- MAIN CONTENT -->
-          <div style="height: 500px;overflow-y: scroll;">
-            <!-- row -->
-            <div class="row">
-              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <div class="well well-sm">
-                  <!-- Timeline Content -->
-                  <div class="smart-timeline">
-                    <ul class="smart-timeline-list">
-                      <% @matter_intake.reviews.reverse.each do |review| %>
-                      <% if review.status_from.blank? && review.status.blank? && review.assigned_to_id.present? %>
-                        <li data-id="<%= review.id %>">
-                            <div class="smart-timeline-icon">
-                              R
-                            </div>
-                            <div class="smart-timeline-time">
-                              <small><%= review.created_at.strftime('%d %b %Y at %I:%M %p') %></small>
-                            </div>
-                            <div class="smart-timeline-content">
-                              <p>
-                                <strong>
-                                <%= review.actor.email %> assigned exception request to internal lawyer for approval.
-                                <strong>
-                              </p>
-                              <p>
-                                <%= review.description %>
-                              </p>
-                            </div>
-                          </li>
-                      <% else %>
-                        <li data-id="<%= review.id %>">
-                        <div class="smart-timeline-icon">
-                          R
-                        </div>
-                        <div class="smart-timeline-time">
-                          <small><%= review.created_at.strftime('%d %b %Y at %I:%M %p') %></small>
-                          <small><i><%= time_ago_in_words(review.created_at) %> ago</i> </small>
-                        </div>
-                        <div class="smart-timeline-content">
-                          <p>
-                            <strong>
-                              <%- if review.status_show %>
-                                <%= review.actor.email %> change status to <%= review.status_show %>
-                              <% else %>
-                                <%= review.actor.email %> left a comment
-                              <% end %>
-                            <strong>
-                          </p>
-                          <p>
-                            <%= review.description.blank? ? "NA" : review.description %>
-                          </p>
-                        </div>
-                      </li>
-                        <% end %>
+    <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+      <div class="page-header-sp">
+          <div class="page-title">Review Logs</div>
+          <div class="back-edit-actions">
+        </div>
+      </div>
+      <!-- MAIN PANEL -->
+      <div role="main">
+        <!-- MAIN CONTENT -->
+        <div>
+          <!-- row -->
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <div class="sp-form-bg">
+                <!-- Timeline Content -->
+                <div class="smart-timeline">
+                  <ul class="smart-timeline-list">
+                    <% @matter_intake.reviews.reverse.each do |review| %>
+                    <% if review.status_from.blank? && review.status.blank? && review.assigned_to_id.present? %>
+                      <li data-id="<%= review.id %>">
+                          <div class="smart-timeline-icon">
+                            R
+                          </div>
+                          <div class="smart-timeline-time">
+                            <small><%= review.created_at.strftime('%d %b %Y at %I:%M %p') %></small>
+                          </div>
+                          <div class="smart-timeline-content">
+                            <p>
+                              <strong>
+                              <%= review.actor.email %> assigned exception request to internal lawyer for approval.
+                              <strong>
+                            </p>
+                            <p>
+                              <%= review.description %>
+                            </p>
+                          </div>
+                        </li>
+                    <% else %>
+                      <li data-id="<%= review.id %>">
+                      <div class="smart-timeline-icon">
+                        R
+                      </div>
+                      <div class="smart-timeline-time">
+                        <small><%= review.created_at.strftime('%d %b %Y at %I:%M %p') %></small>
+                        <small><i><%= time_ago_in_words(review.created_at) %> ago</i> </small>
+                      </div>
+                      <div class="smart-timeline-content">
+                        <p>
+                          <strong>
+                            <%- if review.status_show %>
+                              <%= review.actor.email %> change status to <%= review.status_show %>
+                            <% else %>
+                              <%= review.actor.email %> left a comment
+                            <% end %>
+                          <strong>
+                        </p>
+                        <p>
+                          <%= review.description.blank? ? "NA" : review.description %>
+                        </p>
+                      </div>
+                    </li>
                       <% end %>
-                    </ul>
-                  </div>
-                  <!-- END Timeline Content -->
+                    <% end %>
+                  </ul>
                 </div>
+                <!-- END Timeline Content -->
               </div>
             </div>
-            <!-- end row -->
           </div>
-          <!-- END MAIN CONTENT -->
+          <!-- end row -->
         </div>
-        <!-- END MAIN PANEL -->
+        <!-- END MAIN CONTENT -->
       </div>
+      <!-- END MAIN PANEL -->
     </div>
   <% end %>
 </div>
