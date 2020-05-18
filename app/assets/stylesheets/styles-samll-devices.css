@@ -82,4 +82,13 @@
     text-transform: uppercase;
   }
   /* Toggle Menu END */
+  .user-form-sp{
+    flex-direction: column;
+  }
+  .user-form-sp .form-group {
+    width: 100%;
+  }
+  .main-page {
+    padding: 60px 0px !important;
+  }
 }

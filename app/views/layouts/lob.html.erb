@@ -26,169 +26,88 @@
 	</head>
 
   <body class="">
-  <!-- #HEADER -->
-	<header id="header" class="sp-navbar">
-		<div id="logo-group">
-			<!-- PLACE YOUR LOGO HERE -->
-			<span id="logo"> <a href="/lob"><%= image_tag "seal-logo.png", alt:"PANEL" %></a> </span>
-			<!-- END LOGO PLACEHOLDER -->
-		</div>
+		<!-- #HEADER -->
+		<header id="header" class="sp-navbar">
+			<div id="logo-group">
+				<!-- PLACE YOUR LOGO HERE -->
+				<span id="logo"> <a href="/lob"><%= image_tag "seal-logo.png", alt:"PANEL" %></a> </span>
+				<!-- END LOGO PLACEHOLDER -->
+			</div>
 
-		<div class="text-center portal-type">
-			<p>LOB Dashboard</p>
-		</div>
-		<div class="project-context user-info">
-			<span class="project-selector dropdown-toggle" data-toggle="dropdown">
-				<%= image_tag "https://ui-avatars.com/api/?name=John+Doe&background=0051CA&color=fff", alt:"User", class:"user-image" %> 
-				<span class="drop-down-icon">
-					<%= image_tag "drop-down-icon.svg", alt:"Drop menu" %>
+			<div class="text-center portal-type">
+				<p>LOB Dashboard</p>
+			</div>
+			<div class="project-context user-info">
+				<span class="project-selector dropdown-toggle" data-toggle="dropdown">
+					<%= image_tag "https://ui-avatars.com/api/?name=John+Doe&background=0051CA&color=fff", alt:"User", class:"user-image" %> 
+					<span class="drop-down-icon">
+						<%= image_tag "drop-down-icon.svg", alt:"Drop menu" %>
+					</span>
 				</span>
-			</span>
-			<ul class="dropdown-menu">
-				<li><a href="/lob/users/edit_profile/<%= current_user.id %>" title="Edit Profile" data-action="userLogout" >Profile</a></li>
-				<li role="separator" class="divider"></li>
-				<li><a href="/users/sign_out" title="Sign Out" data-action="userLogout" data-logout-msg="You can improve your security further after logging out by closing this opened browser">Logout</a></li>
-			</ul>
-			<!-- end dropdown-menu-->
-		</div>
-	</header>
-	<!-- END HEADER -->
-	<div class="sp-main-page">
-		<div class="left-side">
-			<div class="main-mobile-mneu">
-				<div class="dashboard-title">LOB Dashboard</div>
-				<div id="menu_toggle"><%= image_tag "menu-icon.svg", alt:"Menu_icon" %></div>
+				<ul class="dropdown-menu">
+					<li><a href="/lob/users/edit_profile/<%= current_user.id %>" title="Edit Profile" data-action="userLogout" >Profile</a></li>
+					<li role="separator" class="divider"></li>
+					<li><a href="/users/sign_out" title="Sign Out" data-action="userLogout" data-logout-msg="You can improve your security further after logging out by closing this opened browser">Logout</a></li>
+				</ul>
+				<!-- end dropdown-menu-->
 			</div>
-			<div class="sticky-left-side" id="dashboard_menu">
-				<nav class="sp-sidebar">
-					<ul>
-						<li class="<%= active_menu_item('/lob') %>">
-							<a href="/lob" title="blank_"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Dashboard</span></a>
-						</li>
-						<% if current_user && current_user.role == 'lob'  %>
-							<li class="<%= active_menu_item('/lob/exception_requests') %>">
-								<a href="/lob/exception_requests" title="blank_"><i class="fa fa-lg fa-fw fa-exclamation"></i> <span class="menu-item-parent">Engage Non Panel Firm</span></a>
-							</li>
-							<li class="<%= active_menu_item('/lob/panel_requests') %>">
-								<a href="/lob/panel_requests" title="blank_"><i class="fa fa-lg fa-fw fa-check"></i> <span class="menu-item-parent">Panel Request Form</span></a>
-							</li>
-							<li>
-								<a href="/lob/matter_intakes"><i class="fa fa-lg fa-fw fa-briefcase"></i> Matter Intakes</a>
-							</li>
-						<% end %>
-					</ul>
-				</nav>
-				<div class="bmo-logo">
-					<%= image_tag "BMO-logo-footer.svg", alt:"BMO Logo" %>
+		</header>
+		<!-- END HEADER -->
+		<div class="sp-main-page">
+			<div class="left-side">
+				<div class="main-mobile-mneu">
+					<div class="dashboard-title">LOB Dashboard</div>
+					<div id="menu_toggle"><%= image_tag "menu-icon.svg", alt:"Menu_icon" %></div>
 				</div>
-			</div>
-		</div>
-		<div class="right-side">
-			<div class="">
-				<div class="col-md-12">
-					<% if !flash[:notice].blank? %>
-						<div class="row">
-							<div class="col-lg-12">
-								<p class="alert alert-success"><%= flash[:notice] %></p>
-							</div>
-						</div>
-					<% end %>
-					<% if !flash[:alert].blank? %>
-						<div class="row">
-							<div class="col-lg-12">
-								<p class="alert alert-warning"><%= flash[:alert] %></p>
-							</div>
-						</div>
-					<% end %>
-				</div>	
-			</div>	
-			<div class="">
-				<%= yield %>
-			</div>
-		</div>
-	</div>
-
-	<aside id="left-panel" style="display:none;">
-
-		<!-- User info -->
-		<div class="login-info">
-			<span>
-				<a style="padding-top: 0" href="javascript:void(0);" id="show-shortcut" data-action="toggleShortcut"></a> 
-			</span>
-		</div>
-		<!-- end user info -->
-
-		
-		<nav>
-			<ul>
-				<li class="<%= active_menu_item('/lob') %>">
-					<a href="/lob" title="blank_"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Dashboard</span></a>
-				</li>
-				<% if current_user && current_user.role == 'lob'  %>
-					<li class="<%= active_menu_item('/lob/exception_requests') %>">
-						<a href="/lob/exception_requests" title="blank_"><i class="fa fa-lg fa-fw fa-exclamation"></i> <span class="menu-item-parent">Engage Non Panel Firm</span></a>
-					</li>
-					<li class="<%= active_menu_item('/lob/panel_requests') %>">
-						<a href="/lob/panel_requests" title="blank_"><i class="fa fa-lg fa-fw fa-check"></i> <span class="menu-item-parent">Panel Request Form</span></a>
-					</li>
-					<li>
-						<a href="/lob/matter_intakes"><i class="fa fa-lg fa-fw fa-briefcase"></i> Matter Intakes</a>
-					</li>
-				<% end %>
-			</ul>
-		</nav>
-		<span class="minifyme" data-action="minifyMenu"> 
-			<i class="fa fa-arrow-circle-left hit"></i> 
-		</span>
-		
-	</aside>
-	<!-- END NAVIGATION -->
-	
-	<!-- #MAIN PANEL -->
-	<div id="main" role="main"  style="display:none;">
-		<!-- #MAIN CONTENT -->	
-			<!-- end col -->
-			<div class="table-striped table-hover">
-				<div class="col-lg-12 table-striped table-hover">
-					<div class="container">
-						<div class="col-md-12">
-							<% if !flash[:notice].blank? %>
-								<div class="row">
-									<div class="col-lg-12">
-										<p class="alert alert-success"><%= flash[:notice] %></p>
-									</div>
-								</div>
+				<div class="sticky-left-side" id="dashboard_menu">
+					<nav class="sp-sidebar">
+						<ul>
+							<li class="<%= active_menu_item('/lob') %>">
+								<a href="/lob" title="blank_"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Dashboard</span></a>
+							</li>
+							<% if current_user && current_user.role == 'lob'  %>
+								<li class="<%= active_menu_item('/lob/exception_requests') %>">
+									<a href="/lob/exception_requests" title="blank_"><i class="fa fa-lg fa-fw fa-exclamation"></i> <span class="menu-item-parent">Engage Non Panel Firm</span></a>
+								</li>
+								<li class="<%= active_menu_item('/lob/panel_requests') %>">
+									<a href="/lob/panel_requests" title="blank_"><i class="fa fa-lg fa-fw fa-check"></i> <span class="menu-item-parent">Panel Request Form</span></a>
+								</li>
+								<li>
+									<a href="/lob/matter_intakes"><i class="fa fa-lg fa-fw fa-briefcase"></i> Matter Intakes</a>
+								</li>
 							<% end %>
-							<% if !flash[:alert].blank? %>
-								<div class="row">
-									<div class="col-lg-12">
-										<p class="alert alert-warning"><%= flash[:alert] %></p>
-									</div>
-								</div>
-							<% end %>
-						</div>	
-					</div>	
-			    <div class="container">
-						<%= yield %>
+						</ul>
+					</nav>
+					<div class="bmo-logo">
+						<%= image_tag "BMO-logo-footer.svg", alt:"BMO Logo" %>
 					</div>
-
 				</div>
 			</div>
-			
-
-		<!-- end row -->
-		
-		<!-- END #MAIN CONTENT -->
-
-	</div>
-	<!-- END #MAIN PANEL -->
-
-
+			<div class="right-side">
+				<div class="">
+					<div class="col-md-12">
+						<% if !flash[:notice].blank? %>
+							<div class="row">
+								<div class="col-lg-12">
+									<p class="alert alert-success"><%= flash[:notice] %></p>
+								</div>
+							</div>
+						<% end %>
+						<% if !flash[:alert].blank? %>
+							<div class="row">
+								<div class="col-lg-12">
+									<p class="alert alert-warning"><%= flash[:alert] %></p>
+								</div>
+							</div>
+						<% end %>
+					</div>	
+				</div>	
+				<div class="">
+					<%= yield %>
+				</div>
+			</div>
+		</div>
 	<!-- END SHORTCUT AREA -->
-
-		
-
-
 		<div id="securityThreat" class="modal fade" role="dialog">
 		  <div class="modal-dialog">
 
