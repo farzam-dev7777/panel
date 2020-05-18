@@ -89,6 +89,29 @@
     width: 100%;
   }
   .main-page {
-    padding: 60px 0px !important;
+    padding: 110px 0px 60px 0px !important;
+  }
+  .small-device-page-title{
+    display: flex;
+    position: fixed;
+    z-index: 99;
+    width: 100%;
+    background-color: #fff;
+    top: 72px;
+    text-transform: uppercase;
+    letter-spacing: 22px;
+    justify-content: center;
+    padding: 8px 0px;
+  }
+  .small-device-page-title p{
+    margin: 0px;
+    line-height: normal;
+  }
+  .main-page .row {
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+  }
+  .btn-decor-sp{
+    margin-top: 15px;
   }
 }

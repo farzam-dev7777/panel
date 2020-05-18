@@ -94,10 +94,17 @@ body{
   display: flex;
   flex-direction: column;
   margin-left: 15px;
-  color: #000;
+  
+}
+.user-info .sp-user-profile .user-welcome .welcome{
+  font-size: 14px;
+  line-height: 18px;
+  color: #404040;
 }
 .user-info .sp-user-profile .user-welcome .sp-user-name{
-  color: #727272;
+  font-size: 12px;
+  line-height: 15px;
+  color: #565656;
   font-weight: normal;
 }
 .sp-user-dropdown-menu .dropdown-menu{
@@ -903,4 +910,13 @@ nav ul li a:active {
   box-sizing: inherit !important;
   width: 100% !important;
   height: 39px !important;
+}
+.small-device-page-title{
+  display: none;
+}
+#doorbell-button{
+  right: 0.5% !important;
+  padding: 8px 16px !important;
+  font-weight: bold !important;
+  background: #0052ca !important;
 }
