@@ -920,3 +920,95 @@ nav ul li a:active {
   font-weight: bold !important;
   background: #0052ca !important;
 }
+/* SignIn page */
+.remove-padding{
+  padding: 0px !important;
+}
+.sign-in-page{
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+}
+.sign-in-page .left-side{
+  width: 56%;
+}
+.sign-in-page .left-side.signin-img{
+  background: #0079C1 !important;
+  background-image: url('/assets/sign-in-bg.jpg') !important;
+  background-image: url('/assets/sign-in-bg.jpg'), linear-gradient(#0079C1, #0079C1) !important;
+  background-size: cover !important;
+  height: 100vh;
+  background-position: center !important;
+  background-repeat: no-repeat;
+}
+.sign-in-page .right-side{
+  width: 44%;
+}
+.sign-in-page .right-side .signin-form{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+}
+.sign-in-page .right-side .signin-form .page-logo{
+  margin-bottom: 50px;
+}
+.sign-in-page .right-side .signin-form .page-logo img{
+  width: 100px;
+}
+.sign-in-page .right-side .signin-form .signin-tagline{
+  font-size: 32px;
+  line-height: 40px;
+  color: #171F46;
+  margin-bottom: 50px;
+}
+.sign-in-page .right-side .signin-form .sp-signin-form{
+  width: 60%;
+}
+.sign-in-page .right-side .signin-form .sp-signin-form .sp-label{
+  font-size: 12px;
+  line-height: 16px;
+  color: #7E858E;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+.sign-in-page .right-side .signin-form .sp-signin-form .sp-input{
+  margin-bottom: 25px !important;
+}
+.sign-in-page .right-side .signin-form .sp-signin-form .sp-input input{
+  background-color: transparent !important;
+  border: 1px solid #D7DFE9;
+  box-sizing: border-box;
+  border-radius: 2px;
+  font-size: 14px;
+  line-height: 24px;
+  padding: 8px;
+}
+.sign-in-page .right-side .signin-form .sp-signin-form .sp-signin-btn .btn-type-primary{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  line-height: 24px !important;
+  padding:8px 0px !important;
+  border: 0px solid #0051CA !important;
+}
+.sign-in-page .right-side .signin-form .sp-signin-form .sp-signin-btn{
+  margin-bottom: 75px;
+}
+.sign-in-page .right-side .signin-form .sp-signin-form .sp-tc{
+  display: flex;
+  justify-content: center;
+}
+.sp-powered{
+  position: absolute;
+  bottom: 25px;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 16px;
+  color: #7E858E;
+}
+/* SignIn Page END */

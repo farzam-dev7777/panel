@@ -90,4 +90,12 @@
   .btn-decor-sp{
     margin-top: 15px;
   }
+  /* SignIn page */
+  .sign-in-page .left-side{
+    width: 50%;
+  }
+  .sign-in-page .right-side{
+    width: 50%;
+  }
+  /* SignIn page END */
 }

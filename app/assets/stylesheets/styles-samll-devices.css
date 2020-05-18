@@ -114,4 +114,17 @@
   .btn-decor-sp{
     margin-top: 15px;
   }
+  /* SignIn page */
+  .sign-in-page{
+    flex-direction:column !important;
+    height: auto !important;
+    width: 100% !important;
+  }
+  .sign-in-page .left-side{
+    width: 100% !important;
+  }
+  .sign-in-page .right-side{
+    width: 100% !important;
+  }
+  /* SignIn page END */
 }
