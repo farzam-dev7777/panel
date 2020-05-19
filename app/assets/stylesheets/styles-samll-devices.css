@@ -115,6 +115,21 @@
     margin-top: 15px;
   }
   /* SignIn page */
+  .sign-in-page .right-side .signin-form .sp-signin-form {
+    width: 85%;
+  }
+  .sign-in-page .left-side.signin-img{
+    height: 30vh;
+    width: 100% !important;
+  }
+  .sign-in-page .right-side .signin-form{
+    justify-content: unset;
+    height: auto;
+    margin-top: 25px;
+  }
+  .sign-in-page .right-side .signin-form .page-logo {
+    margin-bottom: 25px;
+  }
   .sign-in-page{
     flex-direction:column !important;
     height: auto !important;
