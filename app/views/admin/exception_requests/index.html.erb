@@ -80,7 +80,7 @@
               <th>Law Firm Name</th>
               <th>LXP Status</th>
               <th>Lawyer Status</th>
-              <th>Action</th>
+              <th width="8%">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -94,10 +94,18 @@
                   <td><%= exception_request.lxp_status %></td>
                   <td><%= exception_request.internal_lawyers_status %></td>
                   <td>
-                    <% if current_user.role == 'lob' &&  exception_request.try(:lxp_status) != 'APPROVED' %>
-                      <%= link_to "Edit", edit_admin_exception_request_path(exception_request), class: "btn btn-xs btn-primary" %>
-                    <% end %> 
-                    <%= link_to "Review", admin_exception_request_path(exception_request), class: "btn btn-xs btn-secondary" %>	
+                    <div class="action-fields">
+                     <% if current_user.role == 'lob' &&  exception_request.try(:lxp_status) != 'APPROVED' %>
+                        <% link_to "Edit", edit_admin_exception_request_path(exception_request), class: "btn btn-xs btn-primary" %>
+                        <a class="action-btn" href="/admin/exception_requests/<%= exception_request.id %>/edit">
+                          <%= image_tag "edit-icon.svg", alt:"Edit" %>
+                        </a>
+                      <% end %> 
+                      <% link_to "Review", admin_exception_request_path(exception_request), class: "btn btn-xs btn-secondary" %>	
+                      <a class="action-btn" href="/admin/exception_requests/<%= exception_request.id %>">
+                        <%= image_tag "review-icon.svg", alt:"Review" %>
+                      </a> 
+                    </div>
                   </td>
                 </tr>
                 <% end %>

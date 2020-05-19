@@ -75,7 +75,7 @@
               <th>LOB Contact Name</th>
               <th>Panel Status</th>
               <th>LXP Status</th>
-              <th>Action</th>
+              <th width="8%">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -88,11 +88,9 @@
               <td><%= panel_request.lxp_status_show ? panel_request.lxp_status_show : "-" %></td>
               <td>
                 <div class="action-fields">
-                  <!--<%= link_to "Edit", edit_lob_panel_request_path(panel_request), class: "action-btn" %>-->	
                   <a class="action-btn" href="/lob/panel_requests/<%= panel_request.id %>/edit">
                     <%= image_tag "edit-icon.svg", alt:"Edit" %>
                   </a>
-                  <!--<%= link_to "view", lob_panel_request_path(panel_request), class: "action-btn" %>-->
                   <a class="action-btn" href="/lob/panel_requests/<%= panel_request.id %>">
                     <%= image_tag "view-icon.svg", alt:"View" %>
                   </a>

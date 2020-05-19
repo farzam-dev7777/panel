@@ -1013,3 +1013,26 @@ nav ul li a:active {
   color: #7E858E;
 }
 /* SignIn Page END */
+.chosen-container-multi .chosen-choices li.search-choice {
+  background: #0052ca !important;
+  color:#fff !important;
+}
+.chosen-container-multi .chosen-choices li.search-choice {
+  border: 0px solid #aaa;
+  max-width: 100%;
+  border-radius: 3px;
+  background-color: #eee;
+  background-image: linear-gradient(#f4f4f4 20%,#f0f0f0 50%,#e8e8e8 52%,#eee 100%);
+  background-size: 100% 19px;
+  background-repeat: repeat-x;
+  background-clip: padding-box;
+  box-shadow: 0 0 2px #fff inset, 0 1px 0 rgba(0,0,0,.05);
+  color: #333;
+  line-height: 13px;
+  cursor: default;
+}
+.form-group label.error {
+  color: #ff0000;
+  position: absolute;
+  margin-top: -16px;
+}
