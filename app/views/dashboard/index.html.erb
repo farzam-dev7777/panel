@@ -44,10 +44,16 @@
 								<td><%= conflict_waiver.lxp_status_show %></td>
 								<td><%= conflict_waiver.internal_lawyers_status_show %></td>
 								<td>
+									<div class="action-fields">
 										<% if conflict_waiver.try(:lxp_status) != 'APPROVED' %>
-											<%= link_to 'Edit', edit_conflict_waiver_path(conflict_waiver), class: "btn btn-outline-primary btn-xs" %>	
+										<a class="action-btn" href="/conflict_waivers/<%= conflict_waiver.id %>/edit">
+											<%= image_tag "edit-icon.svg", alt:"Edit" %>
+										</a>	
 										<% end %>
-											<%= link_to 'View', conflict_waiver_path(conflict_waiver), class: "btn btn-outline-primary btn-xs" %>	
+										<a class="action-btn" href="/conflict_waivers/<%= conflict_waiver.id %>">
+											<%= image_tag "view-icon.svg", alt:"View" %>
+										</a>
+									</div>	
 								</td>
 							</tr>
 							<% end %>
