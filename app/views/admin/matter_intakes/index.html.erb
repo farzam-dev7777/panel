@@ -4,43 +4,42 @@
   <div class="clearfix"></div>
 
 <div class="col-lg-12">
-<div class="jarviswidget jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
-  <header>
-    <span class="widget-icon"> <i class="fa fa-briefcase"></i> </span>
-    <h2>Matter Intakes</h2>
-  </header>
-  
-  <div class="col-lg-12">
-    <% if @current_user.role === "internal_lawyers" %>
-      <div class="no-padding">
-        <div class="widget-body">
-          <div id="myTabContent" class="tab-content">
-            <div class="tab-pane fade active in padding-10 no-padding-bottom" id="s1">
-              <div class="row no-space text-center">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                  <p> 
-                    <b><%= link_to 'Submit New Matter Intake (General Intake)', new_admin_matter_intake_path(form_type: "general"), html_options = {class: 'btn btn-primary btn-lg dashboard-certificate-button'}   %></b>
-                    <b><%= link_to 'Submit New Matter Intake (Litigation Intake)', new_admin_matter_intake_path(form_type: "litigation"), html_options = {class: 'btn btn-primary btn-lg dashboard-certificate-button'}   %></b>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+<div class="jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false"> 
+  <div class="page-header-sp">
+    <div class="page-title m-top-zero">Matter Intakes</div>
+    <div>
+      <% if @current_user.role === "internal_lawyers" %>
+        <div class="project-context sp-inner-dropdown">
+          <span class="dropdown-toggle sp-derpdwon" data-toggle="dropdown">
+            <div class="dropdown-text">Submit New Matter Intake</div>
+            <span class="drop-down-icon">
+              <%= image_tag "drop-down-icon.svg", alt:"Drop menu" %>
+            </span>
+          </span>
+          <ul class="dropdown-menu">
+            <li id="" class="">
+              <%= link_to 'General Intake', new_admin_matter_intake_path(form_type: "general"), html_options = {class: ''}   %>
+            </li>
+            <li role="separator" class="divider"></li>
+            <li id="" class="">
+              <%= link_to 'Litigation Intake', new_admin_matter_intake_path(form_type: "litigation"), html_options = {class: ''}   %>
+            </li>
+            
+          </ul>
+          <!-- end dropdown-menu-->
         </div>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
+  </div>
+  
+  <div class="">
     <!-- widget div-->
     <div>
-      <!-- widget edit box -->
-      <div class="jarviswidget-editbox">
-        <!-- This area used as dropdown edit box -->
-      </div>
-      <!-- end widget edit box -->
       <!-- widget content -->
-      <div class="widget-body no-padding">
-        <table id="dt_basic" class="table table-striped table-bordered table-hover" width="100%">
+      <div class="table-dyanmic-search table-responsive">
+        <table id="dt_basic" class="table table-decoration table-bordered" width="100%">
           <thead>
-            <tr style="background: #007ac3;color: #fff;">
+            <tr>
               <th>Submitter Name</th>
               <th>LOB Contact Name</th>
               <th>Name of Matter/Client</th>

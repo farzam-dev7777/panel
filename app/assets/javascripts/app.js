@@ -624,6 +624,34 @@ $(document).ready(function(){
     });
   })
 
+  $('.begin-certification-btn').on('click', function(e){
+    href  = "/admin/law_firms/" + $(this).data('id') + "/begin_certification_process";
+    swal({
+      title: "Are you sure?",
+      text: "",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "Yes, begin certification!",
+      cancelButtonText: "Cancel",
+      closeOnConfirm: true,
+      closeOnCancel: true
+    },
+    function(isConfirm){
+      if (isConfirm) {
+        $.ajax({
+          method: 'GET',
+          url: href,
+          success: function() {
+            toastr.success("", "Certification process has begun")
+            window.location.reload();
+          },
+          error: function(response) {}
+        })
+      }
+    });
+  })
+
   $('.send-user-info-begin-certification-btn').on('click', function(e){
     href  = "/admin/users/send_user_info_with_certification/"+ $(this).data('id');
     swal({

@@ -1,196 +1,134 @@
 <style>
 	input, textarea, select { padding: 0px !important; margin: 0px; background: transparent; }
 </style>
-<% content_for :page_title do %>
-	<% if @law_firm.new_record? %>
-		<span>Onboard a law firm</span>
-	<% else %>
-		<span>Editing <%= @law_firm.name %></span>
-	<% end %>
-<% end %>
-<h2>
-	<% if @law_firm.new_record? %>
-		<strong>Onboard a law firm</strong>
-	<% else %>
-		<strong>Editing <%= @law_firm.name %></strong>
-	<% end %>
-</h2>
-<div class="table-responsive adminLawFirm">
+<div class="page-header-sp">
+		<div class="page-title m-top-zero">
+			<% content_for :page_title do %>
+				<% if @law_firm.new_record? %>
+					Onboard a law firm
+				<% else %>
+					Editing <%= @law_firm.name %>
+				<% end %>
+			<% end %>
+			<% if @law_firm.new_record? %>
+				Onboard a law firm
+			<% else %>
+				Editing <%= @law_firm.name %>
+			<% end %>
+		</div>
+		<div class="back-edit-actions"> </div>
+	</div>
+
+<div class="sp-form sp-form-bg">
 	<%= simple_form_for([:admin, @law_firm]) do |f| %>
-		<table class="table table-striped">
-			<tbody>
-					
-					<!-- <tr>
-						<td class="text-right" width="20%"><strong>Type</strong></td>
-						<td><%= f.input :law_firm_type, label: false, collection: LawFirm::COMPANY_TYPES, input_html: { autocomplete: 'off', class: 'text-left' }, prompt: 'Please Select a Type' %></td>
-					</tr> -->
-					<tr>
-						<td class="text-right" width="20%"><strong>Category</strong></td>
-						<td><%= f.input :law_firm_category, label: false, collection: ExceptionRequest::LAW_FIRM_CATEGORIES.map{ |k,v| [v,k]}, input_html: { autocomplete: 'off', class: 'text-left' }, prompt: 'Please Select a Category' , required: true %></td>
-					</tr>
-					<tr>
-						<td class="text-right" width="20%"><strong>Name</strong></td>
-						<td><%= f.input :name, label: false , required: true %></td>
-					</tr>
-					<% if @law_firm.new_record? %>
-						<tr>
-							<td class="text-right" width="20%"><strong>Email</strong></td>
-							<td><%= f.input :email, label: false , required: true %></td>
-						</tr>
-					<% end %>
-					<tr>
-						<td class="text-right" width="20%"><strong>Phone</strong></td>
-						<td><%= f.input :phone, label: false %></td>
-					</tr>
-					<tr>
-						<td class="text-right" width="20%"><strong>Relationship Manager Name</strong></td>
-						<td><%= f.input :relationship_manager_name, label: false %></td>
-					</tr>
-					<tr>
-						<td class="text-right" width="20%"><strong>Relationship Manager Email</strong></td>
-						<td><%= f.input :relationship_manager_email, label: false %></td>
-					</tr>
-					<tr>
-						<td class="text-right" width="20%"><strong>Relationship Manager Phone</strong></td>
-						<td><%= f.input :relationship_manager_phone, label: false %></td>
-					</tr>
-					<tr>
-						<td class="text-right" width="20%"><strong>Description</strong></td>
-						<td><%= f.input :description, label: false %></td>
-					</tr>
-					<tr>
-						<td class="text-right" width="20%"><strong>Initial Date of Engagement with BMO</strong></td>
-						<td><%= f.input :initial_date_of_engagement_with_the_bank, as: :datepicker, label: false, input_html: { autocomplete: 'off', class: 'text-left datepicker' } %></td>
-					</tr>
-
-					<!-- <tr>
-						<td class="text-right" width="20%"><strong>Types of matters your law firm has handled for us to date</strong></td>
-						<td><%= f.input :type_of_matters_your_law_firm_handles_for_us, label: false, collection: LawFirm::TYPES_OF_MATTERS_FOR_US, input_html: { autocomplete: 'off', class: 'text-left', multiple: true } %></td>
-					</tr> -->
-					<tr class="matter_type">
-						<td class="text-right" width="20%"><strong>Select Matter Type</strong></td>
-						<td><%= f.input :matter_type_ids, label: false, collection: MatterType.all.map{|mt| [mt.matter_type, mt.id] } , input_html: { multiple: true }   %></td>
-					</tr>
-					<tr class="sub_matter_type_box" style="display:none" >
-						<td class="text-right" width="20%"><strong>Select Sub Matter Type</strong></td>
-						<td class="sub_matter_type"><%= f.input :sub_matter_type_ids, label: false, collection: SubMatterType.all.map{|mt| [mt.sub_matter_type, mt.id] } , input_html: { multiple: true }   %></td>
-					</tr>
-					<tr>
-						<td class="text-right" width="20%"><strong>Select Jurisdiction Type</strong></td>
-						<td class="jurisdiction_type"><%= f.input :jurisdiction_type_ids, label: false, collection: JurisdictionType.all.map{|mt| [mt.jurisdiction_type, mt.id] } , input_html: { multiple: true }   %></td>
-					</tr>
-					<tr>
-						<td class="text-right" width="20%"><strong>Select Country</strong></td>
-						<td class="country_type"><%= f.input :country_ids, label: false, collection: Country.all.map{|mt| [mt.name, mt.id] } , input_html: { multiple: false }   %></td>
-					</tr>
-					<tr class="state_type_box" style="display:none">
-						<td class="text-right" width="20%"><strong>Select State/Province</strong></td>
-						<td class="state_type"><%= f.input :state_ids, label: false, collection: State.all.map{|mt| [mt.name, mt.id] } , input_html: { multiple: false }   %></td>
-					</tr>
-					<!-- <tr>
-						<td class="text-right" width="20%"><strong>Type of services your law firm provides generally</strong></td>
-						<td><%= f.input :type_of_services_your_law_firm_provides_generally, label: false, collection: LawFirm::TYPES_OF_MATTERS, input_html: { autocomplete: 'off', class: 'text-left', multiple: true } %></td>
-					</tr> -->
-
-					<!-- <tr>
-						<td class="text-right" width="20%"><strong>Confidentiality level of matters that are handled</strong></td>
-						<td><%= f.input :confidentiality_level_of_matters_that_are_handled, label: false, collection: LawFirm::TYPES_OF_MATTERS, input_html: { autocomplete: 'off', class: 'text-left', multiple: false } %></td>
-					</tr> -->
-
-					<tr>
-						<td class="text-right" width="20%"><i class="fa fa-question-circle-o help-text" data-help="All users that have access to law firm files, electronic or physical"></i><strong>No. of personnel</strong></td>
-						<td><%= f.input :number_of_lawyers, label: false, collection: LawFirm::NUMBER_OF_LAWYERS, input_html: { autocomplete: 'off', class: 'text-left' } %></td>
-					</tr>
-					
-					<!-- <tr>
-						<td class="text-right" width="20%"><strong>Practice Area</strong></td>
-						<td><%= f.input :practice_area, label: false, collection: LawFirm::PRACTICE_AREAS, input_html: { multiple: true } %></td>
-					</tr> -->
-
-					<tr>
-						<% if @law_firm.new_record? %>
-							<td class="text-right" width="20%"><strong>Temp. Password</strong></td>
-							<td>
-								<%= f.input :temp_password, autocomplete: "off", label: false, input_html: { class: 'set-password' } , required: true %>
-								<p style="color: #949494;" class="text-left"><em>Minimum 10 characters required</em></p>	
-							</td>
-						</tr>
-							<tr>
-							<td class="text-right" width="20%"><strong>Confirm Password</strong></td>
-							<td>
-								<%= f.input :temp_password_confirmation, autocomplete: "off", label: false, input_html: { class: 'set-password' }, required: true %>
-							</td>
-						</tr>
-						<% else %>
-							<td class="text-right" width="20%"><strong>Password</strong></td>
-							<td class="text-left">
-								<%= f.simple_fields_for :users do |field| %>
-							  	<div class="well">
-								  	<%= field.input :username, autocomplete: "off", label: false, input_html: { class: 'set-password', disabled: true } %>
-								  	<%= field.input :password, autocomplete: "off", label: false, input_html: { class: 'set-password', placeholder: "Password" } %>
-								  	<%= field.input :password_confirmation, autocomplete: "off", label: false, input_html: { class: 'set-password', placeholder: "Password Confirmation" } %>
-								  	<%= field.input :_destroy, label: "Remove", as: :boolean if field.object.role != "master_user" %>
-								  </div>
-							  <% end %>
-							</td>
-							<!-- <td>
-								<%= f.input :password, autocomplete: "off", label: false, input_html: { class: 'set-password' } %>
-								<p style="color: #949494;" class="text-left"><em>Minimum 10 characters required</em></p>	
-							</td> -->
+		<div class="row">
+			<div class="col-xs-12 col-md-6">
+				<label class="label">Category</label>
+				<%= f.input :law_firm_category, label: false, collection: ExceptionRequest::LAW_FIRM_CATEGORIES.map{ |k,v| [v,k]}, input_html: { autocomplete: 'off', class: 'text-left' }, prompt: 'Please Select a Category' , required: true %>
+			</div>
+			<div class="col-xs-12 col-md-6">
+				<label class="label">Name</label>
+				<%= f.input :name, label: false , required: true %>
+			</div>
+		</div>
+		<div class="row">
+			<% if @law_firm.new_record? %>
+				<div class="col-xs-12 col-md-6">
+					<label class="label">Email</label>
+					<%= f.input :email, label: false , required: true %>
+				</div>
+			<% end %>
+			<div class="col-xs-12 col-md-6">
+				<label class="label">Phone</label>
+				<%= f.input :phone, label: false %>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-md-6">
+				<label class="label">Relationship Manager Name</label>
+				<%= f.input :relationship_manager_name, label: false %>
+			</div>
+			<div class="col-xs-12 col-md-6">
+				<label class="label">Relationship Manager Email</label>
+				<%= f.input :relationship_manager_email, label: false %>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-md-6">
+				<label class="label">Relationship Manager Phone</label>
+				<%= f.input :relationship_manager_phone, label: false %>
+			</div>
+			<div class="col-xs-12 col-md-6">
+				<label class="label">Description</label>
+				<%= f.input :description, label: false %>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-md-6">
+				<label class="label">Initial Date of Engagement with BMO</label>
+				<%= f.input :initial_date_of_engagement_with_the_bank, as: :datepicker, label: false, input_html: { autocomplete: 'off', class: 'text-left datepicker' } %>
+			</div>
+			<div class="col-xs-12 col-md-6">
+				<label class="label">Select Matter Type</label>
+				<%= f.input :matter_type_ids, label: false, collection: MatterType.all.map{|mt| [mt.matter_type, mt.id] } , input_html: { multiple: true }   %>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-md-6 sub_matter_type_box" style="display:none" >
+				<label class="label">Select Sub Matter Type</label>
+				<span class="sub_matter_type"><%= f.input :sub_matter_type_ids, label: false, collection: SubMatterType.all.map{|mt| [mt.sub_matter_type, mt.id] } , input_html: { multiple: true }   %></span>
+			</div>
+			<div class="col-xs-12 col-md-6">
+				<label class="label">Select Jurisdiction Type</label>
+				<span class="jurisdiction_type"><%= f.input :jurisdiction_type_ids, label: false, collection: JurisdictionType.all.map{|mt| [mt.jurisdiction_type, mt.id] } , input_html: { multiple: true }   %></span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-md-6">
+				<label class="label">Select Country</label>
+				<span class="country_type"><%= f.input :country_ids, label: false, collection: Country.all.map{|mt| [mt.name, mt.id] } , input_html: { multiple: false }   %></span>
+			</div>
+			<div class="col-xs-12 col-md-6 state_type_box" style="display:none">
+				<label class="label">Select State/Province</label>
+				<span class="state_type"><%= f.input :state_ids, label: false, collection: State.all.map{|mt| [mt.name, mt.id] } , input_html: { multiple: false }   %></span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-md-6">
+				<label class="label"><i class="fa fa-question-circle-o help-text" data-help="All users that have access to law firm files, electronic or physical"></i> No. of personnel</div>
+				<%= f.input :number_of_lawyers, label: false, collection: LawFirm::NUMBER_OF_LAWYERS, input_html: { autocomplete: 'off', class: 'text-left' } %>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-md-6">
+				<% if @law_firm.new_record? %>
+				<label class="label">Temp. Password<label>
+				<%= f.input :temp_password, autocomplete: "off", label: false, input_html: { class: 'set-password' } , required: true %>
+				<p style="color: #949494;" class="text-left"><em>Minimum 10 characters required</em></p>
+			</div>
+			<div class="col-xs-12 col-md-6">
+				<label class="label">Confirm Password</label>
+				<%= f.input :temp_password_confirmation, autocomplete: "off", label: false, input_html: { class: 'set-password' }, required: true %>
+			</div>
+			<% else %>
+			<div class="col-xs-12 col-md-6">
+				<label class="label">Password<label>
+					<%= f.simple_fields_for :users do |field| %>
+						<div class="well">
+							<%= field.input :username, autocomplete: "off", label: false, input_html: { class: 'set-password', disabled: true } %>
+							<%= field.input :password, autocomplete: "off", label: false, input_html: { class: 'set-password', placeholder: "Password" } %>
+							<%= field.input :password_confirmation, autocomplete: "off", label: false, input_html: { class: 'set-password', placeholder: "Password Confirmation" } %>
+							<%= field.input :_destroy, label: "Remove", as: :boolean if field.object.role != "master_user" %>
+						</div>
 						<% end %>
-					</tr>
-
-					<!-- <tr class="within-block">
-						<td class="text-right" width="20%"><strong>Contact Info</strong></td>
-						<td><%= f.input :principle_contact_info, label: false, input_html: { autocomplete: 'off' } %></td>
-					</tr> -->
-
-					
-						<!-- <tr>
-							<td colspan="2">
-								<div class="col-md-12 no-padding" style="margin-bottom: 15px">
-								 <div class="col-md-4"><label><strong>City</strong></label></div> -->
-								<!--	<div class="col-md-3"><label><strong>Country</strong></label></div>
-								<div class="col-md-4"><label><strong>State/Province</strong></label></div> -->
-							<!--	</div>
-								<%= f.simple_fields_for :locations do |field| %>
-							    <%= render partial: "location_fields", locals: {f: field} %>
-							  <% end %>
-							  <div class="add-css">
-							    <%= link_to_add_association '<span href="javascript:void(0);" class="btn btn-primary btn-sm"><i class="fa fa-plus-circle"></i> Add Law Firm\'s Location(s)</span>'.html_safe, f, :locations %>
-							  </div>
-						  </td>
-					  </tr> -->
-
-						<!-- <tr>
-							<td colspan="2">
-								<div class="col-md-12">
-									<div class="col-md-6">
-										<label><strong>Country</strong></label>
-									</div>
-									<div class="col-md-5 j-states">
-										<label><strong>States/Provinces</strong></label>
-									</div>
-								</div>
-								<% f.simple_fields_for :jurisdictions do |field| %>
-							    <%= render partial: "jurisdiction_fields", 
-							               locals: {f: field} unless field.object.nil? %>
-							  <% end %>
-							  <div class="add-css">
-						    <%= link_to_add_association '<span href="javascript:void(0);" class="btn btn-primary btn-sm"><i class="fa fa-plus-circle"></i> Add Law Firm\'s Jurisdication(s)</span>'.html_safe, f, :jurisdictions %>
-							  </div>
-						  </td>
-					  </tr> -->
-					
-
-
-					<tr>
-						<td colspan="2">
-							<%=link_to 'Cancel', f.object.new_record? ? admin_law_firms_path : admin_law_firm_path, class: 'btn btn-danger btn-sm' %>
-							<%= f.button :submit, f.object.new_record? ? 'Create' : 'Update', class: "" %>
-						</td>
-					</tr>
-			</tbody>
-		</table>
+				<% end %>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-md-12">
+				<%=link_to 'Cancel', f.object.new_record? ? admin_law_firms_path : admin_law_firm_path, class: 'btn-type-default' %>
+				<%= f.button :submit, f.object.new_record? ? 'Create' : 'Update', class: "btn-type-primary" %>
+			</div>
+		</div>
 	<% end %>
 </div>

@@ -18,48 +18,34 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   </head>
 
-  <body class="smart-style-6">
-
-        <!-- #HEADER -->
-    <header id="header" class="row">
-      <div class="col-md-2 col-xs-12">
-
-
+  <body class="">
+    <!-- #HEADER -->
+    <header id="header" class="sp-navbar">
+      <div id="logo-group">
         <!-- PLACE YOUR LOGO HERE -->
-        <span id="logo">
-          <div id="home-wrapper">
-            <a href="/">
-              <i class="fa fa-home"></i>
-            </a>
-          </div>
-          <a href="/"><%= image_tag "panel-logo.png", alt:"Panel" %></a>
-        </span>
+        <span id="logo"> <a href="/lob"><%= image_tag "seal-logo.png", alt:"PANEL" %></a> </span>
         <!-- END LOGO PLACEHOLDER -->
-
-        <!-- Note: The activity badge color changes when clicked and resets the number to 0
-           Suggestion: You may want to set a flag when this happens to tick off all checked messages / notifications -->
-
-        <!-- AJAX-DROPDOWN : control this dropdown height, look and feel from the LESS variable file -->
-        
-        <!-- END AJAX-DROPDOWN -->
       </div>
-
-      <div class="col-md-7 col-g-7 text-center portal-type">
+      <div class="text-center portal-type">
         <p>Firm Portal</p>
       </div>
-
-
-       <div class="project-context col-md-2 pull-right">
-
-          <span class="label">Welcome</span>
-          <span class="project-selector dropdown-toggle" data-toggle="dropdown"><%= current_user.username %> <i class="fa fa-angle-down"></i></span>
-
-          <!-- Suggestion: populate this list with fetch and push technique -->
-          <ul class="dropdown-menu">
+      <div class="project-context user-info sp-user-dropdown-menu">
+        <span class="project-selector dropdown-toggle sp-user-profile" data-toggle="dropdown">
+          <%= image_tag "https://ui-avatars.com/api/?name=John+Doe&background=0051CA&color=fff", alt:"User", class:"user-image" %> 
+          <div class="user-welcome">
+            <span class="welcome">Welcome</span>
+            <span class="sp-user-name"><%= current_user.username %> </span>
+          </div>
+          <span class="drop-down-icon">
+            <%= image_tag "drop-down-icon.svg", alt:"Drop menu" %>
+          </span>
+        </span>
+        <ul class="dropdown-menu">
             <% if current_law_firm && current_law_firm.form_submissions.any? && ( !['sent', 'started'].include? current_law_firm.form_submissions.latest.status ) %>
               <li>
                 <%= link_to "Technologies", technology_profile_form_submission_path(current_law_firm.form_submissions.latest) %>
               </li>
+              <li class="divider"></li>
               <li>
                 <%= link_to "History", history_profile_form_submission_path(current_law_firm.form_submissions.latest) %>
               </li>
@@ -69,6 +55,7 @@
               <li>
                 <%= link_to "Add Colaborators", add_users_law_firms_path %>
               </li>
+              <li class="divider"></li>
               <li>
                 <%= link_to "Edit Profile", edit_law_firm_path(current_law_firm) %>
               </li>
@@ -79,113 +66,34 @@
             </li>
             <li class="divider"></li>
             <li>
-              <a href="/users/sign_out"><i class="fa fa-power-off"></i> Logout</a>
+              <a href="/users/sign_out">Logout</a>
             </li>
           </ul>
-          <!-- end dropdown-menu-->
-
-        </div>
-
-       <!-- <div class="faqs col-md-1 pull-right">
-         <div>
-            <a href="/frequently_asked_questions">
-              <i class="fa fa-question-circle"></i> <span>FAQs</span>
-            </a>
-         </div>
-       </div>
-
-      <!-- #PROJECTS: projects dropdown -->
-      <!-- end projects dropdown -->
-      
-      <!-- #TOGGLE LAYOUT BUTTONS -->
-      <!-- pulled right: nav area -->
-      <div class="pull-right">
-        
-        <!-- #MOBILE -->
-        <!-- Top menu profile link : this shows only when top menu is active -->
-        <ul id="mobile-profile-img" class="header-dropdown-list hidden-xs padding-5">
-          <li class="">
-            <!-- <a href="#" class="dropdown-toggle no-margin userdropdown" data-toggle="dropdown"> 
-              <img src="/assets/avatars/sunny.png" alt="John Doe" class="online" />  
-            </a> -->
-            <ul class="dropdown-menu pull-right">
-              <li>
-                <a href="javascript:void(0);" class="padding-10 padding-top-0 padding-bottom-0"><i class="fa fa-cog"></i> Setting</a>
-              </li>
-              <li class="divider"></li>
-              <li>
-                <a href="#ajax/profile.html" class="padding-10 padding-top-0 padding-bottom-0"> <i class="fa fa-user"></i> <u>P</u>rofile</a>
-              </li>
-              <li class="divider"></li>
-              <li>
-                <a href="javascript:void(0);" class="padding-10 padding-top-0 padding-bottom-0" data-action="toggleShortcut"><i class="fa fa-arrow-down"></i> <u>S</u>hortcut</a>
-              </li>
-              <li class="divider"></li>
-              <li>
-                <a href="javascript:void(0);" class="padding-10 padding-top-0 padding-bottom-0" data-action="launchFullscreen"><i class="fa fa-arrows-alt"></i> Full <u>S</u>creen</a>
-              </li>
-              <li class="divider"></li>
-              <li>
-                <a href="/users/sign_out" class="padding-10 padding-top-5 padding-bottom-5" data-action="userLogout"><i class="fa fa-sign-out fa-lg"></i> <strong><u>L</u>ogout</strong></a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-        
-        <!-- collapse menu button -->
-        <!-- <div id="hide-menu" class="btn-header pull-right hidden-lg">
-          <span> <a href="javascript:void(0);" data-action="toggleMenu" title="Collapse Menu"><i class="fa fa-reorder"></i></a> </span>
-        </div> -->
-
+        <!-- end dropdown-menu-->
       </div>
-      <!-- end pulled right: nav area -->
-
     </header>
+    <div class="small-device-page-title">
+      <p>Firm Portal</p>
+    </div>
     <!-- END HEADER -->
 
-    <!-- #NAVIGATION -->
-    <!-- Left panel : Navigation area -->
-    <!-- Note: This width of the aside area can be adjusted through LESS/SASS variables -->
-<!--     <aside id="left-panel">
-      <div class="login-info">
-        <span></span>
-      </div>
-      <nav>
-        <ul>
-          <li class="">
-            <a href="/" title="blank_"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Dashboard</span></a>
-          </li>
-        </ul>
-      </nav>
-    </aside> -->
+    
 
-        <!-- #MAIN PANEL -->
-    <div id="main" role="main" style="padding-bottom: 0px">
-
-      <!-- RIBBON -->
-      <div id="ribbon">
-
-        <!-- breadcrumb -->
-        <!-- <ol class="breadcrumb">
-          <li>Home</li>
-          <li>Dashboard</li>
-        </ol> -->
-
-      </div>
+    <!-- #MAIN PANEL -->
+    <div id="main" class="container main-page" role="main" style="">
     <!-- END NAVIGATION -->
-    <div class="col-md-12">
-      <% if notice %>
-        <p class="alert alert-success"><%= notice %></p>
-      <% end %>
-      <% if alert %>
-        <p class="alert alert-warning"><%= alert %></p>
-      <% end %>
+      <div class="">
+        <% if notice %>
+          <p class="alert alert-success"><%= notice %></p>
+        <% end %>
+        <% if alert %>
+          <p class="alert alert-warning"><%= alert %></p>
+        <% end %>
+      </div>
+      <%= yield %>
     </div>
-    <%= yield %>
 
-      <div class="clearfix"></div>
 
-    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" integrity="sha256-iXUYfkbVl5itd4bAkFH5mjMEN5ld9t3OHvXX3IU8UxU=" crossorigin="anonymous" />
     <%= javascript_include_tag 'application' %>

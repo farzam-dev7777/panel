@@ -20,7 +20,7 @@ module ButtonHelper
       elsif(submissions.latest.status == 'sent')
         link_to 'Begin RFI Process', pricing_step_form_submission_path(submissions.latest), html_options = {class: 'btn btn-primary btn-lg dashboard-certificate-button'}
       elsif(submissions.latest.status == 'started')
-        link_to 'Continue RFI Process', pricing_step_form_submission_path(submissions.latest), html_options = {class: 'btn btn-primary btn-lg dashboard-certificate-button'}
+        link_to 'Continue RFI Process', pricing_step_form_submission_path(submissions.latest), html_options = {class: 'btn-type-primary dashboard-certificate-button'}
       elsif(submissions.latest.status == 'follow_up')
         link_to 'Answer Follow Ups ' + "(#{submissions.latest.follow_ups.review.count})", pricing_step_form_submission_path(submissions.latest), html_options = {class: 'btn btn-primary btn-lg dashboard-certificate-button'}
       end

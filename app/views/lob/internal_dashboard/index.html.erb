@@ -1,107 +1,250 @@
 
 <div class="lob_dashboard">
-
 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 current-stats">
-			<ul id="sparks" class="text-left">
-				<li class="sparks-info">
-					<a href="javascript:void(0);">
-						<h5 class="current-month-info"> Total Exceptions
-							<span class="txt-color">
-								- <%= @exception_requests_count %> -
-							</span>
-						</h5>
-					</a>
-				</li>
-				<li class="sparks-info">
-					<a href="javascript:void(0);">
-						<h5 class="current-month-info"> Submitted Exceptions
-							<span>
-								- <%= @exception_requests_submitted %> -
-							</span>
-						</h5>
-					</a>
-				</li>
-				<li class="sparks-info">
-					<a href="javascript:void(0);">
-						<h5 class="current-month-info"> Approved Exceptions
-							<span>- <%= @exception_requests_approved %> -</span>
-						</h5>
-					</a>
-				</li>
-				<li class="sparks-info">
-					<a href="javascript:void(0);">
-						<h5 class="current-month-info"> Rejected Exceptions
-							<span>
-								- <%= @exception_requests_rejected %> -
-							</span>
-						</h5>
-					</a>
-				</li>
-				
-			</ul>
-		</div>
+		<ul id="sparks" class="top-status-card">
+			<li class="sparks-info color-border-01">
+				<a href="javascript:void(0);" class="card-content">
+					<div class="card-icon bg-color-01">
+						<%= image_tag "exceptions-icon.svg", alt:"Exceptions" %> 
+					</div>
+					<div class="card-deatails">
+						<div class="total-record"><%= @exception_requests_count %></div>
+						<div class="card-name">Exceptions</div>
+						<div class="card-tag-line">Tag lines goes here</div>
+					</div>
+				</a>
+			</li>
+			<li class="sparks-info color-border-02">
+				<a href="javascript:void(0);" class="card-content">
+					<div class="card-icon bg-color-02">
+						<%= image_tag "submitted-icon.svg", alt:"Exceptions" %> 
+					</div>
+					<div class="card-deatails">
+						<div class="total-record"><%= @exception_requests_submitted %></div>
+						<div class="card-name">Submitted</div>
+						<div class="card-tag-line">Tag lines goes here</div>
+					</div>
+				</a>
+			</li>
+			<li class="sparks-info color-border-03">
+				<a href="javascript:void(0);" class="card-content">
+					<div class="card-icon bg-color-03">
+						<%= image_tag "approved-icon.svg", alt:"Exceptions" %> 
+					</div>
+					<div class="card-deatails">
+						<div class="total-record"><%= @exception_requests_approved %></div>
+						<div class="card-name">Approved</div>
+						<div class="card-tag-line">Tag lines goes here</div>
+					</div>
+				</a>
+			</li>
+			<li class="sparks-info color-border-04">
+				<a href="javascript:void(0);" class="card-content">
+					<div class="card-icon bg-color-04">
+						<%= image_tag "exceptions-icon.svg", alt:"Exceptions" %> 
+					</div>
+					<div class="card-deatails">
+						<div class="total-record"><%= @exception_requests_rejected %></div>
+						<div class="card-name">Rejected</div>
+						<div class="card-tag-line">Tag lines goes here</div>
+					</div>
+				</a>
+			</li>
+		</ul>
 	</div>
-
 </div>
-
-<p>&nbsp;</p>
  
-
-
-<div class="clearfix"></div>
-
 <div class="col-lg-12 col-md-12 col-sm-12">
-	<div class="jarviswidget jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
-		<header>
-			<span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
-			<h2 class="font-md"><strong>Latest Exception Request </strong></h2>				
-		</header>
+	<div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+		<div class="page-header-sp">
+			<div class="page-title">Engage Non Panel Firms</div>
+			<div></div>
+  	</div>		
 		<div class="no-padding">
 			<div class="jarviswidget-editbox"></div>
 			<!-- widget content -->
 			<div class="widget-body">
-
 				<div class="table-responsive">
-					<table id="" class="table table-striped table-bordered table-hover" width="100%">
+					<table id="" class="table table-decoration table-bordered" width="100%">
 						<thead>
-							<tr style="background: #007ac3;color: #fff;">
+							<tr>
 								<th>Requested By</th>
 								<th>Submitted By</th>
 								<th>LOB Contact Name</th>
 								<th>LXP Status</th>
 								<th>Internal Lawyers Status</th>
-								<th>Action</th>
+								<th width="8%">Action</th>
 							</tr>
 						</thead>
 						<tbody>
 							<% @exception_requests.each do |exception_request| %>
 							<% if exception_request.law_firm_id.present? && exception_request.requested_by != nil  %>
 								<tr class="" data-id="<%= exception_request.id %>">
-									<td><%= exception_request.requested_by %></td>
+									<td>
+									
+										<div class="firm-name">
+											<div class="name-avatar">
+												<img src="https://ui-avatars.com/api/?name=<%=exception_request&.requested_by&.gsub(" ", "+")%>&background=0051CA&color=fff&rounded=falus"></div>
+											<div><%= exception_request.requested_by %></div>
+										</div>
+									</td>
 									<td><%= exception_request.submitted_by_email %></td>
 									<td><%= exception_request.lob_contact_name %></td>
 									<td><%= exception_request.lxp_status_show %></td>
 									<td><%= exception_request.internal_lawyers_status_show %></td>
 									<td>
-										<% if current_user.role == 'lob' &&  exception_request.try(:lxp_status) != 'APPROVED' %>
-											<%= link_to "Edit", edit_lob_exception_request_path(exception_request), class: "btn btn-xs btn-primary" %>
-										<% end %> 
-										<%= link_to "Review", lob_exception_request_path(exception_request), class: "btn btn-xs btn-secondary" %>	
+										<div class="action-fields">
+											<% if current_user.role == 'lob' &&  exception_request.try(:lxp_status) != 'APPROVED' %>
+												<!--<%= link_to "Edit", edit_lob_exception_request_path(exception_request), class: "btn btn-xs btn-primary" %>-->
+												<a class="action-btn" href="/lob/exception_requests/#{exception_request.id}/edit">
+													<%= image_tag "edit-icon.svg", alt:"Edit" %>
+												</a>
+											<% end %> 
+											<!--<%= link_to "Review", lob_exception_request_path(exception_request), class: "btn btn-xs btn-secondary" %>-->
+											<a class="action-btn" href="/lob/exception_requests/#{exception_request.id}">
+												<%= image_tag "view-icon.svg", alt:"View" %>
+											</a>
+										</div>
 									</td>
 								</tr>
 								<% end %>
 							<% end %>
 						</tbody>
 					</table>
-					<div class="clearfix"></div>
-
-				</div>		
-
+				</div>
 			</div>
 		</div>
 	</div>
-
-
 </div>
-<div class="clearfix"></div>
+
+<!-- Panel Requests -->
+<div class="col-lg-12 col-md-12 col-sm-12">
+	<div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+		<div class="page-header-sp">
+			<div class="page-title">Panel Requests</div>
+			<div></div>
+  	</div>			
+		<div class="no-padding">
+			<div class="jarviswidget-editbox"></div>
+			<!-- widget content -->
+			<div class="widget-body">
+				<div class="table-responsive">
+					<table id="" class="table table-decoration table-bordered" width="100%">
+						<thead>
+							<tr>
+								<th>Requested By</th>
+								<th>Law Firm Name</th>
+								<th>Status</th>
+								<th>LXP Status</th>
+								<th width="8%">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<% @panel_requests.each do |panel_request| %>
+							<% if panel_request.law_firm_id.present? && panel_request.requested_by != nil  %>
+								<tr class="" data-id="<%= panel_request.id %>">
+									<td>
+										<div class="firm-name">
+											<div class="name-avatar"><img src="https://ui-avatars.com/api/?name=<%=panel_request&.requested_by&.gsub(" ", "+")%>&background=0051CA&color=fff&rounded=falus"></div>
+											<div><%= panel_request.requested_by %></div>
+										</div>
+									</td>
+									<td><%= panel_request&.law_firm&.name %></td>
+									<td><div class="status red"><%= panel_request.status %></div></td>
+									<td><%= panel_request.lxp_status %></td>
+									<td>
+										<div class="action-fields">
+											<% if current_user.role == 'lob' &&  panel_request.try(:lxp_status) != 'APPROVED' %>
+												<a class="action-btn" href="/lob/panel_requests/<%= panel_request.id %>/edit">
+													<%= image_tag "edit-icon.svg", alt:"Edit" %>
+												</a>
+											<% end %> 
+											<a class="action-btn" href="/lob/panel_requests/<%= panel_request.id %>">
+												<%= image_tag "view-icon.svg", alt:"View" %>
+											</a>
+										</div>
+									</td>
+								</tr>
+								<% end %>
+							<% end %>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Panel Requests END -->
+
+<!--  Matter Intakes -->
+<div class="col-lg-12 col-md-12 col-sm-12">
+	<div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+		<div class="page-header-sp">
+			<div class="page-title"> Matter Intakes</div>
+			<div></div>
+  	</div>			
+		<div class="no-padding">
+			<div class="jarviswidget-editbox"></div>
+			<!-- widget content -->
+			<div class="widget-body">
+				<div class="table-responsive">
+					<table id="" class="table table-decoration table-bordered" width="100%">
+						<thead>
+							<tr>
+								<th>Submitter Name</th>
+								<th>LOB Contact Name</th>
+								<th>Type of Matter</th>
+								<th>Law Firm Suggested</th>
+								<th>BMO lawyer name</th>
+								<th>Budget amount</th>
+								<th>Status</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<% @matter_intakes.each do |matter_intake| %>
+								<tr data-id="<%= matter_intake.id %>">
+									<td>
+										<div class="firm-name">
+											<div class="name-avatar"><img src="https://ui-avatars.com/api/?name=<%=matter_intake&.submitter_name&.gsub(" ", "+")%>&background=0051CA&color=fff&rounded=falus"></div>
+											<div><%= matter_intake&.submitter_name %></div>
+										</div>
+									</td>
+									<td><%= matter_intake.lob_contact_name %></td>
+									<td>
+										<%= matter_intake&.matter_type&.matter_type %>
+									</td>
+									<td><%= matter_intake&.law_firm&.name %></td>
+									<td>
+										<%= matter_intake&.bmo_lawyer_name %>
+									</td>
+									<td><%= matter_intake.budget_amount %></td>
+									<td>
+										<div class="status">
+											<span class="<%= matter_intake&.status === "matter_open" ? 'label label-success' : 'label label-default' %>"> 
+												<%= matter_intake.try(:status).try(:titleize) %>
+											</span>
+										</div>
+									</td>
+									<td>
+										<div class="action-fields">
+											<% if matter_intake.status === "waiting_for_lawyer_review" %>
+												<a class="action-btn" href="/lob/matter_intakes/<%= matter_intake.id %>/edit">
+													<%= image_tag "edit-icon.svg", alt:"Edit" %>
+												</a>
+											<% end %>
+											<a class="action-btn" href="/lob/matter_intakes/<%= matter_intake.id %>">
+												<%= image_tag "view-icon.svg", alt:"View" %>
+											</a>
+										</div>
+									</td>
+								</tr>
+							<% end %>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--  Matter Intakes END -->

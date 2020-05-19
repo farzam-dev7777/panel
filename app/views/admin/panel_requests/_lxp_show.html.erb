@@ -1,41 +1,33 @@
 
 <% if !@panel_request.fully_approved?  %>  
   <div class="col-lg-12 col-md-12 col-sm-12">
-    <div class="jarviswidget jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
-      <header>
-        <span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
-        <h2 class="font-md"><strong>Add Review </strong></h2>				
-      </header>
-      <div class="  ">
-        <div class="jarviswidget-editbox"></div>
-        <!-- widget content -->
-        
-        <div class="widget-body panelRequestProcesss">
+    <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+      <div class="page-header-sp">
+				<div class="page-title">Add Review</div>
+				<div class="back-edit-actions">
+				</div>
+			</div>
+      <div class="">
+        <div class="panelRequestProcesss">
           
-            <div class="table-responsive">
+            <div class="sp-form sp-form-bg">
               <%= simple_form_for [:admin, Review.new()] do |f| %>
-              <table class="table table-striped">
-                <tbody>
-                  <tr>
-                    <td class="text-right" width="20%"><strong>Comment</strong></td>
-                    <td>
+                <div class="row">
+                  <div class="col-xs-12 col-md-6">
+                    <label class="label">Comment</label>
                       <%= f.input :description, label: false %>
                       <%= f.input :reviewable_type, label: false, as: :hidden, input_html: { value: @panel_request.class.to_s } %>
                       <%= f.input :reviewable_id, label: false, as: :hidden, input_html: { value: @panel_request.id } %>
-                    </td>
-                  </tr>		
-                    <tr>
-                    <td class="text-right" width="20%"><strong>Status</strong></td>
-                    <td><%= f.input :status, label: false, collection: PanelRequest::PANEL_REQUEST_STATUS.map{|value,key| [key, value]}%></td>
-                  </tr> 
-                  <tr>
-                    <td colspan="2">
-                      <%= link_to 'Cancel', @panel_request.new_record? ? admin_panel_request_path : admin_conflict_waiver_path, class: 'btn btn-danger btn-sm' %>
-                      <%= f.button :submit, @panel_request.new_record? ? "Submit Request" : "Update Status", class:  @current_user.role === "lxp" ? "lxp_sttaus" : "laywr_status" %>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+                  </div>		
+                  <div class="col-xs-12 col-md-6">
+                    <label class="label">Status</label>
+                    <%= f.input :status, label: false, collection: PanelRequest::PANEL_REQUEST_STATUS.map{|value,key| [key, value]}%>
+                  </div> 
+                  <div class="col-xs-12 col-md-12">
+                      <%= link_to 'Cancel', @panel_request.new_record? ? admin_panel_request_path : admin_conflict_waiver_path, class: 'btn-type-default' %>
+                      <%= f.button :submit, @panel_request.new_record? ? "Submit Request" : "Update Status", class:  @current_user.role === "lxp btn-type-primary" ? "lxp_sttaus btn-type-primary" : "laywr_status btn-type-primary" %>
+                  </div>
+                </div>
             <% end %>
             </div>
         </div>
@@ -45,22 +37,22 @@
 <% end %>
 <div class="col-md-12">
     <%- if @panel_request.reviews.size > 0 %>
-      <div class="jarviswidget jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
-        <header class="no-border">
-          <span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
-          <h2 class="font-md"><strong>Review Logs </strong></h2>
-        </header>
-        
+      <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+        <div class="page-header-sp">
+          <div class="page-title">Review Logs</div>
+          <div class="back-edit-actions">
+          </div>
+        </div>
         <div>
           <div class="clearfix"></div>
           <!-- MAIN PANEL -->
           <div role="main">
             <!-- MAIN CONTENT -->
-            <div style="height: 500px;overflow-y: scroll;">
+            <div >
               <!-- row -->
               <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                  <div class="well well-sm">
+                  <div class="sp-form-bg">
                     <!-- Timeline Content -->
                     <div class="smart-timeline">
                       <ul class="smart-timeline-list">

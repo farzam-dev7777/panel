@@ -3,11 +3,11 @@
 <% end %>
 <div class="clearfix"></div>
 <div class="col-lg-12">
-  <div class="jarviswidget jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
-    <header>
-      <span class="widget-icon"> <i class="fa fa-briefcase"></i> </span>
-      <h2>Engage Non Panel Request</h2>
-    </header>
+  <div class="jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
+    <div class="page-header-sp">
+      <div class="page-title m-top-zero">Engage Non Panel Request</div>
+      <div></div>
+    </div>
     <% if current_user.role == "lob" %>
 		  <div class="no-padding">
 				<div class="widget-body">
@@ -26,46 +26,61 @@
     <% end %>  
     <!-- widget div-->
     <div>
-      <%= search_form_for [:admin, @q] do |f| %>
-        <div class="row" style="padding-top: 20px;">
-          <div class="col-xs-12 col-sm-12">
-            <h2 style="margin: 0px 0px 10px;">Search Filter</h2>
+      <!-- search filter -->
+        <div class="search-filter-sp">
+          <div class="sp-filter">
+            <div class="accordion" id="sp-filter">
+              <div class="card z-depth-0">
+                <div class="card-header" id="headingThree">
+                  <div class="collapsed filter-title" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    <%= image_tag "filter-icon.svg", alt:"score" %>
+                    <span>Filter</span>
+                  </div>
+                </div>
+                <div id="collapseThree" class="col-md-12 collapse sp-filter-fields" aria-labelledby="headingThree" data-parent="#sp-filter">
+                  <div class="card-body sp-form">
+                    <%= search_form_for [:admin, @q] do |f| %>
+                      <div class="row" style="">
+                        <!--<div class="col-xs-12 col-sm-12">
+                          <h2 style="margin: 0px 0px 10px;">Search Filter</h2>
+                        </div>-->
+                        <div class="col-xs-12 col-md-4">
+                          <%= f.label :requested_by_cont, label: false, :class => 'label' %>
+                          <%= f.search_field :requested_by_cont, :class => 'sp-form-control' %>
+                        </div>
+                        <div class="col-xs-12 col-md-4">
+                          <%= f.label :submitted_by_email_cont, :class => 'label' %>
+                          <%= f.search_field :submitted_by_email_cont, :class => 'sp-form-control' %>
+                        </div>
+                        <div class="col-xs-12 col-md-4">
+                            <%= f.label :law_firm_id_eq, :class => 'label' %>
+                            <%= f.select :law_firm_id_eq, options_from_collection_for_select(LawFirm.all, "id", "name", @q.law_firm_id_eq), {:include_blank => 'Select law firm'} %>
+                        </div>
+                        <div class="col-xs-12 col-md-12 text-right" style="">
+                            <%= f.submit "Search", class: "btn-type-primary" %>
+                            <%= f.submit "Reset", type: "reset", value: "Reset",  class: "btn-type-default" %>
+                        </div>
+                      </div>        
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="col-xs-12 col-sm-4">
-              <strong><%= f.label :requested_by_cont, label: false  %></strong>
-              <%= f.search_field :requested_by_cont %>
-          </div>
-          <div class="col-xs-12 col-sm-4">
-              <strong><%= f.label :submitted_by_email_cont %></strong>
-              <%= f.search_field :submitted_by_email_cont %>
-          </div>
-          <div class="col-xs-12 col-sm-4">
-              <strong><%= f.label :law_firm_id_eq %> </strong>
-              <%= f.select :law_firm_id_eq, options_from_collection_for_select(LawFirm.all, "id", "name", @q.law_firm_id_eq), {:include_blank => 'Select law firm'} %>
-          </div>
-          <div class="col-xs-12 text-right" style="margin-top: 20px;">
-              <%= f.submit "Search", class: "btn btn-primary" %>
-              <%= f.submit "Reset", type: "reset", value: "Reset",  class: "btn btn-primary" %>
-          </div>
-        </div>        
-      <% end %>
-      <!-- widget edit box -->
-      <div class="jarviswidget-editbox">
-        <!-- This area used as dropdown edit box -->
-        
-      </div>
-      <!-- end widget edit box -->
+        </div>
+      <!-- search filter end -->
+      
       <!-- widget content -->
-      <div class="widget-body no-padding">
-        <table id="dt_basic" class="table table-striped table-bordered table-hover" width="100%">
+      <div class="table-dyanmic-search table-responsive">
+        <table id="dt_basic" class="table table-decoration table-bordered" width="100%">
           <thead>
-            <tr style="background: #007ac3;color: #fff;">
+            <tr>
               <th>Requested By</th>
               <th>Line of Business</th>
               <th>Law Firm Name</th>
               <th>LXP Status</th>
               <th>Lawyer Status</th>
-              <th>Action</th>
+              <th width="8%">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -79,10 +94,18 @@
                   <td><%= exception_request.lxp_status %></td>
                   <td><%= exception_request.internal_lawyers_status %></td>
                   <td>
-                    <% if current_user.role == 'lob' &&  exception_request.try(:lxp_status) != 'APPROVED' %>
-                      <%= link_to "Edit", edit_admin_exception_request_path(exception_request), class: "btn btn-xs btn-primary" %>
-                    <% end %> 
-                    <%= link_to "Review", admin_exception_request_path(exception_request), class: "btn btn-xs btn-secondary" %>	
+                    <div class="action-fields">
+                     <% if current_user.role == 'lob' &&  exception_request.try(:lxp_status) != 'APPROVED' %>
+                        <% link_to "Edit", edit_admin_exception_request_path(exception_request), class: "btn btn-xs btn-primary" %>
+                        <a class="action-btn" href="/admin/exception_requests/<%= exception_request.id %>/edit">
+                          <%= image_tag "edit-icon.svg", alt:"Edit" %>
+                        </a>
+                      <% end %> 
+                      <% link_to "Review", admin_exception_request_path(exception_request), class: "btn btn-xs btn-secondary" %>	
+                      <a class="action-btn" href="/admin/exception_requests/<%= exception_request.id %>">
+                        <%= image_tag "review-icon.svg", alt:"Review" %>
+                      </a> 
+                    </div>
                   </td>
                 </tr>
                 <% end %>

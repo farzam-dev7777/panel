@@ -4,22 +4,22 @@
   <div class="clearfix"></div>
 
   <div class="col-lg-12">
-<div class="jarviswidget jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
-  <header>
-    <span class="widget-icon"> <i class="fa fa-briefcase"></i> </span>
-    <h2>Matter Intakes</h2>
-  </header>
+<div class="jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
+  <div class="page-header-sp">
+    <div class="page-title m-top-zero">Matter Intakes</div>
+    <div>
+      <%= link_to 'Submit New Matter Intake', new_lob_matter_intake_path, html_options = {class: 'page-header-btn'}   %>
+    </div>
+  </div>
   
-  <div class="col-lg-12">
+  <div class="">
     <div class="no-padding">
       <div class="widget-body">
         <div id="myTabContent" class="tab-content">
           <div class="tab-pane fade active in padding-10 no-padding-bottom" id="s1">
             <div class="row no-space text-center">
               <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <p><b><%= certification_status(current_law_firm) %></b> 
-                  <b><%= link_to 'Submit New Matter Intake', new_lob_matter_intake_path, html_options = {class: 'btn btn-primary btn-lg dashboard-certificate-button'}   %></b>
-                </p>
+                <p><b><%= certification_status(current_law_firm) %></b></p>
               </div>
             </div>
           </div>
@@ -28,16 +28,11 @@
     </div>
     <!-- widget div-->
     <div>
-      <!-- widget edit box -->
-      <div class="jarviswidget-editbox">
-        <!-- This area used as dropdown edit box -->
-      </div>
-      <!-- end widget edit box -->
       <!-- widget content -->
-      <div class="widget-body no-padding">
-        <table id="dt_basic" class="table table-striped table-bordered table-hover" width="100%">
+      <div class="table-dyanmic-search table-responsive">
+        <table id="dt_basic" class="table table-decoration table-bordered" width="100%">
           <thead>
-            <tr style="background: #007ac3;color: #fff;">
+            <tr>
               <th>Submitter Name</th>
               <th>LOB Contact Name</th>
               <th>Name of Matter/Client</th>
@@ -46,7 +41,7 @@
               <th>BMO lawyer name</th>
               <th>Budget amount</th>
               <th>Status</th>
-              <th>Action</th>
+              <th width="8%">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -60,15 +55,27 @@
                 <td><%= matter_intake.bmo_lawyer_name %></td>
                 <td><%= matter_intake.budget_amount %></td>
                 <td>
+                  <div class="status">
                   <span class="<%= matter_intake.status === "matter_open" ? 'label label-success' : 'label label-default' %>"> 
                     <%= matter_intake.status.try(:titleize) %>
                   </span>
+                  </div>
                 </td>
                 <td>
-                  <% if matter_intake.status === "waiting_for_lawyer_review" %>
-                    <%= link_to "Edit", edit_lob_matter_intake_path(matter_intake), class: "btn btn-xs btn-primary" %>	
-                  <% end %>
-                  <%= link_to "view", lob_matter_intake_path(matter_intake), class: "btn btn-xs btn-secondary" %>	
+                  <div class="action-fields">
+                    <% if matter_intake.status === "waiting_for_lawyer_review" %>
+                    <a class="action-btn" href="/lob/matter_intakes/<%= matter_intake.id %>/edit">
+                      <%= image_tag "edit-icon.svg", alt:"Edit" %>
+                    </a>
+                    <% link_to "Edit", edit_lob_matter_intake_path(matter_intake), class: "btn btn-xs btn-primary" %>	
+                    <% end %>
+                    <a class="action-btn" href="/lob/matter_intakes/<%= matter_intake.id %>">
+                      <%= image_tag "view-icon.svg", alt:"View" %>
+                    </a>
+                    <% link_to "view", lob_matter_intake_path(matter_intake), class: "btn btn-xs btn-secondary" %>	
+                  </div>
+
+                  
                 </td>
               </tr>
             <% end %>

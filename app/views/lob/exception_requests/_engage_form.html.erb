@@ -1,208 +1,198 @@
-<div id="tabs-exception" class="tabs">
-            <ul>
-              <li>
-                <a href="#tabs-reason">Confirm the reason</a>
-              </li>
-              <li>
-                <a href="#tabs-payer">Select Payer</a>
-              </li>
-              <li>
-                <a href="#tabs-provide">Provide Details </a>
-              </li>
-            </ul>
-            <%= simple_form_for [:lob, @exception_request] do |f| %>
-              <div id="tabs-reason">
-                <div class="row">
-                  <div class="col-md-12">
-                     <div class="table-responsive">
-                        <table class="table table-striped">
-                          <tbody>
-                            <tr>
-                              <td class="text-right" width="30%"><strong>Confirm the reason?</strong></td>
-                              <td style="text-align: left;"><%= f.input :reason, as: :check_boxes, label: false, collection: ExceptionRequest::EXCEPTION_REQUEST_REASON,  required: true %></td>  
-                            </tr>
-                            <tr>
-                              <td colspan="2">
-                                <a class="tab-next-btn next-btn-exception" data-tab="tabs-payer">Next</a>  
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                  </div>
-                </div>
 
+<div id="tabs-exception" class="tabs">
+  <ul class="sp-tabs-nav">
+    <li>
+      <a href="#tabs-reason">Confirm the reason</a>
+    </li>
+    <li>
+      <a href="#tabs-payer">Select Payer</a>
+    </li>
+    <li>
+      <a href="#tabs-provide">Provide Details </a>
+    </li>
+  </ul>
+  <div class="sp-form sp-form-bg">
+  <%= simple_form_for [:lob, @exception_request] do |f| %>
+    <div id="tabs-reason">
+      <div class="row">
+        <div class="">
+            <div class="">
+              <div class="col-md-12">
+                <label class="label">Confirm the reason?</label>
+                <div class="sp-checkbox-inline">
+                  <%= f.input :reason, as: :check_boxes, label: false, collection: ExceptionRequest::EXCEPTION_REQUEST_REASON,  required: true %>  
+                </div>
               </div>
-              <div id="tabs-payer">
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="table-responsive">
-                      <table class="table table-striped">
-                        <tbody>
-                          <tr>
-                            <td class="text-right" width="30%"><strong>Select Payer</strong></td>
-                            <td><%= f.input :payer, as: :radio_buttons, label: false, collection: ExceptionRequest::EXCEPTION_REQUEST_PAYER,  required: true %></td>  
-                          </tr>
-                          <tr>
-                            <td  >
-                              <a class="tab-next-btn prev-btn-exception" data-tab="tabs-reason">Previous</a>  
-                            </td>
-                             <td  >
-                              <a class="tab-next-btn next-btn-exception" data-tab="tabs-provide">Next</a>  
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
+              <div class="col-md-12 np-btn">
+                <a class="btn-type-primary tab-next-btn next-btn-exception" data-tab="tabs-payer">Next</a>
+              </div>
+            </div>
+        </div>
+      </div>
+
+    </div>
+    <div id="tabs-payer">
+      <div class="row">
+        <div class="">
+          <div class="">
+            <div class="col-md-12">
+              <label class="label">Select Payer</label>
+              <div class="sp-checkbox-inline">
+                <%= f.input :payer, as: :radio_buttons, label: false, collection: ExceptionRequest::EXCEPTION_REQUEST_PAYER,  required: true %>
+              </div> 
+            </div>
+            <div class="col-md-12 np-btn">
+              <a class="tab-next-btn btn-type-default prev-btn-exception" data-tab="tabs-reason">Previous</a>  
+              <a class="tab-next-btn btn-type-primary next-btn-exception" data-tab="tabs-provide">Next</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="tabs-provide">
+      <div class="">
+        <div class="">
+          <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-4">
+              <label class="label">Requested By</label>
+              <%= f.input :requested_by, label: false,  required: true %>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4">
+              <label class="label">Line of Business</label>
+              <%= f.input :line_of_business, label: false, collection: ExceptionRequest::LOB_LIST %>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4">
+              <label class="label">LOB Contact Name</label>
+              <%= f.input :lob_contact_name, label: false, required: true %>
+            </div>
+          </div>
+          <!--tr>
+              <td class="text-right" width="20%"><strong>Business Manager Name</strong></td>
+              <td><%= f.input :business_manager_name, label: false %></td>
+            </tr>
+            <tr>
+              <td class="text-right" width="20%"><strong>Business Manager Email</strong></td>
+              <td><%= f.input :business_manager_email, label: false %></td>
+            </tr>
+            <tr>
+              <td class="text-right" width="20%"><strong>Business Manager Phone</strong></td>
+              <td><%= f.input :business_manager_phone, label: false %></td>
+            </tr>
+          <tr-->
+            <label class="inner-label">Law Firm</label>
+            <div class="">
+              <%= f.simple_fields_for [:lob, @law_firm] do |field| %>
+                <div class="inner-form-field">
+                  <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                      <label class="label">Name</label>
+                      <%= field.input :name, label: false , required: true %>
+                      <%= field.input :law_firm_category, :as => :hidden, :input_html => { :value => "NON_PANEL" } %>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                      <label class="label">Email</label>
+                      <%= field.input :email, label: false , required: true %>
                     </div>
                   </div>
-                </div>
-              </div>
-              <div id="tabs-provide">
-                <div class="row">
-                  <div class="col-md-12">
-                    <table class="table table-striped">
-                      <tbody>
-                        <tr>
-                          <td class="text-right" width="20%"><strong>Requested By</strong></td>
-                          <td>
-                            <%= f.input :requested_by, label: false,  required: true %>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td class="text-right" width="20%"><strong>Line of Business</strong></td>
-                          <td><%= f.input :line_of_business, label: false, collection: ExceptionRequest::LOB_LIST %></td>
-                        </tr>
-                        <tr>
-                          <td class="text-right" width="20%"><strong>LOB Contact Name</strong></td>
-                          <td><%= f.input :lob_contact_name, label: false, required: true %></td>
-                        </tr>
-                        <!--tr>
-                            <td class="text-right" width="20%"><strong>Business Manager Name</strong></td>
-                            <td><%= f.input :business_manager_name, label: false %></td>
-                          </tr>
-                          <tr>
-                            <td class="text-right" width="20%"><strong>Business Manager Email</strong></td>
-                            <td><%= f.input :business_manager_email, label: false %></td>
-                          </tr>
-                          <tr>
-                            <td class="text-right" width="20%"><strong>Business Manager Phone</strong></td>
-                            <td><%= f.input :business_manager_phone, label: false %></td>
-                          </tr>
-                        <tr-->
-                          <td class="text-right" width="20%"><strong>Law Firm</strong></td>
-                          <td class="text-left">
-                            <%= f.simple_fields_for [:lob, @law_firm] do |field| %>
-                              <div class="well">
-                                  <table class="table table-striped">
-                                      <tbody>
-                                          <tr>
-                                            <td class="text-right" width="20%"><strong>Name</strong></td>
-                                            <td>
-                                              <%= field.input :name, label: false , required: true %>
-                                              <%= field.input :law_firm_category, :as => :hidden, :input_html => { :value => "NON_PANEL" } %>
-                                            </td>
-                                          </tr>
-                                          <tr>
-                                            <td class="text-right" width="20%"><strong>Email</strong></td>
-                                            <td>
-                                              <%= field.input :email, label: false , required: true %>
-                                            </td>
-                                          </tr>
-                                          
-                                          <tr>
-                                            <td class="text-right" width="20%"><strong>Phone</strong></td>
-                                            <td><%= field.input :phone, label: false, required: true %></td>
-                                          </tr>
-                                          <tr>
-                                            <td class="text-right" width="20%"><strong>Would You use this firm on a regular basis?</strong></td>
-                                            <td><%= field.input :firm_use_on_regular_basis, as: :radio_buttons, required: true,  label: false, collection: [["Yes", true], ["No", false]] %></td>
-                                          </tr> 
-                                          <tr>
-                                            <td class="text-right" width="20%"><strong>Would You use this firm on a regular basis?</strong></td>
-                                            <td><%= field.input :matter_type_ids, label: false, required: true, collection: MatterType.all.map{|mt| [mt.matter_type, mt.id] }, input_html: { multiple: true } %></td>
-                                          </tr>
-                                          
-                                        <!--  <tr>
-                                            <td class="text-right" width="20%"><strong>Description</strong></td>
-                                            <td><%= field.input :description, label: false %></td>
-                                          </tr>
-                                          <tr>
-                                            <td class="text-right" width="20%"><strong>Relationship Manager Name</strong></td>
-                                            <td><%= field.input :relationship_manager_name, label: false %></td>
-                                          </tr>
-                                          <tr>
-                                            <td class="text-right" width="20%"><strong>Relationship Manager Email</strong></td>
-                                            <td><%= field.input :relationship_manager_email, label: false %></td>
-                                          </tr>
-                                          <tr>
-                                            <td class="text-right" width="20%"><strong>Relationship Manager Phone</strong></td>
-                                            <td><%= field.input :relationship_manager_phone, label: false %></td>
-                                          </tr>
-                                           <tr>
-                                            <td class="text-right" width="20%"><strong>Temp. Password</strong></td>
-                                            <td>
-                                              <%= field.input :temp_password, autocomplete: "off", label: false, input_html: { class: 'set-password' } %>
-                                              <p style="color: #949494;" class="text-left"><em>Minimum 10 characters required</em></p>	
-                                            </td>
-                                          </tr>
-                                            <tr>
-                                            <td class="text-right" width="20%"><strong>Confirm Password</strong></td>
-                                            <td>
-                                              <%= field.input :temp_password_confirmation, autocomplete: "off", label: false, input_html: { class: 'set-password' } %>
-                                            </td>
-                                          </tr> -->
-                                      </tbody>
-                                  </table>
-                              </div>
-                            <% end %>
-                          </td>
-                        </tr>
-                        
-                        <tr>
-                          <td class="text-right" width="20%"><strong>IS this a specific niche expertise that is not already available from one of the preferred external counsel panel law firms ?</strong></td>
-                          <td><%= f.input :niche_preferred_external_counsel_panel_law_firms, label: false, required: true,  collection: [["Yes", true], ["No", false]]  %></td>
-                        </tr>
-                        <tr class="niche_preferred_external_details"  style="display:none;">
-                          <td class="text-right" width="20%"><strong>If yes please describe niche expertise</strong></td>
-                          <td><%= f.input :niche_expertise, label: false%></td>
-                        </tr>
-                         <tr>
-                          <td class="text-right" width="20%"><strong>Does this firm practice in a required unique geography that is not already available from one of the preferred outside counsel Panel Law firms?</strong></td>
-                          <td><%= f.input :required_unique_geography, label: false, required: true, collection: [["Yes", true], ["No", false]]  %></td>
-                        </tr>
-                        <tr class="required_unique_geography_details"  style="display:none;">
-                          <td class="text-right" width="20%"><strong>If yes , confirm geographic location</strong></td>
-                          <td><%= f.input :geographic_location, label: false%></td>
-                        </tr>
-                         <tr>
-                          <td class="text-right" width="20%"><strong>Would engagements of this firm involve the following</strong></td>
-                          <td><%= f.input :involved_engagement, label: false, collection: ExceptionRequest::INVOLVED_ENGAGEMENT %></td>
-                        </tr> 
-                        
-                        <tr>
-                          <td class="text-right" width="20%"><strong>Women Owned</strong></td>
-                          <td><%= f.input :women_owned, label: false, collection: ExceptionRequest::WOMEN_OWNED_TYPE,  required: true %></td>
-                        </tr>
-                        <tr class="women_owned_details" style="display:none;">
-                          <td class="text-right" width="20%"><strong>Women Owned Details</strong></td>
-                          <td><%= f.input :women_owned_details, label: false %></td>
-                        </tr>
-                        <tr>
-                          <td class="text-right" width="20%"><strong>Please confirm the reason(s) , there than theses listed above, that this firm should be considered for the preferred outside counsel Panel </strong></td>
-                          <td><%= f.input :reson_other, label: false, required: true %></td>
-                        </tr>
-                          <tr>
-                          <td>
-                              <a class="tab-next-btn prev-btn-exception" data-tab="tabs-provide">Previous</a>  
-                            </td>
-                            <td>
-                              <%= f.button :submit, @exception_request.new_record? ? "Submit Request" : "Update Request", class: "" %>
-                            </td>
-                          </tr>
-                      </tbody>
-                    </table>
+                  <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                      <label class="label">Phone</label>
+                      <%= field.input :phone, label: false, required: true %>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                      <label class="label">Would You use this firm on a regular basis?</label>
+                      <%= field.input :firm_use_on_regular_basis, as: :radio_buttons, required: true,  label: false, collection: [["Yes", true], ["No", false]] %>
+                    </div>
                   </div>
+                  <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 multiple-selector">
+                      <label class="label">Would You use this firm on a regular basis?</label>
+                      <%= field.input :matter_type_ids, label: false, required: true, collection: MatterType.all.map{|mt| [mt.matter_type, mt.id] }, input_html: { multiple: true } %>
+                    </div>
+                  </div>
+                  <!--  <tr>
+                    <td class="text-right" width="20%"><strong>Description</strong></td>
+                    <td><%= field.input :description, label: false %></td>
+                  </tr>
+                  <tr>
+                    <td class="text-right" width="20%"><strong>Relationship Manager Name</strong></td>
+                    <td><%= field.input :relationship_manager_name, label: false %></td>
+                  </tr>
+                  <tr>
+                    <td class="text-right" width="20%"><strong>Relationship Manager Email</strong></td>
+                    <td><%= field.input :relationship_manager_email, label: false %></td>
+                  </tr>
+                  <tr>
+                    <td class="text-right" width="20%"><strong>Relationship Manager Phone</strong></td>
+                    <td><%= field.input :relationship_manager_phone, label: false %></td>
+                  </tr>
+                    <tr>
+                    <td class="text-right" width="20%"><strong>Temp. Password</strong></td>
+                    <td>
+                      <%= field.input :temp_password, autocomplete: "off", label: false, input_html: { class: 'set-password' } %>
+                      <p style="color: #949494;" class="text-left"><em>Minimum 10 characters required</em></p>	
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text-right" width="20%"><strong>Confirm Password</strong></td>
+                    <td>
+                      <%= field.input :temp_password_confirmation, autocomplete: "off", label: false, input_html: { class: 'set-password' } %>
+                    </td>
+                  </tr> -->
                 </div>
-              </div>
-             <% end %>  
+              <% end %>
+            </div>
+          <div class="row">  
+            <div class="col-xs-12 col-md-offset-1 col-md-10">
+              <label class="label">IS this a specific niche expertise that is not already availabel from one of the preferred external counsel panel law firms ?</label>
+              <%= f.input :niche_preferred_external_counsel_panel_law_firms, label: false, required: true,  collection: [["Yes", true], ["No", false]]  %>
+            </div>
+            <div class="col-xs-12 col-md-offset-1 col-md-10"  style="display:none;">
+              <label class="label">If yes please describe niche expertise</label>
+              <%= f.input :niche_expertise, label: false%>
+            </div>
           </div>
+          <div class="row">
+            <div class="col-xs-12 col-md-offset-1 col-md-10">
+              <label class="label">Does this firm practice in a required unique geography that is not already availabel from one of the preferred outside counsel Panel Law firms?</label>
+              <%= f.input :required_unique_geography, label: false, required: true, collection: [["Yes", true], ["No", false]]  %>
+            </div>
+            <div class="col-xs-12 col-md-offset-1 col-md-10 required_unique_geography_details"  style="display:none;">
+              <label class="label">If yes , confirm geographic location</label>
+              <%= f.input :geographic_location, label: false%>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-md-offset-1 col-md-10">
+              <label class="label">Would engagements of this firm involve the following</label>
+              <%= f.input :involved_engagement, label: false, collection: ExceptionRequest::INVOLVED_ENGAGEMENT %>
+            </div>
+            <div class="col-xs-12 col-md-offset-1 col-md-10">
+              <label class="label">Women Owned</label>
+              <%= f.input :women_owned, label: false, collection: ExceptionRequest::WOMEN_OWNED_TYPE,  required: true %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-md-offset-1 col-md-10 women_owned_details" style="display:none;">
+              <label class="label">Women Owned Details</label>
+              <%= f.input :women_owned_details, label: false %>
+            </div>
+            <div class="col-xs-12 col-md-offset-1 col-md-10">
+              <label class="label">Please confirm the reason(s) , there than theses listed above, that this firm should be considered for the preferred outside counsel Panel</label>
+              <%= f.input :reson_other, label: false, required: true %>
+            </div>
+          </div>
+          <div class="row">
+          <div class="col-xs-12 col-md-offset-1 col-md-10">
+            <a class="tab-next-btn btn-type-default prev-btn-exception" data-tab="tabs-provide">Previous</a>  
+            <%= f.button :submit, @exception_request.new_record? ? "Submit Request" : "Update Request", class: "btn-type-primary" %>
+          </tr>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %> 
+  </div>
+</div>
+
+

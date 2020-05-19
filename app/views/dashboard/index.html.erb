@@ -1,463 +1,329 @@
+
 <div class="row">
-	<div class="col-md-12">
-		<article class="col-sm-12">
-			<div class="jarviswidget">
-				<header>
-					<span class="widget-icon"> <i class="fa fa-bar-chart"></i> </span>
-					<h2><strong>Roster</strong> Status </h2>
-				</header>
-				<div class="no-padding">
-					<div class="widget-body">
-						<div id="myTabContent" class="tab-content">
-							<div class="tab-pane fade active in padding-10 no-padding-bottom" id="s1">
-								<div class="row no-space text-center">
-									<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-										<p><b><%= certification_status(current_law_firm) %></b> 
-										<b><%= link_to 'Submit Request Conflict Waiver', new_conflict_waiver_path, html_options = {class: 'btn btn-primary btn-lg dashboard-certificate-button'}   %></b></p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</article>
+	<div class="col-xs-12 col-md-12">
+		<div class="page-header-sp">
+			<div class="page-title m-top-zero">Roster <span>Status</span> </div>
+			<div></div>
+		</div>
+	</div>
+	<div class="col-xs-12 col-md-12">
+		<div class="sp-form sp-form-bg text-center">
+			<p><b><%= certification_status(current_law_firm) %></b> 
+			<b><%= link_to 'Submit Request Conflict Waiver', new_conflict_waiver_path, html_options = {class: 'btn-type-primary'}   %></b></p>
+		</div>
 	</div>
 </div>
-
-<div class="clearfix"></div>
+	
 <div class="row">
-<div class="col-md-6">
-	<div class="jarviswidget security-threats jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
-		<header>
-			<span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
-			<h2 class="font-md"><strong>Conflict Waivers </strong></h2>				
-		</header>
-		<div>
-			
-							
-					
+	<div class="col-xs-12 col-md-12">
+		<div class="page-header-sp">
+			<div class="page-title ">Conflict Waivers</div>
+			<div></div>
+		</div>
+	</div>
+	<div class="col-xs-12 col-md-12">
+		<div class="">
+			<div>
 				<% if current_law_firm.conflict_waivers.order(created_at: :desc).limit(5).size > 0 %>
 				<div class="table-responsive">
-						<table class="table table-bordered text-center content-in-jarvis">
+					<table class="table table-decoration table-bordered">
+						<thead>
+						<tr>
+							<th>Name of law firm</th>
+							<th>Date of submission</th>
+							<th>LXP Status</th>
+							<th>Lawyer Status</th>
+							<th width="8%">Action</th>
+						</tr>
+						</thead>
+						<tbody>
+							<%- current_law_firm.conflict_waivers.each do |conflict_waiver|  %>
 							<tr>
-								<th class="text-center">Name of law firm</th>
-								<th class="text-center">Date of submission</th>
-								<th class="text-center">LXP Status</th>
-								<th class="text-center">Lawyer Status</th>
-								<th class="text-center">Action</th>
+								<td><%= conflict_waiver.name_of_law_firm %></td>
+								<td><%= conflict_waiver.created_at.strftime("%d %b, %Y") %></td>
+								<td><%= conflict_waiver.lxp_status_show %></td>
+								<td><%= conflict_waiver.internal_lawyers_status_show %></td>
+								<td>
+									<div class="action-fields">
+										<% if conflict_waiver.try(:lxp_status) != 'APPROVED' %>
+										<a class="action-btn" href="/conflict_waivers/<%= conflict_waiver.id %>/edit">
+											<%= image_tag "edit-icon.svg", alt:"Edit" %>
+										</a>	
+										<% end %>
+										<a class="action-btn" href="/conflict_waivers/<%= conflict_waiver.id %>">
+											<%= image_tag "view-icon.svg", alt:"View" %>
+										</a>
+									</div>	
+								</td>
 							</tr>
-								<%- current_law_firm.conflict_waivers.each do |conflict_waiver|  %>
-
-									<tr>
-											<td><%= conflict_waiver.name_of_law_firm %></td>
-											<td><%= conflict_waiver.created_at.strftime("%d %b, %Y") %></td>
-											<td><%= conflict_waiver.lxp_status_show %></td>
-											<td><%= conflict_waiver.internal_lawyers_status_show %></td>
-											<td>
-													<% if conflict_waiver.try(:lxp_status) != 'APPROVED' %>
-														<%= link_to 'Edit', edit_conflict_waiver_path(conflict_waiver), class: "btn btn-outline-primary btn-xs" %>	
-													<% end %>
-														<%= link_to 'View', conflict_waiver_path(conflict_waiver), class: "btn btn-outline-primary btn-xs" %>	
-											</td>
-									</tr>
-								<% end %>
-						</table>
+							<% end %>
+						</tbody>
+					</table>
 				</div>
 				<% else %>
 					<h4 class="text-center">There are no Conflict waivers submissions to review yet</h4>
 				<% end %>
-				</div>
 			</div>
-	</div>
- 
-<!--<div class="col-md-6">
-	<div class="jarviswidget security-threats jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
-
-
-		<header>
-			<span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
-			<h2 class="font-md"><strong>Security Threats </strong></h2>				
-		</header>
-
-		<div>
-
-			<div>
-				<div class="jarviswidget-editbox">
-					<div>
-						<label>Title:</label>
-						<input type="text" />
-					</div>
-				</div>
-
-				<% if @action_items.any? %>
-				<div class="widget-body no-padding smart-form sec-threats-latest">
-					
-					<% if (@action_items.select{|a| a.status != 'complete' && a.security_threat.severity_level.name == 'critical'}).count > 0 %>
-						<h5 class="todo-group-title"><i class="fa fa-warning"></i> Critical</h5>
-					<% end %>
-					<% @action_items.select{|a| a.status != 'complete' && a.security_threat.severity_level.name == 'critical'}.each do |item| %>
-						<%= render partial: 'action_item', locals: { item: item, active: true } %>
-					<% end %>
-
-					<% if (@action_items.select{|a| a.status != 'complete' && a.security_threat.severity_level.name == 'high'}).count > 0 %>
-						<h5 class="todo-group-title"><i class="fa fa-warning"></i> High</h5>
-					<% end %>
-					<% @action_items.select{|a| a.status != 'high' && a.security_threat.severity_level.name == 'high'}.each do |item| %>
-						<%= render partial: 'action_item', locals: { item: item, active: true } %>
-					<% end %>
-
-					<% if (@action_items.select{|a| a.status != 'complete' && a.security_threat.severity_level.name == 'low'}).count > 0 %>
-						<h5 class="todo-group-title"><i class="fa fa-warning"></i> Low</h5>
-					<% end %>
-					<% @action_items.select{|a| a.status != 'low' && a.security_threat.severity_level.name == 'low'}.each do |item| %>
-						<%= render partial: 'action_item', locals: { item: item, active: true } %>
-					<% end %>
-
-
-
-					<h5 class="todo-group-title"><i class="fa fa-check"></i> Completed Tasks</h5>
-					<ul id="sortable3" class="todo">
-						<% @action_items.select{|a| a.status == 'complete'}.each do |item| %>
-						<li class="complete">
-							<span class="handle" style="display:none"> <label class="checkbox state-disabled">
-								<input type="checkbox" name="checkbox-inline" checked="checked" disabled="disabled">
-								<i></i> </label> </span>
-								<p>
-									<strong><%= item.security_threat.title %></strong> [<%= link_to "More Details", action_item_path(item), :class => "", :remote => true, "data-toggle" => "modal", "data-target" => "securityAlert" %>] <span class="text-muted"><%= item.security_threat.description %> </span>
-									<span class="date"><%= time_ago_in_words(item.created_at) %></span>
-								</p>
-							</li>
-							<% end %>
-						</ul>
-
-					</div>
-
-
-					<% else %>
-						<em class="text-center"> Not Available </em>
-					<% end %>
-
-				</div>
-
-			</div>
-
-
 		</div>
+	</div>
+</div>
 
-	</div>-->
 
-	<div class="col-md-6">
-
-		<div class="jarviswidget jarviswidget-color-blue" id="wid-id-4" data-widget-editbutton="false" data-widget-colorbutton="false">
-
-				<!-- widget options:
-				usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
-
-				data-widget-colorbutton="false"
-				data-widget-editbutton="false"
-				data-widget-togglebutton="false"
-				data-widget-deletebutton="false"
-				data-widget-fullscreenbutton="false"
-				data-widget-custombutton="false"
-				data-widget-collapsed="true"
-				data-widget-sortable="false"
-
-			-->
-
-			<header>
-				<span class="widget-icon"> <i class="fa fa-check txt-color-white"></i> </span>
-				<h2> News </h2>
-					<!-- <div class="widget-toolbar">
-					add: non-hidden - to disable auto hide
-
-				</div>-->
-			</header>
-
+				
+<div class="row">
+	<div class="col-xs-12 col-md-12">
+		<div class="page-header-sp">
+			<div class="page-title m-top-zero">News	</div>
+			<div></div>
+		</div>
+	</div>
+	<div class="col-xs-12 col-md-12">
+		<div class="sp-form sp-form-bg">
+			
+			<div class="jarviswidget-color-blue" id="wid-id-4" data-widget-editbutton="false" data-widget-colorbutton="false">
 			<!-- widget div-->
-			<div class="security-alerts">
-				<!-- widget edit box -->
-				<div class="jarviswidget-editbox">
-					<div>
-						<label>Title:</label>
-						<input type="text" />
+				<div class="security-alerts">
+					<!-- widget edit box -->
+					<div class="jarviswidget-editbox">
+						<div>
+							<label>Title:</label>
+							<input type="text" />
+						</div>
 					</div>
-				</div>
-				<!-- end widget edit box -->
+					<!-- end widget edit box -->
+					<div class="widget-body no-padding smart-form">
+						<div class="col-sm-12 col-md-12 col-lg-12">
+							<div style="padding: 0px 20px !important;">
+								<div class="">
+									<div class="col-sm-12">
+										<div class="padding-10">
+											<div class="tab-content padding-top-10">
+												<div class="tab-pane fade in active" id="a1">
+													<div class="row">
+														<% if @security_alerts && @security_alerts.any? %>
+															<% @security_alerts.each do |alert| %>
+																<div class="col-xs-2 col-sm-1">
+																	<time datetime="2014-09-20" class="icon">
+																		<strong><%= (alert.alert_date ? alert.alert_date : alert.created_at).strftime("%b") %></strong>
+																		<span><%= (alert.alert_date ? alert.alert_date : alert.created_at).strftime("%d") %></span>
+																	</time>
+																</div>
 
-				<div class="widget-body no-padding smart-form">
-					<div class="col-sm-12 col-md-12 col-lg-12">
-						<div style="padding: 0px 20px !important;">
-
-							<div class="">
-
-								<div class="col-sm-12">
-
-									<div class="padding-10">
-
-										<div class="tab-content padding-top-10">
-											<div class="tab-pane fade in active" id="a1">
-
-												<div class="row">
-													<% if @security_alerts && @security_alerts.any? %>
-														<% @security_alerts.each do |alert| %>
-															<div class="col-xs-2 col-sm-1">
-																<time datetime="2014-09-20" class="icon">
-																	<strong><%= (alert.alert_date ? alert.alert_date : alert.created_at).strftime("%b") %></strong>
-																	<span><%= (alert.alert_date ? alert.alert_date : alert.created_at).strftime("%d") %></span>
-																</time>
-															</div>
-
-															<div class="col-xs-10 col-sm-11">
+																<div class="col-xs-10 col-sm-11">
 
 
-																<h6 class="no-margin"><%= link_to alert.title, security_alert_path(alert), :class => "", :remote => true, "data-toggle" => "modal", "data-target" => "securityAlert" %></h6>
-																<p>
-																	<%= truncate(alert.description, length: 150) %>
-																</p>
-															</div>
+																	<h6 class="no-margin"><%= link_to alert.title, security_alert_path(alert), :class => "", :remote => true, "data-toggle" => "modal", "data-target" => "securityAlert" %></h6>
+																	<p>
+																		<%= truncate(alert.description, length: 150) %>
+																	</p>
+																</div>
 
-															<div class="col-sm-12 padding-10">
-																<hr>
-															</div>
+																<div class="col-sm-12 padding-10">
+																	<hr>
+																</div>
+															<% end %>
+														<% else %>
+															<em class="text-center"> There are no news </em>
 														<% end %>
-													<% else %>
-														<em class="text-center"> There are no news </em>
-													<% end %>
 
-													
+														
 
-													<div class="col-sm-12">
+														<div class="col-sm-12">
 
-														<br>
+															<br>
+
+														</div>
 
 													</div>
-
 												</div>
+												<div class="tab-pane fade" id="a2">
+													<div class="alert alert-info fade in">
+														<button class="close" data-dismiss="alert">
+															×
+														</button>
+														<i class="fa-fw fa fa-info"></i>
+														<strong>51 new members </strong>joined today!
+													</div>
 
+													<div class="user" title="email@company.com">
+														<!-- <img src="img/avatars/female.png" alt="demo user"><a href="javascript:void(0);">Jenn Wilson</a> -->
+														<div class="email">
+															travis@company.com
+														</div>
+													</div>
+													<div class="user" title="email@company.com">
+														<!-- <img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Marshall Hitt</a> -->
+														<div class="email">
+															marshall@company.com
+														</div>
+													</div>
+													<div class="user" title="email@company.com">
+														<!-- <img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Joe Cadena</a> -->
+														<div class="email">
+															joe@company.com
+														</div>
+													</div>
+													<div class="user" title="email@company.com">
+														<!-- <img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Mike McBride</a> -->
+														<div class="email">
+															mike@company.com
+														</div>
+													</div>
+													<div class="user" title="email@company.com">
+														<!-- <img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Travis Wilson</a> -->
+														<div class="email">
+															travis@company.com
+														</div>
+													</div>
+													<div class="user" title="email@company.com">
+														<!-- <img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Marshall Hitt</a> -->
+														<div class="email">
+															marshall@company.com
+														</div>
+													</div>
+													<div class="user" title="Joe Cadena joe@company.com">
+														<!-- <img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Joe Cadena</a> -->
+														<div class="email">
+															joe@company.com
+														</div>
+													</div>
+													<div class="user" title="email@company.com">
+														<!-- <img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Mike McBride</a> -->
+														<div class="email">
+															mike@company.com
+														</div>
+													</div>
+													<div class="user" title="email@company.com">
+														<!-- <img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Marshall Hitt</a> -->
+														<div class="email">
+															marshall@company.com
+														</div>
+													</div>
+													<div class="user" title="email@company.com">
+														<!-- <img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Joe Cadena</a> -->
+														<div class="email">
+															joe@company.com
+														</div>
+													</div>
+													<div class="user" title="email@company.com">
+														<!-- <img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);"> Mike McBride</a> -->
+														<div class="email">
+															mike@company.com
+														</div>
+													</div>
+
+													<div class="text-center">
+														<ul class="pagination pagination-sm">
+															<li class="disabled">
+																<a href="javascript:void(0);">Prev</a>
+															</li>
+															<li class="active">
+																<a href="javascript:void(0);">1</a>
+															</li>
+															<li>
+																<a href="javascript:void(0);">2</a>
+															</li>
+															<li>
+																<a href="javascript:void(0);">3</a>
+															</li>
+															<li>
+																<a href="javascript:void(0);">...</a>
+															</li>
+															<li>
+																<a href="javascript:void(0);">99</a>
+															</li>
+															<li>
+																<a href="javascript:void(0);">Next</a>
+															</li>
+														</ul>
+													</div>
+
+												</div><!-- end tab -->
 											</div>
-											<div class="tab-pane fade" id="a2">
-
-												<div class="alert alert-info fade in">
-													<button class="close" data-dismiss="alert">
-														×
-													</button>
-													<i class="fa-fw fa fa-info"></i>
-													<strong>51 new members </strong>joined today!
-												</div>
-
-												<div class="user" title="email@company.com">
-													<!-- <img src="img/avatars/female.png" alt="demo user"><a href="javascript:void(0);">Jenn Wilson</a> -->
-													<div class="email">
-														travis@company.com
-													</div>
-												</div>
-												<div class="user" title="email@company.com">
-													<!-- <img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Marshall Hitt</a> -->
-													<div class="email">
-														marshall@company.com
-													</div>
-												</div>
-												<div class="user" title="email@company.com">
-													<!-- <img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Joe Cadena</a> -->
-													<div class="email">
-														joe@company.com
-													</div>
-												</div>
-												<div class="user" title="email@company.com">
-													<!-- <img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Mike McBride</a> -->
-													<div class="email">
-														mike@company.com
-													</div>
-												</div>
-												<div class="user" title="email@company.com">
-													<!-- <img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Travis Wilson</a> -->
-													<div class="email">
-														travis@company.com
-													</div>
-												</div>
-												<div class="user" title="email@company.com">
-													<!-- <img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Marshall Hitt</a> -->
-													<div class="email">
-														marshall@company.com
-													</div>
-												</div>
-												<div class="user" title="Joe Cadena joe@company.com">
-													<!-- <img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Joe Cadena</a> -->
-													<div class="email">
-														joe@company.com
-													</div>
-												</div>
-												<div class="user" title="email@company.com">
-													<!-- <img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Mike McBride</a> -->
-													<div class="email">
-														mike@company.com
-													</div>
-												</div>
-												<div class="user" title="email@company.com">
-													<!-- <img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Marshall Hitt</a> -->
-													<div class="email">
-														marshall@company.com
-													</div>
-												</div>
-												<div class="user" title="email@company.com">
-													<!-- <img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Joe Cadena</a> -->
-													<div class="email">
-														joe@company.com
-													</div>
-												</div>
-												<div class="user" title="email@company.com">
-													<!-- <img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);"> Mike McBride</a> -->
-													<div class="email">
-														mike@company.com
-													</div>
-												</div>
-
-												<div class="text-center">
-													<ul class="pagination pagination-sm">
-														<li class="disabled">
-															<a href="javascript:void(0);">Prev</a>
-														</li>
-														<li class="active">
-															<a href="javascript:void(0);">1</a>
-														</li>
-														<li>
-															<a href="javascript:void(0);">2</a>
-														</li>
-														<li>
-															<a href="javascript:void(0);">3</a>
-														</li>
-														<li>
-															<a href="javascript:void(0);">...</a>
-														</li>
-														<li>
-															<a href="javascript:void(0);">99</a>
-														</li>
-														<li>
-															<a href="javascript:void(0);">Next</a>
-														</li>
-													</ul>
-												</div>
-
-											</div><!-- end tab -->
 										</div>
-
 									</div>
-
 								</div>
-
+								<!-- end row -->
 							</div>
-							<!-- end row -->
-
 						</div>
-
+						<!-- end content -->
 					</div>
-					<!-- end content -->
 				</div>
-
-			</div>
-			<!-- end widget div -->
-		</div>
-
-	</div>
-
-
-
-
-	<div class="col-md-12">
-		<div class="jarviswidget jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
-
-			<header>
-				<span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
-				<h2 class="font-md"><strong>Submissions </strong></h2>	
-			</header>
-
-			<div>
-
-				<div class="clearfix"></div>
-				<!-- MAIN PANEL -->
-				<div role="main">
-
-					<!-- MAIN CONTENT -->
-					<div style="max-height: 500px;overflow-y: scroll;">
-
-						<!-- row -->
-						<div class="row">
-
-							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-
-							<% if current_law_firm && current_law_firm.form_submissions.any? %>
-								<div class="table-responsive">
-									<table class="table table-bordered text-center content-in-jarvis">
-
-										<tr>
-											<th class="text-center">Submission ID</th>
-											<!-- <th class="text-center">Score</th> -->
-											<th class="text-center">Date of certification</th>
-											<th class="text-center">Date of submission</th>
-											<th class="text-center">Status</th>
-											<th class="text-center">Evidence Status</th>
-											<th class="text-center">Action</th>
-										</tr>
-
-										<% current_law_firm.form_submissions.reverse.each do |submission| %>
-											<tr>
-												<td><%= submission.id %></td>
-												<!-- <td><%= submission.total_score || '-' %></td> -->
-												<td><%= submission.approved_at.try(:strftime, "%d/%m/%Y") || '-' %></td>
-												<td><%= submission.submitted_on.try(:strftime, "%d/%m/%Y") || '-' %></td>
-												<td class="text-center">
-												<span class="label label-<%= submission_status_class(submission) %>">
-													<%= submission.try(:formatted_status) %>
-												</span>
-												<!----><td>
-													<%= submission.try(:formatted_evidence_status) %>
-												</td>-->
-												<% if submission.try(:status) == 'decertified' %>	
-													<br><em><%= submission.try(:reason) %></em>
-												<% end %>
-												</td>
-												<td>
-													<% if submission.try(:status) != 'approved' %>
-														<%= link_to 'View', pricing_step_form_submission_path(submission, readonly: "true"), class: "btn btn-outline-primary btn-xs" %>	
-													<% else %>
-														<%= link_to 'View', "", class: "btn btn-outline-primary btn-xs", onclick: "alert('Disabled')" %>	
-													<% end %>
-												</td>
-											</tr>
-											
-										<% end %>
-
-									</table>
-									<div class="clearfix"></div>
-
-
-								</div>
-								<% else %>
-									<h4 class="text-center">There are no submissions to review yet</h4>
-								<% end %>
-							</div>
-
-							</div>
-
-						</div>
-
-						<!-- end row -->
-
-					</div>
-					<!-- END MAIN CONTENT -->
-
-				</div>
-				<!-- END MAIN PANEL -->
+				<!-- end widget div -->
 			</div>
 
 		</div>
 	</div>
+</div>
 
 
 
+<div class="row">
+	<div class="col-xs-12 col-md-12">
+		<div class="page-header-sp">
+			<div class="page-title">Submissions</div>
+			<div></div>
+		</div>
+	</div>
+	<div class="col-xs-12 col-md-12">
+		<div class="sp-form sp-form-bg text-center">
+			<% if current_law_firm && current_law_firm.form_submissions.any? %>
+			<div class="table-responsive">
+				<table class="table table-decoration table-bordered">
+					<thead>
+					<tr>
+							<th class="text-center">Submission ID</th>
+							<!-- <th class="text-center">Score</th> -->
+							<th class="text-center">Date of certification</th>
+							<th class="text-center">Date of submission</th>
+							<th class="text-center">Status</th>
+							<th class="text-center">Evidence Status</th>
+							<th class="text-center">Action</th>
+						</tr>
+					</thead>
+					<tbody>
+					<% current_law_firm.form_submissions.reverse.each do |submission| %>
+					<tr>
+						<td><%= submission.id %></td>
+						<!-- <td><%= submission.total_score || '-' %></td> -->
+						<td><%= submission.approved_at.try(:strftime, "%d/%m/%Y") || '-' %></td>
+						<td><%= submission.submitted_on.try(:strftime, "%d/%m/%Y") || '-' %></td>
+						<td class="text-center">
+						<span class="label label-<%= submission_status_class(submission) %>">
+							<%= submission.try(:formatted_status) %>
+						</span>
+						<!----><td>
+							<%= submission.try(:formatted_evidence_status) %>
+						</td>-->
+						<% if submission.try(:status) == 'decertified' %>	
+							<br><em><%= submission.try(:reason) %></em>
+						<% end %>
+						</td>
+						<td>
+							<% if submission.try(:status) != 'approved' %>
+								<%= link_to 'View', pricing_step_form_submission_path(submission, readonly: "true"), class: "btn btn-outline-primary btn-xs" %>	
+							<% else %>
+								<%= link_to 'View', "", class: "btn btn-outline-primary btn-xs", onclick: "alert('Disabled')" %>	
+							<% end %>
+						</td>
+					</tr>											
+					<% end %>
+					</tbody>
+				</table>
+			</div>
+			<% else %>
+				<h4 class="text-center">There are no submissions to review yet</h4>
+			<% end %>
+		</div>
+	</div>
+</div>
 
-	<div class="col-md-12">
+	
+
+
+
+<br>
+	<div class="col-md-12 hidden">
 		<div class="jarviswidget jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
 
 			<header>

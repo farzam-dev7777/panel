@@ -2,68 +2,57 @@
 	input, textarea, select { padding: 0px !important; margin: 0px; background: transparent; }
 </style>
 
-<div class="clearfix"></div>
-<div class="" style=" padding: 10px; ">
-  <h2>Request For Conflict Waivers</h2>
-	<div class="table-responsive">
+
+<div class="sp-form sp-form-bg">
+  
 		<%= simple_form_for [@conflict_waiver] do |f| %>
-			<table class="table table-striped">
-				<tbody> 
-          <tr>
-            <td class="text-right" width="20%"><strong>Name of law firm</strong></td>
-            <td><%= f.input :name_of_law_firm, label: false, input_html: { value: current_user.law_firm.name, readonly: true } %></td>
-          </tr>
-          <tr>
-            <td class="text-right" width="20%"><strong>Contact details</strong></td>
-            <td>
-              <%= f.input :contact_details, label: false %>
-              <%= f.input :user_id, :as => :hidden, :input_html => { value: @current_user.id } %>
-            </td>
-          </tr>
-          <tr>
-            <td class="text-right" width="20%"><strong>BMO Business contact</strong></td>
-            <td><%= f.input :bmo_business_contact, label: false %></td>
-          </tr>
-          <tr>
-            <td class="text-right" width="20%"><strong>Reason for Request</strong></td>
-            <td><%= f.input :reason, label: false, input_html: { rows: 5 } %></td>
-          </tr>
-          <tr>
-             <td>
-               
-             </td>
-             <td class="text-left">
-                <p><b>This is the list of existing waivers:</b></p>
-                <p>An issuer or selling security holder in an underwriting; </p>
-                <p>A borrower in a normal course borrowing/mortgage transaction when we are already
-                represented by other counsel;</p>   
-                <p>A customer in the ordinary course of our business;
-                A party to a transaction where we are a lender or advisor to another party to the
-                transaction;</p>
-                <p>A debtor in a bankruptcy, insolvency, restructuring or other similar proceeding that
-                adjusts creditors’ rights where we are a creditor in such proceeding, provided that (i)
-                you did not act directly or indirectly for us in the transaction or arrangement giving
-                rise to our claim, and (ii) you notify us that you represent the debtor; or</p>
-                <p>A party in a transaction to which we are not a party but where you acted on our
-                behalf in a previous lending transaction with that party, provided that (i) the current
-                transaction is unrelated to the previous lending transaction and (ii) it will have no
-                bearing and/impact on the previous lending transaction.</p>
-                <%#= f.input :retainer_language, as: :radio_buttons, label: false, collection: ConflictWaiver::RETAINER_LANGUAGE_TYPE  %>
-                <label class="checkbox" style="padding-left: 0px">
-                  <%= f.input :confirm_waiver, label: "I confirm that It’s not covered by the above waivers" %>
-                  </a>
-                </label>
-             </td>
-          </tr>
-         
-						<tr>
-							<td colspan="2">
-                  <%=link_to 'Cancel', @conflict_waiver.new_record? ? admin_exception_requests_path : admin_law_firm_path, class: 'btn btn-danger btn-sm' %>
-								<%= f.button :submit, @conflict_waiver.new_record? ? "Submit Request" : "Update Request", class: "" %>
-							</td>
-						</tr>
-				</tbody>
-			</table>
+    <div class="row"> 
+      <div class="col-xs-12 colmd-12">
+        <label class="inner-label">Request For Conflict Waivers</label>
+      </div>
+      <div class="col-xs-12 col-md-6">
+        <label  class="label">Name of law firm</label>
+        <%= f.input :name_of_law_firm, label: false, input_html: { value: current_user.law_firm.name, readonly: true } %>
+      </div>
+      <div class="col-xs-12 col-md-6">
+        <label  class="label">Contact details</label>
+        <%= f.input :contact_details, label: false %>
+        <%= f.input :user_id, :as => :hidden, :input_html => { value: @current_user.id } %>
+      </div>
+      <div class="col-xs-12 col-md-6">
+        <label  class="label">BMO Business contact</label>
+        <%= f.input :bmo_business_contact, label: false %>
+      </div>
+      <div class="col-xs-12 col-md-6">
+        <label  class="label">Reason for Request</label>
+        <%= f.input :reason, label: false, input_html: { rows: 5 } %>
+      </div>
+      <div class="col-xs-12 col-md-12">         
+        <p><b>This is the list of existing waivers:</b></p>
+        <p>An issuer or selling security holder in an underwriting; </p>
+        <p>A borrower in a normal course borrowing/mortgage transaction when we are already
+        represented by other counsel;</p>   
+        <p>A customer in the ordinary course of our business;
+        A party to a transaction where we are a lender or advisor to another party to the
+        transaction;</p>
+        <p>A debtor in a bankruptcy, insolvency, restructuring or other similar proceeding that
+        adjusts creditors’ rights where we are a creditor in such proceeding, provided that (i)
+        you did not act directly or indirectly for us in the transaction or arrangement giving
+        rise to our claim, and (ii) you notify us that you represent the debtor; or</p>
+        <p>A party in a transaction to which we are not a party but where you acted on our
+        behalf in a previous lending transaction with that party, provided that (i) the current
+        transaction is unrelated to the previous lending transaction and (ii) it will have no
+        bearing and/impact on the previous lending transaction.</p>
+        <%#= f.input :retainer_language, as: :radio_buttons, label: false, collection: ConflictWaiver::RETAINER_LANGUAGE_TYPE  %>
+        <label class="checkbox" style="padding-left: 0px">
+          <%= f.input :confirm_waiver, label: "I confirm that It’s not covered by the above waivers" %>
+          </a>
+        </label>
+      </div>
+      <div class="col-xs-12 col-md-12">
+          <%=link_to 'Cancel', @conflict_waiver.new_record? ? admin_exception_requests_path : admin_law_firm_path, class: 'btn-type-default' %>
+          <%= f.button :submit, @conflict_waiver.new_record? ? "Submit Request" : "Update Request", class: "btn-type-primary" %>
+      </div>
+    </div>
 		<% end %>
-	</div>
 </div>
