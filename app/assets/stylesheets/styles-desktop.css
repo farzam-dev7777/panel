@@ -257,6 +257,7 @@ nav ul li a:active {
 .top-status-card .card-content .card-deatails .card-tag-line{
   font-size: 12px;
   color: #7E858E;
+  display: none;
 }
 /* Top status card END */
 /* Table design and page Header */

@@ -141,5 +141,8 @@
   .sign-in-page .right-side{
     width: 100% !important;
   }
+  .sp-powered{
+    position: unset;
+  }
   /* SignIn page END */
 }

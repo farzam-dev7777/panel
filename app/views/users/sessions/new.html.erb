@@ -1,9 +1,22 @@
+<!DOCTYPE html>
+<html lang="en-us" id="extr-page">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<title>Panel | 2 Factor Authentication</title>
+	<%= csrf_meta_tags %>
+	<%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 <style type="text/css">
   .login-page{
     background-image: url(<%= asset_path 'bg-photo.jpg' %>) !important;
   }
   .alert, .notice { display: none }
 </style>
+</head>
+
+<body>
+
+
+
 
 <div class="remove-padding" id="main" role="main"><!-- old class login-page -->
   <!-- New SignIn page -->
@@ -19721,3 +19734,6 @@
     </div>
   </div>
 </div>
+	<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</body>
+</html>

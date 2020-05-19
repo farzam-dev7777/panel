@@ -30,14 +30,14 @@
 			<% else %>
 			<% if(@law_firm.form_submissions.any? && @law_firm.form_submissions.latest.status == 'approved') %>
 				<a class="btn-type-primary" data-id='<%= @law_firm.id %>' data-name='<%= @law_firm.name %>'>Decertify</a>
-				<a class="btn-type-primary" data-id="<%= @law_firm.id %>">Send RFI Questionnaire again			</a>
+				<a class="btn-type-primary begin-recertification-btn" data-id="<%= @law_firm.id %>">Send RFI Questionnaire again</a>
 			<% end %>
 			<% if(!@law_firm.form_submissions.any?) %>
 				<% if(@law_firm.user.try(:is_deactivated?)) %>
-					<a class="btn-type-primary" data-id="<%= @law_firm.user.id %>">Send user information and create new password link </a>
-					<a class="btn-type-primary" data-id="<%= @law_firm.user.id %>">Send RFI Questionnaire with user active password link </a>
+					<a class="btn-type-primary send-user-info-btn" data-id="<%= @law_firm.user.id %>">Send user information and create new password link </a>
+					<a class="btn-type-primary send-user-info-begin-certification-btn" data-id="<%= @law_firm.user.id %>">Send RFI Questionnaire with user active password link </a>
 					<% else %>	
-					<a class="btn-type-primary" data-id="<%= @law_firm.id %>">Send RFI Questionnaire</a>
+					<a class="btn-type-primary begin-certification-btn" data-id="<%= @law_firm.id %>">Send RFI Questionnaire</a>
 					<% end %>	
 			<% end %>
 
