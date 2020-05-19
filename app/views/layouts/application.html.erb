@@ -31,7 +31,7 @@
       </div>
       <div class="project-context user-info sp-user-dropdown-menu">
         <span class="project-selector dropdown-toggle sp-user-profile" data-toggle="dropdown">
-          <%= image_tag "https://ui-avatars.com/api/?name=John+Doe&background=0051CA&color=fff", alt:"User", class:"user-image" %> 
+          <%= image_tag "https://ui-avatars.com/api/?name=#{full_name}&background=0051CA&color=fff", alt:"User", class:"user-image" %> 
           <div class="user-welcome">
             <span class="welcome">Welcome</span>
             <span class="sp-user-name"><%= current_user.username %> </span>
