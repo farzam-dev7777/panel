@@ -159,4 +159,7 @@
   .sp-form .sp-checkbox-inline .form-group {
     flex-direction: column;
   }
+  .sp-form > form select{
+    
+  } 
 }

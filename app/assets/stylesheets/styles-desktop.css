@@ -477,6 +477,8 @@ nav ul li a:active {
   padding: 0px 10px;
   box-sizing: inherit;
   width: 100% !important;
+  background-color: transparent;
+  height: 38px;
 }
 .sp-form > form .sp-form-control:focus, .sp-form > form .chosen-container:focus{
   border: 1px solid #D7DFE9;

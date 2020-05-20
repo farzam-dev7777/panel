@@ -52,7 +52,7 @@
                       </div>
                       <div class="col-xs-12 col-md-4">
                         <%= f.label :law_firm_id_eq, :class => 'label' %>
-                        <%= f.select :law_firm_id_eq, options_from_collection_for_select(LawFirm.all, "id", "name", @q.law_firm_id_eq), {:include_blank => 'Select law firm'} %>
+                        <%= f.select :law_firm_id_eq, options_from_collection_for_select(LawFirm.all, "id", "name", @q.law_firm_id_eq), {:include_blank => 'Select law firm'}, :class => 'sp-form-control' %>
                       </div>
                       <div class="col-xs-12 text-right">
                           <%= f.submit "Search", class: "btn-type-primary input-btn m-right" %>
