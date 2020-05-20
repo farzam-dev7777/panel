@@ -1052,7 +1052,8 @@ $(document).ready(function(){
       },
       position: {
         my: 'bottom left'
-      }
+      },
+      style: { classes: 'helper-data-color' }
     });
   });
 

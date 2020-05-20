@@ -1040,3 +1040,19 @@ nav ul li a:active {
   position: absolute;
   margin-top: -16px;
 }
+.control-label i, .fa.fa-question-circle-o.help-text {
+  background-color: #0052ca;
+  bottom: 0px !important;
+  width: 14px;
+  padding: 1px 2px;
+  height: 14px;
+}
+.helper-data-color{
+  background-color: #3f3f44 !important;
+  color: #f7f7f7 !important;
+  font-weight: 700;
+  border: 0px solid #3f3f44 !important;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12) !important;
+  margin-top: -15px !important;
+  margin-right: -10px !important;
+}
