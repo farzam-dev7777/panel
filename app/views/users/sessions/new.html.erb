@@ -26,10 +26,7 @@
     <div class="right-side">
       <div class="signin-form">
         <div class="page-logo">
-          <%= image_tag "seal-logo.png", alt:"Seal Logo" %>
-        </div>
-        <div class="signin-tagline">
-          Hi there, please log in
+          <%= image_tag "BMO-logo.svg", alt:"BMO Logo" %>
         </div>
         <div class="sp-signin-form">
           <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {id: 'login-form', class: 'smart-form client-form'}) do |f| %>
@@ -59,7 +56,10 @@
             </div>
           <% end %>
         </div>
-        <div class="sp-powered">Powered By Seal</div>
+        <div class="sp-powered">
+          <div>Powered By</div>
+          <%= image_tag "seal-logo-light.png", alt:"Seal Logo" %>
+        </div>
       </div>
     </div>
   </div>

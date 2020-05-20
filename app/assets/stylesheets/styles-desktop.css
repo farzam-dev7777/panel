@@ -1,6 +1,9 @@
 /* Top Navbar start */
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@100;300;400;500;700&display=swap');
+/* font-family: 'Heebo', sans-serif; */
 body{
-  background-color: #fbfbfb;
+  background-color: #F5F7FA;
+  font-family: 'Heebo', sans-serif !important;
 }
 .m-top-zero{
   margin-top: 0px;
@@ -186,7 +189,7 @@ nav ul li a:active {
   margin: 0px !important;
 }
 #sparks li{
-  max-height:100px !important;
+  max-height:145px !important;
   display: flex;
   align-items: center;
 }
@@ -195,9 +198,11 @@ nav ul li a:active {
   padding: 0 10px !important;
   width: 22%;
   border-radius: 6px;
-  height: 100px !important;
+  height: 146px !important;
   border-radius: 6px !important;
   margin-right: 15px;
+  box-shadow: 0px 10px 30px rgba(221, 221, 221, 0.5);
+
 }
 .top-status-card li:last-child{
   padding: 0 10px !important;
@@ -227,7 +232,8 @@ nav ul li a:active {
   height: 62px;
   border-radius: 150px;
   display: flex;
-  margin-right: 15px;
+  margin-right: 30px;
+  margin-left: 15px;
   justify-content: center;
 }
 .top-status-card .card-content .bg-color-01{
@@ -253,6 +259,9 @@ nav ul li a:active {
 .top-status-card .card-content .card-deatails .card-name{
   font-size: 12px;
   color: #171F46;
+  font-weight: 500;
+  text-transform: uppercase;
+  
 }
 .top-status-card .card-content .card-deatails .card-tag-line{
   font-size: 12px;
@@ -302,6 +311,7 @@ nav ul li a:active {
   color: #7E858E;
   text-align: left !important;
   padding: 24px 10px;
+  text-transform: uppercase;
 }
 .table-decoration tbody tr td{
   font-weight: 500;
@@ -533,6 +543,7 @@ nav ul li a:active {
   font-weight: normal !important;
   height: auto !important;
   display: inline-flex;
+  text-transform: uppercase;
 }
 .btn-type-default{
   border: 1px solid #7E858E !important;
@@ -544,6 +555,7 @@ nav ul li a:active {
   line-height: 21px !important;
   display: inline-flex !important;
   background-color: transparent !important;
+  text-transform: uppercase;
 }
 .back-edit-actions{
   display: flex;
@@ -939,8 +951,8 @@ nav ul li a:active {
 }
 .sign-in-page .left-side.signin-img{
   background: #0079C1 !important;
-  background-image: url('/assets/sign-in-bg.jpg') !important;
-  background-image: url('/assets/sign-in-bg.jpg'), linear-gradient(#0079C1, #0079C1) !important;
+  background-image: url('/images/sign-in-bg.jpg') !important;
+  background-image: url('/images/sign-in-bg.jpg'), linear-gradient(#0079C1, #0079C1) !important;
   background-size: cover !important;
   height: 100vh;
   background-position: center !important;
@@ -960,7 +972,7 @@ nav ul li a:active {
   margin-bottom: 50px;
 }
 .sign-in-page .right-side .signin-form .page-logo img{
-  width: 100px;
+  width: 140px;
 }
 .sign-in-page .right-side .signin-form .signin-tagline{
   font-size: 32px;
@@ -1016,6 +1028,10 @@ nav ul li a:active {
   line-height: 16px;
   color: #7E858E;
 }
+.sp-powered img{
+  width: 65px;
+  margin-top: 5px;
+}
 /* SignIn Page END */
 .chosen-container-multi .chosen-choices li.search-choice {
   background: #0052ca !important;
@@ -1055,4 +1071,15 @@ nav ul li a:active {
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12) !important;
   /* margin-top: -15px !important;
   margin-right: -10px !important; */
+}
+.chosen-container .chosen-results li.highlighted {
+  background-color: #0052ca !important;
+  background-image: linear-gradient(#0052ca 100%,#0052ca 100%) !important;
+  color: #fff !important;
+}
+@media (min-width: 1200px) {
+  .main-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
 }
