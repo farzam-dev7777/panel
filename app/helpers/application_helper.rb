@@ -127,7 +127,7 @@ module ApplicationHelper
       if !name.nil?
         characters = ("a".."z").to_a
         character_index = characters.find_index(name.first.downcase)
-        selected_color_index = ((character_index/characters.length.to_f) * color_samples.length).to_i
+        selected_color_index = character_index ? ((character_index/characters.length.to_f) * color_samples.length).to_i : 1
       else
         selected_color_index = 0
       end
