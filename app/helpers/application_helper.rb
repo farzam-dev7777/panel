@@ -121,4 +121,19 @@ module ApplicationHelper
     current_page?(path) ? 'active' : ''
   end
 
+  def get_avatar_image(name, background_color = nil, color = nil)
+    if background_color.blank?
+      color_samples = ["F13838", "4D00CA", "0051CA", "00B2CA", "4C82FF", "FFB800"]
+      characters = ("a".."z").to_a
+      character_index = characters.find_index(name.first.downcase)
+      selected_color_index = ((character_index/characters.length.to_f) * color_samples.length).to_i
+      background_color = color_samples[selected_color_index]
+    end
+
+    if color.blank?
+      color = "FFF"
+    end
+    "https://ui-avatars.com/api/?name=#{name}&background=#{background_color}&color=#{color}"
+  end
+
 end
