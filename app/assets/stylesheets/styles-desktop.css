@@ -416,11 +416,13 @@ nav ul li a:active {
   justify-content: flex-end;
   margin-bottom: 25px;
 }
-.filter-title{
+.search-filter-sp .card-header{
   display: flex;
-  align-items: center;
-  cursor: pointer;
   justify-content: flex-end;
+}
+.filter-title{
+  display: inline-flex;
+  cursor: pointer;
 }
 .filter-title img{
   margin-right: 5px;
