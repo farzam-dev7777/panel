@@ -145,4 +145,18 @@
     position: unset;
   }
   /* SignIn page END */
+  .sp-tab-block .ui-widget-content .ui-tabs-nav{
+    display: flex;
+    overflow-y: hidden;
+    overflow-x: scroll;
+  }
+  .sp-form > form .label {
+    white-space: pre-wrap;
+  }
+  .ui-tabs .ui-tabs-nav li.ui-tabs-active {
+    margin-bottom: 0px !important;
+  }
+  .sp-form .sp-checkbox-inline .form-group {
+    flex-direction: column;
+  }
 }
