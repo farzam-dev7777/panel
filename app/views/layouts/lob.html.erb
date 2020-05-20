@@ -39,7 +39,7 @@
 			</div>
 			<div class="project-context user-info">
 				<span class="project-selector dropdown-toggle" data-toggle="dropdown">
-					<%= image_tag "https://ui-avatars.com/api/?name=John+Doe&background=0051CA&color=fff", alt:"User", class:"user-image" %> 
+					<%= image_tag get_avatar_image(current_user.full_name), alt:"User", class:"user-image" %> 
 					<span class="drop-down-icon">
 						<%= image_tag "drop-down-icon.svg", alt:"Drop menu" %>
 					</span>

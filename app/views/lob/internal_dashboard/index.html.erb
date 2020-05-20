@@ -84,7 +84,7 @@
 									
 										<div class="firm-name">
 											<div class="name-avatar">
-												<img src="https://ui-avatars.com/api/?name=<%=exception_request&.requested_by&.gsub(" ", "+")%>&background=0051CA&color=fff&rounded=falus"></div>
+												<img src="<%= get_avatar_image(exception_request&.requested_by&.gsub(" ", "+")) %>"></div>
 											<div><%= exception_request.requested_by %></div>
 										</div>
 									</td>
@@ -145,7 +145,7 @@
 								<tr class="" data-id="<%= panel_request.id %>">
 									<td>
 										<div class="firm-name">
-											<div class="name-avatar"><img src="https://ui-avatars.com/api/?name=<%=panel_request&.requested_by&.gsub(" ", "+")%>&background=0051CA&color=fff&rounded=falus"></div>
+											<div class="name-avatar"><img src="<%= get_avatar_image(panel_request&.requested_by&.gsub(" ", "+")) %>"></div>
 											<div><%= panel_request.requested_by %></div>
 										</div>
 									</td>
@@ -206,7 +206,7 @@
 								<tr data-id="<%= matter_intake.id %>">
 									<td>
 										<div class="firm-name">
-											<div class="name-avatar"><img src="https://ui-avatars.com/api/?name=<%=matter_intake&.submitter_name&.gsub(" ", "+")%>&background=0051CA&color=fff&rounded=falus"></div>
+											<div class="name-avatar"><img src="<%= get_avatar_image(matter_intake&.submitter_name&.gsub(" ", "+")) %>"></div>
 											<div><%= matter_intake&.submitter_name %></div>
 										</div>
 									</td>
