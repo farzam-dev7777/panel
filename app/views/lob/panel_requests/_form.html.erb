@@ -4,7 +4,7 @@
 
 <div class="sp-form sp-form-bg">
   <%= simple_form_for [:lob, @panel_request] do |f| %>
-      <div class="row">
+      <div class="row form-flex-wrap">
         <div class="col-xs-12 col-md-6">
           <label  class="label">Requested By</label>
           <%= f.input :requested_by, label: false, :class => 'sp-form-control' %>

@@ -1051,7 +1051,7 @@ $(document).ready(function(){
         text: data,
       },
       position: {
-        my: 'bottom left'
+        my: 'top left'
       },
       style: { classes: 'helper-data-color' }
     });
