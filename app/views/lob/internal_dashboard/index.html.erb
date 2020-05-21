@@ -7,7 +7,7 @@
 					<div class="card-icon bg-color-01">
 						<%= image_tag "exceptions-icon.svg", alt:"Exceptions" %> 
 					</div>
-					<div class="card-deatails">
+					<div class="card-details">
 						<div class="total-record"><%= @exception_requests_count %></div>
 						<div class="card-name">Exceptions</div>
 						<div class="card-tag-line">Tag lines goes here</div>
@@ -19,7 +19,7 @@
 					<div class="card-icon bg-color-02">
 						<%= image_tag "submitted-icon.svg", alt:"Exceptions" %> 
 					</div>
-					<div class="card-deatails">
+					<div class="card-details">
 						<div class="total-record"><%= @exception_requests_submitted %></div>
 						<div class="card-name">Submitted</div>
 						<div class="card-tag-line">Tag lines goes here</div>
@@ -31,7 +31,7 @@
 					<div class="card-icon bg-color-03">
 						<%= image_tag "approved-icon.svg", alt:"Exceptions" %> 
 					</div>
-					<div class="card-deatails">
+					<div class="card-details">
 						<div class="total-record"><%= @exception_requests_approved %></div>
 						<div class="card-name">Approved</div>
 						<div class="card-tag-line">Tag lines goes here</div>
@@ -43,7 +43,7 @@
 					<div class="card-icon bg-color-04">
 						<%= image_tag "exceptions-icon.svg", alt:"Exceptions" %> 
 					</div>
-					<div class="card-deatails">
+					<div class="card-details">
 						<div class="total-record"><%= @exception_requests_rejected %></div>
 						<div class="card-name">Rejected</div>
 						<div class="card-tag-line">Tag lines goes here</div>
@@ -95,13 +95,13 @@
 									<td>
 										<div class="action-fields">
 											<% if current_user.role == 'lob' &&  exception_request.try(:lxp_status) != 'APPROVED' %>
-												<!--<%= link_to "Edit", edit_lob_exception_request_path(exception_request), class: "btn btn-xs btn-primary" %>-->
-												<a class="action-btn" href="/lob/exception_requests/#{exception_request.id}/edit">
+												<!-- <% link_to "Edit", edit_lob_exception_request_path(exception_request), class: "btn btn-xs btn-primary" %> -->
+												<a class="action-btn" href="/lob/exception_requests/<%= exception_request.id %>/edit">
 													<%= image_tag "edit-icon.svg", alt:"Edit" %>
 												</a>
 											<% end %> 
-											<!--<%= link_to "Review", lob_exception_request_path(exception_request), class: "btn btn-xs btn-secondary" %>-->
-											<a class="action-btn" href="/lob/exception_requests/#{exception_request.id}">
+											<!--<% link_to "Review", lob_exception_request_path(exception_request), class: "btn btn-xs btn-secondary" %> -->
+											<a class="action-btn" href="/lob/exception_requests/<%= exception_request.id %>">
 												<%= image_tag "view-icon.svg", alt:"View" %>
 											</a>
 										</div>

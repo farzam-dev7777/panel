@@ -248,22 +248,22 @@ nav ul li a:active {
 .top-status-card .card-content .bg-color-04{
   background-color:#F13838;
 }
-.top-status-card .card-content .card-deatails{
+.top-status-card .card-content .card-details{
   text-align: left;
 }
-.top-status-card .card-content .card-deatails .total-record{
+.top-status-card .card-content .card-details .total-record{
   font-size: 48px;
   color: #171F46;
   line-height: 42px;
 }
-.top-status-card .card-content .card-deatails .card-name{
+.top-status-card .card-content .card-details .card-name{
   font-size: 12px;
   color: #171F46;
   font-weight: 500;
   text-transform: uppercase;
   
 }
-.top-status-card .card-content .card-deatails .card-tag-line{
+.top-status-card .card-content .card-details .card-tag-line{
   font-size: 12px;
   color: #7E858E;
   display: none;
@@ -524,9 +524,15 @@ nav ul li a:active {
 }
 .sp-form .multiple-selector .chosen-container{
   padding: 5px 10px !important;
+  height: auto;
 }
 .sp-form .multiple-selector .chosen-container .chosen-choices{
   border: none !important;
+}
+.sp-form > form .form-group > textarea{
+  height: 100px !important;
+  padding: 10px 10px !important;
+  resize: none;
 }
 .input-btn{
   background-color: transparent;
@@ -764,7 +770,7 @@ nav ul li a:active {
 }
 .ui-tabs .ui-tabs-nav li a{
   border-radius: 0;
-  background-color: #FBFBFB !important;
+  background-color: #f5f7fa !important;
   border: 0px solid #F5F5F5 !important;
   color: rgba(126, 133, 142, 0.6);
   font-weight: 500;
