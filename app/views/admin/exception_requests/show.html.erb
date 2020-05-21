@@ -1,0 +1,32 @@
+<style>
+    div#gauge * {
+      top: -25px;
+    }
+  </style>
+  <div class="col-lg-12 col-md-12 col-sm-12">
+    <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+      <div class="page-header-sp">
+				<div class="page-title m-top-zero">Engage Non Panel Request</div>
+				<div class="back-edit-actions">
+					<a class="btn-type-default" href="/admin/exception_requests">
+						<%= image_tag "chevron-back-icon.svg", alt:"Back" %>
+					</a>
+          <% if current_user.role == "lob" %>
+            <%= link_to "Edit".html_safe, edit_admin_exception_request_path, class: "btn-type-primary" %>
+          <% end %>
+        </div>
+			</div>
+
+
+      <div class="">
+        <!-- widget content -->
+        <div class="">
+          <%= render "exception_request"  %>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+   
+ <%= render "#{current_user.role}_show" %>
+

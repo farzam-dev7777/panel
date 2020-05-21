@@ -46,7 +46,7 @@ html, #main {
 }
 
 * {
-  font-family: 'Roboto', sans-serif;
+  /* font-family: 'Roboto', sans-serif; */
 }
 
 body.smart-style-6 .table>tbody>tr>td, body.smart-style-6 .table>tbody>tr>th, body.smart-style-6 .table>tfoot>tr>td, body.smart-style-6 .table>tfoot>tr>th, body.smart-style-6 .table>thead>tr>td, body.smart-style-6 .table>thead>tr>th {
@@ -120,7 +120,7 @@ div#dt_basic_length .select2 {
 }*/
 
 .login-page{ 
-		background: #0079C1 !important;
+	background: #0079C1 !important;
   background-image: url('/assets/bg.png') !important;
   background-image: url('/assets/bg.png'), linear-gradient(#0079C1, #0079C1) !important;
   background-size: cover !important;
@@ -160,7 +160,11 @@ span.sub-fields-arrow:before {
   font-size: 14px;
   margin-bottom: 5px;
 }
-
+.col-md-9.data {
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
 .fa.timeline-icon {
 	padding: 18px 19px;
 	color: #fff;
@@ -347,7 +351,7 @@ div.link-to-add > * {
   width: 100%;
 }
 .fuelux .wizard ul li {
-  width: 25%;
+  width: 20%;
 }
 
 .form-wizard-wrapper {
@@ -371,9 +375,11 @@ div.link-to-add > * {
 }
 
 div.note {
+  height: 140px;
   max-height: 250px;
   overflow-y: scroll;
   margin-bottom: 10px;
+  margin-top: 20px;
 }
 div.note h5 {
   color: #000; margin-bottom: 0px
@@ -811,6 +817,13 @@ ul.internal-notes li div p {
   margin: 0 auto;
   width: 675px !important;
 }
+.lob_dashboard .current-stats ul#sparks {
+  width: 900px !important;
+}
+.lob_dashboard #sparks li h5.current-month-info{
+  font-size: 10px !important;
+}
+
 
 .current-stats ul#sparks li span{
   color: #fff !important
@@ -1174,11 +1187,9 @@ input.form-control {
   padding: 0;
   margin: 0;
 }
-
 .chosen-container {
   width: 100% !important;
-}
-
+} 
 label.float-field {
   margin: 0 !important;
   height: 25px !important;
@@ -1257,6 +1268,22 @@ li.create-option.highlighted a {
 }
 
 .form-submit-btn {
+  /* padding: 5px 20px !important;
+  background: #007ac3 !important;
+  color: #fff !important;
+  border: none !important;
+  font-weight: bold !important;
+  font-size: 12px !important;
+  text-transform: uppercase !important; */
+}
+
+.form-submit-btn:hover {
+  /* background: #f9f9f9;
+  color: #007ac3;
+  border: 1px solid #007ac3; */
+}
+
+.tab-next-btn {
   padding: 5px 20px !important;
   background: #007ac3 !important;
   color: #fff !important;
@@ -1266,7 +1293,7 @@ li.create-option.highlighted a {
   text-transform: uppercase !important;
 }
 
-.form-submit-btn:hover {
+.tab-next-btn:hover {
   background: #f9f9f9;
   color: #007ac3;
   border: 1px solid #007ac3;
@@ -1435,4 +1462,107 @@ body.smart-style-6 .btn-primary.btn-certified{
   margin: 25px auto;
   font-size: 16px;
   background: green!important;
+}
+.form_dropdown{
+  min-width: 100px;
+  display: flex !important;
+  align-items: center;
+  height: auto !important;
+  margin-top: 8px;
+}
+textarea{
+  border-bottom: 1px solid #ccc !important;
+}
+#new_exception_request .help-block {
+  text-align: left;
+}
+.simple_form .help-block {
+  text-align: left;
+}
+.firmDetails .col-md-12 {
+  border-bottom: 1px solid #ccc;
+  padding: 4px;
+}
+.firmDetails {
+  text-align: left;
+}
+
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+  /* border: 0px !important; */
+}
+#logo img {
+  padding-left: 17px;
+}
+.simple_form a.btn-sm,.simple_form .form-submit-btn {
+  /* font-size: 12px;
+  font-weight: bold;
+  padding: 5px 20px !important;
+  border-radius: 0; */
+}
+.simple_form table {
+  background: #fff;
+}
+.simple_form .table-striped>tbody>tr:nth-of-type(odd) {
+  background-color: #fff;
+}
+.form-submit-btn {
+  /* font-size: 12px;
+  font-weight: bold;
+  padding: 7px 20px !important;
+  border-radius: 0;
+  height: 28px; */
+}
+.back-btn .waves-effect.btn{
+  margin-left: 0 !important;
+}
+.select_law_firm{
+  padding: 20px;
+}
+.select_law_firm .column.title{
+  font-size: 15px;
+}
+.select_law_firm .tab-pane{
+  margin-bottom: 20px;
+}
+.select_law_firm .tab-pane .col-md-12{
+  padding-bottom: 10px;
+}
+
+.select_law_firm .tab-pane .data{
+  font-weight: normal;
+}
+.view-request .col-md-12{
+  padding-bottom: 10px;
+}
+.view-request .col-md-12 > .col-md-8.data > .col-md-12  {
+  border: 1px solid #cccc;
+  padding: 10px;
+  text-align: left;
+}
+.view-request .col-md-12 .column{
+  font-weight: bold;
+}
+.view-request .tab-pane .data{
+  font-weight: normal;
+}
+.border-bottom{
+  border-bottom: 1px solid #cccc;
+}
+
+#law_firm_works{
+  margin-top: 30px;
+}
+
+.form-group label.error{
+  color: #ff0000;
+}
+
+.checkbox, .radio {
+  text-align: left;
+}
+
+#project-context body.smart-style-6>:first-child, body.smart-style-6 #project-selector, body.smart-style-6 .header-dropdown-list>li>.dropdown-toggle, body.smart-style-6 .project-context>:first-child, body.smart-style-6 .project-selector {
+  color: #fff !important;
+  text-shadow: none;
+  text-align: right;
 }

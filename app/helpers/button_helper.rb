@@ -14,18 +14,18 @@ module ButtonHelper
         elsif submissions.latest.submitted
           link_to 'Your submission is being reviewed', '#', html_options = {class: 'btn btn-primary btn-lg dashboard-certificate-button text-center', disabled: true}  
         elsif submissions.latest.status == 'started'
-          link_to 'Continue Certification Process', policy_step_form_submission_path(submissions.latest), html_options = {class: 'btn btn-primary btn-lg dashboard-certificate-button'}  
+          link_to 'Continue RFI Process', pricing_step_form_submission_path(submissions.latest), html_options = {class: 'btn btn-primary btn-lg dashboard-certificate-button'}  
         
         end
       elsif(submissions.latest.status == 'sent')
-        link_to 'Begin Certification', policy_step_form_submission_path(submissions.latest), html_options = {class: 'btn btn-primary btn-lg dashboard-certificate-button'}
+        link_to 'Begin RFI Process', pricing_step_form_submission_path(submissions.latest), html_options = {class: 'btn btn-primary btn-lg dashboard-certificate-button'}
       elsif(submissions.latest.status == 'started')
-        link_to 'Continue Certification Process', policy_step_form_submission_path(submissions.latest), html_options = {class: 'btn btn-primary btn-lg dashboard-certificate-button'}
+        link_to 'Continue RFI Process', pricing_step_form_submission_path(submissions.latest), html_options = {class: 'btn-type-primary dashboard-certificate-button'}
       elsif(submissions.latest.status == 'follow_up')
-        link_to 'Answer Follow Ups ' + "(#{submissions.latest.follow_ups.review.count})", policy_step_form_submission_path(submissions.latest), html_options = {class: 'btn btn-primary btn-lg dashboard-certificate-button'}
+        link_to 'Answer Follow Ups ' + "(#{submissions.latest.follow_ups.review.count})", pricing_step_form_submission_path(submissions.latest), html_options = {class: 'btn btn-primary btn-lg dashboard-certificate-button'}
       end
     else
-      '<p class="not-available">SEAL status is not available yet</p>'.html_safe
+      '<p class="not-available">Panel status is not available yet</p>'.html_safe
     end
   end
 

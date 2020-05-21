@@ -1,0 +1,71 @@
+<style>
+	input, textarea, select { padding: 0px !important; margin: 0px; background: transparent; }
+</style>
+
+
+<div class="clearfix"></div>
+<div class="container">
+  <div class="page-header-sp">
+    <div class="page-title m-top-zero">Profile</div>
+    <div class="back-edit-actions"></div>
+  </div>
+	<div class="sp-form sp-form-bg">
+    <%= 
+    simple_form_for([:admin,@user], 
+    :url => url_for(:action => 'update_profile', :controller => 'users'),
+    :method => 'post', html: { class: '' }) do |f| %>
+				<div class="row form-flex-wrap"> 
+          <div class="col-xs-12 col-md-6">
+            <label class="label">First Name</label>
+            <%= f.input :first_name, label: false %>
+          </div>
+          <div class="col-xs-12 col-md-6">
+            <label class="label">Last Name</label>
+            <%= f.input :last_name, label: false %>
+          </div>
+          <% if @user.new_record? %>
+            <div class="col-xs-12 col-md-6">
+              <label class="label">Email</label>
+              <%= f.input :email, label: false %>
+            </div>
+            <div class="col-xs-12 col-md-6">
+              <label class="label">Username</label>
+              <%= f.input :username, label: false %>
+            </div>
+          <% else %>
+            <div class="col-xs-12 col-md-6">
+              <label class="label">Email</label>
+              <%= f.input :email, label: false, autocomplete: "off", input_html: { disabled: true } %>
+            </div>
+            <div class="col-xs-12 col-md-6">
+              <label class="label">Username</label>
+              <%= f.input :username, label: false, autocomplete: "off", input_html: { disabled: true } %>
+            </div>
+          <% end %>
+          
+            <div class="col-xs-12 col-md-6">
+              <label class="label">Password</label>
+                <%= f.input :password, autocomplete: "off", label: false, input_html: { class: 'set-password' } %>
+                <p style="color: #949494;" class="text-left"><em>Minimum 10 characters required</em></p>
+            </div>
+            <div class="col-xs-12 col-md-6">
+              <label class="label">Confirm Password</label>
+              <%= f.input :password_confirmation, autocomplete: "off", label: false, input_html: { class: 'set-password' } %>
+            </div>
+          <% if current_user.role == "lob" %>
+            <div class="col-xs-12 col-md-6 lob_details" > 
+              <label class="label">Line of business</label>
+              <%= f.input :line_of_business, label: false, collection: PanelRequest::LOB_LIST %>
+            </div> 
+            <div class="col-xs-12 col-md-6 lob_details" >
+              <label class="label">Lob contact name</label>
+              <%= f.input :lob_contact_name, label: false %>
+            </div>
+          <% end %>
+          <div class="col-xs-12 col-md-12">
+            <%= f.button :submit, @user.new_record? ? "Create User" : "Update User", class: "btn-type-primary" %>
+          </div>
+				</div>
+		<% end %>
+	</div>
+</div>

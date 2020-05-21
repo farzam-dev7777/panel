@@ -19,7 +19,8 @@ Rails.application.configure do
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
   # Compress JavaScripts and CSS.
-  config.assets.js_compressor = :uglifier
+  config.assets.js_compressor = Uglifier.new(harmony: true)
+
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
@@ -81,8 +82,20 @@ Rails.application.configure do
   end
 
   config.action_mailer.default_url_options = { host: ENV['MAILJET_ACTIVE_DOMAIN'] }
+  Rails.application.routes.default_url_options[:host] = ENV['MAILJET_ACTIVE_DOMAIN']
   config.action_mailer.delivery_method = :mailjet
   config.action_mailer.perform_deliveries = true
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :user_name => '59a49ef19f604a',
+    :password => '6f8af86f36acb5',
+    :address => 'smtp.mailtrap.io',
+    :domain => 'smtp.mailtrap.io',
+    :port => '2525',
+    :authentication => :cram_md5
+  }
+
 
   # config.action_mailer.smtp_settings = {
   #   :address        => 'in-v3.mailjet.com',

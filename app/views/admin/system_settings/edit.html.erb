@@ -31,7 +31,7 @@
 				
 				<% @severity_levels.each do |severity_level| %>
 				<div>
-					<h4><%= severity_level.name.titleize %></h4>
+					<h4><%= severity_level.name.try(:titleize) %></h4>
 					<div class="row padding-10">
 						<%= simple_form_for [:admin, severity_level], validate: true, :html => {authenticity_token: true} do |f| %>
 						<div class="col-md-12 severity-level-wrapper">

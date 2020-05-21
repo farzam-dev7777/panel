@@ -1,0 +1,122 @@
+<% content_for :page_title do %>
+<span>Engage Non Panel Request</span>
+<% end %>
+<div class="clearfix"></div>
+<div class="col-lg-12">
+  <div class="jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
+    <div class="page-header-sp">
+      <div class="page-title m-top-zero">Engage Non Panel Request</div>
+      <div></div>
+    </div>
+    <% if current_user.role == "lob" %>
+		  <div class="no-padding">
+				<div class="widget-body">
+					<div id="myTabContent" class="tab-content">
+						<div class="tab-pane fade active in padding-10 no-padding-bottom" id="s1">
+							<div class="row no-space text-center">
+								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+									<p><b><%= certification_status(current_law_firm) %></b> 
+									<b><%= link_to 'New Exception Request', new_admin_exception_request_path, html_options = {class: 'btn btn-primary btn-lg dashboard-certificate-button'}   %></b></p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+      </div>
+    <% end %>  
+    <!-- widget div-->
+    <div>
+      <!-- search filter -->
+        <div class="search-filter-sp">
+          <div class="sp-filter">
+            <div class="accordion" id="sp-filter">
+              <div class="card z-depth-0">
+                <div class="card-header" id="headingThree">
+                  <div class="collapsed filter-title" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    <%= image_tag "filter-icon.svg", alt:"score" %>
+                    <span>Filter</span>
+                  </div>
+                </div>
+                <div id="collapseThree" class="col-md-12 collapse sp-filter-fields" aria-labelledby="headingThree" data-parent="#sp-filter">
+                  <div class="card-body sp-form">
+                    <%= search_form_for [:admin, @q] do |f| %>
+                      <div class="row" style="">
+                        <!--<div class="col-xs-12 col-sm-12">
+                          <h2 style="margin: 0px 0px 10px;">Search Filter</h2>
+                        </div>-->
+                        <div class="col-xs-12 col-md-4">
+                          <%= f.label :requested_by_cont, label: false, :class => 'label' %>
+                          <%= f.search_field :requested_by_cont, :class => 'sp-form-control' %>
+                        </div>
+                        <div class="col-xs-12 col-md-4">
+                          <%= f.label :submitted_by_email_cont, :class => 'label' %>
+                          <%= f.search_field :submitted_by_email_cont, :class => 'sp-form-control' %>
+                        </div>
+                        <div class="col-xs-12 col-md-4">
+                            <%= f.label :law_firm_id_eq, :class => 'label' %>
+                            <%= f.select :law_firm_id_eq, options_from_collection_for_select(LawFirm.all, "id", "name", @q.law_firm_id_eq), {:include_blank => 'Select law firm'}, :class => 'sp-form-control' %>
+                        </div>
+                        <div class="col-xs-12 col-md-12 text-right" style="">
+                            <%= f.submit "Search", class: "btn-type-primary" %>
+                            <%= f.submit "Reset", type: "reset", value: "Reset",  class: "btn-type-default" %>
+                        </div>
+                      </div>        
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <!-- search filter end -->
+      
+      <!-- widget content -->
+      <div class="table-dyanmic-search table-responsive">
+        <table id="dt_basic" class="table table-decoration table-bordered" width="100%">
+          <thead>
+            <tr>
+              <th>Requested By</th>
+              <th>Line of Business</th>
+              <th>Law Firm Name</th>
+              <th>LXP Status</th>
+              <th>Lawyer Status</th>
+              <th width="8%">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @exception_requests.each do |exception_request| %>
+            <% if exception_request.law_firm_id.present? && exception_request.requested_by != nil  %>
+              <tr class="" data-id="<%= exception_request.id %>">
+                <% if exception_request.law_firm_id.present? %>
+                  <td><%= exception_request.requested_by %></td>
+                  <td><%= exception_request.line_of_business %></td>
+                  <td><%= exception_request.law_firm.try(:name) %></td>
+                  <td><%= exception_request.lxp_status %></td>
+                  <td><%= exception_request.internal_lawyers_status %></td>
+                  <td>
+                    <div class="action-fields">
+                     <% if current_user.role == 'lob' &&  exception_request.try(:lxp_status) != 'APPROVED' %>
+                        <% link_to "Edit", edit_admin_exception_request_path(exception_request), class: "btn btn-xs btn-primary" %>
+                        <a class="action-btn" href="/admin/exception_requests/<%= exception_request.id %>/edit">
+                          <%= image_tag "edit-icon.svg", alt:"Edit" %>
+                        </a>
+                      <% end %> 
+                      <% link_to "Review", admin_exception_request_path(exception_request), class: "btn btn-xs btn-secondary" %>	
+                      <a class="action-btn" href="/admin/exception_requests/<%= exception_request.id %>">
+                        <%= image_tag "review-icon.svg", alt:"Review" %>
+                      </a> 
+                    </div>
+                  </td>
+                </tr>
+                <% end %>
+              <% end %>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <!-- end widget content -->
+    </div>
+    <!-- end widget div -->
+  </div>
+  <!-- end widget -->
+</div>

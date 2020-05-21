@@ -1,0 +1,165 @@
+@media only screen and (min-width: 240px) and (max-width: 767px) {
+  .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9{
+    position: unset !important;
+  }
+  .sp-navbar .portal-type{
+    display: none !important;
+  }
+  .sp-main-page {
+    display: flex;
+    flex-direction: column;
+  }
+  .sp-main-page .left-side{
+    /* display: none; */
+    width: 100%;
+    padding-top: 72px;
+    min-height: auto !important;
+  }
+  .sp-main-page .right-side{
+    width: 100%;
+    margin-top: 55px;
+  }
+  .bmo-logo{
+    width: 100%;
+    position: unset;
+  }
+  .page-title{
+    display: block !important;
+    margin-top: 15px !important;
+  }
+  .page-header-sp{
+    width: 100% !important;
+    flex-direction: column;
+    align-items: baseline;
+  }
+  .page-header-btn{
+    font-size: 14px;
+    margin-top: 15px;
+    display: inline-flex;
+  }
+  .top-status-card{
+    flex-direction: column;
+    background: transparent !important;
+  }
+  .top-status-card li{
+    width: 95%;
+    margin-bottom: 15px;
+  }
+  #logo img {
+    padding-left: 10px;
+  }
+  /* Toggle Menu */
+  #menu_toggle {
+    
+  }
+  #dashboard_menu {
+    display: none;
+    position: fixed;
+    z-index: 99;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    padding-top: 25px;
+    top: 118px;
+    border-top: 1px solid #ccc;
+    -webkit-box-shadow: 0px 13px 14px -6px rgba(0,0,0,0.2);
+    -moz-box-shadow: 0px 13px 14px -6px rgba(0,0,0,0.2);
+    box-shadow: 0px 13px 14px -6px rgba(0,0,0,0.2);
+  }
+  .main-mobile-mneu{
+    position: fixed;
+    z-index: 99;
+    width: 100%;
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 12px;
+    align-items: center;
+  }
+  .dashboard-title{
+    letter-spacing: 10px;
+    font-weight: bold;
+    font-size: 16px;
+    text-transform: uppercase;
+  }
+  /* Toggle Menu END */
+  .user-form-sp{
+    flex-direction: column;
+  }
+  .user-form-sp .form-group {
+    width: 100%;
+  }
+  .main-page {
+    padding: 110px 0px 60px 0px !important;
+  }
+  .small-device-page-title{
+    display: flex;
+    position: fixed;
+    z-index: 99;
+    width: 100%;
+    background-color: #fff;
+    top: 72px;
+    text-transform: uppercase;
+    letter-spacing: 22px;
+    justify-content: center;
+    padding: 8px 0px;
+  }
+  .small-device-page-title p{
+    margin: 0px;
+    line-height: normal;
+  }
+  .main-page .row {
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+  }
+  .btn-decor-sp{
+    margin-top: 15px;
+  }
+  /* SignIn page */
+  .sign-in-page .right-side .signin-form .sp-signin-form {
+    width: 85%;
+  }
+  .sign-in-page .left-side.signin-img{
+    height: 30vh;
+    width: 100% !important;
+  }
+  .sign-in-page .right-side .signin-form{
+    justify-content: unset;
+    height: auto;
+    margin-top: 25px;
+  }
+  .sign-in-page .right-side .signin-form .page-logo {
+    margin-bottom: 25px;
+  }
+  .sign-in-page{
+    flex-direction:column !important;
+    height: auto !important;
+    width: 100% !important;
+  }
+  .sign-in-page .left-side{
+    width: 100% !important;
+  }
+  .sign-in-page .right-side{
+    width: 100% !important;
+  }
+  .sp-powered{
+    position: unset;
+  }
+  /* SignIn page END */
+  .sp-tab-block .ui-widget-content .ui-tabs-nav{
+    display: flex;
+    overflow-y: hidden;
+    overflow-x: scroll;
+  }
+  .sp-form > form .label {
+    white-space: pre-wrap;
+  }
+  .ui-tabs .ui-tabs-nav li.ui-tabs-active {
+    margin-bottom: 0px !important;
+  }
+  .sp-form .sp-checkbox-inline .form-group {
+    flex-direction: column;
+  }
+  .sp-form > form select{
+    
+  } 
+}

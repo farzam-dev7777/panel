@@ -38,7 +38,7 @@ class FormSubmission < ApplicationRecord
 	end
 
   def formatted_status
-    (self.status == 'approved' ? "Certified" : self.status).titleize
+    (self.status == 'approved' ? "Certified" : self.status).try(:titleize)
   end
 
   def formatted_evidence_status
@@ -47,8 +47,11 @@ class FormSubmission < ApplicationRecord
 
   def self.generate_initial_submissions(law_firm, current_user)
     submission = FormSubmission.new
-    submission.form_id = Form.where(step: 'policy').last.try(:id)
-    submission.form_process_id = Form.where(step: 'process').last.try(:id)
+    submission.form_id = Form.where(step: 'pricing').last.try(:id)
+    submission.form_relationship_id = Form.where(step: 'relationship').last.try(:id)
+    submission.form_diversity_id = Form.where(step: 'diversity').last.try(:id)
+    submission.form_innovation_id = Form.where(step: 'innovation').last.try(:id)
+    submission.form_resourcing_id = Form.where(step: 'resourcing').last.try(:id)
     submission.law_firm_id = law_firm.id
     submission.status = 'sent'
     submission.save

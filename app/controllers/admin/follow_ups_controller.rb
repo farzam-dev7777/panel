@@ -4,6 +4,7 @@ class Admin::FollowUpsController < Admin::BaseController
 	skip_before_action :authenticate_user!, only: [:create]
 
 	def create
+
 		username = current_user.try(:email) || current_user.try(:username)
 		if (@follow_up)
 			@note = @follow_up.add_note(params[:message], current_step, username)

@@ -1,0 +1,8 @@
+
+ Your conflict waiver <%= @conflict_waiver.name_of_law_firm %> request was <%= @conflict_waiver.reviews.last.status %>. <br>
+<% if !@conflict_waiver.retainer_language.nil? %>
+ Standard Retainer Language  :  <%= @conflict_waiver.retainer_language %><br>
+<% end %>
+ <%= link_to "Click here", conflict_waiver_url(@conflict_waiver), class: "btn btn-xs btn-secondary" %> to review submission.
+ to view more information
+

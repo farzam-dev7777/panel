@@ -1,0 +1,87 @@
+<% content_for :page_title do %>
+  <span>Conflict Waiver</span>
+<% end %>
+<div class="clearfix"></div>
+<div class="col-lg-12">
+  <div class="jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
+    <div class="page-header-sp">
+		  <div class="page-title m-top-zero">Conflict Waiver</div>
+      <div class="back-edit-actions"></div>
+    </div>
+    <!-- widget div-->
+    
+    <div>
+      <!-- search filter -->
+      <div class="search-filter-sp">
+        <div class="sp-filter">
+          <div class="accordion" id="sp-filter">
+            <div class="card z-depth-0">
+              <div class="card-header" id="headingThree">
+                <div class="collapsed filter-title" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  <%= image_tag "filter-icon.svg", alt:"score" %>
+                  <span>Filter</span>
+                </div>
+              </div>
+              <div id="collapseThree" class="col-md-12 collapse sp-filter-fields" aria-labelledby="headingThree" data-parent="#sp-filter">
+                <div class="card-body sp-form">
+                  <%= search_form_for [:admin, @q] do |f| %>
+                    <div class="row" style="">
+                      <!--<div class="col-xs-12 col-sm-12">
+                        <h2 style="margin: 0px 0px 10px;">Search Filter</h2>
+                      </div>-->
+                      <div class="col-xs-12 col-sm-6">
+                          <%= f.label :name_of_law_firm_cont, label: false, :class => 'label'  %>
+                          <%= f.search_field :name_of_law_firm_cont, :class => 'sp-form-control' %>
+                      </div>
+                      <div class="col-xs-12 col-sm-6">
+                          <%= f.label :contact_details_cont, :class => 'label' %>
+                          <%= f.search_field :contact_details_cont, :class => 'sp-form-control' %>
+                      </div>
+                      <div class="col-xs-12 text-right" style="margin-top: 20px;">
+                          <%= f.submit "Search", class: "btn-type-primary" %>
+                          <%= f.submit "Reset", type: "reset", value: "Reset",  class: "btn-type-default" %>
+                      </div>
+                    </div>        
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- search filter end -->
+      <!-- widget content -->
+      <div class="widget-body table-responsive">
+        <table id="dt_basic" class="table table-decoration table-bordered" width="100%">
+          <thead>
+            <tr>
+              <th>Name of law firm</th>
+              <th>Contact details</th>
+              <th>BMO business  contact</th>
+              <th width="8%">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @conflict_waivers.each do |conflict_waiver| %>
+              <tr>
+                <td><%= conflict_waiver.name_of_law_firm %></td>
+                <td><%= conflict_waiver.contact_details %></td>
+                <td><%= conflict_waiver.bmo_business_contact %></td>
+                <td>
+                  <div class="action-fields">
+                    <a class="action-btn" href="/admin/conflict_waivers/<%= conflict_waiver.id %>">
+                      <%= image_tag "view-icon.svg", alt:"View" %>
+                    </a>
+                  </div>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <!-- end widget content -->
+    </div>
+    <!-- end widget div -->
+  </div>
+  <!-- end widget -->
+</div>

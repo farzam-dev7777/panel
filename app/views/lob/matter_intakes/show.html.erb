@@ -1,0 +1,102 @@
+<style>
+  div#gauge * {
+    top: -25px;
+  }
+</style>
+
+
+<div class="clearfix"></div>
+
+<div class="col-lg-12 col-md-12 col-sm-12">
+  <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+    <div class="page-header-sp">
+				<div class="page-title m-top-zero">Matter Intake</div>
+				<div class="back-edit-actions">
+					<a class="btn-type-default" href="/lob/matter_intakes">
+            <%= image_tag "chevron-back-icon.svg", alt:"Back" %>
+          </a>
+          <% if @matter_intake.status === "waiting_for_lawyer_review" %>
+            <%= link_to "Edit".html_safe, edit_lob_matter_intake_path, class: "btn-type-primary" %>
+          <% end %>
+				</div>
+  		</div>
+    <div class="  ">
+      <!-- widget content -->
+      <div class="">
+        <div class="sp-form-bg show-data-fields">
+          <div class="row">
+            <div class="col-xs-12 col-md-6">
+              <div class="field-label">Submitter Name:	</div>
+              <div class="field-data"><%= @matter_intake.submitter_name %></div>
+            </div>
+            <div class="col-xs-12 col-md-6">
+              <div class="field-label">LOB Contact Name:	</div>
+              <div class="field-data"><%= @matter_intake.lob_contact_name %></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-md-6">
+              <div class="field-label">Name of Matter/Client:	</div>
+              <div class="field-data"><%= @matter_intake.name_of_matter_client %></div>
+            </div>
+            <div class="col-xs-12 col-md-6">
+              <div class="field-label">Type of Matter:	</div>
+              <div class="field-data"><%= @matter_intake.matter_type.try(:matter_type) %></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-md-6">
+              <div class="field-label">Matter Description:	</div>
+              <div class="field-data"><%= @matter_intake.matter_description %></div>
+            </div>
+            <div class="col-xs-12 col-md-6">
+              <div class="field-label">How will this matter be paid?:	</div>
+              <div class="field-data"><%= @matter_intake.mode_of_payment %></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-md-6">
+              <div class="field-label">Law Firm Suggested:	</div>
+              <div class="field-data"><%= @matter_intake.law_firm.try(:name) %></div>
+            </div>
+            <div class="col-xs-12 col-md-6">
+              <div class="field-label">BMO lawyer name:	</div>
+              <div class="field-data"><%= @matter_intake.bmo_lawyer_name %></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-md-6">
+              <div class="field-label">Budget amount, if already negotiated with the law firm:	</div>
+              <div class="field-data"><%= @matter_intake.budget_amount %></div>
+            </div>
+            <div class="col-xs-12 col-md-6">
+              <div class="field-label">LOB contact to create PO:	</div>
+              <div class="field-data"><%= @matter_intake.lob_contact_for_po %></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-md-6">
+              <div class="field-label">Cost Centre for legal fees:	</div>
+              <div class="field-data"><%= @matter_intake.cost_centre_for_legal_fees %></div>
+            </div>
+            <div class="col-xs-12 col-md-6">
+              <div class="field-label">Business Paying for this Matter:	</div>
+              <div class="field-data"><%= @matter_intake.business_paying_for_matter %></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-md-6">
+              <div class="field-label">Group Paying for this Matter:	</div>
+              <div class="field-data"><%= @matter_intake.group_paying_for_matter %></div>
+            </div>
+            <div class="col-xs-12 col-md-6">
+              <div class="field-label">Paying Entity:	</div>
+              <div class="field-data"><%= @matter_intake.paying_entity %></div>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -4,228 +4,227 @@
 	}
 </style>
 
-<div class="col-lg-3">
-	<%= link_to "<i class='fa fa-long-arrow-left'></i>".html_safe, admin_law_firms_path, class: "btn btn-sm btn-default" %>
-	<%= link_to "<i class='fa fa-pencil-square-o'></i> Edit".html_safe, edit_admin_law_firm_path, class: "btn btn-sm btn-primary m-l-15 no-border" %>
-</div>
-<div class="col-md-9 text-right law-firm-controls">
-	<!-- <div class="col-lg-1 pull-right"> -->
-	<!-- </div> -->
-<% if (@law_firm.form_submissions.any? && @law_firm.form_submissions.latest.status == 'decertified') %>
-	
-	<!-- <div class="col-lg-1 pull-right"> -->
-		<a class="btn btn-sm btn-success certify-btn" data-id='<%= @law_firm.id %>' data-name='<%= @law_firm.name %>'>Recertify</a>
-	<!-- </div> -->
-
-	<div class="clearfix"></div>
-
-	<div class="col-md-12">
-		<hr>
-		<div class="alert alert-danger">
-		  <strong><%= @law_firm.name %></strong> has been decertified. <em>(<%= @law_firm.form_submissions.latest.reason %>)</em>
-		</div>
-	</div>
-
-<% else %>
-
-<% if(@law_firm.form_submissions.any? && @law_firm.form_submissions.latest.status == 'approved') %>
-	<!-- <div class="col-lg-1 pull-right"> -->
-		<a class="btn btn-sm btn-danger decertify-btn pull-right" data-id='<%= @law_firm.id %>' data-name='<%= @law_firm.name %>'>Decertify</a>
-	<!-- </div> -->
-
-	<!-- <div class="col-lg-2 pull-right"> -->
-		<a class="btn btn-sm btn-primary pull-right begin-recertification-btn" data-id="<%= @law_firm.id %>">Begin Recertification Process</a>
-	<!-- </div> -->
-<% end %>
-
-<% if(!@law_firm.form_submissions.any?) %>
-	<!-- <div class="col-lg-2 pull-right"> -->
-		<a class="btn btn-sm btn-primary pull-right begin-certification-btn" data-id="<%= @law_firm.id %>">Begin Certification Process</a>
-	<!-- </div> -->
-<% end %>
-
-<% end %>
-
-</div>
-
-<div class="clearfix"></div>
-<p>&nbsp;</p>
 
 <div class="col-lg-12">
-	<div class="jarviswidget" id="wid-id-11" data-widget-colorbutton="false" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false">
+	<div class="page-header-sp">
+		<div class="page-title m-top-zero"><%= @law_firm.name %></div>
+		<div class="back-edit-actions">
+			<a class="btn-type-default" href="/admin/law_firms">
+				<%= image_tag "chevron-back-icon.svg", alt:"Back" %>
+			</a>
+			<%= link_to "Edit".html_safe, edit_admin_law_firm_path, class: "btn-type-primary" %>
+		</div>
+	</div>
+	<!-- Page Header -->
+	<div class="page-header-sp">
+		<div class="page-title m-top-zero"></div>
+		<div class="back-edit-actions">
+			<% if (@law_firm.form_submissions.any? && @law_firm.form_submissions.latest.status == 'decertified') %>
+				<a class="btn-type-primary" data-id='<%= @law_firm.id %>' data-name='<%= @law_firm.name %>'>Recertify</a>
+				<div class="">
+					<hr>
+					<div class="alert alert-danger">
+						<strong><%= @law_firm.name %></strong> has been decertified. <em>(<%= @law_firm.form_submissions.latest.reason %>)</em>
+					</div>
+				</div>
+			<% else %>
+			<% if(@law_firm.form_submissions.any? && @law_firm.form_submissions.latest.status == 'approved') %>
+				<a class="btn-type-primary" data-id='<%= @law_firm.id %>' data-name='<%= @law_firm.name %>'>Decertify</a>
+				<a class="btn-type-primary begin-recertification-btn" data-id="<%= @law_firm.id %>">Send RFI Questionnaire again</a>
+			<% end %>
+			<% if(!@law_firm.form_submissions.any?) %>
+				<% if(@law_firm.user.try(:is_deactivated?)) %>
+					<a class="btn-type-primary send-user-info-btn" data-id="<%= @law_firm.user.id %>">Send user information and create new password link </a>
+					<a class="btn-type-primary send-user-info-begin-certification-btn" data-id="<%= @law_firm.user.id %>">Send RFI Questionnaire with user active password link </a>
+					<% else %>	
+					<a class="btn-type-primary begin-certification-btn" data-id="<%= @law_firm.id %>">Send RFI Questionnaire</a>
+					<% end %>	
+			<% end %>
 
-		<header>
-			<h2><strong><%= @law_firm.name %></strong></h2>	
-			
-			<ul id="widget-tab-1" class="nav nav-tabs pull-right">
-
+			<% end %>
+		</div>
+	</div>
+	<!-- Page Header END -->
+	<div class="" id="wid-id-11" data-widget-colorbutton="false" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false">
+		<div class="sp-tab-block">
+			<div class="ui-widget-content">
+			<ul id="widget-tab-1" class="sp-tabs-nav dashboard-tab nav nav-tabs ui-tabs-nav">
 				<li class="active">
-
-					<a data-toggle="tab" href="#hr1"> <i class="fa fa-lg fa-arrow-circle-o-down"></i> <span class="hidden-mobile hidden-tablet"> Law Firm Info </span> </a>
-
+					<a data-toggle="tab" href="#hr1">Law Firm Info</a>
 				</li>
-
-				<li>
+				<!-- <li>
 					<a data-toggle="tab" href="#hr2"> <i class="fa fa-lg fa-arrow-circle-o-up"></i> <span class="hidden-mobile hidden-tablet"> History </span></a>
-				</li>
-
+				</li> -->
 				<li>
-					<a data-toggle="tab" href="#hr3"> <i class="fa fa-lg fa-book"></i> <span class="hidden-mobile hidden-tablet"> Submissions </span></a>
+					<a data-toggle="tab" href="#hr3">RFI</a>
 				</li>
-
+				<!-- 
 				<li>
 					<a data-toggle="tab" href="#hrst"> <i class="fa fa-lg fa-lock"></i> <span class="hidden-mobile hidden-tablet"> Security Threats </span></a>
 				</li>
-
 				<li>
 					<a data-toggle="tab" href="#hr4"> <i class="fa fa-lg fa-sticky-note-o"></i> <span class="hidden-mobile hidden-tablet"> Internal Notes </span></a>
+				</li> -->
+				<li>
+					<a data-toggle="tab" href="#hr5">Exception Requests</a>
 				</li>
-
+				<li>
+					<a data-toggle="tab" href="#hr6">Conflict Waiver</a>
+				</li>
+				<li>
+					<a data-toggle="tab" href="#hr7">Panel Request</a>
+				</li>
 			</ul>	
-			
-		</header>
+			</div>
+		</div>
 
 		<!-- widget div-->
 		<div>
-			
-			<!-- widget edit box -->
-			<div class="jarviswidget-editbox">
-				<!-- This area used as dropdown edit box -->
-				
-			</div>
-			<!-- end widget edit box -->
-			
 			<!-- widget content -->
-			<div class="widget-body no-padding">
-
+			<div class="">
 				<!-- widget body text-->
-				
-				<div class="tab-content padding-10">
+				<div class="tab-content">
 					<div class="tab-pane fade in active" id="hr1">
-						<div class="col-md-8">
-							<div class="col-md-12">
-								<div class="col-md-4 column">Username</div>
-								<div class="col-md-8 data"><%= !@law_firm.user.try(:username).blank? ? @law_firm.users.first.try(:username) : '-' %></div>
+						<div class="sp-form-bg show-data-fields">
+							<div class="row send-password-link">
+								<div class="col-md-12">
+									<% if @law_firm.user.try(:id)%>
+										<a class="btn-type-primary" data-id="<%= @law_firm.user.id %>">Send new password link </a>
+									<% end %>
+									<% if(@law_firm.form_submissions.try(:latest).try(:status) == 'approved') %>
+										<% latest_form_submission = @law_firm.form_submissions.latest %>
+										<div class="score-form">
+											<div class="col-md-12 text-center">
+												<p class="rating-label">TOTAL SCORE (<%= @law_firm.total_calculated_score %>)</p>
+												<div class="readonly-total-score-rating force-center" 
+														data-score="<%= @law_firm.total_calculated_score %>"
+														data-color="<%= latest_form_submission.try(:color, @law_firm.total_calculated_score, 'total_calculated_score') %>"></div>
+											</div>
+										</div>
+										<div class="score-form">
+											<div class="col-md-4 text-center">
+												<p class="rating-label">SYSTEM SCORE (<%= latest_form_submission.system_score %>)</p>
+												<p class="rating-label no-margin-bottom">40%</p>
+												<div class="readonly-system-score force-center" 
+														data-score=<%= latest_form_submission.system_score %>
+														data-color="<%= latest_form_submission.try(:color, latest_form_submission.system_score, 'system_score') %>"></div>
+											</div>
+											<div class="col-md-4 text-center">
+												<p class="rating-label">ASSESSOR SCORE (<%= latest_form_submission.assessor_score %>)</p>
+												<p class="rating-label no-margin-bottom">20%</p>
+												<div class="readonly-assessor-score-rating force-center" 
+														data-score="<%= latest_form_submission.assessor_score %>"
+														data-color="<%= latest_form_submission.try(:color, latest_form_submission.assessor_score, 'assessor_score') %>"></div>
+											</div>
+											<div class="col-md-4 text-center">
+												<p class="rating-label">RESPONSIVE SCORE (<%= @law_firm.responsiveness_rate %>)</p>
+												<p class="rating-label no-margin-bottom">40%</p>
+												<div class="readonly-responsiveness-score-rating force-center" 
+														data-score="<%= @law_firm.responsiveness_rate %>"
+														data-color="<%= latest_form_submission.try(:color, @law_firm.responsiveness_rate, 'responsiveness_rate') %>"></div>
+											</div>
+										</div>
+									<% end %>
+								</div>
 							</div>
-							<div class="col-md-12">
-								<div class="col-md-4 column">Initial Date of Engagement with BMO</div>		
-								<div class="col-md-8 data"><%= @law_firm.initial_date_of_engagement_with_the_bank && @law_firm.initial_date_of_engagement_with_the_bank.in_time_zone('Eastern Time (US & Canada)').strftime(LawFirm::DATE_FORMAT) %></div>
-							</div>
-							<div class="col-md-12">
-								<div class="col-md-4 column">Types of matters your law firm has handled for us to date</div>		
-								<div class="col-md-8 data"><%= @law_firm.type_of_matters_your_law_firm_handles_for_us.reject(&:blank?).join(", ") %></div>
-							</div>
-
-
-							<div class="col-md-12">
-								<div class="col-md-4 column">No. of personnel</div>		
-								<div class="col-md-8 data"><%= @law_firm.number_of_lawyers %></div>
-							</div>
-
-							<div class="col-md-12">
-								<div class="col-md-4 column">Locations</div>		
-								<div class="col-md-8 data"><%= @law_firm.locations.map{|location| [location.city, location.province, location.country].reject(&:nil?).join(',') }.join("<br />").html_safe %></div>
+							<div class="row">
+								<div class="col-xs-12 col-md-6">
+									<div class="field-label">Law Firm Name </div>
+									<div class="field-data"><%= @law_firm.name %></div>
+								</div>
+								<div class="col-xs-12 col-md-6">
+									<div class="field-label">Username</div>
+									<div class="field-data"><%= !@law_firm.user.try(:username).blank? ? @law_firm.users.first.try(:username) : '-' %></div>
+								</div>
+								<div class="col-xs-12 col-md-6">
+									<div class="field-label">Email </div>
+									<div class="field-data"><%= !@law_firm.user.try(:email).blank? ? @law_firm.users.first.try(:email) : '-' %></div>
+								</div>
+								<div class="col-xs-12 col-md-6">
+									<div class="field-label">Phone </div>
+									<div class="field-data"><%= @law_firm.phone %></div>
+								</div>
+								<div class="col-xs-12 col-md-12">
+									<div class="field-label">Description </div>
+									<div class="field-data"><%= @law_firm.description %></div>
+								</div>
+								<div class="col-xs-12 col-md-6">
+									<div class="field-label">Relationship Manager Name	</div>
+									<div class="field-data"><%= @law_firm.relationship_manager_name %></div>
+								</div>
+								<div class="col-xs-12 col-md-6">
+									<div class="field-label">Relationship Manager Email </div>
+									<div class="field-data"><%= @law_firm.relationship_manager_email %></div>
+								</div>
+								<div class="col-xs-12 col-md-6">
+									<div class="field-label">Relationship Manager Phone </div>
+									<div class="field-data"><%= @law_firm.relationship_manager_phone %></div>
+								</div>
+								<div class="col-xs-12 col-md-6">
+									<div class="field-label">Initial Date of Engagement with BMO</div>		
+									<div class="field-data"><%= @law_firm.initial_date_of_engagement_with_the_bank && @law_firm.initial_date_of_engagement_with_the_bank.in_time_zone('Eastern Time (US & Canada)').strftime(LawFirm::DATE_FORMAT) %></div>
+								</div>
+								<div class="col-xs-12 col-md-6">
+									<div class="field-label">Types of matters your law firm has handled for us to date</div>		
+									<div class="field-data"><%= @law_firm.type_of_matters_your_law_firm_handles_for_us.reject(&:blank?).join(", ") %></div>
+								</div>
+								<div class="col-xs-12 col-md-6">
+									<div class="field-label">No. of personnel</div>		
+									<div class="field-data"><%= @law_firm.number_of_lawyers %></div>
+								</div>
+								<div class="col-xs-12 col-md-6">
+									<div class="field-label">Locations</div>		
+									<div class="field-data"><%= @law_firm.locations.map{|location| [location.city, location.province, location.country].reject(&:nil?).join(',') }.join("<br />").html_safe %></div>
+								</div>
 							</div>
 						</div>
-
-						<div class="col-lg-4 col-md-4 column text-center">
-							<div class="col-lg-12 col-md-12 column text-center">
-								<% @law_firm.users.map do |user| %>
-									<%= image_tag user.google_qr_uri %><br/>
-									<p>Account: <%= user.username %> </p>
-								  <p>Key: <%= user.google_secret %></p>
-							  <% end %>
-							</div>
-						</div>
-
-						<div class="clearfix"></div>
-
-						<% if(@law_firm.form_submissions.try(:latest).try(:status) == 'approved') %>
-							<% latest_form_submission = @law_firm.form_submissions.latest %>
-
-							<div class="score-form">
-			          <div class="col-md-12 text-center">
-			            <p class="rating-label">TOTAL SCORE (<%= @law_firm.total_calculated_score %>)</p>
-			            <div class="readonly-total-score-rating force-center" 
-			            		 data-score="<%= @law_firm.total_calculated_score %>"
-			            		 data-color="<%= latest_form_submission.try(:color, @law_firm.total_calculated_score, 'total_calculated_score') %>"></div>
-			          </div>
-							</div>
-
-							<div class="score-form">
-			          <div class="col-md-4 text-center">
-			            <p class="rating-label">SYSTEM SCORE (<%= latest_form_submission.system_score %>)</p>
-			            <p class="rating-label no-margin-bottom">40%</p>
-			            <div class="readonly-system-score force-center" 
-			            		 data-score=<%= latest_form_submission.system_score %>
-			            		 data-color="<%= latest_form_submission.try(:color, latest_form_submission.system_score, 'system_score') %>"></div>
-			          </div>
-			          <div class="col-md-4 text-center">
-			            <p class="rating-label">ASSESSOR SCORE (<%= latest_form_submission.assessor_score %>)</p>
-			            <p class="rating-label no-margin-bottom">20%</p>
-			            <div class="readonly-assessor-score-rating force-center" 
-			            		 data-score="<%= latest_form_submission.assessor_score %>"
-			            		 data-color="<%= latest_form_submission.try(:color, latest_form_submission.assessor_score, 'assessor_score') %>"></div>
-			          </div>
-			          <div class="col-md-4 text-center">
-			            <p class="rating-label">RESPONSIVE SCORE (<%= @law_firm.responsiveness_rate %>)</p>
-			            <p class="rating-label no-margin-bottom">40%</p>
-			            <div class="readonly-responsiveness-score-rating force-center" 
-			            		 data-score="<%= @law_firm.responsiveness_rate %>"
-			            		 data-color="<%= latest_form_submission.try(:color, @law_firm.responsiveness_rate, 'responsiveness_rate') %>"></div>
-			          </div>
-				      </div>
-			      <% end %>
-
+						
 					</div>
 					<div class="tab-pane fade" id="hr2">
-						
+						<div class="sp-form-bg show-data-fields">
+							<%= link_to "<i class='fa fa-download'></i>".html_safe, activity_logs_admin_pdf_index_path(id: @law_firm.id), method: :get, params: { id: @law_firm.id }, class: 'btn btn-success btn-xs pull-right' %>
+							<div class="row send-password-link">
+								<div class="col-md-12">
+									<section id="cd-timeline" class="cd-container">
 
-						<%= link_to "<i class='fa fa-download'></i>".html_safe, activity_logs_admin_pdf_index_path(id: @law_firm.id), method: :get, params: { id: @law_firm.id }, class: 'btn btn-success btn-xs pull-right' %>
+										<%- @law_firm.activity_logs.reverse.each do |activity| %>
+											<div class="cd-timeline-block">
+												<div class="cd-timeline-img cd-picture">
+													<i class="fa fa-edit fa-2x timeline-icon"></i>
+												</div>
 
-						<div class="clearfix"></div>
-						<section id="cd-timeline" class="cd-container">
+												<div class="cd-timeline-content">
+													<h2>
+														<strong class="<%= activity_source_class(activity) %>"><%= activity.custom_message || activity.event_type.try(:titleize) %></strong>
+													</h2>
+													<em>(<%= activity.source == 'AdminUser' ? 'Bank' : 'Law Firm' %>)</em>
+													<span class="cd-date"><%= activity.created_at.strftime('%d %b at %I:%M %p') %></span>
+												</div>
+											</div>
+										<%- end %>
 
-							<%- @law_firm.activity_logs.reverse.each do |activity| %>
-								<div class="cd-timeline-block">
-									<div class="cd-timeline-img cd-picture">
-										<i class="fa fa-edit fa-2x timeline-icon"></i>
-									</div>
-
-									<div class="cd-timeline-content">
-										<h2>
-											<strong class="<%= activity_source_class(activity) %>"><%= activity.custom_message || activity.event_type.titleize %></strong>
-										</h2>
-										<em>(<%= activity.source == 'AdminUser' ? 'Bank' : 'Law Firm' %>)</em>
-										<span class="cd-date"><%= activity.created_at.strftime('%d %b at %I:%M %p') %></span>
-									</div>
+									</section> <!-- cd-timeline -->
 								</div>
-							<%- end %>
-
-						</section> <!-- cd-timeline -->
-						
+							</div>
+						</div>
 					</div>
-
 					<div class="tab-pane fade" id="hr3">
-
-						<div class="col-lg-12">
-
-								<% if @law_firm.form_submissions.any? %>
-							<div class="table-responsive">
-								<table class="table table-bordered text-center content-in-jarvis">
-
-									<tr>
-										<th class="text-center">Score</th>
-										<th class="text-center">Status</th>
-										<th class="text-center">Approved At</th>
-										<th class="text-center">Expiry Date</th>
-										<th colspan="2" class="text-center">Action</th>
-									</tr>
-
-									<% @law_firm.form_submissions.each do |submission| %>
+						<div class="">
+							<% if @law_firm.form_submissions.any? %>
+								<div class="table-responsive">
+									<table class="table table-decoration table-bordered">
+										<tr>
+											<th>Score</th>
+											<th>Status</th>
+											<th>Approved At</th>
+											<th>Expiry Date</th>
+											<th>Submission</th>
+											<th width="8%">Action</th>
+										</tr>
+										<% @law_firm.form_submissions.each do |submission| %>
 										<tr>
 											<td><%= @law_firm.total_calculated_score(submission) || '-' %></td>
-											<td class="text-center">
+											<td>
 												<span class="label label-<%= submission_status_class(submission) %>">
 													<%= submission.formatted_status %>
 												</span>
@@ -233,7 +232,7 @@
 													<br><em><%= submission.try(:reason) %></em>
 												<% end %>
 											</td>
-											<td class="text-center">
+											<td>
 												<%= submission.approved_at %>
 											</td>
 											<td class="text-center">
@@ -263,7 +262,7 @@
 												<% elsif submission.try(:status) == 'started' %>
 													<%= link_to "Started", "#", class: "btn btn-default btn-xs", disabled: true %>
 												<% elsif submission.try(:status) == 'submitted' %>
-													<%= link_to "Review Submission", policy_step_admin_form_submission_path(submission), class: "btn btn-primary btn-xs" %>	
+													<%= link_to "Review Submission", pricing_step_admin_form_submission_path(submission), class: "btn btn-primary btn-xs" %>	
 												<% else %>
 													<%= link_to submission.try(:status).try(:humanize) || '-', "#", class: "btn btn-default btn-xs", disabled: true %>
 												<% end %>
@@ -271,27 +270,23 @@
 
 											</td>
 											<td>
-												<%= link_to "View Submission", policy_step_admin_form_submission_path(submission), class: "btn btn-outline-primary btn-xs" %>	
-												<%= link_to "Download PDF", download_submission_pdf_admin_form_submission_path(submission), class: "btn btn-outline-primary btn-xs" %>	
+												<% link_to "View Submission", pricing_step_admin_form_submission_path(submission), class: "btn btn-outline-primary btn-xs" %>
+												<div class="action-fields">
+													<a class="action-btn" href="/admin/form_submissions/<%= submission.id %>/pricing_step">
+														<%= image_tag "view-icon.svg", alt:"View" %>
+													</a>
+												</div>	
 											</td>
 										</tr>
-										
-									<% end %>
-
-								</table>
-								<div class="clearfix"></div>
-
-
-							</div>
-							<% else %>
+										<% end %>
+									</table>
+									<div class="clearfix"></div>
+								</div>
+								<% else %>
 								<h4 class="text-center no-submissions">There are no submissions to review yet</h4>
 							<% end %>
 						</div>
-
-
-						
 					</div>
-
 					<div class="tab-pane fade" id="hrst">
 						<div class="clearfix"></div>
 						<div class="col-lg-12">
@@ -358,8 +353,6 @@
 								</div>
 						</div>
 					</div>
-
-
 					<div class="tab-pane fade" id="hr4">
 
 						<div>
@@ -385,13 +378,165 @@
 							</div>
 						</form>
 					</div>
+					<div class="tab-pane fade" id="hr5">
+						<div class="sp-form-bg show-data-fields">
+							<% if @law_firm.exception_requests.count > 0 %>
+							<div class="table-responsive">
+								<table class="table table-bordered text-center content-in-jarvis">
+									<tr>
+										<th>Request By</th>
+										<th>Submitted By	</th>
+										<th>LXP Status</th>
+										<th>Internal Lawyers Status</th>
+										<th>Pay Type</th>
+										<th>Document Status</th>
+										<th width="8%">Action</th>
+									</tr>
+									<% @law_firm.exception_requests.each do |exception_request| %>
+									<tr>
+										<td><%= exception_request.requested_by %></td>
+										<td><%= exception_request.submitted_by_email %></td>
+										<td><%= exception_request.lxp_status_show %></td>
+										<td><%= exception_request.internal_lawyers_status_show %></td>
+										<td>
+											<% if exception_request.docusign_envelope_id.present? %>
+												<%= exception_request.pay_type_show %>
+											<% end %>	
+										</td>
+										<td>
+											<% if exception_request.docusign_envelope_id.present? %>
+												<%= exception_request.docusign_retainer_envelope.try(:status) %>
+											<% end %>	
+										</td>
+										<td>
+											<%= link_to "View Request", admin_exception_request_path(exception_request), class: "btn btn-outline-primary btn-xs" %>	
+										</td>
+									</tr>
+									<% end %>
+								</table>
+								<div class="clearfix"></div>
+							</div>
+							<% else %>
+								<h4 class="text-center no-submissions">There are no Exception Requests submitted</h4>
+							<% end %>
+						</div>
+					</div>
+					<div class="tab-pane fade" id="hr6">
 
-
-
+							<div class="sp-form-bg show-data-fields">
+	
+									<% if @law_firm.conflict_waivers.count > 0 %>
+									<div class="table-responsive">
+										<table class="table table-decoration table-bordered">
+		
+											<tr>
+												<th>Contact details	</th>
+												<th>BMO business contact	</th>
+												<th>LXP Status</th>
+												<th>Internal Lawyers Status</th>
+												<th width="8%">Action</th>
+											</tr>
+		
+											<% @law_firm.conflict_waivers.each do |conflict_waiver| %>
+												<tr>
+													<td><%= conflict_waiver.contact_details %></td>
+													<td><%= conflict_waiver.bmo_business_contact %></td>
+													<td><%= conflict_waiver.lxp_status_show %></td>
+													<td><%= conflict_waiver.internal_lawyers_status_show %></td>	
+													<td>
+														<%= link_to "View Request", admin_conflict_waiver_path(conflict_waiver), class: "btn btn-outline-primary btn-xs" %>	
+													</td>
+												</tr>
+												
+											<% end %>
+		
+										</table>
+										<div class="clearfix"></div>
+		
+		
+									</div>
+									<% else %>
+										<h4 class="text-center no-submissions">There are no Conflict Waiver submitted</h4>
+									<% end %>
+								</div>
+	
+	
+							
+					</div>
+					<div class="tab-pane fade" id="hr7">
+						<% if @panel_request %>
+							<div class="sp-form-bg show-data-fields">
+								<div class="row">
+									<div class="col-xs-12 col-md-6">
+										<div class="field-label">Requested By	</div>
+										<div class="field-data"><%= @panel_request.requested_by %></div>
+									</div>
+									<div class="col-xs-12 col-md-6">
+										<div class="field-label">Submitted By</div>		
+										<div class="field-data"><%= @panel_request.submitted_by_email %></div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-xs-12 col-md-6">
+										<div class="field-label">Line of Business	</div>		
+										<div class="field-data"><%= @panel_request.requested_by %><%= @panel_request.line_of_business %></div>
+									</div>
+									<div class="col-xs-12 col-md-6">
+										<div class="field-label">LOB Contact Name	</div>		
+										<div class="field-data"><%= @panel_request.lob_contact_name %></div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-xs-12 col-md-6">
+										<div class="field-label">Business Manager Name</div>
+										<div class="field-data"><%= @panel_request.business_manager_name %></div>
+									</div>
+									<div class="col-xs-12 col-md-6">
+										<div class="field-label">Business Manager Email</div>		
+										<div class="field-data"><%= @panel_request.business_manager_email %></div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-xs-12 col-md-6">
+										<div class="field-label">Business Manager Phone	</div>		
+										<div class="field-data"><%= @panel_request.business_manager_phone %></div>
+									</div>	
+									<div class="col-xs-12 col-md-6">
+										<div class="field-label">Law firm Category</div>		
+										<div class="field-data"><%= @panel_request.law_firm_category %></div>
+									</div>
+								</div>
+								<div class="row">		
+									<div class="col-xs-12 col-md-6">
+										<div class="field-label">Minority Owned</div>		
+										<div class="field-data"><%= @panel_request.minority_owned %></div>
+									</div>
+									<div class="col-xs-12 col-md-6">
+										<div class="field-label">Minority Owned Details</div>		
+										<div class="field-data"><%= @panel_request.minority_owned_details %></div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-xs-12 col-md-6">
+										<div class="field-label">Women Owned</div>		
+										<div class="field-data"><%= @panel_request.women_owned %></div>
+									</div>
+									<div class="col-xs-12 col-md-6">
+										<div class="field-label">Women Owned Details</div>		
+										<div class="field-data"><%= @panel_request.women_owned_details %></div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-xs-12 col-md-6">
+										<div class="field-label">Matter Types</div>		
+										<div class="field-data"><%= @panel_request.matter_types.is_a?(Array) ? @panel_request.matter_types.join(", ") : "" %></div>
+									</div>	
+								</div>
+							</div>
+						<% end %>	
+					</div>
 				</div>
-				
 				<!-- end widget body text-->
-				
 			</div>
 			<!-- end widget content -->
 			

@@ -4,7 +4,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
   layout 'admin', :except => :show
 
   before_action :follow_ups, except: :index
-  before_action :before_steps, only: [:policy_step, :process_step]
+  before_action :before_steps, only: [:pricing_step, :relationship_step, :diversity_step, :innovation_step, :resourcing_step]
   before_action :before_non_dynamic_forms, only: [:technology_step, :history_step]
 
   helper_method :next_step_path, :current_step_path, :steps, :previous_step_path, 
@@ -23,11 +23,20 @@ class Admin::FormSubmissionsController < Admin::BaseController
     @form_submission = FormSubmission.find(params[:id])
   end
 
-  def policy_step
+  def pricing_step
     @form_submission = FormSubmission.find(params[:id])
     log = ActivityLog.find_by(loggable_id: @form_submission.id, loggable_type: 'FormSubmission', law_firm_id: @form_submission.law_firm_id)
     
     FormSubmission.log_activity('information_security_policy_review_started', true, @form_submission, current_admin_user) if @form_submission && !log
+  end
+
+  def relationship_step
+  end
+
+  def diversity_step
+  end
+
+  def innovation_step
   end
 
   def download_submission_pdf
@@ -48,14 +57,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
     send_data pdf, :filename => "#{@form_submission.law_firm.users.first.try(:username)}_form_submission_#{Time.now}.pdf", :type => "application/pdf", :disposition => "attachment"
   end
 
-  def process_step
-  end
-
-  def technology_step
-    @security_threats = SecurityThreat.all
-  end
-
-  def history_step
+  def resourcing_step
     total_score = 0
     score_counter = 0
     @form_submission = FormSubmission.find(params[:id])
@@ -245,15 +247,17 @@ class Admin::FormSubmissionsController < Admin::BaseController
     @form_submission = FormSubmission.find_by(id: params[:id])
 
     @follow_ups = case current_step
-                  when :policy
-                    @form_submission.follow_ups.policy.decorate
-                  when :process
-                    @form_submission.follow_ups.process.decorate
-                  when :technology
-                    @form_submission.follow_ups.technology.decorate
-                  when :history
-                    @form_submission.follow_ups.history.decorate
-                  end
+                    when :pricing
+                      @form_submission.follow_ups.pricing.decorate
+                    when :relationship
+                      @form_submission.follow_ups.relationship.decorate
+                    when :diversity
+                      @form_submission.follow_ups.diversity.decorate
+                    when :innovation
+                      @form_submission.follow_ups.innovation.decorate
+                    when :resourcing
+                      @form_submission.follow_ups.resourcing.decorate
+                    end
       
   end
 
@@ -291,7 +295,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
         redirect_to :admin_law_firms
       end
     else
-      redirect_to history_step_admin_form_submission_path(@form_submission), alert: "You haven't added any follow up notes." 
+      redirect_to resourcing_step_admin_form_submission_path(@form_submission), alert: "You haven't added any follow up notes." 
     end
   end
 
@@ -327,7 +331,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
           redirect_to :admin_law_firms
         end
       else
-        redirect_to history_step_admin_form_submission_path(@form_submission), alert: "The score (#{@form_submission.system_score}) is below system's threshold (#{SystemSetting.score_threshold}). You cannot approve the law firm" 
+        redirect_to resourcing_step_admin_form_submission_path(@form_submission), alert: "The score (#{@form_submission.system_score}) is below system's threshold (#{SystemSetting.score_threshold}). You cannot approve the law firm" 
       end
       
     end
@@ -390,7 +394,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
   end
 
   def steps
-    [:policy, :process, :technology, :history]
+    [:pricing, :relationship, :diversity, :innovation, :resourcing]
   end
 
   def wizard_path(step)
@@ -424,7 +428,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
   end
 
   def last_step
-    current_step_path.include? "history_step"
+    current_step_path.include? "resourcing_step"
   end
   
   def form_submissions_params

@@ -1,0 +1,114 @@
+<% content_for :page_title do %>
+<span>Engage Non Panel Firm</span>
+<% end %>
+<div class="clearfix"></div>
+<div class="col-lg-12">
+  <div class="jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
+    
+    <div class="page-header-sp">
+      <div class="page-title m-top-zero">Engage Non Panel Firm</div>
+      <div>
+        <%= link_to 'Submit New Request To Engage Non Panel Firm', engage_non_panel_firm_lob_exception_requests_path, html_options = {class: 'page-header-btn'}   %> 
+      </div>
+    </div>
+
+
+    <% if current_user.role == "lob" %>
+		  <div class="no-padding">
+				<div class="widget-body">
+					<div id="myTabContent" class="tab-content">
+						<div class="tab-pane fade active in padding-10 no-padding-bottom" id="s1">
+							<div class="row no-space text-center">
+								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+									<p><b><%= certification_status(current_law_firm) %></b> 
+									<b></b></p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+      </div>
+    <% end %>  
+    <!-- widget div-->
+    <div>
+        <%= search_form_for [:lob, @q] do |f| %>
+          <!--div class="row" style="padding-top: 20px;">
+            <div class="col-xs-12 col-sm-12">
+              <h2 style="margin: 0px 0px 10px;">Search Filter</h2>
+            </div>
+            <div class="col-xs-12 col-sm-4">
+                <strong><%= f.label :requested_by_cont, label: false  %></strong>
+                <%= f.search_field :requested_by_cont %>
+            </div>
+            <div class="col-xs-12 col-sm-4">
+                <strong><%= f.label :submitted_by_email_cont %></strong>
+                <%= f.search_field :submitted_by_email_cont %>
+            </div>
+            <div class="col-xs-12 col-sm-4">
+                <strong><%= f.label :law_firm_id_eq %> </strong>
+                <%= f.select :law_firm_id_eq, options_from_collection_for_select(LawFirm.all, "id", "name", @q.law_firm_id_eq), {:include_blank => 'Select law firm'} %>
+            </div>
+            <div class="col-xs-12 text-right" style="margin-top: 20px;">
+                <%= f.submit "Search", class: "btn btn-primary" %>
+                <%= f.submit "Reset", type: "reset", value: "Reset",  class: "btn btn-primary" %>
+            </div-->
+          </div>        
+        <% end  %>
+      <!-- widget edit box -->
+      
+      <!-- end widget edit box -->
+      <!-- widget content -->
+      
+      <div class="table-dyanmic-search table-responsive">
+        <!-- id="dt_basic"  this id for search option in table data -->
+        <table id="dt_basic" class="table table-decoration table-bordered" width="100%">
+          <thead>
+            <tr>
+              <th>Requested By</th>
+              <th>Line of Business</th>
+              <th>Law Firm Name</th>
+              <th>LXP Status</th>
+              <th>Lawyer Status</th>
+              <!--<th>Action</th>-->
+            </tr>
+          </thead>
+          <tbody>
+            <% @exception_requests.each do |exception_request| %>
+            <% if exception_request.law_firm_id.present? && exception_request.requested_by != nil  %>
+              <tr class="" onClick="window.location.href='/lob/exception_requests/<%= exception_request.id %>'">
+                <td>
+                  <div class="firm-name">
+                    <div class="name-avatar">
+                      <img src="<%= get_avatar_image(exception_request&.requested_by&.gsub(" ", "+")) %>">
+                    </div>
+                    <div><%= exception_request.requested_by %></div>
+                  </div>
+                </td>
+                <td><%= exception_request.line_of_business %></td>
+                <td><%= exception_request.law_firm.try(:name) %></td>
+                <td><%= exception_request.lxp_status %></td>
+                <td><%= exception_request.internal_lawyers_status %></td>
+                <!--<td>
+                  <div class="action-fields">
+                    <% if current_user.role == 'lob' &&  exception_request.try(:lxp_status) != 'APPROVED' %>
+                      <a class="action-btn" href="/lob/exception_requests/<%= exception_request.id %>/update_engage_non_panel_firm">
+                        <%= image_tag "edit-icon.svg", alt:"Edit" %>
+                      </a>
+                    <% end %> 
+                    <a class="action-btn" href="/lob/exception_requests/<%= exception_request.id %>">
+                      <%= image_tag "view-icon.svg", alt:"View" %>
+                    </a>
+                  </div>
+                </td>-->
+              </tr>
+            <% end %>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <!-- end widget content -->
+    </div>
+    <!-- end widget div -->
+  </div>
+  <!-- end widget -->
+</div>

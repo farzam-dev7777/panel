@@ -7,10 +7,11 @@ class FollowUp < ApplicationRecord
 	scope :review,  		-> { where(status: 'review') }
 	scope :resolved,  	-> { where(status: 'resolved') }
 
-	scope :policy,  		-> { where(loggable_type: FormValue) }
-	scope :process,  		-> { where(loggable_type: FormValue) }
-	scope :technology,  -> { where(loggable_type: TechnologyValue) }
-	scope :history,  		-> { where(loggable_type: HistorySubmission) }
+	scope :pricing,  		  -> { where(loggable_type: FormValue) }
+	scope :relationship,  -> { where(loggable_type: FormValue) }
+	scope :diversity,   	-> { where(loggable_type: FormValue) }
+	scope :innovation,    -> { where(loggable_type: FormValue) }
+	scope :resourcing,  	-> { where(loggable_type: FormValue) }
 
 	def add_note(message, step, sender)
 		note = Note.new_note(self, message, step, sender)

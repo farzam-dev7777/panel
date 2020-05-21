@@ -306,10 +306,11 @@ $(document).ready(function(){
     $(this).parent().parent().find('.text-for-multi').removeClass('hidden').show();
   })
 
-  if (window.location.pathname.indexOf("/policy_step") > -1 ||
-      window.location.pathname.indexOf("/process_step") > -1 || 
-      window.location.pathname.indexOf("/technology_step") > -1 || 
-      window.location.pathname.indexOf("/history_step") > -1) {
+  if (window.location.pathname.indexOf("/pricing_step") > -1 ||
+      window.location.pathname.indexOf("/relationship_step") > -1 || 
+      window.location.pathname.indexOf("/diversity_step") > -1 || 
+      window.location.pathname.indexOf("/innovation_step") > -1 || 
+      window.location.pathname.indexOf("/resourcing_step") > -1) {
     replaceChosenWithSelect2();
     $(document).on('change paste keyup', 'select, input', function(){
       replaceChosenWithSelect2();
@@ -594,6 +595,35 @@ $(document).ready(function(){
     });
   })
 
+ 
+  $('.send-user-info-btn').on('click', function(e){
+    href  = "/admin/users/send_user_info/"+ $(this).data('id');
+    swal({
+      title: "Are you sure?",
+      text: "",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "Yes, send User info!",
+      cancelButtonText: "Cancel",
+      closeOnConfirm: true,
+      closeOnCancel: true
+    },
+    function(isConfirm){
+      if (isConfirm) {
+        $.ajax({
+          method: 'GET',
+          url: href,
+          success: function() {
+            toastr.success("", "User info is sent")
+            window.location.reload();
+          },
+          error: function(response) {}
+        })
+      }
+    });
+  })
+
   $('.begin-certification-btn').on('click', function(e){
     href  = "/admin/law_firms/" + $(this).data('id') + "/begin_certification_process";
     swal({
@@ -614,6 +644,34 @@ $(document).ready(function(){
           url: href,
           success: function() {
             toastr.success("", "Certification process has begun")
+            window.location.reload();
+          },
+          error: function(response) {}
+        })
+      }
+    });
+  })
+
+  $('.send-user-info-begin-certification-btn').on('click', function(e){
+    href  = "/admin/users/send_user_info_with_certification/"+ $(this).data('id');
+    swal({
+      title: "Are you sure?",
+      text: "",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "Yes, send User info with RFI!",
+      cancelButtonText: "Cancel",
+      closeOnConfirm: true,
+      closeOnCancel: true
+    },
+    function(isConfirm){
+      if (isConfirm) {
+        $.ajax({
+          method: 'GET',
+          url: href,
+          success: function() {
+            toastr.success("", "User info is sent with RFI")
             window.location.reload();
           },
           error: function(response) {}
@@ -993,8 +1051,9 @@ $(document).ready(function(){
         text: data,
       },
       position: {
-        my: 'bottom left'
-      }
+        my: 'top left'
+      },
+      style: { classes: 'helper-data-color' }
     });
   });
 
@@ -1013,7 +1072,37 @@ $(document).ready(function(){
 
     if(!message || message == "")
       return
+    $.ajax({
+      url: "/follow_ups",
+      method: 'post',
+      async: false,
+      data: data,
+      context: $(this).parent().parent().parent(),
+      success: function(response) {
+        $(this).find('div.note').prepend(response)
+        window.location.reload();
+      }
+    })
+    wrapper = $('.field-wrapper-' + field_wrapper_id);
+    if(wrapper.hasClass('need-follow-up')){
+      wrapper.removeClass('need-follow-up');
+    }
+  })
+  $('.add-note-admin').on('click', function(e){
+    e.preventDefault();
+    var data;
 
+    if( _.isEmpty($(this).data()) ){
+      data = $(this).find('input').data();
+    } else {
+      data = $(this).data();
+    }
+    var field_wrapper_id = data.field_wrapper_id;
+    message = $(this).parent().parent().find('textarea.note').val();
+    data.message = message;
+
+    if(!message || message == "")
+      return
     $.ajax({
       url: "/admin/follow_ups",
       method: 'post',
@@ -1067,7 +1156,7 @@ $(document).ready(function(){
     var data = $(this).data();
     swal({
       title: "Are you sure?",
-      text: "Once submitted, the Policy and Process sections will not be available for editing unless reopened by the SEAL Administrator.The Technology and History sections will remain open for updates.",
+      text: "Once submitted, the Policy and Process sections will not be available for editing unless reopened by the Panel Administrator.The Technology and History sections will remain open for updates.",
       type: "warning",
       showCancelButton: true,
       confirmButtonColor: "#DD6B55",
@@ -1868,6 +1957,9 @@ $('#extend-expiry-form').on('submit', function(e){
   });
 
 })
+
+
+
 
 // var _rollbarConfig = {
 //     accessToken: "721164f0eda644f686c3e844ec50ab74",

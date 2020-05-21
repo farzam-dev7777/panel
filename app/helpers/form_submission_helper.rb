@@ -26,7 +26,7 @@ module FormSubmissionHelper
     end
   end
 
-  def policy_step_instructions
+  def pricing_step_instructions
 
   end
 

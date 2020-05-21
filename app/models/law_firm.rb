@@ -12,6 +12,19 @@ class LawFirm < ApplicationRecord
   has_many :locations
   has_many :jurisdictions
   has_many :history_submissions
+  has_many :exception_requests
+  has_many :conflict_waivers
+  has_many :law_firms_matter_types
+  has_many :matter_types, :through => :law_firms_matter_types
+  has_many :law_firms_sub_matter_types
+  has_many :sub_matter_types, :through => :law_firms_sub_matter_types
+  has_many :law_firms_jurisdiction_types
+  has_many :jurisdiction_types, :through => :law_firms_jurisdiction_types
+  has_many :law_firms_countries
+  has_many :countries, :through => :law_firms_countries
+  has_many :law_firms_states
+  has_many :states, :through => :law_firms_states
+  has_many :matter_intakes
 
   serialize :practice_area, Array
   serialize :type_of_matters_your_law_firm_handles_for_us, Array
@@ -23,10 +36,16 @@ class LawFirm < ApplicationRecord
   accepts_nested_attributes_for :jurisdictions, allow_destroy: true
   accepts_nested_attributes_for :users, allow_destroy: true
 
-  after_create :generate_a_new_user
+  accepts_nested_attributes_for :law_firms_matter_types, allow_destroy: true
+
+  #after_create :generate_a_new_user 
   # acts_as_messageable
 
-  validate :password_complexity
+  validates_presence_of :name, :phone
+
+  before_create :set_law_firm_email_to_user_email
+
+  #validate :password_complexity
 
   USER_LIMIT = 3
 
@@ -37,7 +56,7 @@ class LawFirm < ApplicationRecord
   NUMBER_OF_LAWYERS = ["<10", "<100", "<1000", ">1000"]
   
   JURISDICTION_COUNTRIES = ["Canada","United States of America"].freeze
-
+  LAW_FRIM_STATUS = ['Activate', 'Deactivate']
   EMAIL_PREFIX = "@check.com"
   TIME_FORMAT = "%d %b %y, %I:%M %Z"
   DATE_FORMAT = "%d %b %y"
@@ -45,9 +64,15 @@ class LawFirm < ApplicationRecord
   RESPONSIVENESS_SCORE_WEIGHTAGE = 0.4
   ASSESSOR_SCORE_WEIGHTAGE = 0.2
 
-  attr_accessor :temp_password
+  attr_accessor :temp_password, :temp_password_confirmation
+
+  def set_law_firm_email_to_user_email
+    self.email ||= self.users.try(:first).try(:email)
+  end
 
   def password_complexity
+    
+    return true if self.user_id?
     return true if temp_password.blank? && !self.new_record?
     errors.add :temp_password, "must be present" if temp_password.blank?
     if temp_password != temp_password_confirmation
@@ -58,7 +83,7 @@ class LawFirm < ApplicationRecord
   end
 
   def user
-    User.where(law_firm_id: self.id).order(created_at: :asc).first
+    User.with_deactivated.where(law_firm_id: self.id, role: "master_user").order(created_at: :asc).first
   end
 
   def approved_and_scored
@@ -69,18 +94,17 @@ class LawFirm < ApplicationRecord
     self.max_users || USER_LIMIT
   end
 
-  def name
-    self.public_uid  
-  end
 
   def generate_a_new_user
+    return true if self.user_id?
     username = SecureRandom.hex(4)
-    user = self.create_user!(email: "#{username}#{EMAIL_PREFIX}", 
-                             username: username, 
+    user = self.create_user!(email:email, 
+                             username: email, 
                              password: self.temp_password,
                              password_confirmation: self.temp_password_confirmation,
                              role: 'master_user',
                              law_firm_id: self.id)
+                      
     user.set_google_secret
   end
 
@@ -141,5 +165,13 @@ class LawFirm < ApplicationRecord
   end
   def self.onboarded
     LawFirm.where('id NOT IN (SELECT DISTINCT(law_firm_id) FROM form_submissions)')
+  end
+
+  def show_matter_types
+    if self.matter_types && self.matter_types.count > 0
+      self.matter_types.map(&:matter_type).join(",")
+    else
+      "No Matter Selected"
+    end
   end
 end

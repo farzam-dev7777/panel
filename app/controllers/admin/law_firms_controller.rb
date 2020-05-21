@@ -5,13 +5,13 @@ class Admin::LawFirmsController < Admin::BaseController
   add_breadcrumb "Dashboard", :root_path
 
   def index
-    @q = law_firms.ransack(params[:q])
-    @law_firms = @q.result(distinct: true).order('created_at DESC')
+    @law_firms =  LawFirm.where(law_firm_category: "PANEL")
     add_breadcrumb "Law Firms", :admin_law_firms_path
   end
 
   def show
     @law_firm = LawFirm.find(params[:id])
+    @panel_request = PanelRequest.find_by_law_firm_id(@law_firm.id)
     if !@law_firm.user.try(:google_secret)
       @law_firm.user.try(:set_google_secret)
     end
@@ -23,8 +23,7 @@ class Admin::LawFirmsController < Admin::BaseController
   	if @law_firm.save
       # Pass true as a 2nd arg if admin wants to send the activity as notification as well
       @law_firm.log_activity('account_created', true, current_user)
-
-      @law_firm.user.send_reset_password_instructions
+      #@law_firm.user.send_reset_password_instructions
 
   		redirect_to :admin_law_firms
   	else
@@ -53,7 +52,6 @@ class Admin::LawFirmsController < Admin::BaseController
 
   def edit
   	@law_firm = LawFirm.find(params[:id])
-
     add_breadcrumb "#{@law_firm.name}", :admin_law_firm_path 
   end
 
@@ -81,15 +79,36 @@ class Admin::LawFirmsController < Admin::BaseController
     new_form_submission.assessor_score = nil
     new_form_submission.expiry_date = nil
 
-    Form.where(step: 'policy').last.form_fields.each do |form_field|
+    Form.where(step: 'pricing').last.form_fields.each do |form_field|
       next if new_form_submission.form.try(:form_fields).map(&:label).include? form_field.label
       ff = form_field.amoeba_dup
       ff.formable_id = new_form_submission.form.id
       ff.save
     end
 
-    Form.where(step: 'process').last.form_fields.each do |form_field|
-      next if new_form_submission.form_process.try(:form_fields).map(&:label).include? form_field.label
+    Form.where(step: 'relationship').last.form_fields.each do |form_field|
+      next if new_form_submission.form_relationship.try(:form_fields).map(&:label).include? form_field.label
+      ff = form_field.amoeba_dup
+      ff.formable_id = new_form_submission.form.id
+      ff.save
+    end
+
+    Form.where(step: 'diversity').last.form_fields.each do |form_field|
+      next if new_form_submission.form_diversity.try(:form_fields).map(&:label).include? form_field.label
+      ff = form_field.amoeba_dup
+      ff.formable_id = new_form_submission.form.id
+      ff.save
+    end
+
+    Form.where(step: 'innovation').last.form_fields.each do |form_field|
+      next if new_form_submission.form_innovation.try(:form_fields).map(&:label).include? form_field.label
+      ff = form_field.amoeba_dup
+      ff.formable_id = new_form_submission.form.id
+      ff.save
+    end
+
+    Form.where(step: 'resourcing').last.form_fields.each do |form_field|
+      next if new_form_submission.form_resourcing.try(:form_fields).map(&:label).include? form_field.label
       ff = form_field.amoeba_dup
       ff.formable_id = new_form_submission.form.id
       ff.save
@@ -146,17 +165,56 @@ class Admin::LawFirmsController < Admin::BaseController
     end
   end
 
+  def get_detail
+    @law_firm = LawFirm.find(params[:id])
+    render json: { data: @law_firm }
+  end
+
+  def add_by_submission
+   
+    @law_firm = LawFirm.new
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def get_sub_matter_types
+    if params[:id]
+      render json: { data: SubMatterType.where(matter_type_id: params[:id]) }
+    else
+      render json: { data: [] }
+    end
+  end
+
+  def get_state
+    if params[:id]
+      @countries = Country.select("country_id").where(id: params[:id])
+      render json: { data: State.where(country_id: @countries) }
+    else
+      render json: { data: [] }
+    end
+  end
+
+  def get_law_firm_list
+    if params[:matter_type].present? ||  params[:sub_matter_type].present? || params[:jurisdiction_type].present? || params[:country].present? || params[:state].present?
+      render json: { data: LawFirm.all }
+    else
+      render json: { data: [] }
+    end
+  end
+
   private
 
   def law_firms_params
   	params.require(:law_firm).permit(
       :name, :description, :email, :phone, :temp_password,
       :temp_password_confirmation, :relationship_manager_email,
+      :relationship_manager_name, :relationship_manager_phone,
       :law_firm_type, :principle_name, :principle_title,
       :principle_contact_info, :parent_company, :sister_firm,
       :initial_date_of_engagement_with_the_bank,
       :confidentiality_level_of_matters_that_are_handled,
-      :number_of_lawyers,
+      :number_of_lawyers, :law_firm_category, 
       locations_attributes: [
         :id, :address1, :address2,
         :city, :province, :postal_code,
@@ -168,6 +226,7 @@ class Admin::LawFirmsController < Admin::BaseController
         :password_confirmation, :_destroy
       ],
       practice_area: [],
+      matter_type_ids:[], sub_matter_type_ids: [], jurisdiction_type_ids: [], state_ids: [], country_ids: [],
       type_of_matters_your_law_firm_handles_for_us: [],
       type_of_services_your_law_firm_provides_generally: [],
       confidentiality_level_of_matters_that_are_handled: []

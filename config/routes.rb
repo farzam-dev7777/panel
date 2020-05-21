@@ -4,6 +4,16 @@ Rails.application.routes.draw do
     devise_for :admin_users, controllers: {
       sessions: 'admin/internal_sessions'
     }
+    resources :users do
+      collection do
+        get :edit_profile 
+        get 'send_user_info/:id' => 'users#send_user_info', :as => "send_user_info"
+        get 'send_user_info_with_certification/:id' => 'users#send_user_info_with_certification', :as => "send_user_info_with_certification"
+        get 'edit_profile/:id' => 'users#edit_profile', :as => "users_edit_profile"
+        post 'update_profile/:id' => 'users#update_profile', :as => "users_update_profile"
+      end
+    end
+    
     resources :file_attachments do
       member do
         get :decrypt
@@ -11,13 +21,31 @@ Rails.application.routes.draw do
     end
     resources :law_firms do 
       member do
+        
         get :begin_certification_process
         get :begin_recertification_process
+      
       end
       collection do
+        post :get_sub_matter_types 
+        post :get_state
+        post :get_law_firm_list
         post :decertify
         post :add_internal_note
         post :remove_internal_note
+        post :get_detail
+        get :add_by_submission
+        
+      end
+    end
+
+    resources :matter_intakes do 
+      member do 
+        get :review
+        get :lxp_review
+      end
+      collection do 
+        post :lxp_rejects
       end
     end
 
@@ -67,7 +95,11 @@ Rails.application.routes.draw do
 
     resources :form_submissions do
       member do
-        get :policy_step
+        get :pricing_step
+        get :relationship_step
+        get :diversity_step
+        get :innovation_step
+        get :resourcing_step
         get :process_step
         get :technology_step
         get :history_step
@@ -83,6 +115,14 @@ Rails.application.routes.draw do
         post :set_expiry_date
       end
     end
+    resources :exception_requests do
+      get :download_pdf 
+    end
+    resources :panel_requests do
+      get :download_pdf 
+    end
+    resources :conflict_waivers
+    resources :reviews
     get '/internal_dashboard/notifications', to: 'internal_dashboard#notifications'
     resources :internal_dashboard do
       collection do
@@ -91,6 +131,59 @@ Rails.application.routes.draw do
         get :load_more_activities
       end
     end
+    root to: "internal_dashboard#index"
+  end
+
+  namespace :lob do
+    resources :users do
+      collection do
+        get :edit_profile 
+        get 'edit_profile/:id' => 'users#edit_profile', :as => "users_edit_profile"
+        post 'update_profile/:id' => 'users#update_profile', :as => "users_update_profile"
+      end
+    end
+    resources :law_firms do 
+      member do
+        get :begin_certification_process
+        get :begin_recertification_process
+      
+      end
+      collection do
+        post :decertify
+        post :add_internal_note
+        post :remove_internal_note
+        post :get_detail
+        get :add_by_submission
+      end
+    end
+
+    resources :matter_intakes
+
+    resources :activity_logs do
+      collection do
+        get :mark_as_read
+      end
+    end
+    resources :panel_requests do
+      get :download_pdf 
+    end
+    resources :exception_requests do
+      collection do
+        get :engage_non_panel_firm 
+        post :get_sub_matter_types 
+        post :get_state
+        post :get_law_firm_list
+        get :select_law_firm 
+        get 'select_law_firm/:id' => 'exception_requests#select_law_firm'
+        get ':law_firm_id/new' => 'exception_requests#new', :as => "exception_request_new"
+        get ':exception_request_id/new_engage_non_panel_firm' => 'exception_requests#new_engage_non_panel_firm', :as => "exception_request_new_engage"
+        get ':exception_request_id/update_engage_non_panel_firm' => 'exception_requests#update_engage_non_panel_firm', :as => "exception_request_update_engage"
+        get ':law_firm_new/create' => 'exception_requests#law_firm_new', :as => "law_firm_new_create"
+        post :law_firm_create
+      end
+    end
+
+    
     root to: "internal_dashboard#index"
   end
   
@@ -104,7 +197,11 @@ Rails.application.routes.draw do
       get :service_packs
     end
   end
-  
+  resources :follow_ups do
+    collection do
+      post :review
+    end
+  end
   resources :technology_forms
   resources :history_forms
   resources :action_items do 
@@ -119,7 +216,11 @@ Rails.application.routes.draw do
   resources :file_attachments
   resources :form_submissions do
     member do
-      get :policy_step
+      get :pricing_step
+      get :relationship_step
+      get :diversity_step
+      get :innovation_step
+      get :resourcing_step
       get :process_step
       get :technology_step
       get :history_step
@@ -135,6 +236,8 @@ Rails.application.routes.draw do
       post :invite_users
     end
   end
+
+  resources :conflict_waivers
 
   resources :technology_values do
     collection do
@@ -164,7 +267,11 @@ Rails.application.routes.draw do
     get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'    
     patch 'users/update' => 'users/registrations#update', :as => 'user_registration'
   end
-  resources :two_factor_authentication
+  resources :two_factor_authentication do
+    collection do
+      get :send_two_factor_auth_again
+    end
+  end
   namespace :users do
   end
 

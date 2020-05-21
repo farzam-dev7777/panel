@@ -5,72 +5,66 @@
 <div class="clearfix"></div>
 
 <div class="col-lg-12">
-	
-	<div class="jarviswidget jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
-								<header>
-									<span class="widget-icon"> <i class="fa fa-briefcase"></i> </span>
-									<h2>Law Firms </h2>
-				
-								</header>
-				
-								<!-- widget div-->
-								<div>
-				
-									<!-- widget edit box -->
-									<div class="jarviswidget-editbox">
-										<!-- This area used as dropdown edit box -->
-				
-									</div>
-									<!-- end widget edit box -->
-				
-									<!-- widget content -->
-									<div class="widget-body no-padding">
-				
-										<table id="dt_basic" class="table table-striped table-bordered table-hover" width="100%">
-											<thead>			                
-												<tr style="background: #007ac3;color: #fff;">
-													<th>Username</th>
-													<th>Score</th>
-													<th>Onboarded</th>
-													<th>Status</th>
-												</tr>
-											</thead>
-											<tbody>
-												<% @law_firms.each do |firm| %>
-													<tr class="law-firm-row" data-id="<%= firm.id %>">
-														<td><%= firm.users.first.try(:username) %></td>
-														<td class="text-center">
-															<div> 
-																<span class="percent txt-color-blue bold">
-																	<% if firm.form_submissions.try(:latest).try(:status) == 'approved' %>
-																		<% score = firm.total_calculated_score(firm.form_submissions.try(:latest)) %>
-																		<div class="total-score" data-color="<%= firm.form_submissions.try(:latest).try(:color, score, 'total_calculated_score') %>" data-score=<%= score %>></div>
-																	<% end %>
-																</span> 
-															</div>
-														</td>
-														<td><%= firm.created_at.strftime(LawFirm::TIME_FORMAT) %></td>
-														<td class="text-center">
-															<% if firm.form_submissions.any? %>
-																<span class="label label-<%= submission_status_class(firm.form_submissions.latest) %>"><%= firm.form_submissions.latest.formatted_status %></span>
-																<%=  %>
-															<% else %>
-																<span class="label label-warning">Onboarded</span>
-															<% end %>
-														</td>
-													</tr>
+	<div class="jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
+			<div class="page-header-sp">
+				<div class="page-title m-top-zero">Law Firms</div>
+				<div></div>
+  		</div>
+			<!-- widget div-->
+			<div>
+				<!-- widget content -->
+				<div class="table-dyanmic-search table-responsive">
+					<table id="dt_basic" class="table table-decoration table-bordered" width="100%">
+						<thead>			                
+							<tr style="background: #007ac3;color: #fff;">
+								<th>Firm Name</th>
+								<th>Username</th>
+								<th>Score</th>
+								<th>Onboarded</th>
+								<th width="10%">Status</th>
+							</tr>
+						</thead>
+						<tbody>
+							<% @law_firms.each do |firm| %>
+								<tr class="law-firm-row" data-id="<%= firm.id %>">
+									<td><%= firm.name %></td>
+									<td><%= firm.users.first.try(:username) %></td>
+									<td>
+										<div> 
+											<span class="percent txt-color-blue bold">
+												<% if firm.form_submissions.try(:latest).try(:status) == 'approved' %>
+													<% score = firm.total_calculated_score(firm.form_submissions.try(:latest)) %>
+													<div class="total-score" data-color="<%= firm.form_submissions.try(:latest).try(:color, score, 'total_calculated_score') %>" data-score=<%= score %>></div>
 												<% end %>
-												
-											</tbody>
-										</table>
+											</span> 
+										</div>
+									</td>
+									<td>
+										<div class="date-time">
+											<%= firm.created_at.strftime(LawFirm::TIME_FORMAT) %>
+										</div>
+									</td>
+									<td>
+										<% if firm.form_submissions.any? %>
+											<span class="label label-<%= submission_status_class(firm.form_submissions.latest) %>"><%= firm.form_submissions.latest.formatted_status %></span>
+											<%=  %>
+										<% else %>
+											<span class="label label-warning">Onboarded</span>
+										<% end %>
+									</td>
+								</tr>
+							<% end %>
+							
+						</tbody>
+					</table>
 
-									</div>
-									<!-- end widget content -->
-				
-								</div>
-								<!-- end widget div -->
-				
-							</div>
-							<!-- end widget -->
+				</div>
+				<!-- end widget content -->
+
+			</div>
+			<!-- end widget div -->
+
+		</div>
+		<!-- end widget -->
 
 </div>

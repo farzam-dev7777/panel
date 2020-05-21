@@ -5,7 +5,7 @@ class FormSubmissionsController < BaseController
   load_and_authorize_resource
   
   before_action :follow_ups, except: :index
-  before_action :before_steps, only: [:policy_step, :process_step]
+  before_action :before_steps, only: [:pricing_step, :relationship_step, :diversity_step, :innovation_step, :resourcing_step]
   before_action :before_non_dynamic_forms, only: [:technology_step, :history_step]
 
   before_action :prevent_resubmission, only: [:update, :submit_forms]
@@ -19,6 +19,7 @@ class FormSubmissionsController < BaseController
   end
 
   def show
+   
     redirect_to technology_step_form_submission_path
   end
 
@@ -69,7 +70,7 @@ class FormSubmissionsController < BaseController
     @form_submission = FormSubmission.new(form: @form)
   end
 
-  def policy_step
+  def pricing_step
     @form_submission = FormSubmission.find(params[:id])
     if(@form_submission.status == 'sent')
       @form_submission.status = 'started'
@@ -78,6 +79,21 @@ class FormSubmissionsController < BaseController
       FormSubmission.log_activity('seal_certification_process_initiated', true, @form_submission, current_user) if @form_submission && !log
     end
   end
+  
+  def relationship_step
+
+  end
+
+  def diversity_step
+
+  end
+
+  def innovation_step
+  end
+
+  def resourcing_step
+  end
+
 
   def technology_profile
   end
@@ -85,17 +101,17 @@ class FormSubmissionsController < BaseController
   def history_profile
   end
 
-  def process_step
-  end
+  # def process_step
+  # end
 
-  def technology_step
-  end
+  # def technology_step
+  # end
 
-  def history_step
-  end
+  # def history_step
+  # end
 
   def logics
-    @logics ||= current_step == :policy ? @form_submission.form.try(:all_logics) : @form_submission.form_process.try(:all_logics)
+    @logics ||= current_step == :pricing ? @form_submission.form.try(:all_logics) : @form_submission.send("form_#{current_step}").try(:all_logics)
   end
 
   def edit
@@ -170,14 +186,16 @@ class FormSubmissionsController < BaseController
     @form_submission = FormSubmission.find_by(id: params[:id])
 
     @follow_ups = case current_step
-                  when :policy
-                    @form_submission.follow_ups.policy.decorate
-                  when :process
-                    @form_submission.follow_ups.policy.decorate
-                  when :technology
-                    @form_submission.follow_ups.technology.decorate
-                  when :history
-                    @form_submission.follow_ups.history.decorate
+                  when :pricing
+                    @form_submission.follow_ups.pricing.decorate
+                  when :relationship
+                    @form_submission.follow_ups.relationship.decorate
+                  when :diversity
+                    @form_submission.follow_ups.diversity.decorate
+                  when :innovation
+                    @form_submission.follow_ups.innovation.decorate
+                  when :resourcing
+                    @form_submission.follow_ups.resourcing.decorate
                   end
       
   end
@@ -187,10 +205,16 @@ class FormSubmissionsController < BaseController
     @form_submission.follow_ups.review.map(&:loggable).each do |form_value|
       if form_value.try(:form_field).try(:formable)
         case form_value.form_field.formable.name
-        when 'Policy'
-          stats[:policy] = (stats[:policy] || 0) + 1
-        when 'Process'
-          stats[:process] = (stats[:process] || 0) + 1
+        when 'Pricing'
+          stats[:pricing] = (stats[:pricing] || 0) + 1
+        when 'Relationship'
+          stats[:relationship] = (stats[:relationship] || 0) + 1
+        when 'Diversity'
+          stats[:diversity] = (stats[:diversity] || 0) + 1
+        when 'Innovation'
+          stats[:innovation] = (stats[:innovation] || 0) + 1
+        when 'Resourcing'
+          stats[:resourcing] = (stats[:resourcing] || 0) + 1
         end 
       else
         case form_value.class.to_s
@@ -212,7 +236,7 @@ private
   end
 
   def steps
-    [:policy, :process, :technology, :history]
+    [:pricing, :relationship, :diversity, :innovation, :resourcing]
   end
 
   def wizard_path(step)
@@ -250,11 +274,11 @@ private
   end
 
   def last_step
-    current_step_path.include? "history_step"
+    current_step_path.include? "resourcing_step"
   end
 
   def first_step
-    current_step_path.include? "policy_step"
+    current_step_path.include? "pricing_step"
   end
   
   def form_submissions_params

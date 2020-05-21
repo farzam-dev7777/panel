@@ -1,0 +1,157 @@
+<style>
+    div#gauge * {
+    top: -25px;
+    }
+  </style>
+  <div class="col-lg-3"></div>
+  <div class="col-lg-12">
+    <div class="jarviswidget">
+      <header>
+      </header>
+      <!-- widget div-->
+      <div>
+        <!-- widget edit box -->
+        <!-- end widget edit box -->
+        <!-- widget content -->
+        <div class="widget-body no-padding">
+          <!-- widget body text-->
+          <div class="tab-content padding-10">
+            <div class="tab-pane fade in active">
+              <div class="col-md-8">
+                <div class="col-md-12">
+                  <div class="col-md-4 column">Name of law firm	</div>
+                  <div class="col-md-8 data"><%= @conflict_waiver.name_of_law_firm %></div>
+                </div>
+                <div class="col-md-12">
+                  <div class="col-md-4 column">Contact details</div>
+                  <div class="col-md-8 data"><%= @conflict_waiver.contact_details %></div>
+                </div>
+                <div class="col-md-12">
+                  <div class="col-md-4 column">BMO Business contact	</div>
+                  <div class="col-md-8 data"><%= @conflict_waiver.bmo_business_contact %></div>
+                </div>
+                <div class="col-md-12">
+                  <div class="col-md-4 column">Reason for Request	</div>
+                  <div class="col-md-8 data"><%= @conflict_waiver.reason %></div>
+                </div>
+                <div class="col-md-12">
+                  <div class="col-md-4 column">LXP Status</div>
+                  <div class="col-md-8 data"><%=  @conflict_waiver.lxp_status_show   %></div>
+                </div>
+                <div class="col-md-12">
+                  <div class="col-md-4 column">Internal Lawyers Status</div>
+                  <div class="col-md-8 data"><%= @conflict_waiver.internal_lawyers_status_show %></div>
+                </div>
+                
+                <div class="col-md-12">
+                  <div class="col-md-4 column">Waiver Completely Approved</div>
+                  <div class="col-md-8 data"><%= @conflict_waiver.fully_approved? ? "Yes" : "No" %></div>
+                </div>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+          <div class="container">
+            <%- if @conflict_waiver.can_user_change_status?(current_user) %>
+            <div class="table-responsive">
+              <%= simple_form_for [:admin, Review.new()] do |f| %>
+              <table class="table table-striped">
+                <tbody>
+                  <tr>
+                    <td class="text-right" width="20%"><strong>Description</strong></td>
+                    <td>
+                      <%= f.input :description, label: false %>
+                      <%= f.input :reviewable_type, label: false, as: :hidden, input_html: { value: @conflict_waiver.class.to_s } %>
+                      <%= f.input :reviewable_id, label: false, as: :hidden, input_html: { value: @conflict_waiver.id } %>
+                    </td>
+                  <tr>
+                    <td class="text-right" width="20%"><strong>Status</strong></td>
+                    <td><%= f.input :status, label: false, collection: ConflictWaiver::CONFLICT_WAIVER_STATUS.map{|value,key| [key, value]}%></td>
+                  </tr>
+                  <%- if @current_user.role === "lxp" %>
+                  <tr style="display:none;" class="internal_lawyers_box">
+                    <td class="text-right" width="20%"><strong>Assign to</strong></td>
+                    <td>
+                      <%= f.input :assigned_to_id, label: false, collection: User.where(role: "internal_lawyers").map{|user| [user.email, user.id] } %>
+                    </td>
+                  </tr>
+                  <% end %> 
+                  <tr>
+                    <td colspan="2">
+                      <%= link_to 'Cancel', @conflict_waiver.new_record? ? admin_exception_requests_path : admin_conflict_waiver_path, class: 'btn btn-danger btn-sm' %>
+                      <%= f.button :submit, @conflict_waiver.new_record? ? "Submit Request" : "Update Status", class:  @current_user.role === "lxp" ? "lxp_sttaus" : "laywr_status" %>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <% end %>
+            </div>
+            <% end %>
+          </div>
+          <!-- end widget body text-->
+        </div>
+        <!-- end widget content -->
+      </div>
+      <!-- end widget div -->
+    </div>
+    <!-- end widget -->
+  </div>
+  <div class="col-md-12">
+    <div class="jarviswidget jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+      <header class="no-border">
+        <span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
+        <h2 class="font-md"><strong>Review Logs </strong></h2>
+      </header>
+      <div>
+        <div class="clearfix"></div>
+        <!-- MAIN PANEL -->
+        <div role="main">
+          <!-- MAIN CONTENT -->
+          <div style="height: 500px;overflow-y: scroll;">
+            <!-- row -->
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="well well-sm">
+                  <!-- Timeline Content -->
+                  <div class="smart-timeline">
+                    <ul class="smart-timeline-list">
+                      <% @conflict_waiver.reviews.reverse.each do |review| %>
+                      <li data-id="<%= review.id %>">
+                          <div class="smart-timeline-icon">
+                            R
+                          </div>
+                          <div class="smart-timeline-time">
+                            <small><%= review.created_at.strftime('%d %b %Y at %I:%M %p') %></small>
+                            <small><i><%= time_ago_in_words(review.created_at) %> ago</i> </small>
+                          </div>
+                          <div class="smart-timeline-content">
+                            <p>
+                              <strong>
+                                <%- if review.status_show %>
+                                  <%= review.actor.email %> change status to <%= review.status_show %>
+                                <% else %>
+                                  <%= review.actor.email %> left a comment
+                                <% end %>
+                              <strong>
+                            </p>
+                            <p>
+                              <%= review.description.blank? ? "NA" : review.description %>
+                            </p>
+                          </div>
+                        </li>
+                      <% end %>
+                    </ul>
+                  </div>
+                  <!-- END Timeline Content -->
+                </div>
+              </div>
+            </div>
+            <!-- end row -->
+          </div>
+          <!-- END MAIN CONTENT -->
+        </div>
+        <!-- END MAIN PANEL -->
+      </div>
+    </div>
+  </div>

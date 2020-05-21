@@ -1,0 +1,116 @@
+<style>
+	input, textarea, select { padding: 0px !important; margin: 0px; background: transparent; }
+</style>
+
+
+
+<div class="sp-form sp-form-bg">
+  <%= simple_form_for [:admin, @panel_request] do |f| %>
+  
+    <div class="row form-flex-wrap">
+        <div class="col-xs-12 col-md-6">
+          <label class="label">Requested By</label>
+          <%= f.input :requested_by, label: false %>
+        </div>
+        <div class="col-xs-12 col-md-6">
+          <label class="label">Submitted By</label>
+            <%= f.input :submitted_by_email, label: false, :input_html => { :value => @current_admin_user_email, :readonly => true } %>
+            <%= f.input :user_id, :as => :hidden, :input_html => { :value => @current_admin_user_id } %>
+            <%= f.input :request_type, :as => :hidden, :input_html => { :value => "ADD_TO_LAW_FIRM_PANEL" } %>
+        </div>
+        <div class="col-xs-12 col-md-6">
+          <label class="label">Line of Business</label>
+          <%= f.input :line_of_business, label: false, collection: PanelRequest::LOB_LIST %>
+        </div>
+        <div class="col-xs-12 col-md-6">
+          <label class="label">LOB Contact Name</label>
+          <%= f.input :lob_contact_name, label: false %>
+        </div>
+        <div class="col-xs-12 col-md-6">
+          <label class="label">Business Manager Name</label>
+          <%= f.input :business_manager_name, label: false %>
+        </div>
+        <div class="col-xs-12 col-md-6">
+          <label class="label">Business Manager Email</label>
+          <%= f.input :business_manager_email, label: false %>
+        </div>
+        <div class="col-xs-12 col-md-6">
+          <label class="label">Business Manager Phone</label>
+          <%= f.input :business_manager_phone, label: false %>
+        </div>
+        <div class="col-md-12">
+          <label class="inner-label">Law Firm</label>
+          <div class="">
+            <%= f.simple_fields_for :law_firm do |field| %>
+              <div class="inner-form-field">
+                <div class="row form-flex-wrap">
+                  <div class="col-xs-12 col-md-6">
+                    <label class="label">Name</label>
+                    <%= field.input :name, label: false %>
+                    <%= field.input :law_firm_category, :as => :hidden, :input_html => { :value => "PANEL" } %>
+                  </div>
+                  <%= field.simple_fields_for :users do |user_field| %>
+                  <div class="col-xs-12 col-md-6">
+                    <label class="label">Email</label>
+                    <%= user_field.input :email, label: false %>
+                    <%= user_field.input :role, :as => :hidden, label: false, :input_html => { :value => "master_user" }%>
+                    <%= user_field.input :empty_user, :as => :hidden, label: false, :input_html => { :value => true }%>
+                  </div> 
+                  <% end %>
+                  <div class="col-xs-12 col-md-6">
+                    <label class="label">Phone</label>
+                    <%= field.input :phone, label: false %>
+                  </div>
+                  <div class="col-xs-12 col-md-6">
+                    <label class="label">Description</label>
+                    <td><%= field.input :description, label: false %></td>
+                  </div>
+                  <div class="col-xs-12 col-md-6">
+                    <label class="label">Relationship Manager Name</label>
+                    <%= field.input :relationship_manager_name, label: false %>
+                  </div>
+                  <div class="col-xs-12 col-md-6">
+                    <label class="label">Relationship Manager Email</label>
+                    <%= field.input :relationship_manager_email, label: false %>
+                  </div>
+                  <div class="col-xs-12 col-md-6">
+                    <label class="label">Relationship Manager Phone</label>
+                    <%= field.input :relationship_manager_phone, label: false %>
+                  </div>
+                  <div class="col-xs-12 col-md-6">
+                    <label class="label">Temp. Password</label>
+                    <%= field.input :temp_password, autocomplete: "off", label: false, input_html: { class: 'set-password' } %>
+                    <p style="color: #949494;" class="text-left"><em>Minimum 10 characters required</em></p>	
+                  </div>
+                  <div class="col-xs-12 col-md-6">
+                    <label class="label">Confirm Password</label>
+                    <%= field.input :temp_password_confirmation, autocomplete: "off", label: false, input_html: { class: 'set-password' } %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <div class="col-xs-12 col-md-6">
+          <label class="label">Minority Owned</label>
+          <%= f.input :minority_owned, label: false, collection: PanelRequest::MINORITY_OWNED_TYPE  %>
+        </div>
+        <div class="col-xs-12 col-md-6 minority_owned_details"  style="display:none;">
+          <label class="label">Minority Owned Details</label>
+          <%= f.input :minority_owned_details, label: false%>
+        </div>
+        <div class="col-xs-12 col-md-6">
+          <label class="label">Women Owned</label>
+          <%= f.input :women_owned, label: false, collection: PanelRequest::WOMEN_OWNED_TYPE %>
+        </div>
+        <div class="col-xs-12 col-md-6 women_owned_details" style="display:none;">
+          <label class="label">Women Owned Details</label>
+          <%= f.input :women_owned_details, label: false %>
+        </div>
+        <div class="col-xs-12 col-md-12">
+          <%=link_to 'Cancel', @panel_request.new_record? ? admin_exception_requests_path : admin_law_firm_path, class: 'btn-type-default' %>
+          <%= f.button :submit, @panel_request.new_record? ? "Submit Request" : "Update Request", class: "btn-type-primary" %>
+        </div>
+    </div>
+  <% end %>
+</div>

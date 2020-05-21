@@ -1,0 +1,174 @@
+<style>
+  div#gauge * {
+    top: -25px;
+  }
+</style>
+
+<div class="col-lg-12 col-md-12 col-sm-12">
+  <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+    <div class="page-header-sp">
+      <div class="page-title m-top-zero">Matter Intake</div>
+      <div class="back-edit-actions">
+        <a class="btn-type-default" href="/admin/matter_intakes">
+          <%= image_tag "chevron-back-icon.svg", alt:"Back" %>
+        </a>
+        <% if @current_user.role === "internal_lawyers" %>
+          <% if @matter_intake.status === "waiting_for_lxp_review" %>
+          <%= link_to "Edit".html_safe, edit_admin_matter_intake_path(id: @matter_intake.id), class: "btn-type-primary" %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+    <div class="">
+      <!-- widget content -->
+      <div class="view-request">
+        <div class="view-request">
+          <div class="sp-form-bg show-data-fields">
+            <div class="row">
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Submitter Name:	</div>
+                <div class="field-data"><%= @matter_intake.submitter_name %></div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">LOB Contact Name:	</div>
+                <div class="field-data"><%= @matter_intake.lob_contact_name %></div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Name of Matter/Client:	</div>
+                <div class="field-data"><%= @matter_intake.name_of_matter_client %></div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Type of Matter:	</div>
+                <div class="field-data"><%= @matter_intake.matter_type.try(:matter_type) %></div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Matter Description:	</div>
+                <div class="field-data"><%= @matter_intake.matter_description %></div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">How will this matter be paid?:	</div>
+                <div class="field-data"><%= @matter_intake.mode_of_payment %></div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Law Firm Suggested:	</div>
+                <div class="field-data"><%= @matter_intake.law_firm.try(:name) %></div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">BMO lawyer name:	</div>
+                <div class="field-data"><%= @matter_intake.bmo_lawyer_name %></div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Budget amount, if already negotiated with the law firm:	</div>
+                <div class="field-data"><%= @matter_intake.budget_amount %></div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">LOB contact to create PO:	</div>
+                <div class="field-data"><%= @matter_intake.lob_contact_for_po %></div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Cost Centre for legal fees:	</div>
+                <div class="field-data"><%= @matter_intake.cost_centre_for_legal_fees %></div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Business Paying for this Matter:	</div>
+                <div class="field-data"><%= @matter_intake.business_paying_for_matter %></div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Group Paying for this Matter:	</div>
+                <div class="field-data"><%= @matter_intake.group_paying_for_matter %></div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Paying Entity:	</div>
+                <div class="field-data"><%= @matter_intake.paying_entity %></div>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="col-md-12">
+  <%- if @matter_intake.reviews.size > 0 %>
+    <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+      <div class="page-header-sp">
+          <div class="page-title">Review Logs</div>
+          <div class="back-edit-actions">
+        </div>
+      </div>
+      <div>
+        <div class="clearfix"></div>
+        <!-- MAIN PANEL -->
+        <div role="main">
+          <!-- MAIN CONTENT -->
+          <div>
+            <!-- row -->
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="sp-form-bg">
+                  <!-- Timeline Content -->
+                  <div class="smart-timeline">
+                    <ul class="smart-timeline-list">
+                      <% @matter_intake.reviews.reverse.each do |review| %>
+                      <% if review.status_from.blank? && review.status.blank? && review.assigned_to_id.present? %>
+                        <li data-id="<%= review.id %>">
+                            <div class="smart-timeline-icon">
+                              R
+                            </div>
+                            <div class="smart-timeline-time">
+                              <small><%= review.created_at.strftime('%d %b %Y at %I:%M %p') %></small>
+                            </div>
+                            <div class="smart-timeline-content">
+                              <p>
+                                <strong>
+                                <%= review.actor.email %> assigned exception request to internal lawyer for approval.
+                                <strong>
+                              </p>
+                              <p>
+                                <%= review.description %>
+                              </p>
+                            </div>
+                          </li>
+                      <% else %>
+                        <li data-id="<%= review.id %>">
+                        <div class="smart-timeline-icon">
+                          R
+                        </div>
+                        <div class="smart-timeline-time">
+                          <small><%= review.created_at.strftime('%d %b %Y at %I:%M %p') %></small>
+                          <small><i><%= time_ago_in_words(review.created_at) %> ago</i> </small>
+                        </div>
+                        <div class="smart-timeline-content">
+                          <p>
+                            <strong>
+                              <%- if review.status_show %>
+                                <%= review.actor.email %> change status to <%= review.status_show %>
+                              <% else %>
+                                <%= review.actor.email %> left a comment
+                              <% end %>
+                            <strong>
+                          </p>
+                          <p>
+                            <%= review.description.blank? ? "NA" : review.description %>
+                          </p>
+                        </div>
+                      </li>
+                        <% end %>
+                      <% end %>
+                    </ul>
+                  </div>
+                  <!-- END Timeline Content -->
+                </div>
+              </div>
+            </div>
+            <!-- end row -->
+          </div>
+          <!-- END MAIN CONTENT -->
+        </div>
+        <!-- END MAIN PANEL -->
+      </div>
+    </div>
+  <% end %>
+</div>

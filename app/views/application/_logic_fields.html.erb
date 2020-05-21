@@ -4,12 +4,12 @@
 	  <%= f.input :change_field_id, as: :hidden, input_html: { value: form_field.id } %>
 	  <label>Action</label>
 	  <div class="clearfix"></div>
-	  <%= f.input :perform_action, collection: Logic::PERFORM_ACTION.map{|action| [action.titleize, action]}, label: false, blank: false %>
+	  <%= f.input :perform_action, collection: Logic::PERFORM_ACTION.map{|action| [action.try(:titleize), action]}, label: false, blank: false %>
 	</div>
 	<div class="col-md-2">
 		<label>Logic</label>
 		<div class="clearfix"></div>
-	  <%= f.input :logic_to_be_applied, collection: Logic::LOGIC_TO_BE_APPLIED.map{|logic| [logic.titleize, logic]}, label: false, blank: false %>
+	  <%= f.input :logic_to_be_applied, collection: Logic::LOGIC_TO_BE_APPLIED.map{|logic| [logic.try(:titleize), logic]}, label: false, blank: false %>
 	</div>
 	<div class="col-md-4">
 		<label>Show When</label>

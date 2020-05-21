@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-
+ruby "2.5.1"
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
 gem 'pg', '~> 0.19'
 gem 'puma', '~> 3.0'
@@ -20,6 +20,7 @@ gem 'wkhtmltopdf-binary'
 gem 'google-authenticator-rails', '~> 1.6.1'
 gem 'rollbar'
 gem 'country_select'
+gem 'docusign_esign'
 
 gem 'public_uid'
 gem 'mixpanel-ruby'
@@ -76,7 +77,7 @@ group :production, :staging do
 end
 
 group :development, :test do
-  gem 'capistrano-rails'
+  gem "capistrano-rails"
   gem 'capistrano-rvm'
   gem 'capistrano3-unicorn'
 end

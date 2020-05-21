@@ -1,0 +1,120 @@
+  
+  <!-- widget div-->
+  <div>
+    <div class="view-request">
+      <div class="sp-form-bg show-data-fields">
+        <div class="row">
+          <div class="col-xs-12 col-md-6">
+            <div class="field-label">Reason For New Nngage Non Panel Firm	:	</div>
+            <div class="field-data"><%= @exception_request.reason.reject(&:blank?).join(", ") %></div>
+          </div>
+          <div class="col-xs-12 col-md-6">
+            <div class="field-label">Payer Type	:	</div>
+            <div class="field-data"><%= @exception_request.payer %></div>
+          </div>
+          <div class="col-xs-12 col-md-6">
+            <div class="field-label">Requested By :	</div>
+            <div class="field-data"><%= @exception_request.requested_by %></div>
+          </div>
+          <div class="col-xs-12 col-md-6">
+            <div class="field-label">Requested By :	</div>
+            <div class="field-data"><%= @exception_request.requested_by %></div>
+          </div>
+          <div class="col-xs-12 col-md-6">
+            <div class="field-label">Line of Business :	</div>		
+            <div class="field-data"><%= @exception_request.line_of_business %></div>
+          </div>
+          <div class="col-xs-12 col-md-6">
+            <div class="field-label">LOB Contact Name :	</div>		
+            <div class="field-data"><%= @exception_request.lob_contact_name %></div>
+          </div>
+          <div class="col-md-12">
+            <div class="inner-label">Law Firm :</div>		
+            <div class="row inner-form-field">
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Law Firm Category : </div>
+                <div class="field-data"><%= @exception_request.law_firm.try(:law_firm_category) %></div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Name : </div>
+                <div class="field-data"><%= @exception_request.law_firm.try(:name) %></div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Email : </div>		
+                <div class="field-data"><%= @exception_request.law_firm.try(:email) %></div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Phone : </div>		
+                <div class="field-data"><%= @exception_request.law_firm.try(:phone) %></div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Would You use this firm on a regular basis? : </div>		
+                <div class="field-data"><%= @exception_request.law_firm.try(:relationship_manager_name) ? "Yes" : "No" %></div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Would You use this firm on a regular basis? :	</div>		
+                <div class="field-data"><%= @exception_request.law_firm.try(:show_matter_types) %></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-12 col-md-12">
+            <div class="field-label">IS this a specific niche expertise that is not already available from one of the preferred external counsel panel law firms ?	:</div>
+            <div class="field-data"><%= @exception_request.niche_preferred_external_counsel_panel_law_firms ? "Yes" : "No" %></div>
+          </div>
+          <div class="col-xs-12 col-md-12">
+            <div class="field-label">IS this a specific niche expertise that is not already available from one of the preferred external counsel panel law firms ? :</div>		
+            <div class="field-data"><%= @exception_request.niche_expertise %></div>
+          </div>
+          <div class="col-xs-12 col-md-12">
+            <div class="field-label">Does this firm practice in a required unique geography that is not already available from one of the preferred outside counsel Panel Law firms?	:</div>		
+            <div class="field-data"><%= @exception_request.required_unique_geography ? "Yes" : "No" %></div>
+          </div>
+          <div class="col-xs-12 col-md-12">
+            <div class="field-label">Would engagements of this firm involve the following	: </div>		
+            <div class="field-data"><%= @exception_request.involved_engagement %></div>
+          </div>
+          <div class="col-xs-12 col-md-6">
+            <div class="field-label">Women Owned :</div>		
+            <div class="field-data"><%= @exception_request.women_owned %></div>
+          </div>
+          <div class="col-xs-12 col-md-6">
+            <div class="field-label">Women Owned Details :</div>		
+            <div class="field-data"><%= @exception_request.women_owned_details %></div>
+          </div>
+          <div class="col-xs-12 col-md-12">
+            <div class="field-label">Please confirm the reason(s) , there than theses listed above, that this firm should be considered for the preferred outside counsel Panel :</div>		
+            <div class="field-data"><%= @exception_request.reson_other %></div>
+          </div>
+          <div class="col-xs-12 col-md-6">
+            <div class="field-label">LXP Status :</div>
+            <div class="field-data"><%=  @exception_request.lxp_status_show ? @exception_request.lxp_status_show : "-" %></div>
+          </div>
+          <div class="col-xs-12 col-md-6">
+            <div class="field-label">Internal Lawyers Status :</div>
+            <div class="field-data"><%= @exception_request.internal_lawyers_status_show ? @exception_request.internal_lawyers_status_show : "-"  %></div>
+          </div>
+          <div class="col-xs-12 col-md-6">
+            <div class="field-label">Approved:</div>
+            <div class="field-data"><%= @exception_request.fully_approved? ? "Yes" : "No" %></div>
+          </div>
+          <% if @exception_request.docusign_envelope_id.present? %>
+            <div class="col-xs-12 col-md-6">
+              <div class="field-label">Document Status</div>
+              <div class="field-data"><%= @exception_request.docusign_retainer_envelope.try(:status) %></div>
+            </div>
+            <% if @exception_request.docusign_retainer_envelope.try(:status) == "completed"%>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Download Document</div>
+                <div class="field-data">
+                  <%= link_to "Download Document", admin_exception_request_download_pdf_path(@exception_request), class: "" %>
+                </div>
+              </div>
+            <% end %>	
+          <% end %>	
+        </div>
+      </div>
+      <!-- end widget body text-->
+    </div>
+    <!-- end widget content -->
+  </div>
+  <!-- end widget div -->

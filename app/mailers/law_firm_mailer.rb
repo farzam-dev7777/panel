@@ -14,7 +14,7 @@ class LawFirmMailer < ApplicationMailer
   def initial_submissions_generated(law_firm)
   	@law_firm = law_firm
   	@user = @law_firm.try(:user)
-  	mail(to: @law_firm.email, subject: "SEAL process started")
+  	mail(to: @law_firm.email, subject: "Panel process started")
   end
 
   def decision_reached(form_submission, decision)
@@ -24,7 +24,7 @@ class LawFirmMailer < ApplicationMailer
   	if decision == 'Follow Up'
   		subject = "Admin has requested a follow up on your recent submission"
   	else
-  		subject = "Your recent SEAL submission has been #{decision}"
+  		subject = "Your recent Panel submission has been #{decision}"
   	end
   	mail(to: @user.email, subject: subject)
   end
@@ -41,7 +41,7 @@ class LawFirmMailer < ApplicationMailer
     @user = user
     @temp_password = temp_password
     @law_firm = law_firm
-    mail(to: @user.email, subject: "#{@law_firm.name} invited you to join SEAL")
+    mail(to: @user.email, subject: "#{@law_firm.name} invited you to join Panel")
   end
 
 end

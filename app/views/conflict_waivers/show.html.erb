@@ -1,0 +1,67 @@
+<style>
+		div#gauge * {
+			top: -25px;
+		}
+	</style>
+	<div class="container hidden">
+		<div class="col-lg-3 back-btn">
+			<%= link_to "<i class='fa fa-long-arrow-left'></i>".html_safe, conflict_waivers_path, class: "btn btn-sm btn-default" %>
+			<% if @conflict_waiver.try(:lxp_status) == "REJECTED" %>
+				<%= link_to "<i class='fa fa-pencil-square-o'></i> Edit".html_safe, edit_conflict_waiver_path, class: "btn btn-sm btn-primary m-l-15 no-border" %>
+			<% end %>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="col-lg-12 col-md-12 col-sm-12">
+			<div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+				<div class="page-header-sp">
+					<div class="page-title m-top-zero">New Conflict Waivers Request</div>
+					<div class="back-edit-actions">
+						<a class="btn-type-default" href="/conflict_waivers">
+							<%= image_tag "chevron-back-icon.svg", alt:"Back" %>
+						</a>
+						<% if @conflict_waiver.try(:lxp_status) == "REJECTED" %>
+							<%= link_to "Edit".html_safe, edit_conflict_waiver_path, class: "btn-type-primary" %>
+						<% end %>
+					</div>
+				</div>
+					<div class="">
+						<!-- widget content -->
+						<div class="sp-form-bg show-data-fields">
+							<div class="row">
+								<div class="col-xs-12 col-md-6">
+									<div class="field-label">Name of law firm	</div>
+									<div class="field-data"><%= @conflict_waiver.name_of_law_firm %></div>
+								</div>
+								<div class="col-xs-12 col-md-6">
+									<div class="field-label">Contact details</div>		
+									<div class="field-data"><%= @conflict_waiver.contact_details %></div>
+								</div>
+								<div class="col-xs-12 col-md-6">
+									<div class="field-label">BMO Business contact	</div>		
+									<div class="field-data"><%= @conflict_waiver.bmo_business_contact %></div>
+								</div>
+								<div class="col-xs-12 col-md-6">
+									<div class="field-label">Reason for Request	</div>		
+									<div class="field-data"><%= @conflict_waiver.reason %></div>
+								</div>
+								<div class="col-xs-12 col-md-6">
+									<div class="field-label">LXP Status</div>
+									<div class="field-data"><%= @conflict_waiver.lxp_status_show %></div>
+								</div>
+								<div class="col-xs-12 col-md-6">
+									<div class="field-label">Internal Lawyers Status</div>
+									<div class="field-data"><%= @conflict_waiver.internal_lawyers_status_show %></div>
+								</div>
+								<div class="col-xs-12 col-md-6">
+									<div class="field-label">Waiver Completely Approved</div>
+									<div class="field-data"><%= @conflict_waiver.fully_approved? ? "Yes" : "No" %></div>
+								</div>
+							</div>
+						</div>
+					</div>
+			</div>
+		</div>
+	</div>
+		 

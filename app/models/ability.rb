@@ -7,6 +7,11 @@ class Ability
       can :manage, :all
     elsif user.role == 'admin'
       cannot :manage, SystemSetting
+    elsif user.role == "lxp"  
+      can :read, ConflictWaiver 
+      can :read, ExceptionRequest 
+    elsif user.role == "internal_lawyers"  
+      cannot :edit, ConflictWaiver   
     else
       can :manage, FormSubmission do |fs|
         user.law_firm.form_submissions.map(&:id).include? fs.id
@@ -23,6 +28,8 @@ class Ability
       end
       can :read, :SecurityThreat
       can :read, :SecurityAlert
+
+      
     end
     #
     # The first argument to `can` is the action you are giving the user 

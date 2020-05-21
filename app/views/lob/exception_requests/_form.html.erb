@@ -1,0 +1,175 @@
+<style>
+  input, textarea, select { padding: 0px !important; margin: 0px; background: transparent; }
+  .inner-table{
+    border:1px solid #ccc;
+  }
+</style>
+
+
+ 
+<div class="clearfix"></div>
+
+<div class="table-responsive">
+  <%= simple_form_for [:lob, @exception_request] do |f| %>
+    <table class="table table-striped">
+      <tbody>
+        <tr>
+          <td class="text-right" width="20%"><strong>Line of Business</strong></td>
+          <td><%= f.input :line_of_business, label: false, collection: ExceptionRequest::LOB_LIST, :selected => current_user.line_of_business  %></td>
+        </tr>
+        <tr>
+          <td class="text-right" width="20%"><strong>LOB Contact Name</strong></td>
+          <td><%= f.input :lob_contact_name, label: false, :input_html => { :value => current_user.lob_contact_name } %></td>
+        </tr>
+        <tr>
+          <td class="text-right" width="20%"><strong>Submitted By</strong></td>
+          <td>
+            <%= f.input :submitted_by_email, label: false, :input_html => { :value => @current_admin_user_email, :readonly => true } %>
+            <%= f.input :user_id, :as => :hidden, :input_html => { :value => @current_admin_user_id } %>
+            <%= f.input :request_type, :as => :hidden, :input_html => { :value => "EXCEPTION" } %>
+          </td>
+        </tr>
+        <tr>
+          <td class="text-right" width="20%"><strong>Business Manager</strong></td>
+          <td>
+            <table class="table inner-table table-striped">
+              <tr>
+                <td class="text-right" width="20%"><strong>Name</strong></td>
+                <td><%= f.input :business_manager_name, label: false %></td>
+              </tr>
+              <tr>
+                <td class="text-right" width="20%"><strong>Email</strong></td>
+                <td><%= f.input :business_manager_email, label: false %></td>
+              </tr>
+              <tr>
+                <td class="text-right" width="20%"><strong>Phone</strong></td>
+                <td><%= f.input :business_manager_phone, label: false %></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td class="text-right" width="20%"><strong>Minority</strong></td>
+          <td>
+            <table class="table inner-table table-striped">
+              <tr>
+                  <td class="text-right" width="20%"><strong>Owned</strong></td>
+                  <td><%= f.input :minority_owned, label: false, collection: ExceptionRequest::MINORITY_OWNED_TYPE  , prompt: "Select" %></td>
+                </tr>
+                <tr class="minority_owned_details"  style="display:none;">
+                  <td class="text-right" width="20%"><strong>Owned Details</strong></td>
+                  <td><%= f.input :minority_owned_details, label: false%></td>
+                </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td class="text-right" width="20%"><strong>Women Owned</strong></td>
+          <td>
+            <table class="table inner-table table-striped">
+              <tr>
+                <td class="text-right" width="20%"><strong>Women Owned</strong></td>
+                <td><%= f.input :women_owned, label: false, collection: ExceptionRequest::WOMEN_OWNED_TYPE , prompt: "Select" %></td>
+              </tr>
+              <tr class="women_owned_details" style="display:none;">
+                <td class="text-right" width="20%"><strong>Women Owned Details</strong></td>
+                <td><%= f.input :women_owned_details, label: false %></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td class="text-right" width="20%"><strong>Matter</strong></td>
+          <td>
+            <table class="table inner-table table-striped">
+              <tr class="matter_name">
+                <td class="text-right" width="20%"><strong> Name</strong></td>
+                <td><%= f.input :matter_name, label: false, input_html: { autocomplete: 'off' } %></td>
+              </tr>
+              <tr>
+                <td class="text-right" width="20%"><strong> Types</strong></td>
+                <td><%= f.input :matter_types, label: false, collection: ExceptionRequest::MATTER_TYPES,  input_html: { multiple: true }%></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td class="text-right" width="20%"><strong>Notes</strong></td>
+          <td>
+            <%= f.input :notes, label: false %>
+          </td>
+        </tr>
+        <tr>
+          <td class="text-right" width="20%">
+            <strong>Law Firm</strong>
+            <% if @law_firm.id %>
+              <%= f.input :law_firm_id, as: :hidden, input_html: { value:  @law_firm.id  } %>
+            <% else %> 
+              <%= f.input :law_firm_id, as: :hidden, input_html: { value: params[:exception_request][:law_firm_id]  } %>
+            <% end %> 
+            
+          </td>
+          <td>
+            <table class="table inner-table table-striped">
+                <div class="col-md-12">
+                  <div class="col-md-12 data">
+                      <div style="" class="firmDetails">
+                        <div class="col-md-9 tab-pane ">
+                          <div class="col-md-12">
+                            <div class="col-md-6 column">Law Firm Category : </div>
+                            <div class="col-md-6 data firmName"><%= @law_firm.law_firm_category %></div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="col-md-6 column">Name : </div>
+                            <div class="col-md-6 data firmName"><%= @law_firm.name %></div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="col-md-6 column">Email : </div>		
+                            <div class="col-md-6 data firmEmail"><%= @law_firm.email %></div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="col-md-6 column">Phone : </div>		
+                            <div class="col-md-6 data firmPhone"><%= @law_firm.phone %></div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="col-md-6 column">Description : </div>		
+                            <div class="col-md-6 data firmPhone"><%= @law_firm.description %></div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="col-md-6 column">Relationship Manager Name :	</div>		
+                            <div class="col-md-6 data firmPhone"><%= @law_firm.relationship_manager_name %></div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="col-md-6 column">Relationship Manager Email : </div>		
+                            <div class="col-md-6 data firmPhone"><%= @law_firm.relationship_manager_email %></div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="col-md-6 column">Relationship Manager Phone : </div>		
+                            <div class="col-md-6 data firmPhone"><%= @law_firm.relationship_manager_phone %></div>
+                          </div>
+                          
+                        </div>
+                      </div>
+                  </div>
+                </div>
+            </table>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="text-right" width="20%"><strong>Requested By</strong></td>
+          <td>
+            <%= f.input :requested_by, label: false,  :input_html => { :value => @current_admin_user_email } %>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <%= link_to 'Cancel', @exception_request.new_record? ? admin_exception_requests_path : admin_law_firm_path, class: 'btn btn-danger btn-sm' %>
+            <%= f.button :submit, @exception_request.new_record? ? "Submit Request" : "Update Request", class: "" %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+  <% end %>
+</div>
