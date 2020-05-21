@@ -41,13 +41,20 @@
               <th>BMO lawyer name</th>
               <th>Budget amount</th>
               <th>Status</th>
-              <th width="8%">Action</th>
+              <!--<th width="8%">Action</th>-->
             </tr>
           </thead>
           <tbody>
             <% @matter_intakes.each do |matter_intake| %>
-              <tr class="" data-id="<%= matter_intake.id %>">
-                <td><%= matter_intake.submitter_name %></td>
+              <tr  onClick="window.location.href='/lob/matter_intakes/<%= matter_intake.id %>'">
+                <td>
+                  <div class="firm-name">
+                    <div class="name-avatar">
+                      <img src="<%= get_avatar_image(matter_intake&.submitter_name&.gsub(" ", "+")) %>">
+                    </div>
+                    <div><%= matter_intake.submitter_name %></div>
+                  </div>
+                </td>
                 <td><%= matter_intake.lob_contact_name %></td>
                 <td><%= matter_intake.name_of_matter_client %></td>
                 <td><%= matter_intake.matter_type.try(:matter_type) %></td>
@@ -61,7 +68,7 @@
                   </span>
                   </div>
                 </td>
-                <td>
+                <!--<td>
                   <div class="action-fields">
                     <% if matter_intake.status === "waiting_for_lawyer_review" %>
                     <a class="action-btn" href="/lob/matter_intakes/<%= matter_intake.id %>/edit">
@@ -74,9 +81,7 @@
                     </a>
                     <% link_to "view", lob_matter_intake_path(matter_intake), class: "btn btn-xs btn-secondary" %>	
                   </div>
-
-                  
-                </td>
+                </td>-->
               </tr>
             <% end %>
           </tbody>

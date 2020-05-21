@@ -312,6 +312,7 @@ nav ul li a:active {
   text-align: left !important;
   padding: 24px 10px;
   text-transform: uppercase;
+  vertical-align: middle;
 }
 .table-decoration tbody tr td{
   font-weight: 500;
@@ -322,9 +323,13 @@ nav ul li a:active {
 }
 .table-decoration tbody tr{
   border-bottom: 1px solid #D7DFE9;
+  cursor: pointer;
 }
 .table-decoration tbody tr:last-child{
   border-bottom: 0px solid #D7DFE9;
+}
+.table-decoration tbody tr:hover{
+  background-color: #f0f0f0 !important;
 }
 .table-decoration tbody tr:nth-child(even){
   background-color: #F9F9F9;
@@ -694,16 +699,16 @@ nav ul li a:active {
   border-width: 0px !important;
 }
 .table-dyanmic-search #dt_basic thead tr th:last-child{
-  background-color: transparent !important;
-  cursor: unset;
+  /* background-color: transparent !important;
+  cursor: unset; */
 }
 .table-dyanmic-search #dt_basic thead tr th:last-child{
-  background: unset !important;
-  background-image: unset !important;
+  /* background: unset !important;
+  background-image: unset !important; */
 }
 .table-dyanmic-search #dt_basic thead .sorting:last-child{
-  background: unset !important;
-  background-image: unset !important;
+  /* background: unset !important;
+  background-image: unset !important; */
 }
 .table-dyanmic-search #dt_basic thead .sorting_asc{
   background-color: #eeeeee !important;
@@ -1093,4 +1098,11 @@ nav ul li a:active {
     max-width: 1200px;
     margin: 0 auto;
   }
+}
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+  z-index: 3;
+  color: #fff;
+  background-color: #0352ca;
+  border-color: #0352ca;
+  cursor: default;
 }
