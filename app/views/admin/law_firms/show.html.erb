@@ -209,7 +209,7 @@
 						</div>
 					</div>
 					<div class="tab-pane fade" id="hr3">
-						<div class="sp-form-bg show-data-fields">
+						<div class="">
 							<% if @law_firm.form_submissions.any? %>
 								<div class="table-responsive">
 									<table class="table table-decoration table-bordered">
@@ -270,7 +270,12 @@
 
 											</td>
 											<td>
-												<%= link_to "View Submission", pricing_step_admin_form_submission_path(submission), class: "btn btn-outline-primary btn-xs" %>	
+												<% link_to "View Submission", pricing_step_admin_form_submission_path(submission), class: "btn btn-outline-primary btn-xs" %>
+												<div class="action-fields">
+													<a class="action-btn" href="/admin/form_submissions/<%= submission.id %>/pricing_step">
+														<%= image_tag "view-icon.svg", alt:"View" %>
+													</a>
+												</div>	
 											</td>
 										</tr>
 										<% end %>

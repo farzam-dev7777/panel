@@ -52,7 +52,7 @@
                       </div>
                       <div class="col-xs-12 col-md-4">
                         <%= f.label :law_firm_id_eq, :class => 'label' %>
-                        <%= f.select :law_firm_id_eq, options_from_collection_for_select(LawFirm.all, "id", "name", @q.law_firm_id_eq), {:include_blank => 'Select law firm'} %>
+                        <%= f.select :law_firm_id_eq, options_from_collection_for_select(LawFirm.all, "id", "name", @q.law_firm_id_eq), {:include_blank => 'Select law firm'}, :class => 'sp-form-control' %>
                       </div>
                       <div class="col-xs-12 text-right">
                           <%= f.submit "Search", class: "btn-type-primary input-btn m-right" %>
@@ -75,18 +75,25 @@
               <th>LOB Contact Name</th>
               <th>Panel Status</th>
               <th>LXP Status</th>
-              <th width="8%">Action</th>
+              <!--<th width="8%">Action</th>-->
             </tr>
           </thead>
           <tbody>
             <% @panel_requests.each do |panel_request| %>
-            <tr class="" data-id="<%= panel_request.id %>">
-              <td><%= panel_request.requested_by %></td>
+            <tr onClick="window.location.href='/lob/panel_requests/<%= panel_request.id %>'">
+              <td>
+                <div class="firm-name">
+                  <div class="name-avatar">
+                    <img src="<%= get_avatar_image(panel_request&.requested_by&.gsub(" ", "+")) %>">
+                  </div>
+                  <div><%= panel_request.requested_by %></div>
+                </div>
+              </td>
               <td><%= panel_request.submitted_by_email %></td>
               <td><%= panel_request.lob_contact_name %></td>
                <td><%= panel_request.status %></td>
               <td><%= panel_request.lxp_status_show ? panel_request.lxp_status_show : "-" %></td>
-              <td>
+              <!--<td>
                 <div class="action-fields">
                   <a class="action-btn" href="/lob/panel_requests/<%= panel_request.id %>/edit">
                     <%= image_tag "edit-icon.svg", alt:"Edit" %>
@@ -95,7 +102,7 @@
                     <%= image_tag "view-icon.svg", alt:"View" %>
                   </a>
                 </div>
-              </td>
+              </td>-->
             </tr>
             <% end %>
           </tbody>
