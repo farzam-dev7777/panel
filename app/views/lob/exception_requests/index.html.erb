@@ -76,7 +76,14 @@
             <% @exception_requests.each do |exception_request| %>
             <% if exception_request.law_firm_id.present? && exception_request.requested_by != nil  %>
               <tr class="" data-id="<%= exception_request.id %>">
-                <td><%= exception_request.requested_by %></td>
+                <td>
+                  <div class="firm-name">
+                    <div class="name-avatar">
+                      <img src="<%= get_avatar_image(exception_request&.requested_by&.gsub(" ", "+")) %>">
+                    </div>
+                    <div><%= exception_request.requested_by %></div>
+                  </div>
+                </td>
                 <td><%= exception_request.line_of_business %></td>
                 <td><%= exception_request.law_firm.try(:name) %></td>
                 <td><%= exception_request.lxp_status %></td>

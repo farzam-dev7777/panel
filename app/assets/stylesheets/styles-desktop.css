@@ -318,6 +318,7 @@ nav ul li a:active {
   font-size: 14px;
   color: #171F46;
   padding: 18px 10px;
+  vertical-align: middle;
 }
 .table-decoration tbody tr{
   border-bottom: 1px solid #D7DFE9;
@@ -325,8 +326,11 @@ nav ul li a:active {
 .table-decoration tbody tr:last-child{
   border-bottom: 0px solid #D7DFE9;
 }
-.table-decoration tbody tr td{
-  vertical-align: middle;
+.table-decoration tbody tr:nth-child(even){
+  background-color: #F9F9F9;
+}
+.table-decoration tbody tr:nth-child(odd){
+  background-color: #FFF;
 }
 .table-decoration tbody tr td .firm-name{
   display: flex;
@@ -345,7 +349,8 @@ nav ul li a:active {
 }
 .table-decoration tbody tr td .firm-name .name-avatar img{
   width: 35px;
-  border-radius: 150px;
+  border-radius: 4px;
+  height: 35px;
 }
 /* .table-decoration tbody tr td .status{
   
