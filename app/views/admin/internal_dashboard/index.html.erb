@@ -61,25 +61,30 @@
 								<th>Law Firm Name</th>
 								<th>LXP Status</th>
 								<th>Lawyer Status</th>
-								<th width="8%">Action</th>
+								<!--<th width="8%">Action</th>-->
 							</tr>
 						</thead>
 						<tbody>
 							<% @exception_requests.each do |exception_request| %>
 								<% if exception_request.law_firm_id.present? && exception_request.requested_by != nil  %>
-									<tr class="" data-id="<%= exception_request.id %>">
+									<tr onClick="window.location.href='/admin/exception_requests/<%= exception_request.id %>'">
 										<% if exception_request.law_firm_id.present? %>
-											<td><%= exception_request.requested_by %></td>
+											<td>
+												<div class="firm-name">
+													<div class="name-avatar"><img src="<%= get_avatar_image(exception_request&.requested_by&.gsub(" ", "+")) %>"></div>
+													<div><%= exception_request.requested_by %></div>
+												</div>
+											</td>
 											<td><%= exception_request.line_of_business %></td>
 											<td><%= exception_request.law_firm.try(:name) %></td>
 											<td><%= exception_request.lxp_status %></td>
 											<td><%= exception_request.internal_lawyers_status %></td>
-											<td>
+											<!--<td>
 												<% if current_user.role == 'lob' &&  exception_request.try(:lxp_status) != 'APPROVED' %>
 													<%= link_to "Edit", edit_admin_exception_request_path(exception_request), class: "btn btn-xs btn-primary" %>
 												<% end %> 
 												<%= link_to "Review", admin_exception_request_path(exception_request), class: "btn btn-xs btn-secondary" %>	
-											</td>
+											</td>-->
 										<% end %>
 									</tr>
               	<% end %>
@@ -111,22 +116,27 @@
 								<th>Name of law firm</th>
 								<th>Contact details</th>
 								<th>BMO business  contact</th>
-								<th width="8%">Action</th>
+								<!--<th width="8%">Action</th>-->
 							</tr>
 						</thead>
 						<tbody>
 							<% @conflict_waivers.each do |conflict_waiver| %>
-								<tr>
-									<td><%= conflict_waiver&.name_of_law_firm %></td>
+								<tr onClick="window.location.href='/admin/conflict_waivers/<%= conflict_waiver.id %>'">
+									<td>
+										<div class="firm-name">
+                      <div class="name-avatar"><img src="<%= get_avatar_image(conflict_waiver&.name_of_law_firm&.gsub(" ", "+")) %>"></div>
+                      <div><%= conflict_waiver&.name_of_law_firm %></div>
+                    </div>
+									</td>
 									<td><%= conflict_waiver&.contact_details %></td>
 									<td><%= conflict_waiver&.bmo_business_contact %></td>
-									<td>
+									<!--<td>
 										<div class="action-fields">
 											<a class="action-btn" href="/admin/conflict_waivers/<%= conflict_waiver.id %>">
 												<%= image_tag "view-icon.svg", alt:"View" %>
 											</a>
 										</div>
-									</td>
+									</td>-->
 								</tr>
 							<% end %>
 						</tbody>
@@ -166,7 +176,12 @@
 						<tbody>
 							<% @matter_intakes.each do |matter_intake| %>
 								<tr class="" data-id="<%= matter_intake.id %>">
-									<td><%= matter_intake.submitter_name %></td>
+									<td>
+										<div class="firm-name">
+                      <div class="name-avatar"><img src="<%= get_avatar_image(matter_intake&.submitter_name&.gsub(" ", "+")) %>"></div>
+                      <div><%= matter_intake.submitter_name %></div>
+                    </div>
+									</td>
 									<td><%= matter_intake.lob_contact_name %></td>
 									<td><%= matter_intake.name_of_matter_client %></td>
 									<td><%= matter_intake.matter_type.try(:matter_type) %></td>
@@ -222,7 +237,12 @@
 						<tbody>
 							<% @panel_requests.each do |panel_request| %>
 							<tr class="" data-id="<%= panel_request.id %>">
-								<td><%= panel_request.requested_by %></td>
+								<td>
+									<div class="firm-name">
+										<div class="name-avatar"><img src="<%= get_avatar_image(panel_request&.requested_by&.gsub(" ", "+")) %>"></div>
+										<div><%= panel_request.requested_by %></div>
+									</div>
+								</td>
 								<td><%= panel_request.submitted_by_email %></td>
 								<td><%= panel_request.lob_contact_name %></td>
 								<td>

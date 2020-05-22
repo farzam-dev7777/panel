@@ -57,8 +57,8 @@
                             <%= f.select :law_firm_id_eq, options_from_collection_for_select(LawFirm.all, "id", "name", @q.law_firm_id_eq), {:include_blank => 'Select law firm'}, :class => 'sp-form-control' %>
                         </div>
                         <div class="col-xs-12 col-md-12 text-right" style="">
-                            <%= f.submit "Search", class: "btn-type-primary" %>
                             <%= f.submit "Reset", type: "reset", value: "Reset",  class: "btn-type-default" %>
+                            <%= f.submit "Search", class: "btn-type-primary" %>
                         </div>
                       </div>        
                     <% end %>
@@ -86,9 +86,14 @@
           <tbody>
             <% @exception_requests.each do |exception_request| %>
             <% if exception_request.law_firm_id.present? && exception_request.requested_by != nil  %>
-              <tr class="" data-id="<%= exception_request.id %>">
+              <tr onClick="window.location.href='/admin/exception_requests/<%= exception_request.id %>'">
                 <% if exception_request.law_firm_id.present? %>
-                  <td><%= exception_request.requested_by %></td>
+                  <td>
+                    <div class="firm-name">
+                      <div class="name-avatar"><img src="<%= get_avatar_image(exception_request&.requested_by&.gsub(" ", "+")) %>"></div>
+                      <div><%= exception_request.requested_by %></div>
+                    </div>
+                  </td>
                   <td><%= exception_request.line_of_business %></td>
                   <td><%= exception_request.law_firm.try(:name) %></td>
                   <td><%= exception_request.lxp_status %></td>
