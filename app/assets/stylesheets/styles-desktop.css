@@ -908,6 +908,9 @@ nav ul li a:active {
 .sign-in-page .right-side .signin-form .sp-signin-form{
   width: 60%;
 }
+.sign-in-page .right-side .signin-form .sp-signin-form .signin-alert{
+  color: #e71414;
+}
 .sign-in-page .right-side .signin-form .sp-signin-form .sp-label{
   font-size: 12px;
   line-height: 16px;
