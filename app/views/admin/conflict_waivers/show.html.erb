@@ -5,10 +5,16 @@
 </style>
   <div class="col-lg-12">
     <div class="">
+      <div class="page-header-sp m-top">
+          <div class="page-title">Conflict Waiver</div>
+          <div class="back-edit-actions">
+            <a class="btn-type-default" href="/admin/conflict_waivers">
+              <%= image_tag "chevron-back-icon.svg", alt:"Back" %>
+            </a>
+          </div>
+        </div>
       <!-- widget div-->
       <div>
-        <!-- widget edit box -->
-        <!-- end widget edit box -->
         <!-- widget content -->
         <div class="sp-form-bg show-data-fields">
           <!-- widget body text-->
@@ -54,20 +60,20 @@
                     <%= f.input :reviewable_id, label: false, as: :hidden, input_html: { value: @conflict_waiver.id } %>
                   </div>
                   <%- if @current_user.role === "lxp" %> 
-                    <div class="col-xs-12 col-md-12">
-                      <label class="label">Status<label>
+                    <div class="col-xs-12 col-md-6">
+                      <label class="label">Status</label>
                       <%= f.input :status, label: false, collection: ConflictWaiver::CONFLICT_WAIVER_STATUS.map{|value,key| [key, value]}%>
                     </div>
                   <% end %>  
                   <%- if @current_user.role === "internal_lawyers" %>
-                    <div class="col-xs-12 col-md-12">
+                    <div class="col-xs-12 col-md-6">
                       <label class="label">Status</label>
                       <%= f.input :status, label: false, collection: ConflictWaiver::CONFLICT_WAIVER_STATUS_LAWYER.map{|value,key| [key, value]}%>
                     </div>
                   <% end %> 
                   <%- if @current_user.role === "lxp" %>
-                  <div style="display:none;" class="col-xs-12 col-md-12 internal_lawyers_box">
-                    <label class="label">Assign to<label>
+                  <div style="display:none;" class="col-xs-12 col-md-6 internal_lawyers_box">
+                    <label class="label">Assign to</label>
                     <%= f.input :assigned_to_id, label: false, collection: User.where(role: "internal_lawyers").map{|user| [user.email, user.id] } %>
                   </div>
                   <% end %> 
