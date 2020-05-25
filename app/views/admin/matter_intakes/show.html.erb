@@ -17,6 +17,15 @@
           <%= link_to "Edit".html_safe, edit_admin_matter_intake_path(id: @matter_intake.id), class: "btn-type-primary" %>
           <% end %>
         <% end %>
+
+        <% if @current_user.role === "internal_lawyers" && (@matter_intake.status === "waiting_for_lawyer_review" || @matter_intake.status === "waiting_for_lawyer_update") %>
+          <%= link_to "review", review_admin_matter_intake_path(@matter_intake), class: "btn-type-primary" %>	
+        <% elsif @current_user.role === "lxp" %>
+          <% if @matter_intake.status === "waiting_for_lxp_review" %>
+            <%= link_to "review", lxp_review_admin_matter_intake_path(@matter_intake), class: "btn-type-primary" %>
+          <% end %>
+        <% end %>
+
       </div>
     </div>
     <div class="">
