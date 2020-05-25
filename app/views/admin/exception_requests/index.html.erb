@@ -80,7 +80,7 @@
               <th>Law Firm Name</th>
               <th>LXP Status</th>
               <th>Lawyer Status</th>
-              <th width="8%">Action</th>
+              <!--<th width="8%">Action</th>-->
             </tr>
           </thead>
           <tbody>
@@ -98,7 +98,7 @@
                   <td><%= exception_request.law_firm.try(:name) %></td>
                   <td><%= exception_request.lxp_status %></td>
                   <td><%= exception_request.internal_lawyers_status %></td>
-                  <td>
+                  <!--<td>
                     <div class="action-fields">
                      <% if current_user.role == 'lob' &&  exception_request.try(:lxp_status) != 'APPROVED' %>
                         <% link_to "Edit", edit_admin_exception_request_path(exception_request), class: "btn btn-xs btn-primary" %>
@@ -110,7 +110,7 @@
                         <%= image_tag "review-icon.svg", alt:"Review" %>
                       </a> 
                     </div>
-                  </td>
+                  </td>-->
                 </tr>
                 <% end %>
               <% end %>
