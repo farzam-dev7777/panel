@@ -18,7 +18,7 @@
 	<!-- Page Header -->
 	<div class="page-header-sp m-top">
 		<div class="page-title"></div>
-		<div class="back-edit-actions">
+		<div class="back-edit-actions ">
 			<% if (@law_firm.form_submissions.any? && @law_firm.form_submissions.latest.status == 'decertified') %>
 				<a class="btn-type-primary" data-id='<%= @law_firm.id %>' data-name='<%= @law_firm.name %>'>Recertify</a>
 				<div class="">

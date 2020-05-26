@@ -8,12 +8,12 @@
     <div class="page-header-sp m-top">
       <div class="page-title">Non Panel Firm Request</div>
       <div class="back-edit-actions">
-      <a class="btn-type-default" href="/lob/exception_requests">
-        <%= image_tag "chevron-back-icon.svg", alt:"Back" %>
-      </a>
-      <% if current_user.role == "lob" %>
-        <%= link_to "Edit".html_safe, exception_request_update_engage_lob_exception_requests_path(@exception_request), class: "btn-type-primary" %>
-      <% end %>
+        <a class="btn-type-default" href="/lob/exception_requests">
+          <%= image_tag "chevron-back-icon.svg", alt:"Back" %>
+        </a>
+        <% if current_user.role == "lob" %>
+          <%= link_to "Edit".html_safe, exception_request_update_engage_lob_exception_requests_path(@exception_request), class: "btn-type-primary" %>
+        <% end %>
       </div>
     </div>
     <div class="  ">
