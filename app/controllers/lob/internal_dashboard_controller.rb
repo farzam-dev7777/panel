@@ -10,6 +10,8 @@ class Lob::InternalDashboardController < Lob::BaseController
   def index
     @exception_requests = ExceptionRequest.where(user_id: current_user.id).order('created_at DESC').limit(5)
     @exception_requests_count = ExceptionRequest.where(user_id: current_user.id).count()
+    @matter_intakes_count = MatterIntake.where(user_id: current_user.id).count()
+    @panel_requests_count = PanelRequest.where(user_id: current_user.id).count()
     @exception_requests_submitted = ExceptionRequest.where(user_id: current_user.id, internal_lawyers_status: [nil, ""]).count()
     @exception_requests_approved = ExceptionRequest.where(user_id: current_user.id, lxp_status: "APPROVED", internal_lawyers_status: "APPROVED").count()
     @exception_requests_rejected = ExceptionRequest.where(user_id: current_user.id, internal_lawyers_status: "REJECTED").count()

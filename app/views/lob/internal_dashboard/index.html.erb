@@ -9,7 +9,7 @@
 					</div>
 					<div class="card-details">
 						<div class="total-record"><%= @exception_requests_count %></div>
-						<div class="card-name">Exceptions</div>
+						<div class="card-name">Engage Non Panel Firms</div>
 						<div class="card-tag-line">Tag lines goes here</div>
 					</div>
 				</a>
@@ -20,8 +20,8 @@
 						<%= image_tag "submitted-icon.svg", alt:"Exceptions" %> 
 					</div>
 					<div class="card-details">
-						<div class="total-record"><%= @exception_requests_submitted %></div>
-						<div class="card-name">Submitted</div>
+						<div class="total-record"><%= @panel_requests_count %></div>
+						<div class="card-name">Panel Requests</div>
 						<div class="card-tag-line">Tag lines goes here</div>
 					</div>
 				</a>
@@ -32,13 +32,13 @@
 						<%= image_tag "approved-icon.svg", alt:"Exceptions" %> 
 					</div>
 					<div class="card-details">
-						<div class="total-record"><%= @exception_requests_approved %></div>
-						<div class="card-name">Approved</div>
+						<div class="total-record"><%= @matter_intakes_count %></div>
+						<div class="card-name">Matter Takes</div>
 						<div class="card-tag-line">Tag lines goes here</div>
 					</div>
 				</a>
 			</li>
-			<li class="sparks-info color-border-04">
+			<!-- <li class="sparks-info color-border-04">
 				<a href="javascript:void(0);" class="card-content">
 					<div class="card-icon bg-color-04">
 						<%= image_tag "exceptions-icon.svg", alt:"Exceptions" %> 
@@ -49,7 +49,7 @@
 						<div class="card-tag-line">Tag lines goes here</div>
 					</div>
 				</a>
-			</li>
+			</li>-->
 		</ul>
 	</div>
 </div>

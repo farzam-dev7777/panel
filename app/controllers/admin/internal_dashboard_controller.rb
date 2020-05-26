@@ -12,14 +12,17 @@ class Admin::InternalDashboardController < Admin::BaseController
       @exception_requests = ExceptionRequest.distinct.order('created_at DESC').limit(5)
       @conflict_waivers = ConflictWaiver.distinct.order('created_at DESC').limit(5)
       @matter_intakes = MatterIntake.distinct.where(status: "waiting_for_lxp_review").or(MatterIntake.distinct.where(status: "matter_open")).order('created_at DESC').limit(5)
+      @matter_intakes_count = MatterIntake.distinct.where(status: "matter_open").count()
     elsif current_user.role === "internal_lawyers"
       @exception_requests = ExceptionRequest.where(internal_lawyers_id: current_user.id).order('created_at DESC').limit(5)
       @conflict_waivers = ConflictWaiver.where(assigned_to_id: current_user.id).order('created_at DESC').limit(5)
       @matter_intakes = MatterIntake.where(lawyer_id: current_user.id).order('created_at DESC').limit(5)
+      @matter_intakes_count = MatterIntake.where(lawyer_id: current_user.id).count()
     else
       @exception_requests = ExceptionRequest.where(user_id: current_user.id).order('created_at DESC').limit(5)
       @conflict_waivers = []
       @matter_intakes = []
+      @matter_intakes_count = 0
     end
 
     @law_firms = LawFirm.distinct.joins(:form_submissions).order('law_firms.updated_at DESC').limit(5)
