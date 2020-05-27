@@ -1124,3 +1124,12 @@ nav ul li a:active {
   border-radius: 10px;
   padding: 4px 8px;
 }
+.sp-menu-item-hidden{
+  display: none;
+}
+.dashboard-title{
+  display: none;
+}
+#menu_toggle{
+  display: none;
+}

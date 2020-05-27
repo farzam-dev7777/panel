@@ -37,7 +37,8 @@
 			<div class="text-center portal-type">
 				<p>LOB Dashboard</p>
 			</div>
-			<div class="project-context user-info">
+			<div><div id="menu_toggle"><%= image_tag "menu-icon.svg", alt:"Menu_icon" %></div></div>
+			<div class="project-context user-info hide-profile">
 				<span class="project-selector dropdown-toggle" data-toggle="dropdown">
 					<%= image_tag get_avatar_image(current_user.full_name), alt:"User", class:"user-image" %> 
 					<span class="drop-down-icon">
@@ -55,11 +56,8 @@
 		<!-- END HEADER -->
 		<div class="sp-main-page">
 			<div class="left-side">
-				<div class="main-mobile-mneu">
-					<div class="dashboard-title">LOB Dashboard</div>
-					<div id="menu_toggle"><%= image_tag "menu-icon.svg", alt:"Menu_icon" %></div>
-				</div>
 				<div class="sticky-left-side" id="dashboard_menu">
+					<div class="dashboard-title">LOB Dashboard</div>
 					<nav class="sp-sidebar">
 						<ul>
 							<li class="<%= active_menu_item('/lob') %>">
@@ -74,6 +72,18 @@
 								</li>
 								<li>
 									<a href="/lob/matter_intakes"><i class="fa fa-lg fa-fw fa-briefcase"></i> Matter Intakes</a>
+								</li>
+								<li class="sp-menu-item-hidden">
+									<a href="/lob/users/edit_profile/<%= current_user.id %>" title="Edit Profile" data-action="userLogout" >
+										<% image_tag get_avatar_image(current_user.full_name), alt:"User", class:"user-image" %>
+										<i class="fa fa-user-circle-o" aria-hidden="true"></i>
+										<%= current_user.full_name %>
+									</a>
+								</li>
+								<li class="sp-menu-item-hidden">
+									<a href="/users/sign_out" title="Sign Out" data-action="userLogout" data-logout-msg="You can improve your security further after logging out by closing this opened browser">
+									<i class="fa fa-power-off" aria-hidden="true"></i> Logout
+									</a>
 								</li>
 							<% end %>
 						</ul>
