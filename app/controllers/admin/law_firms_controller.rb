@@ -5,7 +5,9 @@ class Admin::LawFirmsController < Admin::BaseController
   add_breadcrumb "Dashboard", :root_path
 
   def index
-    @law_firms =  LawFirm.where(law_firm_category: "PANEL")
+    @q = LawFirm.ransack(params[:q])
+    @law_firms = @q.result(distinct: true).where(law_firm_category: "PANEL").order('created_at DESC')
+    # @law_firms =  LawFirm.where(law_firm_category: "PANEL")
     add_breadcrumb "Law Firms", :admin_law_firms_path
   end
 

@@ -93,8 +93,23 @@
 											</td>
 											<td><%= exception_request.line_of_business %></td>
 											<td><%= exception_request.law_firm.try(:name) %></td>
-											<td><%= exception_request.lxp_status %></td>
-											<td><%= exception_request.internal_lawyers_status %></td>
+											<td>
+												<div class="status">
+													<span class="<%= exception_request.lxp_status === "APPROVED" ? 'label label-success' : 'label label-default' %>"> 
+														<%= exception_request.try(:lxp_status).try(:titleize) %>
+													</span>
+												</div>
+												<% exception_request.lxp_status %>
+											</td>
+											<td>
+												<% if exception_request.internal_lawyers_status.present? %>
+												<div class="status">
+													<span class="<%= exception_request.internal_lawyers_status === "APPROVED" ? 'label label-success' : 'label label-default' %>"> 
+														<%= exception_request.try(:internal_lawyers_status).try(:titleize) %>
+													</span>
+												</div>
+												<% end %>
+											</td>
 											<!--<td>
 												<% if current_user.role == 'lob' &&  exception_request.try(:lxp_status) != 'APPROVED' %>
 													<%= link_to "Edit", edit_admin_exception_request_path(exception_request), class: "btn btn-xs btn-primary" %>
@@ -213,9 +228,11 @@
 									<td><%= matter_intake.bmo_lawyer_name %></td>
 									<td><%= matter_intake.budget_amount %></td>
 									<td>
-										<span class="<%= matter_intake.status === "matter_open" ? 'label label-success' : 'label label-default' %>"> 
-											<%= matter_intake.status.try(:titleize) %>
-										</span>
+										<div class="status">
+											<span class="<%= matter_intake.status === "matter_open" ? 'label label-success' : 'label label-default' %>"> 
+												<%= matter_intake.status.try(:titleize) %>
+											</span>
+										</div>
 									</td>
 									<!--<td>
 										<% if @current_user.role === "internal_lawyers" && (matter_intake.status === "waiting_for_lawyer_review" || matter_intake.status === "waiting_for_lawyer_update") %>

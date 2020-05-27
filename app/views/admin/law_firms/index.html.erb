@@ -2,7 +2,6 @@
 	<span>Law Firms</span>
 <% end %>
 
-<div class="clearfix"></div>
 
 <div class="col-lg-12">
 	<div class="jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
@@ -11,6 +10,40 @@
 				<div></div>
   		</div>
 			<!-- widget div-->
+
+			<!-- Search Filter -->
+				<div class="search-filter-sp">
+					<div class="sp-filter">
+						<div class="accordion" id="sp-filter">
+							<div class="card z-depth-0">
+								<div class="card-header" id="headingThree">
+									<div class="collapsed filter-title" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+										<%= image_tag "filter-icon.svg", alt:"score" %>
+										<span>Filter</span>
+									</div>
+								</div>
+								<div id="collapseThree" class="col-md-12 collapse sp-filter-fields" aria-labelledby="headingThree" data-parent="#sp-filter">
+									<div class="card-body sp-form">
+										<%= search_form_for [:admin, @q] do |f| %>
+											<div class="row">
+												<div class="col-xs-12 col-md-4">
+													<%= f.label :name_cont, label: false, :class => 'label' %>
+													<%= f.search_field :name_cont, :class => 'sp-form-control' %>
+												</div>
+												<div class="col-xs-12 text-right">
+													<%= f.submit "Search", class: "btn-type-primary input-btn m-right" %>
+													<%= f.submit "Reset", type: "reset", value: "Reset",  class: "btn-type-default input-btn" %>
+												</div>
+											</div>        
+										<% end %>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			<!-- Search Filter END -->
+
 			<div>
 				<!-- widget content -->
 				<div class="table-dyanmic-search table-responsive">

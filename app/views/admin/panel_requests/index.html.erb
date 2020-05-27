@@ -83,8 +83,28 @@
               </td>
               <td><%= panel_request.submitted_by_email %></td>
               <td><%= panel_request.lob_contact_name %></td>
-              <td><%= panel_request.status %></td>
-              <td><%= panel_request.lxp_status_show ? panel_request.lxp_status_show : "-" %></td>
+              <td>
+                <div class="status">
+                  <% if panel_request.status.present? %>
+                    <span class="<%= panel_request.status === "Activate" ? 'label label-success' : 'label label-default' %>"> 
+                      <%= panel_request.try(:status).try(:titleize) %>
+                    </span>
+                  <% end %>
+                </div>
+                <% panel_request.status %>
+              </td>
+              <td>
+                <div class="status">
+                  <% if panel_request.lxp_status_show.present? %>
+                    <span class="<%= panel_request.lxp_status_show === "Approved" ? 'label label-success' : 'label label-default' %>"> 
+                      <%= panel_request.try(:lxp_status_show).try(:titleize) %>
+                    </span>
+                  <% else %>
+                    <div class="text-center">-</div>
+                  <% end %>
+                </div>
+                <% panel_request.lxp_status_show ? panel_request.lxp_status_show : "-" %>
+              </td>
               <!--<td>
                 <div class="action-fields">
                   <a class="action-btn" href=/admin/panel_requests/<%= panel_request.id %>">

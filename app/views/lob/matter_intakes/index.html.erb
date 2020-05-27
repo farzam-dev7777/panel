@@ -28,46 +28,45 @@
     </div>
     
     <!-- Search filter -->
-        <div class="search-filter-sp">
-          <div class="sp-filter">
-            <div class="accordion" id="sp-filter">
-              <div class="card z-depth-0">
-                <div class="card-header" id="headingThree">
-                  <div class="collapsed filter-title" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                    <%= image_tag "filter-icon.svg", alt:"score" %>
-                    <span>Filter</span>
-                  </div>
+      <div class="search-filter-sp">
+        <div class="sp-filter">
+          <div class="accordion" id="sp-filter">
+            <div class="card z-depth-0">
+              <div class="card-header" id="headingThree">
+                <div class="collapsed filter-title" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  <%= image_tag "filter-icon.svg", alt:"score" %>
+                  <span>Filter</span>
                 </div>
-                <div id="collapseThree" class="col-md-12 collapse sp-filter-fields" aria-labelledby="headingThree" data-parent="#sp-filter">
-                  <div class="card-body sp-form">
-                    <%= search_form_for [:lob, @q] do |f| %>
-                      <div class="row">
-                        <div class="col-xs-12 col-sm-4">
-                          <%= f.label :submitter_name_cont, label: false, :class => 'label'  %>
-                          <%= f.search_field :submitter_name_cont, :class => 'sp-form-control' %>
-                        </div>
-                        <div class="col-xs-12 col-sm-4">
-                          <%= f.label :lob_contact_name_cont, :class => 'label' %>
-                          <%= f.search_field :lob_contact_name_cont, :class => 'sp-form-control' %>
-                        </div>
-                        <!--<div class="col-xs-12 col-sm-4">
-                          <%= f.label :law_firm_id_eq, :class => 'label' %>
-                          <%= f.select :law_firm_id_eq, options_from_collection_for_select(LawFirm.all, "id", "name", @q.law_firm_id_eq), {:include_blank => 'Select law firm'}, :class => 'sp-form-control' %>
-                        </div>-->
-                        <div class="col-xs-12 text-right" style="margin-top: 20px;">
-                          <%= f.submit "Search", class: "btn-type-primary input-btn m-right" %>
-                          <%= f.submit "Reset", type: "reset", value: "Reset",  class: "btn-type-default input-btn" %>
-                        </div>
-                      </div>        
-                    <% end %>
-                  </div>
+              </div>
+              <div id="collapseThree" class="col-md-12 collapse sp-filter-fields" aria-labelledby="headingThree" data-parent="#sp-filter">
+                <div class="card-body sp-form">
+                  <%= search_form_for [:lob, @q] do |f| %>
+                    <div class="row">
+                      <div class="col-xs-12 col-sm-4">
+                        <%= f.label :submitter_name_cont, label: false, :class => 'label'  %>
+                        <%= f.search_field :submitter_name_cont, :class => 'sp-form-control' %>
+                      </div>
+                      <div class="col-xs-12 col-sm-4">
+                        <%= f.label :lob_contact_name_cont, :class => 'label' %>
+                        <%= f.search_field :lob_contact_name_cont, :class => 'sp-form-control' %>
+                      </div>
+                      <!--<div class="col-xs-12 col-sm-4">
+                        <%= f.label :law_firm_id_eq, :class => 'label' %>
+                        <%= f.select :law_firm_id_eq, options_from_collection_for_select(LawFirm.all, "id", "name", @q.law_firm_id_eq), {:include_blank => 'Select law firm'}, :class => 'sp-form-control' %>
+                      </div>-->
+                      <div class="col-xs-12 text-right" style="margin-top: 20px;">
+                        <%= f.submit "Search", class: "btn-type-primary input-btn m-right" %>
+                        <%= f.submit "Reset", type: "reset", value: "Reset",  class: "btn-type-default input-btn" %>
+                      </div>
+                    </div>        
+                  <% end %>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      <!-- Search Filter END -->
-
+      </div>
+    <!-- Search Filter END -->
     <div>
       <!-- widget content -->
       <div class="table-dyanmic-search table-responsive">

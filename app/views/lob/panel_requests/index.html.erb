@@ -39,9 +39,6 @@
                 <div class="card-body sp-form">
                   <%= search_form_for [:lob, @q] do |f| %>
                     <div class="row">
-                      <!--<div class="col-xs-12">
-                        <h2 style="margin: 0px 0px 10px;">Search Filter</h2>
-                      </div> -->
                       <div class="col-xs-12 col-md-4">
                           <%= f.label :requested_by_cont, label: false, :class => 'label' %>
                           <%= f.search_field :requested_by_cont, :class => 'sp-form-control' %>
@@ -55,8 +52,8 @@
                         <%= f.select :law_firm_id_eq, options_from_collection_for_select(LawFirm.all, "id", "name", @q.law_firm_id_eq), {:include_blank => 'Select law firm'}, :class => 'sp-form-control' %>
                       </div>
                       <div class="col-xs-12 text-right">
-                          <%= f.submit "Search", class: "btn-type-primary input-btn m-right" %>
-                          <%= f.submit "Reset", type: "reset", value: "Reset",  class: "btn-type-default input-btn" %>
+                        <%= f.submit "Search", class: "btn-type-primary input-btn m-right" %>
+                        <%= f.submit "Reset", type: "reset", value: "Reset",  class: "btn-type-default input-btn" %>
                       </div>
                     </div>        
                   <% end %>
