@@ -29,7 +29,7 @@
   }
   .page-header-sp{
     width: 100% !important;
-    flex-direction: column;
+    /* flex-direction: column; */
     align-items: baseline;
   }
   .page-header-btn{
