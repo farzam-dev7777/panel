@@ -31,29 +31,69 @@
     <% end %>  
     <!-- widget div-->
     <div>
-        <%= search_form_for [:lob, @q] do |f| %>
-          <!--div class="row" style="padding-top: 20px;">
-            <div class="col-xs-12 col-sm-12">
-              <h2 style="margin: 0px 0px 10px;">Search Filter</h2>
+      <!-- Search filter -->
+        <div class="search-filter-sp">
+          <div class="sp-filter">
+            <div class="accordion" id="sp-filter">
+              <div class="card z-depth-0">
+                <div class="card-header" id="headingThree">
+                  <div class="collapsed filter-title" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    <%= image_tag "filter-icon.svg", alt:"score" %>
+                    <span>Filter</span>
+                  </div>
+                </div>
+                <div id="collapseThree" class="col-md-12 collapse sp-filter-fields" aria-labelledby="headingThree" data-parent="#sp-filter">
+                  <div class="card-body sp-form">
+                    <%= search_form_for [:lob, @q] do |f| %>
+                      <div class="row">
+                        <!--<div class="col-xs-12">
+                          <h2 style="margin: 0px 0px 10px;">Search Filter</h2>
+                        </div> -->
+                        <div class="col-xs-12 col-sm-4">
+                          <%= f.label :requested_by_cont, label: false, :class => 'label'  %>
+                          <%= f.search_field :requested_by_cont, :class => 'sp-form-control' %>
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                          <%= f.label :submitted_by_email_cont, :class => 'label' %>
+                          <%= f.search_field :submitted_by_email_cont, :class => 'sp-form-control' %>
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                          <%= f.label :law_firm_id_eq, :class => 'label' %>
+                          <%= f.select :law_firm_id_eq, options_from_collection_for_select(LawFirm.all, "id", "name", @q.law_firm_id_eq), {:include_blank => 'Select law firm'}, :class => 'sp-form-control' %>
+                        </div>
+                        <div class="col-xs-12 text-right" style="margin-top: 20px;">
+                          <%= f.submit "Search", class: "btn-type-primary input-btn m-right" %>
+                          <%= f.submit "Reset", type: "reset", value: "Reset",  class: "btn-type-default input-btn" %>
+                        </div>
+                      </div>        
+                    <% end %>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="col-xs-12 col-sm-4">
-                <strong><%= f.label :requested_by_cont, label: false  %></strong>
-                <%= f.search_field :requested_by_cont %>
-            </div>
-            <div class="col-xs-12 col-sm-4">
-                <strong><%= f.label :submitted_by_email_cont %></strong>
-                <%= f.search_field :submitted_by_email_cont %>
-            </div>
-            <div class="col-xs-12 col-sm-4">
-                <strong><%= f.label :law_firm_id_eq %> </strong>
-                <%= f.select :law_firm_id_eq, options_from_collection_for_select(LawFirm.all, "id", "name", @q.law_firm_id_eq), {:include_blank => 'Select law firm'} %>
-            </div>
-            <div class="col-xs-12 text-right" style="margin-top: 20px;">
-                <%= f.submit "Search", class: "btn btn-primary" %>
-                <%= f.submit "Reset", type: "reset", value: "Reset",  class: "btn btn-primary" %>
-            </div-->
-          </div>        
-        <% end  %>
+          </div>
+        </div>
+      <!-- Search Filter END -->
+      <% search_form_for [:lob, @q] do |f| %>
+        <!--div class="row">
+          <div class="col-xs-12 col-sm-4">
+            <%= f.label :requested_by_cont, label: false, :class => 'label'  %>
+            <%= f.search_field :requested_by_cont, :class => 'sp-form-control' %>
+          </div>
+          <div class="col-xs-12 col-sm-4">
+            <%= f.label :submitted_by_email_cont, :class => 'label' %>
+            <%= f.search_field :submitted_by_email_cont, :class => 'sp-form-control' %>
+          </div>
+          <div class="col-xs-12 col-sm-4">
+            <%= f.label :law_firm_id_eq, :class => 'label' %>
+            <%= f.select :law_firm_id_eq, options_from_collection_for_select(LawFirm.all, "id", "name", @q.law_firm_id_eq), {:include_blank => 'Select law firm'}, :class => 'sp-form-control' %>
+          </div>
+          <div class="col-xs-12 text-right" style="margin-top: 20px;">
+            <%= f.submit "Search", class: "btn-type-primary input-btn m-right" %>
+            <%= f.submit "Reset", type: "reset", value: "Reset",  class: "btn-type-default input-btn" %>
+          </div>
+        </div-->        
+      <% end  %>
       <!-- widget edit box -->
       
       <!-- end widget edit box -->
@@ -86,8 +126,26 @@
                 </td>
                 <td><%= exception_request.line_of_business %></td>
                 <td><%= exception_request.law_firm.try(:name) %></td>
-                <td><%= exception_request.lxp_status %></td>
-                <td><%= exception_request.internal_lawyers_status %></td>
+                <td>
+                  <div class="status">
+                    <% if exception_request.lxp_status_show.present? %>
+                      <span class="<%= exception_request.lxp_status_show === "Approved" ? 'label label-success' : 'label label-default' %>"> 
+                        <%= exception_request.try(:lxp_status_show).try(:titleize) %>
+                      </span>
+                    <% end %>
+                  </div>
+                  <% exception_request.lxp_status %>
+                </td>
+                <td>
+                  <div class="status">
+                    <% if exception_request.internal_lawyers_status_show.present? %>
+                      <span class="<%= exception_request.internal_lawyers_status_show === "Approved" ? 'label label-success' : 'label label-default' %>"> 
+                        <%= exception_request.try(:internal_lawyers_status_show).try(:titleize) %>
+                      </span>
+                    <% end %>
+                  </div>
+                  <% exception_request.internal_lawyers_status %>
+                </td>
                 <!--<td>
                   <div class="action-fields">
                     <% if current_user.role == 'lob' &&  exception_request.try(:lxp_status) != 'APPROVED' %>

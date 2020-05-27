@@ -93,8 +93,26 @@
 									</td>
 									<td><%= exception_request.submitted_by_email %></td>
 									<td><%= exception_request.lob_contact_name %></td>
-									<td><%= exception_request.lxp_status_show %></td>
-									<td><%= exception_request.internal_lawyers_status_show %></td>
+									<td>
+										<div class="status">
+											<% if exception_request.lxp_status_show.present? %>
+												<span class="<%= exception_request.lxp_status_show === "Approved" ? 'label label-success' : 'label label-default' %>"> 
+													<%= exception_request.try(:lxp_status_show).try(:titleize) %>
+												</span>
+											<% end %>
+										</div>
+										<% exception_request.lxp_status_show %>
+									</td>
+									<td>
+										<div class="status">
+											<% if exception_request.internal_lawyers_status_show.present? %>
+												<span class="<%= exception_request.internal_lawyers_status_show === "Approved" ? 'label label-success' : 'label label-default' %>"> 
+													<%= exception_request.try(:internal_lawyers_status_show).try(:titleize) %>
+												</span>
+											<% end %>
+										</div>
+										<% exception_request.internal_lawyers_status_show %>
+									</td>
 									<!--<td>
 										<div class="action-fields">
 											<% if current_user.role == 'lob' &&  exception_request.try(:lxp_status) != 'APPROVED' %>
@@ -155,8 +173,22 @@
 										</div>
 									</td>
 									<td><%= panel_request&.law_firm&.name %></td>
-									<td><div class="status red"><%= panel_request.status %></div></td>
-									<td><%= panel_request.lxp_status %></td>
+									<td>
+										<div class="status">
+											<span class="<%= panel_request.status === "Activate" ? 'label label-success' : 'label label-default' %>"> 
+												<%= panel_request.try(:status).try(:titleize) %>
+											</span>
+										</div>
+									</td>
+									<td>
+										<div class="status">
+											<% if panel_request.lxp_status.present? %>
+												<span class="<%= panel_request.lxp_status === "APPROVED" ? 'label label-success' : 'label label-default' %>"> 
+													<%= panel_request.try(:lxp_status).try(:titleize) %>
+												</span>
+											<% end %>
+										</div>
+									</td>
 									<!--<td>
 										<div class="action-fields">
 											<% if current_user.role == 'lob' &&  panel_request.try(:lxp_status) != 'APPROVED' %>
