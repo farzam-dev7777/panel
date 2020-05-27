@@ -1,8 +1,8 @@
 <style>
 	input, textarea, select { padding: 0px !important; margin: 0px; background: transparent; }
 </style>
-<div class="page-header-sp">
-		<div class="page-title m-top-zero">
+<div class="page-header-sp m-top">
+		<div class="page-title">
 			<% content_for :page_title do %>
 				<% if @law_firm.new_record? %>
 					Onboard a law firm
@@ -16,7 +16,11 @@
 				Editing <%= @law_firm.name %>
 			<% end %>
 		</div>
-		<div class="back-edit-actions"> </div>
+		<div class="back-edit-actions">
+			<a class="btn-type-default" href="/admin/law_firms">
+				<%= image_tag "chevron-back-icon.svg", alt:"Back" %>
+			</a>
+		</div>
 	</div>
 
 <div class="sp-form sp-form-bg">

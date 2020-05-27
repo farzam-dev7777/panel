@@ -8,7 +8,7 @@
 						</div>
 						<div class="card-details">
 							<div class="total-record"><%= @exception_requests_submitted %></div>
-							<div class="card-name">Exceptions</div>
+							<div class="card-name">Engage Non Panel Firms</div>
 							<div class="card-tag-line">Tag lines goes here</div>
 						</div>
 					</a>
@@ -20,7 +20,7 @@
 						</div>
 						<div class="card-details">
 							<div class="total-record"><%= @confilictc_requests_submitted %></div>
-							<div class="card-name">Conflicts</div>
+							<div class="card-name">Conflict Waiver</div>
 							<div class="card-tag-line">Tag lines goes here</div>
 						</div>
 					</a>
@@ -28,11 +28,23 @@
 				<li class="sparks-info color-border-03">
 					<a href="javascript:void(0);" class="card-content">
 						<div class="card-icon bg-color-03">
+							<%= image_tag "approved-icon.svg", alt:"Exceptions" %> 
+						</div>
+						<div class="card-details">
+							<div class="total-record"><%= @matter_intakes_count %></div>
+							<div class="card-name">Matter Takes</div>
+							<div class="card-tag-line">Tag lines goes here</div>
+						</div>
+					</a>
+				</li>
+				<li class="sparks-info color-border-04">
+					<a href="javascript:void(0);" class="card-content">
+						<div class="card-icon bg-color-04">
 							<%= image_tag "exceptions-icon.svg", alt:"Exceptions" %> 
 						</div>
 						<div class="card-details">
 							<div class="total-record"><%= @panel_requests_submitted %></div>
-							<div class="card-name">Panel Firms</div>
+							<div class="card-name">Panel Firm Requests</div>
 							<div class="card-tag-line">Tag lines goes here</div>
 						</div>
 					</a>
@@ -46,7 +58,11 @@
 	<div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
 		<div class="page-header-sp">
 			<div class="page-title">Engage Non Panel Firms</div>
-			<div></div>
+			<div class="back-edit-actions">
+				<a class="btn-show-more" href="/admin/exception_requests">
+        Show more
+      	</a>
+			</div>
   	</div>		
 		<div class="no-padding">
 			<div class="jarviswidget-editbox"></div>
@@ -61,25 +77,30 @@
 								<th>Law Firm Name</th>
 								<th>LXP Status</th>
 								<th>Lawyer Status</th>
-								<th width="8%">Action</th>
+								<!--<th width="8%">Action</th>-->
 							</tr>
 						</thead>
 						<tbody>
 							<% @exception_requests.each do |exception_request| %>
 								<% if exception_request.law_firm_id.present? && exception_request.requested_by != nil  %>
-									<tr class="" data-id="<%= exception_request.id %>">
+									<tr onClick="window.location.href='/admin/exception_requests/<%= exception_request.id %>'">
 										<% if exception_request.law_firm_id.present? %>
-											<td><%= exception_request.requested_by %></td>
+											<td>
+												<div class="firm-name">
+													<div class="name-avatar"><img src="<%= get_avatar_image(exception_request&.requested_by&.gsub(" ", "+")) %>"></div>
+													<div><%= exception_request.requested_by %></div>
+												</div>
+											</td>
 											<td><%= exception_request.line_of_business %></td>
 											<td><%= exception_request.law_firm.try(:name) %></td>
 											<td><%= exception_request.lxp_status %></td>
 											<td><%= exception_request.internal_lawyers_status %></td>
-											<td>
+											<!--<td>
 												<% if current_user.role == 'lob' &&  exception_request.try(:lxp_status) != 'APPROVED' %>
 													<%= link_to "Edit", edit_admin_exception_request_path(exception_request), class: "btn btn-xs btn-primary" %>
 												<% end %> 
 												<%= link_to "Review", admin_exception_request_path(exception_request), class: "btn btn-xs btn-secondary" %>	
-											</td>
+											</td>-->
 										<% end %>
 									</tr>
               	<% end %>
@@ -98,7 +119,11 @@
 	<div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
 		<div class="page-header-sp">
 			<div class="page-title">Conflict Waiver</div>
-			<div></div>
+			<div class="back-edit-actions">
+				<a class="btn-show-more" href="admin/conflict_waivers">
+        Show more
+      	</a>
+			</div>
   	</div>		
 		<div class="no-padding">
 			<div class="jarviswidget-editbox"></div>
@@ -111,22 +136,27 @@
 								<th>Name of law firm</th>
 								<th>Contact details</th>
 								<th>BMO business  contact</th>
-								<th width="8%">Action</th>
+								<!--<th width="8%">Action</th>-->
 							</tr>
 						</thead>
 						<tbody>
 							<% @conflict_waivers.each do |conflict_waiver| %>
-								<tr>
-									<td><%= conflict_waiver&.name_of_law_firm %></td>
+								<tr onClick="window.location.href='/admin/conflict_waivers/<%= conflict_waiver.id %>'">
+									<td>
+										<div class="firm-name">
+                      <div class="name-avatar"><img src="<%= get_avatar_image(conflict_waiver&.name_of_law_firm&.gsub(" ", "+")) %>"></div>
+                      <div><%= conflict_waiver&.name_of_law_firm %></div>
+                    </div>
+									</td>
 									<td><%= conflict_waiver&.contact_details %></td>
 									<td><%= conflict_waiver&.bmo_business_contact %></td>
-									<td>
+									<!--<td>
 										<div class="action-fields">
 											<a class="action-btn" href="/admin/conflict_waivers/<%= conflict_waiver.id %>">
 												<%= image_tag "view-icon.svg", alt:"View" %>
 											</a>
 										</div>
-									</td>
+									</td>-->
 								</tr>
 							<% end %>
 						</tbody>
@@ -143,7 +173,11 @@
 	<div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
 		<div class="page-header-sp">
 			<div class="page-title">Matter Intake</div>
-			<div></div>
+			<div class="back-edit-actions">
+				<a class="btn-show-more" href="admin/matter_intakes">
+        Show more
+      	</a>
+			</div>
   	</div>		
 		<div class="no-padding">
 			<div class="jarviswidget-editbox"></div>
@@ -152,7 +186,7 @@
 				<div class="table-responsive">
 					<table id="" class="table table-decoration table-bordered" width="100%">
 						<thead>
-							<tr style="background: #007ac3;color: #fff;">
+							<tr>
 								<th>Submitter Name</th>
 								<th>LOB Contact Name</th>
 								<th>Name of Matter/Client</th>
@@ -161,12 +195,17 @@
 								<th>BMO lawyer name</th>
 								<th>Budget amount</th>
 								<th>Status</th>
-								<th>Action</th>
+								<!--<th>Action</th>-->
 							</tr>
 						<tbody>
 							<% @matter_intakes.each do |matter_intake| %>
-								<tr class="" data-id="<%= matter_intake.id %>">
-									<td><%= matter_intake.submitter_name %></td>
+								<tr onClick="window.location.href='/admin/matter_intakes/<%= matter_intake.id %>'">
+									<td>
+										<div class="firm-name">
+                      <div class="name-avatar"><img src="<%= get_avatar_image(matter_intake&.submitter_name&.gsub(" ", "+")) %>"></div>
+                      <div><%= matter_intake.submitter_name %></div>
+                    </div>
+									</td>
 									<td><%= matter_intake.lob_contact_name %></td>
 									<td><%= matter_intake.name_of_matter_client %></td>
 									<td><%= matter_intake.matter_type.try(:matter_type) %></td>
@@ -178,7 +217,7 @@
 											<%= matter_intake.status.try(:titleize) %>
 										</span>
 									</td>
-									<td>
+									<!--<td>
 										<% if @current_user.role === "internal_lawyers" && (matter_intake.status === "waiting_for_lawyer_review" || matter_intake.status === "waiting_for_lawyer_update") %>
 											<%= link_to "review", review_admin_matter_intake_path(matter_intake), class: "btn btn-xs btn-secondary" %>	
 										<% elsif @current_user.role === "lxp" %>
@@ -187,7 +226,7 @@
 											<% end %>
 										<% end %>
 										<%= link_to "view", admin_matter_intake_path(matter_intake), class: "btn btn-xs btn-secondary" %>
-									</td>
+									</td>-->
 								</tr>
 							<% end %>
 						</tbody>
@@ -222,7 +261,12 @@
 						<tbody>
 							<% @panel_requests.each do |panel_request| %>
 							<tr class="" data-id="<%= panel_request.id %>">
-								<td><%= panel_request.requested_by %></td>
+								<td>
+									<div class="firm-name">
+										<div class="name-avatar"><img src="<%= get_avatar_image(panel_request&.requested_by&.gsub(" ", "+")) %>"></div>
+										<div><%= panel_request.requested_by %></div>
+									</div>
+								</td>
 								<td><%= panel_request.submitted_by_email %></td>
 								<td><%= panel_request.lob_contact_name %></td>
 								<td>

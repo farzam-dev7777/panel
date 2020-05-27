@@ -6,8 +6,8 @@
 
 <div class="col-lg-12 col-md-12 col-sm-12">
   <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
-    <div class="page-header-sp">
-      <div class="page-title m-top-zero">Matter Intake</div>
+    <div class="page-header-sp m-top">
+      <div class="page-title">Matter Intake</div>
       <div class="back-edit-actions">
         <a class="btn-type-default" href="/admin/matter_intakes">
           <%= image_tag "chevron-back-icon.svg", alt:"Back" %>
@@ -17,6 +17,15 @@
           <%= link_to "Edit".html_safe, edit_admin_matter_intake_path(id: @matter_intake.id), class: "btn-type-primary" %>
           <% end %>
         <% end %>
+
+        <% if @current_user.role === "internal_lawyers" && (@matter_intake.status === "waiting_for_lawyer_review" || @matter_intake.status === "waiting_for_lawyer_update") %>
+          <%= link_to "review", review_admin_matter_intake_path(@matter_intake), class: "btn-type-primary" %>	
+        <% elsif @current_user.role === "lxp" %>
+          <% if @matter_intake.status === "waiting_for_lxp_review" %>
+            <%= link_to "review", lxp_review_admin_matter_intake_path(@matter_intake), class: "btn-type-primary" %>
+          <% end %>
+        <% end %>
+
       </div>
     </div>
     <div class="">

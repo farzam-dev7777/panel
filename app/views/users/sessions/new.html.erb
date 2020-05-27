@@ -31,9 +31,11 @@
         <div class="sp-signin-form">
           <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {id: 'login-form', class: 'smart-form client-form'}) do |f| %>
             <div class="alert alert-danger login-error"></div>
+              <span class="signin-alert">
               <%- flash.each do |name, msg| -%>
                 <%= content_tag :div, msg, :id => "<div class='alert alert-danger p-error'>flash_#{name}</div>".html_safe if msg.is_a?(String) && msg != 'You need to sign in or sign up before continuing.' %> 
               <%- end -%> 
+              </span>
               <div>
                 <label class="sp-label">Username</label>
                 <div class="sp-input">

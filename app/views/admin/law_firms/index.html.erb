@@ -6,8 +6,8 @@
 
 <div class="col-lg-12">
 	<div class="jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
-			<div class="page-header-sp">
-				<div class="page-title m-top-zero">Law Firms</div>
+			<div class="page-header-sp m-top">
+				<div class="page-title">Law Firms</div>
 				<div></div>
   		</div>
 			<!-- widget div-->
@@ -16,7 +16,7 @@
 				<div class="table-dyanmic-search table-responsive">
 					<table id="dt_basic" class="table table-decoration table-bordered" width="100%">
 						<thead>			                
-							<tr style="background: #007ac3;color: #fff;">
+							<tr>
 								<th>Firm Name</th>
 								<th>Username</th>
 								<th>Score</th>
@@ -27,7 +27,12 @@
 						<tbody>
 							<% @law_firms.each do |firm| %>
 								<tr class="law-firm-row" data-id="<%= firm.id %>">
-									<td><%= firm.name %></td>
+									<td>
+										<div class="firm-name">
+											<div class="name-avatar"><img src="<%= get_avatar_image(firm&.name&.gsub(" ", "+")) %>"></div>
+											<div><%= firm.name %></div>
+										</div>
+									</td>
 									<td><%= firm.users.first.try(:username) %></td>
 									<td>
 										<div> 

@@ -520,7 +520,7 @@
 				phone : 480
 			};
 
-			$('#dt_basic').dataTable({
+			$('#dt_basic, #dt_basic2, #dt_basic3').dataTable({
 				aLengthMenu: [
 	        [10, 25, 50, -1],
 	        [10, 25, 50, "All"]
@@ -535,7 +535,7 @@
 				},
 				"preDrawCallback" : function() {
 					if (!responsiveHelper_dt_basic) {
-						responsiveHelper_dt_basic = new ResponsiveDatatablesHelper($('#dt_basic'), breakpointDefinition);
+						responsiveHelper_dt_basic = new ResponsiveDatatablesHelper($('#dt_basic, #dt_basic2, #dt_basic3'), breakpointDefinition);
 					}
 				},
 				"rowCallback" : function(nRow) {
