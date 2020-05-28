@@ -115,7 +115,7 @@ class Admin::MatterIntakesController < Admin::BaseController
       :breakdown_of_claim_amount, :court_name, :case_caption, :court_type, :docket_number, :comset_issues, :comset_ref,
       :mi_matter, :nature_of_events, :process_type_level_1, :process_type_level_2, :product_type_level_1, :product_type_level_2,
       :event_type_level_1, :event_type_level_2, :business_activity_level_1, :business_activity_level_2, :can_reimbursed_matter,
-      :branch, :outside_counsel_engaged
+      :branch, :outside_counsel_engaged, :following_matter_involve, :deal_code 
     )
   end
 

@@ -79,12 +79,14 @@
             <% @panel_requests.each do |panel_request| %>
             <tr onClick="window.location.href='/lob/panel_requests/<%= panel_request.id %>'">
               <td>
-                <div class="firm-name">
-                  <div class="name-avatar">
-                    <img src="<%= get_avatar_image(panel_request&.requested_by&.gsub(" ", "+")) %>">
+                <% if matter_intake.submitter_name.present? %>
+                  <div class="firm-name">
+                    <div class="name-avatar">
+                      <img src="<%= get_avatar_image(panel_request&.requested_by&.gsub(" ", "+")) %>">
+                    </div>
+                    <div><%= panel_request.requested_by %></div>
                   </div>
-                  <div><%= panel_request.requested_by %></div>
-                </div>
+                <% end %>
               </td>
               <td><%= panel_request.submitted_by_email %></td>
               <td><%= panel_request.lob_contact_name %></td>

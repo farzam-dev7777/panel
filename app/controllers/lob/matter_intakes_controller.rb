@@ -67,7 +67,7 @@ class Lob::MatterIntakesController < Lob::BaseController
       :is_otherwise_reportable, :is_syndicate_matter, :is_conceal_imanage_workspace, :is_paper_file,
       :jurisdiction, :firm_type, :name_of_panel_firm, :name_of_non_panel_firm, :type_of_price,
       :is_alternative_fee_arrangement, :afa_details, :additional_matter_contact, :other_matter_issues,
-      :lawyer_reviewed_at, :other_party
+      :lawyer_reviewed_at, :other_party, :following_matter_involve, :deal_code 
     )
   end
 

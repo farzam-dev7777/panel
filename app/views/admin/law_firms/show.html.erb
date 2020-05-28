@@ -173,6 +173,75 @@
 									<div class="field-data"><%= @law_firm.number_of_lawyers %></div>
 								</div>
 								<div class="col-xs-12 col-md-6">
+								<label class="field-label">Secondary RM Contact</label>
+									<div class="field-data"><%= @law_firm.secondary_rm_contact %> </div>
+								</div>
+								<div class="col-xs-12 col-md-6">
+									<label class="field-label">Secondary RM Contact Email</label>
+									<div class="field-data"><%= @law_firm.secondary_rm_contact_email %> </div>
+								</div>
+								<div class="col-xs-12 col-md-6">
+									<label class="field-label">Billing Contact Name</label>
+									<div class="field-data"><%= @law_firm.billing_contact_name %> </div>
+								</div>
+								<div class="col-xs-12 col-md-6">
+									<label class="field-label">Billing Contact Email</label>
+									<div class="field-data"><%= @law_firm.billing_contact_email %> </div>
+								</div>
+								<div class="col-xs-12 col-md-6">
+									<label class="field-label">Information Security Contact</label>
+									<div class="field-data"><%= @law_firm.information_security_contact %> </div>
+								</div>
+								<div class="col-xs-12 col-md-6">
+									<label class="field-label">Information Security Contact Email</label>
+									<div class="field-data"><%= @law_firm.information_security_contact_email %> </div>
+								</div>
+								<div class="col-xs-12 col-md-6">
+									<label class="field-label">Diverse</label>
+									<div class="field-data"><%= @law_firm.diverse %> </div>
+								</div>
+								<div class="col-xs-12 col-md-6">
+									<label class="field-label">Value-Add Activities</label>
+									<div class="field-data"><%= @law_firm.value_add_activities %> </div>
+								</div>
+								<div class="col-xs-12 col-md-6">
+									<label class="field-label">Feedback</label>
+									<div class="field-data"><%= @law_firm.feedback %> </div>
+								</div>
+								<div class="col-xs-12 col-md-6">
+									<label class="field-label">Issues</label>
+									<div class="field-data"><%= @law_firm.issues %> </div>
+								</div>
+								<div class="col-xs-12 col-md-6">
+									<label class="field-label">Merger/Combination</label>
+									<div class="field-data"><%= @law_firm.merger_combination  %> </div>
+								</div>
+								<div class="col-xs-12 col-md-6">
+									<label class="field-label">Engagement Number</label>
+									<div class="field-data"><%= @law_firm.engagement_number  %> </div>
+								</div>
+								<div class="col-xs-12 col-md-6">
+									<label class="field-label">Relationship Number</label>
+									<div class="field-data"><%= @law_firm.relationship_number %> </div>
+								</div>
+								<div class="col-xs-12 col-md-6">
+									<label class="field-label">Information Security Class</label>
+									<div class="field-data"><%= @law_firm.information_security_class %> </div>
+								</div>
+								<div class="col-xs-12 col-md-6">
+									<label class="field-label">Information Security Assessment Outcome</label>
+									<div class="field-data"><%= @law_firm.information_security_assessment_outcome %> </div>
+								</div>
+								<div class="col-xs-12 col-md-6">
+									<label class="field-label">Action Plan Findings</label>
+									<div class="field-data"><%= @law_firm.action_plan_findings %> </div>
+								</div>
+								<div class="col-xs-12 col-md-6">
+									<label class="field-label">Action Plan Status</label>
+									<div class="field-data"><%= @law_firm.action_plan_status  %> </div>
+								</div>
+
+								<div class="col-xs-12 col-md-6">
 									<div class="field-label">Locations</div>		
 									<div class="field-data"><%= @law_firm.locations.map{|location| [location.city, location.province, location.country].reject(&:nil?).join(',') }.join("<br />").html_safe %></div>
 								</div>
