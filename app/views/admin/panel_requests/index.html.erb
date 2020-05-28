@@ -74,7 +74,7 @@
           </thead>
           <tbody>
             <% @panel_requests.each do |panel_request| %>
-            <tr  onClick="window.location.href='/admin/panel_requests/<%= panel_request.id %>'">
+            <tr onClick="window.location.href='/admin/panel_requests/<%= panel_request.id %>'">
               <td>
                 <div class="firm-name">
                   <div class="name-avatar"><img src="<%= get_avatar_image(panel_request&.requested_by&.gsub(" ", "+")) %>"></div>
