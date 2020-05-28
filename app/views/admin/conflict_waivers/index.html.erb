@@ -64,10 +64,12 @@
             <% @conflict_waivers.each do |conflict_waiver| %>
               <tr onClick="window.location.href='/admin/conflict_waivers/<%= conflict_waiver.id %>'">
                 <td>
-                  <div class="firm-name">
-                    <div class="name-avatar"><img src="<%= get_avatar_image(conflict_waiver&.name_of_law_firm&.gsub(" ", "+")) %>"></div>
-                    <div><%= conflict_waiver.name_of_law_firm %></div>
-                  </div>
+                  <% if conflict_waiver.name_of_law_firm.present? %>
+                    <div class="firm-name">
+                      <div class="name-avatar"><img src="<%= get_avatar_image(conflict_waiver&.name_of_law_firm&.gsub(" ", "+")) %>"></div>
+                      <div><%= conflict_waiver.name_of_law_firm %></div>
+                    </div>
+                  <% end %>
                 </td>
                 <td><%= conflict_waiver.contact_details %></td>
                 <td><%= conflict_waiver.bmo_business_contact %></td>

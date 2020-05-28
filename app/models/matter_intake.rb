@@ -405,6 +405,13 @@ class MatterIntake < ApplicationRecord
     "Branch Banking"
   ]
 
+  MatterInvolveFollowing = [
+    "Personal Identifiable Information > 10,000 records",
+    "Combination of sensitive and confidential information with over 10,000 records",
+    "Combination of confidential information with over 10,000 records",
+    "None of the above"
+  ]
+
   def send_notification_to_lawyer
     MatterIntakeMailer.send_notification_to_lawyer_for_form_submission(self).deliver_now
   end

@@ -43,6 +43,12 @@
         <label class="label">Matter Description</label>
         <%= f.input :matter_description, label: false %>
       </div>
+      <% if @form_type != "litigation" %>
+      <div class="col-xs-12 col-md-6">
+        <label class="label">Will this matter involve the following:</label>
+        <%= f.input :following_matter_involve, label: false, collection: MatterIntake::MatterInvolveFollowing %>
+      </div>
+      <% end %>
       <div class="col-xs-12 col-md-6">
         <label class="label">Legal Entity</label>
         <%= f.input :paying_entity, label: false, collection: MatterIntake::LegalEntity %>
@@ -78,6 +84,10 @@
       <div class="col-xs-12 col-md-6 internal-matter">
         <label class="label">Cost Centre for legal fees</label>
         <%= f.input :cost_centre_for_legal_fees, label: false %>
+      </div>
+      <div class="col-xs-12 col-md-6 internal-matter">
+        <label class="label">Deal Code (Capital Markets Only):</label>
+        <%= f.input :deal_code, label: false %>
       </div>
       <div class="col-xs-12 col-md-6 internal-matter">
         <label class="label">LOB contact to create PO</label>

@@ -89,10 +89,12 @@
               <tr onClick="window.location.href='/admin/exception_requests/<%= exception_request.id %>'">
                 <% if exception_request.law_firm_id.present? %>
                   <td>
-                    <div class="firm-name">
-                      <div class="name-avatar"><img src="<%= get_avatar_image(exception_request&.requested_by&.gsub(" ", "+")) %>"></div>
-                      <div><%= exception_request.requested_by %></div>
-                    </div>
+                    <% if exception_request.requested_by.present? %>
+                      <div class="firm-name">
+                        <div class="name-avatar"><img src="<%= get_avatar_image(exception_request&.requested_by&.gsub(" ", "+")) %>"></div>
+                        <div><%= exception_request.requested_by %></div>
+                      </div>
+                    <% end %>  
                   </td>
                   <td><%= exception_request.line_of_business %></td>
                   <td><%= exception_request.law_firm.try(:name) %></td>

@@ -86,10 +86,12 @@
 									<tr onClick="window.location.href='/admin/exception_requests/<%= exception_request.id %>'">
 										<% if exception_request.law_firm_id.present? %>
 											<td>
-												<div class="firm-name">
-													<div class="name-avatar"><img src="<%= get_avatar_image(exception_request&.requested_by&.gsub(" ", "+")) %>"></div>
-													<div><%= exception_request.requested_by %></div>
-												</div>
+												<% if exception_request.requested_by.present? %>
+													<div class="firm-name">
+														<div class="name-avatar"><img src="<%= get_avatar_image(exception_request&.requested_by&.gsub(" ", "+")) %>"></div>
+														<div><%= exception_request.requested_by %></div>
+													</div>
+												<% end %>
 											</td>
 											<td><%= exception_request.line_of_business %></td>
 											<td><%= exception_request.law_firm.try(:name) %></td>
@@ -158,10 +160,12 @@
 							<% @conflict_waivers.each do |conflict_waiver| %>
 								<tr onClick="window.location.href='/admin/conflict_waivers/<%= conflict_waiver.id %>'">
 									<td>
-										<div class="firm-name">
-                      <div class="name-avatar"><img src="<%= get_avatar_image(conflict_waiver&.name_of_law_firm&.gsub(" ", "+")) %>"></div>
-                      <div><%= conflict_waiver&.name_of_law_firm %></div>
-                    </div>
+										<% if conflict_waiver.name_of_law_firm.present? %>
+											<div class="firm-name">
+												<div class="name-avatar"><img src="<%= get_avatar_image(conflict_waiver&.name_of_law_firm&.gsub(" ", "+")) %>"></div>
+												<div><%= conflict_waiver&.name_of_law_firm %></div>
+											</div>
+										<% end %>	
 									</td>
 									<td><%= conflict_waiver&.contact_details %></td>
 									<td><%= conflict_waiver&.bmo_business_contact %></td>
@@ -216,10 +220,12 @@
 							<% @matter_intakes.each do |matter_intake| %>
 								<tr onClick="window.location.href='/admin/matter_intakes/<%= matter_intake.id %>'">
 									<td>
-										<div class="firm-name">
-                      <div class="name-avatar"><img src="<%= get_avatar_image(matter_intake&.submitter_name&.gsub(" ", "+")) %>"></div>
-                      <div><%= matter_intake.submitter_name %></div>
-                    </div>
+										<% if matter_intake.submitter_name.present? %>
+											<div class="firm-name">
+												<div class="name-avatar"><img src="<%= get_avatar_image(matter_intake&.submitter_name&.gsub(" ", "+")) %>"></div>
+												<div><%= matter_intake.submitter_name %></div>
+											</div>
+										<% end %>	
 									</td>
 									<td><%= matter_intake.lob_contact_name %></td>
 									<td><%= matter_intake.name_of_matter_client %></td>
@@ -279,10 +285,12 @@
 							<% @panel_requests.each do |panel_request| %>
 							<tr class="" data-id="<%= panel_request.id %>">
 								<td>
-									<div class="firm-name">
-										<div class="name-avatar"><img src="<%= get_avatar_image(panel_request&.requested_by&.gsub(" ", "+")) %>"></div>
-										<div><%= panel_request.requested_by %></div>
-									</div>
+									<% if panel_request.requested_by.present? %>
+										<div class="firm-name">
+											<div class="name-avatar"><img src="<%= get_avatar_image(panel_request&.requested_by&.gsub(" ", "+")) %>"></div>
+											<div><%= panel_request.requested_by %></div>
+										</div>
+									<% end %>	
 								</td>
 								<td><%= panel_request.submitted_by_email %></td>
 								<td><%= panel_request.lob_contact_name %></td>

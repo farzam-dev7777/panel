@@ -61,10 +61,12 @@
 							<% @law_firms.each do |firm| %>
 								<tr class="law-firm-row" data-id="<%= firm.id %>">
 									<td>
-										<div class="firm-name">
-											<div class="name-avatar"><img src="<%= get_avatar_image(firm&.name&.gsub(" ", "+")) %>"></div>
-											<div><%= firm.name %></div>
-										</div>
+										<% if firm.name.present? %>
+											<div class="firm-name">
+												<div class="name-avatar"><img src="<%= get_avatar_image(firm&.name&.gsub(" ", "+")) %>"></div>
+												<div><%= firm.name %></div>
+											</div>
+										<% end %>	
 									</td>
 									<td><%= firm.users.first.try(:username) %></td>
 									<td>

@@ -95,10 +95,12 @@
             <% @matter_intakes.each do |matter_intake| %>
               <tr onClick="window.location.href='/admin/matter_intakes/<%= matter_intake.id %>'">
                 <td>
+                  <% if matter_intake.submitter_name.present? %>
                   <div class="firm-name">
                     <div class="name-avatar"><img src="<%= get_avatar_image(matter_intake&.submitter_name&.gsub(" ", "+")) %>"></div>
                     <div><%= matter_intake.submitter_name %></div>
                   </div>
+                  <% end %>
                 </td>
                 <td><%= matter_intake.lob_contact_name %></td>
                 <td><%= matter_intake.name_of_matter_client %></td>
