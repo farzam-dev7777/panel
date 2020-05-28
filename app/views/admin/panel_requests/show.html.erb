@@ -12,6 +12,11 @@
 					<a class="btn-type-default" href="/admin/panel_requests">
 						<%= image_tag "chevron-back-icon.svg", alt:"Back" %>
 					</a>
+					<% if current_user.role == 'lxp' &&  @panel_request.try(:lxp_status) != 'APPROVED' %>
+						<a class="btn-type-primary" href="/admin/panel_requests/<%= @panel_request.id %>/edit">
+							Edit
+						</a>
+					<% end %> 
 				</div>
 			</div>
       <div class="  ">
@@ -108,8 +113,10 @@
 											<div class="field-label">Select State/Province : </div>		
 											<div class="field-data"><%= @panel_request.law_firm.states.map(&:name).join(", ") %></div>
 										</div>
-										<div class="col-xs-12 col-md-12 text-right">
-											<%= link_to "View Law Firm", admin_law_firm_url(@panel_request.law_firm), class: "btn-type-default" %>	
+										<div class="col-xs-12 col-md-12 text-center">
+											<%= link_to "View Law Firm", admin_law_firm_url(@panel_request.law_firm), class: "btn-type-default" %>
+										</div>
+										<div class="col-xs-12 col-md-12 text-center">	
 											<% if(@panel_request.law_firm.form_submissions.any? && @panel_request.law_firm.form_submissions.latest.status == 'approved') %>
 												<!-- <div class="col-lg-1 pull-right"> -->
 													<a class="btn-type-primary" data-id='<%= @panel_request.law_firm.id %>' data-name='<%= @panel_request.law_firm.name %>'>Decertify</a>
@@ -122,14 +129,14 @@
 
 											<% if(!@panel_request.law_firm.form_submissions.any?) %>
 												<!-- <div class="col-lg-2 pull-right"> -->
-														<% if(@panel_request.law_firm.user.try(:is_deactivated?)) %>
-														<a class="btn-type-primary" data-id="<%= @panel_request.law_firm.user.id %>">Send user information and create new password link </a>
-														<a class="btn-type-primary" data-id="<%= @panel_request.law_firm.user.id %>">Send RFI Questionnaire with user active password link </a>
-														
-														<% else %>	
-														<a class="btn-type-primary" data-id="<%= @panel_request.law_firm.id %>">Send RFI Questionnaire
-														</a>
-														<% end %>	
+													<% if(@panel_request.law_firm.user.try(:is_deactivated?)) %>
+													<a class="btn-type-primary" data-id="<%= @panel_request.law_firm.user.id %>">Send user information and create new password link </a>
+													<a class="btn-type-primary" data-id="<%= @panel_request.law_firm.user.id %>">Send RFI Questionnaire with user active password link </a>
+													
+													<% else %>	
+													<a class="btn-type-primary" data-id="<%= @panel_request.law_firm.id %>">Send RFI Questionnaire
+													</a>
+													<% end %>	
 												<!-- </div> -->
 											<% end %>
 										</div>
