@@ -57,6 +57,8 @@
               <th>Name of law firm</th>
               <th>Contact details</th>
               <th>BMO business  contact</th>
+              <th>LXP Status</th>
+              <th>Internal Lawyers Status</th>
               <!--<th width="8%">Action</th>-->
             </tr>
           </thead>
@@ -64,13 +66,34 @@
             <% @conflict_waivers.each do |conflict_waiver| %>
               <tr onClick="window.location.href='/admin/conflict_waivers/<%= conflict_waiver.id %>'">
                 <td>
-                  <div class="firm-name">
-                    <div class="name-avatar"><img src="<%= get_avatar_image(conflict_waiver&.name_of_law_firm&.gsub(" ", "+")) %>"></div>
-                    <div><%= conflict_waiver.name_of_law_firm %></div>
-                  </div>
+                  <% if conflict_waiver.name_of_law_firm.present? %>
+                    <div class="firm-name">
+                      <div class="name-avatar"><img src="<%= get_avatar_image(conflict_waiver&.name_of_law_firm&.gsub(" ", "+")) %>"></div>
+                      <div><%= conflict_waiver.name_of_law_firm %></div>
+                    </div>
+                  <% end %>
                 </td>
                 <td><%= conflict_waiver.contact_details %></td>
                 <td><%= conflict_waiver.bmo_business_contact %></td>
+                <td>
+                  <% if conflict_waiver.lxp_status_show.present? %>
+                    <div class="status">
+                      <span class="<%= conflict_waiver.lxp_status_show === "APPROVED" ? 'label label-success' : 'label label-default' %>"> 
+                        <%= conflict_waiver.try(:lxp_status_show).try(:titleize) %>
+                      </span>
+                    </div>
+                  <% end %>
+                </td>
+                <td>
+                  <% if conflict_waiver.internal_lawyers_status_show.present? %>
+                    <div class="status">
+                      <span class="<%= conflict_waiver.internal_lawyers_status_show === "Approve" ? 'label label-success' : 'label label-default' %>"> 
+                        <%= conflict_waiver.try(:internal_lawyers_status_show).try(:titleize) %>
+                      </span>
+                    </div>
+                  <% end %>
+                  <% conflict_waiver.internal_lawyers_status_show %>
+                </td>
                 <!--<td>
                   <div class="action-fields">
                     <a class="action-btn" href="/admin/conflict_waivers/<%= conflict_waiver.id %>">

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200409085020) do
+ActiveRecord::Schema.define(version: 20200529154223) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -388,6 +388,23 @@ ActiveRecord::Schema.define(version: 20200409085020) do
     t.string   "law_firm_category"
     t.boolean  "firm_use_on_regular_basis",                         default: false
     t.string   "status"
+    t.string   "secondary_rm_contact"
+    t.string   "secondary_rm_contact_email"
+    t.string   "billing_contact_name"
+    t.string   "billing_contact_email"
+    t.string   "information_security_contact"
+    t.string   "information_security_contact_email"
+    t.string   "diverse"
+    t.string   "value_add_activities"
+    t.string   "feedback"
+    t.string   "issues"
+    t.string   "merger_combination"
+    t.string   "engagement_number"
+    t.string   "relationship_number"
+    t.string   "information_security_class"
+    t.string   "information_security_assessment_outcome"
+    t.string   "action_plan_findings"
+    t.string   "action_plan_status"
   end
 
   create_table "law_firms_countries", force: :cascade do |t|
@@ -586,6 +603,9 @@ ActiveRecord::Schema.define(version: 20200409085020) do
     t.string   "business_activity_level_1"
     t.string   "business_activity_level_2"
     t.string   "court_type"
+    t.string   "following_matter_involve"
+    t.string   "deal_code"
+    t.string   "work_area_type"
   end
 
   create_table "matter_types", force: :cascade do |t|
@@ -713,7 +733,6 @@ ActiveRecord::Schema.define(version: 20200409085020) do
     t.integer  "matter_type_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
-
   end
 
   create_table "system_settings", force: :cascade do |t|

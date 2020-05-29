@@ -18,6 +18,76 @@
 					<label class="label"><i class="fa fa-question-circle-o help-text" data-help="All users that have access to law firm files, electronic or physical"></i>No. of personnel</label>
 					<%= f.input :number_of_lawyers, label: false, collection: LawFirm::NUMBER_OF_LAWYERS, input_html: { autocomplete: 'off', class: 'text-left' } %>
 				</div>
+
+				<div class="col-xs-12 col-md-6">
+					<label class="label">Secondary RM Contact</label>
+					<%= f.input :secondary_rm_contact, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
+				</div>
+				<div class="col-xs-12 col-md-6">
+					<label class="label">Secondary RM Contact Email</label>
+					<%= f.input :secondary_rm_contact_email, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
+				</div>
+				<div class="col-xs-12 col-md-6">
+					<label class="label">Billing Contact Name</label>
+					<%= f.input :billing_contact_name, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
+				</div>
+				<div class="col-xs-12 col-md-6">
+					<label class="label">Billing Contact Email</label>
+					<%= f.input :billing_contact_email,  label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
+				</div>
+				<div class="col-xs-12 col-md-6">
+					<label class="label">Information Security Contact</label>
+					<%= f.input :information_security_contact, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
+				</div>
+				<div class="col-xs-12 col-md-6">
+					<label class="label">Information Security Contact Email</label>
+					<%= f.input :information_security_contact_email, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
+				</div>
+				<div class="col-xs-12 col-md-6">
+					<label class="label">Diverse</label>
+					<%= f.input :diverse, label: false, collection: LawFirm::DIVESER, input_html: { autocomplete: 'off', class: 'text-left' } %>
+				</div>
+				<div class="col-xs-12 col-md-6">
+					<label class="label">Value-Add Activities</label>
+					<%= f.input :value_add_activities, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
+				</div>
+				<div class="col-xs-12 col-md-6">
+					<label class="label">Feedback</label>
+					<%= f.input :feedback, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
+				</div>
+				<div class="col-xs-12 col-md-6">
+					<label class="label">Issues</label>
+					<%= f.input :issues, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
+				</div>
+				<div class="col-xs-12 col-md-6">
+					<label class="label">Merger/Combination</label>
+					<%= f.input :merger_combination, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
+				</div>
+				<div class="col-xs-12 col-md-6">
+					<label class="label">Engagement Number</label>
+					<%= f.input :engagement_number, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
+				</div>
+				<div class="col-xs-12 col-md-6">
+					<label class="label">Relationship Number</label>
+					<%= f.input :relationship_number, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
+				</div>
+				<div class="col-xs-12 col-md-6">
+					<label class="label">Information Security Class</label>
+					<%= f.input :information_security_class, label: false, collection: LawFirm::INFORMATION_SECURITY_CLASS,  input_html: { autocomplete: 'off', class: 'text-left' } %>
+				</div>
+				<div class="col-xs-12 col-md-6">
+					<label class="label">Information Security Assessment Outcome</label>
+					<%= f.input :information_security_assessment_outcome, collection: LawFirm::INFORMATION_SECURITY_ASSESSMENT_OUTCOME, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
+				</div>
+				<div class="col-xs-12 col-md-6">
+					<label class="label">Action Plan Findings</label>
+					<%= f.input :action_plan_findings, as: :numeric, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
+				</div>
+				<div class="col-xs-12 col-md-6">
+					<label class="label">Action Plan Status</label>
+					<%= f.input :action_plan_status, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
+				</div>
+				<div class="col-xs-12 col-md-6"></div>
 				<div class="col-xs-12 col-md-6">
 					<label class="label">Country</label>
 					<%= f.simple_fields_for :locations do |field| %>

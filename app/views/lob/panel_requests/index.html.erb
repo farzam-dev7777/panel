@@ -39,9 +39,6 @@
                 <div class="card-body sp-form">
                   <%= search_form_for [:lob, @q] do |f| %>
                     <div class="row">
-                      <!--<div class="col-xs-12">
-                        <h2 style="margin: 0px 0px 10px;">Search Filter</h2>
-                      </div> -->
                       <div class="col-xs-12 col-md-4">
                           <%= f.label :requested_by_cont, label: false, :class => 'label' %>
                           <%= f.search_field :requested_by_cont, :class => 'sp-form-control' %>
@@ -55,8 +52,8 @@
                         <%= f.select :law_firm_id_eq, options_from_collection_for_select(LawFirm.all, "id", "name", @q.law_firm_id_eq), {:include_blank => 'Select law firm'}, :class => 'sp-form-control' %>
                       </div>
                       <div class="col-xs-12 text-right">
-                          <%= f.submit "Search", class: "btn-type-primary input-btn m-right" %>
-                          <%= f.submit "Reset", type: "reset", value: "Reset",  class: "btn-type-default input-btn" %>
+                        <%= f.submit "Search", class: "btn-type-primary input-btn m-right" %>
+                        <%= f.submit "Reset", type: "reset", value: "Reset",  class: "btn-type-default input-btn" %>
                       </div>
                     </div>        
                   <% end %>
@@ -82,17 +79,36 @@
             <% @panel_requests.each do |panel_request| %>
             <tr onClick="window.location.href='/lob/panel_requests/<%= panel_request.id %>'">
               <td>
-                <div class="firm-name">
-                  <div class="name-avatar">
-                    <img src="<%= get_avatar_image(panel_request&.requested_by&.gsub(" ", "+")) %>">
+                <% if panel_request.requested_by.present? %>
+                  <div class="firm-name">
+                    <div class="name-avatar">
+                      <img src="<%= get_avatar_image(panel_request&.requested_by&.gsub(" ", "+")) %>">
+                    </div>
+                    <div><%= panel_request.requested_by %></div>
                   </div>
-                  <div><%= panel_request.requested_by %></div>
-                </div>
+                <% end %>
               </td>
               <td><%= panel_request.submitted_by_email %></td>
               <td><%= panel_request.lob_contact_name %></td>
-               <td><%= panel_request.status %></td>
-              <td><%= panel_request.lxp_status_show ? panel_request.lxp_status_show : "-" %></td>
+              <td>
+                <div class="status">
+                  <span class="<%= panel_request.status === "Activate" ? 'label label-success' : 'label label-default' %>"> 
+                    <%= panel_request.try(:status).try(:titleize) %>
+                  </span>
+                </div>
+              </td>
+              <td>
+                <div class="status">
+                  <% if panel_request.lxp_status.present? %>
+                    <span class="<%= panel_request.lxp_status === "APPROVED" ? 'label label-success' : 'label label-default' %>"> 
+                      <%= panel_request.try(:lxp_status).try(:titleize) %>
+                    </span>
+                  <% else %>
+                    <div class="text-center">-</div>
+                  <% end %>
+                </div>
+                <% panel_request.lxp_status_show ? panel_request.lxp_status_show : "-" %>
+              </td>
               <!--<td>
                 <div class="action-fields">
                   <a class="action-btn" href="/lob/panel_requests/<%= panel_request.id %>/edit">

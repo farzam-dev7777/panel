@@ -103,7 +103,7 @@ class Admin::MatterIntakesController < Admin::BaseController
       :user_id, :submitter_name, :lob_contact_name, :name_of_matter_client, :matter_type_id,
       :matter_description, :mode_of_payment, :law_firm_id, :bmo_lawyer_name, :lawyer_id, :budget_amount,
       :lob_id, :lob_contact_for_po, :cost_centre_for_legal_fees, :paying_entity, :business_paying_for_matter,
-      :group_paying_for_matter, :status, :lob_submitted_at, :legal_group_of_bmo_lawyer, :work_area, :is_ore_reportable,
+      :group_paying_for_matter, :status, :lob_submitted_at, :legal_group_of_bmo_lawyer, :work_area, :work_area_type, :is_ore_reportable,
       :is_otherwise_reportable, :is_syndicate_matter, :is_conceal_imanage_workspace, :is_paper_file,
       :jurisdiction, :firm_type, :name_of_panel_firm, :name_of_non_panel_firm, :type_of_price,
       :is_alternative_fee_arrangement, :afa_details, :additional_matter_contact, :other_matter_issues,
@@ -115,7 +115,7 @@ class Admin::MatterIntakesController < Admin::BaseController
       :breakdown_of_claim_amount, :court_name, :case_caption, :court_type, :docket_number, :comset_issues, :comset_ref,
       :mi_matter, :nature_of_events, :process_type_level_1, :process_type_level_2, :product_type_level_1, :product_type_level_2,
       :event_type_level_1, :event_type_level_2, :business_activity_level_1, :business_activity_level_2, :can_reimbursed_matter,
-      :branch, :outside_counsel_engaged
+      :branch, :outside_counsel_engaged, :following_matter_involve, :deal_code 
     )
   end
 

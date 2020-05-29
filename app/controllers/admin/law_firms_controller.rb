@@ -5,7 +5,9 @@ class Admin::LawFirmsController < Admin::BaseController
   add_breadcrumb "Dashboard", :root_path
 
   def index
-    @law_firms =  LawFirm.where(law_firm_category: "PANEL")
+    @q = LawFirm.ransack(params[:q])
+    @law_firms = @q.result(distinct: true).where(law_firm_category: "PANEL").order('created_at DESC')
+    # @law_firms =  LawFirm.where(law_firm_category: "PANEL")
     add_breadcrumb "Law Firms", :admin_law_firms_path
   end
 
@@ -213,6 +215,23 @@ class Admin::LawFirmsController < Admin::BaseController
       :law_firm_type, :principle_name, :principle_title,
       :principle_contact_info, :parent_company, :sister_firm,
       :initial_date_of_engagement_with_the_bank,
+      :secondary_rm_contact,
+      :secondary_rm_contact_email,
+      :billing_contact_name,
+      :billing_contact_email,
+      :information_security_contact,
+      :information_security_contact_email,
+      :diverse,
+      :value_add_activities,
+      :feedback,
+      :issues,
+      :merger_combination,
+      :engagement_number,
+      :relationship_number,
+      :information_security_class,
+      :information_security_assessment_outcome,
+      :action_plan_findings,
+      :action_plan_status,
       :confidentiality_level_of_matters_that_are_handled,
       :number_of_lawyers, :law_firm_category, 
       locations_attributes: [

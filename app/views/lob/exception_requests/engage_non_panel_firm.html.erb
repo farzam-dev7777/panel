@@ -43,7 +43,7 @@
                         <%= f.input :sub_matter_types, label: false, collection: []  %>
                       </span>
                     </div>
-                    <div class="col-xs-12 col-md-4">
+                    <div class="col-xs-12 col-md-4 hide">
                       <span class="text-left jurisdiction_type">
                         <label class="label">Select Jurisdiction Type</label>
                         <%= f.input :jurisdiction_types, label: false, collection: JurisdictionType.all.map{|mt| [mt.jurisdiction_type, mt.id] }  %>

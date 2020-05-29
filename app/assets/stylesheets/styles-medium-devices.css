@@ -17,7 +17,7 @@
   }
   .sp-main-page .right-side{
     width: 100%;
-    margin-top: 55px;
+    margin-top: 15px;
   }
   .bmo-logo{
     width: 100%;
@@ -55,7 +55,8 @@
   }
   /* Toggle Menu */
   #menu_toggle {
-    
+    margin-right: 10px;
+    display: block;
   }
   #dashboard_menu {
     display: none;
@@ -63,8 +64,8 @@
     z-index: 99;
     width: 100%;
     background-color: rgb(255, 255, 255);
-    padding-top: 25px;
-    top: 118px;
+    padding-top: 15px;
+    top: 71px;
     border-top: 1px solid #ccc;
     -webkit-box-shadow: 0px 13px 14px -6px rgba(0,0,0,0.2);
     -moz-box-shadow: 0px 13px 14px -6px rgba(0,0,0,0.2);
@@ -85,6 +86,9 @@
     font-weight: bold;
     font-size: 16px;
     text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 15px;
+    display: block;
   }
   /* Toggle Menu END */
   .btn-decor-sp{
@@ -98,4 +102,18 @@
     width: 50%;
   }
   /* SignIn page END */
+  .sp-menu-item-hidden{
+    display: block;
+  }
+  .sp-menu-item-hidden .user-image{
+    width: 40px;
+    border-radius: 150px;
+  }
+  .sp-menu-item-hidden i{
+    font-size: 1.33333333em;
+    margin-right: 12px;
+  }
+  .hide-profile{
+    display: none !important;
+  }
 }

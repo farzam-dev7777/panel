@@ -74,17 +74,39 @@
           </thead>
           <tbody>
             <% @panel_requests.each do |panel_request| %>
-            <tr  onClick="window.location.href='/admin/panel_requests/<%= panel_request.id %>'">
+            <tr onClick="window.location.href='/admin/panel_requests/<%= panel_request.id %>'">
               <td>
-                <div class="firm-name">
-                  <div class="name-avatar"><img src="<%= get_avatar_image(panel_request&.requested_by&.gsub(" ", "+")) %>"></div>
-                  <div><%= panel_request.requested_by %></div>
-                </div>
+                <% if panel_request.requested_by.present? %>
+                  <div class="firm-name">
+                    <div class="name-avatar"><img src="<%= get_avatar_image(panel_request&.requested_by&.gsub(" ", "+")) %>"></div>
+                    <div><%= panel_request.requested_by %></div>
+                  </div>
+                <% end %>
               </td>
               <td><%= panel_request.submitted_by_email %></td>
               <td><%= panel_request.lob_contact_name %></td>
-              <td><%= panel_request.status %></td>
-              <td><%= panel_request.lxp_status_show ? panel_request.lxp_status_show : "-" %></td>
+              <td>
+                <div class="status">
+                  <% if panel_request.status.present? %>
+                    <span class="<%= panel_request.status === "Activate" ? 'label label-success' : 'label label-default' %>"> 
+                      <%= panel_request.try(:status).try(:titleize) %>
+                    </span>
+                  <% end %>
+                </div>
+                <% panel_request.status %>
+              </td>
+              <td>
+                <div class="status">
+                  <% if panel_request.lxp_status_show.present? %>
+                    <span class="<%= panel_request.lxp_status_show === "Approved" ? 'label label-success' : 'label label-default' %>"> 
+                      <%= panel_request.try(:lxp_status_show).try(:titleize) %>
+                    </span>
+                  <% else %>
+                    <div class="text-center">-</div>
+                  <% end %>
+                </div>
+                <% panel_request.lxp_status_show ? panel_request.lxp_status_show : "-" %>
+              </td>
               <!--<td>
                 <div class="action-fields">
                   <a class="action-btn" href=/admin/panel_requests/<%= panel_request.id %>">

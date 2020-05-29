@@ -44,7 +44,10 @@ class MatterIntake < ApplicationRecord
   ]
 
   WorkAreaLitigation = [
-    "Litigation"
+    "Employment (non-action)",
+    "Legal Administration",
+    "Litigation",
+    "Regulatory"
   ]
 
   Jurisdiction = [
@@ -403,6 +406,13 @@ class MatterIntake < ApplicationRecord
     "Insurance",
     "Card Services",
     "Branch Banking"
+  ]
+
+  MatterInvolveFollowing = [
+    "Personal Identifiable Information > 10,000 records",
+    "Combination of sensitive and confidential information with over 10,000 records",
+    "Combination of confidential information with over 10,000 records",
+    "None of the above"
   ]
 
   def send_notification_to_lawyer
