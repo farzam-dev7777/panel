@@ -1133,3 +1133,6 @@ nav ul li a:active {
 #menu_toggle{
   display: none;
 }
+.chosen-container-single .chosen-search input[type=text]{
+  height: 24px;
+}

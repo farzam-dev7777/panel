@@ -116,25 +116,25 @@
 										<div class="col-xs-12 col-md-12 text-center">
 											<%= link_to "View Law Firm", admin_law_firm_url(@panel_request.law_firm), class: "btn-type-default" %>
 										</div>
-										<div class="col-xs-12 col-md-12 text-center">	
+										<div class="col-xs-12 col-md-12 text-center mobile-action-btn">	
 											<% if(@panel_request.law_firm.form_submissions.any? && @panel_request.law_firm.form_submissions.latest.status == 'approved') %>
 												<!-- <div class="col-lg-1 pull-right"> -->
 													<a class="btn-type-primary" data-id='<%= @panel_request.law_firm.id %>' data-name='<%= @panel_request.law_firm.name %>'>Decertify</a>
 												<!-- </div> -->
 
 												<!-- <div class="col-lg-2 pull-right"> -->
-													<a class="btn-type-primary" data-id="<%= @panel_request.law_firm.id %>">Send RFI Questionnaire again			</a>
+													<a class="btn-type-primary begin-recertification-btn" data-id="<%= @panel_request.law_firm.id %>">Send RFI Questionnaire again</a>
 												<!-- </div> -->
 											<% end %>
 
 											<% if(!@panel_request.law_firm.form_submissions.any?) %>
 												<!-- <div class="col-lg-2 pull-right"> -->
 													<% if(@panel_request.law_firm.user.try(:is_deactivated?)) %>
-													<a class="btn-type-primary" data-id="<%= @panel_request.law_firm.user.id %>">Send user information and create new password link </a>
-													<a class="btn-type-primary" data-id="<%= @panel_request.law_firm.user.id %>">Send RFI Questionnaire with user active password link </a>
+													<a class="btn-type-primary send-user-info-btn" data-id="<%= @panel_request.law_firm.user.id %>">Send user information and create new password link </a>
+													<a class="btn-type-primary send-user-info-begin-certification-btn" data-id="<%= @panel_request.law_firm.user.id %>">Send RFI Questionnaire with user active password link </a>
 													
 													<% else %>	
-													<a class="btn-type-primary" data-id="<%= @panel_request.law_firm.id %>">Send RFI Questionnaire
+													<a class="btn-type-primary begin-certification-btn" data-id="<%= @panel_request.law_firm.id %>">Send RFI Questionnaire
 													</a>
 													<% end %>	
 												<!-- </div> -->

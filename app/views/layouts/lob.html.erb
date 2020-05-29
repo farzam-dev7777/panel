@@ -61,17 +61,17 @@
 					<nav class="sp-sidebar">
 						<ul>
 							<li class="<%= active_menu_item('/lob') %>">
-								<a href="/lob" title="blank_"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Dashboard</span></a>
+								<a href="/lob" title="Dashboard"><i class="fa fa-home" aria-hidden="true"></i> <span class="menu-item-parent">Dashboard</span></a>
 							</li>
 							<% if current_user && current_user.role == 'lob'  %>
 								<li class="<%= active_menu_item('/lob/exception_requests') %>">
-									<a href="/lob/exception_requests" title="blank_"><i class="fa fa-lg fa-fw fa-exclamation"></i> <span class="menu-item-parent">Engage Non Panel Firm</span></a>
+									<a href="/lob/exception_requests" title="Engage Non Panel Firm"><i class="fa fa-flag" aria-hidden="true"></i> <span class="menu-item-parent">Engage Non Panel Firm</span></a>
 								</li>
 								<li class="<%= active_menu_item('/lob/panel_requests') %>">
-									<a href="/lob/panel_requests" title="blank_"><i class="fa fa-lg fa-fw fa-check"></i> <span class="menu-item-parent">Panel Request Form</span></a>
+									<a href="/lob/panel_requests" title="Panel Request Form"><i class="fa fa-file-text-o" aria-hidden="true"></i> <span class="menu-item-parent">Panel Request Form</span></a>
 								</li>
 								<li>
-									<a href="/lob/matter_intakes"><i class="fa fa-lg fa-fw fa-briefcase"></i> Matter Intakes</a>
+									<a href="/lob/matter_intakes" title="Matter Intakes"><i class="fa fa-users" aria-hidden="true"></i> Matter Intakes</a>
 								</li>
 								<li class="sp-menu-item-hidden">
 									<a href="/lob/users/edit_profile/<%= current_user.id %>" title="Edit Profile" data-action="userLogout" >
@@ -458,7 +458,7 @@
 				phone : 480
 			};
 
-			$('#dt_basic, #dt_basic2, #dt_basic3').dataTable({
+			$('#dt_basic').dataTable({
 				aLengthMenu: [
 	        [10, 25, 50, -1],
 	        [10, 25, 50, "All"]
@@ -473,7 +473,7 @@
 				},
 				"preDrawCallback" : function() {
 					if (!responsiveHelper_dt_basic) {
-						responsiveHelper_dt_basic = new ResponsiveDatatablesHelper($('#dt_basic, #dt_basic2, #dt_basic3'), breakpointDefinition);
+						responsiveHelper_dt_basic = new ResponsiveDatatablesHelper($('#dt_basic'), breakpointDefinition);
 					}
 				},
 				"rowCallback" : function(nRow) {

@@ -154,6 +154,8 @@
     display: flex;
     overflow-y: hidden;
     overflow-x: scroll;
+    align-items: flex-end;
+    padding: 0px 0px 15px 0px !important
   }
   .sp-form > form .label {
     white-space: pre-wrap;
@@ -180,5 +182,11 @@
   }
   .hide-profile{
     display: none !important;
+  }
+  .mobile-action-btn{
+    flex-direction: column;
+  }
+  .mobile-action-btn a:first-child{
+    margin-bottom: 15px;
   }
 }
