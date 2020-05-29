@@ -103,7 +103,7 @@ class Admin::MatterIntakesController < Admin::BaseController
       :user_id, :submitter_name, :lob_contact_name, :name_of_matter_client, :matter_type_id,
       :matter_description, :mode_of_payment, :law_firm_id, :bmo_lawyer_name, :lawyer_id, :budget_amount,
       :lob_id, :lob_contact_for_po, :cost_centre_for_legal_fees, :paying_entity, :business_paying_for_matter,
-      :group_paying_for_matter, :status, :lob_submitted_at, :legal_group_of_bmo_lawyer, :work_area, :is_ore_reportable,
+      :group_paying_for_matter, :status, :lob_submitted_at, :legal_group_of_bmo_lawyer, :work_area, :work_area_type, :is_ore_reportable,
       :is_otherwise_reportable, :is_syndicate_matter, :is_conceal_imanage_workspace, :is_paper_file,
       :jurisdiction, :firm_type, :name_of_panel_firm, :name_of_non_panel_firm, :type_of_price,
       :is_alternative_fee_arrangement, :afa_details, :additional_matter_contact, :other_matter_issues,

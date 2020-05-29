@@ -862,86 +862,140 @@ $('.lxp_rejects').on('click', function() {
  
 });
 
+
+$('select#matter_intake_work_area').on('change', function() {
+	$('select#matter_intake_work_area_type').empty();
+	var options = "<option value=''> Select an option</option>";
+	switch(this.value) {
+		case "Contractual Transactions (non-lending)":
+			valueArray = ["Card Services","Cash Management","Client and/or Account Documentation","Closed End Funds","Commercial Paper","DCN","Derivatives","Exchange Traded Funds","Inter-company (BMOFG) Agreements","Interest Rate Notes","IT Procurement (Non-Outsourcing)","Mutual Funds","Non-IT Procurement","NPPNs","Offerings","Outsourcing","PPNs","Professional Services (Consulting)","REPO/SLA","Trade Finance"];
+			for (var i = 0; i < valueArray.length; i++) {
+				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
+			}
+			break;
+		case "Corporate Governance":
+			valueArray = ["BMO Board","Continuous Disclosure","Environment, Social, & Governance","Funding Transactions","Reputation Risk Review","Subsidiary Matters"];
+			for (var i = 0; i < valueArray.length; i++) {
+				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
+			}
+			break;
+		case "Employment (non-action)":
+			valueArray = ["Compensation Program","Employment Contract","Pensions"];
+			for (var i = 0; i < valueArray.length; i++) {
+				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
+			}
+			break;
+		case "General Customer Inquiries":
+			valueArray = [];
+			for (var i = 0; i < valueArray.length; i++) {
+				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
+			}
+			break;
+		case "Intellectual Property":
+			valueArray = ["Copyrights","Patents","Trade Secrets","Trademarks"];
+			for (var i = 0; i < valueArray.length; i++) {
+				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
+			}
+			break;
+		case "Legal Administration":
+			valueArray = ["Internal Projects/Budgets/Audit"];
+			for (var i = 0; i < valueArray.length; i++) {
+				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
+			}
+			break;	
+		case "Lending & Financing (inc. Secured Transactions and Workouts)":
+			valueArray = ["Commercial","Loan Syndications & Participations","Real Estate & Mortgages","Structured Finance","Trade Finance","Underwriting","Recovery"];
+			for (var i = 0; i < valueArray.length; i++) {
+				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
+			}
+			break;
+		case "M&A":
+			valueArray = ["Extraordinary (Bank is Party)","Ordinary (Bank is Advisor)"];
+			for (var i = 0; i < valueArray.length; i++) {
+				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
+			}
+			break;
+		case "Marketing":
+			valueArray = [];
+			for (var i = 0; i < valueArray.length; i++) {
+				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
+			}
+			break;
+		case "New Products":
+			valueArray = ["IDP/NPAP","Product Support"];
+			for (var i = 0; i < valueArray.length; i++) {
+				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
+			}
+			break;
+		case "Real Estate":
+			valueArray = ["Facilities","Leasing","Sales & Purchase"];
+			for (var i = 0; i < valueArray.length; i++) {
+				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
+			}
+			break;
+		case "Regulatory":
+			valueArray = ["Advisory","Audit","Competition/ Anti-trust","Enforcement Action","Filings","Inquiry","Investigations","OBSI Investigation","Privacy/ FOI/ Ombudsman"];
+			for (var i = 0; i < valueArray.length; i++) {
+				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
+			}
+			break;
+		case "Tax":
+			valueArray = [];
+			for (var i = 0; i < valueArray.length; i++) {
+				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
+			}
+			break;
+		case "Wills/Estates":
+			valueArray = ["Estates", "Power of Attorneys"];
+			for (var i = 0; i < valueArray.length; i++) {
+				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
+			}
+			break;
+		case "Litigation":
+			valueArray = ["Class Action\Customer","Class Action\Employment (Inc. Contractors)","Class Action\Non-Customer","Class Action\Securities","Customer\Action","Customer\Complaint (Non-action)","Employment\Action","Employment\Complaint (Non-action)","Internal Review/Investigations\Investigations","Internal Review/Investigations\Review","Non-Customer\Action","Non-Customer\Complaint (Non-action)","Recovery\Other than SAMU","Recovery\SAMU","Regulatory Proceedings/Tribunal","Small Claims","Third-Party Order/Subpoenas/Garnishments","Watching Brief"];
+			for (var i = 0; i < valueArray.length; i++) {
+				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
+			}
+			break;	
+		default:
+	}
+	$('#matter_intake_work_area_type').html(options);
+	$("#matter_intake_work_area_type").trigger("chosen:updated")
+})
+
 $('select#matter_intake_business_paying_for_matter').on('change', function() {
 	$('select#matter_intake_group_paying_for_matter').empty();
 	var options = "<option value=''> Select an option</option>";
 	switch(this.value) {
 		case "Canadian P&C":
-			options += "<option value='Business Banking'>Business Banking</option>";
-			options += "<option value='Collections'>Collections</option>";
-			options += "<option value='Commercial Banking - ABL'>Commercial Banking - ABL</option>";
-			options += "<option value='Commercial Banking - Auto Finance'>Commercial Banking - Auto Finance</option>";
-			options += "<option value='Commercial Banking - Capital Partners'>Commercial Banking - Capital Partners</option>";
-			options += "<option value='Commercial Banking - Diversified Industries'>Commercial Banking - Diversified Industries</option>";
-			options += "<option value='Commercial Banking - Media Finance (incl. Equipment Leasing)'>Commercial Banking - Media Finance (incl. Equipment Leasing)</option>";
-			options += "<option value='Commercial Banking - Real Estate Finance'>Commercial Banking - Real Estate Finance</option>";
-			options += "<option value='Commercial Banking - SAMU'>Commercial Banking - SAMU</option>";
-			options += "<option value='Commercial Banking - Sponsor Finance'>Commercial Banking - Sponsor Finance</option>";
-			options += "<option value='Commercial Banking - Transportation Finance'>Commercial Banking - Transportation Finance</option>";
-			options += "<option value='Commercial Banking - Treasury & Payment Solutions'>Commercial Banking - Treasury & Payment Solutions</option>";
-			options += "<option value='Digital'>Digital</option>";
-			options += "<option value='Personal Banking'>Personal Banking</option>";
-			options += "<option value='Retail & Small Business Payments'>Retail & Small Business Payments</option>";
+			valueArray = ["Business Banking","Commercial Banking - ABL","Commercial Banking - Auto Finance","Commercial Banking - BMO Capital Partners & M&A","Commercial Banking - Corporate Finance","Commercial Banking - Diversified Industries","Commercial Banking - Equipment Leasing","Commercial Banking - Media","Commercial Banking - Other (Regions)","Commercial Banking - Overhead & Support","Commercial Banking - Real Estate Lending","Commercial Banking - Retail Dealer Finance","Commercial Banking - Sponsor Coverage","Commercial Banking - Tranportation Finance","Commercial Banking - Treasury & Payment Solutions","Electronic Banking Services","Other - Customer Contact Centres","Other - Distribution Services","Other - Headquarters","Other - Investment Plan","Personal Banking - Everyday Banking","Personal Banking - Home Financing & Retail Lending","Personal Banking - NA Retail Payments","Personal Banking - Office of the COO","Personal Banking - Sales & Distribution","Personal Banking - SVP Program","Personal Banking - Term Deposits"];
+			for (var i = 0; i < valueArray.length; i++) {
+				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
+			}
 			break;
 		case "Capital Markets":
-			options += "<option value='Global I&CB - Global Advisory (M&A)'>Global I&CB - Global Advisory (M&A)</option>";
-			options += "<option value='Global I&CB - Global Corporate Banking'>Global I&CB - Global Corporate Banking</option>";
-			options += "<option value='Global I&CB - Global Corporate Finance Solutions'> Global I&CB - Global Corporate Finance Solutions</option>";
-			options += "<option value='Global I&CB - Investment Banking'>Global I&CB - Investment Banking</option>";
-			options += "<option value='Global Markets - Cross Asset Solutions'>Global Markets - Cross Asset Solutions</option>";
-			options += "<option value='Global Markets - Cross GM Structuring'>Global Markets - Cross GM Structuring</option>";
-			options += "<option value='Global Markets - Europe & Asia'>Global Markets - Europe & Asia</option>";
-			options += "<option value='Global Markets - Global Equity Products (Equities)'>Global Markets - Global Equity Products (Equities)</option>";
-			options += "<option value='Global Markets - Global Fixed Income, Currencies & Commodities (FICC)'>Global Markets - Global Fixed Income, Currencies & Commodities (FICC)</option>";
-			options += "<option value='Global Markets - Global Markets Corporate Banking'>Global Markets - Global Markets Corporate Banking</option>";
-			options += "<option value='Global Markets - Institutional Relationship Management (IRM)'>Global Markets - Institutional Relationship Management (IRM)</option>";
-			options += "<option value='Global Markets - Strategy & Business Management (SBM)'>Global Markets - Strategy & Business Management (SBM)</option>";
-			options += "<option value='Office of the COO'>Office of the COO</option>";
+			valueArray = ["Global I&CB - Excluding GTM","Global I&CB - HQ","Global I&CB - Merchant Banking","Global I&CB - Treasury & Payment Solutions","Global Markets - Cross Asset Solutions","Global Markets - Global Equity Products (Equities)","Global Markets - Global Fixed Income, Currencies & Commodities (FICC)","Global Markets - HQ and Other (Trading Products HQ, Cross Bus Risk)","Office of the COO"];
+			for (var i = 0; i < valueArray.length; i++) {
+				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
+			}
 			break;
 		case "Corporate":
-			options += "<option value='Audit'>Audit</option>";
-			options += "<option value='Communications'>Communications</option>";
-			options += "<option value='ERPM'>ERPM</option>";
-			options += "<option value='Finance'>Finance</option>";
-			options += "<option value='HR/ER'>HR/ER</option>";
-			options += "<option value='LRC'>LRC</option>";
-			options += "<option value='LRC NonLegal'>LRC NonLegal</option>";
-			options += "<option value='LRC TPP'>LRC TPP</option>";
-			options += "<option value='Marketing & Strategy'>Marketing & Strategy</option>";
-			options += "<option value='People & Culture'>People & Culture</option>";
-			options += "<option value='Real Estate'>Real Estate</option>";
-			options += "<option value='Technology & Operations'>Technology & Operations</option>";
+			valueArray = ["Audit","EI3 - CAO Office","EI3 - Insight Strategies","EI3 - Procurement","EI3 - Projects","EI3 - Real Estate","ERPM & AML","Finance","LRC","LRC Non-Legal","LRC TPP","Marketing & Strategy","Other (BMO Pools, Capital Account, Jupiter, Corp. Initiatives, U.S. Corp Office)","People & Culture - Corporate Communications","People & Culture - HR/ER","People & Culture - Office of the CEO","Senior Corporate Executive Operating","Technology & Operations"]
+			for (var i = 0; i < valueArray.length; i++) {
+				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
+			}
 			break;
 		case "U.S. P&C":
-			options += "<option value='Commercial Banking - BMO Financial Corp'>Commercial Banking - BMO Financial Corp</option>";
-			options += "<option value='Commercial Banking - Corporate Finance'>Commercial Banking - Corporate Finance</option>";
-			options += "<option value='Commercial Banking - Diversified Industries Group (DIG)'>Commercial Banking - Diversified Industries Group (DIG)</option>";
-			options += "<option value='Commercial Banking - Office of COO'>Commercial Banking - Office of COO</option>";
-			options += "<option value='Commercial Banking  -Transportation Finance'>Commercial Banking  -Transportation Finance</option>";
-			options += "<option value='Personal & Business Banking - Branches'>Personal & Business Banking - Branches</option>";
-			options += "<option value='Personal & Business Banking - Business Banking'>Personal & Business Banking - Business Banking</option>";
-			options += "<option value='Personal & Business Banking - Collections'>Personal & Business Banking - Collections</option>";
-			options += "<option value='Personal & Business Banking - Consumer Lending'>Personal & Business Banking - Consumer Lending</option>";
-			options += "<option value='Personal & Business Banking - Deposits'>Personal & Business Banking - Deposits</option>";
-			options += "<option value='Personal & Business Banking - Digital'>Personal & Business Banking - Digital</option>";
-			options += "<option value='Personal & Business Banking - Head of Distribution'>Personal & Business Banking - Head of Distribution</option>";
-			options += "<option value='Personal & Business Banking - Head of Retail'>Personal & Business Banking - Head of Retail</option>";
-			options += "<option value='Personal & Business Banking - Indirect Auto'>Personal & Business Banking - Indirect Auto</option>";
-			options += "<option value='Personal & Business Banking - Retail Payments'>Personal & Business Banking - Retail Payments</option>";
-			options += "<option value='Personal & Business Banking - Retail Specialty Sales  Mortgages'>Personal & Business Banking - Retail Specialty Sales  Mortgages</option>";
-			options += "<option value='Personal & Business Banking - Retail Specialty Sales  Premier Sales'>Personal & Business Banking - Retail Specialty Sales  Premier Sales</option>";
-			options += "<option value='Personal & Business Banking - Risk & Ops'>Personal & Business Banking - Risk & Ops</option>";
+			valueArray = ["Commercial Banking - Agriculture","Commercial Banking - Commercial Real Estate","Commercial Banking - Community Development","Commercial Banking - Corporate Finance","Commercial Banking - Dealer Finance","Commercial Banking - Diversified Industries Group (DIG)","Commercial Banking - EFC","Commercial Banking - Financial Institutions","Commercial Banking - Food & Consumer","Commercial Banking - Other (TPS, Corp Card, Global Treasury Mgmt, OREO, Other Wrap)","Commercial Banking - Transportation Finance","Other - Headquarters","Personal Banking - Brokered CD's","Personal Banking - Cards","Personal Banking - Deposit Products & Segment","Personal Banking - Indirect Auto","Personal Banking - Office of the COO","Personal Banking - Other - BB Strategy","Personal Banking - Other - HQ Administration","Personal Banking - Other - Retail","Personal Banking - Premier","Personal Banking - Regions (Excl. Small Business)","Personal Banking - Retail Lending","Personal Banking - Small Business"]
+			for (var i = 0; i < valueArray.length; i++) {
+				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
+			}
 			break;
 		case "Wealth Management":
-			options += "<option value='Global Asset Management Asia'>Global Asset Management Asia</option>";
-			options += "<option value='Global Asset Management Canada'>Global Asset Management Canada</option>";
-			options += "<option value='Global Asset Management EMEA'>Global Asset Management EMEA</option>";
-			options += "<option value='Global Asset Management U.S.'>Global Asset Management U.S.</option>";
-			options += "<option value='Insurance'>Insurance</option>";
-			options += "<option value='InvestorLine'>InvestorLine</option>";
-			options += "<option value='Personal Wealth Asia'>Personal Wealth Asia</option>";
-			options += "<option value='Personal Wealth Canada'>Personal Wealth Canada</option>";
-			options += "<option value='Wealth U.S.'>Wealth U.S.</option>";
+			valueArray = ["Global Asset Management - BAM HQ","Global Asset Management Asia","Global Asset Management Canada","Global Asset Management EMEA","Global Asset Management U.S.","HQ","Insurance","Personal Wealth - InvestorLine","Personal Wealth Canada","Personal Wealth U.S."];
+			for (var i = 0; i < valueArray.length; i++) {
+				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
+			}
 			break;
 		default:
 	}
