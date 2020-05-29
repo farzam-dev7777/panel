@@ -15,6 +15,10 @@
         <label class="label">Work Area</label>
         <%= f.input :work_area, label: false, collection: @form_type == "litigation" ? MatterIntake::WorkAreaLitigation : MatterIntake::WorkArea  %>
       </div>
+      <div class="col-xs-12 col-md-6">
+        <label class="label"><%=  @form_type == "litigation" ? "Work Area (litigation)" : "Work Area (General)" %></label>
+        <%= f.input :work_area_type, label: false, collection: [] %>
+      </div>
       <div class="col-xs-12 col-md-6 work_area_reportable" style="<%= @form_type === 'general' ? 'display: none;' : '' %>">
         <label class="label">Is this matter ORE reportable?</label>
         <%= f.input :is_ore_reportable, label: false, collection: [['Yes', true], ["No", false]] %>

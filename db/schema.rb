@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200528163755) do
+ActiveRecord::Schema.define(version: 20200529154223) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -605,6 +605,7 @@ ActiveRecord::Schema.define(version: 20200528163755) do
     t.string   "court_type"
     t.string   "following_matter_involve"
     t.string   "deal_code"
+    t.string   "work_area_type"
   end
 
   create_table "matter_types", force: :cascade do |t|

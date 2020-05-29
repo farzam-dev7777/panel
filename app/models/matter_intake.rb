@@ -44,7 +44,10 @@ class MatterIntake < ApplicationRecord
   ]
 
   WorkAreaLitigation = [
-    "Litigation"
+    "Employment (non-action)",
+    "Legal Administration",
+    "Litigation",
+    "Regulatory"
   ]
 
   Jurisdiction = [
