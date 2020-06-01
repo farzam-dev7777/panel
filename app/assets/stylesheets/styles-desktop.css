@@ -594,10 +594,10 @@ nav ul li a:active {
   display: flex;
 }
 .back-edit-actions a{
-  margin-right: 5px;
+  margin-left: 5px;
 }
 .back-edit-actions a:last-child{
-  margin-right: 5px;
+  margin-left: 5px;
 }
 .action-fields{
   display: flex;
