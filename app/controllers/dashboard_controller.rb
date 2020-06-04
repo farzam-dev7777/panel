@@ -2,7 +2,7 @@ class DashboardController < BaseController
 
   before_action :check_new_password, only: :index
 
-  def index
+	def index
   	@action_items = []
   	# if current_user.is_a_standard_user?
 	  	# if current_law_firm.profile_completed
@@ -18,6 +18,10 @@ class DashboardController < BaseController
 		# else
 		# 	root_url
 		# end
+
+		if current_user.is_panel_admin_user?
+			redirect_to admin_root_url
+		end
   end
 
   def check_new_password
