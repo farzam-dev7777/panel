@@ -48,13 +48,13 @@
                 <%= f.password_field :password, autocomplete: "off" %>
               </div>
             </div>
-            <div class="sp-signin-btn">
-              <%= f.submit "Agree & Continue", class: 'btn-type-primary' %>  
-            </div>
             <div class="sp-tc">
               <label class="checkbox" style="padding-left: 0px">
                 I agree to the <a href="#" data-toggle="modal" data-target="#tandcModal">Terms &amp; Conditions</a>
               </label>
+            </div>
+            <div class="sp-signin-btn">
+              <%= f.submit "Login", class: 'btn-type-primary' %>  
             </div>
           <% end %>
         </div>
@@ -112,7 +112,7 @@
               </section>
             </fieldset>
             <footer>
-              <%= f.submit "Agree & Continue", class: 'btn btn-primary login-btn' %>  
+              <%= f.submit "Login", class: 'btn btn-primary login-btn' %>  
             </footer>
           <% end %>
         </div>
