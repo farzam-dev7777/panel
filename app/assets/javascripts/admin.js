@@ -477,7 +477,7 @@ $('.searchLawFirm').on('click', function() {
 		})
 			.done(function( data ) {
 				var html = "<table>";
-				if(data){
+				if(data.data.length > 0 ){
 						for (var i=0; i < data.data.length; i++){
 							html += 
 							`<tr id=lawFirm_${data.data[i].id}>
@@ -488,13 +488,19 @@ $('.searchLawFirm').on('click', function() {
 								</tr>`;	
 							//options += "<option value="+data.data[i].id+">"+data.data[i].sub_matter_type+"</option>";
 						};
-						
+						html += "</table>";		
+						$('.law_firm_list table#dt_basic').find('tbody').html(html)
+						$('.law_firm_list').show()
 				}else{
-					html += "<tr><td>No Law Firm Match Your criteria<td></tr>";		
+					//html += "<tr><td>No Law Firm Match Your criteria<td></tr>";		
+					//html += "</table>";		
+					//$('.law_firm_list table#dt_basic').find('tbody').html(html)
+					//$('.law_firm_list').show()
+					$('input[name="exception_request[law_firm_id]"]').attr('checked',false);
+					$("#exception_request_is_work_no").prop('checked', true);
+					$('#new_exception_request').submit()
 				}
-				 html += "</table>";		
-				 $('.law_firm_list table#dt_basic').find('tbody').html(html)
-				 $('.law_firm_list').show()
+				
 			});
 	}else{
 		swal({
