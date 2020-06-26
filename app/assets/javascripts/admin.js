@@ -511,10 +511,26 @@ $('.searchLawFirm').on('click', function() {
 	return false
 });
 
+$('input[name="exception_request[is_work]"]').on('click', function() {
+	is_work_value = $(this).val()
+	if(is_work_value === "No"){
+		$('.engage_non_panel_firm_btn').val('Next')
+		$('.engage_non_panel_firm_btn').attr('data-disable-with', 'Next')
+		
+		$('.engage_non_panel_firm_btn').removeClass('hide')
+	}else{
+		$('.engage_non_panel_firm_btn').val('Submit Requests')
+		$('.engage_non_panel_firm_btn').attr('data-disable-with', 'Submit Requests')
+		$('.engage_non_panel_firm_btn').removeClass('hide')
+	}
+
+
+});
+
 $('.engage_non_panel_firm_btn').on('click', function() {
 	law_firm_id = $('input[name="exception_request[law_firm_id]"]:checked').val()
 	is_work = $('input[name="exception_request[is_work]"]:checked').val()
-
+	
 	if(is_work === "Yes"){
 		if(law_firm_id){
 			return true

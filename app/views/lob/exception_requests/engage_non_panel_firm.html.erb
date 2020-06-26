@@ -52,7 +52,7 @@
                     <div class="col-xs-12 col-md-4">
                       <span class="text-left country_type">
                         <label class="label">Select Country</label>
-                        <%= f.input :countries, label: false, collection: Country.all.map{|mt| [mt.name, mt.id] }  %>
+                        <%= f.input :countries, label: false, collection: Country.order(:position).map{|mt| [mt.name, mt.id] }  %>
                       </span>
                     </div>
                     <div class="col-xs-12 col-md-4 state_type_box" style="display:none">
@@ -70,7 +70,7 @@
               <div class="row law_firm_list" style="display:none">
                 <div class="col-md-12" id="wid-id-0" data-widget-editbutton="false">
                   <div class="page-header-sp">
-                    <div class="page-title">Select Law Firm</div>
+                    <div class="page-title">BMO has a series of firms that could help you with your request. We have negotiated contracts in place etc etc..</div>
                     <div> <!-- for more option in header --> </div>
                   </div>
                   <%= simple_form_for [:lob, @exception_request] do |f| %>
@@ -90,7 +90,7 @@
                           </tbody>
                         </table>
                         <div class=" ">
-                          <label class="label">Could One of these Law Firms do the work?</label>
+                          <label class="label">Could one of these BMO LXP Panel law firms do the work?</label>
                           <%= f.input :is_work, as: :radio_buttons, label: false, collection: ["Yes", "No"]  %>
                         </div>
                         <div class="">
@@ -100,7 +100,7 @@
                             <%= f.input :jurisdiction_types_search, :as => :hidden, :input_html => { :value => "" } %>
                             <%= f.input :countries_search, :as => :hidden, :input_html => { :value => "" } %>
                             <%= f.input :states_search, :as => :hidden, :input_html => { :value => "" } %>
-                            <%= f.button :submit, @exception_request.new_record? ? "Submit Request" : "Update Request", class: "btn-type-primary engage_non_panel_firm_btn" %>
+                            <%= f.button :submit, @exception_request.new_record? ? "Submit Request" : "Update Request", class: "btn-type-primary engage_non_panel_firm_btn hide" %>
                         </div>
                       </div>
                     </div>
