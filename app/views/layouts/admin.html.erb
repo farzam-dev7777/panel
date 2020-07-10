@@ -99,12 +99,12 @@
 					</li>
 					<% if current_user && ( current_user.role == 'lob' || current_user.role == 'lxp' || current_user.role == 'internal_lawyers' ) %>
 						<li class="<%= active_menu_item('/admin/exception_requests') %>">
-							<a href="/admin/exception_requests" title="Engage Non Panel Firm"><i class="fa fa-flag" aria-hidden="true"></i> <span class="menu-item-parent">Engage Non Panel Firm</span></a>
+							<a href="/admin/exception_requests" title="Engage Non Panel Firm"><i class="fa fa-flag" aria-hidden="true"></i> <span class="menu-item-parent">Non Panel Requests</span></a>
 						</li>
 					<% end %>
 					<% if current_user && (  current_user.role == 'lxp' || current_user.role == 'internal_lawyers' ) %>
 						<li class="<%= active_menu_item('/admin/conflict_waivers') %>">
-							<a href="/admin/conflict_waivers" title="Conflict Waiver"><i class="fa fa-question-circle" aria-hidden="true"></i> <span class="menu-item-parent">Conflict Waiver</span></a>
+							<a href="/admin/conflict_waivers" title="Conflict Waiver"><i class="fa fa-question-circle" aria-hidden="true"></i> <span class="menu-item-parent">Conflict Waivers</span></a>
 						</li>
 					<% end %>	
 					<% if current_user && ( current_user.role == 'internal_lawyers' || current_user.role == 'lxp') %>
@@ -114,7 +114,7 @@
 					<% end %>	
 					<% if current_user && current_user.role == 'lxp' %>
 						<li class="<%= active_menu_item('/admin/panel_requests') %>">
-							<a href="/admin/panel_requests" title="Panel Request Form"><i class="fa fa-file-text-o" aria-hidden="true"></i> <span class="menu-item-parent">Panel Request Form</span></a>
+							<a href="/admin/panel_requests" title="Panel Request Form"><i class="fa fa-file-text-o" aria-hidden="true"></i> <span class="menu-item-parent">Panel Requests</span></a>
 						</li>
 					<% end %>
 					<% if current_user && current_user.role == 'superadmin' %>

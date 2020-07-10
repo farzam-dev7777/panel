@@ -38,7 +38,7 @@ class ExceptionRequest < ApplicationRecord
   MINORITY_OWNED_TYPE = ["Yes", "No"]
   WOMEN_OWNED_TYPE = ["Yes", "No"]
 
-  EXCEPTION_REQUEST_REASON = ["Expertise", "Cost", "Designated Counsel", "No Panel Firm"]
+  EXCEPTION_REQUEST_REASON = ["Expertise", "Cost", "Designated Counsel", "Location", "Customer directed"]
   EXCEPTION_REQUEST_PAYER =  ["Bank Pay", "Customer Pay"]
   INVOLVED_ENGAGEMENT = [
     "Merger & Acquisition",

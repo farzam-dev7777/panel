@@ -78,7 +78,7 @@
 			</div>		
 			<div class="col-xs-12 col-md-6">
 				<label class="label">Select Country</label>
-				<span class="country_type"><%= f.input :country_ids, label: false, collection: Country.all.map{|mt| [mt.name, mt.id] } , input_html: { multiple: false }   %></span>
+				<span class="country_type"><%= f.input :country_ids, label: false, collection: Country.order(:position).map{|mt| [mt.name, mt.id] } , input_html: { multiple: false }   %></span>
 			</div>
 			<div class="col-xs-12 col-md-6 state_type_box" style="display:none">
 				<label class="label">Select State/Province</label>
