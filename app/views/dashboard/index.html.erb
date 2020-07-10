@@ -24,7 +24,7 @@
 	<div class="col-xs-12 col-md-12">
 		<div class="">
 			<div>
-				<% if current_law_firm.conflict_waivers.order(created_at: :desc).limit(5).size > 0 %>
+				<% if current_law_firm && current_law_firm.conflict_waivers.order(created_at: :desc).limit(5).size > 0 %>
 				<div class="table-responsive">
 					<table class="table table-decoration table-bordered">
 						<thead>
