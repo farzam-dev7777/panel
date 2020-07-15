@@ -221,7 +221,7 @@ class Lob::ExceptionRequestsController < Lob::BaseController
       :law_firm_category, :minority_owned, :minority_owned_details,
       :business_manager_name, :business_manager_phone, :business_manager_email, :is_work, :payer,
       :niche_preferred_external_counsel_panel_law_firms, :niche_expertise, :required_unique_geography, :geographic_location,
-      :involved_engagement, :reson_other,
+      :involved_engagement, :reson_other, :mode_of_payment, :matter_description, :matter_involve_following, :jurisdiction,
       :matter_types_search, :sub_matter_types_search, :jurisdiction_types_search, :countries_search, :states_search,
       :women_owned, :women_owned_details, :matter_name, :law_firm_name, matter_types: [], reason: [],
     )

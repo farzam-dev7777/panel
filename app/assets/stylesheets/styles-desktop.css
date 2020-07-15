@@ -1139,3 +1139,6 @@ nav ul li a:active {
 .sp-m-bottom{
   margin-bottom: 15px;
 }
+.mandatory {
+  color: red;
+}

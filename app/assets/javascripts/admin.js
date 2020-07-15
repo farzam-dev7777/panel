@@ -1407,3 +1407,19 @@ $('select#matter_intake_mode_of_payment, select#matter_intake_outside_counsel_en
 		}
 	}
 })
+
+$( ".exception_request_reason input.check_boxes" ).on( "click", function() {
+  var reasonArray = []
+  $(".exception_request_reason input.check_boxes:checked").each(function(){
+    reasonArray.push($(this).val());
+	});
+  if(reasonArray.includes("Expertise") || reasonArray.includes("Cost") ){
+     $('.exception_request_women_owned_box').removeClass('hide')
+  }else{
+		$('.exception_request_women_owned_box').addClass('hide')
+		$("#exception_request_women_owned").val('No');
+		$(".women_owned_details").hide();
+		$('#exception_request_women_owned_details').val('');
+		$("#exception_request_women_owned").trigger("chosen:updated");
+  }
+});

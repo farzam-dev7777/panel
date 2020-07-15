@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200626115912) do
+ActiveRecord::Schema.define(version: 20200715143317) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -201,6 +201,10 @@ ActiveRecord::Schema.define(version: 20200626115912) do
     t.text     "geographic_location"
     t.string   "involved_engagement"
     t.text     "reson_other"
+    t.string   "mode_of_payment"
+    t.string   "matter_description"
+    t.string   "matter_involve_following"
+    t.string   "jurisdiction"
   end
 
   create_table "faq_categories", force: :cascade do |t|

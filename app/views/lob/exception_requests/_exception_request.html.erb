@@ -10,7 +10,7 @@
         <div class="sp-form-bg show-data-fields">
           <div class="row">
             <div class="col-xs-12 col-md-6">
-              <div class="field-label">Reason For New Nngage Non Panel Firm	:	</div>
+              <div class="field-label">Reason For New Non Panel Firm	:	</div>
               <div class="field-data"><%= @exception_request.reason.reject(&:blank?).join(", ") %></div>
             </div>
              <div class="col-xs-12 col-md-6">
@@ -48,55 +48,67 @@
                   <div class="field-label">Phone : </div>		
                   <div class="field-data"><%= @exception_request.law_firm.try(:phone) %></div>
                 </div>
-                <div class="col-xs-12 col-md-6">
+                <!--<div class="col-xs-12 col-md-6">
                   <div class="field-label">Would You use this firm on a regular basis? : </div>		
                   <div class="field-data"><%= @exception_request.law_firm.try(:relationship_manager_name) ? "Yes" : "No" %></div>
                 </div>
                 <div class="col-xs-12 col-md-6">
                   <div class="field-label">Would You use this firm on a regular basis? :	</div>		
                   <div class="field-data"><%= @exception_request.law_firm.try(:show_matter_types) %></div>
-                </div>
+                </div>-->
               </div>
             </div>
           </div>
           <div class="row form-field-alignment">
             <div class="col-xs-12 col-md-6">
-              <div class="field-label">IS this a specific niche expertise that is not already available from one of the preferred external counsel panel law firms ?	:</div>
-              <div class="field-data"><%= @exception_request.niche_preferred_external_counsel_panel_law_firms ? "Yes" : "No" %></div>
+              <div class="field-label">Name of Matter/ Client	:</div>
+              <div class="field-data"><%= @exception_request.matter_name %></div>
             </div>
             <div class="col-xs-12 col-md-6">
-              <div class="field-label">IS this a specific niche expertise that is not already available from one of the preferred external counsel panel law firms ?:</div>		
-              <div class="field-data"><%= @exception_request.niche_expertise %></div>
+              <div class="field-label">How will this matter be paid? :</div>		
+              <div class="field-data"><%= @exception_request.mode_of_payment %></div>
             </div>
           </div>
           <div class="row form-field-alignment">
             <div class="col-xs-12 col-md-6">
-              <div class="field-label">Does this firm practice in a required unique geography that is not already available from one of the preferred outside counsel Panel Law firms?	:</div>		
-              <div class="field-data"><%= @exception_request.required_unique_geography ? "Yes" : "No" %></div>
+              <div class="field-label">Description of the matter	:</div>		
+              <div class="field-data"><%= @exception_request.matter_description %></div>
             </div>
             <div class="col-xs-12 col-md-6">
-              <div class="field-label">Would engagements of this firm involve the following	: </div>		
-              <div class="field-data"><%= @exception_request.involved_engagement %></div>
+              <div class="field-label">Will this matter involve the following : </div>		
+              <div class="field-data"><%= @exception_request.matter_involve_following %></div>
             </div>
           </div>
           <div class="row form-field-alignment">      
             <div class="col-xs-12 col-md-6">
-              <div class="field-label">Women Owned:</div>		
+              <div class="field-label">What type of matter would this firm be working on?</div>		
+              <div class="field-data"><%= @exception_request.matter_types.join(', ') %></div>
+            </div>
+            <div class="col-xs-12 col-md-6">
+              <div class="field-label">What jurisdiction will the law firm operate in for this matter?</div>		
+              <div class="field-data"><%= @exception_request.jurisdiction %></div>
+            </div>
+          </div>
+          <div class="row form-field-alignment">      
+            <div class="col-xs-12 col-md-6">
+              <div class="field-label">Is this a certified minority/woman owned firm?</div>		
               <div class="field-data"><%= @exception_request.women_owned %></div>
             </div>
             <div class="col-xs-12 col-md-6">
-              <div class="field-label">Women Owned Details:</div>		
+              <div class="field-label">If yes, which organization certified the firm?</div>		
               <div class="field-data"><%= @exception_request.women_owned_details %></div>
             </div>
           </div>
           <div class="row form-field-alignment">
-            <div class="col-xs-12 col-md-6">
+            <!--<div class="col-xs-12 col-md-6">
               <div class="field-label">Please confirm the reason(s) , there than theses listed above, that this firm should be considered for the preferred outside counsel Panel:</div>		
               <div class="field-data"><%= @exception_request.reson_other %></div>
-            </div>
+            </div>-->
             <div class="col-xs-12 col-md-6">
               <div class="field-label">LXP Status:</div>
               <div class="field-data"><%=  @exception_request.lxp_status_show ? @exception_request.lxp_status_show : "-" %></div>
+            </div>
+            <div class="col-xs-12 col-md-6">
             </div>
           </div>
           <div class="row form-field-alignment">

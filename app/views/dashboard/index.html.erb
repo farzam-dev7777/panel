@@ -68,8 +68,73 @@
 	</div>
 </div>
 
+<div class="row">
+	<div class="col-xs-12 col-md-12">
+		<div class="page-header-sp">
+			<div class="page-title">Submissions</div>
+			<div></div>
+		</div>
+	</div>
+	<div class="col-xs-12 col-md-12">
+		<div class="">
+			<% if current_law_firm && current_law_firm.form_submissions.any? %>
+			<div class="table-responsive">
+				<table class="table table-decoration table-bordered">
+					<thead>
+					<tr>
+							<th>Submission ID</th>
+							<!-- <th class="text-center">Score</th> -->
+							<th>Date of certification</th>
+							<th>Date of submission</th>
+							<th>Status</th>
+							<th>Evidence Status</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+					<% current_law_firm.form_submissions.reverse.each do |submission| %>
+					<tr>
+						<td><%= submission.id %></td>
+						<!-- <td><%= submission.total_score || '-' %></td> -->
+						<td><%= submission.approved_at.try(:strftime, "%d/%m/%Y") || '-' %></td>
+						<td><%= submission.submitted_on.try(:strftime, "%d/%m/%Y") || '-' %></td>
+						<td>
+							<span class="label label-<%= submission_status_class(submission) %>">
+								<%= submission.try(:formatted_status) %>
+							</span>
+						</td>
+						<td>
+							<%= submission.try(:formatted_evidence_status) %>
+							<% if submission.try(:status) == 'decertified' %>	
+								<br><em><%= submission.try(:reason) %></em>
+							<% end %>
+						</td>
+						<td>
+							<div class="action-fields">
+								<% if submission.try(:status) != 'approved' %>
+									<a class="action-btn" href="/form_submissions/<%= submission.id %>/pricing_step?readonly=true">
+										<%= image_tag "view-icon.svg", alt:"View" %>
+									</a>
+								<% else %>
+									<%= link_to 'View', "", class: "btn btn-outline-primary btn-xs", onclick: "alert('Disabled')" %>	
+								<% end %>
+							</div>
+						</td>
+					</tr>											
+					<% end %>
+					</tbody>
+				</table>
+			</div>
+			<% else %>
+				<div class="sp-form sp-form-bg">
+					<h4 class="text-center">There are no submissions to review yet</h4>
+				</div>
+				<br/><br/>
+			<% end %>
+		</div>
+	</div>
+</div>
 
-				
 <div class="row">
 	<div class="col-xs-12 col-md-12">
 		<div class="page-header-sp m-top">
@@ -255,75 +320,6 @@
 		</div>
 	</div>
 </div>
-
-
-
-<div class="row">
-	<div class="col-xs-12 col-md-12">
-		<div class="page-header-sp">
-			<div class="page-title">Submissions</div>
-			<div></div>
-		</div>
-	</div>
-	<div class="col-xs-12 col-md-12">
-		<div class="">
-			<% if current_law_firm && current_law_firm.form_submissions.any? %>
-			<div class="table-responsive">
-				<table class="table table-decoration table-bordered">
-					<thead>
-					<tr>
-							<th>Submission ID</th>
-							<!-- <th class="text-center">Score</th> -->
-							<th>Date of certification</th>
-							<th>Date of submission</th>
-							<th>Status</th>
-							<th>Evidence Status</th>
-							<th>Action</th>
-						</tr>
-					</thead>
-					<tbody>
-					<% current_law_firm.form_submissions.reverse.each do |submission| %>
-					<tr>
-						<td><%= submission.id %></td>
-						<!-- <td><%= submission.total_score || '-' %></td> -->
-						<td><%= submission.approved_at.try(:strftime, "%d/%m/%Y") || '-' %></td>
-						<td><%= submission.submitted_on.try(:strftime, "%d/%m/%Y") || '-' %></td>
-						<td>
-							<span class="label label-<%= submission_status_class(submission) %>">
-								<%= submission.try(:formatted_status) %>
-							</span>
-						</td>
-						<td>
-							<%= submission.try(:formatted_evidence_status) %>
-							<% if submission.try(:status) == 'decertified' %>	
-								<br><em><%= submission.try(:reason) %></em>
-							<% end %>
-						</td>
-						<td>
-							<div class="action-fields">
-								<% if submission.try(:status) != 'approved' %>
-									<a class="action-btn" href="/form_submissions/<%= submission.id %>/pricing_step?readonly=true">
-										<%= image_tag "view-icon.svg", alt:"View" %>
-									</a>
-								<% else %>
-									<%= link_to 'View', "", class: "btn btn-outline-primary btn-xs", onclick: "alert('Disabled')" %>	
-								<% end %>
-							</div>
-						</td>
-					</tr>											
-					<% end %>
-					</tbody>
-				</table>
-			</div>
-			<% else %>
-				<h4 class="text-center">There are no submissions to review yet</h4>
-			<% end %>
-		</div>
-	</div>
-</div>
-
-	
-
 
 
 <br>
