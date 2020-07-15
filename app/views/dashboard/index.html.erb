@@ -32,7 +32,7 @@
 							<th>Name of law firm</th>
 							<th>Date of submission</th>
 							<th>LXP Status</th>
-							<th>Lawyer Status</th>
+							<!--<th>Lawyer Status</th>-->
 							<th width="8%">Action</th>
 						</tr>
 						</thead>
@@ -42,7 +42,7 @@
 								<td><%= conflict_waiver.name_of_law_firm %></td>
 								<td><%= conflict_waiver.created_at.strftime("%d %b, %Y") %></td>
 								<td><%= conflict_waiver.lxp_status_show %></td>
-								<td><%= conflict_waiver.internal_lawyers_status_show %></td>
+								<!--<td><%= conflict_waiver.internal_lawyers_status_show %></td>-->
 								<td>
 									<div class="action-fields">
 										<% if conflict_waiver.try(:lxp_status) != 'APPROVED' %>
