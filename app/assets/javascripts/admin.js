@@ -1423,3 +1423,27 @@ $( ".exception_request_reason input.check_boxes" ).on( "click", function() {
 		$("#exception_request_women_owned").trigger("chosen:updated");
   }
 });
+
+if($('select#panel_request_niche_preferred_external_counsel_panel_law_firms').val() == "Yes"){
+	$('.panel_request_niche_expertise').show()
+}
+$('select#panel_request_niche_preferred_external_counsel_panel_law_firms').on('change', function() {
+	if(this.value == "true"){
+		$('.panel_request_niche_expertise').show()
+	}else{
+		$('.panel_request_niche_expertise').hide()
+		$('#panel_request_niche_expertise').val(" ")
+	}
+});
+
+if($('select#panel_request_required_unique_geography').val() == "Yes"){
+	$('.panel_request_geographic_location').show()
+}
+$('select#panel_request_required_unique_geography').on('change', function() {
+	if(this.value == "true"){
+		$('.panel_request_geographic_location').show()
+	}else{
+		$('.panel_request_geographic_location').hide()
+		$('#panel_request_geographic_location').val(" ")
+	}
+});

@@ -46,10 +46,18 @@ class PanelRequest < ApplicationRecord
     "PANEL_RETAINER": "Panel Retainer Sent",
     "APPROVED": "Approved",
     "REJECTED": "Rejected"
-    
   }
 
-  validates_presence_of :requested_by, :submitted_by_email, :line_of_business, :lob_contact_name, :minority_owned, :women_owned
+  INVOLVED_ENGAGEMENT = [
+    "Merger & Acquisition",
+    "Litigation",
+    "Personam Identifiable information > 10,000 records",
+    "Combination of sensitive and confidential information with over 10,000 records",
+    "Combination of confidential information with over 10,000 records",
+    "None of the above"
+  ]
+
+  validates_presence_of :requested_by, :submitted_by_email, :line_of_business, :lob_contact_name, :women_owned  #:minority_owned
 
 
   def matter_types

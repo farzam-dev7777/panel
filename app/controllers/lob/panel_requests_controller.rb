@@ -27,10 +27,11 @@ class Lob::PanelRequestsController < Lob::BaseController
       PanelRequestMailer.panel_request_notification_to_lxp(@panel_request).deliver_now
       redirect_to :lob_panel_requests
     else
+      error_msg = "There was an error submiting the Panel request - #{@panel_request.errors.full_messages}"
       @law_firms = LawFirm.all
       @current_lob_user_email = current_lob_user.email
       @current_lob_user_id = current_lob_user.id
-      flash[:alert] = "There was an error submiting the Panel request"
+      flash[:alert] = error_msg
       render :new
       
     end
@@ -111,10 +112,10 @@ class Lob::PanelRequestsController < Lob::BaseController
   def update_panel_requests_params
     params.require(:panel_request).permit(
       :requested_by, :submitted_by_email, :user_id, :line_of_business,
-      :lob_contact_name, :law_firm_id, :request_type,
-      :business_manager_name, :business_manager_phone, 
-      :business_manager_email, :minority_owned, :minority_owned_details,
-      :women_owned, :women_owned_details, :law_firm_name, :status,
+      :lob_contact_name, :law_firm_id, :request_type, :niche_preferred_external_counsel_panel_law_firms,
+      :business_manager_name, :business_manager_phone, :niche_expertise, :required_unique_geography,
+      :business_manager_email, :minority_owned, :minority_owned_details, :geographic_location, 
+      :women_owned, :women_owned_details, :law_firm_name, :status, :involved_engagement, :reason_other,
       law_firm_attributes: [
         :id, :name, :law_firm_category, :status,
         :email, :phone, :description, :relationship_manager_name, 
@@ -127,10 +128,10 @@ class Lob::PanelRequestsController < Lob::BaseController
   def panel_requests_params
     params.require(:panel_request).permit(
       :requested_by, :submitted_by_email, :user_id, :line_of_business,
-      :lob_contact_name, :law_firm_id, :request_type,
-      :business_manager_name, :business_manager_phone, 
-      :business_manager_email, :minority_owned, :minority_owned_details,
-      :women_owned, :women_owned_details, :law_firm_name, :status,
+      :lob_contact_name, :law_firm_id, :request_type, :niche_preferred_external_counsel_panel_law_firms,
+      :business_manager_name, :business_manager_phone, :niche_expertise, :required_unique_geography,
+      :business_manager_email, :minority_owned, :minority_owned_details, :geographic_location,
+      :women_owned, :women_owned_details, :law_firm_name, :status, :involved_engagement, :reason_other,
       law_firm_attributes: [
         :name, :law_firm_category, :status,
         :email, :phone, :description, :relationship_manager_name, 

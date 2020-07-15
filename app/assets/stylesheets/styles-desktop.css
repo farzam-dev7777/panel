@@ -484,6 +484,7 @@ nav ul li a:active {
   line-height: 16px;
   color: #7E858E;
   padding: 0px;
+  white-space: break-spaces;
 }
 .sp-form > form .inner-label{
   font-size: 16px;
