@@ -45,7 +45,13 @@
             </div>
             <div class="col-xs-12 col-md-6">
               <div class="field-label">Waiver Completely Approved</div>
-              <div class="field-data"><%= @conflict_waiver.fully_approved? ? "Yes" : "No" %></div>
+              <div class="field-data">
+                <% if @conflict_waiver.lxp_status == "APPROVED" || @conflict_waiver.lxp_status == "REJECTED" %>
+                  <%= @conflict_waiver.fully_approved? ? "Yes" : "No" %>
+                  <%= @conflict_waiver.fully_approved? ? "Yes" : "" %>
+                <% else %>
+                <% end %>
+              </div>
             </div>
           </div>
           <div class="row conflictWaiverProcesss">

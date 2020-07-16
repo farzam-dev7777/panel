@@ -30,6 +30,9 @@ class ConflictWaiversController < BaseController
     @conflict_waiver = ConflictWaiver.find(params[:id])
 
     if @conflict_waiver.update_attributes(conflict_waivers_params)
+      if current_law_firm.present? && @conflict_waiver.internal_lawyers_status != "APPROVED"
+        @conflict_waiver.update_attributes(internal_lawyers_status: "IN_REVIEW", lxp_status: "IN_REVIEW")
+      end
       flash[:notice] = "Conflict Waiver updated"
       ConflictWaiverMailer.form_update_notification_to_user(@conflict_waiver).deliver_now
       ConflictWaiverMailer.form_updated_notification_to_lxp(@conflict_waiver).deliver_now

@@ -84,14 +84,17 @@ class Admin::ReviewsController < Admin::BaseController
             ConflictWaiverMailer.form_status_notification_to_internal_lawyer(@conflict_waiver,params[:review][:assigned_to_id]).deliver_now
             #ConflictWaiverMailer.form_status_approved_notification_to_law_firm_by_lxp(@conflict_waiver).deliver_now 
           elsif current_user.role === 'internal_lawyers' && review_params[:status] == 'APPROVED'
+            @conflict_waiver.update_attributes(lxp_status: review_params[:status])
             ConflictWaiverMailer.form_status_notification_to_lxp_by_internal_lawyers(@conflict_waiver).deliver_now 
             ConflictWaiverMailer.form_status_notification_to_user(@conflict_waiver).deliver_now
           elsif current_user.role === 'internal_lawyers' && review_params[:status] == 'REQUEST_INFO'
+            @conflict_waiver.update_attributes(lxp_status: review_params[:status])
             ConflictWaiverMailer.form_status_notification_to_lxp_for_info_internal_lawyers(@conflict_waiver).deliver_now 
           else
            if current_user.role === 'lxp' &&  review_params[:status] == 'ALREADY_COVERED'
             ConflictWaiverMailer.form_status_notification_to_user(@conflict_waiver).deliver_now
            elsif current_user.role === 'internal_lawyers' &&  review_params[:status] == 'REJECTED'
+            @conflict_waiver.update_attributes(lxp_status: review_params[:status])
             ConflictWaiverMailer.form_status_notification_to_user(@conflict_waiver).deliver_now
             ConflictWaiverMailer.form_status_notification_to_lxp_by_internal_lawyers(@conflict_waiver).deliver_now 
            else
