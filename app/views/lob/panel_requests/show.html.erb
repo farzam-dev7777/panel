@@ -37,7 +37,7 @@
 								<div class="field-label">LOB Contact Name	</div>		
 								<div class="field-data"><%= @panel_request.lob_contact_name %></div>
 							</div>
-							<div class="col-xs-12 col-md-6">
+							<!--<div class="col-xs-12 col-md-6">
 								<div class="field-label">Business Manager Name</div>
 								<div class="field-data"><%= @panel_request.business_manager_name %></div>
 							</div>
@@ -48,7 +48,7 @@
 							<div class="col-xs-12 col-md-6">
 								<div class="field-label">Business Manager Phone	</div>		
 								<div class="field-data"><%= @panel_request.business_manager_phone %></div>
-							</div>	
+							</div>-->
 							<div class="col-md-12">
 									<div class="inner-label">Law Firm :</div>		
 									<div class="row inner-form-field">
@@ -58,17 +58,25 @@
 										</div>
 										<div class="col-xs-12 col-md-6">
 											<div class="field-label">Name : </div>
-											<div class="field-data"><%= @panel_request.law_firm.name %></div>
+											<div class="field-data"><%= @panel_request.law_firm&.name %></div>
+										</div>
+										<div class="col-xs-12 col-md-6">
+											<div class="field-label">Contact Name : </div>
+											<div class="field-data"><%= @panel_request.law_firm&.contact_name %></div>
 										</div>
 										<div class="col-xs-12 col-md-6">
 											<div class="field-label">Email : </div>		
-											<div class="field-data"><%= @panel_request.law_firm.email %></div>
+											<div class="field-data"><%= @panel_request.law_firm&.email %></div>
 										</div>
 										<div class="col-xs-12 col-md-6">
 											<div class="field-label">Phone : </div>		
-											<div class="field-data"><%= @panel_request.law_firm.phone %></div>
+											<div class="field-data"><%= @panel_request.law_firm&.phone %></div>
 										</div>
-										<div class="col-xs-12 col-md-12">
+										<div class="col-xs-12 col-md-6">
+											<div class="field-label">Would You use this firm on a regular basis? : </div>		
+											<div class="field-data"><%= @panel_request.law_firm&.firm_use_on_regular_basis ? 'Yes' : 'No' %></div>
+										</div>
+										<!--<div class="col-xs-12 col-md-12">
 											<div class="field-label">Description : </div>		
 											<div class="field-data"><%= @panel_request.law_firm.description %></div>
 										</div>
@@ -103,25 +111,61 @@
 										<div class="col-xs-12 col-md-6">
 											<div class="field-label">Select State/Province : </div>		
 											<div class="field-data"><%= @panel_request.law_firm.states.map(&:name).join(", ") %></div>
-										</div>
+										</div>-->
 									</div>
 								</div>
 							<div class="col-xs-12 col-md-6">
+								<div class="field-label">What type of matter would this firm be working on? :</div>		
+								<div class="field-data"><%= @panel_request.matter_types.join(', ') %></div>
+							</div>
+							<div class="col-xs-12 col-md-6">
+								<div class="field-label">Is this a specific niche expertise that is not already availabel from one of the preferred external counsel panel law firms? :</div>		
+								<div class="field-data"><%= @panel_request.niche_preferred_external_counsel_panel_law_firms %></div>
+							</div>
+							<div class="col-xs-12 col-md-6">
+								<div class="field-label">If yes please describe niche expertise :</div>		
+								<div class="field-data"><%= @panel_request.niche_expertise %></div>
+							</div>
+							<div class="col-xs-12 col-md-6">
+								<div class="field-label">Does this firm practice in a required unique geography that is not already availabel from one of the preferred outside counsel Panel Law firms? :</div>		
+								<div class="field-data"><%= @panel_request.required_unique_geography %></div>
+							</div>
+							<div class="col-xs-12 col-md-6">
+								<div class="field-label">If yes , confirm geographic location :</div>		
+								<div class="field-data"><%= @panel_request.geographic_location %></div>
+							</div>
+							<div class="col-xs-12 col-md-6">
+								<div class="field-label">Would engagements of this firm involve the following :</div>		
+								<div class="field-data"><%= @panel_request.involved_engagement %></div>
+							</div>
+							<div class="col-xs-12 col-md-6">
+								<div class="field-label">Is this a certified minority/woman owned firm? :</div>		
+								<div class="field-data"><%= @panel_request.women_owned %></div>
+							</div>
+							<div class="col-xs-12 col-md-6">
+								<div class="field-label">If yes, which organization certified the firm? :</div>		
+								<div class="field-data"><%= @panel_request.women_owned_details %></div>
+							</div>
+							<div class="col-xs-12 col-md-12">
+								<div class="field-label">Please confirm the reason(s) , there than theses listed above, that this firm should be considered for the preferred outside counsel Panel :</div>		
+								<div class="field-data"><%= @panel_request.reason_other %></div>
+							</div>
+							<!--<div class="col-xs-12 col-md-6">
 								<div class="field-label">Minority Owned</div>		
 								<div class="field-data"><%= @panel_request.minority_owned %></div>
 							</div>
 							<div class="col-xs-12 col-md-6">
 								<div class="field-label">Minority Owned Details</div>		
 								<div class="field-data"><%= @panel_request.minority_owned_details %></div>
-							</div>
-							<div class="col-xs-12 col-md-6">
+							</div>-->
+							<!--<div class="col-xs-12 col-md-6">
 								<div class="field-label">Women Owned</div>		
 								<div class="field-data"><%= @panel_request.women_owned %></div>
 							</div>
 							<div class="col-xs-12 col-md-6">
 								<div class="field-label">Women Owned Details</div>		
 								<div class="field-data"><%= @panel_request.women_owned_details %></div>
-							</div>
+							</div>-->
 							<div class="col-xs-12 col-md-6">
 								<div class="field-label">LXP Status :</div>
 								<div class="field-data"><%=  @panel_request.lxp_status_show ? @panel_request.lxp_status_show : "-" %></div>

@@ -61,7 +61,7 @@ class PanelRequest < ApplicationRecord
 
 
   def matter_types
-    JSON.parse(self.read_attribute(:matter_types) || '{}').reject(&:blank?)
+    JSON.parse(self.read_attribute(:matter_types) || '[]').reject(&:blank?)
   end
 
   def lxp_status_show

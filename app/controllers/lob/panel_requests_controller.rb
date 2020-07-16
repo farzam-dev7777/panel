@@ -85,8 +85,8 @@ class Lob::PanelRequestsController < Lob::BaseController
   def panel_requests_params_update
     params.require(:panel_request).permit(
       :requested_by, :submitted_by_email, :user_id, :line_of_business,
-      :lob_contact_name, :law_firm_id, :request_type,
-      :business_manager_name, :business_manager_phone, 
+      :lob_contact_name, :law_firm_id, :request_type, :contact_name,
+      :business_manager_name, :business_manager_phone, :firm_use_on_regular_basis,
       :business_manager_email, :minority_owned, :minority_owned_details,
       :women_owned, :women_owned_details, :law_firm_name, 
       matter_types: []
@@ -96,12 +96,12 @@ class Lob::PanelRequestsController < Lob::BaseController
   def panel_requests_params
     params.require(:panel_request).permit(
       :requested_by, :submitted_by_email, :user_id, :line_of_business,
-      :lob_contact_name, :law_firm_id, :request_type,
+      :lob_contact_name, :law_firm_id, :request_type, :firm_use_on_regular_basis,
       :business_manager_name, :business_manager_phone, 
       :business_manager_email, :minority_owned, :minority_owned_details,
-      :women_owned, :women_owned_details, :law_firm_name, :status,
+      :women_owned, :women_owned_details, :law_firm_name, :status, matter_types: [],
       law_firm_attributes: [
-        :name, :law_firm_category, :status,
+        :name, :law_firm_category, :status, :contact_name,
         :email, :phone, :description, :relationship_manager_name, 
         :relationship_manager_email, :relationship_manager_phone ,
         matter_type_ids:[], sub_matter_type_ids: [], jurisdiction_type_ids: [], state_ids: [], country_ids: [],
@@ -111,33 +111,17 @@ class Lob::PanelRequestsController < Lob::BaseController
   end
   def update_panel_requests_params
     params.require(:panel_request).permit(
-      :requested_by, :submitted_by_email, :user_id, :line_of_business,
+      :requested_by, :submitted_by_email, :user_id, :line_of_business, :firm_use_on_regular_basis,
       :lob_contact_name, :law_firm_id, :request_type, :niche_preferred_external_counsel_panel_law_firms,
       :business_manager_name, :business_manager_phone, :niche_expertise, :required_unique_geography,
       :business_manager_email, :minority_owned, :minority_owned_details, :geographic_location, 
-      :women_owned, :women_owned_details, :law_firm_name, :status, :involved_engagement, :reason_other,
+      :women_owned, :women_owned_details, :law_firm_name, :status, :involved_engagement, :reason_other, matter_types: [],
       law_firm_attributes: [
-        :id, :name, :law_firm_category, :status,
+        :id, :name, :law_firm_category, :status,:contact_name,
         :email, :phone, :description, :relationship_manager_name, 
         :relationship_manager_email, :relationship_manager_phone ,
         matter_type_ids:[], sub_matter_type_ids: [], jurisdiction_type_ids: [], state_ids: [], country_ids: [],
         users_attributes: [:id, :email, :role, :empty_user, :status]
-      ]
-    )
-  end
-  def panel_requests_params
-    params.require(:panel_request).permit(
-      :requested_by, :submitted_by_email, :user_id, :line_of_business,
-      :lob_contact_name, :law_firm_id, :request_type, :niche_preferred_external_counsel_panel_law_firms,
-      :business_manager_name, :business_manager_phone, :niche_expertise, :required_unique_geography,
-      :business_manager_email, :minority_owned, :minority_owned_details, :geographic_location,
-      :women_owned, :women_owned_details, :law_firm_name, :status, :involved_engagement, :reason_other,
-      law_firm_attributes: [
-        :name, :law_firm_category, :status,
-        :email, :phone, :description, :relationship_manager_name, 
-        :relationship_manager_email, :relationship_manager_phone ,
-        matter_type_ids:[], sub_matter_type_ids: [], jurisdiction_type_ids: [], state_ids: [], country_ids: [],
-        users_attributes: [:email, :role, :empty_user, :status]
       ]
     )
   end
