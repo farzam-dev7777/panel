@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200716110034) do
+ActiveRecord::Schema.define(version: 20200717174636) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -544,21 +544,21 @@ ActiveRecord::Schema.define(version: 20200716110034) do
     t.string   "group_paying_for_matter"
     t.string   "status"
     t.datetime "lob_submitted_at"
-    t.datetime "created_at",                                        null: false
-    t.datetime "updated_at",                                        null: false
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
     t.string   "legal_group_of_bmo_lawyer"
     t.string   "work_area"
-    t.boolean  "is_ore_reportable",                 default: false
-    t.boolean  "is_otherwise_reportable",           default: false
-    t.boolean  "is_syndicate_matter",               default: false
-    t.boolean  "is_conceal_imanage_workspace",      default: false
-    t.boolean  "is_paper_file",                     default: false
+    t.boolean  "is_ore_reportable",                  default: false
+    t.boolean  "is_otherwise_reportable",            default: false
+    t.boolean  "is_syndicate_matter",                default: false
+    t.boolean  "is_conceal_imanage_workspace",       default: false
+    t.boolean  "is_paper_file",                      default: false
     t.string   "jurisdiction"
     t.string   "firm_type"
     t.string   "name_of_panel_firm"
     t.string   "name_of_non_panel_firm"
     t.string   "type_of_price"
-    t.boolean  "is_alternative_fee_arrangement",    default: false
+    t.boolean  "is_alternative_fee_arrangement",     default: false
     t.string   "afa_details"
     t.string   "additional_matter_contact"
     t.string   "other_matter_issues"
@@ -569,21 +569,21 @@ ActiveRecord::Schema.define(version: 20200716110034) do
     t.string   "form_type"
     t.string   "branch"
     t.string   "outside_counsel_engaged"
-    t.boolean  "can_reimbursed_matter",             default: false
+    t.boolean  "can_reimbursed_matter",              default: false
     t.text     "key_facts"
     t.string   "legal_analysis"
     t.string   "stage_of_litigation"
-    t.boolean  "allegation_of_employee_misconduct", default: false
+    t.boolean  "allegation_of_employee_misconduct",  default: false
     t.string   "primary_issue"
     t.string   "secondary_issue"
     t.string   "bmo_party"
     t.string   "opposing_counsel_firm"
-    t.boolean  "written_legal_notice_required",     default: false
-    t.boolean  "arbitration_offered",               default: false
-    t.boolean  "arbitration_accepted",              default: false
+    t.boolean  "written_legal_notice_required",      default: false
+    t.boolean  "arbitration_offered",                default: false
+    t.boolean  "arbitration_accepted",               default: false
     t.string   "branch_manager_investment_advisor"
     t.date     "date_suit_filed"
-    t.boolean  "unquantified_claim",                default: false
+    t.boolean  "unquantified_claim",                 default: false
     t.string   "valued_at"
     t.string   "amount_claimed_from_bmo_1"
     t.string   "amount_claimed_1_currency"
@@ -612,6 +612,7 @@ ActiveRecord::Schema.define(version: 20200716110034) do
     t.string   "following_matter_involve"
     t.string   "deal_code"
     t.string   "work_area_type"
+    t.string   "additional_comments_for_lrc_lawyer"
   end
 
   create_table "matter_types", force: :cascade do |t|

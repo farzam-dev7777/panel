@@ -49,41 +49,43 @@
               <div class="field-label">Will this matter involve the following:	</div>
               <div class="field-data"><%= @matter_intake.following_matter_involve %></div>
             </div>
+          </div>
+          <div class="row">
             <div class="col-xs-12 col-md-6">
               <div class="field-label">How will this matter be paid?:	</div>
               <div class="field-data"><%= @matter_intake.mode_of_payment %></div>
             </div>
-          </div>
-          <div class="row">
             <div class="col-xs-12 col-md-6">
               <div class="field-label">Law Firm Suggested:	</div>
               <div class="field-data"><%= @matter_intake.law_firm.try(:name) %></div>
             </div>
+          </div>
+          <div class="row">
             <div class="col-xs-12 col-md-6">
               <div class="field-label">BMO lawyer name:	</div>
               <div class="field-data"><%= @matter_intake.bmo_lawyer_name %></div>
             </div>
-          </div>
-          <div class="row">
             <div class="col-xs-12 col-md-6">
               <div class="field-label">Budget amount, if already negotiated with the law firm:	</div>
               <div class="field-data"><%= @matter_intake.budget_amount %></div>
             </div>
+          </div>
+          <div class="row">
             <div class="col-xs-12 col-md-6">
               <div class="field-label">LOB contact to create PO:	</div>
               <div class="field-data"><%= @matter_intake.lob_contact_for_po %></div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-xs-12 col-md-4">
+            <div class="col-xs-12 col-md-6">
               <div class="field-label">Cost Centre for legal fees:	</div>
               <div class="field-data"><%= @matter_intake.cost_centre_for_legal_fees %></div>
             </div>
-            <div class="col-xs-12 col-md-4">
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-md-6">
               <div class="field-label">Deal Code (Capital Markets Only):	</div>
               <div class="field-data"><%= @matter_intake.deal_code %></div>
             </div>
-            <div class="col-xs-12 col-md-4">
+            <div class="col-xs-12 col-md-6">
               <div class="field-label">Business Paying for this Matter:	</div>
               <div class="field-data"><%= @matter_intake.business_paying_for_matter %></div>
             </div>
@@ -96,6 +98,14 @@
             <div class="col-xs-12 col-md-6">
               <div class="field-label">Paying Entity:	</div>
               <div class="field-data"><%= @matter_intake.paying_entity %></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-md-6">
+              <div class="field-label">Additional Comments for LRC Lawyer:	</div>
+              <div class="field-data"><%= @matter_intake.additional_comments_for_lrc_lawyer %></div>
+            </div>
+            <div class="col-xs-12 col-md-6">
             </div>
           </div>
           <div class="clearfix"></div>
@@ -116,16 +126,16 @@
       <%= simple_form_for [:admin, @matter_intake] do |f| %>
         <div class="row form-flex-wrap">
           <div class="col-xs-12 col-md-6">
-            <label class="label">BMO lawyer name</label>
+            <label class="label">BMO lawyer name<span class="mandatory">*</span></label>
             <%= f.input :bmo_lawyer_name, label: false, collection: InternalLawyer.all.map {|il| [il.full_name, il.full_name, {'data-id'=>il.id}]} %>
             <%= f.input :lawyer_id, as: :hidden, label: false %>
           </div>
           <div class="col-xs-12 col-md-6">
-            <label class="label">Legal Group of BMO Lawyer</label>
+            <label class="label">Legal Group of BMO Lawyer<span class="mandatory">*</span></label>
             <%= f.input :legal_group_of_bmo_lawyer, label: false, collection: MatterIntake::LegalGroupBMOLawyer %>
           </div>
           <div class="col-xs-12 col-md-6">
-            <label class="label">Work Area</label>
+            <label class="label">Work Area<span class="mandatory">*</span></label>
             <%= f.input :work_area, label: false, collection: MatterIntake::WorkArea %>
           </div>
           <div class="col-xs-12 col-md-6 work_area_reportable" style="display: none;">
@@ -137,51 +147,80 @@
             <%= f.input :is_otherwise_reportable, label: false, collection: [['Yes', true], ["No", false]] %>
           </div>
           <div class="col-xs-12 col-md-6">
-            <label class="label">Is this a syndicate matter?</label>
+            <label class="label">Is this a syndicate matter?<span class="mandatory">*</span></label>
             <%= f.input :is_syndicate_matter, label: false, collection: [['Yes', true], ["No", false]] %>
           </div>
           <div class="col-xs-12 col-md-6">
-            <label class="label">Conceal iManage Workspace?</label>
+            <label class="label">Conceal iManage Workspace?<span class="mandatory">*</span></label>
             <%= f.input :is_conceal_imanage_workspace, label: false, collection: [['Yes', true], ["No", false]] %>
           </div>
           <div class="col-xs-12 col-md-6">
-            <label class="label">Paper file?</label>
+            <label class="label">Paper file?<span class="mandatory">*</span></label>
             <%= f.input :is_paper_file, label: false, collection: [['Yes', true], ["No", false]] %>
           </div>
           <div class="col-xs-12 col-md-6">
-            <label class="label">Matter name</label>
+            <label class="label">Matter name<span class="mandatory">*</span></label>
             <%= f.input :name_of_matter_client, label: false %>
           </div>
           <div class="col-xs-12 col-md-6">
-            <label class="label">Matter Description</label>
-            <%= f.input :matter_description, label: false %>
+            <label class="label">Matter Description<span class="mandatory">*</span></label>
+            <%= f.input :matter_description, as: :string, label: false %>
           </div>
           <div class="col-xs-12 col-md-6">
-            <label class="label">Legal Entity</label>
+            <label class="label">Legal Entity<span class="mandatory">*</span></label>
             <td><%= f.input :paying_entity, label: false %></td>
           </div>
           <div class="col-xs-12 col-md-6">
-            <label class="label">Business Paying for this Matter</label>
-            <%= f.input :business_paying_for_matter, label: false %>
-          </div>
-          <div class="col-xs-12 col-md-6">
-            <label class="label">Group Paying for this Matter</label>
-            <%= f.input :group_paying_for_matter, label: false %>
-          </div>
-          <div class="col-xs-12 col-md-6">
-            <label class="label">Jurisdiction</label>
+            <label class="label">Jurisdiction<span class="mandatory">*</span></label>
             <%= f.input :jurisdiction, label: false, collection: MatterIntake::Jurisdiction %>
           </div>
           <div class="col-xs-12 col-md-6">
-            <label class="label">How will this matter be paid?</label>
+            <label class="label">Other Party (Other than BMO)</label>
+            <%= f.input :other_party, label: false, collection: MatterIntake::OtherParty %>
+          </div>
+          <div class="col-xs-12 col-md-6">
+            <label class="label">Additional Matter Contact (not specified elsewhere)</label>
+            <%= f.input :additional_matter_contact, label: false %>
+          </div>
+          <div class="col-xs-12 col-md-6">
+            <label class="label">Other Matter Issues (not specified elsewhere)</label>
+            <%= f.input :other_matter_issues, label: false %>
+          </div>
+          <div class="col-xs-12 col-md-6">
+            <label  class="label">Additional Comments for LRC Lawyer</label>
+            <%= f.input :additional_comments_for_lrc_lawyer, label: false %>
+          </div>
+          <div class="col-xs-12 col-md-6">
+            <label  class="label">Is outside counsel being engaged?</label>
+            <%= f.input :outside_counsel_engaged, label: false, collection: [['Yes', true], ["No", false]] %>
+          </div>
+          <!-- will show next fields on basis of above field value-->
+          <div class="col-xs-12 col-md-6">
+            <label  class="label">Will this matter involve the following<span class="mandatory">*</span></label>
+            <%= f.input :following_matter_involve,  label: false, collection: MatterIntake::MatterInvolveFollowing %>
+          </div>
+          <div class="col-xs-12 col-md-6">
+            <label class="label">Business Paying for this Matter<span class="mandatory">*</span></label>
+            <%= f.input :business_paying_for_matter, label: false %>
+          </div>
+          <div class="col-xs-12 col-md-6">
+            <label class="label">Group Paying for this Matter<span class="mandatory">*</span></label>
+            <%= f.input :group_paying_for_matter, label: false %>
+          </div>
+          <div class="col-xs-12 col-md-6">
+            <label class="label">How will this matter be paid?<span class="mandatory">*</span></label>
             <%= f.input :mode_of_payment, label: false, collection: MatterIntake::MatterBePaidOptions %>
           </div>
           <div class="col-xs-12 col-md-6">
-            <label class="label">Cost Centre for legal fees</label>
+            <label class="label">Cost Centre for legal fees<span class="mandatory">*</span></label>
             <%= f.input :cost_centre_for_legal_fees, label: false %>
           </div>
           <div class="col-xs-12 col-md-6">
-            <label class="label">LOB contact to create PO</label>
+            <label  class="label">Deal Code (Capital Markets Only)</label>
+            <%= f.input :deal_code, label: false %>
+          </div>
+          <div class="col-xs-12 col-md-6">
+            <label class="label">LOB contact to approve PO<span class="mandatory">*</span></label>
             <%= f.input :lob_contact_for_po, label: false %>
           </div>
           <div class="col-xs-12 col-md-6">
@@ -197,33 +236,22 @@
             <%= f.input :name_of_non_panel_firm, label: false %>
           </div>
           <div class="col-xs-12 col-md-6">
-            <label class="label">Type of Pricing</label>
+            <label class="label">Type of Pricing<span class="mandatory">*</span></label>
             <%= f.input :type_of_price, label: false, collection: MatterIntake::TypeOfPrice %>
           </div>
           <div class="col-xs-12 col-md-6 alternative_fee" style="display: none;">
-            <label class="label">Is there an Alternative Fee Arrangement?</label>
+            <label class="label">Is there an Alternative Fee Arrangement?<span class="mandatory">*</span></label>
             <%= f.input :is_alternative_fee_arrangement, label: false, collection: [['Yes', true], ["No", false]] %>
           </div>
           <div class="col-xs-12 col-md-6 alternative_fee" style="display: none;">
             <label class="label">AFA Details</label>
             <%= f.input :afa_details, label: false %>
           </div>
-          <div class="col-xs-12 col-md-6">
-            <label class="label">Other Party (Other than BMO)</label>
-            <%= f.input :other_party, label: false, collection: MatterIntake::OtherParty %>
-          </div>
-          <div class="col-xs-12 col-md-6">
-            <label class="label">Additional Matter Contact (not specified elsewhere)</label>
-            <%= f.input :additional_matter_contact, label: false %>
-          </div>
-          <div class="col-xs-12 col-md-6">
+          <!--<div class="col-xs-12 col-md-6">
             <label class="label">Budget amount, if already negotiated with the law firm</label>
             <%= f.input :budget_amount, label: false %>
-          </div>
-          <div class="col-xs-12 col-md-6">
-            <label class="label">Other Matter Issues (not specified elsewhere)</label>
-            <%= f.input :other_matter_issues, label: false %>
-          </div>
+          </div>-->
+          
           <div class="col-xs-12 col-md-12">
             <%=link_to 'Cancel', @matter_intake.new_record? ? new_admin_matter_intake_path : new_admin_matter_intake_path, class: 'btn-type-default' %>
             <%= f.button :submit, @matter_intake.new_record? ? "Submit Matter Intake" : "Submit Matter Intake", class: "btn-type-primary" %>
