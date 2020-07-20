@@ -1447,3 +1447,17 @@ $('select#panel_request_required_unique_geography').on('change', function() {
 		$('#panel_request_geographic_location').val(" ")
 	}
 });
+
+if($("select#matter_intake_outside_counsel_engaged").val() == "true") {
+	$('.outside_counsel_engaged').show()
+} else {
+	$('.outside_counsel_engaged').hide()
+}
+
+$('select#matter_intake_outside_counsel_engaged').on('change', function() {
+	if(this.value == "true"){
+		$('.outside_counsel_engaged').show()
+	} else {
+		$('.outside_counsel_engaged').hide()
+	}
+})
