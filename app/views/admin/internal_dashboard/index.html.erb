@@ -8,7 +8,7 @@
 						</div>
 						<div class="card-details">
 							<div class="total-record"><%= @exception_requests_submitted %></div>
-							<div class="card-name">Non Panel Requests</div>
+							<div class="card-name">Non-Panel (one-off) Requests</div>
 							<div class="card-tag-line">Tag lines goes here</div>
 						</div>
 					</a>
@@ -44,7 +44,7 @@
 						</div>
 						<div class="card-details">
 							<div class="total-record"><%= @panel_requests_submitted %></div>
-							<div class="card-name">Panel Requests</div>
+							<div class="card-name">Panel Consideration Requests</div>
 							<div class="card-tag-line">Tag lines goes here</div>
 						</div>
 					</a>
@@ -57,7 +57,7 @@
 <div class="col-lg-12 col-md-12 col-sm-12">
 	<div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
 		<div class="page-header-sp mobile-dashboard-header">
-			<div class="page-title">Engage Non Panel Firms</div>
+			<div class="page-title">Non-Panel (one-off) Requests</div>
 			<div class="back-edit-actions">
 				<a class="btn-show-more" href="/admin/exception_requests">
         Show more
@@ -73,16 +73,18 @@
 						<thead>
 							<tr>
 								<th>Requested By</th>
+								<th>LOB Contact Name</th>
 								<th>Line of Business</th>
 								<th>Law Firm Name</th>
 								<th>LXP Status</th>
 								<th>Lawyer Status</th>
+								<th>Date Submitted</th>
 								<!--<th width="8%">Action</th>-->
 							</tr>
 						</thead>
 						<tbody>
 							<% @exception_requests.each do |exception_request| %>
-								<% if exception_request.law_firm_id.present? && exception_request.requested_by != nil  %>
+								<% if exception_request.law_firm_id.present? %>
 									<tr onClick="window.location.href='/admin/exception_requests/<%= exception_request.id %>'">
 										<% if exception_request.law_firm_id.present? %>
 											<td>
@@ -93,13 +95,16 @@
 													</div>
 												<% end %>
 											</td>
-											<td><%= exception_request.line_of_business %></td>
-											<td><%= exception_request.law_firm.try(:name) %></td>
+											<td><%= exception_request&.lob_contact_name %></td>
+											<td><%= exception_request&.line_of_business %></td>
+											<td><%= exception_request&.law_firm.try(:name) %></td>
 											<td>
 												<div class="status">
-													<span class="<%= exception_request.lxp_status === "APPROVED" ? 'label label-success' : 'label label-default' %>"> 
-														<%= exception_request.try(:lxp_status).try(:titleize) %>
-													</span>
+													<% if exception_request.lxp_status.present? %>
+														<span class="<%= exception_request.lxp_status === "APPROVED" ? 'label label-success' : 'label label-default' %>"> 
+															<%= exception_request.try(:lxp_status).try(:titleize) %>
+														</span>
+													<% end %>
 												</div>
 											</td>
 											<td>
@@ -110,6 +115,9 @@
 													</span>
 												</div>
 												<% end %>
+											</td>
+											<td>
+												<%= exception_request.created_at.strftime("%d/%m/%Y") %>
 											</td>
 											<!--<td>
 												<% if current_user.role == 'lob' &&  exception_request.try(:lxp_status) != 'APPROVED' %>
@@ -213,6 +221,7 @@
 								<th>BMO lawyer name</th>
 								<th>Budget amount</th>
 								<th>Status</th>
+								<th>Date Submitted</th>
 								<!--<th>Action</th>-->
 							</tr>
 						<tbody>
@@ -239,6 +248,7 @@
 											</span>
 										</div>
 									</td>
+									<td><%= matter_intake.created_at.strftime("%d/%m/%Y") %></td>
 									<!--<td>
 										<% if @current_user.role === "internal_lawyers" && (matter_intake.status === "waiting_for_lawyer_review" || matter_intake.status === "waiting_for_lawyer_update") %>
 											<%= link_to "review", review_admin_matter_intake_path(matter_intake), class: "btn btn-xs btn-secondary" %>	
@@ -264,7 +274,7 @@
 	<div class="col-lg-12 col-md-12 col-sm-12">
 		<div class=" jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
 			<div class="page-header-sp mobile-dashboard-header">
-				<div class="page-title">Panel Requests</div>
+				<div class="page-title">Panel Consideration Requests</div>
 				<div class="back-edit-actions">
 					<a class="btn-show-more" href="admin/panel_requests/">
 					Show more
@@ -282,6 +292,8 @@
 									<th>Requested By</th>
 									<th>Submitted By</th>
 									<th>LOB Contact Name</th>
+									<th>Law Firm Name</th>
+									<th>Date Submitted</th>
 									<!--<th>Action</th>-->
 								</tr>
 							</thead>
@@ -298,6 +310,8 @@
 									</td>
 									<td><%= panel_request.submitted_by_email %></td>
 									<td><%= panel_request.lob_contact_name %></td>
+									<td><%= panel_request&.law_firm&.name %></td>
+									<td><%= panel_request.created_at.strftime("%d/%m/%Y") %></td>
 									<!--<td>
 										<% if current_user.role == 'lxp' &&  panel_request.try(:lxp_status) != 'APPROVED' %>
 											<%= link_to "Edit", edit_admin_panel_request_path(panel_request), class: "btn btn-xs btn-primary" %>

@@ -39,9 +39,9 @@ class ExceptionRequest < ApplicationRecord
   WOMEN_OWNED_TYPE = ["Yes", "No"]
 
   EXCEPTION_REQUEST_REASON = ["Expertise", "Cost", "Designated Counsel", "Location", "Customer directed"]
-  EXCEPTION_REQUEST_PAYER =  ["Bank Pay", "Customer Pay"]
+  EXCEPTION_REQUEST_PAYER =  [["Bank Pay", "Bank Pay"], ["Customer paying law firm directly", "Customer Pay"], ["Bank paying and customer reimbursing BMO", "Bank paying and customer reimbursing BMO"]]
   INVOLVED_ENGAGEMENT = [
-    "Merger & Acquisition",
+    "Merger/Acquisition",
     "Litigation",
     "Personam Identifiable information > 10,000 records",
     "Combination of confidential information with over 10,000 records",
@@ -51,9 +51,9 @@ class ExceptionRequest < ApplicationRecord
   MODE_OF_PAYMENT = ["Bank Pay", "Remuneration par la Banque"]
 
   MATTER_INVOLE_FOLLOWING = [
-    "Merger & Acquisition",
+    "Merger/Acquisition",
     "Litigation",
-    "Personal Identifiable > 10,000 records",
+    "Personal Identifiable Information > 10,000 records",
     "Combination of sensitive and confidential information with over 10,000 records",
     "Combination of confidential information with over 10,000 records",
     "None of the above"
@@ -161,7 +161,7 @@ class ExceptionRequest < ApplicationRecord
 
   EXCEPTION_REQUEST_STATUS = {
     "": "Select",
-    "REQUEST_TO_LAWYER": "Request Lawyer Approval",
+    "REQUEST_TO_INPUT": "Request Lawyer Input",
     "APPROVED": "Approved",
     "REJECTED": "Rejected"
     

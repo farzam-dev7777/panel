@@ -3,7 +3,7 @@
 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 		<ul id="sparks" class="top-status-card">
 			<li class="sparks-info color-border-01">
-				<a href="javascript:void(0);" class="card-content">
+				<a href="/lob/exception_requests" class="card-content">
 					<div class="card-icon bg-color-01">
 						<%= image_tag "exceptions-icon.svg", alt:"Exceptions" %> 
 					</div>
@@ -15,7 +15,7 @@
 				</a>
 			</li>
 			<li class="sparks-info color-border-02">
-				<a href="javascript:void(0);" class="card-content">
+				<a href="/lob/panel_requests" class="card-content">
 					<div class="card-icon bg-color-02">
 						<%= image_tag "submitted-icon.svg", alt:"Exceptions" %> 
 					</div>
@@ -27,7 +27,7 @@
 				</a>
 			</li>
 			<li class="sparks-info color-border-03">
-				<a href="javascript:void(0);" class="card-content">
+				<a href="/lob/matter_intakes" class="card-content">
 					<div class="card-icon bg-color-03">
 						<%= image_tag "approved-icon.svg", alt:"Exceptions" %> 
 					</div>
@@ -78,13 +78,13 @@
 								<th>Law Firm Name</th>
 								<th>Matter Name</th>
 								<th>LXP Status</th>
-								<th>Internal Lawyers Status</th>
+								<th>Internal Lawyer Status</th>
 								<!--<th width="8%">Action</th>-->
 							</tr>
 						</thead>
 						<tbody>
 							<% @exception_requests.each do |exception_request| %>
-							<% if exception_request.law_firm_id.present? && exception_request.requested_by != nil  %>
+							<% if exception_request.law_firm_id.present? %>
 								<tr onClick="window.location.href='/lob/exception_requests/<%= exception_request.id %>'">
 									<td>
 										<% if exception_request.requested_by.present? %>

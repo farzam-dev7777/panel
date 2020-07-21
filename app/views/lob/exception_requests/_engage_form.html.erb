@@ -18,13 +18,17 @@
         <div class="">
             <div class="">
               <div class="col-md-12">
-                <label class="label">Confirm the reason?</label>
+                <label class="label">Confirm why a Non-Panel law firm is required for this matter?<span class="mandatory">*</span></label>
                 <div class="sp-checkbox-inline">
                   <%= f.input :reason, as: :check_boxes, label: false, collection: ExceptionRequest::EXCEPTION_REQUEST_REASON,  required: true %>  
                 </div>
               </div>
+              <div class="col-md-6">
+                <label class="label">Provide details of reason(s) selected<span class="mandatory">*</span></label>
+                <%= f.input :reason_details, label: false, required: true %>
+              </div>
               <div class="col-md-12 np-btn">
-                <a class="btn-type-primary tab-next-btn next-btn-exception" data-tab="tabs-payer">Next</a>
+                <a class="btn-type-primary tab-next-btn next-btn-exception" data-tab="tabs-payer" data-current-tab="Confirm-the-reason">Next</a>
               </div>
             </div>
         </div>
@@ -36,7 +40,7 @@
         <div class="">
           <div class="">
             <div class="col-md-12">
-              <label class="label">Select Payer</label>
+              <label class="label">Who is paying the law firm?</label>
               <div class="sp-checkbox-inline">
                 <%= f.input :payer, as: :radio_buttons, label: false, collection: ExceptionRequest::EXCEPTION_REQUEST_PAYER,  required: true %>
               </div> 
@@ -54,8 +58,8 @@
         <div class="">
           <div class="row">
             <div class="col-xs-12 col-sm-6 col-md-4">
-              <label class="label">Requested By<span class="mandatory">*</span></label>
-              <%= f.input :requested_by, label: false,  required: true %>
+              <label class="label">Submitted By<span class="mandatory">*</span></label>
+              <%= f.input :submitted_by_email, label: false,  required: true, :input_html => { :value => @current_admin_user_email, :readonly => true } %>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-4">
               <label class="label">Line of Business<span class="mandatory">*</span></label>
@@ -147,17 +151,17 @@
               <label class="label">Name of Matter/ Client<span class="mandatory">*</span></label>
               <%= f.input :matter_name, label: false,  required: true %>
             </div>
-            <div class="col-xs-12 col-sm-6 col-md-6">
+            <!--<div class="col-xs-12 col-sm-6 col-md-6">
               <label class="label">How will this matter be paid?<span class="mandatory">*</span></label>
               <%= f.input :mode_of_payment, label: false, collection: ExceptionRequest::MODE_OF_PAYMENT %>
-            </div>
-          </div>
-          <div class="row">
+            </div>-->
             <div class="col-xs-12 col-sm-6 col-md-6">
               <label class="label">Description of the matter<span class="mandatory">*</span></label>
               <%= f.input :matter_description, label: false,  required: true %>
             </div>
-            <div class="col-xs-12 col-sm-6 col-md-6">
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
               <label class="label">Will this matter involve the following:<span class="mandatory">*</span></label>
               <%= f.input :matter_involve_following, label: false, collection: ExceptionRequest::MATTER_INVOLE_FOLLOWING %>
             </div>
@@ -195,7 +199,7 @@
           <div class="row">
           <div class="col-xs-12 col-sm-12 col-md-12">
             <a class="tab-next-btn btn-type-default prev-btn-exception" data-tab="tabs-provide">Previous</a>  
-            <%= f.button :submit, @exception_request.new_record? ? "Submit Request" : "Update Request", class: "btn-type-primary" %>
+            <%= f.button :submit, @exception_request.new_record? ? "Submit Request" : "Submit Request", class: "btn-type-primary" %>
           </div>
         </div>
       </div>

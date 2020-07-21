@@ -389,7 +389,7 @@ $('.engageForm select#law_firm_countries').on('change', function() {
 			.done(function( data ) {
 				if(data){
 					$('.state_type_box').show()
-					var options = "<option value=''> Select State</option>";
+					var options = "<option value=''> Select State/Province</option>";
 					for (var i=0; i < data.data.length; i++){
 						options += "<option value="+data.data[i].id+">"+data.data[i].name+"</option>";
 					};
@@ -438,7 +438,7 @@ $('.engageForm select#law_firm_country_ids').on('change', function() {
 			.done(function( data ) {
 				if(data){
 					$('.state_type_box').show()
-					var options = "<option value=''> Select State</option>";
+					var options = "<option value=''> Select State/Province</option>";
 					for (var i=0; i < data.data.length; i++){
 						options += "<option value="+data.data[i].id+">"+data.data[i].name+"</option>";
 					};
@@ -519,7 +519,7 @@ $('input[name="exception_request[is_work]"]').on('click', function() {
 		
 		$('.engage_non_panel_firm_btn').removeClass('hide')
 	}else{
-		$('.engage_non_panel_firm_btn').val('Submit Requests')
+		$('.engage_non_panel_firm_btn').val('Confirm')
 		$('.engage_non_panel_firm_btn').attr('data-disable-with', 'Submit Requests')
 		$('.engage_non_panel_firm_btn').removeClass('hide')
 	}
@@ -658,7 +658,24 @@ $(document).ready(function() {
 })
  
 $(".next-btn-exception").click(function () {
-	$( "#tabs-exception" ).tabs( "option", "active", $("#tabs-exception").tabs('option', 'active')+1 );
+	if($(this).attr('data-current-tab') === "Confirm-the-reason") {
+		var reasonArray = []
+		$(".exception_request_reason input.check_boxes:checked").each(function(){
+			reasonArray.push($(this).val());
+		});
+		var reason_details = $('#exception_request_reason_details').val();
+		if(reasonArray.length < 1) {
+			swal("Oops!", "Please confirm why a Non-Panel law firm is required for this matter?", "error");
+			return false;
+		}
+		if(reason_details === "") {
+			swal("Oops!", "Please provide details of reason(s) selected.", "error");
+			return false;
+		}
+		$( "#tabs-exception" ).tabs( "option", "active", $("#tabs-exception").tabs('option', 'active')+1 );
+	} else {
+		$( "#tabs-exception" ).tabs( "option", "active", $("#tabs-exception").tabs('option', 'active')+1 );
+	}
 });
 $(".prev-btn-exception").click(function () {
 	$( "#tabs-exception" ).tabs( "option", "active", $("#tabs-exception").tabs('option', 'active')-1 );
@@ -704,7 +721,7 @@ $('.adminLawFirm select#law_firm_country_ids').on('change', function() {
 			.done(function( data ) {
 				if(data){
 					$('.state_type_box').show()
-					var options = "<option value=''> Select State</option>";
+					var options = "<option value=''> Select State/Province</option>";
 					for (var i=0; i < data.data.length; i++){
 						options += "<option value="+data.data[i].id+">"+data.data[i].name+"</option>";
 					};
@@ -748,7 +765,7 @@ if($('.adminLawFirm select#law_firm_country_ids').val()){
 	// 	.done(function( data ) {
 	// 		if(data){
 	// 			$('.state_type_box').show()
-	// 			var options = "<option value=''> Select State</option>";
+	// 			var options = "<option value=''> Select State/Province</option>";
 	// 			for (var i=0; i < data.data.length; i++){
 	// 				options += "<option value="+data.data[i].id+">"+data.data[i].name+"</option>";
 	// 			};
@@ -819,7 +836,7 @@ $('.panelRequestNew select#panel_request_law_firm_attributes_country_ids').on('c
 			.done(function( data ) {
 				if(data){
 					$('.state_type_box').show()
-					var options = "<option value=''> Select State</option>";
+					var options = "<option value=''> Select State/Province</option>";
 					for (var i=0; i < data.data.length; i++){
 						options += "<option value="+data.data[i].id+">"+data.data[i].name+"</option>";
 					};
@@ -842,7 +859,7 @@ if($('.panelRequestNew select#panel_request_law_firm_attributes_country_ids').va
 	// 	.done(function( data ) {
 	// 		if(data){
 	// 			$('.state_type_box').show()
-	// 			var options = "<option value=''> Select State</option>";
+	// 			var options = "<option value=''> Select State/Province</option>";
 	// 			for (var i=0; i < data.data.length; i++){
 	// 				options += "<option value="+data.data[i].id+">"+data.data[i].name+"</option>";
 	// 			};
