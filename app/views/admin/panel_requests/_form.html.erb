@@ -8,10 +8,10 @@
   <%= simple_form_for [:admin, @panel_request] do |f| %>
   
     <div class="row form-flex-wrap">
-        <div class="col-xs-12 col-md-6">
+        <!--<div class="col-xs-12 col-md-6">
           <label class="label">Requested By</label>
           <%= f.input :requested_by, label: false %>
-        </div>
+        </div>-->
         <div class="col-xs-12 col-md-6">
           <label class="label">Submitted By</label>
             <%= f.input :submitted_by_email, label: false, :input_html => { :value => @current_admin_user_email, :readonly => true } %>
@@ -19,14 +19,14 @@
             <%= f.input :request_type, :as => :hidden, :input_html => { :value => "ADD_TO_LAW_FIRM_PANEL" } %>
         </div>
         <div class="col-xs-12 col-md-6">
-          <label class="label">Line of Business</label>
+          <label class="label">Line of Business<span class="mandatory">*</span></label>
           <%= f.input :line_of_business, label: false, collection: PanelRequest::LOB_LIST %>
         </div>
         <div class="col-xs-12 col-md-6">
-          <label class="label">LOB Contact Name</label>
+          <label class="label">LOB Contact Name<span class="mandatory">*</span></label>
           <%= f.input :lob_contact_name, label: false %>
         </div>
-        <div class="col-xs-12 col-md-6">
+        <!--<div class="col-xs-12 col-md-6">
           <label class="label">Business Manager Name</label>
           <%= f.input :business_manager_name, label: false %>
         </div>
@@ -37,7 +37,7 @@
         <div class="col-xs-12 col-md-6">
           <label class="label">Business Manager Phone</label>
           <%= f.input :business_manager_phone, label: false %>
-        </div>
+        </div>-->
         <div class="col-md-12">
           <label class="inner-label">Law Firm</label>
           <div class="">
@@ -45,23 +45,27 @@
               <div class="inner-form-field">
                 <div class="row form-flex-wrap">
                   <div class="col-xs-12 col-md-6">
-                    <label class="label">Name</label>
+                    <label class="label">Name<span class="mandatory">*</span></label>
                     <%= field.input :name, label: false %>
                     <%= field.input :law_firm_category, :as => :hidden, :input_html => { :value => "PANEL" } %>
                   </div>
+                  <div class="col-xs-12 col-md-6">
+                    <label class="label">Contact Name<span class="mandatory">*</span></label>
+                    <%= field.input :contact_name, label: false %>
+                  </div>
                   <%= field.simple_fields_for :users do |user_field| %>
                   <div class="col-xs-12 col-md-6">
-                    <label class="label">Email</label>
+                    <label class="label">Email<span class="mandatory">*</span></label>
                     <%= user_field.input :email, label: false %>
                     <%= user_field.input :role, :as => :hidden, label: false, :input_html => { :value => "master_user" }%>
                     <%= user_field.input :empty_user, :as => :hidden, label: false, :input_html => { :value => true }%>
                   </div> 
                   <% end %>
                   <div class="col-xs-12 col-md-6">
-                    <label class="label">Phone</label>
+                    <label class="label">Phone<span class="mandatory">*</span></label>
                     <%= field.input :phone, label: false %>
                   </div>
-                  <div class="col-xs-12 col-md-6">
+                  <!--<div class="col-xs-12 col-md-6">
                     <label class="label">Description</label>
                     <td><%= field.input :description, label: false %></td>
                   </div>
@@ -76,6 +80,10 @@
                   <div class="col-xs-12 col-md-6">
                     <label class="label">Relationship Manager Phone</label>
                     <%= field.input :relationship_manager_phone, label: false %>
+                  </div>-->
+                  <div class="col-xs-12 col-sm-6 col-md-6">
+                    <label class="label">Would You use this firm on a regular basis?<span class="mandatory">*</span></label>
+                    <%= field.input :firm_use_on_regular_basis, as: :radio_buttons, required: true,  label: false, collection: [["Yes", true], ["No", false]] %>
                   </div>
                   <div class="col-xs-12 col-md-6">
                     <label class="label">Temp. Password</label>
@@ -91,7 +99,7 @@
             <% end %>
           </div>
         </div>
-        <div class="col-xs-12 col-md-6">
+        <!--<div class="col-xs-12 col-md-6">
           <label class="label">Minority Owned</label>
           <%= f.input :minority_owned, label: false, collection: PanelRequest::MINORITY_OWNED_TYPE  %>
         </div>
@@ -106,6 +114,42 @@
         <div class="col-xs-12 col-md-6 women_owned_details" style="display:none;">
           <label class="label">Women Owned Details</label>
           <%= f.input :women_owned_details, label: false %>
+        </div>-->
+        <div class="col-xs-12 col-md-12 multiple-selector">
+          <label class="label">What type of matters would this firm work on?<span class="mandatory">*</span></label>
+          <%= f.input :matter_types, label: false, collection: PanelRequest::MATTER_TYPES,  input_html: { multiple: true }%>
+        </div>
+        <div class="col-xs-12 col-md-12">
+          <label class="label">Does this firm have a specific niche expertise not available from a BMO LXP Panel law firm?<span class="mandatory">*</span></label>
+          <%= f.input :niche_preferred_external_counsel_panel_law_firms, label: false, required: true, collection: [["Yes", true], ["No", false]]  %>
+        </div>
+        <div class="col-xs-12 col-md-12 panel_request_niche_expertise" style="display:none;">
+          <label class="label">If yes please describe niche expertise</label>
+          <%= f.input :niche_expertise, label: false%>
+        </div>
+        <div class="col-xs-12 col-md-12">
+          <label class="label">Does this firm practice in a location not already covered by a BMO LXP Panel law firm?<span class="mandatory">*</span></label>
+          <%= f.input :required_unique_geography, label: false, required: true, collection: [["Yes", true], ["No", false]]  %>
+        </div>
+        <div class="col-xs-12 col-md-12 panel_request_geographic_location" style="display:none;">
+          <label class="label">If yes, confirm location</label>
+          <%= f.input :geographic_location, label: false%>
+        </div>
+        <div class="col-xs-12 col-md-12">
+          <label class="label">Would engagements of this firm involve the following<span class="mandatory">*</span></label>
+          <%= f.input :involved_engagement, label: false, collection: PanelRequest::INVOLVED_ENGAGEMENT %>
+        </div>
+        <div class="col-xs-12 col-md-12">
+          <label class="label">Is this a certified minority/woman owned firm?<span class="mandatory">*</span></label>
+          <%= f.input :women_owned, label: false, collection: PanelRequest::MINORITY_OWNED_TYPE  %>
+        </div>
+        <div class="col-xs-12 col-md-12 women_owned_details"  style="display:none;">
+          <label class="label">If yes, which organization certified the firm?</label>
+          <%= f.input :women_owned_details, label: false%>
+        </div>
+        <div class="col-xs-12 col-md-12">
+          <label class="label">Are there additional reasons to consider this firm for BMO's LXP Panel? Provide details<span class="mandatory">*</span></label>
+          <%= f.input :reason_other, label: false, required: true %>
         </div>
         <div class="col-xs-12 col-md-12">
           <%=link_to 'Cancel', @panel_request.new_record? ? admin_exception_requests_path : admin_law_firm_path, class: 'btn-type-default' %>
