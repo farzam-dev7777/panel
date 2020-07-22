@@ -26,10 +26,11 @@ class Admin::PanelRequestsController < Admin::BaseController
       flash[:notice] = "Panel request saved"
       redirect_to :admin_panel_requests
     else
+      errors = @panel_request.errors.full_messages.join(', ')
       @law_firms = LawFirm.all
       @current_admin_user_email = current_admin_user.email
       @current_admin_user_id = current_admin_user.id
-      flash[:alert] = "There was an error submiting the Panel request"
+      flash[:alert] = "There was an error submiting the Panel request: #{errors}"
       render :new
       
     end

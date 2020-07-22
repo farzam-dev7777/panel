@@ -57,7 +57,7 @@ class PanelRequest < ApplicationRecord
     "None of the above"
   ]
 
-  validates_presence_of :requested_by, :submitted_by_email, :line_of_business, :lob_contact_name, :women_owned  #:minority_owned
+  validates_presence_of :submitted_by_email, :line_of_business, :lob_contact_name, :women_owned  #:minority_owned
 
 
   def matter_types
