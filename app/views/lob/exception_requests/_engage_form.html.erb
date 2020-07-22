@@ -59,7 +59,7 @@
           <div class="row">
             <div class="col-xs-12 col-sm-6 col-md-4">
               <label class="label">Submitted By<span class="mandatory">*</span></label>
-              <%= f.input :submitted_by_email, label: false,  required: true, :input_html => { :value => @current_admin_user_email, :readonly => true } %>
+              <%= f.input :submitted_by_email, label: false,  required: true, :input_html => { :value => @exception_request&.submitted_by_email || @current_admin_user_email, :readonly => true } %>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-4">
               <label class="label">Line of Business<span class="mandatory">*</span></label>

@@ -54,7 +54,7 @@ class Lob::ExceptionRequestsController < Lob::BaseController
   def update_engage_non_panel_firm
     @exception_request = ExceptionRequest.find_by_id(params[:exception_request_id])
     @law_firm = @exception_request.law_firm
-   
+    @current_admin_user_email = current_user.email
   end
 
   def update
@@ -64,7 +64,8 @@ class Lob::ExceptionRequestsController < Lob::BaseController
         @law_firm = LawFirm.find(@exception_request.law_firm_id)
         @law_firm.update_attributes(exception_request_law_firms_params) 
         flash[:notice] = "Engage Non Panel Firm Request Submitted"
-        redirect_to lob_exception_request_path
+        redirect_to lob_root_path
+        #redirect_to lob_exception_request_path
       else
         @law_firm = LawFirm.new(exception_request_law_firms_params)
         @law_firm.save
@@ -218,7 +219,7 @@ class Lob::ExceptionRequestsController < Lob::BaseController
     
     params.require(:exception_request).permit(
       :requested_by, :submitted_by_email, :user_id, :line_of_business, :notes,
-      :lob_contact_name, :law_firm_id, :request_type,
+      :lob_contact_name, :law_firm_id, :request_type, :reason_details,
       :law_firm_category, :minority_owned, :minority_owned_details,
       :business_manager_name, :business_manager_phone, :business_manager_email, :is_work, :payer,
       :niche_preferred_external_counsel_panel_law_firms, :niche_expertise, :required_unique_geography, :geographic_location,
@@ -241,7 +242,7 @@ class Lob::ExceptionRequestsController < Lob::BaseController
   def exception_request_law_firms_params
     params[:exception_request].require(:law_firm).permit(
       :name, :description, :email, :phone, :user_id, :relationship_manager_email,
-      :relationship_manager_name, :relationship_manager_phone,
+      :relationship_manager_name, :relationship_manager_phone, :reason_details,
       :law_firm_type, :law_firm_category, :firm_use_on_regular_basis,
       #law_firms_matter_types_attributes: [:matter_type_id]
       matter_type_ids:[], sub_matter_type_ids: [], jurisdiction_type_ids: [], state_ids: [], country_ids: []

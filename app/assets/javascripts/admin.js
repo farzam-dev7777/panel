@@ -197,7 +197,7 @@ $(document).ready(function(){
 	});
 	// Exceptation Request approval Processs 
 	$('.exceptationRequestProcesss select#review_status').chosen().change(function() {
-		if(this.value == "REQUEST_TO_LAWYER"){
+		if(this.value == "REQUEST_TO_INPUT") {
 			$(".exceptationRequestProcesss  .internal_lawyers_box").show()
 			
 		}else{

@@ -102,7 +102,12 @@ class Admin::ReviewsController < Admin::BaseController
            end
           end
         end
-        redirect_to :back, notice: "Review Added"
+
+        if params[:review][:reviewable_type] == "ExceptionRequest" && current_user.role === 'internal_lawyers'
+          redirect_to admin_root_path
+        else
+          redirect_to :back, notice: "Review Added"
+        end
 
 
       else
