@@ -4,7 +4,7 @@
 				<li class="sparks-info color-border-01">
 					<a href="/admin/exception_requests" class="card-content">
 						<div class="card-icon bg-color-01">
-							<%= image_tag "exceptions-icon.svg", alt:"Exceptions" %> 
+							<%= image_tag "exceptions-icon.svg", alt:"Non-Panel (one-off) Requests" %> 
 						</div>
 						<div class="card-details">
 							<div class="total-record"><%= @exception_requests_submitted %></div>
@@ -13,14 +13,14 @@
 						</div>
 					</a>
 				</li>
-				<li class="sparks-info color-border-02">
+				<li class="sparks-info color-border-04">
 					<a href="/admin/conflict_waivers" class="card-content">
-						<div class="card-icon bg-color-02">
-							<%= image_tag "submitted-icon.svg", alt:"Exceptions" %> 
+						<div class="card-icon bg-color-04">
+							<%= image_tag "exceptions-icon.svg", alt:"Conflict Waiver Requests" %> 
 						</div>
 						<div class="card-details">
 							<div class="total-record"><%= @confilictc_requests_submitted %></div>
-							<div class="card-name">Conflict Waiver</div>
+							<div class="card-name">Conflict Waiver Requests</div>
 							<div class="card-tag-line">Tag lines goes here</div>
 						</div>
 					</a>
@@ -28,19 +28,19 @@
 				<li class="sparks-info color-border-03">
 					<a href="/admin/matter_intakes" class="card-content">
 						<div class="card-icon bg-color-03">
-							<%= image_tag "approved-icon.svg", alt:"Exceptions" %> 
+							<%= image_tag "approved-icon.svg", alt:"Matter Intakes" %> 
 						</div>
 						<div class="card-details">
 							<div class="total-record"><%= @matter_intakes_count %></div>
-							<div class="card-name">Matter Intakes</div>
+							<div class="card-name">Matter Intake Forms</div>
 							<div class="card-tag-line">Tag lines goes here</div>
 						</div>
 					</a>
 				</li>
-				<li class="sparks-info color-border-04">
+				<li class="sparks-info color-border-02">
 					<a href="/admin/panel_requests" class="card-content">
-						<div class="card-icon bg-color-04">
-							<%= image_tag "exceptions-icon.svg", alt:"Exceptions" %> 
+						<div class="card-icon bg-color-02">
+							<%= image_tag "submitted-icon.svg", alt:"Panel Consideration Requests" %> 
 						</div>
 						<div class="card-details">
 							<div class="total-record"><%= @panel_requests_submitted %></div>
@@ -76,7 +76,10 @@
 								<th>LOB Contact Name</th>
 								<th>Line of Business</th>
 								<th>Law Firm Name</th>
-								<th>LXP Status</th>
+								<th>Matter Name</th>
+								<% if current_user.role === "lxp" %>
+									<th>LXP Status</th>
+								<% end %>
 								<th>Lawyer Status</th>
 								<th>Date Submitted</th>
 								<!--<th width="8%">Action</th>-->
@@ -86,18 +89,19 @@
 							<% @exception_requests.each do |exception_request| %>
 								<% if exception_request.law_firm_id.present? %>
 									<tr onClick="window.location.href='/admin/exception_requests/<%= exception_request.id %>'">
-										<% if exception_request.law_firm_id.present? %>
-											<td>
-												<% if exception_request.requested_by.present? %>
-													<div class="firm-name">
-														<div class="name-avatar"><img src="<%= get_avatar_image(exception_request&.requested_by&.gsub(" ", "+")) %>"></div>
-														<div><%= exception_request.requested_by %></div>
-													</div>
-												<% end %>
-											</td>
-											<td><%= exception_request&.lob_contact_name %></td>
-											<td><%= exception_request&.line_of_business %></td>
-											<td><%= exception_request&.law_firm.try(:name) %></td>
+										<td>
+											<% if exception_request.requested_by.present? %>
+												<div class="firm-name">
+													<div class="name-avatar"><img src="<%= get_avatar_image(exception_request&.requested_by&.gsub(" ", "+")) %>"></div>
+													<div><%= exception_request.requested_by %></div>
+												</div>
+											<% end %>
+										</td>
+										<td><%= exception_request&.lob_contact_name %></td>
+										<td><%= exception_request&.line_of_business %></td>
+										<td><%= exception_request&.law_firm.try(:name) %></td>
+										<td><%= exception_request&.try(:matter_name) %></td>
+										<% if current_user.role === "lxp" %>
 											<td>
 												<div class="status">
 													<% if exception_request.lxp_status.present? %>
@@ -107,25 +111,25 @@
 													<% end %>
 												</div>
 											</td>
-											<td>
-												<% if exception_request.internal_lawyers_status.present? %>
-												<div class="status">
-													<span class="<%= exception_request.internal_lawyers_status === "APPROVED" ? 'label label-success' : 'label label-default' %>"> 
-														<%= exception_request.try(:internal_lawyers_status).try(:titleize) %>
-													</span>
-												</div>
-												<% end %>
-											</td>
-											<td>
-												<%= exception_request.created_at.strftime("%d/%m/%Y") %>
-											</td>
-											<!--<td>
-												<% if current_user.role == 'lob' &&  exception_request.try(:lxp_status) != 'APPROVED' %>
-													<%= link_to "Edit", edit_admin_exception_request_path(exception_request), class: "btn btn-xs btn-primary" %>
-												<% end %> 
-												<%= link_to "Review", admin_exception_request_path(exception_request), class: "btn btn-xs btn-secondary" %>	
-											</td>-->
 										<% end %>
+										<td>
+											<% if exception_request.internal_lawyers_status.present? %>
+											<div class="status">
+												<span class="<%= exception_request.internal_lawyers_status === "APPROVED" ? 'label label-success' : 'label label-default' %>"> 
+													<%= exception_request.try(:internal_lawyers_status).try(:titleize) %>
+												</span>
+											</div>
+											<% end %>
+										</td>
+										<td>
+											<%= exception_request.created_at.strftime("%d/%m/%Y") %>
+										</td>
+										<!--<td>
+											<% if current_user.role == 'lob' &&  exception_request.try(:lxp_status) != 'APPROVED' %>
+												<%= link_to "Edit", edit_admin_exception_request_path(exception_request), class: "btn btn-xs btn-primary" %>
+											<% end %> 
+											<%= link_to "Review", admin_exception_request_path(exception_request), class: "btn btn-xs btn-secondary" %>	
+										</td>-->
 									</tr>
               	<% end %>
 							<% end %>
@@ -142,7 +146,7 @@
 <div class="col-lg-12 col-md-12 col-sm-12">
 	<div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
 		<div class="page-header-sp mobile-dashboard-header">
-			<div class="page-title">Conflict Waivers</div>
+			<div class="page-title">Conflict Waiver Requests</div>
 			<div class="back-edit-actions">
 				<a class="btn-show-more" href="admin/conflict_waivers">
         Show more
@@ -198,7 +202,7 @@
 <div class="col-lg-12 col-md-12 col-sm-12">
 	<div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
 		<div class="page-header-sp mobile-dashboard-header">
-			<div class="page-title">Matter Intake</div>
+			<div class="page-title">Matter Intake Forms</div>
 			<div class="back-edit-actions">
 				<a class="btn-show-more" href="admin/matter_intakes">
         Show more
@@ -216,10 +220,11 @@
 								<th>Submitter Name</th>
 								<th>LOB Contact Name</th>
 								<th>Name of Matter/Client</th>
-								<th>Type of Matter</th> 
+								<% if current_user.role === "lxp" %>
+									<th>Type of Matter</th> 
+								<% end %>
 								<th>Law Firm Suggested</th>
-								<th>BMO lawyer name</th>
-								<th>Budget amount</th>
+								<th>Matter Number</th>
 								<th>Status</th>
 								<th>Date Submitted</th>
 								<!--<th>Action</th>-->
@@ -237,10 +242,11 @@
 									</td>
 									<td><%= matter_intake.lob_contact_name %></td>
 									<td><%= matter_intake.name_of_matter_client %></td>
-									<td><%= matter_intake.matter_type.try(:matter_type) %></td>
+									<% if current_user.role === "lxp" %>
+										<td><%= matter_intake.matter_type.try(:matter_type) %></td>
+									<% end %>
 									<td><%= matter_intake.law_firm.try(:name) %></td>
-									<td><%= matter_intake.bmo_lawyer_name %></td>
-									<td><%= matter_intake.budget_amount %></td>
+									<td><%= matter_intake.matter_number %></td>
 									<td>
 										<div class="status">
 											<span class="<%= matter_intake.status === "matter_open" ? 'label label-success' : 'label label-default' %>"> 
