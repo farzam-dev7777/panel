@@ -27,11 +27,11 @@
         <%= f.input :matter_description, as: :string, label: false %>
       </div>
       <div class="col-xs-12 col-md-6">
-        <label  class="label">Will this matter involve the following<span class="mandatory">*</span></label>
+        <label  class="label">Will this matter involve the following?<span class="mandatory">*</span></label>
         <%= f.input :following_matter_involve,  label: false, collection: MatterIntake::MatterInvolveFollowing %>
       </div>
       <div class="col-xs-12 col-md-6">
-        <label  class="label">How will this matter be paid?<span class="mandatory">*</span></label>
+        <label  class="label">How will this law firm be paid?<span class="mandatory">*</span></label>
         <%= f.input :mode_of_payment, label: false, collection: MatterIntake::MatterBePaidOptions %>
       </div>   
       <div class="col-xs-12 col-md-6">
@@ -48,11 +48,11 @@
         <%= f.input :budget_amount, label: false %>
       </div>-->
       <div class="col-xs-12 col-md-6">
-        <label  class="label">LOB contact to approve PO</label>
+        <label  class="label">LOB contact to approve PO<span class="mandatory">*</span></label>
         <%= f.input :lob_contact_for_po, label: false %>
       </div>    
       <div class="col-xs-12 col-md-6">
-        <label  class="label">Cost Centre for legal fees</label>
+        <label  class="label">Cost Centre for legal fees<span class="mandatory">*</span></label>
         <%= f.input :cost_centre_for_legal_fees, label: false %>
       </div>
        <div class="col-xs-12 col-md-6">
@@ -60,11 +60,11 @@
         <%= f.input :deal_code, label: false %>
       </div>
       <div class="col-xs-12 col-md-6">
-        <label  class="label">Business Paying for this Matter<span class="mandatory">*</span></label>
+        <label  class="label">Business/Group paying for this matter (level 1)<span class="mandatory">*</span></label>
         <%= f.input :business_paying_for_matter, label: false, collection: MatterIntake::Business %>
       </div>    
       <div class="col-xs-12 col-md-6">
-        <label  class="label">Group Paying for this Matter<span class="mandatory">*</span></label>
+        <label  class="label">Business/Group paying for this matter (level 2)<span class="mandatory">*</span></label>
         <%= f.input :group_paying_for_matter, label: false, collection: [] %>
       </div>
       <div class="col-xs-12 col-md-6">
@@ -72,7 +72,7 @@
         <%= f.input :paying_entity, label: false, collection: MatterIntake::LegalEntity %>
       </div>
       <div class="col-xs-12 col-md-6">
-        <label  class="label">Additional Comments for LRC Lawyer</label>
+        <label  class="label">Additional Comments for LRC Lawyer<span class="mandatory">*</span></label>
         <%= f.input :additional_comments_for_lrc_lawyer, label: false %>
       </div>
       <div class="col-md-12">

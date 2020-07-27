@@ -788,19 +788,32 @@ nav ul li a:active {
   align-items: center;
   border: 1px solid #7E858E !important;
   border-radius: 4px !important;
-  padding: 6px 12px !important;
+  padding: 10px 15px !important;
   color: #7E858E !important;
-  font-size: 13px !important;
+  font-size: 15px !important;
   line-height: 21px !important;
   font-weight: normal !important;
   text-transform: unset !important;
 }
 .sp-derpdwon .drop-down-icon{
   margin-left: 8px;
+  fill: #fff;
 }
 .sp-inner-dropdown{
   padding: 0px;
   cursor: pointer;
+  background-color: #0051CA;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 22px;
+  color: #fff;
+  border-radius: 4px;
+}
+.sp-inner-dropdown .dropdown-text {
+  color: #fff;
+}
+.sp-derpdwon .drop-down-icon img {
+  color: #fff;
 }
 .sp-inner-dropdown .dropdown-menu{
   width: 100%;

@@ -49,7 +49,7 @@
       </div>
       <% if @form_type != "litigation" %>
       <div class="col-xs-12 col-md-6">
-        <label class="label">Will this matter involve the following:</label>
+        <label class="label">Will this matter involve the following?:<span class="mandatory">*</span></label>
         <%= f.input :following_matter_involve, label: false, collection: MatterIntake::MatterInvolveFollowing %>
       </div>
       <% end %>
@@ -58,11 +58,11 @@
         <%= f.input :paying_entity, label: false, collection: MatterIntake::LegalEntity %>
       </div>
       <div class="col-xs-12 col-md-6">
-        <label class="label">Business Paying for this Matter<span class="mandatory">*</span></label>
+        <label class="label">Business/Group paying for this matter (level 1)<span class="mandatory">*</span></label>
         <%= f.input :business_paying_for_matter, label: false, collection: MatterIntake::Business %>
       </div>
       <div class="col-xs-12 col-md-6">
-        <label class="label">Group Paying for this Matter<span class="mandatory">*</span></label>
+        <label class="label">Business/Group paying for this matter (level 2)<span class="mandatory">*</span></label>
         <%= f.input :group_paying_for_matter, label: false, collection: [] %>
       </div>
       <div class="col-xs-12 col-md-6">
@@ -86,7 +86,7 @@
         <%= f.input :outside_counsel_engaged, label: false, collection: MatterIntake::OutsideCounselEngaged %>
       </div>
       <div class="col-xs-12 col-md-6">
-        <label  class="label">Will this matter involve the following<span class="mandatory">*</span></label>
+        <label  class="label">Will this matter involve the following?<span class="mandatory">*</span></label>
         <%= f.input :following_matter_involve,  label: false, collection: MatterIntake::MatterInvolveFollowing %>
       </div>
       <% if @form_type == "litigation" %>
@@ -114,16 +114,20 @@
         <%= f.input :lob_contact_for_po, label: false %>
       </div>
       <div class="col-xs-12 col-md-6 internal-matter">
-        <label class="label">Panel or Non-Panel Firm</label>
+        <label class="label">Panel or Non-Panel Firm<span class="mandatory">*</span></label>
         <%= f.input :firm_type, label: false, collection: MatterIntake::FirmType %>
       </div>
       <div class="col-xs-12 col-md-6 panel_firm internal-matter" style="display: none;">
-        <label class="label">Name of Panel Firm</label>
+        <label class="label">Name of Panel Firm<span class="mandatory">*</span></label>
         <%= f.input :name_of_panel_firm, label: false, collection: LawFirm.where(law_firm_category: "PANEL") %>
       </div>
       <div class="col-xs-12 col-md-6 non_panel_firm internal-matter" style="display: none;">
-        <label class="label">Name of Non-Panel Firm</label>
+        <label class="label">Name of Non-Panel Firm<span class="mandatory">*</span></label>
         <%= f.input :name_of_non_panel_firm, label: false %>
+      </div>
+      <div class="col-xs-12 col-md-6 alternative_fee internal-matter">
+        <label class="label">AFA Details<span class="mandatory">*</span></label>
+        <%= f.input :afa_details, label: false %>
       </div>
       <div class="col-xs-12 col-md-6 internal-matter">
         <label class="label">Type of Pricing<span class="mandatory">*</span></label>
@@ -133,21 +137,17 @@
         <label class="label">Is there an Alternative Fee Arrangement?<span class="mandatory">*</span></label>
         <%= f.input :is_alternative_fee_arrangement, label: false, collection: [['Yes', true], ["No", false]] %>
       </div>
-      <div class="col-xs-12 col-md-6 alternative_fee internal-matter">
-        <label class="label">AFA Details<span class="mandatory">*</span></label>
-        <%= f.input :afa_details, label: false %>
-      </div>
       <% if @form_type == "litigation" %>
         <div class="col-xs-12 col-md-6 internal-matter">
-          <label class="label">Could this matter be reimbursed?</label>
+          <label class="label">Could this matter be reimbursed?<span class="mandatory">*</span></label>
           <%= f.input :can_reimbursed_matter, label: false, collection: [['Yes', true], ["No", false]] %>
         </div>
       <% end %>
       <% if @form_type == "general" %>
-        <div class="col-xs-12 col-md-6 internal-matter">
+        <!--<div class="col-xs-12 col-md-6 internal-matter">
           <label class="label">Budget amount, if already negotiated with the law firm</label>
           <%= f.input :budget_amount, label: false %>
-        </div>
+        </div>-->
       <% end %>
       
       

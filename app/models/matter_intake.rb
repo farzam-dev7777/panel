@@ -22,6 +22,7 @@ class MatterIntake < ApplicationRecord
     "Capital Markets",
     "Canadian P&C",
     "Corporate Affairs",
+    "Regulatory",
     "Technology & Operations",
     "Wealth Management"
   ]
@@ -144,9 +145,8 @@ class MatterIntake < ApplicationRecord
 
   MatterBePaidOptions = [
     "A third party or BMO’s customer is paying",
-    "BMO is paying but will be reimbursed by a third party or BMO’s customer",
     "BMO is paying",
-    "N/A Internal – no law firm will be engaged"
+    "BMO is paying but will be reimbursed by a third party or BMO’s customer"
   ]
 
   LegalEntity = [
@@ -409,9 +409,11 @@ class MatterIntake < ApplicationRecord
   ]
 
   MatterInvolveFollowing = [
-    "Personal Identifiable Information > 10,000 records",
-    "Combination of sensitive and confidential information with over 10,000 records",
     "Combination of confidential information with over 10,000 records",
+    "Combination of sensitive and confidential information with over 10,000 records",
+    "Litigation",
+    "Merger/Acquisition",
+    "Personal Identifiable Information > 10,000 records",
     "None of the above"
   ]
 
