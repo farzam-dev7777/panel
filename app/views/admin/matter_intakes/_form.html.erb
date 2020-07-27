@@ -24,7 +24,7 @@
         <%= f.input :is_ore_reportable, label: false, collection: [['Yes', true], ["No", false]] %>
       </div>
       <div class="col-xs-12 col-md-6 work_area_reportable" style="<%= @form_type === 'general' ? 'display: none;' : '' %>">
-        <label class="label">Is this matter otherwise reportable?<span class="mandatory">*</span></label>
+        <label class="label">Is this matter otherwise reportable? (e.g. board reporting)<span class="mandatory">*</span></label>
         <%= f.input :is_otherwise_reportable, label: false, collection: [['Yes', true], ["No", false]] %>
       </div>
       <div class="col-xs-12 col-md-6">
@@ -47,12 +47,6 @@
         <label class="label">Matter Description<span class="mandatory">*</span></label>
         <%= f.input :matter_description, as: :string, label: false %>
       </div>
-      <% if @form_type != "litigation" %>
-      <div class="col-xs-12 col-md-6">
-        <label class="label">Will this matter involve the following?:<span class="mandatory">*</span></label>
-        <%= f.input :following_matter_involve, label: false, collection: MatterIntake::MatterInvolveFollowing %>
-      </div>
-      <% end %>
       <div class="col-xs-12 col-md-6">
         <label class="label">Legal Entity<span class="mandatory">*</span></label>
         <%= f.input :paying_entity, label: false, collection: MatterIntake::LegalEntity %>
@@ -88,6 +82,10 @@
       <div class="col-xs-12 col-md-6">
         <label  class="label">Will this matter involve the following?<span class="mandatory">*</span></label>
         <%= f.input :following_matter_involve,  label: false, collection: MatterIntake::MatterInvolveFollowing %>
+      </div>
+      <div class="col-xs-12 col-md-6">
+        <label  class="label">How will this matter be paid?<span class="mandatory">*</span></label>
+        <%= f.input :mode_of_payment,  label: false, collection: MatterIntake::MatterBePaidOptions %>
       </div>
       <% if @form_type == "litigation" %>
         <div class="col-xs-12 col-md-6">
@@ -125,13 +123,13 @@
         <label class="label">Name of Non-Panel Firm<span class="mandatory">*</span></label>
         <%= f.input :name_of_non_panel_firm, label: false %>
       </div>
-      <div class="col-xs-12 col-md-6 alternative_fee internal-matter">
-        <label class="label">AFA Details<span class="mandatory">*</span></label>
-        <%= f.input :afa_details, label: false %>
-      </div>
       <div class="col-xs-12 col-md-6 internal-matter">
         <label class="label">Type of Pricing<span class="mandatory">*</span></label>
         <%= f.input :type_of_price, label: false, collection: MatterIntake::TypeOfPrice %>
+      </div>
+      <div class="col-xs-12 col-md-6 alternative_fee internal-matter">
+        <label class="label">AFA Details<span class="mandatory">*</span></label>
+        <%= f.input :afa_details, label: false %>
       </div>
       <div class="col-xs-12 col-md-6 alternative_fee internal-matter" style="display: none;">
         <label class="label">Is there an Alternative Fee Arrangement?<span class="mandatory">*</span></label>

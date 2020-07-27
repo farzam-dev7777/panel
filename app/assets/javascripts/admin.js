@@ -580,9 +580,16 @@ $('select#matter_intake_bmo_lawyer_name').on('change', function() {
 	$('#matter_intake_lawyer_id').val(id);
 });
 
+// hide on load
+if($('select#matter_intake_work_area').val() === "Regulatory") {
+	$('.work_area_reportable').show()
+} else {
+	$('.work_area_reportable').hide()
+}
+
 $('select#matter_intake_work_area').on('change', function() {
 	var form_type = $('#matter_intake_form_type').val();
-	if(form_type === "general") {
+	if(form_type === "general" || form_type === "litigation") {
 		var work_area = this.value;
 		if(work_area === "Regulatory") {
 			$('.work_area_reportable').show()
@@ -631,7 +638,7 @@ $(document).ready(function() {
 	// Handle on Load
 	var type_of_price = ["Hourly Billing", "Work done at no cost"];
 	
-	if(type_of_price.includes(matter_intake_type_of_price)) {
+	if(!type_of_price.includes(matter_intake_type_of_price)) {
 		$('.alternative_fee').show();
 		$('#matter_intake_is_alternative_fee_arrangement').val("true")
 		$("#matter_intake_is_alternative_fee_arrangement").trigger("chosen:updated")
@@ -644,7 +651,7 @@ $(document).ready(function() {
 
 	$('select#matter_intake_type_of_price').on('change', function() {
 		var selectedValue = this.value;
-		if(type_of_price.includes(selectedValue)) {
+		if(!type_of_price.includes(selectedValue)) {
 			$('.alternative_fee').show();
 			$('#matter_intake_is_alternative_fee_arrangement').val("true")
 			$("#matter_intake_is_alternative_fee_arrangement").trigger("chosen:updated")
