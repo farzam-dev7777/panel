@@ -917,11 +917,19 @@ $('.lxp_rejects').on('click', function() {
  
 });
 
+if($('select#matter_intake_work_area').val()) {
+	setMatterIntakeWorkAreaOptions($('select#matter_intake_work_area').val())
+}
 
 $('select#matter_intake_work_area').on('change', function() {
+	setMatterIntakeWorkAreaOptions(this.value)
+})
+
+function setMatterIntakeWorkAreaOptions(value) {
 	$('select#matter_intake_work_area_type').empty();
 	var options = "<option value=''> Select an option</option>";
-	switch(this.value) {
+	var work_area_level2_value = $("#matter_intake_work_area_type").attr("data-value");
+	switch(value) {
 		case "Contractual Transactions (non-lending)":
 			valueArray = ["Card Services","Cash Management","Client and/or Account Documentation","Closed End Funds","Commercial Paper","DCN","Derivatives","Exchange Traded Funds","Inter-company (BMOFG) Agreements","Interest Rate Notes","IT Procurement (Non-Outsourcing)","Mutual Funds","Non-IT Procurement","NPPNs","Offerings","Outsourcing","PPNs","Professional Services (Consulting)","REPO/SLA","Trade Finance"];
 			for (var i = 0; i < valueArray.length; i++) {
@@ -1015,8 +1023,11 @@ $('select#matter_intake_work_area').on('change', function() {
 		default:
 	}
 	$('#matter_intake_work_area_type').html(options);
+	if(work_area_level2_value) {
+		$("#matter_intake_work_area_type").val(work_area_level2_value);
+	}
 	$("#matter_intake_work_area_type").trigger("chosen:updated")
-})
+}
 
 $('select#matter_intake_is_conceal_imanage_workspace').on('change', function() {
 	setMatterIntakeIManager(this.value)
