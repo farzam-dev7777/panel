@@ -1018,6 +1018,23 @@ $('select#matter_intake_work_area').on('change', function() {
 	$("#matter_intake_work_area_type").trigger("chosen:updated")
 })
 
+$('select#matter_intake_is_conceal_imanage_workspace').on('change', function() {
+	setMatterIntakeIManager(this.value)
+})
+
+if($('select#matter_intake_is_conceal_imanage_workspace').val()) {
+	setMatterIntakeIManager($('matter_intake_is_conceal_imanage_workspace').val())
+}
+
+function setMatterIntakeIManager(value) {
+	if(value === "true") {
+		$('.who_requires_imanager_workspace').show()
+	} else {
+		$('.who_requires_imanager_workspace').hide()
+		$('#matter_intake_who_requires_access_to_imanage_workspace').val('')
+	}
+}
+
 $('select#matter_intake_business_paying_for_matter').on('change', function() {
 	setMatterIntakeBusinessGroupOptions(this.value)
 })

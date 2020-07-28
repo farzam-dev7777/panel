@@ -105,7 +105,7 @@ class Admin::MatterIntakesController < Admin::BaseController
       :lob_id, :lob_contact_for_po, :cost_centre_for_legal_fees, :paying_entity, :business_paying_for_matter,
       :group_paying_for_matter, :status, :lob_submitted_at, :legal_group_of_bmo_lawyer, :work_area, :work_area_type, :is_ore_reportable,
       :is_otherwise_reportable, :is_syndicate_matter, :is_conceal_imanage_workspace, :is_paper_file,
-      :jurisdiction, :firm_type, :name_of_panel_firm, :name_of_non_panel_firm, :type_of_price,
+      :jurisdiction, :firm_type, :name_of_panel_firm, :name_of_non_panel_firm, :type_of_price, :who_requires_access_to_imanage_workspace,
       :is_alternative_fee_arrangement, :afa_details, :additional_matter_contact, :other_matter_issues,
       :lawyer_reviewed_at, :other_party, :matter_number, :form_type, :key_facts, :legal_analysis, :stage_of_litigation,
       :allegation_of_employee_misconduct, :primary_issue, :secondary_issue, :bmo_party, :opposing_counsel_firm,
