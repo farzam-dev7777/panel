@@ -59,6 +59,12 @@
         <label class="label">Business/Group paying for this matter (level 2)<span class="mandatory">*</span></label>
         <%= f.input :group_paying_for_matter, label: false, collection: [] %>
       </div>
+      <% if @form_type == "litigation" %>
+        <div class="col-xs-12 col-md-6">
+          <label class="label">Branch</label>
+          <%= f.input :branch, label: false %>
+        </div>
+      <% end %>
       <div class="col-xs-12 col-md-6">
         <label class="label">Jurisdiction<span class="mandatory">*</span></label>
         <%= f.input :jurisdiction, label: false, collection: MatterIntake::Jurisdiction %>
@@ -87,12 +93,6 @@
         <label  class="label">How will this matter be paid?<span class="mandatory">*</span></label>
         <%= f.input :mode_of_payment,  label: false, collection: MatterIntake::MatterBePaidOptions %>
       </div>
-      <% if @form_type == "litigation" %>
-        <div class="col-xs-12 col-md-6">
-          <label class="label">Branch</label>
-          <%= f.input :branch, label: false %>
-        </div>
-      <% end %>
       <% if @form_type == "general" %>
         <div class="col-xs-12 col-md-6">
           <label class="label">How will this matter be paid?<span class="mandatory">*</span></label>

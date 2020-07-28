@@ -11,7 +11,7 @@ class Admin::InternalDashboardController < Admin::BaseController
     if current_user.role === "lxp"
       @exception_requests = ExceptionRequest.distinct.order('created_at DESC').limit(5)
       @conflict_waivers = ConflictWaiver.distinct.order('created_at DESC').limit(5)
-      @matter_intakes = MatterIntake.distinct.where(status: "waiting_for_lxp_review").or(MatterIntake.distinct.where(status: "matter_open")).order('created_at DESC').limit(5)
+      @matter_intakes = MatterIntake.distinct.order('created_at DESC').limit(5)
       @matter_intakes_count = MatterIntake.distinct.where(status: "matter_open").count()
     elsif current_user.role === "internal_lawyers"
       @exception_requests = ExceptionRequest.where(internal_lawyers_id: current_user.id).order('created_at DESC').limit(5)

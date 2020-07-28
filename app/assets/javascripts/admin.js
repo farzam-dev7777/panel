@@ -1,5 +1,14 @@
 $(document).ready(function(){
 
+	// All forms stop submitting on enter - as per client requirement
+	$('form').on('keyup keypress', function(e) {
+		var keyCode = e.keyCode || e.which;
+		if (keyCode === 13) { 
+			e.preventDefault();
+			return false;
+		}
+	})
+
   $('.datetimepicker').datetimepicker();
 
 	// Create a new todo task
@@ -1010,9 +1019,18 @@ $('select#matter_intake_work_area').on('change', function() {
 })
 
 $('select#matter_intake_business_paying_for_matter').on('change', function() {
+	setMatterIntakeBusinessGroupOptions(this.value)
+})
+
+if($('select#matter_intake_business_paying_for_matter').val()) {
+	setMatterIntakeBusinessGroupOptions($('select#matter_intake_business_paying_for_matter').val())
+}
+
+function setMatterIntakeBusinessGroupOptions(value) {
 	$('select#matter_intake_group_paying_for_matter').empty();
+	var group_value = $("#matter_intake_group_paying_for_matter").attr("data-value");
 	var options = "<option value=''> Select an option</option>";
-	switch(this.value) {
+	switch(value) {
 		case "Canadian P&C":
 			valueArray = ["Business Banking","Commercial Banking - ABL","Commercial Banking - Auto Finance","Commercial Banking - BMO Capital Partners & M&A","Commercial Banking - Corporate Finance","Commercial Banking - Diversified Industries","Commercial Banking - Equipment Leasing","Commercial Banking - Media","Commercial Banking - Other (Regions)","Commercial Banking - Overhead & Support","Commercial Banking - Real Estate Lending","Commercial Banking - Retail Dealer Finance","Commercial Banking - Sponsor Coverage","Commercial Banking - Tranportation Finance","Commercial Banking - Treasury & Payment Solutions","Electronic Banking Services","Other - Customer Contact Centres","Other - Distribution Services","Other - Headquarters","Other - Investment Plan","Personal Banking - Everyday Banking","Personal Banking - Home Financing & Retail Lending","Personal Banking - NA Retail Payments","Personal Banking - Office of the COO","Personal Banking - Sales & Distribution","Personal Banking - SVP Program","Personal Banking - Term Deposits"];
 			for (var i = 0; i < valueArray.length; i++) {
@@ -1046,8 +1064,11 @@ $('select#matter_intake_business_paying_for_matter').on('change', function() {
 		default:
 	}
 	$('#matter_intake_group_paying_for_matter').html(options);
-	$("#matter_intake_group_paying_for_matter").trigger("chosen:updated")
-})
+	if (group_value) {
+		$("#matter_intake_group_paying_for_matter").val(group_value);
+	}
+	$("#matter_intake_group_paying_for_matter").trigger("chosen:updated");
+}
 
 $('select#matter_intake_process_type_level_1').on('change', function() {
 	$('select#matter_intake_process_type_level_2').empty();

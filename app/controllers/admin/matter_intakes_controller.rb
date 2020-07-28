@@ -10,7 +10,7 @@ class Admin::MatterIntakesController < Admin::BaseController
     if current_user.role === "internal_lawyers"
       @matter_intakes = @q.result(distinct: true).where(lawyer_id: current_user.id).order('created_at DESC')
     elsif current_user.role === "lxp"
-      @matter_intakes = @q.result(distinct: true).where(status: "waiting_for_lxp_review").or(@q.result(distinct: true).where(status: "matter_open")).order('created_at DESC')
+      @matter_intakes = @q.result(distinct: true).order('created_at DESC')
     else
       @matter_intakes = []
     end

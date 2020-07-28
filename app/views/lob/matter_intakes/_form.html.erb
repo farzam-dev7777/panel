@@ -65,7 +65,7 @@
       </div>    
       <div class="col-xs-12 col-md-6">
         <label  class="label">Business/Group paying for this matter (level 2)<span class="mandatory">*</span></label>
-        <%= f.input :group_paying_for_matter, label: false, collection: [] %>
+        <%= f.input :group_paying_for_matter, label: false, collection: [], input_html: { data: {value: "#{@matter_intake&.group_paying_for_matter}"} } %>
       </div>
       <div class="col-xs-12 col-md-6">
         <label  class="label">Paying Entity<span class="mandatory">*</span></label>
