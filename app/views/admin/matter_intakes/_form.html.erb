@@ -15,10 +15,10 @@
         <label class="label">Work Area<span class="mandatory">*</span></label>
         <%= f.input :work_area, label: false, collection: @form_type == "litigation" ? MatterIntake::WorkAreaLitigation : MatterIntake::WorkArea  %>
       </div>
-      <!--<div class="col-xs-12 col-md-6">
-        <label class="label"><%=  @form_type == "litigation" ? "Work Area (litigation)" : "Work Area (General)" %></label>
-        <%= f.input :work_area_type, label: false, collection: [] %>
-      </div>-->
+      <div class="col-xs-12 col-md-6">
+        <label class="label">Work Area Level 2<span class="mandatory">*</span></label>
+        <%= f.input :work_area_type, label: false, collection: [], input_html: { data: {value: "#{@matter_intake&.work_area_type}"} } %>
+      </div>
       <div class="col-xs-12 col-md-6 work_area_reportable" style="<%= @form_type === 'general' ? 'display: none;' : '' %>">
         <label class="label">Is this matter ORE reportable?<span class="mandatory">*</span></label>
         <%= f.input :is_ore_reportable, label: false, collection: [['Yes', true], ["No", false]] %>
@@ -61,7 +61,7 @@
       </div>
       <div class="col-xs-12 col-md-6">
         <label class="label">Business/Group paying for this matter (level 2)<span class="mandatory">*</span></label>
-        <%= f.input :group_paying_for_matter, label: false, collection: [] %>
+        <%= f.input :group_paying_for_matter, label: false, collection: [], input_html: { data: {value: "#{@matter_intake&.group_paying_for_matter}"} } %>
       </div>
       <% if @form_type == "litigation" %>
         <div class="col-xs-12 col-md-6">
