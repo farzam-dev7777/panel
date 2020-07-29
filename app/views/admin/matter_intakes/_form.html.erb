@@ -63,7 +63,7 @@
         <label class="label">Business/Group paying for this matter (level 2)<span class="mandatory">*</span></label>
         <%= f.input :group_paying_for_matter, label: false, collection: [], input_html: { data: {value: "#{@matter_intake&.group_paying_for_matter}"} } %>
       </div>
-      <% if @form_type == "litigation" %>
+      <% if @form_type == "litigation" || @matter_intake&.form_type == "litigation" %>
         <div class="col-xs-12 col-md-6">
           <label class="label">Branch</label>
           <%= f.input :branch, label: false %>
@@ -139,7 +139,7 @@
           <%= f.input :can_reimbursed_matter, label: false, collection: [['Yes', true], ["No", false]] %>
         </div>
       <% end %>
-      <% if @form_type == "general" %>
+      <% if @form_type == "general" || @matter_intake&.form_type == "general"%>
         <!--<div class="col-xs-12 col-md-6 internal-matter">
           <label class="label">Budget amount, if already negotiated with the law firm</label>
           <%= f.input :budget_amount, label: false %>
@@ -147,7 +147,7 @@
       <% end %>
       
       
-      <% if @form_type == "litigation" %>
+      <% if @form_type == "litigation" || @matter_intake&.form_type == "litigation" %>
         
         <div class="col-md-12">
           <div class="inner-label">Case Details :</div>

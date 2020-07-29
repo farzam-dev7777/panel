@@ -86,7 +86,7 @@
               <th>Type of Matter</th> 
               <th>Law Firm Suggested</th>
               <th>BMO lawyer name</th>
-              <th>Budget amount</th>
+              <!--<th>Budget amount</th>-->
               <th>Status</th>
               <!--<th>Action</th>-->
             </tr>
@@ -107,7 +107,7 @@
                 <td><%= matter_intake.matter_type.try(:matter_type) %></td>
                 <td><%= matter_intake.law_firm.try(:name) %></td>
                 <td><%= matter_intake.bmo_lawyer_name %></td>
-                <td><%= matter_intake.budget_amount %></td>
+                <!--<td><%= matter_intake.budget_amount %></td>-->
                 <td>
                   <div class="status">
                     <span class="<%= matter_intake.status === "matter_open" ? 'label label-success' : 'label label-default' %>"> 

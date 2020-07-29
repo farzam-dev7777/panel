@@ -84,15 +84,15 @@
               </div>
               <div class="col-xs-12 col-md-6">
                 <div class="field-label">Is this matter ORE reportable?:	</div>
-                <div class="field-data"><%= @matter_intake.is_ore_reportable %></div>
+                <div class="field-data"><%= @matter_intake.is_ore_reportable ? "Yes" : "No" %></div>
               </div>
               <div class="col-xs-12 col-md-6">
                 <div class="field-label">Conceal iManage Workspace?:	</div>
-                <div class="field-data"><%= @matter_intake.is_conceal_imanage_workspace %></div>
+                <div class="field-data"><%= @matter_intake.is_conceal_imanage_workspace ? "Yes" : "No" %></div>
               </div>
               <div class="col-xs-12 col-md-6">
                 <div class="field-label">Paper file?:	</div>
-                <div class="field-data"><%= @matter_intake.is_paper_file %></div>
+                <div class="field-data"><%= @matter_intake.is_paper_file ? "Yes" : "No" %></div>
               </div>
               <div class="col-xs-12 col-md-6">
                 <div class="field-label">Jurisdiction:	</div>
@@ -132,11 +132,11 @@
               </div>
               <div class="col-xs-12 col-md-6">
                 <div class="field-label">Is there an Alternative Fee Arrangement?:	</div>
-                <div class="field-data"><%= @matter_intake.is_alternative_fee_arrangement %></div>
+                <div class="field-data"><%= @matter_intake.is_alternative_fee_arrangement ? "Yes" : "No" %></div>
               </div>
               <div class="col-xs-12 col-md-6">
                 <div class="field-label">Could this matter be reimbursed?:	</div>
-                <div class="field-data"><%= @matter_intake.can_reimbursed_matter %></div>
+                <div class="field-data"><%= @matter_intake.can_reimbursed_matter ? "Yes" : "No" %></div>
               </div>
               <!--<div class="col-xs-12 col-md-6">
                 <div class="field-label">Budget amount, if already negotiated with the law firm:	</div>
@@ -236,7 +236,7 @@
                   </div>
                   <div class="col-xs-12 col-md-6">
                     <div class="field-label">Unquantified Claim:	</div>
-                    <div class="field-data"><%= @matter_intake.unquantified_claim %></div>
+                    <div class="field-data"><%= @matter_intake.unquantified_claim ? "Yes" : "No" %></div>
                   </div>
                   <div class="col-xs-12 col-md-6">
                     <div class="field-label">Valued at $50,000 or more:	</div>
