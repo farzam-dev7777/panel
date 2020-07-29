@@ -457,6 +457,12 @@ class MatterIntake < ApplicationRecord
     MatterIntakeMailer.send_notification_to_lxp_for_form_submission(self).deliver_now
   end
 
+  def send_notification_litigation_specialist_team
+    if self.email_notification_to_litigation_specialist_team
+      MatterIntakeMailer.send_notification_litigation_specialist_team(self).deliver_now
+    end
+  end
+
   def send_notification_to_lawyer_and_lxp
     MatterIntakeMailer.send_notification_to_lxp_for_matter_open(self).deliver_now
     MatterIntakeMailer.send_notification_to_lawyer_for_matter_open(self).deliver_now

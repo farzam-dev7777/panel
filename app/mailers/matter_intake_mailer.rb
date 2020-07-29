@@ -15,6 +15,11 @@ class MatterIntakeMailer < ApplicationMailer
     end
   end
 
+  def send_notification_litigation_specialist_team(matter_intake)
+    @matter_intake = matter_intake
+    mail(to: ["manpreet@metawarelabs.com"], bcc: ["sandeep@metawarelabs.com"], subject: "Matter intake (Litigation Specialist Team) - New insurance claim submitted")
+  end
+
   def send_notification_to_lawyer_for_matter_open(matter_intake)
     @matter_intake = matter_intake
     # Sending email to lawyer

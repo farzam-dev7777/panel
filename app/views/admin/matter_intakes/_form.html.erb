@@ -189,6 +189,10 @@
               <%= f.input :written_legal_notice_required, label: false, as: :boolean %>
             </div>
             <div class="col-xs-12 col-md-6 internal-matter">
+              <label class="label">Should insurance be notified of the claim?</label>
+              <%= f.input :email_notification_to_litigation_specialist_team, label: false, as: :boolean %>
+            </div>
+            <div class="col-xs-12 col-md-6 internal-matter">
               <label class="label">Arbitration Offered</label>
               <%= f.input :arbitration_offered, label: false, collection: [['Yes', true], ["No", false]] %>
             </div>
