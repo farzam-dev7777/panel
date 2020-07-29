@@ -302,7 +302,7 @@
             </div>
             <div class="col-xs-12 col-md-6 internal-matter">
               <label class="label">Process Type Level 2</label>
-              <%= f.input :process_type_level_2, label: false, collection: [] %>
+              <%= f.input :process_type_level_2, label: false, collection: [], input_html: { data: {value: "#{@matter_intake&.process_type_level_2}"} } %>
             </div>
             <div class="col-xs-12 col-md-6 internal-matter">
               <label class="label">Product Type Level 1</label>
@@ -310,7 +310,7 @@
             </div>
             <div class="col-xs-12 col-md-6 internal-matter">
               <label class="label">Product Type Level 2</label>
-              <%= f.input :product_type_level_2, label: false, collection: [] %>
+              <%= f.input :product_type_level_2, label: false, collection: [], input_html: { data: {value: "#{@matter_intake&.product_type_level_2}"} } %>
             </div>
             <div class="col-xs-12 col-md-6 internal-matter">
               <label class="label">Event Type Level 1</label>
@@ -318,7 +318,7 @@
             </div>
             <div class="col-xs-12 col-md-6 internal-matter">
               <label class="label">Event Type Level 2</label>
-              <%= f.input :event_type_level_2, label: false, collection: [] %>
+              <%= f.input :event_type_level_2, label: false, collection: [], input_html: { data: {value: "#{@matter_intake&.event_type_level_2}"} } %>
             </div>
             <div class="col-xs-12 col-md-6 internal-matter">
               <label class="label">Business Activity Level 1</label>
@@ -326,7 +326,7 @@
             </div>
             <div class="col-xs-12 col-md-6 internal-matter">
               <label class="label">Business Activity Level 2</label>
-              <%= f.input :business_activity_level_2, label: false, collection: [] %>
+              <%= f.input :business_activity_level_2, label: false, collection: [], input_html: { data: {value: "#{@matter_intake&.business_activity_level_2}"} } %>
             </div>
           </div>
         </div>

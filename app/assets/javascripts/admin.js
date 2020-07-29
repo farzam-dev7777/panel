@@ -1098,10 +1098,19 @@ function setMatterIntakeBusinessGroupOptions(value) {
 	$("#matter_intake_group_paying_for_matter").trigger("chosen:updated");
 }
 
+if($('select#matter_intake_process_type_level_1').val()) {
+	setMatterIntakeProcessLevelType1($('select#matter_intake_process_type_level_1').val())
+}
+
 $('select#matter_intake_process_type_level_1').on('change', function() {
+	setMatterIntakeProcessLevelType1(this.value)
+})
+
+function setMatterIntakeProcessLevelType1(value) {
 	$('select#matter_intake_process_type_level_2').empty();
 	var options = "<option value=''> Select an option</option>";
-	switch(this.value) {
+	var process_type_2_value = $("#matter_intake_process_type_level_2").attr("data-value");
+	switch(value) {
 		case "Capture and Document Transactions":
 			options += "<option value='Capture Transactions'>Capture Transactions</option>";
 			options += "<option value='Confirm and Document Transactions'>Confirm and Document Transactions</option>";
@@ -1214,13 +1223,25 @@ $('select#matter_intake_process_type_level_1').on('change', function() {
 		default:
 	}
 	$('#matter_intake_process_type_level_2').html(options);
-	$("#matter_intake_process_type_level_2").trigger("chosen:updated")
-})
+	if(process_type_2_value) {
+		$("#matter_intake_process_type_level_2").val(process_type_2_value);
+	}
+	$("#matter_intake_process_type_level_2").trigger("chosen:updated");
+}
+
+if($('select#matter_intake_event_type_level_1').val()) {
+	setMatterIntakeEventType1($('select#matter_intake_event_type_level_1').val());
+}
 
 $('select#matter_intake_event_type_level_1').on('change', function() {
+	setMatterIntakeEventType1(this.value);
+})
+
+function setMatterIntakeEventType1(value) {
 	$('select#matter_intake_event_type_level_2').empty();
 	var options = "<option value=''> Select an option</option>";
-	switch(this.value) {
+	var event_type_2_value = $("#matter_intake_event_type_level_2").attr("data-value");
+	switch(value) {
 		case "Internal Fraud":
 			options += "<option value='Unauthorized Activity'>Unauthorized Activity</option>";
 			options += "<option value='Theft and Fraud - In Person - Internal'>Theft and Fraud - In Person - Internal</option>";
@@ -1264,13 +1285,25 @@ $('select#matter_intake_event_type_level_1').on('change', function() {
 		default:
 	}
 	$('#matter_intake_event_type_level_2').html(options);
-	$("#matter_intake_event_type_level_2").trigger("chosen:updated")
-})
+	if(event_type_2_value) {
+		$('#matter_intake_event_type_level_2').val(event_type_2_value);
+	}
+	$("#matter_intake_event_type_level_2").trigger("chosen:updated");
+}
+
+if($('select#matter_intake_product_type_level_1').val()) {
+	setMatterIntakeProductType1($('select#matter_intake_product_type_level_1').val());
+}
 
 $('select#matter_intake_product_type_level_1').on('change', function() {
+	setMatterIntakeProductType1(this.value);
+})
+
+function setMatterIntakeProductType1(value) {
 	$('select#matter_intake_product_type_level_2').empty();
 	var options = "<option value=''> Select an option</option>";
-	switch(this.value) {
+	var product_type_2_value = $("#matter_intake_product_type_level_2").attr("data-value");
+	switch(value) {
 		case "Capital Raising":
 			options += "<option value='Equity Issuance'>Equity Issuance</option>";
 			options += "<option value='Bond Issuance'>Bond Issuance</option>";
@@ -1366,13 +1399,25 @@ $('select#matter_intake_product_type_level_1').on('change', function() {
 		default:
 	}
 	$('#matter_intake_product_type_level_2').html(options);
+	if(product_type_2_value) {
+		$('#matter_intake_product_type_level_2').val(product_type_2_value);
+	}
 	$("#matter_intake_product_type_level_2").trigger("chosen:updated");
-})
+}
+
+if($('#matter_intake_business_activity_level_1').val()) {
+	setMatterIntakeBusinessActivityLevel1($('#matter_intake_business_activity_level_1').val());
+}
 
 $('select#matter_intake_business_activity_level_1').on('change', function() {
+	setMatterIntakeBusinessActivityLevel1(this.value);
+})
+
+function setMatterIntakeBusinessActivityLevel1(value) {
 	$('select#matter_intake_business_activity_level_2').empty();
 	var options = "<option value=''> Select an option</option>";
-	switch(this.value) {
+	var business_activity_level_2_value = $("#matter_intake_business_activity_level_2").attr("data-value");
+	switch(value) {
 		case "Corporate Finance":
 			options += "<option value='Corporate Finance'>Corporate Finance</option>";
 			options += "<option value='Municipal/Government Finance'>Municipal/Government Finance</option>";
@@ -1424,8 +1469,11 @@ $('select#matter_intake_business_activity_level_1').on('change', function() {
 		default:
 	}
 	$('#matter_intake_business_activity_level_2').html(options);
+	if(business_activity_level_2_value) {
+		$('#matter_intake_business_activity_level_2').val(business_activity_level_2_value);
+	}
 	$("#matter_intake_business_activity_level_2").trigger("chosen:updated")
-})
+}
 
 $(document).ready(function() {
 	// general intake
