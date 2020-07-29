@@ -5,7 +5,7 @@
         <label class="label">BMO lawyer name<span class="mandatory">*</span></label>
           <%= f.input :bmo_lawyer_name, label: false, :input_html => { :value => current_user.try(:full_name) } %>
           <%= f.input :lawyer_id, as: :hidden, label: false, :input_html => { :value => current_user.try(:id) } %>
-          <%= f.input :form_type, as: :hidden, label: false, :input_html => { :value => @form_type } %>
+          <%= f.input :form_type, as: :hidden, label: false, :input_html => { :value => @form_type || @matter_intake&.form_type } %>
       </div>
       <div class="col-xs-12 col-md-6">
         <label class="label">Legal Group of BMO Lawyer<span class="mandatory">*</span></label>
@@ -133,7 +133,7 @@
         <label class="label">Is there an Alternative Fee Arrangement?<span class="mandatory">*</span></label>
         <%= f.input :is_alternative_fee_arrangement, label: false, collection: [['Yes', true], ["No", false]] %>
       </div>
-      <% if @form_type == "litigation" %>
+      <% if @form_type == "litigation" || @matter_intake&.form_type == "litigation" %>
         <div class="col-xs-12 col-md-6 internal-matter">
           <label class="label">Could this matter be reimbursed?<span class="mandatory">*</span></label>
           <%= f.input :can_reimbursed_matter, label: false, collection: [['Yes', true], ["No", false]] %>
@@ -150,8 +150,8 @@
       <% if @form_type == "litigation" || @matter_intake&.form_type == "litigation" %>
         
         <div class="col-md-12">
-          <div class="inner-label">Case Details :</div>
-          <div class="inner-form-field form-flex-wrap">
+          <div class="inner-label internal-matter">Case Details :</div>
+          <div class="inner-form-field form-flex-wrap internal-matter">
             <div class="col-xs-12 col-md-6 internal-matter">
               <label class="label">Background/Key Facts (other than matter description)</label>
               <%= f.input :key_facts, label: false %>
@@ -207,8 +207,8 @@
           </div>
         </div>
         <div class="col-md-12">
-          <div class="inner-label">Claim Information :</div>
-          <div class="inner-form-field form-flex-wrap">
+          <div class="inner-label internal-matter">Claim Information :</div>
+          <div class="inner-form-field form-flex-wrap internal-matter">
             <div class="col-xs-12 col-md-6 internal-matter">
               <label class="label">Date Suit Filed</label>
               <%= f.input :date_suit_filed, label: false, as: :date, html5: true %>
@@ -252,8 +252,8 @@
           </div>
         </div>
         <div class="col-md-12">
-          <div class="inner-label">Court Details :</div>
-          <div class="inner-form-field form-flex-wrap">
+          <div class="inner-label internal-matter">Court Details :</div>
+          <div class="inner-form-field form-flex-wrap internal-matter">
             <div class="col-xs-12 col-md-6 internal-matter">
               <label class="label">Court Name</label>
               <%= f.input :court_name, label: false %>
@@ -273,8 +273,8 @@
           </div>
         </div>
         <div class="col-md-12">
-          <div class="inner-label">Comset Details :</div>
-          <div class="inner-form-field form-flex-wrap">
+          <div class="inner-label internal-matter">Comset Details :</div>
+          <div class="inner-form-field form-flex-wrap internal-matter">
             <div class="col-xs-12 col-md-6 internal-matter">
               <label class="label">Comset Issues</label>
               <%= f.input :comset_issues, label: false, collection: MatterIntake::ComsetIssues %>
@@ -286,8 +286,8 @@
           </div>
         </div>
         <div class="col-md-12">
-          <div class="inner-label">Operational Risk Event Reporting :</div>
-          <div class="inner-form-field form-flex-wrap">
+          <div class="inner-label internal-matter">Operational Risk Event Reporting :</div>
+          <div class="inner-form-field form-flex-wrap internal-matter">
             <div class="col-xs-12 col-md-6 internal-matter">
               <label class="label">M&I Matter</label>
               <%= f.input :mi_matter, label: false, collection: [['Yes', true], ["No", false]] %>

@@ -19,8 +19,8 @@ class MatterIntake < ApplicationRecord
     :if => Proc.new { |matter_intake| matter_intake.user_id.present? && matter_intake.user.role == "lob" }
 
   # validation for lawyer initiated
-  validates_presence_of :legal_group_of_bmo_lawyer, :work_area, :work_area_type, :is_syndicate_matter,
-    :jurisdiction, :outside_counsel_engaged, :firm_type, :is_conceal_imanage_workspace, :is_paper_file,
+  validates_presence_of :legal_group_of_bmo_lawyer, :work_area, :work_area_type,
+    :jurisdiction, :outside_counsel_engaged, :firm_type,
     :if => Proc.new { |matter_intake| matter_intake.user_id.nil? }
 
   HUMANIZED_ATTRIBUTES = {

@@ -43,14 +43,15 @@ class Admin::MatterIntakesController < Admin::BaseController
 
   def create
     @matter_intake = MatterIntake.new(matter_intake_params)
-    
+
     if @matter_intake.save
       @matter_intake.update_attributes(status: "waiting_for_lxp_review", lawyer_reviewed_at: Time.now)
       @matter_intake.send_notification_to_lxp
-      flash[:notice] = "Matter intake form saved"
+      flash[:notice] = "Matter intake form submitted"
       redirect_to :admin_matter_intakes
     else
       flash[:alert] = "There was an error initiating matter intake request. #{@matter_intake.errors.full_messages.join(', ')}" 
+      @form_type = params[:matter_intake][:form_type]
       @matter_intake = MatterIntake.new(matter_intake_params)
       render :new
     end
