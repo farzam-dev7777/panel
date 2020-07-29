@@ -7,7 +7,7 @@
     <div class="row form-flex-wrap">
       <div class="col-xs-12 col-md-6">
         <label  class="label">Submitter Name<span class="mandatory">*</span></label>
-        <%= f.input :submitter_name, label: false, :input_html => { :value => @current_lob_user.try(:full_name) } %>
+        <%= f.input :submitter_name, label: false, :input_html => { :value => @matter_intake&.submitter_name || @current_lob_user.try(:full_name) } %>
         <%= f.input :user_id, :as => :hidden, label: false, :input_html => { :value => @current_lob_user.id } %>
       </div>
       <div class="col-xs-12 col-md-6">
