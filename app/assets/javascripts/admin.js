@@ -1033,8 +1033,8 @@ $('select#matter_intake_is_conceal_imanage_workspace').on('change', function() {
 	setMatterIntakeIManager(this.value)
 })
 
-if($('select#matter_intake_is_conceal_imanage_workspace').val()) {
-	setMatterIntakeIManager($('matter_intake_is_conceal_imanage_workspace').val())
+if($('#matter_intake_is_conceal_imanage_workspace').val()) {
+	setMatterIntakeIManager($('#matter_intake_is_conceal_imanage_workspace').val())
 }
 
 function setMatterIntakeIManager(value) {
