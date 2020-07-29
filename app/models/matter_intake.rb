@@ -8,8 +8,35 @@ class MatterIntake < ApplicationRecord
 
   has_many :reviews, as: :reviewable
 
-  validates_presence_of :submitter_name, :matter_type_id, :if => Proc.new { |matter_intake| matter_intake.user_id.present? }
-  # validates_presence_of  :if => Proc.new { |matter_intake| matter_intake.user_id.present? }
+  # For common fields 
+  validates_presence_of :bmo_lawyer_name, :name_of_matter_client, :matter_description, :paying_entity,
+    :business_paying_for_matter, :group_paying_for_matter, :following_matter_involve, :mode_of_payment,
+    :lob_contact_for_po, :cost_centre_for_legal_fees
+
+  # validation for lob initiated
+  validates_presence_of :submitter_name, :lob_contact_name, :matter_type_id,
+    :law_firm_id, :additional_comments_for_lrc_lawyer,
+    :if => Proc.new { |matter_intake| matter_intake.user_id.present? && matter_intake.user.role == "lob" }
+
+  # validation for lawyer initiated
+  validates_presence_of :legal_group_of_bmo_lawyer, :work_area, :work_area_type, :is_syndicate_matter,
+    :jurisdiction, :outside_counsel_engaged, :firm_type, :is_conceal_imanage_workspace, :is_paper_file,
+    :if => Proc.new { |matter_intake| matter_intake.user_id.nil? }
+
+  HUMANIZED_ATTRIBUTES = {
+    :name_of_matter_client => "Name of Matter/Client", 
+    :matter_type_id => "Type of Matter",
+    :following_matter_involve => "Will this matter involve the following",
+    :mode_of_payment => "How will this law firm be paid",
+    :lob_contact_for_po => "LOB contact to approve PO",
+    :business_paying_for_matter => "Business/Group paying for this matter (level 1)",
+    :group_paying_for_matter => "Business/Group paying for this matter (level 2)",
+    :work_area_type => "Work Area Level 2",
+    :is_syndicate_matter => "Is this a syndicate matter",
+    :is_conceal_imanage_workspace => "Conceal iManage Workspace",
+    :is_paper_file => "Paper file",
+    :firm_type => "Panel or Non-Panel Firm"
+  }
 
   LOB_CONTACT_NAMES = [
     "Alan Elliott",
@@ -416,6 +443,11 @@ class MatterIntake < ApplicationRecord
     "Personal Identifiable Information > 10,000 records",
     "None of the above"
   ]
+
+  # For overriding fields name in error messages
+  def self.human_attribute_name(attribute, options = {})
+    HUMANIZED_ATTRIBUTES[attribute.to_sym] || super
+  end
 
   def send_notification_to_lawyer
     MatterIntakeMailer.send_notification_to_lawyer_for_form_submission(self).deliver_now
