@@ -187,7 +187,7 @@
                   </div>
                   <div class="col-xs-12 col-md-6">
                     <div class="field-label">Allegation of Employee Misconduct?:	</div>
-                    <div class="field-data"><%= @matter_intake.allegation_of_employee_misconduct %></div>
+                    <div class="field-data"><%= @matter_intake.allegation_of_employee_misconduct ? "Yes" : "No" %></div>
                   </div>
                   <div class="col-xs-12 col-md-6">
                     <div class="field-label">Primary Issue:	</div>
@@ -207,15 +207,15 @@
                   </div>
                   <div class="col-xs-12 col-md-6">
                     <div class="field-label">Written Legal Notice Required:	</div>
-                    <div class="field-data"><%= @matter_intake.written_legal_notice_required %></div>
+                    <div class="field-data"><%= @matter_intake.written_legal_notice_required ? "Yes" : "No" %></div>
                   </div>
                   <div class="col-xs-12 col-md-6">
                     <div class="field-label">Arbitration Offered:	</div>
-                    <div class="field-data"><%= @matter_intake.arbitration_offered %></div>
+                    <div class="field-data"><%= @matter_intake.arbitration_offered ? "Yes" : "No" %></div>
                   </div>
                   <div class="col-xs-12 col-md-6">
                     <div class="field-label">Arbitration Accepted:	</div>
-                    <div class="field-data"><%= @matter_intake.arbitration_accepted %></div>
+                    <div class="field-data"><%= @matter_intake.arbitration_accepted ? "Yes" : "No" %></div>
                   </div>
                   <div class="col-xs-12 col-md-6">
                     <div class="field-label">Branch Manager/Investment Advisor Name:	</div>
