@@ -602,6 +602,9 @@ nav ul li a:active {
 .back-edit-actions a:last-child{
   margin-left: 5px;
 }
+.back-edit-actions button.btn-type-primary{
+  margin-left: 5px;
+}
 .action-fields{
   display: flex;
 }
