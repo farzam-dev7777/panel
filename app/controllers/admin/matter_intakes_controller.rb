@@ -51,6 +51,7 @@ class Admin::MatterIntakesController < Admin::BaseController
       redirect_to :admin_matter_intakes
     else
       flash[:alert] = "There was an error initiating matter intake request. #{@matter_intake.errors.full_messages.join(', ')}" 
+      @matter_intake = MatterIntake.new(matter_intake_params)
       render :new
     end
 
