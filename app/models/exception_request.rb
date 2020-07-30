@@ -367,4 +367,18 @@ class ExceptionRequest < ApplicationRecord
     end
   end
 
+  def show_matter_types
+    if self.matter_types.nil?
+      return ""
+    else
+      if self.matter_types.is_a? Array
+        self.matter_types.compact.join(', ')
+      elsif self.matter_types.is_a? Hash
+        self.matter_types.to_s
+      else
+        self.matter_types
+      end
+    end
+  end
+
 end
