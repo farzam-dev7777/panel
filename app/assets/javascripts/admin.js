@@ -597,15 +597,15 @@ if($('select#matter_intake_work_area').val() === "Regulatory") {
 }
 
 $('select#matter_intake_work_area').on('change', function() {
-	var form_type = $('#matter_intake_form_type').val();
-	if(form_type === "general" || form_type === "litigation") {
+	// var form_type = $('#matter_intake_form_type').val();
+	// if(form_type === "general" || form_type === "litigation") {
 		var work_area = this.value;
 		if(work_area === "Regulatory") {
 			$('.work_area_reportable').show()
 		} else {
 			$('.work_area_reportable').hide()
 		}
-	}
+	// }
 })
 
 $(document).ready(function() {
@@ -647,7 +647,7 @@ $(document).ready(function() {
 	// Handle on Load
 	var type_of_price = ["Hourly Billing", "Work done at no cost"];
 	
-	if(!type_of_price.includes(matter_intake_type_of_price)) {
+	if(matter_intake_type_of_price && !type_of_price.includes(matter_intake_type_of_price)) {
 		$('.alternative_fee').show();
 		$('#matter_intake_is_alternative_fee_arrangement').val("true")
 		$("#matter_intake_is_alternative_fee_arrangement").trigger("chosen:updated")
