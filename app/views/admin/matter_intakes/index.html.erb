@@ -86,7 +86,7 @@
               <th>Name of Matter/Client</th>
               <th>Type of Matter</th> 
               <th>Law Firm Suggested</th>
-              <th>BMO lawyer name</th>
+              <th>Matter Number</th>
               <!--<th>Budget amount</th>-->
               <th>Status</th>
               <!--<th>Action</th>-->
@@ -110,7 +110,7 @@
                 <td><%= matter_intake.name_of_matter_client %></td>
                 <td><%= matter_intake.matter_type.try(:matter_type) %></td>
                 <td><%= matter_intake.law_firm.try(:name) %></td>
-                <td><%= matter_intake.bmo_lawyer_name %></td>
+                <td><%= matter_intake.matter_number %></td>
                 <!--<td><%= matter_intake.budget_amount %></td>-->
                 <td>
                   <div class="status">

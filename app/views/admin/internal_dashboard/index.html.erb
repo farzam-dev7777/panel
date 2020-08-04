@@ -165,6 +165,8 @@
 								<th>Name of law firm</th>
 								<th>Contact details</th>
 								<th>BMO business  contact</th>
+								<th>LXP Status</th>
+              	<th>Internal Lawyer Status</th>
 								<!--<th width="8%">Action</th>-->
 							</tr>
 						</thead>
@@ -191,6 +193,25 @@
 											</a>
 										</div>
 									</td>-->
+									<td>
+										<% if conflict_waiver.lxp_status_show.present? %>
+											<div class="status">
+												<span class="<%= conflict_waiver.lxp_status_show === "APPROVED" ? 'label label-success' : 'label label-default' %>"> 
+													<%= conflict_waiver.try(:lxp_status_show).try(:titleize) %>
+												</span>
+											</div>
+										<% end %>
+									</td>
+									<td>
+										<% if conflict_waiver.internal_lawyers_status_show.present? %>
+											<div class="status">
+												<span class="<%= conflict_waiver.internal_lawyers_status_show === "Approve" ? 'label label-success' : 'label label-default' %>"> 
+													<%= conflict_waiver.try(:internal_lawyers_status_show).try(:titleize) %>
+												</span>
+											</div>
+										<% end %>
+										<% conflict_waiver.internal_lawyers_status_show %>
+									</td>
 								</tr>
 							<% end %>
 						</tbody>

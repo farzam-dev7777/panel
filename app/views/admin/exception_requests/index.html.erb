@@ -5,7 +5,7 @@
 <div class="col-lg-12">
   <div class="jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
     <div class="page-header-sp m-top">
-      <div class="page-title">Engage Non Panel Request</div>
+      <div class="page-title">Non-Panel (one-off) Requests</div>
       <div></div>
     </div>
     <% if current_user.role == "lob" %>
@@ -77,9 +77,13 @@
             <tr>
               <th>Date Submitted</th>
               <th>Requested By</th>
+              <th>LOB Contact Name</th>
               <th>Line of Business</th>
               <th>Law Firm Name</th>
-              <th>LXP Status</th>
+              <th>Matter Name</th>
+              <% if current_user.role === "lxp" %>
+                <th>LXP Status</th>
+              <% end %>
               <th>Lawyer Status</th>
               <!--<th width="8%">Action</th>-->
             </tr>
@@ -100,9 +104,12 @@
                       </div>
                     <% end %>  
                   </td>
+                  <td><%= exception_request&.lob_contact_name %></td>
                   <td><%= exception_request.line_of_business %></td>
                   <td><%= exception_request.law_firm.try(:name) %></td>
+                  <td><%= exception_request&.try(:matter_name) %></td>
                   <td>
+                  <% if current_user.role === "lxp" %>
                     <div class="status">
                       <% if exception_request.lxp_status.present? %>
                         <span class="<%= exception_request.lxp_status === "Approved" ? 'label label-success' : 'label label-default' %>"> 
@@ -110,6 +117,7 @@
                         </span>
                       <% end %>
                     </div>
+                  <% end %>
                   </td>
                   <td>
                     <div class="status">
@@ -119,7 +127,6 @@
                         </span>
                       <% end %>
                     </div>
-                    <% exception_request.internal_lawyers_status %>
                   </td>
                   <!--<td>
                     <div class="action-fields">
