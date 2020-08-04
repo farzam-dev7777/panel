@@ -33,7 +33,7 @@
 					</div>
 					<div class="card-details">
 						<div class="total-record"><%= @matter_intakes_count %></div>
-						<div class="card-name">Matter Intakes</div>
+						<div class="card-name">Matter Intakes Requests</div>
 						<div class="card-tag-line">Tag lines goes here</div>
 					</div>
 				</a>
@@ -79,7 +79,7 @@
 								<th>Law Firm Name</th>
 								<th>Matter Name</th>
 								<th>LXP Status</th>
-								<th>Internal Lawyer Status</th>
+								<!--<th>Internal Lawyer Status</th>-->
 								<!--<th width="8%">Action</th>-->
 							</tr>
 						</thead>
@@ -113,7 +113,7 @@
 										</div>
 										<% exception_request.lxp_status_show %>
 									</td>
-									<td>
+									<!--<td>
 										<div class="status">
 											<% if exception_request.internal_lawyers_status_show.present? %>
 												<span class="<%= exception_request.internal_lawyers_status_show === "Approved" ? 'label label-success' : 'label label-default' %>"> 
@@ -122,7 +122,7 @@
 											<% end %>
 										</div>
 										<% exception_request.internal_lawyers_status_show %>
-									</td>
+									</td>-->
 									<!--<td>
 										<div class="action-fields">
 											<% if current_user.role == 'lob' &&  exception_request.try(:lxp_status) != 'APPROVED' %>
