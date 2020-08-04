@@ -1015,7 +1015,7 @@ function setMatterIntakeWorkAreaOptions(value) {
 			}
 			break;
 		case "Litigation":
-			valueArray = ["Class Action\Customer","Class Action\Employment (Inc. Contractors)","Class Action\Non-Customer","Class Action\Securities","Customer\Action","Customer\Complaint (Non-action)","Employment\Action","Employment\Complaint (Non-action)","Internal Review/Investigations\Investigations","Internal Review/Investigations\Review","Non-Customer\Action","Non-Customer\Complaint (Non-action)","Recovery\Other than SAMU","Recovery\SAMU","Regulatory Proceedings/Tribunal","Small Claims","Third-Party Order/Subpoenas/Garnishments","Watching Brief"];
+			valueArray = ["Class Action/Customer","Class Action/Employment (Inc. Contractors)","Class Action\Non-Customer","Class Action\Securities","Customer\Action","Customer\Complaint (Non-action)","Employment\Action","Employment\Complaint (Non-action)","Internal Review/Investigations\Investigations","Internal Review/Investigations\Review","Non-Customer\Action","Non-Customer\Complaint (Non-action)","Recovery\Other than SAMU","Recovery\SAMU","Regulatory Proceedings/Tribunal","Small Claims","Third-Party Order/Subpoenas/Garnishments","Watching Brief"];
 			for (var i = 0; i < valueArray.length; i++) {
 				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
 			}
