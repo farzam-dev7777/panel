@@ -104,12 +104,12 @@
 					<% end %>
 					<% if current_user && (  current_user.role == 'lxp' || current_user.role == 'internal_lawyers' ) %>
 						<li class="<%= active_menu_item('/admin/conflict_waivers') %>">
-							<a href="/admin/conflict_waivers" title="Conflict Waiver"><i class="fa fa-question-circle" aria-hidden="true"></i> <span class="menu-item-parent">Conflict Waivers</span></a>
+							<a href="/admin/conflict_waivers" title="Conflict Waiver"><i class="fa fa-question-circle" aria-hidden="true"></i> <span class="menu-item-parent">Conflict Waiver Requests</span></a>
 						</li>
 					<% end %>	
 					<% if current_user && ( current_user.role == 'internal_lawyers' || current_user.role == 'lxp') %>
 						<li class="<%= active_menu_item('/admin/matter_intakes') %>">
-							<a href="/admin/matter_intakes" title="Matter Intakes"><i class="fa fa-users" aria-hidden="true"></i> <span class="menu-item-parent">Matter Intakes</span></a>
+							<a href="/admin/matter_intakes" title="Matter Intakes"><i class="fa fa-users" aria-hidden="true"></i> <span class="menu-item-parent">Matter Intake Forms</span></a>
 						</li>
 					<% end %>	
 					<% if current_user && current_user.role == 'lxp' %>
