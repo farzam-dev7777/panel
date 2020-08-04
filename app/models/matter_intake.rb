@@ -14,7 +14,7 @@ class MatterIntake < ApplicationRecord
     :lob_contact_for_po, :cost_centre_for_legal_fees
 
   # validation for lob initiated
-  validates_presence_of :submitter_name, :lob_contact_name, :matter_type_id,
+  validates_presence_of :submitter_name, :matter_type_id,
     :law_firm_id, :additional_comments_for_lrc_lawyer,
     :if => Proc.new { |matter_intake| matter_intake.user_id.present? && matter_intake.user.role == "lob" }
 
@@ -171,9 +171,9 @@ class MatterIntake < ApplicationRecord
   ]
 
   MatterBePaidOptions = [
-    "A third party or BMO’s customer is paying",
+    "Third party/Customer paying law firm directly",
     "BMO is paying",
-    "BMO is paying but will be reimbursed by a third party or BMO’s customer"
+    "BMO is paying and will be reimbursed by a third party/customer"
   ]
 
   LegalEntity = [

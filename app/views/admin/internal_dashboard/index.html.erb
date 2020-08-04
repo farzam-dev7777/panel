@@ -72,6 +72,7 @@
 					<table id="" class="table table-decoration table-bordered" width="100%">
 						<thead>
 							<tr>
+								<th>Date Submitted</th>
 								<th>Requested By</th>
 								<th>LOB Contact Name</th>
 								<th>Line of Business</th>
@@ -81,7 +82,6 @@
 									<th>LXP Status</th>
 								<% end %>
 								<th>Lawyer Status</th>
-								<th>Date Submitted</th>
 								<!--<th width="8%">Action</th>-->
 							</tr>
 						</thead>
@@ -89,6 +89,9 @@
 							<% @exception_requests.each do |exception_request| %>
 								<% if exception_request.law_firm_id.present? %>
 									<tr onClick="window.location.href='/admin/exception_requests/<%= exception_request.id %>'">
+										<td>
+											<%= exception_request.created_at.strftime('%d %b %Y at %I:%M %p') %>
+										</td>
 										<td>
 											<% if exception_request.requested_by.present? %>
 												<div class="firm-name">
@@ -120,9 +123,6 @@
 												</span>
 											</div>
 											<% end %>
-										</td>
-										<td>
-											<%= exception_request.created_at.strftime("%d/%m/%Y") %>
 										</td>
 										<!--<td>
 											<% if current_user.role == 'lob' &&  exception_request.try(:lxp_status) != 'APPROVED' %>
@@ -161,6 +161,7 @@
 					<table id="" class="table table-decoration table-bordered" width="100%">
 						<thead>
 							<tr>
+								<th>Date Submitted</th>
 								<th>Name of law firm</th>
 								<th>Contact details</th>
 								<th>BMO business  contact</th>
@@ -170,6 +171,9 @@
 						<tbody>
 							<% @conflict_waivers.each do |conflict_waiver| %>
 								<tr onClick="window.location.href='/admin/conflict_waivers/<%= conflict_waiver.id %>'">
+									<td>
+										<%= conflict_waiver.created_at.strftime('%d %b %Y at %I:%M %p') %>
+									</td>
 									<td>
 										<% if conflict_waiver.name_of_law_firm.present? %>
 											<div class="firm-name">
@@ -217,8 +221,9 @@
 					<table id="" class="table table-decoration table-bordered" width="100%">
 						<thead>
 							<tr>
+								<th>Date Submitted</th>
 								<th>Submitter Name</th>
-								<th>LOB Contact Name</th>
+								<!--<th>LOB Contact Name</th>-->
 								<th>Name of Matter/Client</th>
 								<% if current_user.role === "lxp" %>
 									<th>Type of Matter</th> 
@@ -226,12 +231,12 @@
 								<th>Law Firm Suggested</th>
 								<th>Matter Number</th>
 								<th>Status</th>
-								<th>Date Submitted</th>
 								<!--<th>Action</th>-->
 							</tr>
 						<tbody>
 							<% @matter_intakes.each do |matter_intake| %>
 								<tr onClick="window.location.href='/admin/matter_intakes/<%= matter_intake.id %>'">
+									<td><%= matter_intake.created_at.strftime('%d %b %Y at %I:%M %p') %></td>
 									<td>
 										<% if matter_intake.submitter_name.present? %>
 											<div class="firm-name">
@@ -240,7 +245,7 @@
 											</div>
 										<% end %>	
 									</td>
-									<td><%= matter_intake.lob_contact_name %></td>
+									<!--<td><%= matter_intake.lob_contact_name %></td>-->
 									<td><%= matter_intake.name_of_matter_client %></td>
 									<% if current_user.role === "lxp" %>
 										<td><%= matter_intake.matter_type.try(:matter_type) %></td>
@@ -254,7 +259,6 @@
 											</span>
 										</div>
 									</td>
-									<td><%= matter_intake.created_at.strftime("%d/%m/%Y") %></td>
 									<!--<td>
 										<% if @current_user.role === "internal_lawyers" && (matter_intake.status === "waiting_for_lawyer_review" || matter_intake.status === "waiting_for_lawyer_update") %>
 											<%= link_to "review", review_admin_matter_intake_path(matter_intake), class: "btn btn-xs btn-secondary" %>	

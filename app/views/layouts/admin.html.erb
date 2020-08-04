@@ -519,13 +519,18 @@
 				tablet : 1024,
 				phone : 480
 			};
-
-			$('#dt_basic, #demo').dataTable({
+			var sorting_order = 0;
+			if($('#dt_basic').attr('data-ordering')) {
+				sorting_order = parseInt($('#dt_basic').attr('data-ordering'))
+			} else {
+				sorting_order = 0
+			}
+			$('#dt_basic').dataTable({
 				aLengthMenu: [
 	        [10, 25, 50, -1],
 	        [10, 25, 50, "All"]
 		    ],
-				"order": [[ 4, "desc" ]],
+				"order": [[ sorting_order, "desc" ]],
 				"sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-12 hidden-xs'l>r>"+
 					"t"+
 					"<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-xs-12 col-sm-6'p>>",

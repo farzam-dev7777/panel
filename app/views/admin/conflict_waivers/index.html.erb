@@ -54,6 +54,7 @@
         <table id="dt_basic" class="table table-decoration table-bordered" width="100%">
           <thead>
             <tr>
+              <th>Date Submitted</th>
               <th>Name of law firm</th>
               <th>Contact details</th>
               <th>BMO business  contact</th>
@@ -65,6 +66,9 @@
           <tbody>
             <% @conflict_waivers.each do |conflict_waiver| %>
               <tr onClick="window.location.href='/admin/conflict_waivers/<%= conflict_waiver.id %>'">
+                <td>
+                  <%= conflict_waiver.created_at.strftime('%d %b %Y at %I:%M %p') %>
+                </td>  
                 <td>
                   <% if conflict_waiver.name_of_law_firm.present? %>
                     <div class="firm-name">

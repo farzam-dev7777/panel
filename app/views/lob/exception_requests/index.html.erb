@@ -104,6 +104,7 @@
         <table id="dt_basic" class="table table-decoration table-bordered" width="100%">
           <thead>
             <tr>
+              <th>Date Submitted</th>
               <th>Requested By</th>
               <th>Submitted By</th>
               <th>LOB Contact Name</th>
@@ -118,6 +119,9 @@
             <% @exception_requests.each do |exception_request| %>
             <% if exception_request.law_firm_id.present? && exception_request.requested_by != nil  %>
               <tr class="" onClick="window.location.href='/lob/exception_requests/<%= exception_request.id %>'">
+                <td>
+                  <%= exception_request.created_at.strftime('%d %b %Y at %I:%M %p') %>
+                </td>
                 <td>
                   <% if exception_request.requested_by.present? %>
                     <div class="firm-name">

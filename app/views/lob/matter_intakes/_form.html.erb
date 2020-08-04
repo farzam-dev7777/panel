@@ -10,10 +10,10 @@
         <%= f.input :submitter_name, label: false, :input_html => { :value => @matter_intake&.submitter_name || @current_lob_user.try(:full_name) } %>
         <%= f.input :user_id, :as => :hidden, label: false, :input_html => { :value => @current_lob_user.id } %>
       </div>
-      <div class="col-xs-12 col-md-6">
+      <!--<div class="col-xs-12 col-md-6">
         <label  class="label">LOB Contact Name<span class="mandatory">*</span></label>
         <%= f.input :lob_contact_name, label: false, collection: MatterIntake::LOB_CONTACT_NAMES %>
-      </div>   
+      </div>-->
       <div class="col-xs-12 col-md-6">
         <label  class="label">Name of Matter/Client<span class="mandatory">*</span></label>
         <%= f.input :name_of_matter_client, label: false %>
