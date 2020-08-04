@@ -108,8 +108,8 @@
                   <td><%= exception_request.line_of_business %></td>
                   <td><%= exception_request.law_firm.try(:name) %></td>
                   <td><%= exception_request&.try(:matter_name) %></td>
-                  <td>
                   <% if current_user.role === "lxp" %>
+                  <td>
                     <div class="status">
                       <% if exception_request.lxp_status.present? %>
                         <span class="<%= exception_request.lxp_status === "Approved" ? 'label label-success' : 'label label-default' %>"> 
@@ -117,8 +117,8 @@
                         </span>
                       <% end %>
                     </div>
-                  <% end %>
                   </td>
+                  <% end %>
                   <td>
                     <div class="status">
                       <% if exception_request.internal_lawyers_status.present? %>
