@@ -64,6 +64,7 @@
         <table id="dt_basic" class="table table-decoration table-bordered" width="100%">
           <thead>
             <tr>
+              <th>Date Submitted</th>
               <th>Requested By</th>
               <th>Submitted By</th>
               <th>LOB Contact Name</th>
@@ -75,6 +76,7 @@
           <tbody>
             <% @panel_requests.each do |panel_request| %>
             <tr onClick="window.location.href='/admin/panel_requests/<%= panel_request.id %>'">
+              <td><%= panel_request.created_at.strftime("%d/%m/%Y") %></td>
               <td>
                 <% if panel_request.requested_by.present? %>
                   <div class="firm-name">
