@@ -467,6 +467,27 @@ $('.searchLawFirm').on('click', function() {
 	jurisdiction_type = $('select#law_firm_jurisdiction_types').chosen().val()
 	country = $('select#law_firm_countries').chosen().val()
 	state = $('select#law_firm_states').chosen().val()
+	if(!matter_type) {
+		swal({
+			title: "Opps!",
+			text: "Please select matter type"
+		});
+		return false;
+	}
+	if(!country) {
+		swal({
+			title: "Opps!",
+			text: "Please select country"
+		});
+		return false;
+	}
+	if(!state) {
+		swal({
+			title: "Opps!",
+			text: "Please select state"
+		});
+		return false;
+	}
 	if(matter_type > 0  || sub_matter_type > 0 || jurisdiction_type > 0 || country > 0 || state > 0){
 		$('input#exception_request_matter_types_search').val(matter_type)
 		$('input#exception_request_sub_matter_types_search').val(sub_matter_type)

@@ -5,7 +5,7 @@
       <a href="#tabs-reason">Confirm the reason</a>
     </li>
     <li>
-      <a href="#tabs-payer">Select Payer</a>
+      <a href="#tabs-payer">Who is paying the law firm?</a>
     </li>
     <li>
       <a href="#tabs-provide">Provide Details </a>
@@ -166,28 +166,20 @@
               <%= f.input :matter_involve_following, label: false, collection: ExceptionRequest::MATTER_INVOLE_FOLLOWING %>
             </div>
           </div>
-          <div class="row">
+          <!--<div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 multiple-selector">
               <label class="label">What type of matter would this firm be working on?<span class="mandatory">*</span></label>
               <%= f.input :matter_types, label: false, collection: ExceptionRequest::MATTER_TYPES,  input_html: { multiple: true }%>
             </div>
-          </div>
+          </div>-->
           <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-6">
-              <label class="label">What jurisdiction will the law firm operate in for this matter?<span class="mandatory">*</span></label>
-              <span class="jurisdiction"><%= f.input :jurisdiction, label: false, collection: ExceptionRequest::Jurisdiction   %></span>
-            </div>
             <div class="col-xs-12 col-sm-6 col-md-6 exception_request_women_owned_box hide">
               <label class="label">Is this a certified minority/woman owned firm?</label>
               <%= f.input :women_owned, label: false, collection: ExceptionRequest::WOMEN_OWNED_TYPE,  required: true %>
             </div>
-          </div>
-          <div class="row">
             <div class="col-xs-12 col-sm-6 col-md-6 women_owned_details" style="display:none;">
               <label class="label">If yes, which organization certified the firm?</label>
               <%= f.input :women_owned_details, label: false %>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-6">
             </div>
           </div>
           <!--<div class="row">

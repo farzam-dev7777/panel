@@ -34,8 +34,8 @@
                 <%= simple_form_for [:lob, @law_firm] do |f| %>
                   <div class="row">
                     <div class="col-xs-12 col-md-4">
-                      <label class="label">Select Matter Type</label>
-                      <%= f.input :matter_types, label: false, collection: MatterType.all.map{|mt| [mt.matter_type, mt.id] }  %>
+                      <label class="label">Select Matter Type<span class="mandatory">*</span></label>
+                      <%= f.input :matter_types, label: false, collection: MatterType.all.map{|mt| [mt.matter_type, mt.id] }, required: true %>
                     </div>
                     <!--<div class="col-xs-12 col-md-4 sub_matter_type_box" style="display:none">
                       <span class="text-left sub_matter_type">
@@ -51,18 +51,18 @@
                     </div>
                     <div class="col-xs-12 col-md-4">
                       <span class="text-left country_type">
-                        <label class="label">Select Country</label>
-                        <%= f.input :countries, label: false, collection: Country.order(:position).map{|mt| [mt.name, mt.id] }  %>
+                        <label class="label">Select Country<span class="mandatory">*</span></label>
+                        <%= f.input :countries, label: false, collection: Country.order(:position).map{|mt| [mt.name, mt.id] }, required: true  %>
                       </span>
                     </div>
                     <div class="col-xs-12 col-md-4 state_type_box" style="display:none">
                       <span class="text-left state_type">
-                        <label class="label">Select State/Province</label>
-                        <%= f.input :states, label: false, collection: State.all.map{|mt| [mt.name, mt.id] } %>
+                        <label class="label">Select State/Province<span class="mandatory">*</span></label>
+                        <%= f.input :states, label: false, collection: State.all.map{|mt| [mt.name, mt.id] }, required: true %>
                       </span>
                     </div>
                     <div class="col-xs-12 col-md-12">
-                      <%= f.button :submit, @law_firm.new_record? ? "Search" : "Submit", class: "btn-type-primary searchLawFirm" %>
+                      <%= f.button :submit, @law_firm.new_record? ? "Next" : "Submit", class: "btn-type-primary searchLawFirm" %>
                     </div>
                   </div>
                 <% end %>

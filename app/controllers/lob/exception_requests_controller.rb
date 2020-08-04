@@ -26,7 +26,7 @@ class Lob::ExceptionRequestsController < Lob::BaseController
     if @exception_request.save
       if params[:exception_request][:is_work] === "Yes"
         ExceptionRequestMailer.engage_non_panel_firm_notification_to_lxp(@exception_request).deliver_now
-        flash[:notice] = "Engage Non Panel Firm Request Created."
+        flash[:notice] = "Thank you or submitting a Non-Panel (one-off) Request."
         redirect_to :lob_exception_requests
       else
         flash[:notice] = "Thank you for using a BMO LXP Panel law firm."
@@ -37,7 +37,7 @@ class Lob::ExceptionRequestsController < Lob::BaseController
     else
       @current_admin_user_email = current_user.email
       @current_admin_user_id = current_user.id
-      flash[:alert] = "There was an error submiting Engage non Panel Firm Request Created"
+      flash[:alert] = "There was an error submiting Engage non Panel Firm Request Created. Errors: #{@exception_request.errors.full_messages&.join(', ')}"
       render :new, :law_firm_id => params[:exception_request][:law_firm_id]
       
     end
@@ -63,14 +63,14 @@ class Lob::ExceptionRequestsController < Lob::BaseController
       if @exception_request.law_firm_id.present? 
         @law_firm = LawFirm.find(@exception_request.law_firm_id)
         @law_firm.update_attributes(exception_request_law_firms_params) 
-        flash[:notice] = "Engage Non Panel Firm Request Submitted"
+        flash[:notice] = "Thank you or submitting a Non-Panel (one-off) Request"
         redirect_to lob_root_path
         #redirect_to lob_exception_request_path
       else
         @law_firm = LawFirm.new(exception_request_law_firms_params)
         @law_firm.save
         @exception_request.update_attributes(law_firm_id: @law_firm.id)
-        flash[:notice] = "Engage Non Panel Firm Request Submitted"
+        flash[:notice] = "Thank you or submitting a Non-Panel (one-off) Request"
         redirect_to lob_root_path
         #redirect_to lob_exception_request_path
       end
@@ -111,7 +111,7 @@ class Lob::ExceptionRequestsController < Lob::BaseController
   def get_state
     if params[:id]
       @countries = Country.select("country_id").where(id: params[:id])
-      render json: { data: State.where(country_id: @countries) }
+      render json: { data: State.where(country_id: @countries).order(:name) }
     else
       render json: { data: [] }
     end
