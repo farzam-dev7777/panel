@@ -597,15 +597,15 @@ if($('select#matter_intake_work_area').val() === "Regulatory") {
 }
 
 $('select#matter_intake_work_area').on('change', function() {
-	var form_type = $('#matter_intake_form_type').val();
-	if(form_type === "general" || form_type === "litigation") {
+	// var form_type = $('#matter_intake_form_type').val();
+	// if(form_type === "general" || form_type === "litigation") {
 		var work_area = this.value;
 		if(work_area === "Regulatory") {
 			$('.work_area_reportable').show()
 		} else {
 			$('.work_area_reportable').hide()
 		}
-	}
+	// }
 })
 
 $(document).ready(function() {
@@ -647,7 +647,7 @@ $(document).ready(function() {
 	// Handle on Load
 	var type_of_price = ["Hourly Billing", "Work done at no cost"];
 	
-	if(!type_of_price.includes(matter_intake_type_of_price)) {
+	if(matter_intake_type_of_price && !type_of_price.includes(matter_intake_type_of_price)) {
 		$('.alternative_fee').show();
 		$('#matter_intake_is_alternative_fee_arrangement').val("true")
 		$("#matter_intake_is_alternative_fee_arrangement").trigger("chosen:updated")
@@ -1015,7 +1015,7 @@ function setMatterIntakeWorkAreaOptions(value) {
 			}
 			break;
 		case "Litigation":
-			valueArray = ["Class Action\Customer","Class Action\Employment (Inc. Contractors)","Class Action\Non-Customer","Class Action\Securities","Customer\Action","Customer\Complaint (Non-action)","Employment\Action","Employment\Complaint (Non-action)","Internal Review/Investigations\Investigations","Internal Review/Investigations\Review","Non-Customer\Action","Non-Customer\Complaint (Non-action)","Recovery\Other than SAMU","Recovery\SAMU","Regulatory Proceedings/Tribunal","Small Claims","Third-Party Order/Subpoenas/Garnishments","Watching Brief"];
+			valueArray = ["Class Action/Customer","Class Action/Employment (Inc. Contractors)","Class Action\Non-Customer","Class Action\Securities","Customer\Action","Customer\Complaint (Non-action)","Employment\Action","Employment\Complaint (Non-action)","Internal Review/Investigations\Investigations","Internal Review/Investigations\Review","Non-Customer\Action","Non-Customer\Complaint (Non-action)","Recovery\Other than SAMU","Recovery\SAMU","Regulatory Proceedings/Tribunal","Small Claims","Third-Party Order/Subpoenas/Garnishments","Watching Brief"];
 			for (var i = 0; i < valueArray.length; i++) {
 				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
 			}
