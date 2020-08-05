@@ -160,7 +160,6 @@ class ExceptionRequest < ApplicationRecord
   end
 
   EXCEPTION_REQUEST_STATUS = {
-    "": "Select",
     "REQUEST_TO_INPUT": "Request Lawyer Input",
     "APPROVED": "Approved",
     "REJECTED": "Rejected"
@@ -367,6 +366,38 @@ class ExceptionRequest < ApplicationRecord
     end
   end
 
+  def show_countries_names
+    name = []
+    if self.law_firm && self.law_firm.countries && self.law_firm.countries.count > 0
+      countries_ids = self.law_firm.countries.pluck(:country_id)
+      if countries_ids.count > 0
+        countries_ids.each do |country_id|
+          country = Country.find_by(id: country_id)
+          if country.present?
+            name << country.name
+          end
+        end
+      end
+    end
+    name&.join(", ")
+  end
+
+  def show_states_names
+    name = []
+    if self.law_firm && self.law_firm.states && self.law_firm.states.count > 0
+      state_ids = self.law_firm.states.pluck(:state_id)
+      if state_ids.count > 0
+        state_ids.each do |state_id|
+          state = State.find_by(id: state_id)
+          if state.present?
+            name << state.name
+          end
+        end
+      end
+    end
+    name&.join(", ")
+  end
+
   def show_matter_types
     if self.matter_types.nil?
       return ""
@@ -374,7 +405,11 @@ class ExceptionRequest < ApplicationRecord
       if self.matter_types.is_a? Array
         self.matter_types.compact.join(', ')
       elsif self.matter_types.is_a? Hash
-        self.matter_types.to_s
+        if self.matter_types.empty?
+          return ""
+        else 
+          self.matter_types.to_s
+        end
       else
         self.matter_types
       end

@@ -244,9 +244,6 @@
 								<th>Submitter Name</th>
 								<!--<th>LOB Contact Name</th>-->
 								<th>Name of Matter/Client</th>
-								<% if current_user.role === "lxp" %>
-									<th>Type of Matter</th> 
-								<% end %>
 								<th>Law Firm Suggested</th>
 								<th>Matter Number</th>
 								<th>Status</th>
@@ -266,9 +263,6 @@
 									</td>
 									<!--<td><%= matter_intake.lob_contact_name %></td>-->
 									<td><%= matter_intake.name_of_matter_client %></td>
-									<% if current_user.role === "lxp" %>
-										<td><%= matter_intake.matter_type.try(:matter_type) %></td>
-									<% end %>
 									<td><%= matter_intake.law_firm.try(:name) %></td>
 									<td><%= matter_intake.matter_number %></td>
 									<td>
@@ -321,7 +315,7 @@
 									<th>Date Submitted</th>
 									<th>Requested By</th>
 									<th>Submitted By</th>
-									<th>LOB Contact Name</th>
+									<th>Law Firm Name</th>
 									<th>Panel Status</th>
               		<th>LXP Status</th>
 									<!--<th>Action</th>-->
@@ -340,7 +334,7 @@
 										<% end %>	
 									</td>
 									<td><%= panel_request.submitted_by_email %></td>
-									<td><%= panel_request.lob_contact_name %></td>
+									<td><%= panel_request&.law_firm&.name %></td>
 									<td>
 										<div class="status">
 											<% if panel_request.status.present? %>
