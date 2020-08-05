@@ -1,12 +1,12 @@
 <% content_for :page_title do %>
-  <span>Matter Intakes</span>
+  <span>Matter Intake Forms</span>
   <% end %>
   <div class="clearfix"></div>
 
   <div class="col-lg-12">
 <div class="jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
   <div class="page-header-sp m-top">
-    <div class="page-title">Matter Intakes</div>
+    <div class="page-title">Matter Intake Forms</div>
     <div>
       <%= link_to 'Submit New Matter Intake Form', new_lob_matter_intake_path, html_options = {class: 'page-header-btn'}   %>
     </div>
@@ -75,7 +75,7 @@
             <tr>
               <th>Date Submitted</th>
               <th>Submitter Name</th>
-              <!--<th>LOB Contact Name</th>-->
+              <th>LOB Contact Name</th>
               <th>Law Firm Suggested</th>
               <th>BMO lawyer name</th>
               <th>Matter Name</th>
@@ -100,7 +100,7 @@
                     </div>
                   <% end %> 
                 </td>
-                <!--<td><%= matter_intake&.lob_contact_name %></td>-->
+                <td><%= matter_intake&.lob_contact_name %></td>
                 <td><%= matter_intake&.law_firm.try(:name) %></td>
                 <td><%= matter_intake&.bmo_lawyer_name %></td>
                 <td><%= matter_intake&.name_of_matter_client %></td>
