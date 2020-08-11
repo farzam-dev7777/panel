@@ -49,12 +49,14 @@ class Lob::ExceptionRequestsController < Lob::BaseController
     @law_firm = LawFirm.new
     @current_admin_user_email = current_user.email
     @current_admin_user_id = current_user.id
+    @current_admin_full_name = current_user.full_name
   end
 
   def update_engage_non_panel_firm
     @exception_request = ExceptionRequest.find_by_id(params[:exception_request_id])
     @law_firm = @exception_request.law_firm
     @current_admin_user_email = current_user.email
+    @current_admin_full_name = current_user.full_name
   end
 
   def update

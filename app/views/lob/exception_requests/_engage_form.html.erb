@@ -67,7 +67,7 @@
             </div>
             <div class="col-xs-12 col-sm-6 col-md-4">
               <label class="label">LOB Contact Name<span class="mandatory">*</span></label>
-              <%= f.input :lob_contact_name, label: false, required: true %>
+              <%= f.input :lob_contact_name, label: false, required: true, :input_html => { :value => @exception_request&.lob_contact_name || @current_admin_full_name } %>
             </div>
           </div>
           <!--tr>
