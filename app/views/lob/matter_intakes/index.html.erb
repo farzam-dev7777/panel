@@ -75,7 +75,7 @@
             <tr>
               <th>Date Submitted</th>
               <th>Submitter Name</th>
-              <th>LOB Contact Name</th>
+              <!--<th>LOB Contact Name</th>-->
               <th>Law Firm Suggested</th>
               <th>BMO lawyer name</th>
               <th>Matter Name</th>
@@ -100,7 +100,7 @@
                     </div>
                   <% end %> 
                 </td>
-                <td><%= matter_intake&.lob_contact_name %></td>
+                <!--<td><%= matter_intake&.lob_contact_name %></td>-->
                 <td><%= matter_intake&.law_firm.try(:name) %></td>
                 <td><%= matter_intake&.bmo_lawyer_name %></td>
                 <td><%= matter_intake&.name_of_matter_client %></td>
