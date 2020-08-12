@@ -1161,3 +1161,13 @@ nav ul li a:active {
 .mandatory {
   color: red;
 }
+.upload-file-control .form-group .file.optional{
+  border: 1px solid #D7DFE9;
+  border-radius: 2px !important;
+  margin-bottom: 15px;
+  margin-top: 10px !important;
+  padding: 8px 10px !important;
+  box-sizing: border-box;
+  height: 38px;
+  width: 100%;
+}

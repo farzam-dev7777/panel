@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200729175944) do
+ActiveRecord::Schema.define(version: 20200811174351) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -616,6 +616,7 @@ ActiveRecord::Schema.define(version: 20200729175944) do
     t.string   "additional_comments_for_lrc_lawyer"
     t.string   "who_requires_access_to_imanage_workspace"
     t.boolean  "email_notification_to_litigation_specialist_team", default: false
+    t.string   "asset"
   end
 
   create_table "matter_types", force: :cascade do |t|

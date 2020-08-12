@@ -8,6 +8,8 @@ class MatterIntake < ApplicationRecord
 
   has_many :reviews, as: :reviewable
 
+  mount_uploader :asset, DocUploader
+
   # For common fields 
   validates_presence_of :bmo_lawyer_name, :name_of_matter_client, :matter_description, :paying_entity,
     :business_paying_for_matter, :group_paying_for_matter, :following_matter_involve, :mode_of_payment,
