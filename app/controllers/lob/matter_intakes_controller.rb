@@ -46,10 +46,11 @@ class Lob::MatterIntakesController < Lob::BaseController
       flash[:notice] = "Matter intake request updated"
       redirect_to lob_matter_intake_path(@matter_intake)
     else
+      msg = "There was an error updating matter intake request #{@matter_intake.errors.full_messages.join(", ")}"
       @matter_intake = MatterIntake.find_by(id: params[:id])
       @current_lob_user = current_lob_user
-      flash[:alert] = "There was an error updating matter intake request"
-      render :new
+      flash[:alert] = msg
+      render :edit
     end
   end
 

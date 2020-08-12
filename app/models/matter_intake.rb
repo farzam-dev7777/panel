@@ -37,7 +37,8 @@ class MatterIntake < ApplicationRecord
     :is_syndicate_matter => "Is this a syndicate matter",
     :is_conceal_imanage_workspace => "Conceal iManage Workspace",
     :is_paper_file => "Paper file",
-    :firm_type => "Panel or Non-Panel Firm"
+    :firm_type => "Panel or Non-Panel Firm",
+    :asset => "Document"
   }
 
   LOB_CONTACT_NAMES = [
