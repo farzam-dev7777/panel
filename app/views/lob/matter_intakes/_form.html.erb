@@ -43,10 +43,10 @@
           <%= f.input :bmo_lawyer_name, label: false, collection: InternalLawyer.all.map {|il| [il.full_name, il.full_name, {'data-id'=>il.id}]} %>
           <%= f.input :lawyer_id, as: :hidden, label: false %>
       </div>   
-      <!--<div class="col-xs-12 col-md-6">
+      <div class="col-xs-12 col-md-6">
         <label  class="label">Budget amount, if already negotiated with the law firm</label>
         <%= f.input :budget_amount, label: false %>
-      </div>-->
+      </div>
       <div class="col-xs-12 col-md-6">
         <label  class="label">LOB contact to approve PO<span class="mandatory">*</span></label>
         <%= f.input :lob_contact_for_po, label: false %>

@@ -174,9 +174,9 @@ class MatterIntake < ApplicationRecord
   ]
 
   MatterBePaidOptions = [
-    "Third party/Customer paying law firm directly",
     "BMO is paying",
-    "BMO is paying and will be reimbursed by a third party/customer"
+    "BMO is paying and will be reimbursed by a third party/customer",
+    "Third party/Customer paying law firm directly"
   ]
 
   LegalEntity = [
