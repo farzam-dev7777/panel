@@ -117,13 +117,13 @@
         <label class="label">Type of Pricing<span class="mandatory">*</span></label>
         <%= f.input :type_of_price, label: false, collection: MatterIntake::TypeOfPrice %>
       </div>
-      <div class="col-xs-12 col-md-6 alternative_fee internal-matter">
-        <label class="label">AFA Details<span class="mandatory">*</span></label>
-        <%= f.input :afa_details, label: false %>
-      </div>
       <div class="col-xs-12 col-md-6 alternative_fee internal-matter" style="display: none;">
         <label class="label">Is there an Alternative Fee Arrangement?<span class="mandatory">*</span></label>
         <%= f.input :is_alternative_fee_arrangement, label: false, collection: [['Yes', true], ["No", false]] %>
+      </div>
+      <div class="col-xs-12 col-md-6 alternative_fee internal-matter">
+        <label class="label">AFA Details<span class="mandatory">*</span></label>
+        <%= f.input :afa_details, label: false %>
       </div>
       <% if @form_type == "litigation" || @matter_intake&.form_type == "litigation" %>
         <div class="col-xs-12 col-md-6 internal-matter">
