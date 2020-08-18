@@ -104,6 +104,7 @@ class Admin::ReviewsController < Admin::BaseController
         end
 
         if params[:review][:reviewable_type] == "ExceptionRequest" && current_user.role === 'internal_lawyers'
+          @exception_request.update_attributes(lxp_status: "reviewed_by_lawyer")
           redirect_to admin_root_path
         elsif params[:review][:reviewable_type] == "ExceptionRequest" && current_user.role === 'lxp'
           redirect_to admin_root_path
