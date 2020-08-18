@@ -160,7 +160,7 @@ class ExceptionRequest < ApplicationRecord
   end
 
   EXCEPTION_REQUEST_STATUS = {
-    "REQUEST_TO_INPUT": "Request Lawyer Input",
+    "REQUEST_TO_INPUT": "Law Input Requested",
     "APPROVED": "Approved",
     "REJECTED": "Rejected"
     

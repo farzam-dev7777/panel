@@ -9,6 +9,18 @@
             <div class="field-data"><%= @exception_request.reason.reject(&:blank?).join(", ") %></div>
           </div>
           <div class="col-xs-12 col-md-6">
+            <div class="field-label">Matter Type	:	</div>
+            <div class="field-data"><%= @exception_request.matter_types_formated %></div>
+          </div>
+          <div class="col-xs-12 col-md-6">
+            <div class="field-label">Country	:	</div>
+            <div class="field-data"><%= @exception_request.countries_formated %></div>
+          </div>
+            <div class="col-xs-12 col-md-6">
+            <div class="field-label">State/Province	:	</div>
+            <div class="field-data"><%= @exception_request.states_formated %></div>
+          </div>
+          <div class="col-xs-12 col-md-6">
             <div class="field-label">Provide details of reason(s) selected :	</div>
             <div class="field-data"><%= @exception_request.reason_details %></div>
           </div>
@@ -47,14 +59,14 @@
                 <div class="field-label">Phone : </div>		
                 <div class="field-data"><%= @exception_request.law_firm.try(:phone) %></div>
               </div>
-              <div class="col-xs-12 col-md-6">
+              <!--div class="col-xs-12 col-md-6">
                 <div class="field-label">Country : </div>		
                 <div class="field-data"><%= @exception_request.show_countries_names %></div>
               </div>
               <div class="col-xs-12 col-md-6">
                 <div class="field-label">State : </div>		
                 <div class="field-data"><%= @exception_request.show_states_names %></div>
-              </div>
+              </div-->
               <!--<div class="col-xs-12 col-md-6">
                 <div class="field-label">Would You use this firm on a regular basis? : </div>		
                 <div class="field-data"><%= @exception_request.law_firm.try(:relationship_manager_name) ? "Yes" : "No" %></div>
