@@ -29,7 +29,7 @@ class Lob::ExceptionRequestsController < Lob::BaseController
         flash[:notice] = "Thank you or submitting a Non-Panel (one-off) Request."
         redirect_to :lob_exception_requests
       else
-        flash[:notice] = "Thank you for using a BMO LXP Panel law firm."
+        #flash[:notice] = "Thank you for using a BMO LXP Panel law firm."
         redirect_to exception_request_new_engage_lob_exception_requests_path(@exception_request)
         # ExceptionRequestMailer.form_submission_notification_to_lob(@exception_request).deliver_now
         # ExceptionRequestMailer.form_submission_notification_to_lxp(@exception_request).deliver_now

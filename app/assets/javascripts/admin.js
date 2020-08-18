@@ -727,8 +727,12 @@ $(".next-btn-exception").click(function () {
 			swal("Oops!", "Please provide details of reason(s) selected.", "error");
 			return false;
 		}
+		$("#tabs-exception").tabs("enable", 1);
+		$("#tabs-exception").tabs("enable", 2);
 		$( "#tabs-exception" ).tabs( "option", "active", $("#tabs-exception").tabs('option', 'active')+1 );
 	} else {
+		$("#tabs-exception").tabs("enable", 1);
+		$("#tabs-exception").tabs("enable", 2);
 		$( "#tabs-exception" ).tabs( "option", "active", $("#tabs-exception").tabs('option', 'active')+1 );
 	}
 });
@@ -736,7 +740,14 @@ $(".prev-btn-exception").click(function () {
 	$( "#tabs-exception" ).tabs( "option", "active", $("#tabs-exception").tabs('option', 'active')-1 );
 });
 
-
+$("#tabs-exception").tabs({
+	active: 0,
+	disabled: [1, 2]
+});
+// check validation on tabs click
+// $( ".tabs2, .tabs3" ).on( "click", function( event, ui ) {
+// 	$( "#tabs-exception" ).tabs( "option", "active", "tabs-reason" );
+// })
 // adminLawFirm
 $(".adminLawFirm .new_law_firm").validate();
 
