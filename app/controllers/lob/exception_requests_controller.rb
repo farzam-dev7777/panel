@@ -26,7 +26,7 @@ class Lob::ExceptionRequestsController < Lob::BaseController
     if @exception_request.save
       if params[:exception_request][:is_work] === "Yes"
         ExceptionRequestMailer.engage_non_panel_firm_notification_to_lxp(@exception_request).deliver_now
-        flash[:notice] = "Thank you or submitting a Non-Panel (one-off) Request."
+        flash[:notice] = "Thank you for submitting a Non-Panel (one-off) Request"
         redirect_to :lob_exception_requests
       else
         #flash[:notice] = "Thank you for using a BMO LXP Panel law firm."
@@ -65,14 +65,14 @@ class Lob::ExceptionRequestsController < Lob::BaseController
       if @exception_request.law_firm_id.present? 
         @law_firm = LawFirm.find(@exception_request.law_firm_id)
         @law_firm.update_attributes(exception_request_law_firms_params) 
-        flash[:notice] = "Thank you or submitting a Non-Panel (one-off) Request"
+        flash[:notice] = "Thank you for submitting a Non-Panel (one-off) Request"
         redirect_to lob_root_path
         #redirect_to lob_exception_request_path
       else
         @law_firm = LawFirm.new(exception_request_law_firms_params)
         @law_firm.save
         @exception_request.update_attributes(law_firm_id: @law_firm.id)
-        flash[:notice] = "Thank you or submitting a Non-Panel (one-off) Request"
+        flash[:notice] = "Thank you for submitting a Non-Panel (one-off) Request"
         redirect_to lob_root_path
         #redirect_to lob_exception_request_path
       end
