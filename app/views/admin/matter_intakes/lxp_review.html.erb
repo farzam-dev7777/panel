@@ -388,7 +388,7 @@
           </div>
           <div class="col-xs-12 col-md-12 text-right">
             <%=link_to 'Cancel', @matter_intake.new_record? ? new_admin_matter_intake_path : admin_matter_intakes_path, class: 'btn-type-default' %>
-            <%= f.button :submit, @matter_intake.new_record? ? "Submit Matter Number" : "Submit Matter Number", class: "btn-type-primary" %>
+            <%= f.button :submit, @matter_intake.new_record? ? "Submit" : "Submit", class: "btn-type-primary" %>
           </div>
         </div>
       <% end %>
