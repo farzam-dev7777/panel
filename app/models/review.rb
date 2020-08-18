@@ -43,6 +43,8 @@ class Review < ApplicationRecord
     if self.status.present?
       if self.reviewable_type == "ExceptionRequest"
         ExceptionRequest::EXCEPTION_REQUEST_STATUS[self.status.to_sym]
+      elsif self.reviewable_type == "MatterIntake"
+        self.status
       else
         if  ConflictWaiver::CONFLICT_WAIVER_STATUS[self.status.to_sym]
           ConflictWaiver::CONFLICT_WAIVER_STATUS[self.status.to_sym]

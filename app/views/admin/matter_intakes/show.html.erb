@@ -427,9 +427,11 @@
                         <div class="smart-timeline-content">
                           <p>
                             <strong>
-                              <%- if review.status_show %>
+                               <%- if review.status === "requires_an_update"  %>
+                                <%= review.actor.full_name %>  rejects matter intake form and retuns to lawyer for completion/updation
+                              <% elsif review.status_show %>
                                 <%= review.actor.email %> change status to <%= review.status_show %>
-                              <% else %>
+                              <% else %>  
                                 <%= review.actor.email %> left a comment
                               <% end %>
                             <strong>

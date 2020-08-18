@@ -11,11 +11,21 @@ class Admin::ReviewsController < Admin::BaseController
   def create
     ActiveRecord::Base.transaction do
       @reviewable = params[:review][:reviewable_type].constantize.find_by(id: params[:review][:reviewable_id])
+      status = ""
+      if current_user.role === 'lxp'
+        if params[:review][:reviewable_type] === "MatterIntake"
+          status = "REJECTED"
+        else  
+          status = @reviewable.lxp_status  
+        end 
+      else
+        status = @reviewable.internal_lawyers_status
+      end
       @review = @reviewable.reviews.build(review_params.merge(
         {
           actor_id: current_user.id,
           pay_type: params[:review][:pay_type],
-          status_from: current_user.role === 'lxp' ? @reviewable.lxp_status : @reviewable.internal_lawyers_status
+          status_from: status
         }
       ))
 
@@ -77,6 +87,14 @@ class Admin::ReviewsController < Admin::BaseController
             PanelRequestMailer.notification_for_more_info_to_lob(@panel_request).deliver_now
           end
           @panel_request.save
+        elsif params[:review][:reviewable_type] == "MatterIntake"  
+          @matter_intake = MatterIntake.find_by(id: params[:review][:reviewable_id])
+          if current_user.role === "lxp"
+            if @matter_intake.update_attributes(lxp_reviewed_at: Time.now, status: 'awaiting_lawyer_update', lxp_id: current_user.id)
+              @matter_intake.add_log_for_lxp_rejects_and_returns_to_lawyer(current_user)
+              @matter_intake.send_notification_to_lawyer_form_needs_updation
+            end
+          end
         else
           @conflict_waiver = ConflictWaiver.find_by_id(params[:review][:reviewable_id])
           if current_user.role === 'lxp' && ( review_params[:status] == 'APPROVED' && review_params[:assigned_to_id].present?)
@@ -108,6 +126,8 @@ class Admin::ReviewsController < Admin::BaseController
           redirect_to admin_root_path
         elsif params[:review][:reviewable_type] == "ExceptionRequest" && current_user.role === 'lxp'
           redirect_to admin_root_path
+        elsif params[:review][:reviewable_type] == "MatterIntake" && current_user.role === 'lxp'
+          redirect_to admin_matter_intakes_path  
         else
           redirect_to :back, notice: "Review Added"
         end
