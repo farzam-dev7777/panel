@@ -13,6 +13,18 @@
               <div class="field-label">Reason For New Non-Panel (one-off) Requests	:	</div>
               <div class="field-data"><%= @exception_request.reason.reject(&:blank?).join(", ") %></div>
             </div>
+            <div class="col-xs-12 col-md-6">
+              <div class="field-label">Matter Type	:	</div>
+              <div class="field-data"><%= @exception_request.matter_types_formated %></div>
+            </div>
+            <div class="col-xs-12 col-md-6">
+              <div class="field-label">Country	:	</div>
+              <div class="field-data"><%= @exception_request.countries_formated %></div>
+            </div>
+             <div class="col-xs-12 col-md-6">
+              <div class="field-label">State/Province	:	</div>
+              <div class="field-data"><%= @exception_request.states_formated %></div>
+            </div>
              <div class="col-xs-12 col-md-6">
               <div class="field-label">Payer Type	:	</div>
               <div class="field-data"><%= @exception_request.payer %></div>
