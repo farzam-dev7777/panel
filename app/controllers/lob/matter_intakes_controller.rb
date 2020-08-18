@@ -27,7 +27,7 @@ class Lob::MatterIntakesController < Lob::BaseController
     @matter_intake = MatterIntake.new(matter_intake_params)
 
     if @matter_intake.save
-      @matter_intake.update_attributes(status: "waiting_for_lawyer_review", lob_submitted_at: Time.now)
+      @matter_intake.update_attributes(status: "awaiting_lawyer_review", lob_submitted_at: Time.now)
       @matter_intake.send_notification_to_lawyer
       flash[:notice] = "Matter Intake Form submitted"
       redirect_to :lob_matter_intakes

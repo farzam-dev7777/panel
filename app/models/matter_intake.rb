@@ -481,7 +481,7 @@ class MatterIntake < ApplicationRecord
       reviewable_type: self.class.to_s,
       reviewable_id: self.id,
       description: "#{self.lawyer.try(:full_name)} submitted matter intake form for LXP review.",
-      status: "waiting_for_lxp_review"
+      status: "awaiting_lxp_review"
     )
   end
 

@@ -15,7 +15,7 @@
 					<a class="btn-type-default" href="/lob/matter_intakes">
             <%= image_tag "chevron-back-icon.svg", alt:"Back" %>
           </a>
-          <% if @matter_intake.status === "waiting_for_lawyer_review" %>
+          <% if @matter_intake.status === "awaiting_lawyer_review" %>
             <%= link_to "Edit".html_safe, edit_lob_matter_intake_path, class: "btn-type-primary" %>
           <% end %>
 				</div>

@@ -693,6 +693,24 @@ $(document).ready(function() {
 		}
 	});
 })
+
+// Handle matter_intake_afa_details on matter_intake_is_alternative_fee_arrangement Change / load
+if($('#matter_intake_afa_details').val()){
+	if(('#matter_intake_afa_details').val() === "true") {
+		$('.matter_intake_afa_details').parent().show();
+	} else {
+		$('.matter_intake_afa_details').parent().hide();
+		$('#matter_intake_afa_details').val('')
+	}
+}
+$('select#matter_intake_is_alternative_fee_arrangement').on('change', function() {
+	if(this.value === "true") {
+		$('.matter_intake_afa_details').parent().show();
+	} else {
+		$('.matter_intake_afa_details').parent().hide();
+		$('#matter_intake_afa_details').val('')
+	}
+});
  
 $(".next-btn-exception").click(function () {
 	if($(this).attr('data-current-tab') === "Confirm-the-reason") {

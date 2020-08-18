@@ -45,7 +45,7 @@ class Admin::MatterIntakesController < Admin::BaseController
     @matter_intake = MatterIntake.new(matter_intake_params)
 
     if @matter_intake.save
-      @matter_intake.update_attributes(status: "waiting_for_lxp_review", lawyer_reviewed_at: Time.now)
+      @matter_intake.update_attributes(status: "awaiting_lxp_review", lawyer_reviewed_at: Time.now)
       @matter_intake.send_notification_to_lxp
       @matter_intake.send_notification_litigation_specialist_team
       flash[:notice] = "Matter intake form submitted"
@@ -63,7 +63,7 @@ class Admin::MatterIntakesController < Admin::BaseController
     @matter_intake = MatterIntake.find_by(id: params[:id])
     if @matter_intake.present? && @matter_intake.update_attributes(matter_intake_params)
       if current_user.role === "internal_lawyers"
-        @matter_intake.update_attributes(lawyer_reviewed_at: Time.now, status: 'waiting_for_lxp_review')
+        @matter_intake.update_attributes(lawyer_reviewed_at: Time.now, status: 'awaiting_lxp_review')
         @matter_intake.send_notification_to_lxp
         @matter_intake.add_log_for_lawyer_submission_to_lxp(current_user)
         flash[:notice] = "Matter intake Form-B saved."
@@ -85,7 +85,7 @@ class Admin::MatterIntakesController < Admin::BaseController
   def lxp_rejects
     @matter_intake = MatterIntake.find_by(id: params[:id])
     if current_user.role === "lxp"
-      if @matter_intake.update_attributes(lxp_reviewed_at: Time.now, status: 'waiting_for_lawyer_update', lxp_id: current_user.id)
+      if @matter_intake.update_attributes(lxp_reviewed_at: Time.now, status: 'awaiting_lawyer_update', lxp_id: current_user.id)
         @matter_intake.add_log_for_lxp_rejects_and_returns_to_lawyer(current_user)
         @matter_intake.send_notification_to_lawyer_form_needs_updation
         render json: {
