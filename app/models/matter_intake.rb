@@ -12,7 +12,7 @@ class MatterIntake < ApplicationRecord
 
   # For common fields 
   validates_presence_of :bmo_lawyer_name, :name_of_matter_client, :matter_description, :paying_entity,
-    :business_paying_for_matter, :group_paying_for_matter, :following_matter_involve, :mode_of_payment,
+    :business_paying_for_matter, :group_paying_for_matter, :following_matter_involve,
     :lob_contact_for_po, :cost_centre_for_legal_fees
 
   # validation for lob initiated

@@ -695,8 +695,8 @@ $(document).ready(function() {
 })
 
 // Handle matter_intake_afa_details on matter_intake_is_alternative_fee_arrangement Change / load
-if($('#matter_intake_afa_details').val()){
-	if(('#matter_intake_afa_details').val() === "true") {
+if($('#matter_intake_is_alternative_fee_arrangement').val()){
+	if($('#matter_intake_is_alternative_fee_arrangement').val() === "Yes") {
 		$('.matter_intake_afa_details').parent().show();
 	} else {
 		$('.matter_intake_afa_details').parent().hide();
