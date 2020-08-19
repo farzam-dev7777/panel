@@ -12,14 +12,23 @@
         <a class="btn-type-default" href="/admin/matter_intakes">
           <%= image_tag "chevron-back-icon.svg", alt:"Back" %>
         </a>
+        
         <% if @current_user.role === "internal_lawyers" %>
           <% if @matter_intake.status === "awaiting_lxp_review" %>
-          <%= link_to "Edit".html_safe, edit_admin_matter_intake_path(id: @matter_intake.id), class: "btn-type-primary" %>
+            <% if @matter_intake.user_id.nil? %> 
+              <%= link_to "Edit".html_safe, edit_admin_matter_intake_path(id: @matter_intake.id), class: "btn-type-primary" %>
+            <% else %>
+              <%= link_to "review", review_admin_matter_intake_path(@matter_intake), class: "btn-type-primary" %>	
+            <% end %>
           <% end %>
         <% end %>
 
         <% if @current_user.role === "internal_lawyers" && (@matter_intake.status === "awaiting_lawyer_review" || @matter_intake.status === "awaiting_lawyer_update") %>
-          <%= link_to "review", review_admin_matter_intake_path(@matter_intake), class: "btn-type-primary" %>	
+            <% if @matter_intake.user_id.nil? %> 
+              <%= link_to "Edit".html_safe, edit_admin_matter_intake_path(id: @matter_intake.id), class: "btn-type-primary" %>
+            <% else %>
+              <%= link_to "review", review_admin_matter_intake_path(@matter_intake), class: "btn-type-primary" %>	
+            <% end %>
         <% elsif @current_user.role === "lxp" %>
           <% if @matter_intake.status === "awaiting_lxp_review" %>
             <%= link_to "review", lxp_review_admin_matter_intake_path(@matter_intake), class: "btn-type-primary" %>
@@ -86,10 +95,12 @@
                 <div class="field-label">Work Area:	</div>
                 <div class="field-data"><%= @matter_intake.work_area %></div>
               </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="field-label">Work Area Level 2:	</div>
-                <div class="field-data"><%= @matter_intake.work_area_type %></div>
-              </div>
+              <% if @matter_intake.user_id.nil? %> 
+                <div class="col-xs-12 col-md-6">
+                  <div class="field-label">Work Area Level 2:	</div>
+                  <div class="field-data"><%= @matter_intake.work_area_type %></div>
+                </div>
+              <% end %>
               <div class="col-xs-12 col-md-6">
                 <div class="field-label">Is this matter ORE reportable?:	</div>
                 <div class="field-data"><%= @matter_intake.is_ore_reportable %></div>
