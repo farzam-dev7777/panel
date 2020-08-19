@@ -216,9 +216,9 @@ class MatterIntake < ApplicationRecord
   FirmType = ['Panel', 'Non-Panel', 'Panel & Non-Panel Firms']
 
   OutsideCounselEngaged = [
-    "Yes, BMO is paying and will not be reimbursed",
-    "Yes, a third party or BMO’s customer is paying",
-    "Yes, BMO is paying but will be reimbursed by a third party or BMO’s customer",
+    "Yes, bank pay",
+    "Yes, third party/customer paying law firm directly",
+    "Yes, BMO is paying and will be reimbursed by a third party/customer",
     "N/A Internal – no law firm will be engaged"
   ]
 
