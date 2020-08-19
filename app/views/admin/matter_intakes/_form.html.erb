@@ -81,7 +81,7 @@
         <label class="label">Is outside counsel being engaged?<span class="mandatory">*</span></label>
         <%= f.input :outside_counsel_engaged, label: false, collection: MatterIntake::OutsideCounselEngaged %>
       </div>
-      <div class="col-xs-12 col-md-6 ">
+      <div class="col-xs-12 col-md-6 internal-matter">
         <label  class="label">Will this matter involve the following?<span class="mandatory">*</span></label>
         <%= f.input :following_matter_involve,  label: false, collection: MatterIntake::MatterInvolveFollowing %>
       </div>
