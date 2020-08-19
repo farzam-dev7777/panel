@@ -38,10 +38,12 @@
                 <div class="field-label">Matter name:	</div>
                 <div class="field-data"><%= @matter_intake.name_of_matter_client %></div>
               </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="field-label">Type of Matter:	</div>
-                <div class="field-data"><%= @matter_intake.matter_type.try(:matter_type) %></div>
-              </div>
+              <% if @matter_intake.user_id.present? %>  <!-- Lob initiated form field -->
+                <div class="col-xs-12 col-md-6">
+                  <div class="field-label">Type of Matter:	</div>
+                  <div class="field-data"><%= @matter_intake.matter_type.try(:matter_type) %></div>
+                </div>
+              <% end %>
               <div class="col-xs-12 col-md-6">
                 <div class="field-label">Matter Description:	</div>
                 <div class="field-data"><%= @matter_intake.matter_description %></div>
@@ -50,10 +52,12 @@
                 <div class="field-label">Will this matter involve the following:	</div>
                 <div class="field-data"><%= @matter_intake.following_matter_involve %></div>
               </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="field-label">Law Firm Suggested:	</div>
-                <div class="field-data"><%= @matter_intake.law_firm.try(:name) %></div>
-              </div>
+              <% if @matter_intake.user_id.present? %>  <!-- Lob initiated form field -->
+                <div class="col-xs-12 col-md-6">
+                  <div class="field-label">Law Firm Suggested:	</div>
+                  <div class="field-data"><%= @matter_intake.law_firm.try(:name) %></div>
+                </div>
+              <% end %>
               <div class="col-xs-12 col-md-6">
                 <div class="field-label">BMO lawyer name:	</div>
                 <div class="field-data"><%= @matter_intake.bmo_lawyer_name %></div>
@@ -94,10 +98,12 @@
                 <div class="field-label">Legal Entity:	</div>
                 <div class="field-data"><%= @matter_intake.paying_entity %></div>
               </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="field-label">Additional Comments for LRC Lawyer:	</div>
-                <div class="field-data"><%= @matter_intake.additional_comments_for_lrc_lawyer %></div>
-              </div>
+              <% if @matter_intake.user_id.present? %>  <!-- Lob initiated form field -->
+                <div class="col-xs-12 col-md-6">
+                  <div class="field-label">Additional Comments for LRC Lawyer:	</div>
+                  <div class="field-data"><%= @matter_intake.additional_comments_for_lrc_lawyer %></div>
+                </div>
+              <% end %>
               <div class="col-xs-12 col-md-6">
                 <div class="field-label">Business/Group paying for this matter (level 1):	</div>
                 <div class="field-data"><%= @matter_intake.business_paying_for_matter %></div>
@@ -158,7 +164,7 @@
                 <div class="field-label">Other Party (Other than BMO):	</div>
                 <div class="field-data"><%= @matter_intake.other_party %></div>
               </div>
-              <div class="col-xs-12 col-md-6">
+              <div class="col-xs-12 col-md-12">
                 <div class="field-label">Is outside counsel being engaged?:	</div>
                 <div class="field-data"><%= @matter_intake.outside_counsel_engaged %></div>
               </div>
@@ -166,7 +172,7 @@
                 <div class="field-label">Additional Matter Contact (not specified elsewhere):	</div>
                 <div class="field-data"><%= @matter_intake.additional_matter_contact %></div>
               </div>
-              <% if @matter_intake.user_id.nil? %>
+              <% if @matter_intake.user_id.present? %>
                 <div class="col-xs-12 col-md-6">
                   <div class="field-label">Budget amount, if already negotiated with the law firm:	</div>
                   <div class="field-data"><%= @matter_intake.budget_amount %></div>

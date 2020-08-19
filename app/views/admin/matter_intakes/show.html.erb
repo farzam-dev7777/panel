@@ -48,10 +48,12 @@
                 <div class="field-label">Matter name:	</div>
                 <div class="field-data"><%= @matter_intake.name_of_matter_client %></div>
               </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="field-label">Type of Matter:	</div>
-                <div class="field-data"><%= @matter_intake.matter_type.try(:matter_type) %></div>
-              </div>
+              <% if @matter_intake.user_id.present? %>  <!-- Lob initiated form field -->
+                <div class="col-xs-12 col-md-6">
+                  <div class="field-label">Type of Matter:	</div>
+                  <div class="field-data"><%= @matter_intake.matter_type.try(:matter_type) %></div>
+                </div>
+              <% end %>
               <div class="col-xs-12 col-md-6">
                 <div class="field-label">Matter Description:	</div>
                 <div class="field-data"><%= @matter_intake.matter_description %></div>
@@ -174,10 +176,12 @@
                 <div class="field-label">Legal Entity:	</div>
                 <div class="field-data"><%= @matter_intake.paying_entity %></div>
               </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="field-label">Additional Comments for LRC Lawyer:	</div>
-                <div class="field-data"><%= @matter_intake.additional_comments_for_lrc_lawyer %></div>
-              </div>
+              <% if @matter_intake.user_id.present? %>  <!-- Lob initiated form field -->
+                <div class="col-xs-12 col-md-6">
+                  <div class="field-label">Additional Comments for LRC Lawyer:	</div>
+                  <div class="field-data"><%= @matter_intake.additional_comments_for_lrc_lawyer %></div>
+                </div>
+              <% end %>
               <% if !@matter_intake.asset.file.nil? %>
                 <div class="col-xs-12 col-md-6">
                   <div class="field-label">Document:	</div>

@@ -38,7 +38,8 @@ class MatterIntake < ApplicationRecord
     :is_conceal_imanage_workspace => "Conceal iManage Workspace",
     :is_paper_file => "Paper file",
     :firm_type => "Panel or Non-Panel Firm",
-    :asset => "Document"
+    :asset => "Document",
+    :outside_counsel_engaged => "Is outside counsel being engaged"
   }
 
   LOB_CONTACT_NAMES = [
