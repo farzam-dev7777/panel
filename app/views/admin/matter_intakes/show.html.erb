@@ -131,7 +131,7 @@
               </div>
               <div class="col-xs-12 col-md-6">
                 <div class="field-label">Is outside counsel being engaged?:	</div>
-                <div class="field-data"><%= @matter_intake.outside_counsel_engaged %></div>
+                <div class="field-data"><%= @matter_intake.outside_counsel_engaged === "true" ? "Yes" : "No" %></div>
               </div>
               <div class="col-xs-12 col-md-6">
                 <div class="field-label">Branch:	</div>
@@ -142,6 +142,18 @@
                   <div class="field-label">Panel or Non-Panel Firm:	</div>
                   <div class="field-data"><%= @matter_intake.firm_type %></div>
                 </div>
+                <% if @matter_intake.firm_type === "Non-Panel" || @matter_intake.firm_type === "Panel & Non-Panel Firms"  %>
+                  <div class="col-xs-12 col-md-6">
+                    <div class="field-label">Name of Non-Panel Firm:	</div>
+                    <div class="field-data"><%= @matter_intake.name_of_non_panel_firm %></div>
+                  </div>
+                <% end %> 
+                <% if @matter_intake.firm_type === "Panel" || @matter_intake.firm_type === "Panel & Non-Panel Firms"  %>
+                  <div class="col-xs-12 col-md-6">
+                    <div class="field-label">Name of Panel Firm:	</div>
+                    <div class="field-data"><%= @matter_intake.name_of_panel_firm %></div>
+                  </div>
+                <% end %> 
                 <div class="col-xs-12 col-md-6">
                   <div class="field-label">Type of Pricing:	</div>
                   <div class="field-data"><%= @matter_intake.type_of_price %></div>
