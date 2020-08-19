@@ -981,13 +981,13 @@ function setMatterIntakeWorkAreaOptions(value) {
 	var work_area_level2_value = $("#matter_intake_work_area_type").attr("data-value");
 	switch(value) {
 		case "Contractual Transactions (non-lending)":
-			valueArray = ["Card Services","Cash Management","Client and/or Account Documentation","Closed End Funds","Commercial Paper","DCN","Derivatives","Exchange Traded Funds","Inter-company (BMOFG) Agreements","Interest Rate Notes","IT Procurement (Non-Outsourcing)","Mutual Funds","Non-IT Procurement","NPPNs","Offerings","Outsourcing","PPNs","Professional Services (Consulting)","REPO/SLA","Trade Finance"];
+			valueArray = ["Card Services","Cash Management","Client and/or Account Documentation","Closed End Funds","Commercial Paper","DCN","Derivatives","Exchange Traded Funds","Inter-company (BMOFG) Agreements","Interest Rate Notes","IT Procurement (Non-Outsourcing)","Mutual Funds","Non-IT Procurement","NPPNs","Offerings","Outsourcing","PPNs","Professional Services (Consulting)","REPO/SLA","Trade/Finance"];
 			for (var i = 0; i < valueArray.length; i++) {
 				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
 			}
 			break;
 		case "Corporate Governance":
-			valueArray = ["BMO Board","Continuous Disclosure","Environment, Social, & Governance","Funding Transactions","Reputation Risk Review","Subsidiary Matters"];
+			valueArray = ["BMO Board","Continuous Disclosure","Environment, Social/Governance","Funding Transactions","Reputation Risk Review","Subsidiary Matters"];
 			for (var i = 0; i < valueArray.length; i++) {
 				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
 			}
@@ -1017,7 +1017,7 @@ function setMatterIntakeWorkAreaOptions(value) {
 			}
 			break;	
 		case "Lending & Financing (inc. Secured Transactions and Workouts)":
-			valueArray = ["Commercial","Loan Syndications & Participations","Real Estate & Mortgages","Structured Finance","Trade Finance","Underwriting","Recovery"];
+			valueArray = ["Commercial","Loan Syndications/Participations","Real Estate/Mortgages","Structured Finance","Trade Finance","Underwriting","Recovery"];
 			for (var i = 0; i < valueArray.length; i++) {
 				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
 			}
@@ -1041,13 +1041,13 @@ function setMatterIntakeWorkAreaOptions(value) {
 			}
 			break;
 		case "Real Estate":
-			valueArray = ["Facilities","Leasing","Sales & Purchase"];
+			valueArray = ["Facilities","Leasing","Sales/Purchase"];
 			for (var i = 0; i < valueArray.length; i++) {
 				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
 			}
 			break;
 		case "Regulatory":
-			valueArray = ["Advisory","Audit","Competition/ Anti-trust","Enforcement Action","Filings","Inquiry","Investigations","OBSI Investigation","Privacy/ FOI/ Ombudsman"];
+			valueArray = ["Advisory","Audit","Competition/Anti-trust","Enforcement Action","Filings","Inquiry","Investigations","OBSI Investigation","Privacy/FOI/Ombudsman"];
 			for (var i = 0; i < valueArray.length; i++) {
 				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
 			}
@@ -1065,7 +1065,7 @@ function setMatterIntakeWorkAreaOptions(value) {
 			}
 			break;
 		case "Litigation":
-			valueArray = ["Class Action/Customer","Class Action/Employment (Inc. Contractors)","Class Action\Non-Customer","Class Action\Securities","Customer\Action","Customer\Complaint (Non-action)","Employment\Action","Employment\Complaint (Non-action)","Internal Review/Investigations\Investigations","Internal Review/Investigations\Review","Non-Customer\Action","Non-Customer\Complaint (Non-action)","Recovery\Other than SAMU","Recovery\SAMU","Regulatory Proceedings/Tribunal","Small Claims","Third-Party Order/Subpoenas/Garnishments","Watching Brief"];
+			valueArray = ["Class Action/Customer","Class Action/Employment (Inc. Contractors)","Class Action/Non-Customer","Class Action/Securities","Customer/Action","Customer/Complaint (Non-action)","Employment/Action","Employment/Complaint (Non-action)","Internal Review/Investigations/Investigations","Internal Review/Investigations/Review","Non-Customer/Action","Non-Customer/Complaint (Non-action)","Recovery/Other than SAMU","Recovery/SAMU","Regulatory Proceedings/Tribunal","Small Claims","Third-Party Order/Subpoenas/Garnishments","Watching Brief"];
 			for (var i = 0; i < valueArray.length; i++) {
 				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
 			}
