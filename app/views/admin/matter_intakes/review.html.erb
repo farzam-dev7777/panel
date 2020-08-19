@@ -122,11 +122,11 @@
           </div>
           <div class="col-xs-12 col-md-6 work_area_reportable">
             <label class="label">Is this matter ORE reportable?</label>
-            <%= f.input :is_ore_reportable, label: false, collection: [['Yes', true], ["No", false]] %>
+            <%= f.input :is_ore_reportable, label: false, collection: [['Yes', 'Yes'], ["No", "No"]] %>
           </div>
           <div class="col-xs-12 col-md-6 work_area_reportable">
             <label class="label">Is this matter otherwise reportable? (e.g. board reporting)</label>
-            <%= f.input :is_otherwise_reportable, label: false, collection: [['Yes', true], ["No", false]] %>
+            <%= f.input :is_otherwise_reportable, label: false, collection: [['Yes', 'Yes'], ["No", "No"]] %>
           </div>
           <div class="col-xs-12 col-md-6">
             <label class="label">Is this a syndicate matter?<span class="mandatory">*</span></label>
@@ -227,7 +227,7 @@
           </div>
           <div class="col-xs-12 col-md-6 alternative_fee" style="display: none;">
             <label class="label">Is there an Alternative Fee Arrangement?<span class="mandatory">*</span></label>
-            <%= f.input :is_alternative_fee_arrangement, label: false, collection: [['Yes', true], ["No", false]] %>
+            <%= f.input :is_alternative_fee_arrangement, label: false, collection: [['Yes', 'Yes'], ["No", "No"]] %>
           </div>
           <div class="col-xs-12 col-md-6 alternative_fee" style="display: none;">
             <label class="label">AFA Details</label>

@@ -670,11 +670,11 @@ $(document).ready(function() {
 	
 	if(matter_intake_type_of_price && !type_of_price.includes(matter_intake_type_of_price)) {
 		$('.alternative_fee').show();
-		$('#matter_intake_is_alternative_fee_arrangement').val("true")
+		$('#matter_intake_is_alternative_fee_arrangement').val("Yes")
 		$("#matter_intake_is_alternative_fee_arrangement").trigger("chosen:updated")
 	} else {
 		$('.alternative_fee').hide();
-		$('#matter_intake_is_alternative_fee_arrangement').val("false")
+		$('#matter_intake_is_alternative_fee_arrangement').val("No")
 		$('#matter_intake_afa_details').val('')
 		$("#matter_intake_is_alternative_fee_arrangement").trigger("chosen:updated")
 	}
@@ -683,12 +683,12 @@ $(document).ready(function() {
 		var selectedValue = this.value;
 		if(!type_of_price.includes(selectedValue)) {
 			$('.alternative_fee').show();
-			$('#matter_intake_is_alternative_fee_arrangement').val("true")
+			$('#matter_intake_is_alternative_fee_arrangement').val("Yes")
 			$("#matter_intake_is_alternative_fee_arrangement").trigger("chosen:updated")
 		} else {
 			$('.alternative_fee').hide();
 			$('#matter_intake_afa_details').val('')
-			$('#matter_intake_is_alternative_fee_arrangement').val("false")
+			$('#matter_intake_is_alternative_fee_arrangement').val("No")
 			$("#matter_intake_is_alternative_fee_arrangement").trigger("chosen:updated")
 		}
 	});
@@ -704,7 +704,7 @@ if($('#matter_intake_afa_details').val()){
 	}
 }
 $('select#matter_intake_is_alternative_fee_arrangement').on('change', function() {
-	if(this.value === "true") {
+	if(this.value === "Yes") {
 		$('.matter_intake_afa_details').parent().show();
 	} else {
 		$('.matter_intake_afa_details').parent().hide();
@@ -1566,11 +1566,11 @@ $('select#matter_intake_mode_of_payment, select#matter_intake_outside_counsel_en
 	
 		if(type_of_price.includes(matter_intake_type_of_price)) {
 			$('.alternative_fee').show();
-			$('#matter_intake_is_alternative_fee_arrangement').val("true")
+			$('#matter_intake_is_alternative_fee_arrangement').val("Yes")
 			$("#matter_intake_is_alternative_fee_arrangement").trigger("chosen:updated")
 		} else {
 			$('.alternative_fee').hide();
-			$('#matter_intake_is_alternative_fee_arrangement').val("false")
+			$('#matter_intake_is_alternative_fee_arrangement').val("No")
 			$('#matter_intake_afa_details').val('')
 			$("#matter_intake_is_alternative_fee_arrangement").trigger("chosen:updated")
 		}

@@ -119,7 +119,7 @@
       </div>
       <div class="col-xs-12 col-md-6 internal-matter" style="display: none;">
         <label class="label">Is there an Alternative Fee Arrangement?<span class="mandatory">*</span></label>
-        <%= f.input :is_alternative_fee_arrangement, label: false, collection: [['Yes', true], ["No", false]] %>
+        <%= f.input :is_alternative_fee_arrangement, label: false, collection: [['Yes', 'Yes'], ["No", "No"]] %>
       </div>
       <div class="col-xs-12 col-md-6 internal-matter">
         <label class="label">AFA Details<span class="mandatory">*</span></label>
@@ -286,11 +286,11 @@
           <div class="inner-form-field form-flex-wrap internal-matter">
             <div class="col-xs-12 col-md-6 work_area_reportable" style="<%= @form_type === 'general' ? 'display: none;' : '' %>">
               <label class="label">Is this matter ORE reportable?<span class="mandatory">*</span></label>
-              <%= f.input :is_ore_reportable, label: false, collection: [['Yes', true], ["No", false]] %>
+              <%= f.input :is_ore_reportable, label: false, collection: [['Yes', 'Yes'], ["No", "No"]] %>
             </div>
             <div class="col-xs-12 col-md-6 work_area_reportable" style="<%= @form_type === 'general' ? 'display: none;' : '' %>">
               <label class="label">Is this matter otherwise reportable? (e.g. board reporting)<span class="mandatory">*</span></label>
-              <%= f.input :is_otherwise_reportable, label: false, collection: [['Yes', true], ["No", false]] %>
+              <%= f.input :is_otherwise_reportable, label: false, collection: [['Yes', 'Yes'], ["No", "No"]] %>
             </div>
             <div class="col-xs-12 col-md-6 internal-matter">
               <label class="label">M&I Matter</label>

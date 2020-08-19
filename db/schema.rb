@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200819050801) do
+ActiveRecord::Schema.define(version: 20200819145059) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -549,8 +549,8 @@ ActiveRecord::Schema.define(version: 20200819050801) do
     t.datetime "updated_at",                                                       null: false
     t.string   "legal_group_of_bmo_lawyer"
     t.string   "work_area"
-    t.boolean  "is_ore_reportable",                                default: false
-    t.boolean  "is_otherwise_reportable",                          default: false
+    t.string   "is_ore_reportable"
+    t.string   "is_otherwise_reportable"
     t.string   "is_syndicate_matter"
     t.string   "is_conceal_imanage_workspace"
     t.string   "is_paper_file"
@@ -559,7 +559,7 @@ ActiveRecord::Schema.define(version: 20200819050801) do
     t.string   "name_of_panel_firm"
     t.string   "name_of_non_panel_firm"
     t.string   "type_of_price"
-    t.boolean  "is_alternative_fee_arrangement",                   default: false
+    t.string   "is_alternative_fee_arrangement"
     t.string   "afa_details"
     t.string   "additional_matter_contact"
     t.string   "other_matter_issues"
