@@ -56,10 +56,12 @@
                 <div class="field-label">Matter Description:	</div>
                 <div class="field-data"><%= @matter_intake.matter_description %></div>
               </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="field-label">Will this matter involve the following?:	</div>
-                <div class="field-data"><%= @matter_intake.following_matter_involve %></div>
-              </div>
+              <% if !@matter_intake.outside_counsel_engaged.blank? && @matter_intake.outside_counsel_engaged != 'N/A Internal – no law firm will be engaged' %>
+                <div class="col-xs-12 col-md-6">
+                  <div class="field-label">Will this matter involve the following?:	</div>
+                  <div class="field-data"><%= @matter_intake.following_matter_involve %></div>
+                </div>
+              <% end %>
               <div class="col-xs-12 col-md-6">
                 <div class="field-label">How will this matter be paid?:	</div>
                 <div class="field-data"><%= @matter_intake.mode_of_payment %></div>
@@ -122,42 +124,44 @@
                 <div class="field-label">Branch:	</div>
                 <div class="field-data"><%= @matter_intake.branch %></div>
               </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="field-label">Panel or Non-Panel Firm:	</div>
-                <div class="field-data"><%= @matter_intake.firm_type %></div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="field-label">Type of Pricing:	</div>
-                <div class="field-data"><%= @matter_intake.type_of_price %></div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="field-label">AFA Details:	</div>
-                <div class="field-data"><%= @matter_intake.afa_details %></div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="field-label">Is there an Alternative Fee Arrangement?:	</div>
-                <div class="field-data"><%= @matter_intake.is_alternative_fee_arrangement ? "Yes" : "No" %></div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="field-label">Could this matter be reimbursed?:	</div>
-                <div class="field-data"><%= @matter_intake.can_reimbursed_matter ? "Yes" : "No" %></div>
-              </div>
+              <% if !@matter_intake.outside_counsel_engaged.blank? && @matter_intake.outside_counsel_engaged != 'N/A Internal – no law firm will be engaged' %>
+                <div class="col-xs-12 col-md-6">
+                  <div class="field-label">Panel or Non-Panel Firm:	</div>
+                  <div class="field-data"><%= @matter_intake.firm_type %></div>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                  <div class="field-label">Type of Pricing:	</div>
+                  <div class="field-data"><%= @matter_intake.type_of_price %></div>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                  <div class="field-label">AFA Details:	</div>
+                  <div class="field-data"><%= @matter_intake.afa_details %></div>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                  <div class="field-label">Is there an Alternative Fee Arrangement?:	</div>
+                  <div class="field-data"><%= @matter_intake.is_alternative_fee_arrangement ? "Yes" : "No" %></div>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                  <div class="field-label">Could this matter be reimbursed?:	</div>
+                  <div class="field-data"><%= @matter_intake.can_reimbursed_matter ? "Yes" : "No" %></div>
+                </div>
               <!--<div class="col-xs-12 col-md-6">
                 <div class="field-label">Budget amount, if already negotiated with the law firm:	</div>
                 <div class="field-data"><%= @matter_intake.budget_amount %></div>
               </div>-->
-              <div class="col-xs-12 col-md-6">
-                <div class="field-label">LOB contact to approve PO:	</div>
-                <div class="field-data"><%= @matter_intake.lob_contact_for_po %></div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="field-label">Cost Centre for legal fees:	</div>
-                <div class="field-data"><%= @matter_intake.cost_centre_for_legal_fees %></div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="field-label">Deal Code (Capital Markets Only):	</div>
-                <div class="field-data"><%= @matter_intake.deal_code %></div>
-              </div>
+                <div class="col-xs-12 col-md-6">
+                  <div class="field-label">LOB contact to approve PO:	</div>
+                  <div class="field-data"><%= @matter_intake.lob_contact_for_po %></div>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                  <div class="field-label">Cost Centre for legal fees:	</div>
+                  <div class="field-data"><%= @matter_intake.cost_centre_for_legal_fees %></div>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                  <div class="field-label">Deal Code (Capital Markets Only):	</div>
+                  <div class="field-data"><%= @matter_intake.deal_code %></div>
+                </div>
+               <% end %> 
               <div class="col-xs-12 col-md-6">
                 <div class="field-label">Business/Group paying for this matter (level 1):	</div>
                 <div class="field-data"><%= @matter_intake.business_paying_for_matter %></div>
