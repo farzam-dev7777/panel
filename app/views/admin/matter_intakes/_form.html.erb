@@ -65,27 +65,27 @@
         <label class="label">Jurisdiction<span class="mandatory">*</span></label>
         <%= f.input :jurisdiction, label: false, collection: MatterIntake::Jurisdiction %>
       </div>
-      <div class="col-xs-12 col-md-6 internal-matter">
+      <div class="col-xs-12 col-md-6">
         <label class="label">Other Party (Other than BMO)</label>
         <%= f.input :other_party, label: false, collection: MatterIntake::OtherParty %>
       </div>
-      <div class="col-xs-12 col-md-6 internal-matter">
+      <div class="col-xs-12 col-md-6">
         <label class="label">Additional Matter Contact (not specified elsewhere)</label>
         <%= f.input :additional_matter_contact, label: false %>
       </div>
-      <div class="col-xs-12 col-md-6 internal-matter">
+      <div class="col-xs-12 col-md-6">
         <label class="label">Other Matter Issues (not specified elsewhere)</label>
         <%= f.input :other_matter_issues, label: false %>
       </div>
-      <div class="col-xs-12 col-md-6">
+      <div class="col-xs-12 col-md-6 ">
         <label class="label">Is outside counsel being engaged?<span class="mandatory">*</span></label>
         <%= f.input :outside_counsel_engaged, label: false, collection: MatterIntake::OutsideCounselEngaged %>
       </div>
-      <div class="col-xs-12 col-md-6">
+      <div class="col-xs-12 col-md-6 internal-matter">
         <label  class="label">Will this matter involve the following?<span class="mandatory">*</span></label>
         <%= f.input :following_matter_involve,  label: false, collection: MatterIntake::MatterInvolveFollowing %>
       </div>
-      <div class="col-xs-12 col-md-6">
+      <div class="col-xs-12 col-md-6 ">
         <label  class="label">How will this matter be paid?<span class="mandatory">*</span></label>
         <%= f.input :mode_of_payment,  label: false, collection: MatterIntake::MatterBePaidOptions %>
       </div>

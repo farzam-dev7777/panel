@@ -1534,7 +1534,7 @@ $(document).ready(function() {
 	// litigation inhtake
 	var mode_of_payment_litigation = $('select#matter_intake_outside_counsel_engaged > option:selected').val();
 
-	if(mode_of_payment_litigation == 'N/A Internal – no law firm will be engaged') {
+	if(mode_of_payment_litigation == 'N/A Internal – no law firm will be engaged' || mode_of_payment_litigation ==  "") {
 		$('.internal-matter').hide()
 	} 
 
