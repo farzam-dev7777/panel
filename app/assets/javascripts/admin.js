@@ -1083,12 +1083,10 @@ $('select#matter_intake_is_conceal_imanage_workspace').on('change', function() {
 	setMatterIntakeIManager(this.value)
 })
 
-if($('#matter_intake_is_conceal_imanage_workspace').val()) {
-	setMatterIntakeIManager($('#matter_intake_is_conceal_imanage_workspace').val())
-}
+setMatterIntakeIManager($('#matter_intake_is_conceal_imanage_workspace').val())
 
 function setMatterIntakeIManager(value) {
-	if(value === "true") {
+	if(value === "Yes") {
 		$('.who_requires_imanager_workspace').show()
 	} else {
 		$('.who_requires_imanager_workspace').hide()
