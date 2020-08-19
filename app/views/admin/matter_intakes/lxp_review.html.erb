@@ -80,15 +80,15 @@
               </div>
               <div class="col-xs-12 col-md-6">
                 <div class="field-label">Is this a syndicate matter?:	</div>
-                <div class="field-data"><%= @matter_intake.is_syndicate_matter === true ? 'Yes' : 'No' %></div>
+                <div class="field-data"><%= @matter_intake.is_syndicate_matter %></div>
               </div>
               <div class="col-xs-12 col-md-6">
                 <div class="field-label">Conceal iManage Workspace?:	</div>
-                <div class="field-data"><%= @matter_intake.is_conceal_imanage_workspace === true ? 'Yes' : 'No' %></div>
+                <div class="field-data"><%= @matter_intake.is_conceal_imanage_workspace %></div>
               </div>
               <div class="col-xs-12 col-md-6">
                 <div class="field-label">Paper file?:	</div>
-                <div class="field-data"><%= @matter_intake.is_paper_file === true ? 'Yes' : 'No' %></div>
+                <div class="field-data"><%= @matter_intake.is_paper_file %></div>
               </div>
               <div class="col-xs-12 col-md-6">
                 <div class="field-label">Legal Entity:	</div>
@@ -190,7 +190,7 @@
                     </div>
                     <div class="col-xs-12 col-md-6">
                       <div class="field-label">Allegation of Employee Misconduct?:	</div>
-                      <div class="field-data"><%= @matter_intake.allegation_of_employee_misconduct ? "Yes" : "No" %></div>
+                      <div class="field-data"><%= @matter_intake.allegation_of_employee_misconduct %></div>
                     </div>
                     <div class="col-xs-12 col-md-6">
                       <div class="field-label">Primary Issue:	</div>
@@ -214,11 +214,11 @@
                     </div>
                     <div class="col-xs-12 col-md-6">
                       <div class="field-label">Arbitration Offered:	</div>
-                      <div class="field-data"><%= @matter_intake.arbitration_offered ? "Yes" : "No" %></div>
+                      <div class="field-data"><%= @matter_intake.arbitration_offered %></div>
                     </div>
                     <div class="col-xs-12 col-md-6">
                       <div class="field-label">Arbitration Accepted:	</div>
-                      <div class="field-data"><%= @matter_intake.arbitration_accepted ? "Yes" : "No" %></div>
+                      <div class="field-data"><%= @matter_intake.arbitration_accepted %></div>
                     </div>
                     <div class="col-xs-12 col-md-6">
                       <div class="field-label">Branch:	</div>
@@ -226,7 +226,7 @@
                     </div>
                     <div class="col-xs-12 col-md-6">
                       <div class="field-label">Could this matter be reimbursed?:	</div>
-                      <div class="field-data"><%= @matter_intake.can_reimbursed_matter ? "Yes" : "No" %></div>
+                      <div class="field-data"><%= @matter_intake.can_reimbursed_matter %></div>
                     </div>
                     <div class="col-xs-12 col-md-6">
                       <div class="field-label">Branch Manager/Investment Advisor Name:	</div>
@@ -247,7 +247,7 @@
                     </div>
                     <div class="col-xs-12 col-md-6">
                       <div class="field-label">Unquantified Claim:	</div>
-                      <div class="field-data"><%= @matter_intake.unquantified_claim ? "Yes" : "No" %></div>
+                      <div class="field-data"><%= @matter_intake.unquantified_claim %></div>
                     </div>
                     <div class="col-xs-12 col-md-6">
                       <div class="field-label">Valued at $50,000 or more:	</div>

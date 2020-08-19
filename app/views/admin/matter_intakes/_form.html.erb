@@ -21,11 +21,11 @@
       </div>
       <div class="col-xs-12 col-md-6">
         <label class="label">Is this a syndicate matter?<span class="mandatory">*</span></label>
-        <%= f.input :is_syndicate_matter, label: false, collection: [['Yes', true], ["No", false]] %>
+        <%= f.input :is_syndicate_matter, label: false, as: :select, collection: [['Yes', 'Yes'], ["No", "No"]] %>
       </div>
       <div class="col-xs-12 col-md-6">
         <label class="label">Conceal iManage Workspace?<span class="mandatory">*</span></label>
-        <%= f.input :is_conceal_imanage_workspace, label: false, collection: [['Yes', true], ["No", false]] %>
+        <%= f.input :is_conceal_imanage_workspace, label: false, collection: [['Yes', 'Yes'], ["No", "No"]] %>
       </div>
       <div class="col-xs-12 col-md-6 who_requires_imanager_workspace">
         <label class="label">Who requires access to the iManage workspace?<span class="mandatory">*</span></label>
@@ -33,7 +33,7 @@
       </div>
       <div class="col-xs-12 col-md-6">
         <label class="label">Paper file?<span class="mandatory">*</span></label>
-        <%= f.input :is_paper_file, label: false, collection: [['Yes', true], ["No", false]] %>
+        <%= f.input :is_paper_file, label: false, collection: [['Yes', 'Yes'], ["No", "No"]] %>
       </div>
       <div class="col-xs-12 col-md-6">
         <label class="label">Matter name<span class="mandatory">*</span></label>
@@ -128,7 +128,7 @@
       <% if @form_type == "litigation" || @matter_intake&.form_type == "litigation" %>
         <div class="col-xs-12 col-md-6 internal-matter">
           <label class="label">Could this matter be reimbursed?<span class="mandatory">*</span></label>
-          <%= f.input :can_reimbursed_matter, label: false, collection: [['Yes', true], ["No", false]] %>
+          <%= f.input :can_reimbursed_matter, label: false, collection: [['Yes', 'Yes'], ["No", "No"]] %>
         </div>
       <% end %>
       <% if @form_type == "general" || @matter_intake&.form_type == "general"%>
@@ -158,7 +158,7 @@
             </div>
             <div class="col-xs-12 col-md-6 internal-matter">
               <label class="label">Allegation of Employee Misconduct?<span class="mandatory">*</span></label>
-              <%= f.input :allegation_of_employee_misconduct, label: false, collection: [['Yes', true], ["No", false]] %>
+              <%= f.input :allegation_of_employee_misconduct, label: false, collection: [['Yes', 'Yes'], ["No", "No"]] %>
             </div>
             <div class="col-xs-12 col-md-6 internal-matter">
               <label class="label">Primary Issue<span class="mandatory">*</span></label>
@@ -186,11 +186,11 @@
             </div>
             <div class="col-xs-12 col-md-6 internal-matter">
               <label class="label">Arbitration Offered</label>
-              <%= f.input :arbitration_offered, label: false, collection: [['Yes', true], ["No", false]] %>
+              <%= f.input :arbitration_offered, label: false, collection: [['Yes', 'Yes'], ["No", "No"]] %>
             </div>
             <div class="col-xs-12 col-md-6 internal-matter">
               <label class="label">Arbitration Accepted</label>
-              <%= f.input :arbitration_accepted, label: false, collection: [['Yes', true], ["No", false]] %>
+              <%= f.input :arbitration_accepted, label: false, collection: [['Yes', 'Yes'], ["No", "No"]] %>
             </div>
             <div class="col-xs-12 col-md-6 internal-matter">
               <label class="label">Branch Manager/Investment Advisor Name</label>
@@ -211,7 +211,7 @@
             </div>
             <div class="col-xs-12 col-md-6 internal-matter">
               <label class="label">Unquantified Claim</label>
-              <%= f.input :unquantified_claim, label: false, collection: [['Yes', true], ["No", false]] %>
+              <%= f.input :unquantified_claim, label: false, collection: [['Yes', 'Yes'], ["No", "No"]] %>
             </div>
             <div class="col-xs-12 col-md-6 internal-matter">
               <label class="label">Valued at $50,000 or more</label>
