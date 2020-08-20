@@ -5,10 +5,6 @@
       <div class="sp-form-bg show-data-fields">
         <div class="row">
           <div class="col-xs-12 col-md-6">
-            <div class="field-label">Reason For Request	:	</div>
-            <div class="field-data"><%= @exception_request.reason.reject(&:blank?).join(", ") %></div>
-          </div>
-          <div class="col-xs-12 col-md-6">
             <div class="field-label">Matter Type	:	</div>
             <div class="field-data"><%= @exception_request.matter_types_formated %></div>
           </div>
@@ -21,6 +17,10 @@
             <div class="field-data"><%= @exception_request.states_formated %></div>
           </div>
           <div class="col-xs-12 col-md-6">
+            <div class="field-label">Reason For Request	:	</div>
+            <div class="field-data"><%= @exception_request.reason.reject(&:blank?).join(", ") %></div>
+          </div>
+          <div class="col-xs-12 col-md-6">
             <div class="field-label">Provide details of reason(s) selected :	</div>
             <div class="field-data"><%= @exception_request.reason_details %></div>
           </div>
@@ -29,8 +29,8 @@
             <div class="field-data"><%= @exception_request.payer %></div>
           </div>
           <div class="col-xs-12 col-md-6">
-            <div class="field-label">Requested By :	</div>
-            <div class="field-data"><%= @exception_request.requested_by %></div>
+            <div class="field-label">Submitted By :	</div>
+            <div class="field-data"><%= @exception_request.submitted_by_email %></div>
           </div>
           <div class="col-xs-12 col-md-6">
             <div class="field-label">Line of Business :	</div>		
@@ -40,6 +40,10 @@
             <div class="field-label">LOB Contact Name :	</div>		
             <div class="field-data"><%= @exception_request.lob_contact_name %></div>
           </div>
+          <!--<div class="col-xs-12 col-md-6">
+            <div class="field-label">Requested By :	</div>
+            <div class="field-data"><%= @exception_request.requested_by %></div>
+          </div>-->
           <div class="col-md-12">
             <div class="inner-label">Law Firm :</div>		
             <div class="row inner-form-field">
