@@ -1609,7 +1609,7 @@ if($('select#panel_request_required_unique_geography').val() == "Yes"){
 	$('.panel_request_geographic_location').show()
 }
 $('select#panel_request_required_unique_geography').on('change', function() {
-	if(this.value == "true"){
+	if(this.value == "Yes"){
 		$('.panel_request_geographic_location').show()
 	}else{
 		$('.panel_request_geographic_location').hide()
@@ -1617,14 +1617,14 @@ $('select#panel_request_required_unique_geography').on('change', function() {
 	}
 });
 
-if($("select#matter_intake_outside_counsel_engaged").val() == "true") {
+if($("select#matter_intake_outside_counsel_engaged").val() == "Yes" || $('.matter_intake_outside_counsel_engaged_value').attr('data-value') === "Yes" ) {
 	$('.outside_counsel_engaged').show()
 } else {
 	$('.outside_counsel_engaged').hide()
 }
 
 $('select#matter_intake_outside_counsel_engaged').on('change', function() {
-	if(this.value == "true"){
+	if(this.value == "Yes"){
 		$('.outside_counsel_engaged').show()
 	} else {
 		$('.outside_counsel_engaged').hide()
