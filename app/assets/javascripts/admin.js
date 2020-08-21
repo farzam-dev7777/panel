@@ -1540,7 +1540,7 @@ $(document).ready(function() {
 
 })
 
-$('select#matter_intake_mode_of_payment, select#matter_intake_outside_counsel_engaged').on('change', function() {
+$('select#matter_intake_mode_of_payment, select#matter_intake_type_of_price, select#matter_intake_outside_counsel_engaged').on('change', function() {
 	if(this.value == 'N/A Internal – no law firm will be engaged') {
 		$('.internal-matter').hide()
 	} else {
@@ -1564,14 +1564,16 @@ $('select#matter_intake_mode_of_payment, select#matter_intake_outside_counsel_en
 			$('.non_panel_firm').hide()
 		}
 	
-		if(type_of_price.includes(matter_intake_type_of_price)) {
+		if(!type_of_price.includes(matter_intake_type_of_price)) {
 			$('.alternative_fee').show();
 			$('#matter_intake_is_alternative_fee_arrangement').val("Yes")
+			$('.afa_details').show();
 			$("#matter_intake_is_alternative_fee_arrangement").trigger("chosen:updated")
 		} else {
 			$('.alternative_fee').hide();
 			$('#matter_intake_is_alternative_fee_arrangement').val("No")
-			$('#matter_intake_afa_details').val('')
+			$('#matter_intake_afa_details').val('');
+			$('.afa_details').hide();
 			$("#matter_intake_is_alternative_fee_arrangement").trigger("chosen:updated")
 		}
 	}

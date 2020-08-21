@@ -10,20 +10,79 @@ class MatterIntake < ApplicationRecord
 
   mount_uploader :asset, DocUploader
 
-  # For common fields 
-  validates_presence_of :bmo_lawyer_name, :name_of_matter_client, :matter_description, :paying_entity,
-    :business_paying_for_matter, :group_paying_for_matter, :following_matter_involve,
-    :lob_contact_for_po, :cost_centre_for_legal_fees
-
-  # validation for lob initiated
-  validates_presence_of :submitter_name, :matter_type_id,
-    :law_firm_id, :additional_comments_for_lrc_lawyer,
+  #### validation for lob initiated starts ####
+  validates_presence_of :submitter_name, :name_of_matter_client, :matter_type_id, :matter_description, :following_matter_involve,
+    :mode_of_payment, :law_firm_id, :bmo_lawyer_name, :lob_contact_for_po, :cost_centre_for_legal_fees, :business_paying_for_matter,
+    :group_paying_for_matter, :paying_entity, :additional_comments_for_lrc_lawyer, :outside_counsel_engaged,
     :if => Proc.new { |matter_intake| matter_intake.user_id.present? && matter_intake.user.role == "lob" }
 
-  # validation for lawyer initiated
-  validates_presence_of :legal_group_of_bmo_lawyer, :work_area, :work_area_type,
-    :jurisdiction, :outside_counsel_engaged, :firm_type,
-    :if => Proc.new { |matter_intake| matter_intake.user_id.nil? }
+  validates_presence_of :firm_type,
+    :if => Proc.new { |matter_intake| matter_intake.user_id.present? && matter_intake.user.role == "lob" && matter_intake.outside_counsel_engaged === "Yes" }
+
+    validates_presence_of :name_of_non_panel_firm,
+    :if => Proc.new { |matter_intake| matter_intake.user_id.present? && matter_intake.user.role == "lob" && matter_intake.firm_type === "Non-Panel"  }
+
+  validates_presence_of :name_of_panel_firm,
+    :if => Proc.new { |matter_intake| matter_intake.user_id.present? && matter_intake.user.role == "lob" && matter_intake.firm_type === "Panel"  }
+
+  validates_presence_of :name_of_panel_firm, :name_of_non_panel_firm,
+    :if => Proc.new { |matter_intake| matter_intake.user_id.present? && matter_intake.user.role == "lob" && matter_intake.firm_type === "Panel & Non-Panel Firms"  }
+  
+  #### validation for lob initiated ends ####
+
+  #### Validation common in General & Litigation intake starts ####
+
+  validates_presence_of :bmo_lawyer_name, :legal_group_of_bmo_lawyer, :work_area, :work_area_type, :is_syndicate_matter,
+    :is_conceal_imanage_workspace, :is_paper_file, :name_of_matter_client, :matter_description, :paying_entity,
+    :business_paying_for_matter, :group_paying_for_matter, :jurisdiction, :outside_counsel_engaged,
+    :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && FORM_TYPE.include?(matter_intake.form_type) }
+
+  validates_presence_of :who_requires_access_to_imanage_workspace,
+    :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && FORM_TYPE.include?(matter_intake.form_type) && matter_intake.is_conceal_imanage_workspace === "Yes" }
+
+  validates_presence_of :following_matter_involve, :cost_centre_for_legal_fees, :lob_contact_for_po, :firm_type, :type_of_price,
+    :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && FORM_TYPE.include?(matter_intake.form_type) && matter_intake.outside_counsel_engaged != "N/A Internal – no law firm will be engaged" }
+  
+  validates_presence_of :name_of_non_panel_firm,
+    :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && FORM_TYPE.include?(matter_intake.form_type) && matter_intake.firm_type === "Non-Panel"  }
+
+  validates_presence_of :name_of_panel_firm,
+    :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && FORM_TYPE.include?(matter_intake.form_type) && matter_intake.firm_type === "Panel"  }
+
+  validates_presence_of :name_of_panel_firm, :name_of_non_panel_firm,
+    :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && FORM_TYPE.include?(matter_intake.form_type) && matter_intake.firm_type === "Panel & Non-Panel Firms"  }
+
+  #### Validation common in General & Litigation intake starts ####
+
+  #### General Intake Lawyer Initiated validation starts ####
+
+  validates_presence_of :is_alternative_fee_arrangement,
+    :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && matter_intake.form_type === "general" && !TYPE_OF_PRICE.include?(matter_intake.type_of_price) }
+
+  validates_presence_of :afa_details,
+    :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && matter_intake.form_type === "general" && matter_intake.is_alternative_fee_arrangement === "Yes" }
+
+  #### General Intake Lawyer Initiated validation Ends ####
+
+  #### Litigation Intake Lawyer Initiated validation Starts ####
+
+  validates_presence_of :can_reimbursed_matter, :primary_issue, :allegation_of_employee_misconduct,
+    :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && matter_intake.form_type === "litigation" && matter_intake.outside_counsel_engaged != "N/A Internal – no law firm will be engaged" }
+  
+  validates_presence_of :is_alternative_fee_arrangement,
+    :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && matter_intake.form_type === "litigation" && !TYPE_OF_PRICE.include?(matter_intake.type_of_price) }
+
+  validates_presence_of :afa_details,
+    :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && matter_intake.form_type === "litigation" && matter_intake.is_alternative_fee_arrangement === "Yes" }
+  
+  validates_presence_of :is_ore_reportable, :is_otherwise_reportable,
+    :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && matter_intake.form_type === "litigation" && matter_intake.work_area === "Regulatory" }
+  
+  #### Litigation Intake Lawyer Initiated validation Endss ####
+
+  TYPE_OF_PRICE = ["Hourly Billing", "Work done at no cost"]
+
+  FORM_TYPE = ["general", "litigation"]
 
   HUMANIZED_ATTRIBUTES = {
     :name_of_matter_client => "Name of Matter/Client", 
@@ -39,7 +98,10 @@ class MatterIntake < ApplicationRecord
     :is_paper_file => "Paper file",
     :firm_type => "Panel or Non-Panel Firm",
     :asset => "Document",
-    :outside_counsel_engaged => "Is outside counsel being engaged"
+    :outside_counsel_engaged => "Is outside counsel being engaged",
+    :is_ore_reportable => "Is this matter ORE reportable",
+    :is_otherwise_reportable => "Is this matter otherwise reportable",
+    :can_reimbursed_matter => "Could this matter be reimbursed"
   }
 
   LOB_CONTACT_NAMES = [
