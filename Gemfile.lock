@@ -65,6 +65,8 @@ GEM
       i18n (>= 0.7, < 2)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    activesupport-current_attributes (0.0.2)
+      activesupport (>= 4.2.0)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
     airbrussh (1.4.0)
@@ -379,6 +381,7 @@ PLATFORMS
 DEPENDENCIES
   activemodel-serializers-xml
   activerecord-sortable
+  activesupport-current_attributes
   amoeba
   breadcrumbs_on_rails
   byebug
@@ -441,4 +444,4 @@ RUBY VERSION
    ruby 2.5.1p57
 
 BUNDLED WITH
-   2.0.2
+   2.1.4

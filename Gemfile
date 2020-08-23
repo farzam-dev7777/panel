@@ -53,6 +53,7 @@ gem "cocoon"
 gem 'will_paginate-bootstrap'
 gem 'nested_form'
 gem 'mailjet'
+gem 'activesupport-current_attributes'
 
 gem 'rails-breadcrumbs'
 
