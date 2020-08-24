@@ -76,7 +76,7 @@ class PanelRequest < ApplicationRecord
   def send_retainer_for_esigning(lob_email, lob_name, user_email, user_name)
     args = {
       envelope_args: {
-        template_id: Rails.application.secrets[:docusign]["retainer_template_id"],
+        template_id: Rails.application.secrets[:docusign]["retainer_template_id_panel"],
         signer_email: user_email,
         signer_name: user_name,
         lob_email: lob_email,
