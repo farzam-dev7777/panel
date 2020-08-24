@@ -25,8 +25,8 @@ class Lob::PanelRequestsController < Lob::BaseController
     if @panel_request.save
       flash[:notice] = "Panel request saved"
       PanelRequestMailer.panel_request_notification_to_lxp(@panel_request).deliver_now
-      # redirect_to :lob_panel_requests
-      redirect_to :lob_root_path
+      #redirect_to :lob_panel_requests
+      redirect_to lob_root_path
     else
       error_msg = "There was an error submiting the Panel request - #{@panel_request.errors.full_messages}"
       @law_firms = LawFirm.all

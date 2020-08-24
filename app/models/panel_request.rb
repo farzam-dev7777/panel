@@ -77,10 +77,10 @@ class PanelRequest < ApplicationRecord
     args = {
       envelope_args: {
         template_id: Rails.application.secrets[:docusign]["retainer_template_id"],
-        signer_email: 'manish+user@metawarelabs.com', #user_email,
-        signer_name: "Manish - user", #user_name,
-        lob_email: 'manish+lob@metawarelabs.com', #lob_email,
-        lob_name: "Manish - lob" #lob_name
+        signer_email: user_email,
+        signer_name: user_name,
+        lob_email: lob_email,
+        lob_name: lob_name
       },
       base_path: Rails.application.secrets[:docusign]["base_path"],
       account_id: Rails.application.secrets[:docusign]["account_id"],
