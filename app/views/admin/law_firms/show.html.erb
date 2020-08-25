@@ -282,14 +282,16 @@
 							<% if @law_firm.form_submissions.any? %>
 								<div class="table-responsive">
 									<table class="table table-decoration table-bordered">
-										<tr>
-											<th>Score</th>
-											<th>Status</th>
-											<th>Approved At</th>
-											<th>Expiry Date</th>
-											<th>Submission</th>
-											<th width="8%">Action</th>
-										</tr>
+										<thead>
+											<tr>
+												<th>Score</th>
+												<th>Status</th>
+												<th>Approved At</th>
+												<th>Expiry Date</th>
+												<th>Submission</th>
+												<th width="8%">Action</th>
+											</tr>
+										</thead>
 										<% @law_firm.form_submissions.each do |submission| %>
 										<tr>
 											<td><%= @law_firm.total_calculated_score(submission) || '-' %></td>
@@ -448,10 +450,11 @@
 						</form>
 					</div>
 					<div class="tab-pane fade" id="hr5">
-						<div class="sp-form-bg show-data-fields">
+						<div class="">
 							<% if @law_firm.exception_requests.count > 0 %>
 							<div class="table-responsive">
-								<table class="table table-bordered text-center content-in-jarvis">
+								<table class="table table-decoration table-bordered content-in-jarvis">
+									<thead>
 									<tr>
 										<th>Request By</th>
 										<th>Submitted By	</th>
@@ -461,6 +464,7 @@
 										<th>Document Status</th>
 										<th width="8%">Action</th>
 									</tr>
+									</thead>
 									<% @law_firm.exception_requests.each do |exception_request| %>
 									<tr>
 										<td><%= exception_request.requested_by %></td>
@@ -478,7 +482,12 @@
 											<% end %>	
 										</td>
 										<td>
-											<%= link_to "View Request", admin_exception_request_path(exception_request), class: "btn btn-outline-primary btn-xs" %>	
+											<% link_to "View Request", admin_exception_request_path(exception_request), class: "btn btn-outline-primary btn-xs" %>	
+												<div class="action-fields">
+													<a class="action-btn" href="/admin/exception_requests/<%= exception_request.id %>">
+														<%= image_tag "view-icon.svg", alt:"View" %>
+													</a>
+												</div>
 										</td>
 									</tr>
 									<% end %>
@@ -492,12 +501,12 @@
 					</div>
 					<div class="tab-pane fade" id="hr6">
 
-							<div class="sp-form-bg show-data-fields">
+							<div class="">
 	
 									<% if @law_firm.conflict_waivers.count > 0 %>
 									<div class="table-responsive">
 										<table class="table table-decoration table-bordered">
-		
+											<thead>
 											<tr>
 												<th>Contact details	</th>
 												<th>BMO business contact	</th>
@@ -505,7 +514,7 @@
 												<th>Internal Lawyer Status</th>
 												<th width="8%">Action</th>
 											</tr>
-		
+											</thead>
 											<% @law_firm.conflict_waivers.each do |conflict_waiver| %>
 												<tr>
 													<td><%= conflict_waiver.contact_details %></td>
@@ -513,7 +522,12 @@
 													<td><%= conflict_waiver.lxp_status_show %></td>
 													<td><%= conflict_waiver.internal_lawyers_status_show %></td>	
 													<td>
-														<%= link_to "View Request", admin_conflict_waiver_path(conflict_waiver), class: "btn btn-outline-primary btn-xs" %>	
+														<% link_to "View Request", admin_conflict_waiver_path(conflict_waiver), class: "btn btn-outline-primary btn-xs" %>	
+														<div class="action-fields">
+															<a class="action-btn" href="/admin/conflict_waivers/<%= conflict_waiver.id %>">
+																<%= image_tag "view-icon.svg", alt:"View" %>
+															</a>
+														</div>
 													</td>
 												</tr>
 												

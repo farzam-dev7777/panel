@@ -5,7 +5,7 @@
 			<% # render partial: 'check_mark', locals: {loggable: loggable, form_type: form_type} %>
 		<% # end %>
 		<% if ((follow_up_needed?(params[:id], loggable.id, form_type) || (current_user && admin_panel?))) %>
-			<a class="btn btn-default btn-xs follow-up pull-right <%= follow_up ? 'has-follow-up' : '' %>"><i class="fa fa-envelope"></i></a>
+			<a class=" btn-xs follow-up pull-right <%= follow_up ? 'has-follow-up' : '' %>"><i class="fa fa-envelope"></i></a>
 		<% end %>
 	</div>
 	<div class="col-md-12 note-box">
