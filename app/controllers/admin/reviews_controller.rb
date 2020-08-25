@@ -62,7 +62,8 @@ class Admin::ReviewsController < Admin::BaseController
             lob_email = @lob.email
             lob_name =  @lob.username
 
-            @user = @panel_request.law_firm.user
+            user_id = @panel_request.law_firm.user_id
+            @user = User.with_deactivated.find_by(id: user_id)
             user_email = @user.email
             user_name =  @user.username
 

@@ -58,7 +58,9 @@ class User < ApplicationRecord
   end
 
   def reset_password_link_url
-    self.send(:set_reset_password_token)
+    if self.reset_password_token.nil?
+      self.send(:set_reset_password_token)
+    end
     self.save(validate: false)
     Rails.application.routes.url_helpers.edit_user_password_url(reset_password_token: self.reset_password_token)
   end

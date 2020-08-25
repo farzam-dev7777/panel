@@ -604,7 +604,7 @@ $(document).ready(function(){
       type: "warning",
       showCancelButton: true,
       confirmButtonColor: "#DD6B55",
-      confirmButtonText: "Yes, send User info!",
+      confirmButtonText: "Yes, send user password reset link!",
       cancelButtonText: "Cancel",
       closeOnConfirm: true,
       closeOnCancel: true
