@@ -72,6 +72,10 @@ class Admin::UsersController < Admin::BaseController
     @user = User.with_deactivated.find_by(id: params[:id])
     if @user
       @user.activate!
+      @law_firm = @user.law_firm
+      if @law_firm.present?
+        FormSubmission.generate_initial_submissions(@law_firm, @user)
+      end
       @user.send_user_info_with_rfi
       head :ok
     end

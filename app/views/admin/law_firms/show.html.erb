@@ -89,7 +89,7 @@
 							<div class="row send-password-link">
 								<div class="col-md-12">
 									<% if @law_firm.user.try(:id)%>
-										<a class="btn-type-primary" data-id="<%= @law_firm.user.id %>">Send new password link </a>
+										<a class="btn-type-primary send-user-info-btn" data-id="<%= @law_firm.user.id %>">Send new password link </a>
 									<% end %>
 									<% if(@law_firm.form_submissions.try(:latest).try(:status) == 'approved') %>
 										<% latest_form_submission = @law_firm.form_submissions.latest %>
