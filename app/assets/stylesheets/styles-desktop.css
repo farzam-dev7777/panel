@@ -1171,3 +1171,13 @@ nav ul li a:active {
   height: 38px;
   width: 100%;
 }
+.sp-form-layout{
+  box-shadow: unset;
+  background: #fff;
+  border: 1px solid #ccc;
+  margin-bottom: 50px;
+  border-radius: 4px;
+  
+}
+.sp-form-layout .instructions-wrapper{
+}
