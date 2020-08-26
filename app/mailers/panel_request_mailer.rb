@@ -44,7 +44,9 @@ class PanelRequestMailer < ApplicationMailer
 		@panel_request = panel_request
 		user_id = @panel_request.law_firm.user_id
 		@user = User.with_deactivated.find_by(id: user_id)
-		mail(to: @user.email, subject: "Your Panel Request status has been updated.")
+		if @user.present?
+			mail(to: @user.email, subject: "Your Panel Request status has been updated.")
+		end
 	end
 	def notification_for_approved_to_lob(panel_request)
 		@panel_request = panel_request

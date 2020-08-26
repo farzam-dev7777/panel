@@ -13,19 +13,45 @@
             <div class="sp-form sp-form-bg">
               <%= simple_form_for [:admin, Review.new()] do |f| %>
                 <div class="row">
-                  <div class="col-xs-12 col-md-6">
+                  <div class="col-xs-12 col-md-12">
                     <label class="label">Comment</label>
                       <%= f.input :description, label: false %>
                       <%= f.input :reviewable_type, label: false, as: :hidden, input_html: { value: @panel_request.class.to_s } %>
                       <%= f.input :reviewable_id, label: false, as: :hidden, input_html: { value: @panel_request.id } %>
                   </div>		
-                  <div class="col-xs-12 col-md-6">
+                  <div class="col-xs-12 col-md-6" style="display: none;">
                     <label class="label">Status</label>
                     <%= f.input :status, label: false, collection: PanelRequest::PANEL_REQUEST_STATUS.map{|value,key| [key, value]}%>
-                  </div> 
+                  </div>
                   <div class="col-xs-12 col-md-12">
-                      <%= link_to 'Cancel', @panel_request.new_record? ? admin_panel_request_path : admin_conflict_waiver_path, class: 'btn-type-default' %>
-                      <%= f.button :submit, @panel_request.new_record? ? "Submit Request" : "Update Status", class:  @current_user.role === "lxp btn-type-primary" ? "lxp_sttaus btn-type-primary" : "laywr_status btn-type-primary" %>
+                    <%= link_to 'Cancel', @panel_request.new_record? ? admin_panel_request_path : admin_conflict_waiver_path, class: 'btn-type-default' %>
+                    <%= f.button :submit, @panel_request.new_record? ? "Submit Request" : "Update Status", class:  @current_user.role === "lxp btn-type-primary hide" ? "lxp_sttaus btn-type-primary hide" : "laywr_status btn-type-primary hide" %>
+                    <div class="project-context sp-inner-dropdown">
+                      <span class="dropdown-toggle sp-derpdwon" data-toggle="dropdown">
+                        <div class="dropdown-text">Update</div>
+                        <span class="drop-down-icon">
+                          <%= image_tag "drop-down-icon.png", alt:"Drop menu" %>
+                        </span>
+                      </span>
+                      <ul class="dropdown-menu">
+                        <li id="" class="">
+                          <a href="javascript:void(0)" class="lxp_review_status" data-status="REQUEST_INFO">Request More Info</a>
+                        </li>
+                        <li role="separator" class="divider"></li>
+                        <li id="" class="">
+                          <a href="javascript:void(0)" class="lxp_review_status" data-status="PANEL_RETAINER">Panel Retainer Sent</a>
+                        </li>
+                        <li role="separator" class="divider"></li>
+                        <li id="" class="">
+                          <a href="javascript:void(0)" class="lxp_review_status" data-status="APPROVED">Approved</a>
+                        </li>
+                        <li role="separator" class="divider"></li>
+                        <li id="" class="">
+                          <a href="javascript:void(0)" class="lxp_review_status" data-status="REJECTED">Rejected</a>
+                        </li>
+                      </ul>
+                      <!-- end dropdown-menu-->
+                    </div>
                   </div>
                 </div>
             <% end %>
@@ -34,6 +60,9 @@
       </div>
     </div>
   </div>
+<% end %>
+<% if @panel_request.reviews.size === 0 %>
+  <div style="margin-bottom: 80px;"></div>
 <% end %>
 <div class="col-md-12">
     <%- if @panel_request.reviews.size > 0 %>

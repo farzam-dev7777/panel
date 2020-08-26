@@ -1632,3 +1632,14 @@ $('select#matter_intake_outside_counsel_engaged').on('change', function() {
 		$('.outside_counsel_engaged').hide()
 	}
 })
+
+$('.lxp_review_status').on('click', function() {
+	var status = $(this).attr("data-status");
+
+	if(status) {
+		$('#review_status').val(status);
+		$('#review_status').trigger('chosen:updated');
+		$(".form-submit-btn.laywr_status").trigger('click');
+	}
+
+})
