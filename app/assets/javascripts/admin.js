@@ -1639,7 +1639,7 @@ $('.lxp_review_status').on('click', function() {
 	if(status) {
 		$('#review_status').val(status);
 		$('#review_status').trigger('chosen:updated');
-		$(".form-submit-btn.laywr_status").trigger('click');
+		$(".form-submit-btn.lxp_sttaus").trigger('click');
 	}
 
 })

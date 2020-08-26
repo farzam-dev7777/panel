@@ -25,7 +25,7 @@
                   </div>
                   <div class="col-xs-12 col-md-12">
                     <%= link_to 'Cancel', @panel_request.new_record? ? admin_panel_request_path : admin_conflict_waiver_path, class: 'btn-type-default' %>
-                    <%= f.button :submit, @panel_request.new_record? ? "Submit Request" : "Update Status", class:  @current_user.role === "lxp btn-type-primary hide" ? "lxp_sttaus btn-type-primary hide" : "laywr_status btn-type-primary hide" %>
+                    <%= f.button :submit, @panel_request.new_record? ? "Submit Request" : "Update Status", class:  @current_user.role === "lxp" ? "lxp_sttaus btn-type-primary hide" : "laywr_status btn-type-primary hide" %>
                     <div class="project-context sp-inner-dropdown">
                       <span class="dropdown-toggle sp-derpdwon" data-toggle="dropdown">
                         <div class="dropdown-text">Update</div>
