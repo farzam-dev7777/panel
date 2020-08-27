@@ -30,14 +30,14 @@
         <label  class="label">Will this matter involve the following?<span class="mandatory">*</span></label>
         <%= f.input :following_matter_involve,  label: false, collection: MatterIntake::MatterInvolveFollowing %>
       </div>
-      <div class="col-xs-12 col-md-6">
+      <!--<div class="col-xs-12 col-md-6">
         <label  class="label">How will this law firm be paid?<span class="mandatory">*</span></label>
         <%= f.input :mode_of_payment, label: false, collection: MatterIntake::MatterBePaidOptions %>
       </div>   
       <div class="col-xs-12 col-md-6">
         <label  class="label">Law Firm Suggested<span class="mandatory">*</span></label>
         <%= f.input :law_firm_id, label: false, collection: LawFirm.where(law_firm_category: "PANEL").map{|lf| [lf.name, lf.id] } %>
-      </div>
+      </div>-->
       <div class="col-xs-12 col-md-6">
         <label  class="label">BMO lawyer name<span class="mandatory">*</span></label>
           <%= f.input :bmo_lawyer_name, label: false, collection: InternalLawyer.all.map {|il| [il.full_name, il.full_name, {'data-id'=>il.id}]} %>
@@ -72,12 +72,16 @@
         <%= f.input :paying_entity, label: false, collection: MatterIntake::LegalEntity %>
       </div>
       <div class="col-xs-12 col-md-6">
+        <label class="label">Jurisdiction<span class="mandatory">*</span></label>
+        <%= f.input :jurisdiction, label: false, collection: MatterIntake::Jurisdiction %>
+      </div>
+      <div class="col-xs-12 col-md-6">
         <label  class="label">Additional Comments for LRC Lawyer<span class="mandatory">*</span></label>
         <%= f.input :additional_comments_for_lrc_lawyer, label: false %>
       </div>
       <div class="col-xs-12 col-md-6">
         <label  class="label">Is outside counsel being engaged?<span class="mandatory">*</span></label>
-        <%= f.input :outside_counsel_engaged, label: false, collection: [['Yes', 'Yes'], ["No", "No"]] %>
+        <%= f.input :outside_counsel_engaged, label: false, collection: MatterIntake::OutsideCounselEngaged %>
       </div>
       <div class="col-xs-12 col-md-6 outside_counsel_engaged">
         <label class="label">Panel or Non-Panel Firm<span class="mandatory">*</span></label>

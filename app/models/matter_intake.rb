@@ -12,7 +12,7 @@ class MatterIntake < ApplicationRecord
 
   #### validation for lob initiated starts ####
   validates_presence_of :submitter_name, :name_of_matter_client, :matter_type_id, :matter_description, :following_matter_involve,
-    :mode_of_payment, :law_firm_id, :bmo_lawyer_name, :lob_contact_for_po, :cost_centre_for_legal_fees, :business_paying_for_matter,
+    :bmo_lawyer_name, :lob_contact_for_po, :cost_centre_for_legal_fees, :business_paying_for_matter, :jurisdiction,
     :group_paying_for_matter, :paying_entity, :additional_comments_for_lrc_lawyer, :outside_counsel_engaged,
     :if => Proc.new { |matter_intake| matter_intake.user_id.present? && matter_intake.user.role == "lob" }
 
@@ -33,7 +33,7 @@ class MatterIntake < ApplicationRecord
   #### validation for lob initiated but for lawyer for Form-B starts ####
   
   validates_presence_of :bmo_lawyer_name, :legal_group_of_bmo_lawyer, :work_area, :is_syndicate_matter, :is_conceal_imanage_workspace,
-    :is_paper_file, :name_of_matter_client, :matter_description, :paying_entity, :jurisdiction,
+    :is_paper_file, :name_of_matter_client, :matter_description, :paying_entity,
     :if => Proc.new { |matter_intake| matter_intake.user_id.present? && matter_intake.user.role == "lob" && Current.user && Current.user.role === "internal_lawyers" }
 
   validates_presence_of :who_requires_access_to_imanage_workspace,

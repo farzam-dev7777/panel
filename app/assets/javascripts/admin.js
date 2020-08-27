@@ -1619,17 +1619,17 @@ $('select#panel_request_required_unique_geography').on('change', function() {
 	}
 });
 
-if($("select#matter_intake_outside_counsel_engaged").val() == "Yes" || $('.matter_intake_outside_counsel_engaged_value').attr('data-value') === "Yes" ) {
-	$('.outside_counsel_engaged').show()
-} else {
+if($("select#matter_intake_outside_counsel_engaged").val() == "N/A Internal – no law firm will be engaged" || $("select#matter_intake_outside_counsel_engaged").val() == "" || $('.matter_intake_outside_counsel_engaged_value').attr('data-value') === "N/A Internal – no law firm will be engaged" || $('.matter_intake_outside_counsel_engaged_value').attr('data-value') === "" ) {
 	$('.outside_counsel_engaged').hide()
+} else {
+	$('.outside_counsel_engaged').show()
 }
 
 $('select#matter_intake_outside_counsel_engaged').on('change', function() {
-	if(this.value == "Yes"){
-		$('.outside_counsel_engaged').show()
-	} else {
+	if(this.value == "N/A Internal – no law firm will be engaged" || this.value == ""){
 		$('.outside_counsel_engaged').hide()
+	} else {
+		$('.outside_counsel_engaged').show()
 	}
 })
 
