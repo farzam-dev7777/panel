@@ -77,12 +77,12 @@
                 <div class="field-label">How will this matter be paid?:	</div>
                 <div class="field-data"><%= @matter_intake.mode_of_payment %></div>
               </div-->
-              <% if @matter_intake && @matter_intake.law_firm %>
+              <!--<% if @matter_intake && @matter_intake.law_firm %>
                 <div class="col-xs-12 col-md-6">
                   <div class="field-label">Law Firm Suggested:	</div>
                   <div class="field-data"><%= @matter_intake.law_firm.try(:name) %></div>
                 </div>
-              <% end %>
+              <% end %>-->
               <div class="col-xs-12 col-md-6">
                 <div class="field-label">BMO lawyer name:	</div>
                 <div class="field-data"><%= @matter_intake.bmo_lawyer_name %></div>

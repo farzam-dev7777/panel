@@ -412,9 +412,54 @@
 <div class="clearfix"></div>
 
 <div class="col-lg-12 col-md-12 col-sm-12">
+<div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+  <div class="page-header-sp">
+    <div class="page-title">Requires an Update</div>
+    <div class="back-edit-actions">
+    </div>
+  </div>
+  <div class="  ">
+    <div class="jarviswidget-editbox"></div>
+    <!-- widget content -->
+    
+    <div class="exceptationRequestProcesss">
+      
+        <div class="sp-form sp-form-bg">
+          <%= simple_form_for [:admin, Review.new()] do |f| %>
+            <div class="row">
+              <div class="col-xs-12 col-md-6">
+                <label class="label">Comment</label>
+                  <%= f.input :description, label: false %>
+                  <%= f.input :reviewable_type, label: false, as: :hidden, input_html: { value: @matter_intake.class.to_s } %>
+                  <%= f.input :reviewable_id, label: false, as: :hidden, input_html: { value: @matter_intake.id } %>
+              </div>		
+              <div class="col-xs-12 col-md-6">
+                <label class="label">Status</label>
+                <%= f.input :status, label: false, collection: [["Requires an update","requires_an_update"]]%>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12 col-md-6 internal_lawyers_box" style="display:none">
+                <label class="label">Assign to</label>
+                <%= f.input :assigned_to_id, label: false, collection: User.where(role: "internal_lawyers").map{|user| [user.email, user.id] } %>
+              </div> 
+              <div class="col-xs-12 col-md-12 text-right">
+                <%= f.button :submit, @matter_intake.new_record? ? "REQUIRES AN UPDATE" : "REQUIRES AN UPDATE", class:  "btn-type-primary" %>
+              </div>
+            </div>
+        <% end %>
+        </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="clearfix"></div>
+
+<div class="col-lg-12 col-md-12 col-sm-12">
   <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
     <div class="page-header-sp">
-      <div class="page-title">Matter Intake Forms- Complete Form-C</div>
+      <div class="page-title">Matter Intake Form - Complete Form C</div>
       <div class="back-edit-actions">
       </div>
     </div>
@@ -433,50 +478,6 @@
       <% end %>
   </div>
 </div>
-
-
-  <div class="col-lg-12 col-md-12 col-sm-12">
-    <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
-      <div class="page-header-sp">
-        <div class="page-title">Requires an Update</div>
-        <div class="back-edit-actions">
-        </div>
-      </div>
-      <div class="  ">
-        <div class="jarviswidget-editbox"></div>
-        <!-- widget content -->
-        
-        <div class="exceptationRequestProcesss">
-          
-            <div class="sp-form sp-form-bg">
-              <%= simple_form_for [:admin, Review.new()] do |f| %>
-                <div class="row">
-                  <div class="col-xs-12 col-md-6">
-                    <label class="label">Comment</label>
-                      <%= f.input :description, label: false %>
-                      <%= f.input :reviewable_type, label: false, as: :hidden, input_html: { value: @matter_intake.class.to_s } %>
-                      <%= f.input :reviewable_id, label: false, as: :hidden, input_html: { value: @matter_intake.id } %>
-                  </div>		
-                  <div class="col-xs-12 col-md-6">
-                    <label class="label">Status</label>
-                    <%= f.input :status, label: false, collection: [["Requires an update","requires_an_update"]]%>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-xs-12 col-md-6 internal_lawyers_box" style="display:none">
-                    <label class="label">Assign to</label>
-                    <%= f.input :assigned_to_id, label: false, collection: User.where(role: "internal_lawyers").map{|user| [user.email, user.id] } %>
-                  </div> 
-                  <div class="col-xs-12 col-md-12 text-right">
-                    <%= f.button :submit, @matter_intake.new_record? ? "REQUIRES AN UPDATE" : "REQUIRES AN UPDATE", class:  "btn-type-primary" %>
-                  </div>
-                </div>
-            <% end %>
-            </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
 
 <div class="col-md-12">
