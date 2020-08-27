@@ -19,13 +19,23 @@
         <label class="label">Work Area Level 2<span class="mandatory">*</span></label>
         <%= f.input :work_area_type, label: false, collection: [], input_html: { data: {value: "#{@matter_intake&.work_area_type}"} } %>
       </div>
+      <% if @form_type === 'general' || @matter_intake&.form_type === 'general' %>
+        <div class="col-xs-12 col-md-6 work_area_reportable">
+          <label class="label">Is this matter ORE reportable?</label>
+          <%= f.input :is_ore_reportable, label: false, collection: [['Yes', 'Yes'], ["No", "No"]] %>
+        </div>
+        <div class="col-xs-12 col-md-6 work_area_reportable">
+          <label class="label">Is this matter otherwise reportable? (e.g. board reporting)</label>
+          <%= f.input :is_otherwise_reportable, label: false, collection: [['Yes', 'Yes'], ["No", "No"]] %>
+        </div>
+      <% end %>
       <div class="col-xs-12 col-md-6">
         <label class="label">Is this a syndicate matter?<span class="mandatory">*</span></label>
         <%= f.input :is_syndicate_matter, label: false, as: :select, collection: [['Yes', 'Yes'], ["No", "No"]] %>
       </div>
       <div class="col-xs-12 col-md-6">
         <label class="label">Conceal iManage Workspace?<span class="mandatory">*</span></label>
-        <%= f.input :is_conceal_imanage_workspace, label: false, collection: [['Yes', 'Yes'], ["No", "No"]] %>
+        <%= f.input :is_conceal_imanage_workspace, label: false, collection: [['Yes', 'Yes'], ["No", "No"]], :selected => @matter_intake.new_record? ? 'No' : @matter_intake.is_conceal_imanage_workspace %>
       </div>
       <div class="col-xs-12 col-md-6 who_requires_imanager_workspace">
         <label class="label">Who requires access to the iManage workspace?<span class="mandatory">*</span></label>
@@ -33,7 +43,7 @@
       </div>
       <div class="col-xs-12 col-md-6">
         <label class="label">Paper file?<span class="mandatory">*</span></label>
-        <%= f.input :is_paper_file, label: false, collection: [['Yes', 'Yes'], ["No", "No"]] %>
+        <%= f.input :is_paper_file, label: false, collection: [['Yes', 'Yes'], ["No", "No"]], :selected => @matter_intake.new_record? ? 'No' : @matter_intake.is_paper_file %>
       </div>
       <div class="col-xs-12 col-md-6">
         <label class="label">Matter name<span class="mandatory">*</span></label>
@@ -65,21 +75,21 @@
         <label class="label">Jurisdiction<span class="mandatory">*</span></label>
         <%= f.input :jurisdiction, label: false, collection: MatterIntake::Jurisdiction %>
       </div>
-      <div class="col-xs-12 col-md-6 internal-matter">
-        <label class="label">Other Party (Other than BMO)</label>
-        <%= f.input :other_party, label: false, collection: MatterIntake::OtherParty %>
-      </div>
-      <div class="col-xs-12 col-md-6 internal-matter">
-        <label class="label">Additional Matter Contact (not specified elsewhere)</label>
-        <%= f.input :additional_matter_contact, label: false %>
-      </div>
-      <div class="col-xs-12 col-md-6 internal-matter">
-        <label class="label">Other Matter Issues (not specified elsewhere)</label>
-        <%= f.input :other_matter_issues, label: false %>
-      </div>
       <div class="col-xs-12 col-md-6 ">
         <label class="label">Is outside counsel being engaged?<span class="mandatory">*</span></label>
         <%= f.input :outside_counsel_engaged, label: false, collection: MatterIntake::OutsideCounselEngaged %>
+      </div>
+      <div class="col-xs-12 col-md-6">
+        <label class="label">Other Party (Other than BMO)</label>
+        <%= f.input :other_party, label: false, collection: MatterIntake::OtherParty %>
+      </div>
+      <div class="col-xs-12 col-md-6">
+        <label class="label">Additional Matter Contact (not specified elsewhere)</label>
+        <%= f.input :additional_matter_contact, label: false %>
+      </div>
+      <div class="col-xs-12 col-md-6">
+        <label class="label">Other Matter Issues (not specified elsewhere)</label>
+        <%= f.input :other_matter_issues, label: false %>
       </div>
       <div class="col-xs-12 col-md-6 internal-matter">
         <label  class="label">Will this matter involve the following?<span class="mandatory">*</span></label>
@@ -150,7 +160,7 @@
             </div>
             <div class="col-xs-12 col-md-6 internal-matter">
               <label class="label">Legal Analysis</label>
-              <%= f.input :legal_analysis, label: false %>
+              <%= f.input :legal_analysis, label: false, as: :text %>
             </div>
             <div class="col-xs-12 col-md-6 internal-matter">
               <label class="label">Stage of Litigation</label>
