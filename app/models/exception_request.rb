@@ -171,7 +171,14 @@ class ExceptionRequest < ApplicationRecord
     "REQUEST_TO_INPUT": "Law Input Requested",
     "APPROVED": "Approved",
     "REJECTED": "Rejected"
-    
+  }
+
+  EXCEPTION_REQUEST_STATUS2 = {
+    "REQUEST_TO_INPUT": "Law Input Requested",
+    "APPROVED": "Approved",
+    "REJECTED": "Rejected",
+    "REVIEWED_BY_LAWYER": "Reviewed by Lawyer",
+    "reviewed_by_lawyer": "Reviewed by Lawyer"
   }
 
   EXCEPTION_REQUEST_STATUS_LAWYER= {
@@ -195,12 +202,12 @@ class ExceptionRequest < ApplicationRecord
 
   def lxp_status_show
     if !self.lxp_status.blank?
-      ExceptionRequest::EXCEPTION_REQUEST_STATUS[self.lxp_status.try(:to_sym)]
+      ExceptionRequest::EXCEPTION_REQUEST_STATUS2[self.lxp_status.try(:to_sym)]
     end
   end
   def internal_lawyers_status_show
     if self.internal_lawyers_status.present?
-      ExceptionRequest::EXCEPTION_REQUEST_STATUS[self.internal_lawyers_status.to_sym]
+      ExceptionRequest::EXCEPTION_REQUEST_STATUS2[self.internal_lawyers_status.to_sym]
     end
   end
 
