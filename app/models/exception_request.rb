@@ -146,6 +146,14 @@ class ExceptionRequest < ApplicationRecord
 
   belongs_to :law_firm
 
+  def status_for_lob
+    status = ""
+    if self.internal_lawyers_status === 'APPROVED' && self.lxp_status === 'APPROVED'
+      status = "APPROVED"
+    end
+    status
+  end
+
   def can_user_change_status?(current_user)
     
     if self.internal_lawyers_status === "REJECTED"

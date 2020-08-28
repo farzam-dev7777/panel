@@ -112,7 +112,7 @@
                   <td>
                     <div class="status">
                       <% if exception_request.lxp_status.present? %>
-                        <span class="<%= exception_request.lxp_status === "Approved" ? 'label label-success' : 'label label-default' %>"> 
+                        <span class="<%= exception_request.lxp_status === "APPROVED" ? 'label label-success' : 'label label-default' %>"> 
                           <%= exception_request.try(:lxp_status).try(:titleize) %>
                         </span>
                       <% end %>
