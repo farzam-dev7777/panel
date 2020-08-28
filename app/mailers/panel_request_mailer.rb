@@ -59,6 +59,13 @@ class PanelRequestMailer < ApplicationMailer
 		mail(to: @user.email, subject: "Your Panel Request status has been approved.")
 	end
 
+	def send_wnn_documents_to_law_firm(panel_request)
+		@panel_request = panel_request
+		@law_firm = @panel_request&.law_firm
+		attachments['WNN_Documents.zip'] = File.read("#{Rails.root}/lib/assets/WNN_Documents.zip")
+		mail(to: @law_firm.email, subject: "WNN Documents")
+	end
+
 
 
 	

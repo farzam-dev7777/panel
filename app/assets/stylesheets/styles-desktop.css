@@ -569,6 +569,19 @@ nav ul li a:active {
   display: inline-flex;
   text-transform: uppercase;
 }
+.btn-type-danger{
+  background-color: #dc3545 !important;
+  border: 1px solid #dc3545 !important;
+  border-radius: 4px !important;
+  font-size: 14px !important;
+  line-height: 21px !important;
+  color: #FFFFFF !important;
+  padding: 10px 15px !important;
+  font-weight: normal !important;
+  height: auto !important;
+  display: inline-flex;
+  text-transform: uppercase;
+}
 .btn-type-default{
   border: 1px solid #7E858E !important;
   border-radius: 4px !important;

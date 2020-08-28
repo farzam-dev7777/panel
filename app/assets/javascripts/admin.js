@@ -1643,3 +1643,29 @@ $('.lxp_review_status').on('click', function() {
 	}
 
 })
+
+$(".loader").hide();
+
+$('.email_wnn_documents').on('click', function() {
+	var panel_request_id = $(this).attr("data-id");
+
+	if(panel_request_id) {
+		$(".loader").show();
+		$.ajax({
+			url: "/admin/panel_requests/send_wnn_documents",
+			method: "post",
+			data: {id : panel_request_id}
+		})
+		.done(function( response) {
+			if(response){
+				swal({
+					title: response.title,
+					icon: response.icon,
+					text: response.message
+				});	
+				$(".loader").hide();
+			}
+		});
+	}
+
+})

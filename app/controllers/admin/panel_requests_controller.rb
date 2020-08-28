@@ -74,7 +74,32 @@ class Admin::PanelRequestsController < Admin::BaseController
     document_name = @panel_request.get_document_name.gsub(".pdf","-signed.pdf")
     send_data @panel_request.get_document_list, filename: document_name
   end
- 
+
+  def send_wnn_documents
+    @panel_request = PanelRequest.find_by(id: params[:id])
+    @law_firm = @panel_request&.law_firm
+    if @panel_request.present? && @law_firm.present? && @law_firm.email.present?
+      if PanelRequestMailer.send_wnn_documents_to_law_firm(@panel_request).deliver_now
+        render json: {
+          message: "WNN Documents sent in email successfully.",
+          title: "Success",
+          icon: "success"
+        }
+      else
+        render json: {
+          message: "WNN Documents not sent.",
+          title: "Opps!",
+          icon: "error"
+        }
+      end
+    else
+      render json: {
+        message: "WNN Documents not sent. Law Firm/ Email not found.",
+        title: "Opps!",
+        icon: "error"
+      }
+    end
+  end
 
   private
   def panel_requests_params_test

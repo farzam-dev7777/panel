@@ -119,7 +119,10 @@ Rails.application.routes.draw do
       get :download_pdf 
     end
     resources :panel_requests do
-      get :download_pdf 
+      get   :download_pdf
+      collection do
+        post  :send_wnn_documents
+      end
     end
     resources :conflict_waivers
     resources :reviews
