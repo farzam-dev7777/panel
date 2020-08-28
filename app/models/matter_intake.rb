@@ -13,7 +13,7 @@ class MatterIntake < ApplicationRecord
   #### validation for lob initiated starts ####
   validates_presence_of :submitter_name, :name_of_matter_client, :matter_type_id, :matter_description, :following_matter_involve,
     :bmo_lawyer_name, :lob_contact_for_po, :cost_centre_for_legal_fees, :business_paying_for_matter, :jurisdiction,
-    :group_paying_for_matter, :paying_entity, :additional_comments_for_lrc_lawyer, :outside_counsel_engaged,
+    :group_paying_for_matter, :paying_entity, :outside_counsel_engaged,
     :if => Proc.new { |matter_intake| matter_intake.user_id.present? && matter_intake.user.role == "lob" }
 
   validates_presence_of :firm_type,
