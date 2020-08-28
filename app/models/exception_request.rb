@@ -142,7 +142,7 @@ class ExceptionRequest < ApplicationRecord
     "UNITED STATES - WISCONSIN",
     "UNITED STATES - WYOMING"
   ]
-  #validates_presence_of :requested_by, :submitted_by_email, :line_of_business, :lob_contact_name, :minority_owned, :women_owned, :matter_name
+  # validates_presence_of :requested_by, :submitted_by_email, :line_of_business, :lob_contact_name, :minority_owned, :women_owned, :matter_name
 
   belongs_to :law_firm
 

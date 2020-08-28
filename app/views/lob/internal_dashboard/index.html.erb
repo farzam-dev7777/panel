@@ -78,7 +78,7 @@
 								<th>LOB Contact Name</th>
 								<th>Law Firm Name</th>
 								<th>Matter Name</th>
-								<th>LXP Status</th>
+								<!--<th>LXP Status</th>-->
 								<!--<th>Internal Lawyer Status</th>-->
 								<!--<th width="8%">Action</th>-->
 							</tr>
@@ -103,7 +103,7 @@
 									<td><%= exception_request.lob_contact_name %></td>
 									<td><%= exception_request.try(:law_firm).try(:name) %></td>
 									<td><%= exception_request.try(:matter_name) %></td>
-									<td>
+									<!--<td>
 										<div class="status">
 											<% if exception_request.lxp_status_show.present? %>
 												<span class="<%= exception_request.lxp_status_show === "Approved" ? 'label label-success' : 'label label-default' %>"> 
@@ -112,7 +112,7 @@
 											<% end %>
 										</div>
 										<% exception_request.lxp_status_show %>
-									</td>
+									</td>-->
 									<!--<td>
 										<div class="status">
 											<% if exception_request.internal_lawyers_status_show.present? %>
