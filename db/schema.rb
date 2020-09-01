@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200820132815) do
+ActiveRecord::Schema.define(version: 20200824143058) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -754,9 +754,10 @@ ActiveRecord::Schema.define(version: 20200820132815) do
 
   create_table "system_settings", force: :cascade do |t|
     t.float    "score_threshold"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.text     "docusign_access_token"
+    t.text     "docusign_refresh_token"
   end
 
   create_table "technologies", force: :cascade do |t|

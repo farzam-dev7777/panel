@@ -35,11 +35,12 @@ class Admin::ReviewsController < Admin::BaseController
           @exception_request = ExceptionRequest.find_by_id(params[:review][:reviewable_id])
           if current_user.role === 'lxp' && review_params[:status] == 'APPROVED'
             # pay tyep
-            @user = User.find_by_id(@exception_request.user_id)
-            signer_email = @user.email
-            signer_name =  @user.username
-            @exception_request.send_retainer_for_esigning(signer_email, signer_name)
-            ExceptionRequestMailer.form_status_notification_to_lob_for_sign(@exception_request).deliver_now
+            @exception_request.update_attributes(lxp_status: review_params[:status])
+            # @user = User.find_by_id(@exception_request.user_id)
+            # signer_email = @user.email
+            # signer_name =  @user.username
+            # @exception_request.send_retainer_for_esigning(signer_email, signer_name)
+            # ExceptionRequestMailer.form_status_notification_to_lob_for_sign(@exception_request).deliver_now
           elsif current_user.role === 'lxp' && review_params[:assigned_to_id].present?
             ExceptionRequestMailer.form_status_notification_to_internal_lawyer(@exception_request,params[:review][:assigned_to_id]).deliver_now
           elsif current_user.role === 'internal_lawyers' && review_params[:status] == 'APPROVED'

@@ -250,6 +250,8 @@ class ExceptionRequest < ApplicationRecord
     
     self.docusign_envelope_id = envelope_id
     self.save
+
+    ExceptionRequestMailer.form_status_notification_to_lob_for_sign(self).deliver_now
   end
 
   def docusign_retainer_envelope
@@ -346,14 +348,6 @@ class ExceptionRequest < ApplicationRecord
             :name => args[:lxp_name],
             :roleName => 'lxp'
     })
-
-    # text = DocuSign_eSign::Text.new  
-    # text.tab_label = '*lawfirmname'  
-    # text.value = 'Norton'
-    # text.locked = true
-    # tabs = DocuSign_eSign::Tabs.new
-    # tabs.text_tabs = [text]
-    # lxp.tabs = tabs
 
     text = DocuSign_eSign::Text.new
     text.document_id = '1'

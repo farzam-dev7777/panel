@@ -84,6 +84,35 @@ class Admin::ExceptionRequestsController < Admin::BaseController
     add_breadcrumb "#{@exception_request.requested_by}", :admin_exception_request_path 
     
   end
+
+  def send_retainer_aggreement
+    @exception_request = ExceptionRequest.find_by(id: params[:id])
+    @user = User.find_by_id(@exception_request.user_id)
+    
+    if @exception_request.present? && @user.present?
+      signer_email = @user.email
+      signer_name =  @user.username
+      if @exception_request.send_retainer_for_esigning(signer_email, signer_name)
+        render json: {
+          message: "Retainer aggreement sent successfully.",
+          title: "Success",
+          icon: "success"
+        }
+      else 
+        render json: {
+          message: "Problem in sending retainer aggreement.",
+          title: "Opps!",
+          icon: "error"
+        }
+      end
+    else
+      render json: {
+        message: "Problem in sending retainer aggreement. Non-Panel/ User not found.",
+        title: "Opps!",
+        icon: "error"
+      }
+    end     
+  end
  
 
   private

@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get '/auth/docusign/callback', to: 'dashboard#docusign_callback'
+  
   namespace :admin do
     devise_for :admin_users, controllers: {
       sessions: 'admin/internal_sessions'
@@ -117,6 +119,9 @@ Rails.application.routes.draw do
     end
     resources :exception_requests do
       get :download_pdf 
+      collection do
+        post :send_retainer_aggreement
+      end
     end
     resources :panel_requests do
       get   :download_pdf

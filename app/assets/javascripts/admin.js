@@ -1669,3 +1669,27 @@ $('.email_wnn_documents').on('click', function() {
 	}
 
 })
+
+$('.non-panel_send_retainer').on('click', function() {
+	var non_panel_id = $(this).attr("data-id");
+
+	if(non_panel_id) {
+		$(".loader").show();
+		$.ajax({
+			url: "/admin/exception_requests/send_retainer_aggreement",
+			method: "post",
+			data: {id : non_panel_id}
+		})
+		.done(function( response) {
+			if(response){
+				swal({
+					title: response.title,
+					icon: response.icon,
+					text: response.message
+				});	
+				$(".loader").hide();
+			}
+		});
+	}
+
+})

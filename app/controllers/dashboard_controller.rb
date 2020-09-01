@@ -26,6 +26,16 @@ class DashboardController < BaseController
 
   def check_new_password
   	redirect_to set_new_password_path unless current_user.new_password_set
-  end
+	end
+
+	def docusign_callback
+		userinfo = request.env['omniauth.auth']
+		credentials = userinfo.credentials
+    if credentials.token
+      @settings = SystemSetting.fetch
+      @settings.update_attributes(docusign_access_token: credentials.token, docusign_refresh_token: credentials.refresh_token)
+    end
+    redirect_to admin_root_path
+  end 
   
 end
