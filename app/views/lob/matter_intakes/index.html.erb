@@ -87,7 +87,7 @@
           <tbody>
             <% @matter_intakes.each do |matter_intake| %>
               <tr  onClick="window.location.href='/lob/matter_intakes/<%= matter_intake.id %>'">
-                <td data-order="<%= matter_intake.created_at.strftime('%m/%d/%Y at %I:%M%p') %>">
+                <td data-order="<%= matter_intake.created_at.strftime('%Y%m%d%I%M') %>">
                   <%= matter_intake.created_at.strftime('%d %b %Y at %I:%M %p') %>
                 </td>
                 <td>
