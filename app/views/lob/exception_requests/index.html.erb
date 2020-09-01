@@ -120,7 +120,7 @@
             <% @exception_requests.each do |exception_request| %>
             <% if exception_request.law_firm_id.present?  %>
               <tr class="" onClick="window.location.href='/lob/exception_requests/<%= exception_request.id %>'">
-                <td data-order="<%= exception_request.created_at..strftime('%Y%d%m%I%M') %>">
+                <td data-order="<%= exception_request.created_at.strftime('%Y%d%m%I%M') %>">
                   <%= exception_request.created_at.strftime('%d %b %Y at %I:%M %p') %>
                 </td>
                 <td>

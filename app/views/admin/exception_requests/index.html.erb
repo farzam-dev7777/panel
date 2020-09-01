@@ -93,7 +93,7 @@
             <% if exception_request.law_firm_id.present?  %>
               <tr onClick="window.location.href='/admin/exception_requests/<%= exception_request.id %>'">
                 <% if exception_request.law_firm_id.present? %>
-                  <td data-order="<%= exception_request.created_at..strftime('%Y%d%m%I%M') %>">
+                  <td data-order="<%= exception_request.created_at.strftime('%Y%d%m%I%M') %>">
                     <%= exception_request.created_at.strftime('%d %b %Y at %I:%M %p') %>
                   </td>
                   <td>
