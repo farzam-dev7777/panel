@@ -32,8 +32,8 @@ class DashboardController < BaseController
 		userinfo = request.env['omniauth.auth']
 		credentials = userinfo.credentials
     if credentials.token
-      @settings = SystemSetting.fetch
-      @settings.update_attributes(docusign_access_token: credentials.token, docusign_refresh_token: credentials.refresh_token)
+			@settings = SystemSetting.fetch
+      @settings.update_attributes(docusign_access_token: credentials.token, docusign_refresh_token: credentials.refresh_token, docusign_token_expires_at: Time.at(credentials.expires_at).to_datetime)
     end
     redirect_to admin_root_path
   end 
