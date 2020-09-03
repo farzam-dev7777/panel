@@ -86,22 +86,29 @@ class PanelRequest < ApplicationRecord
       account_id: Rails.application.secrets[:docusign]["account_id"],
       access_token: SystemSetting.fetch.docusign_access_token
     }
-
-    envelope_args = args[:envelope_args]
-    # 1. Create the envelope request object
-    envelope_definition = make_envelope(envelope_args)
-    # 2. call Envelopes::create API method
-    # Exceptions will be caught by the calling function
-    configuration = DocuSign_eSign::Configuration.new
-    configuration.host = args[:base_path]
-    api_client = DocuSign_eSign::ApiClient.new configuration
-    api_client.default_headers["Authorization"] = "Bearer #{args[:access_token]}"
-    envelope_api = DocuSign_eSign::EnvelopesApi.new(api_client)
-    results = envelope_api.create_envelope args[:account_id], envelope_definition
-    envelope_id = results.envelope_id
-    
-    self.docusign_envelope_id = envelope_id
-    self.save
+    begin
+      envelope_args = args[:envelope_args]
+      # 1. Create the envelope request object
+      envelope_definition = make_envelope(envelope_args)
+      # 2. call Envelopes::create API method
+      # Exceptions will be caught by the calling function
+      configuration = DocuSign_eSign::Configuration.new
+      configuration.host = args[:base_path]
+      api_client = DocuSign_eSign::ApiClient.new configuration
+      api_client.default_headers["Authorization"] = "Bearer #{args[:access_token]}"
+      envelope_api = DocuSign_eSign::EnvelopesApi.new(api_client)
+      results = envelope_api.create_envelope args[:account_id], envelope_definition
+      envelope_id = results.envelope_id
+      
+      self.docusign_envelope_id = envelope_id
+      self.save
+    rescue DocuSign_eSign::ApiError => e
+      error = JSON.parse e.response_body
+      puts "##### Docusign Error Panel #####"
+      @error_code = error['errorCode']
+      @error_message = error['message']
+      puts "Error code: #{@error_code} & Error msg: #{@error_message}"
+    end
   end
 
   def docusign_retainer_envelope
