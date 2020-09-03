@@ -4,5 +4,5 @@ every 1.day, :at => '4:30 am' do
 end
 
 every 6.hours do
-  rake "rake docusign:refresh_token"
+  rake "docusign:refresh_token"
 end
