@@ -565,7 +565,7 @@ class MatterIntake < ApplicationRecord
       reviewable_type: self.class.to_s,
       reviewable_id: self.id,
       description: "#{current_user.try(:full_name)} rejects matter intake form and retuns to lawyer for completion/updation.",
-      status: "waiting_for_lawyer_updation"
+      status: "awaiting_lawyer_update"
     )
   end
 

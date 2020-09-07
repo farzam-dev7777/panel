@@ -90,7 +90,7 @@ class Admin::MatterIntakesController < Admin::BaseController
     @matter_intake = MatterIntake.find_by(id: params[:id])
     if current_user.role === "lxp"
       if @matter_intake.update_attributes(lxp_reviewed_at: Time.now, status: 'awaiting_lawyer_update', lxp_id: current_user.id)
-        @matter_intake.add_log_for_lxp_rejects_and_returns_to_lawyer(current_user)
+        #@matter_intake.add_log_for_lxp_rejects_and_returns_to_lawyer(current_user)
         @matter_intake.send_notification_to_lawyer_form_needs_updation
         render json: {
           message: "Successfully rejects matter intake form."
