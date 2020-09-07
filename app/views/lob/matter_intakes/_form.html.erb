@@ -42,7 +42,31 @@
         <label  class="label">BMO lawyer name<span class="mandatory">*</span></label>
           <%= f.input :bmo_lawyer_name, label: false, collection: InternalLawyer.all.map {|il| [il.full_name, il.full_name, {'data-id'=>il.id}]} %>
           <%= f.input :lawyer_id, as: :hidden, label: false %>
-      </div>   
+      </div> 
+       <div class="col-xs-12 col-md-6">
+        <label  class="label">Is outside counsel being engaged?<span class="mandatory">*</span></label>
+        <%= f.input :outside_counsel_engaged, label: false, collection: MatterIntake::OutsideCounselEngaged %>
+      </div>
+      <div class="col-xs-12 col-md-6 outside_counsel_engaged">
+        <label class="label">Panel or Non-Panel Firm<span class="mandatory">*</span></label>
+        <%= f.input :firm_type, label: false, collection: MatterIntake::FirmType %>
+      </div>
+      <div class="col-xs-12 col-md-6 panel_firm" style="display: none;">
+        <label class="label">Name of Panel Firm<span class="mandatory">*</span></label>
+        <%= f.input :name_of_panel_firm, label: false, collection: LawFirm.where(law_firm_category: "PANEL") %>
+      </div>
+      <div class="col-xs-12 col-md-6 non_panel_firm" style="display: none;">
+        <label class="label">Name of Non-Panel Firm<span class="mandatory">*</span></label>
+        <%= f.input :name_of_non_panel_firm, label: false %>
+      </div>  
+      <div class="col-xs-12 col-md-6">
+        <label  class="label">Business/Group paying for this matter (level 1)<span class="mandatory">*</span></label>
+        <%= f.input :business_paying_for_matter, label: false, collection: MatterIntake::Business %>
+      </div>    
+      <div class="col-xs-12 col-md-6">
+        <label  class="label">Business/Group paying for this matter (level 2)<span class="mandatory">*</span></label>
+        <%= f.input :group_paying_for_matter, label: false, collection: [], input_html: { data: {value: "#{@matter_intake&.group_paying_for_matter}"} } %>
+      </div>
       <div class="col-xs-12 col-md-6">
         <label  class="label">Budget amount, if already negotiated with the law firm</label>
         <%= f.input :budget_amount, label: false %>
@@ -60,14 +84,6 @@
         <%= f.input :deal_code, label: false %>
       </div>
       <div class="col-xs-12 col-md-6">
-        <label  class="label">Business/Group paying for this matter (level 1)<span class="mandatory">*</span></label>
-        <%= f.input :business_paying_for_matter, label: false, collection: MatterIntake::Business %>
-      </div>    
-      <div class="col-xs-12 col-md-6">
-        <label  class="label">Business/Group paying for this matter (level 2)<span class="mandatory">*</span></label>
-        <%= f.input :group_paying_for_matter, label: false, collection: [], input_html: { data: {value: "#{@matter_intake&.group_paying_for_matter}"} } %>
-      </div>
-      <div class="col-xs-12 col-md-6">
         <label  class="label">Paying Entity<span class="mandatory">*</span></label>
         <%= f.input :paying_entity, label: false, collection: MatterIntake::LegalEntity %>
       </div>
@@ -78,22 +94,6 @@
       <div class="col-xs-12 col-md-6">
         <label  class="label">Additional Comments for LRC Lawyer</label>
         <%= f.input :additional_comments_for_lrc_lawyer, label: false %>
-      </div>
-      <div class="col-xs-12 col-md-6">
-        <label  class="label">Is outside counsel being engaged?<span class="mandatory">*</span></label>
-        <%= f.input :outside_counsel_engaged, label: false, collection: MatterIntake::OutsideCounselEngaged %>
-      </div>
-      <div class="col-xs-12 col-md-6 outside_counsel_engaged">
-        <label class="label">Panel or Non-Panel Firm<span class="mandatory">*</span></label>
-        <%= f.input :firm_type, label: false, collection: MatterIntake::FirmType %>
-      </div>
-      <div class="col-xs-12 col-md-6 panel_firm" style="display: none;">
-        <label class="label">Name of Panel Firm<span class="mandatory">*</span></label>
-        <%= f.input :name_of_panel_firm, label: false, collection: LawFirm.where(law_firm_category: "PANEL") %>
-      </div>
-      <div class="col-xs-12 col-md-6 non_panel_firm" style="display: none;">
-        <label class="label">Name of Non-Panel Firm<span class="mandatory">*</span></label>
-        <%= f.input :name_of_non_panel_firm, label: false %>
       </div>
       <div class="col-xs-12 col-md-6 upload-file-control ">
         <label  class="label">Document</label>
