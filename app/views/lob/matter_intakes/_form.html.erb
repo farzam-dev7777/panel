@@ -20,7 +20,7 @@
       </div>
       <div class="col-xs-12 col-md-6">
         <label  class="label">Type of Matter<span class="mandatory">*</span></label>
-        <%= f.input :matter_type_id, label: false, collection: MatterType.all.map{|mt| [mt.matter_type, mt.id] } %>
+        <%= f.input :matter_type_id, label: false, collection: MatterType.all.reject{|mt| mt.matter_type === "Litigation / Litiges"}.map{|mt| [mt.matter_type, mt.id] } %>
       </div>   
       <div class="col-xs-12 col-md-6">
         <label  class="label">Matter Description<span class="mandatory">*</span></label>
