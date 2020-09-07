@@ -166,10 +166,12 @@
                   <div class="field-label">Is there an Alternative Fee Arrangement?:	</div>
                   <div class="field-data"><%= @matter_intake.is_alternative_fee_arrangement %></div>
                 </div>
-                <div class="col-xs-12 col-md-6">
-                  <div class="field-label">Could this matter be reimbursed?:	</div>
-                  <div class="field-data"><%= @matter_intake.can_reimbursed_matter ? "Yes" : "No" %></div>
-                </div>
+                <% if @matter_intake.user_id.nil? %>
+                  <div class="col-xs-12 col-md-6">
+                    <div class="field-label">Could this matter be reimbursed?:	</div>
+                    <div class="field-data"><%= @matter_intake.can_reimbursed_matter ? "Yes" : "No" %></div>
+                  </div>
+                <% end %>   
               <!--<div class="col-xs-12 col-md-6">
                 <div class="field-label">Budget amount, if already negotiated with the law firm:	</div>
                 <div class="field-data"><%= @matter_intake.budget_amount %></div>
