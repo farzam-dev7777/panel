@@ -213,6 +213,12 @@
                   </div>
                 </div>
               <% end %>
+              <% if !@matter_intake.matter_number.nil? %>
+                <div class="col-xs-12 col-md-6">
+                  <div class="field-label">T360 Matter Number:	</div>
+                  <div class="field-data"><%= @matter_intake.matter_number %></div>
+                </div>
+              <% end %>  
               <% if @matter_intake.form_type == "litigation" %>
                 <% if !@matter_intake.outside_counsel_engaged.blank? && @matter_intake.outside_counsel_engaged != 'N/A Internal – no law firm will be engaged' %>
                   <div class="col-md-12">
@@ -394,6 +400,7 @@
                         <div class="field-label">Business Activity Level 2:	</div>
                         <div class="field-data"><%= @matter_intake.business_activity_level_2 %></div>
                       </div>
+                      
                     </div>
                   </div>
                 <% end %>
