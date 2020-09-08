@@ -11,7 +11,7 @@ class ConflictWaiver < ApplicationRecord
   validate :confirm_waiver_must_be_true
 
   CONFLICT_WAIVER_STATUS = {
-    "ALREADY_COVERED": "Already Covered",
+    "ALREADY_COVERED": "Covered by retainer agreement",
     "APPROVED": "Approved",
     "REJECTED": "Rejected",
     "REQUEST_INFO": "Request Info",
@@ -19,7 +19,7 @@ class ConflictWaiver < ApplicationRecord
   }
 
   CONFLICT_WAIVER_STATUS_LXP = {
-    "ALREADY_COVERED": "Already Covered",
+    "ALREADY_COVERED": "Covered by retainer agreement",
     "APPROVED": "Approved"
   }
 
