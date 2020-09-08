@@ -24,9 +24,9 @@ class ConflictWaiver < ApplicationRecord
   }
 
   CONFLICT_WAIVER_STATUS_LAWYER = {
-    "APPROVED": "Approve",
+    "APPROVED": "Approved",
     "REJECTED": "Rejected",
-    "REQUEST_INFO": "Request info ",
+    "REQUEST_INFO": "Request Info ",
     "IN_REVIEW": "In Review"
   }
 
