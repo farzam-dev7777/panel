@@ -39,6 +39,8 @@ class MatterIntake < ApplicationRecord
   validates_presence_of :who_requires_access_to_imanage_workspace,
     :if => Proc.new { |matter_intake| matter_intake.user_id.present? && matter_intake.user.role == "lob" && Current.user && Current.user.role === "internal_lawyers" && matter_intake.is_conceal_imanage_workspace === "Yes" }
 
+    validates_presence_of :is_ore_reportable, :is_otherwise_reportable,
+    :if => Proc.new { |matter_intake| matter_intake.user_id.present? && matter_intake.user.role == "lob" && Current.user && Current.user.role === "internal_lawyers" && matter_intake.work_area === "Regulatory" }
   #### validation for lob initiated but for lawyer for Form-B ends ####
 
   #### Validation common in General & Litigation intake starts ####
