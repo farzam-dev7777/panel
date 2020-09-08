@@ -61,7 +61,7 @@
                         <%= f.input :states, label: false, collection: State.all.map{|mt| [mt.name, mt.id] }, required: true %>
                       </span>
                     </div>
-                    <div class="col-xs-12 col-md-12">
+                    <div class="col-xs-12 col-md-12 hide_next_btn_non_panel">
                       <%= f.button :submit, @law_firm.new_record? ? "Next" : "Submit", class: "btn-type-primary searchLawFirm" %>
                     </div>
                   </div>

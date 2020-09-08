@@ -521,6 +521,7 @@ $('.searchLawFirm').on('click', function() {
 						html += "</table>";		
 						$('.law_firm_list table#dt_basic').find('tbody').html(html)
 						$('.law_firm_list').show()
+						$('.hide_next_btn_non_panel').hide()
 				}else{
 					//html += "<tr><td>No Law Firm Match Your criteria<td></tr>";		
 					//html += "</table>";		
