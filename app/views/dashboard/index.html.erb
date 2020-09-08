@@ -70,7 +70,7 @@
 	</div>
 </div>
 
-<div class="row">
+<!--div class="row">
 	<div class="col-xs-12 col-md-12">
 		<div class="page-header-sp">
 			<div class="page-title">Submissions</div>
@@ -85,7 +85,6 @@
 					<thead>
 					<tr>
 							<th>Submission ID</th>
-							<!-- <th class="text-center">Score</th> -->
 							<th>Date of certification</th>
 							<th>Date of submission</th>
 							<th>Status</th>
@@ -97,7 +96,6 @@
 					<% current_law_firm.form_submissions.reverse.each do |submission| %>
 					<tr>
 						<td><%= submission.id %></td>
-						<!-- <td><%= submission.total_score || '-' %></td> -->
 						<td><%= submission.approved_at.try(:strftime, "%d/%m/%Y") || '-' %></td>
 						<td><%= submission.submitted_on.try(:strftime, "%d/%m/%Y") || '-' %></td>
 						<td>
@@ -135,7 +133,7 @@
 			<% end %>
 		</div>
 	</div>
-</div>
+</div-->
 
 <div class="row">
 	<div class="col-xs-12 col-md-12">
