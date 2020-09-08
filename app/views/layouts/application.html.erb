@@ -42,14 +42,14 @@
         </span>
         <ul class="dropdown-menu">
             <% if current_law_firm && current_law_firm.form_submissions.any? && ( !['sent', 'started'].include? current_law_firm.form_submissions.latest.status ) %>
-              <li>
+              <!--li>
                 <%= link_to "Technologies", technology_profile_form_submission_path(current_law_firm.form_submissions.latest) %>
               </li>
               <li class="divider"></li>
               <li>
                 <%= link_to "History", history_profile_form_submission_path(current_law_firm.form_submissions.latest) %>
               </li>
-              <li class="divider"></li>
+              <li class="divider"></li-->
             <% end %>
             <% if current_user.role == 'master_user' %>
               <li>
