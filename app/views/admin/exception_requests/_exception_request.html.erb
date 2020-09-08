@@ -4,6 +4,43 @@
     <div class="view-request">
       <div class="sp-form-bg show-data-fields">
         <div class="row">
+          <div class="col-md-12">
+            <div class="inner-label">Law Firm :</div>		
+            <div class="row inner-form-field">
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Law Firm Category : </div>
+                <div class="field-data"><%= @exception_request.law_firm.try(:law_firm_category) %></div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Name : </div>
+                <div class="field-data"><%= @exception_request.law_firm.try(:name) %></div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Email : </div>		
+                <div class="field-data"><%= @exception_request.law_firm.try(:email) %></div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Phone : </div>		
+                <div class="field-data"><%= @exception_request.law_firm.try(:phone) %></div>
+              </div>
+              <!--div class="col-xs-12 col-md-6">
+                <div class="field-label">Country : </div>		
+                <div class="field-data"><%= @exception_request.show_countries_names %></div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">State : </div>		
+                <div class="field-data"><%= @exception_request.show_states_names %></div>
+              </div-->
+              <!--<div class="col-xs-12 col-md-6">
+                <div class="field-label">Would You use this firm on a regular basis? : </div>		
+                <div class="field-data"><%= @exception_request.law_firm.try(:relationship_manager_name) ? "Yes" : "No" %></div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Would You use this firm on a regular basis? :	</div>		
+                <div class="field-data"><%= @exception_request.law_firm.try(:show_matter_types) %></div>
+              </div>-->
+            </div>
+          </div>
           <div class="col-xs-12 col-md-6">
             <div class="field-label">Matter Type	:	</div>
             <div class="field-data"><%= @exception_request.matter_types_formated %></div>
@@ -44,43 +81,6 @@
             <div class="field-label">Requested By :	</div>
             <div class="field-data"><%= @exception_request.requested_by %></div>
           </div>-->
-          <div class="col-md-12">
-            <div class="inner-label">Law Firm :</div>		
-            <div class="row inner-form-field">
-              <div class="col-xs-12 col-md-6">
-                <div class="field-label">Law Firm Category : </div>
-                <div class="field-data"><%= @exception_request.law_firm.try(:law_firm_category) %></div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="field-label">Name : </div>
-                <div class="field-data"><%= @exception_request.law_firm.try(:name) %></div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="field-label">Email : </div>		
-                <div class="field-data"><%= @exception_request.law_firm.try(:email) %></div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="field-label">Phone : </div>		
-                <div class="field-data"><%= @exception_request.law_firm.try(:phone) %></div>
-              </div>
-              <!--div class="col-xs-12 col-md-6">
-                <div class="field-label">Country : </div>		
-                <div class="field-data"><%= @exception_request.show_countries_names %></div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="field-label">State : </div>		
-                <div class="field-data"><%= @exception_request.show_states_names %></div>
-              </div-->
-              <!--<div class="col-xs-12 col-md-6">
-                <div class="field-label">Would You use this firm on a regular basis? : </div>		
-                <div class="field-data"><%= @exception_request.law_firm.try(:relationship_manager_name) ? "Yes" : "No" %></div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="field-label">Would You use this firm on a regular basis? :	</div>		
-                <div class="field-data"><%= @exception_request.law_firm.try(:show_matter_types) %></div>
-              </div>-->
-            </div>
-          </div>
           <div class="col-xs-12 col-md-6">
             <div class="field-label">Name of Matter/ Client	:</div>
             <div class="field-data"><%= @exception_request&.matter_name %></div>
