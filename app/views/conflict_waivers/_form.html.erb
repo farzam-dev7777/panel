@@ -63,7 +63,7 @@
       </div>
       <div class="col-xs-12 col-md-12">
           <%=link_to 'Cancel', @conflict_waiver.new_record? ? admin_exception_requests_path : admin_law_firm_path, class: 'btn-type-default' %>
-          <%= f.button :submit, @conflict_waiver.new_record? ? "Submit Request" : "Update Request", class: "btn-type-primary" %>
+          <%= f.button :submit, @conflict_waiver.new_record? ? "Next" : "Next", class: "btn-type-primary" %>
       </div>
     </div>
 		<% end %>
