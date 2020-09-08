@@ -18,6 +18,11 @@ class ConflictWaiver < ApplicationRecord
     "IN_REVIEW": "In Review"
   }
 
+  CONFLICT_WAIVER_STATUS_LXP = {
+    "ALREADY_COVERED": "Already Covered",
+    "APPROVED": "Approved"
+  }
+
   CONFLICT_WAIVER_STATUS_LAWYER = {
     "APPROVED": "Approve",
     "REJECTED": "Rejected",

@@ -82,7 +82,7 @@
                 <td>
                   <% if conflict_waiver.lxp_status_show.present? %>
                     <div class="status">
-                      <span class="<%= conflict_waiver.lxp_status_show === "APPROVED" ? 'label label-success' : 'label label-default' %>"> 
+                      <span class="<%= conflict_waiver.lxp_status_show === "Approved" ? 'label label-success' : 'label label-default' %>"> 
                         <%= conflict_waiver.try(:lxp_status_show).try(:titleize) %>
                       </span>
                     </div>
