@@ -1566,3 +1566,14 @@ textarea{
   text-shadow: none;
   text-align: right;
 }
+
+ol.conflict_waiver_categories_list {
+  /* list-style-type: circle; */
+  padding-inline-start: 18px !important;
+  margin-block-start: 0px;
+}
+
+.checkbox .accept_conflict_waiver_checkbox {
+  margin-top: 0px !important;
+}
+
