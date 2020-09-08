@@ -15,7 +15,7 @@
         <%= f.input :name_of_law_firm, label: false, input_html: { value: current_user.law_firm.name, readonly: true } %>
       </div>
       <div class="col-xs-12 col-md-6">
-        <label  class="label">Contact details</label>
+        <label  class="label">Contact details (Email or Phone Number)</label>
         <%= f.input :contact_details, label: false %>
         <%= f.input :user_id, :as => :hidden, :input_html => { value: @current_user.id } %>
       </div>
@@ -24,11 +24,11 @@
         <%= f.input :bmo_business_contact, label: false %>
       </div>
       <div class="col-xs-12 col-md-6">
-        <label  class="label">Reason for Request</label>
-        <%= f.input :reason, as: :string, label: false, input_html: { rows: 1 } %>
+        <label  class="label">Reason for request</label>
+        <%= f.input :reason, as: :text, label: false, input_html: { rows: 1 } %>
       </div>
       <div class="col-xs-12 col-md-12">         
-        <p><b>This is the list of existing waivers:</b></p>
+        <p><b>Does your request fall within one of the following categories? :</b></p>
         <p>An issuer or selling security holder in an underwriting; </p>
         <p>A borrower in a normal course borrowing/mortgage transaction when we are already
         represented by other counsel;</p>   
