@@ -112,6 +112,13 @@
 
             <%= link_to "Approve".html_safe, approve_admin_form_submission_path(@form_submission), method: :post, disabled: save_and_follow_up?(@form_submission.id), class: 'btn-type-primary approve-btn' %>
           <% end %>
+
+           <% if(last_step && @form_submission.decision_decline?) %>
+
+            <%= link_to "Approve".html_safe, approve_admin_form_submission_path(@form_submission), method: :post, disabled: save_and_follow_up?(@form_submission.id), class: 'btn-type-primary approve-btn' %>
+          <% end %>
+
+          
         </div>
       </div>
 

@@ -113,4 +113,8 @@ class FormSubmission < ApplicationRecord
     ['approved', 'decline', 'follow_up'].include? self.status
   end
 
+  def decision_decline?
+    ['decline'].include? self.status
+  end
+
 end
