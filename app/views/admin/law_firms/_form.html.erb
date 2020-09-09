@@ -158,6 +158,14 @@
 					<label class="label">Action Plan Status</label>
 					<%= f.input :action_plan_status, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
 				</div>
+				<div class="col-xs-12 col-md-6">
+					<label class="label">BMO Relationship Partner Name</label>
+					<%= f.input :bmo_relationship_partner_name, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
+				</div>
+					<div class="col-xs-12 col-md-6">
+					<label class="label">BMO Relationship Partner Email</label>
+					<%= f.input :bmo_relationship_partner_email, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
+				</div>
 						
 			<div class="col-xs-12 col-md-6">
 				<% if @law_firm.new_record? %>

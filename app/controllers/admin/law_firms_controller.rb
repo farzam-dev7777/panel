@@ -234,6 +234,8 @@ class Admin::LawFirmsController < Admin::BaseController
       :action_plan_status,
       :confidentiality_level_of_matters_that_are_handled,
       :number_of_lawyers, :law_firm_category, 
+      :bmo_relationship_partner_email,
+      :bmo_relationship_partner_name,
       locations_attributes: [
         :id, :address1, :address2,
         :city, :province, :postal_code,

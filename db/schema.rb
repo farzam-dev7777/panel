@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200902132210) do
+ActiveRecord::Schema.define(version: 20200909141410) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -412,6 +412,8 @@ ActiveRecord::Schema.define(version: 20200902132210) do
     t.string   "action_plan_findings"
     t.string   "action_plan_status"
     t.string   "contact_name"
+    t.string   "bmo_relationship_partner_name"
+    t.string   "bmo_relationship_partner_email"
   end
 
   create_table "law_firms_countries", force: :cascade do |t|
