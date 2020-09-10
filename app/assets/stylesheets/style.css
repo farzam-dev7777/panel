@@ -1577,3 +1577,10 @@ ol.conflict_waiver_categories_list {
   margin-top: 0px !important;
 }
 
+label.no-border.form-heading.control-label.parent-f-sized-label {
+  font-size: 20px !important;
+  color: #0275d8;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
