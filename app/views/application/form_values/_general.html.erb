@@ -7,22 +7,33 @@
   end
 %>
 
+<% 
+  form_class = label_class = ''
+  if(v.object.form_field.type == 'Heading')
+    form_class = 'float-form'
+    label_class = 'no-border'
+  end
+%>
+
 <div class="form-group <%= form_class %>">
   <% if(!v.object.try(:form_field).try(:help_description).blank?) %>
     <i class="fa fa-question-circle-o help-text" data-help="<%= v.object.try(:form_field).try(:help_description) %>"></i>
   <% end %>
   <label class="<%= label_class %> control-label parent-f-sized-label"><%= field.label %></label>
-  <%= v.input :value, {
-    label: false,
-    collection: field.collection.sort,
-    input_html: { autocomplete: 'off', value: v.object.try(:value) },
-    required: field.required,
-    wrapper: false,
-    # wrapper_html: field.wrapper_html,
-    blank: true,
-    as: field.as,
-    disabled: @readonly ? 'disabled' : ''
-  }, &field.input_block(v) %>
+  <% if v.object && v.object.form_field && v.object.form_field.type == 'Heading' %>
+  <% else %>
+    <%= v.input :value, {
+      label: false,
+      collection: field.collection.sort,
+      input_html: { autocomplete: 'off', value: v.object.try(:value) },
+      required: field.required,
+      wrapper: false,
+      # wrapper_html: field.wrapper_html,
+      blank: true,
+      as: field.as,
+      disabled: @readonly ? 'disabled' : ''
+    }, &field.input_block(v) %>
+  <% end %>
 </div>
 
 <!-- <label class="control-label">
