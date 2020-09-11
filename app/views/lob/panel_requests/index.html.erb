@@ -68,7 +68,6 @@
           <thead>
             <tr>
               <th>Date Submitted</th>
-              <th>Requested By</th>
               <th>Law Firm Name</th>
               <th>LXP Status</th>
             </tr>
@@ -79,16 +78,7 @@
               <td data-order="<%= panel_request.created_at.strftime('%Y%m%d%I%M') %>">
                 <%= panel_request.created_at.strftime('%d %b %Y at %I:%M %p') %>
               </td>
-              <td>
-                <% if panel_request.requested_by.present? %>
-                  <div class="firm-name">
-                    <div class="name-avatar">
-                      <img src="<%= get_avatar_image(panel_request&.requested_by&.gsub(" ", "+")) %>">
-                    </div>
-                    <div><%= panel_request.requested_by %></div>
-                  </div>
-                <% end %>
-              </td>
+              
               <td><%= panel_request&.law_firm&.name %></td>
               <td>
                 <div class="status">

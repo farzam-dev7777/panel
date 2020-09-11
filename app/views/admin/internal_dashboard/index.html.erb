@@ -313,7 +313,6 @@
 							<thead>
 								<tr>
 									<th>Date Submitted</th>
-									<th>Requested By</th>
 									<th>Submitted By</th>
 									<th>Law Firm Name</th>
 									<th>Panel Status</th>
@@ -324,15 +323,8 @@
 							<tbody>
 								<% @panel_requests.each do |panel_request| %>
 								<tr onClick="window.location.href='/admin/panel_requests/<%= panel_request.id %>'">
-									<td><%= panel_request.created_at.strftime("%d/%m/%Y") %></td>
-									<td>
-										<% if panel_request.requested_by.present? %>
-											<div class="firm-name">
-												<div class="name-avatar"><img src="<%= get_avatar_image(panel_request&.requested_by&.gsub(" ", "+")) %>"></div>
-												<div><%= panel_request.requested_by %></div>
-											</div>
-										<% end %>	
-									</td>
+									<td data-order="<%= panel_request.created_at.strftime('%Y%m%d%I%M') %>"><%= panel_request.created_at.strftime('%d %b %Y at %I:%M %p') %></td>
+								
 									<td><%= panel_request.submitted_by_email %></td>
 									<td><%= panel_request&.law_firm&.name %></td>
 									<td>
