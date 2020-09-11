@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200911135335) do
+ActiveRecord::Schema.define(version: 20200911175352) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -187,7 +187,7 @@ ActiveRecord::Schema.define(version: 20200911135335) do
     t.string   "docusign_envelope_id"
     t.string   "pay_type"
     t.text     "notes"
-    t.boolean  "is_work",                                          default: false
+    t.string   "is_work"
     t.text     "reason"
     t.string   "payer"
     t.text     "matter_types_search"
