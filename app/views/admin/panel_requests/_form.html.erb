@@ -83,7 +83,7 @@
                   </div>-->
                   <div class="col-xs-12 col-sm-6 col-md-6">
                     <label class="label">Would You use this firm on a regular basis?<span class="mandatory">*</span></label>
-                    <%= field.input :firm_use_on_regular_basis, as: :radio_buttons, required: true,  label: false, collection: [["Yes", true], ["No", false]] %>
+                    <%= field.input :firm_use_on_regular_basis, as: :select, required: true,  label: false, collection: [["Yes", "Yes"], ["No", "No"]] %>
                   </div>
                   <div class="col-xs-12 col-md-6">
                     <label class="label">Temp. Password</label>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200909141410) do
+ActiveRecord::Schema.define(version: 20200911131636) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -392,7 +392,7 @@ ActiveRecord::Schema.define(version: 20200909141410) do
     t.string   "relationship_manager_name"
     t.string   "relationship_manager_phone"
     t.string   "law_firm_category"
-    t.boolean  "firm_use_on_regular_basis",                         default: false
+    t.string   "firm_use_on_regular_basis"
     t.string   "status"
     t.string   "secondary_rm_contact"
     t.string   "secondary_rm_contact_email"
