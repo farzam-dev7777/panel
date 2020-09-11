@@ -1600,7 +1600,7 @@ if($('select#panel_request_niche_preferred_external_counsel_panel_law_firms').va
 	$('.panel_request_niche_expertise').show()
 }
 $('select#panel_request_niche_preferred_external_counsel_panel_law_firms').on('change', function() {
-	if(this.value == "true"){
+	if(this.value == "Yes"){
 		$('.panel_request_niche_expertise').show()
 	}else{
 		$('.panel_request_niche_expertise').hide()
