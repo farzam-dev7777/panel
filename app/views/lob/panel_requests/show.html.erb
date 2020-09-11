@@ -120,7 +120,7 @@
 							</div>
 							<div class="col-xs-12 col-md-6">
 								<div class="field-label">Does this firm have a specific niche expertise not available from a BMO LXP Panel law firm?</div>		
-								<div class="field-data"><%= @panel_request.niche_preferred_external_counsel_panel_law_firms ? 'Yes' : 'No' %></div>
+								<div class="field-data"><%= @panel_request.niche_preferred_external_counsel_panel_law_firms %></div>
 							</div>
 							<div class="col-xs-12 col-md-6">
 								<div class="field-label">If yes, please describe niche expertise :</div>		
@@ -128,7 +128,7 @@
 							</div>
 							<div class="col-xs-12 col-md-6">
 								<div class="field-label">Does this firm practice in a location not already covered by a BMO LXP Panel law firm? :</div>		
-								<div class="field-data"><%= @panel_request.required_unique_geography ? 'Yes' : 'No' %></div>
+								<div class="field-data"><%= @panel_request.required_unique_geography %></div>
 							</div>
 							<div class="col-xs-12 col-md-6">
 								<div class="field-label">If yes, confirm location :</div>		

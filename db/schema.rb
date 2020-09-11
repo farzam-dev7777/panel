@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200911131636) do
+ActiveRecord::Schema.define(version: 20200911135335) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -656,8 +656,8 @@ ActiveRecord::Schema.define(version: 20200911131636) do
     t.text     "women_owned_details"
     t.string   "matter_name"
     t.text     "matter_types"
-    t.datetime "created_at",                                                       null: false
-    t.datetime "updated_at",                                                       null: false
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
     t.string   "law_firm_name"
     t.string   "business_manager_name"
     t.string   "business_manager_phone"
@@ -667,9 +667,9 @@ ActiveRecord::Schema.define(version: 20200911131636) do
     t.integer  "lxp_id"
     t.string   "docusign_envelope_id"
     t.text     "notes"
-    t.boolean  "niche_preferred_external_counsel_panel_law_firms", default: false
+    t.string   "niche_preferred_external_counsel_panel_law_firms"
     t.text     "niche_expertise"
-    t.boolean  "required_unique_geography",                        default: false
+    t.string   "required_unique_geography"
     t.text     "geographic_location"
     t.string   "involved_engagement"
     t.text     "reason_other"
