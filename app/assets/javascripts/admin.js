@@ -978,7 +978,7 @@ $('select#matter_intake_work_area').on('change', function() {
 
 function setMatterIntakeWorkAreaOptions(value) {
 	$('select#matter_intake_work_area_type').empty();
-	var options = "<option value=''> Select an option</option>";
+	var options = "<option value=''> Select option(s)</option>";
 	var work_area_level2_value = $("#matter_intake_work_area_type").attr("data-value");
 	switch(value) {
 		case "Contractual Transactions (non-lending)":
@@ -1106,7 +1106,7 @@ if($('select#matter_intake_business_paying_for_matter').val()) {
 function setMatterIntakeBusinessGroupOptions(value) {
 	$('select#matter_intake_group_paying_for_matter').empty();
 	var group_value = $("#matter_intake_group_paying_for_matter").attr("data-value");
-	var options = "<option value=''> Select an option</option>";
+	var options = "<option value=''> Select option(s)</option>";
 	switch(value) {
 		case "Canadian P&C":
 			valueArray = ["Business Banking","Commercial Banking - ABL","Commercial Banking - Auto Finance","Commercial Banking - BMO Capital Partners & M&A","Commercial Banking - Corporate Finance","Commercial Banking - Diversified Industries","Commercial Banking - Equipment Leasing","Commercial Banking - Media","Commercial Banking - Other (Regions)","Commercial Banking - Overhead & Support","Commercial Banking - Real Estate Lending","Commercial Banking - Retail Dealer Finance","Commercial Banking - Sponsor Coverage","Commercial Banking - Tranportation Finance","Commercial Banking - Treasury & Payment Solutions","Electronic Banking Services","Other - Customer Contact Centres","Other - Distribution Services","Other - Headquarters","Other - Investment Plan","Personal Banking - Everyday Banking","Personal Banking - Home Financing & Retail Lending","Personal Banking - NA Retail Payments","Personal Banking - Office of the COO","Personal Banking - Sales & Distribution","Personal Banking - SVP Program","Personal Banking - Term Deposits"];
@@ -1157,7 +1157,7 @@ $('select#matter_intake_process_type_level_1').on('change', function() {
 
 function setMatterIntakeProcessLevelType1(value) {
 	$('select#matter_intake_process_type_level_2').empty();
-	var options = "<option value=''> Select an option</option>";
+	var options = "<option value=''> Select option(s)</option>";
 	var process_type_2_value = $("#matter_intake_process_type_level_2").attr("data-value");
 	switch(value) {
 		case "Capture and Document Transactions":
@@ -1288,7 +1288,7 @@ $('select#matter_intake_event_type_level_1').on('change', function() {
 
 function setMatterIntakeEventType1(value) {
 	$('select#matter_intake_event_type_level_2').empty();
-	var options = "<option value=''> Select an option</option>";
+	var options = "<option value=''> Select option(s)</option>";
 	var event_type_2_value = $("#matter_intake_event_type_level_2").attr("data-value");
 	switch(value) {
 		case "Internal Fraud":
@@ -1350,7 +1350,7 @@ $('select#matter_intake_product_type_level_1').on('change', function() {
 
 function setMatterIntakeProductType1(value) {
 	$('select#matter_intake_product_type_level_2').empty();
-	var options = "<option value=''> Select an option</option>";
+	var options = "<option value=''> Select option(s)</option>";
 	var product_type_2_value = $("#matter_intake_product_type_level_2").attr("data-value");
 	switch(value) {
 		case "Capital Raising":
@@ -1464,7 +1464,7 @@ $('select#matter_intake_business_activity_level_1').on('change', function() {
 
 function setMatterIntakeBusinessActivityLevel1(value) {
 	$('select#matter_intake_business_activity_level_2').empty();
-	var options = "<option value=''> Select an option</option>";
+	var options = "<option value=''> Select option(s)</option>";
 	var business_activity_level_2_value = $("#matter_intake_business_activity_level_2").attr("data-value");
 	switch(value) {
 		case "Corporate Finance":
