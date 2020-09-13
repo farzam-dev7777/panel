@@ -89,7 +89,7 @@ class MatterIntake < ApplicationRecord
     :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && matter_intake.form_type === "litigation" && matter_intake.is_alternative_fee_arrangement === "Yes" }
   
   validates_presence_of :is_ore_reportable, :is_otherwise_reportable,
-    :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && matter_intake.form_type === "litigation" && matter_intake.work_area === "Regulatory" }
+    :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && FORM_TYPE.include?(matter_intake.form_type) && matter_intake.work_area === "Regulatory" }
   
   #### Litigation Intake Lawyer Initiated validation Endss ####
 
