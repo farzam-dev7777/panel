@@ -102,7 +102,7 @@ class MatterIntake < ApplicationRecord
     :matter_type_id => "Type of Matter",
     :following_matter_involve => "Will this matter involve the following",
     :mode_of_payment => "How will this law firm be paid",
-    :lob_contact_for_po => "LOB contact to approve PO",
+    :lob_contact_for_po => "Name of PO approver",
     :business_paying_for_matter => "Business/Group paying for this matter (level 1)",
     :group_paying_for_matter => "Business/Group paying for this matter (level 2)",
     :work_area_type => "Work Area Level 2",
