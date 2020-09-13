@@ -251,7 +251,11 @@
 							</tr>
 						<tbody>
 							<% @matter_intakes.each do |matter_intake| %>
-								<tr onClick="window.location.href='/admin/matter_intakes/<%= matter_intake.id %>'">
+								<% if Current.user.role === "internal_lawyers" && matter_intake.status != "matter_open" && matter_intake.user_id.present? %>
+									<tr onClick="window.location.href='/admin/matter_intakes/<%= matter_intake.id %>/review'">
+								<% else %>
+									<tr onClick="window.location.href='/admin/matter_intakes/<%= matter_intake.id %>'">
+								<% end %>
 									<td><%= matter_intake.created_at.strftime('%d %b %Y at %I:%M %p') %></td>
 									<td>
 										<% if matter_intake.submitter_name.present? %>
