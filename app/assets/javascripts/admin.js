@@ -968,6 +968,21 @@ $('.lxp_rejects').on('click', function() {
  
 });
 
+if($('#matter_type_type_of_matter_lob_initiated').val()) {
+	var work_area_based_on_matter_type = $('#matter_type_type_of_matter_lob_initiated').val();
+	$('.lawyer_work_area_matter_type_based').val(work_area_based_on_matter_type);
+	$('.lawyer_work_area_matter_type_based').trigger("chosen:updated");
+}
+
+// Matter intake for form-b (lob initiate lawyer)
+if($('.lawyer_work_area_matter_type_based').val()) {
+	setMatterIntakeWorkAreaOptions($('.lawyer_work_area_matter_type_based').val())
+}
+
+$('.lawyer_work_area_matter_type_based').on('change', function() {
+	setMatterIntakeWorkAreaOptions(this.value)
+})
+
 if($('select#matter_intake_work_area').val()) {
 	setMatterIntakeWorkAreaOptions($('select#matter_intake_work_area').val())
 }
@@ -982,29 +997,34 @@ function setMatterIntakeWorkAreaOptions(value) {
 	var work_area_level2_value = $("#matter_intake_work_area_type").attr("data-value");
 	switch(value) {
 		case "Contractual Transactions (non-lending)":
+		case "Contractual Transactions (non-lending) / Traduction contractuelle (autre que des prêt":
 			valueArray = ["Card Services","Cash Management","Client and/or Account Documentation","Closed End Funds","Commercial Paper","DCN","Derivatives","Exchange Traded Funds","Inter-company (BMOFG) Agreements","Interest Rate Notes","IT Procurement (Non-Outsourcing)","Mutual Funds","Non-IT Procurement","NPPNs","Offerings","Outsourcing","PPNs","Professional Services (Consulting)","REPO/SLA","Trade/Finance"];
 			for (var i = 0; i < valueArray.length; i++) {
 				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
 			}
 			break;
 		case "Corporate Governance":
+		case "Corporate Governance / Gouvernance d'entreprise":
 			valueArray = ["BMO Board","Continuous Disclosure","Environment, Social/Governance","Funding Transactions","Reputation Risk Review","Subsidiary Matters"];
 			for (var i = 0; i < valueArray.length; i++) {
 				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
 			}
 			break;
 		case "Employment (non-action)":
+		case "Employment (non-action) / Recrutement (aucune intervention)":
 			valueArray = ["Compensation Program","Employment Contract","Pensions"];
 			for (var i = 0; i < valueArray.length; i++) {
 				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
 			}
 			break;
 		case "General Customer Inquiries":
+		case "General Customer Inquiries / Questions générales de clients":	
 			valueArray = [];
 			for (var i = 0; i < valueArray.length; i++) {
 				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
 			}
 			break;
+		case "Intellectual Property":
 		case "Intellectual Property":
 			valueArray = ["Copyrights","Patents","Trade Secrets","Trademarks"];
 			for (var i = 0; i < valueArray.length; i++) {
@@ -1012,23 +1032,27 @@ function setMatterIntakeWorkAreaOptions(value) {
 			}
 			break;
 		case "Legal Administration":
+		case "Legal Administration":
 			valueArray = ["Internal Projects/Budgets/Audit"];
 			for (var i = 0; i < valueArray.length; i++) {
 				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
 			}
 			break;	
 		case "Lending & Financing (inc. Secured Transactions and Workouts)":
+		case "Lending and Financing (inc. secured transactions and workouts) / Financement de prê transactions garanties et les redressements)":	
 			valueArray = ["Commercial","Loan Syndications/Participations","Real Estate/Mortgages","Structured Finance","Trade Finance","Underwriting","Recovery"];
 			for (var i = 0; i < valueArray.length; i++) {
 				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
 			}
 			break;
 		case "M&A":
+		case "Mergers & Acquisitions / Fusions et acquisitions":
 			valueArray = ["Extraordinary (Bank is Party)","Ordinary (Bank is Advisor)"];
 			for (var i = 0; i < valueArray.length; i++) {
 				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
 			}
 			break;
+		case "Marketing":
 		case "Marketing":
 			valueArray = [];
 			for (var i = 0; i < valueArray.length; i++) {
@@ -1036,30 +1060,35 @@ function setMatterIntakeWorkAreaOptions(value) {
 			}
 			break;
 		case "New Products":
+		case "New Products / Nouveaux produits":
 			valueArray = ["IDP/NPAP","Product Support"];
 			for (var i = 0; i < valueArray.length; i++) {
 				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
 			}
 			break;
 		case "Real Estate":
+		case "Real Estate (non-lending) / Immobilier (autres que des prêts)":
 			valueArray = ["Facilities","Leasing","Sales/Purchase"];
 			for (var i = 0; i < valueArray.length; i++) {
 				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
 			}
 			break;
 		case "Regulatory":
+		case "Regulatory / Réglementation":
 			valueArray = ["Advisory","Audit","Competition/Anti-trust","Enforcement Action","Filings","Inquiry","Investigations","OBSI Investigation","Privacy/FOI/Ombudsman"];
 			for (var i = 0; i < valueArray.length; i++) {
 				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
 			}
 			break;
 		case "Tax":
+		case "Tax / Fiscalité":
 			valueArray = [];
 			for (var i = 0; i < valueArray.length; i++) {
 				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
 			}
 			break;
 		case "Wills/Estates":
+		case "Wills & Estates / Testaments/successions":	
 			valueArray = ["Estates", "Power of Attorneys"];
 			for (var i = 0; i < valueArray.length; i++) {
 				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
@@ -1074,6 +1103,9 @@ function setMatterIntakeWorkAreaOptions(value) {
 		default:
 	}
 	$('#matter_intake_work_area_type').html(options);
+	// for Lob initiated lawyer
+	$('.lawyer_work_area_2').html(options);
+	$('.lawyer_work_area_2').trigger("chosen:updated");
 	if(work_area_level2_value) {
 		$("#matter_intake_work_area_type").val(work_area_level2_value);
 	}
