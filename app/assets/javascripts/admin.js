@@ -618,6 +618,9 @@ if($('select#matter_intake_work_area').val() === "Regulatory") {
 	$('.work_area_reportable').hide()
 }
 
+// Litigation reportable always show
+$('.work_area_reportable_litigation').show()
+
 $('select#matter_intake_work_area').on('change', function() {
 	// var form_type = $('#matter_intake_form_type').val();
 	// if(form_type === "general" || form_type === "litigation") {
@@ -627,6 +630,8 @@ $('select#matter_intake_work_area').on('change', function() {
 		} else {
 			$('.work_area_reportable').hide()
 		}
+		// Litigation reportable always show
+		$('.work_area_reportable_litigation').show()
 	// }
 })
 

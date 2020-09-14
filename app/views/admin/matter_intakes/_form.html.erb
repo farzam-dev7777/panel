@@ -294,11 +294,11 @@
         <div class="col-md-12">
           <div class="inner-label internal-matter">Reporting :</div>
           <div class="inner-form-field form-flex-wrap internal-matter">
-            <div class="col-xs-12 col-md-6 work_area_reportable" style="<%= @form_type === 'general' ? 'display: none;' : '' %>">
+            <div class="col-xs-12 col-md-6 work_area_reportable work_area_reportable_litigation" style="<%= @form_type === 'general' ? 'display: none;' : '' %>">
               <label class="label">Is this matter ORE reportable?<span class="mandatory">*</span></label>
               <%= f.input :is_ore_reportable, label: false, collection: [['Yes', 'Yes'], ["No", "No"]] %>
             </div>
-            <div class="col-xs-12 col-md-6 work_area_reportable" style="<%= @form_type === 'general' ? 'display: none;' : '' %>">
+            <div class="col-xs-12 col-md-6 work_area_reportable work_area_reportable_litigation" style="<%= @form_type === 'general' ? 'display: none;' : '' %>">
               <label class="label">Is this matter otherwise reportable? (e.g. board reporting)<span class="mandatory">*</span></label>
               <%= f.input :is_otherwise_reportable, label: false, collection: [['Yes', 'Yes'], ["No", "No"]] %>
             </div>
