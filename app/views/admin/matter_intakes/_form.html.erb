@@ -225,7 +225,7 @@
             </div>
             <div class="col-xs-12 col-md-6 internal-matter">
               <label class="label">Valued at $50,000 or more</label>
-              <%= f.input :valued_at, label: false %>
+              <%= f.input :valued_at, label: false, collection: [['Yes', 'Yes'], ["No", "No"]] %>
             </div>
             <div class="col-xs-12 col-md-6 internal-matter">
               <label class="label">Amount Claimed from BMO 1</label>

@@ -125,8 +125,8 @@ class MatterIntake < ApplicationRecord
   ]
 
   LegalGroupBMOLawyer = [
-    "Capital Markets",
     "Canadian P&C",
+    "Capital Markets",
     "Corporate Affairs",
     "Regulatory",
     "Technology & Operations",
