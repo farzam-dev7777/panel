@@ -668,8 +668,8 @@ $(document).ready(function() {
 
 	// Handle on Load
 	var type_of_price = ["Hourly Billing", "Work done at no cost"];
-	
-	if(matter_intake_type_of_price && !type_of_price.includes(matter_intake_type_of_price)) {
+
+	if(matter_intake_type_of_price != "" && !type_of_price.includes(matter_intake_type_of_price)) {
 		$('.alternative_fee').show();
 		$('#matter_intake_is_alternative_fee_arrangement').val("Yes")
 		$("#matter_intake_is_alternative_fee_arrangement").trigger("chosen:updated")
@@ -1597,7 +1597,7 @@ $('select#matter_intake_mode_of_payment, select#matter_intake_type_of_price, sel
 			$('.non_panel_firm').hide()
 		}
 	
-		if(!type_of_price.includes(matter_intake_type_of_price)) {
+		if(matter_intake_type_of_price != "" && !type_of_price.includes(matter_intake_type_of_price)) {
 			$('.alternative_fee').show();
 			$('#matter_intake_is_alternative_fee_arrangement').val("Yes")
 			$('.afa_details').show();
