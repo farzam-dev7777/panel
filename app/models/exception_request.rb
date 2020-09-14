@@ -147,7 +147,7 @@ class ExceptionRequest < ApplicationRecord
 
   def status_for_lob
     status = ""
-    if self.internal_lawyers_status === 'APPROVED' && self.lxp_status === 'APPROVED'
+    if self.lxp_status === 'APPROVED'
       status = "APPROVED"
     end
     status
