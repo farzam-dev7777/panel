@@ -35,7 +35,7 @@
                   <div class="row">
                     <div class="col-xs-12 col-md-4">
                       <label class="label">Select Matter Type<span class="mandatory">*</span></label>
-                      <%= f.input :matter_types, label: false, collection: MatterType.all.map{|mt| [mt.matter_type, mt.id] }, required: true %>
+                      <%= f.input :matter_types, label: false, collection: MatterType.all.reject{|mt| mt.matter_type === "Litigation / Litiges"}.map{|mt| [mt.matter_type, mt.id] }, required: true %>
                     </div>
                     <!--<div class="col-xs-12 col-md-4 sub_matter_type_box" style="display:none">
                       <span class="text-left sub_matter_type">

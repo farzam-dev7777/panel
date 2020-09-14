@@ -21,11 +21,11 @@
       </div>
       <% if @form_type === 'general' || @matter_intake&.form_type === 'general' %>
         <div class="col-xs-12 col-md-6 work_area_reportable">
-          <label class="label">Is this matter ORE reportable?</label>
+          <label class="label">Is this matter ORE reportable?<span class="mandatory">*</span></label>
           <%= f.input :is_ore_reportable, label: false, collection: [['Yes', 'Yes'], ["No", "No"]] %>
         </div>
         <div class="col-xs-12 col-md-6 work_area_reportable">
-          <label class="label">Is this matter otherwise reportable? (e.g. board reporting)</label>
+          <label class="label">Is this matter otherwise reportable? (e.g. board reporting)<span class="mandatory">*</span></label>
           <%= f.input :is_otherwise_reportable, label: false, collection: [['Yes', 'Yes'], ["No", "No"]] %>
         </div>
       <% end %>
@@ -108,7 +108,7 @@
         <%= f.input :deal_code, label: false %>
       </div>
       <div class="col-xs-12 col-md-6 internal-matter">
-        <label class="label">LOB contact to approve PO<span class="mandatory">*</span></label>
+        <label class="label">Name of PO approver<span class="mandatory">*</span></label>
         <%= f.input :lob_contact_for_po, label: false %>
       </div>
       <div class="col-xs-12 col-md-6 internal-matter">

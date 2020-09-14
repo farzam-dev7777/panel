@@ -36,7 +36,10 @@
             </div>
             <div class="col-xs-12 col-md-6">
               <div class="field-label">Type of Matter:	</div>
-              <div class="field-data"><%= @matter_intake.matter_type.try(:matter_type) %></div>
+              <div class="field-data">
+                <%= @matter_intake.matter_type.try(:matter_type) %>
+                <input type="hidden" id="matter_type_type_of_matter_lob_initiated" value="<%= @matter_intake.matter_type.try(:matter_type) %>" />
+              </div>
             </div>
             <div class="col-xs-12 col-md-6">
               <div class="field-label">Matter Description:	</div>
@@ -147,7 +150,11 @@
           </div>
           <div class="col-xs-12 col-md-6">
             <label class="label">Work Area<span class="mandatory">*</span></label>
-            <%= f.input :work_area, label: false, collection: MatterIntake::WorkArea %>
+            <%= f.input :work_area, label: false, as: :select, collection: MatterType.all.reject{|mt| mt.matter_type === "Litigation / Litiges"}.map{|mt| [mt.matter_type, mt.matter_type] }, input_html: { class: "lawyer_work_area_matter_type_based" } %>
+          </div>
+          <div class="col-xs-12 col-md-6">
+            <label class="label">Work Area Level 2<span class="mandatory">*</span></label>
+            <%= f.input :work_area_type, label: false, as: :select, collection: [], input_html: { class: "lawyer_work_area_2", data: {value: "#{@matter_intake&.work_area_type}"} } %>
           </div>
           <div class="col-xs-12 col-md-6 work_area_reportable">
             <label class="label">Is this matter ORE reportable?<span class="mandatory">*</span></label>
@@ -235,7 +242,7 @@
             <%= f.input :deal_code, label: false %>
           </div>
           <div class="col-xs-12 col-md-6 outside_counsel_engaged">
-            <label class="label">LOB contact to approve PO<span class="mandatory">*</span></label>
+            <label class="label">Name of PO approver<span class="mandatory">*</span></label>
             <%= f.input :lob_contact_for_po, label: false %>
           </div>
           <!--<div class="col-xs-12 col-md-6 outside_counsel_engaged">
@@ -268,7 +275,7 @@
           </div>-->
           
           <div class="col-xs-12 col-md-12">
-            <%=link_to 'Cancel', @matter_intake.new_record? ? new_admin_matter_intake_path : new_admin_matter_intake_path, class: 'btn-type-default' %>
+            <%=link_to 'Cancel', @matter_intake.new_record? ? new_admin_matter_intake_path : admin_matter_intakes_path, class: 'btn-type-default' %>
             <%= f.button :submit, @matter_intake.new_record? ? "Submit Matter Intake" : "Submit Matter Intake", class: "btn-type-primary" %>
           </div>
         </div>

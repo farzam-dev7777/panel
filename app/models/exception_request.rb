@@ -24,8 +24,7 @@ class ExceptionRequest < ApplicationRecord
     "Corporate Governance / Gouvernance d'entreprise",
     "Employment (non-action) / Recrutement (aucune intervention)",
     "General Customer Inquiries / Questions générales de clients",
-    "Lending and Financing (inc. secured transactions and workouts) / Financement de prê",
-    "transactions garanties et les redressements)",
+    "Lending and Financing (inc. secured transactions and workouts) / Financement de prê transactions garanties et les redressements)",
     "Litigation / Litiges",
     "Mergers & Acquisitions / Fusions et acquisitions",
     "New Products / Nouveaux produits",
@@ -168,13 +167,13 @@ class ExceptionRequest < ApplicationRecord
   end
 
   EXCEPTION_REQUEST_STATUS = {
-    "REQUEST_TO_INPUT": "Law Input Requested",
+    "REQUEST_TO_INPUT": "Lawyer Input Requested",
     "APPROVED": "Approved",
     "REJECTED": "Rejected"
   }
 
   EXCEPTION_REQUEST_STATUS2 = {
-    "REQUEST_TO_INPUT": "Law Input Requested",
+    "REQUEST_TO_INPUT": "Lawyer Input Requested",
     "APPROVED": "Approved",
     "REJECTED": "Rejected",
     "REVIEWED_BY_LAWYER": "Reviewed by Lawyer",

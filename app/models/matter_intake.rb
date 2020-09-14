@@ -32,7 +32,7 @@ class MatterIntake < ApplicationRecord
 
   #### validation for lob initiated but for lawyer for Form-B starts ####
   
-  validates_presence_of :bmo_lawyer_name, :legal_group_of_bmo_lawyer, :work_area, :is_syndicate_matter, :is_conceal_imanage_workspace,
+  validates_presence_of :bmo_lawyer_name, :legal_group_of_bmo_lawyer, :work_area, :work_area_type, :is_syndicate_matter, :is_conceal_imanage_workspace,
     :is_paper_file, :name_of_matter_client, :matter_description, :paying_entity,
     :if => Proc.new { |matter_intake| matter_intake.user_id.present? && matter_intake.user.role == "lob" && Current.user && Current.user.role === "internal_lawyers" }
 
@@ -89,7 +89,7 @@ class MatterIntake < ApplicationRecord
     :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && matter_intake.form_type === "litigation" && matter_intake.is_alternative_fee_arrangement === "Yes" }
   
   validates_presence_of :is_ore_reportable, :is_otherwise_reportable,
-    :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && matter_intake.form_type === "litigation" && matter_intake.work_area === "Regulatory" }
+    :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && FORM_TYPE.include?(matter_intake.form_type) && matter_intake.work_area === "Regulatory" }
   
   #### Litigation Intake Lawyer Initiated validation Endss ####
 
@@ -102,7 +102,7 @@ class MatterIntake < ApplicationRecord
     :matter_type_id => "Type of Matter",
     :following_matter_involve => "Will this matter involve the following",
     :mode_of_payment => "How will this law firm be paid",
-    :lob_contact_for_po => "LOB contact to approve PO",
+    :lob_contact_for_po => "Name of PO approver",
     :business_paying_for_matter => "Business/Group paying for this matter (level 1)",
     :group_paying_for_matter => "Business/Group paying for this matter (level 2)",
     :work_area_type => "Work Area Level 2",
