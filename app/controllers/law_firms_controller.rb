@@ -135,6 +135,7 @@ class LawFirmsController < BaseController
       :action_plan_status,
       :bmo_relationship_partner_email,
       :bmo_relationship_partner_name,
+      :bmo_relationship_partner_phone_number,
       :confidentiality_level_of_matters_that_are_handled,
       locations_attributes: [
         :id, :address1, :address2, :city, 

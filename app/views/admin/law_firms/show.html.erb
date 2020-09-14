@@ -128,38 +128,90 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-xs-12 col-md-6">
-									<div class="field-label">Law Firm Name </div>
-									<div class="field-data"><%= @law_firm.name %></div>
+								<div class="col-md-12">
+									<div class="inner-label">Contact Information :</div>
+									<div class="inner-form-field form-flex-wrap">
+										<div class="col-xs-12 col-md-6">
+											<div class="field-label">Law Firm Name </div>
+											<div class="field-data"><%= @law_firm.name %></div>
+										</div>
+										<div class="col-xs-12 col-md-6">
+											<label class="field-label">BMO Relationship Partner Name</label>
+											<div class="field-data"><%= @law_firm.bmo_relationship_partner_name  %> </div>
+										</div>
+										<div class="col-xs-12 col-md-6">
+											<label class="field-label">BMO Relationship Partner Email</label>
+											<div class="field-data"><%= @law_firm.bmo_relationship_partner_email  %> </div>
+										</div>
+										<div class="col-xs-12 col-md-6">
+											<label class="field-label">BMO Relationship Partner Phone No.</label>
+											<div class="field-data"><%= @law_firm.bmo_relationship_partner_phone_number  %> </div>
+										</div>
+										<div class="col-xs-12 col-md-6">
+											<label class="field-label">Additional BMO Relationship Contact Name (optional)</label>
+											<div class="field-data"><%= @law_firm.secondary_rm_contact %> </div>
+										</div>
+										<div class="col-xs-12 col-md-6">
+											<label class="field-label">Additional BMO Relationship Contact Email (optional)</label>
+											<div class="field-data"><%= @law_firm.secondary_rm_contact_email %> </div>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="inner-label">SEMS Information :</div>
+									<div class="inner-form-field form-flex-wrap">
+										<div class="col-xs-12 col-md-6">
+											<label class="field-label">Engagement Number</label>
+											<div class="field-data"><%= @law_firm.engagement_number  %> </div>
+										</div>
+										<div class="col-xs-12 col-md-6">
+											<label class="field-label">Relationship Number</label>
+											<div class="field-data"><%= @law_firm.relationship_number %> </div>
+										</div>
+										<div class="col-xs-12 col-md-6">
+											<label class="field-label">Information Security Class</label>
+											<div class="field-data"><%= @law_firm.information_security_class %> </div>
+										</div>
+										<div class="col-xs-12 col-md-6">
+											<label class="field-label">Information Security Assessment Outcome</label>
+											<div class="field-data"><%= @law_firm.information_security_assessment_outcome %> </div>
+										</div>
+										<div class="col-xs-12 col-md-6">
+											<label class="field-label">Action Plan Findings</label>
+											<div class="field-data"><%= @law_firm.action_plan_findings %> </div>
+										</div>
+										<div class="col-xs-12 col-md-6">
+											<label class="field-label">Action Plan Status</label>
+											<div class="field-data"><%= @law_firm.action_plan_status  %> </div>
+										</div>
+										<div class="col-xs-12 col-md-6">
+											<label class="field-label">Information Security Contact</label>
+											<div class="field-data"><%= @law_firm.information_security_contact %> </div>
+										</div>
+										<div class="col-xs-12 col-md-6">
+											<label class="field-label">Information Security Contact Email</label>
+											<div class="field-data"><%= @law_firm.information_security_contact_email %> </div>
+										</div>
+									</div>
 								</div>
 								<div class="col-xs-12 col-md-6">
-									<div class="field-label">Username</div>
-									<div class="field-data"><%= !@law_firm.user.try(:username).blank? ? @law_firm.users.first.try(:username) : '-' %></div>
-								</div>
-								<div class="col-xs-12 col-md-6">
-									<div class="field-label">Email </div>
-									<div class="field-data"><%= !@law_firm.user.try(:email).blank? ? @law_firm.users.first.try(:email) : '-' %></div>
-								</div>
-								<div class="col-xs-12 col-md-6">
-									<div class="field-label">Phone </div>
-									<div class="field-data"><%= @law_firm.phone %></div>
-								</div>
-								<div class="col-xs-12 col-md-12">
 									<div class="field-label">Description </div>
 									<div class="field-data"><%= @law_firm.description %></div>
 								</div>
-								<div class="col-xs-12 col-md-6">
-									<div class="field-label">Relationship Manager Name	</div>
-									<div class="field-data"><%= @law_firm.relationship_manager_name %></div>
-								</div>
-								<div class="col-xs-12 col-md-6">
-									<div class="field-label">Relationship Manager Email </div>
-									<div class="field-data"><%= @law_firm.relationship_manager_email %></div>
-								</div>
-								<div class="col-xs-12 col-md-6">
-									<div class="field-label">Relationship Manager Phone </div>
-									<div class="field-data"><%= @law_firm.relationship_manager_phone %></div>
-								</div>
+								<% if Current.user.role === "internal_lawyers" %>
+									<div class="col-xs-12 col-md-6">
+										<div class="field-label">Relationship Manager Name	</div>
+										<div class="field-data"><%= @law_firm.relationship_manager_name %></div>
+									</div>
+									<div class="col-xs-12 col-md-6">
+										<div class="field-label">Relationship Manager Email </div>
+										<div class="field-data"><%= @law_firm.relationship_manager_email %></div>
+									</div>
+									<div class="col-xs-12 col-md-6">
+										<div class="field-label">Relationship Manager Phone </div>
+										<div class="field-data"><%= @law_firm.relationship_manager_phone %></div>
+									</div>
+								<% end %>
 								<div class="col-xs-12 col-md-6">
 									<div class="field-label">Initial Date of Engagement with BMO</div>		
 									<div class="field-data"><%= @law_firm.initial_date_of_engagement_with_the_bank && @law_firm.initial_date_of_engagement_with_the_bank.in_time_zone('Eastern Time (US & Canada)').strftime(LawFirm::DATE_FORMAT) %></div>
@@ -173,28 +225,12 @@
 									<div class="field-data"><%= @law_firm.number_of_lawyers %></div>
 								</div>
 								<div class="col-xs-12 col-md-6">
-								<label class="field-label">Secondary RM Contact</label>
-									<div class="field-data"><%= @law_firm.secondary_rm_contact %> </div>
-								</div>
-								<div class="col-xs-12 col-md-6">
-									<label class="field-label">Secondary RM Contact Email</label>
-									<div class="field-data"><%= @law_firm.secondary_rm_contact_email %> </div>
-								</div>
-								<div class="col-xs-12 col-md-6">
 									<label class="field-label">Billing Contact Name</label>
 									<div class="field-data"><%= @law_firm.billing_contact_name %> </div>
 								</div>
 								<div class="col-xs-12 col-md-6">
 									<label class="field-label">Billing Contact Email</label>
 									<div class="field-data"><%= @law_firm.billing_contact_email %> </div>
-								</div>
-								<div class="col-xs-12 col-md-6">
-									<label class="field-label">Information Security Contact</label>
-									<div class="field-data"><%= @law_firm.information_security_contact %> </div>
-								</div>
-								<div class="col-xs-12 col-md-6">
-									<label class="field-label">Information Security Contact Email</label>
-									<div class="field-data"><%= @law_firm.information_security_contact_email %> </div>
 								</div>
 								<div class="col-xs-12 col-md-6">
 									<label class="field-label">Diverse</label>
@@ -217,41 +253,20 @@
 									<div class="field-data"><%= @law_firm.merger_combination  %> </div>
 								</div>
 								<div class="col-xs-12 col-md-6">
-									<label class="field-label">Engagement Number</label>
-									<div class="field-data"><%= @law_firm.engagement_number  %> </div>
-								</div>
-								<div class="col-xs-12 col-md-6">
-									<label class="field-label">Relationship Number</label>
-									<div class="field-data"><%= @law_firm.relationship_number %> </div>
-								</div>
-								<div class="col-xs-12 col-md-6">
-									<label class="field-label">Information Security Class</label>
-									<div class="field-data"><%= @law_firm.information_security_class %> </div>
-								</div>
-								<div class="col-xs-12 col-md-6">
-									<label class="field-label">Information Security Assessment Outcome</label>
-									<div class="field-data"><%= @law_firm.information_security_assessment_outcome %> </div>
-								</div>
-								<div class="col-xs-12 col-md-6">
-									<label class="field-label">Action Plan Findings</label>
-									<div class="field-data"><%= @law_firm.action_plan_findings %> </div>
-								</div>
-								<div class="col-xs-12 col-md-6">
-									<label class="field-label">Action Plan Status</label>
-									<div class="field-data"><%= @law_firm.action_plan_status  %> </div>
-								</div>
-								<div class="col-xs-12 col-md-6">
-									<label class="field-label">BMO Relationship Partner Name</label>
-									<div class="field-data"><%= @law_firm.bmo_relationship_partner_name  %> </div>
-								</div>
-									<div class="col-xs-12 col-md-6">
-									<label class="field-label">BMO Relationship Partner Email</label>
-									<div class="field-data"><%= @law_firm.bmo_relationship_partner_email  %> </div>
-								</div>
-
-								<div class="col-xs-12 col-md-6">
 									<div class="field-label">Locations</div>		
 									<div class="field-data"><%= @law_firm.locations.map{|location| [location.city, location.province, location.country].reject(&:nil?).join(',') }.join("<br />").html_safe %></div>
+								</div>
+								<div class="col-xs-12 col-md-6">
+									<div class="field-label">Username</div>
+									<div class="field-data"><%= !@law_firm.user.try(:username).blank? ? @law_firm.users.first.try(:username) : '-' %></div>
+								</div>
+								<div class="col-xs-12 col-md-6">
+									<div class="field-label">Email </div>
+									<div class="field-data"><%= !@law_firm.user.try(:email).blank? ? @law_firm.users.first.try(:email) : '-' %></div>
+								</div>
+								<div class="col-xs-12 col-md-6">
+									<div class="field-label">Phone </div>
+									<div class="field-data"><%= @law_firm.phone %></div>
 								</div>
 							</div>
 						</div>

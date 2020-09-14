@@ -236,6 +236,7 @@ class Admin::LawFirmsController < Admin::BaseController
       :number_of_lawyers, :law_firm_category, 
       :bmo_relationship_partner_email,
       :bmo_relationship_partner_name,
+      :bmo_relationship_partner_phone_number,
       locations_attributes: [
         :id, :address1, :address2,
         :city, :province, :postal_code,
