@@ -818,7 +818,6 @@ $(document).ready(function(){
     e.preventDefault();
 
     window.skipUnload = true;
-    debugger
     $(this).find('.loader').removeClass('hidden');
     window.link_to_redirect_to = $(this).attr('href');
     if(!ajaxRequestInProcess){
@@ -830,7 +829,6 @@ $(document).ready(function(){
   })
 
   $("form").bind("ajax:success", function(e, response){
-    debugger
     $('.last-update-timestamp').html(response.last_updated);
     $('.submit-form').find('.loader').addClass('hidden');
     setTimeout(function(){ ajaxRequestInProcess = false; $('.submit-form').removeAttr("disabled"); }, 2000)
