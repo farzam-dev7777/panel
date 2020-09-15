@@ -164,8 +164,9 @@
 											<div class="field-data"><%= @law_firm.billing_contact_email %> </div>
 										</div>
 										<div class="col-xs-12 col-md-6">
-											<div class="field-label">Locations</div>		
-											<div class="field-data"><%= @law_firm.locations.map{|location| [location.city, location.province, location.country].reject(&:nil?).join(',') }.join("<br />").html_safe %></div>
+											<div class="field-label">Locations</div>	
+										
+											<div class="field-data"><%= @law_firm.locations.map{|location| [location.city, location.province, @law_firm.country_name(location.country)].reject(&:nil?).join(',') }.join("<br />").html_safe %></div>
 										</div>
 									</div>
 								</div>

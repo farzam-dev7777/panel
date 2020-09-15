@@ -170,6 +170,11 @@ class LawFirm < ApplicationRecord
     LawFirm.where('id NOT IN (SELECT DISTINCT(law_firm_id) FROM form_submissions)')
   end
 
+  def country_name(country_code)
+    country = ISO3166::Country[country_code]
+    country.translations[I18n.locale.to_s] || country.name
+  end
+
   def show_matter_types
     if self.matter_types && self.matter_types.count > 0
       self.matter_types.map(&:matter_type).join(",")

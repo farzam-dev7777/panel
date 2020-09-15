@@ -66,6 +66,15 @@
 							<label class="label">Billing Contact Email</label>
 							<%= f.input :billing_contact_email,  label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
 						</div>	
+						<div class="col-xs-12 col-md-6">
+							<label class="label">Locations</label>
+							<%= f.simple_fields_for :locations do |field| %>
+								<%= render partial: "location_fields", locals: {f: field} %>
+							<% end %>
+							<div class="add-css">
+								<%= link_to_add_association '<span href="javascript:void(0);" class="btn-type-default"><i class="fa fa-plus-circle"></i> Add Law Firm\'s Location(s)</span>'.html_safe, f, :locations %>
+							</div>
+						</div>
 				</div>
 			</div>		
 
