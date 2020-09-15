@@ -29,7 +29,7 @@
 				</div>
 			<% else %>
 			<% if(@law_firm.form_submissions.any? && @law_firm.form_submissions.latest.status == 'approved') %>
-				<a class="btn-type-primary" data-id='<%= @law_firm.id %>' data-name='<%= @law_firm.name %>'>Decertify</a>
+				<a class="btn-type-primary" data-id='<%= @law_firm.id %>' data-name='<%= @law_firm.name %>'>Remove from Panel</a>
 				<a class="btn-type-primary begin-recertification-btn" data-id="<%= @law_firm.id %>">Send RFI Questionnaire again</a>
 			<% end %>
 			<% if(!@law_firm.form_submissions.any?) %>
