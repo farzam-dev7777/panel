@@ -204,10 +204,10 @@
 				<label class="label">Description</label>
 				<%= f.input :description, label: false %>
 			</div>		
-			<div class="col-xs-12 col-md-6">
+			<!--div class="col-xs-12 col-md-6">
 				<label class="label">Initial Date of Engagement with BMO</label>
 				<%= f.input :initial_date_of_engagement_with_the_bank, as: :datepicker, label: false, input_html: { autocomplete: 'off', class: 'text-left datepicker' } %>
-			</div>
+			</div-->
 			<div class="col-xs-12 col-md-6 multiple-selector">
 				<label class="label">Select Matter Type</label>
 				<%= f.input :matter_type_ids, label: false, collection: MatterType.all.map{|mt| [mt.matter_type, mt.id] } , input_html: { multiple: true }   %>
