@@ -5,7 +5,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
 
   before_action :follow_ups, except: :index
   before_action :before_steps, only: [:pricing_step, :relationship_step, :diversity_step, :innovation_step, :resourcing_step]
-  before_action :before_non_dynamic_forms, only: [:technology_step, :history_step]
+  #before_action :before_non_dynamic_forms, only: [:technology_step, :history_step]
 
   helper_method :next_step_path, :current_step_path, :steps, :previous_step_path, 
                 :current_step, :wizard_path, :last_step

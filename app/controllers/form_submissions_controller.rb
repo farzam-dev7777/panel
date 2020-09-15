@@ -120,23 +120,26 @@ class FormSubmissionsController < BaseController
   end
 
   def update
+   # binding.pry
     @form_submission = FormSubmission.find(params[:id])
     if @form_submission.update(form_submissions_params)
       @form_submission.last_submitted_by = current_user
       @form_submission.save
       @form_submission.touch
-      if request.referrer.split('/').last.to_sym == :technology_profile
+      if request.referrer.split('/').last.to_sym == :pricing_step
         FormSubmission.log_activity('technologies_updated', true, @form_submission, current_user)
       elsif request.referrer.split('/').last.to_sym == :history_profile
         FormSubmission.log_activity('history_updated', true, @form_submission, current_user)
       end
       redirect_to params[:redirect_value]
-    elsif form_submissions_params["technology_values_attributes"]
-      @current_step = :technology
-      flash.now[:alert] = 'Please fill all the fields to save'
-      render :technology_step
+    # elsif form_submissions_params["technology_values_attributes"]
+    #   @current_step = :technology
+    #   flash.now[:alert] = 'Please fill all the fields to save'
+    #   render :technology_step
     else
-      render :technology_step
+      # current_step = params[:redirect_value].split("/")
+      # render current_step.last.to_sym
+      redirect_to params[:redirect_value]
     end
   end
 
