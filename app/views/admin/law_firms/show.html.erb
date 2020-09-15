@@ -66,13 +66,13 @@
 					<a data-toggle="tab" href="#hr4"> <i class="fa fa-lg fa-sticky-note-o"></i> <span class="hidden-mobile hidden-tablet"> Internal Notes </span></a>
 				</li> -->
 				<li>
-					<a data-toggle="tab" href="#hr5">Exception Requests</a>
+					<a data-toggle="tab" href="#hr5">Non-Panel (One-Off) Requests</a>
 				</li>
 				<li>
 					<a data-toggle="tab" href="#hr6">Conflict Waiver</a>
 				</li>
 				<li>
-					<a data-toggle="tab" href="#hr7">Panel Request</a>
+					<a data-toggle="tab" href="#hr7">Panel Consideration Requests</a>
 				</li>
 			</ul>	
 			</div>
@@ -155,6 +155,18 @@
 											<label class="field-label">Additional BMO Relationship Contact Email (optional)</label>
 											<div class="field-data"><%= @law_firm.secondary_rm_contact_email %> </div>
 										</div>
+										<div class="col-xs-12 col-md-6">
+											<label class="field-label">Billing Contact Name</label>
+											<div class="field-data"><%= @law_firm.billing_contact_name %> </div>
+										</div>
+										<div class="col-xs-12 col-md-6">
+											<label class="field-label">Billing Contact Email</label>
+											<div class="field-data"><%= @law_firm.billing_contact_email %> </div>
+										</div>
+										<div class="col-xs-12 col-md-6">
+											<div class="field-label">Locations</div>		
+											<div class="field-data"><%= @law_firm.locations.map{|location| [location.city, location.province, location.country].reject(&:nil?).join(',') }.join("<br />").html_safe %></div>
+										</div>
 									</div>
 								</div>
 								<div class="col-md-12">
@@ -194,6 +206,53 @@
 										</div>
 									</div>
 								</div>
+								<div class="col-md-12">
+									<div class="inner-label">Law Firm Information :</div>
+										<div class="inner-form-field form-flex-wrap">
+											<div class="col-xs-12 col-md-6">
+												<div class="field-label">No. of personnel</div>		
+												<div class="field-data"><%= @law_firm.number_of_lawyers %></div>
+											</div>
+										
+											<div class="col-xs-12 col-md-6">
+												<label class="field-label">Diverse</label>
+												<div class="field-data"><%= @law_firm.diverse %> </div>
+											</div>
+											<div class="col-xs-12 col-md-6">
+												<label class="field-label">Value-Add Activities</label>
+												<div class="field-data"><%= @law_firm.value_add_activities %> </div>
+											</div>
+											<div class="col-xs-12 col-md-6">
+												<label class="field-label">Feedback</label>
+												<div class="field-data"><%= @law_firm.feedback %> </div>
+											</div>
+											<div class="col-xs-12 col-md-6">
+												<label class="field-label">Issues</label>
+												<div class="field-data"><%= @law_firm.issues %> </div>
+											</div>
+											<div class="col-xs-12 col-md-6">
+												<label class="field-label">Merger/Combination</label>
+												<div class="field-data"><%= @law_firm.merger_combination  %> </div>
+											</div>
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="inner-label">Law Firm Information :</div>
+										<div class="inner-form-field form-flex-wrap">
+											<div class="col-xs-12 col-md-6">
+												<div class="field-label">Username</div>
+												<div class="field-data"><%= !@law_firm.user.try(:username).blank? ? @law_firm.users.first.try(:username) : '-' %></div>
+											</div>
+											<div class="col-xs-12 col-md-6">
+												<div class="field-label">Law Firm Login Email </div>
+												<div class="field-data"><%= !@law_firm.user.try(:email).blank? ? @law_firm.users.first.try(:email) : '-' %></div>
+											</div>
+											<div class="col-xs-12 col-md-6">
+												<div class="field-label">Law Firm Login User Phone </div>
+												<div class="field-data"><%= @law_firm.phone %></div>
+											</div>
+										</div>
+								</div>
 								<div class="col-xs-12 col-md-6">
 									<div class="field-label">Description </div>
 									<div class="field-data"><%= @law_firm.description %></div>
@@ -219,54 +278,6 @@
 								<div class="col-xs-12 col-md-6">
 									<div class="field-label">Types of matters your law firm has handled for us to date</div>		
 									<div class="field-data"><%= @law_firm.type_of_matters_your_law_firm_handles_for_us.reject(&:blank?).join(", ") %></div>
-								</div>
-								<div class="col-xs-12 col-md-6">
-									<div class="field-label">No. of personnel</div>		
-									<div class="field-data"><%= @law_firm.number_of_lawyers %></div>
-								</div>
-								<div class="col-xs-12 col-md-6">
-									<label class="field-label">Billing Contact Name</label>
-									<div class="field-data"><%= @law_firm.billing_contact_name %> </div>
-								</div>
-								<div class="col-xs-12 col-md-6">
-									<label class="field-label">Billing Contact Email</label>
-									<div class="field-data"><%= @law_firm.billing_contact_email %> </div>
-								</div>
-								<div class="col-xs-12 col-md-6">
-									<label class="field-label">Diverse</label>
-									<div class="field-data"><%= @law_firm.diverse %> </div>
-								</div>
-								<div class="col-xs-12 col-md-6">
-									<label class="field-label">Value-Add Activities</label>
-									<div class="field-data"><%= @law_firm.value_add_activities %> </div>
-								</div>
-								<div class="col-xs-12 col-md-6">
-									<label class="field-label">Feedback</label>
-									<div class="field-data"><%= @law_firm.feedback %> </div>
-								</div>
-								<div class="col-xs-12 col-md-6">
-									<label class="field-label">Issues</label>
-									<div class="field-data"><%= @law_firm.issues %> </div>
-								</div>
-								<div class="col-xs-12 col-md-6">
-									<label class="field-label">Merger/Combination</label>
-									<div class="field-data"><%= @law_firm.merger_combination  %> </div>
-								</div>
-								<div class="col-xs-12 col-md-6">
-									<div class="field-label">Locations</div>		
-									<div class="field-data"><%= @law_firm.locations.map{|location| [location.city, location.province, location.country].reject(&:nil?).join(',') }.join("<br />").html_safe %></div>
-								</div>
-								<div class="col-xs-12 col-md-6">
-									<div class="field-label">Username</div>
-									<div class="field-data"><%= !@law_firm.user.try(:username).blank? ? @law_firm.users.first.try(:username) : '-' %></div>
-								</div>
-								<div class="col-xs-12 col-md-6">
-									<div class="field-label">Email </div>
-									<div class="field-data"><%= !@law_firm.user.try(:email).blank? ? @law_firm.users.first.try(:email) : '-' %></div>
-								</div>
-								<div class="col-xs-12 col-md-6">
-									<div class="field-label">Phone </div>
-									<div class="field-data"><%= @law_firm.phone %></div>
 								</div>
 							</div>
 						</div>
