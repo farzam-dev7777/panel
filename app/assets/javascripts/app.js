@@ -824,7 +824,7 @@ $(document).ready(function(){
     if(!ajaxRequestInProcess){
       $('#redirect_value').val(window.link_to_redirect_to);
       ajaxRequestInProcess = true;
-      $('form').submit();
+      //$('form').submit();
       $('.submit-form').attr("disabled", "disabled");
     }
   })
@@ -836,7 +836,7 @@ $(document).ready(function(){
     toastr.success('Your progress has been saved successfully', 'Saved');
     link = window.link_to_redirect_to;
     if(link == window.location.pathname){
-      if ((window.location.href.indexOf("technology_step") > -1)) {
+      if ((window.location.href.indexOf("pricing_step") > -1)) {
         window.location.reload();
       }
     } else{ 
