@@ -100,28 +100,20 @@
 			</div>	
 			
 			
-			<% if @law_firm.new_record? %>
+			<% if Current.user.role === "internal_lawyers" %>
 				<div class="col-xs-12 col-md-6">
-					<label class="label">Email</label>
-					<%= f.input :email, label: false , required: true %>
+					<label class="label">Relationship Manager Name</label>
+					<%= f.input :relationship_manager_name, label: false %>
 				</div>
-			<% end %>
-			<div class="col-xs-12 col-md-6">
-				<label class="label">Phone</label>
-				<%= f.input :phone, label: false %>
-			</div>
-			<div class="col-xs-12 col-md-6">
-				<label class="label">Relationship Manager Name</label>
-				<%= f.input :relationship_manager_name, label: false %>
-			</div>
-			<div class="col-xs-12 col-md-6">
-				<label class="label">Relationship Manager Email</label>
-				<%= f.input :relationship_manager_email, label: false %>
-			</div>		
-			<div class="col-xs-12 col-md-6">
-				<label class="label">Relationship Manager Phone</label>
-				<%= f.input :relationship_manager_phone, label: false %>
-			</div>
+				<div class="col-xs-12 col-md-6">
+					<label class="label">Relationship Manager Email</label>
+					<%= f.input :relationship_manager_email, label: false %>
+				</div>		
+				<div class="col-xs-12 col-md-6">
+					<label class="label">Relationship Manager Phone</label>
+					<%= f.input :relationship_manager_phone, label: false %>
+				</div>
+			<% end %>	
 			<div class="col-xs-12 col-md-6">
 				<label class="label">Description</label>
 				<%= f.input :description, label: false %>
@@ -184,9 +176,18 @@
 					<label class="label">Merger/Combination</label>
 					<%= f.input :merger_combination, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
 				</div>
-
-			<div class="col-xs-12 col-md-6">
 				<% if @law_firm.new_record? %>
+					<div class="col-xs-12 col-md-6">
+						<label class="label">Email</label>
+						<%= f.input :email, label: false , required: true %>
+					</div>
+				<% end %>
+				<div class="col-xs-12 col-md-6">
+					<label class="label">Phone</label>
+					<%= f.input :phone, label: false %>
+				</div>
+			<div class="col-xs-12 col-md-6">
+			<% if @law_firm.new_record? %>
 				<label class="label">Temp. Password</label>
 				<%= f.input :temp_password, autocomplete: "off", label: false, input_html: { class: 'set-password' } , required: true %>
 				<p style="color: #949494;" class="text-left"><em>Minimum 10 characters required</em></p>
