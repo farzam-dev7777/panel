@@ -196,14 +196,14 @@
 				<%= f.input :temp_password_confirmation, autocomplete: "off", label: false, input_html: { class: 'set-password' }, required: true %>
 			</div>
 			<% else %>
-			<div class="">
-				<label class="label">Password</label>
 					<%= f.simple_fields_for :users do |field| %>
-						<div class="">
+						<div class="col-xs-12 col-md-12">
+							<label class="label">Username</label>
 							<%= field.input :username, autocomplete: "off", label: false, input_html: { class: 'set-password', disabled: true } %>
-							<%= field.input :password, autocomplete: "off", label: false, input_html: { class: 'set-password', placeholder: "Password" } %>
-							<%= field.input :password_confirmation, autocomplete: "off", label: false, input_html: { class: 'set-password', placeholder: "Password Confirmation" } %>
-							<%= field.input :_destroy, label: "Remove", as: :boolean if field.object.role != "master_user" %>
+							<label class="label"> Password</label>
+								<%= field.input :password, autocomplete: "off", label: false, input_html: { class: 'set-password', placeholder: "Password" } %>
+								<%= field.input :password_confirmation, autocomplete: "off", label: false, input_html: { class: 'set-password', placeholder: "Password Confirmation" } %>
+								<%= field.input :_destroy, label: "Remove", as: :boolean if field.object.role != "master_user" %>
 						</div>
 						<% end %>
 				<% end %>
