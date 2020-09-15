@@ -186,8 +186,9 @@
 					<label class="label">Phone</label>
 					<%= f.input :phone, label: false %>
 				</div>
-			<div class="col-xs-12 col-md-6">
+			
 			<% if @law_firm.new_record? %>
+			<div class="col-xs-12 col-md-6">
 				<label class="label">Temp. Password</label>
 				<%= f.input :temp_password, autocomplete: "off", label: false, input_html: { class: 'set-password' } , required: true %>
 				<p style="color: #949494;" class="text-left"><em>Minimum 10 characters required</em></p>
@@ -198,7 +199,7 @@
 			</div>
 			<% else %>
 					<%= f.simple_fields_for :users do |field| %>
-						<div class="col-xs-12 col-md-12">
+						<div class="col-xs-12 col-md-6">
 							<label class="label">Username</label>
 							<%= field.input :username, autocomplete: "off", label: false, input_html: { class: 'set-password', disabled: true } %>
 							<label class="label"> Password</label>
