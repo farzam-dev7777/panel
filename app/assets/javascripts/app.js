@@ -824,7 +824,7 @@ $(document).ready(function(){
     if(!ajaxRequestInProcess){
       $('#redirect_value').val(window.link_to_redirect_to);
       ajaxRequestInProcess = true;
-      //$('form').submit();
+      $('form').submit();
       $('.submit-form').attr("disabled", "disabled");
     }
   })
@@ -1156,7 +1156,7 @@ $(document).ready(function(){
     var data = $(this).data();
     swal({
       title: "Are you sure?",
-      text: "Once submitted, the Policy and Process sections will not be available for editing unless reopened by the Panel Administrator.The Technology and History sections will remain open for updates.",
+      text: "",
       type: "warning",
       showCancelButton: true,
       confirmButtonColor: "#DD6B55",
