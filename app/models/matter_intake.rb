@@ -36,6 +36,9 @@ class MatterIntake < ApplicationRecord
     :is_paper_file, :name_of_matter_client, :matter_description, :paying_entity,
     :if => Proc.new { |matter_intake| matter_intake.user_id.present? && matter_intake.user.role == "lob" && Current.user && Current.user.role === "internal_lawyers" }
 
+  validates_presence_of :afa_details,
+    :if => Proc.new { |matter_intake| matter_intake.user_id.present? && matter_intake.user.role == "lob" && Current.user && Current.user.role === "internal_lawyers" && matter_intake.is_alternative_fee_arrangement === "Yes" }
+
   validates_presence_of :who_requires_access_to_imanage_workspace,
     :if => Proc.new { |matter_intake| matter_intake.user_id.present? && matter_intake.user.role == "lob" && Current.user && Current.user.role === "internal_lawyers" && matter_intake.is_conceal_imanage_workspace === "Yes" }
 
