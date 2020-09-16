@@ -66,6 +66,7 @@ class Admin::ReviewsController < Admin::BaseController
 
             user_id = @panel_request.law_firm.user_id
             @user = User.with_deactivated.find_by(id: user_id)
+            binding.pry
             if @user.present?
               user_email = @user.email
               user_name =  @user.username
