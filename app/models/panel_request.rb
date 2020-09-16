@@ -42,7 +42,7 @@ class PanelRequest < ApplicationRecord
   PANEL_REQUEST_STATUS = {
     "": "Select",
     "REQUEST_INFO": "Request More Info",
-    "PANEL_RETAINER": "Panel Retainer Sent",
+    "PANEL_RETAINER": "Retainer Sent",
     "APPROVED": "Approved",
     "REJECTED": "Rejected"
   }
