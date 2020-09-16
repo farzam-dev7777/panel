@@ -294,7 +294,7 @@ $('.lxp_sttaus').on('click', function(e){
 	 }
 	 
 	if($('select#review_status').chosen().val() == "PANEL_RETAINER"){
-		message = "Confirm To Emails Retainer to Law Firm to sign"
+		message = "Confirmation: Send Retainer Agreement to Law Firm"
 
 		swal({
 			title: message,
