@@ -100,10 +100,14 @@
                   <div class="field-label">Work Area Level 2:	</div>
                   <div class="field-data"><%= @matter_intake.work_area_type %></div>
                 </div>
-              <% if @matter_intake.work_area === "Regulatory" %> 
+              <% if @matter_intake.work_area === "Regulatory" && @matter_intake.form_type != "litigation" %> 
                 <div class="col-xs-12 col-md-6">
                   <div class="field-label">Is this matter ORE reportable?:	</div>
                   <div class="field-data"><%= @matter_intake.is_ore_reportable %></div>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                  <div class="field-label">Is this matter otherwise reportable? (e.g. board reporting):	</div>
+                  <div class="field-data"><%= @matter_intake.is_otherwise_reportable %></div>
                 </div>
                <% end %>
               <% end %>
@@ -366,6 +370,14 @@
                   <div class="col-md-12">
                     <div class="inner-label">Reporting :</div>
                     <div class="inner-form-field form-flex-wrap">
+                      <div class="col-xs-12 col-md-6">
+                        <div class="field-label">Is this matter ORE reportable?:	</div>
+                        <div class="field-data"><%= @matter_intake.is_ore_reportable %></div>
+                      </div>
+                      <div class="col-xs-12 col-md-6">
+                        <div class="field-label">Is this matter otherwise reportable? (e.g. board reporting):	</div>
+                        <div class="field-data"><%= @matter_intake.is_otherwise_reportable %></div>
+                      </div>
                       <div class="col-xs-12 col-md-6">
                         <div class="field-label">M&I Matter:	</div>
                         <div class="field-data"><%= @matter_intake.mi_matter %></div>
