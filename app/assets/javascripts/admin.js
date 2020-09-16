@@ -1581,6 +1581,8 @@ $(document).ready(function() {
 $('select#matter_intake_mode_of_payment, select#matter_intake_type_of_price, select#matter_intake_outside_counsel_engaged').on('change', function() {
 	if(this.value == 'N/A Internal – no law firm will be engaged') {
 		$('.internal-matter').hide()
+		$('.panel_firm').hide()
+		$('.non_panel_firm').hide()
 	} else {
 		$('.internal-matter').show()
 		var matter_intake_firm_type = $('select#matter_intake_firm_type > option:selected').val();
