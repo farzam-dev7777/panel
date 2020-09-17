@@ -50,8 +50,11 @@
 					<table id="dt_basic" class="table table-decoration table-bordered" data-ordering="3" width="100%">
 						<thead>			                
 							<tr>
-								<th>Firm Name</th>
+								<th>Law Firm Name</th>
 								<!--th>Username</th-->
+								<th>Relationship Partner Name</th>
+								<th>Relationship Partner Email</th>
+								<th>Location</th>
 								<th>Score</th>
 								<th>Onboarded</th>
 								<th width="10%">Status</th>
@@ -59,7 +62,7 @@
 						</thead>
 						<tbody>
 							<% @law_firms.each do |firm| %>
-								<tr class="law-firm-row" data-id="<%= firm.id %>">
+								<tr class="law-firm-row" data-order="<%= firm.created_at.strftime('%Y%m%d%I%M') %>" data-id="<%= firm.id %>">
 									<td>
 										<% if firm.name.present? %>
 											<div class="firm-name">
@@ -68,7 +71,9 @@
 											</div>
 										<% end %>	
 									</td>
-									<!--td><%= firm.users.first.try(:username) %></td-->
+									<td><%= firm.try(:bmo_relationship_partner_name) %></td>
+									<td><%= firm.try(:bmo_relationship_partner_email) %></td>
+									<td><%= firm.locations.map{|location| [location.city, location.province, firm.country_name(location.country)].reject(&:nil?).join(',') }.join(", ").html_safe %></td>
 									<td>
 										<div> 
 											<span class="percent txt-color-blue bold">
