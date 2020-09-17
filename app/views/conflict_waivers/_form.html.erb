@@ -62,7 +62,7 @@
           <%= f.input :confirm_waiver, label: false, required: true, collection: [["Yes", true], ["No", false]]  %>
         </div>
         <div class="col-xs-12 col-md-12 confirm_waiver_notes" style="display:none;">
-          <p>It appears your request is covered by your retainer agreement with BMO. If you are unsure, please select "No" above to proceed with submitting the request</p>
+          <p>It appears your request is covered by the terms of our retainer agreement. If you are unsure, please select "No" to proceed with submitting your request</p>
         </div>
       <div class="col-xs-12 col-md-12">
           <%=link_to 'Cancel', @conflict_waiver.new_record? ? admin_exception_requests_path : admin_law_firm_path, class: 'btn-type-default' %>

@@ -1684,13 +1684,13 @@ $('.lxp_review_status').on('click', function() {
 
 })
 
-if($('select#conflict_waiver_confirm_waiver').val() === "true") {
+if($('select#conflict_waiver_confirm_waiver').val() === "false") {
 	$('.confirm_waiver_notes').show()
 }
 
 $('select#conflict_waiver_confirm_waiver').on('change', function() {
 	var selectedValue = this.value;
-	if(selectedValue === "true") {
+	if(selectedValue === "false") {
 		$('.confirm_waiver_notes').show()
 	} else {
 		$('.confirm_waiver_notes').hide()
