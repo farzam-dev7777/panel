@@ -1748,3 +1748,16 @@ $('.non-panel_send_retainer').on('click', function() {
 
 })
 
+if($("select#matter_intake_is_ore_reportable").val() == "Yes" || $('#litigation_reporting').val() == "Yes") {
+	$('.litigation_reporting').show()
+} else {
+	$('.litigation_reporting').hide()
+}
+
+$('select#matter_intake_is_ore_reportable').on('change', function() {
+	if(this.value == "Yes"){
+		$('.litigation_reporting').show()
+	} else {
+		$('.litigation_reporting').hide()
+	}
+})
