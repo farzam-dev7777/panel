@@ -26,10 +26,10 @@ class LawFirmsController < BaseController
   def invite_users
     redirect_to root_path unless current_user.role == 'master_user'
     law_firm_user_count = current_law_firm.standard_users.count
-    username = SecureRandom.hex(4)
+    username = params[:email]
     if(law_firm_user_count < current_law_firm.law_firm_user_limit)
-      user = User.new(email: "#{username}#{LawFirm::EMAIL_PREFIX}", 
-                username: username,
+      user = User.new(email: params[:email], 
+                username: params[:email],
                 password: params[:temp_password],
                 password_confirmation: params[:temp_password_confirmation],
                 role: 'user',

@@ -16,10 +16,13 @@
           <form class="" method="post" action="/law_firms/invite_users">
             <div class="user-form-sp">
             <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
-              <div class="form-group">
+              <div class="form-group col-md-12">
+                <%= email_field_tag :email, nil, placeholder: "Email" -%>
+              </div>
+               <div class="form-group col-md-12">
                 <%= password_field_tag :temp_password, nil, placeholder: "Temporary password" -%>
               </div>
-              <div class="form-group">
+              <div class="form-group col-md-12">
                 <%= password_field_tag :temp_password_confirmation, nil, placeholder: "Temporary password confirmation" -%>
               </div>
             </div>
