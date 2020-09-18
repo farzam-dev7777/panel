@@ -47,7 +47,7 @@
 			<div>
 				<!-- widget content -->
 				<div class="table-dyanmic-search table-responsive">
-					<table id="dt_basic" class="table table-decoration table-bordered" data-ordering="6" width="100%">
+					<table id="dt_basic" class="table table-decoration table-bordered" data-ordering="7" width="100%">
 						<thead>			                
 							<tr>
 								<th>Law Firm Name</th>
@@ -57,7 +57,8 @@
 								<th>Location</th>
 								<th>Score</th>
 								<th>Onboarded</th>
-								<th width="10%">Status</th>
+								<th>Status</th>
+								<th width="10%">RFI Status</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -87,6 +88,11 @@
 									<td>
 										<div class="date-time">
 											<%= firm.created_at.strftime(LawFirm::TIME_FORMAT) %>
+										</div>
+									</td>
+									<td>
+										<div class="date-time">
+											<%= firm.panel_request.try(:lxp_status_show) %>
 										</div>
 									</td>
 									<td>

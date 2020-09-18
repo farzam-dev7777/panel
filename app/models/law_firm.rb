@@ -25,6 +25,7 @@ class LawFirm < ApplicationRecord
   has_many :law_firms_states
   has_many :states, :through => :law_firms_states
   has_many :matter_intakes
+  has_one :panel_request
 
   serialize :practice_area, Array
   serialize :type_of_matters_your_law_firm_handles_for_us, Array

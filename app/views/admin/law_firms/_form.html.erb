@@ -105,7 +105,7 @@
 							<label class="label">Action Plan Status</label>
 							<%= f.input :action_plan_status, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
 						</div>
-							<div class="col-xs-12 col-md-6">
+						<div class="col-xs-12 col-md-6">
 							<label class="label">Information Security Contact Name</label>
 							<%= f.input :information_security_contact, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
 						</div>
@@ -113,8 +113,7 @@
 							<label class="label">Information Security Contact Email</label>
 							<%= f.input :information_security_contact_email, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
 						</div>
-				</div>
-			</div>	
+				</div>	
 			
 
 			<div class="col-md-12">
@@ -199,11 +198,7 @@
 					<label class="label">Relationship Manager Phone</label>
 					<%= f.input :relationship_manager_phone, label: false %>
 				</div>
-			<% end %>	
-			<div class="col-xs-12 col-md-6">
-				<label class="label">Description</label>
-				<%= f.input :description, label: false %>
-			</div>		
+			<% end %>		
 			<!--div class="col-xs-12 col-md-6">
 				<label class="label">Initial Date of Engagement with BMO</label>
 				<%= f.input :initial_date_of_engagement_with_the_bank, as: :datepicker, label: false, input_html: { autocomplete: 'off', class: 'text-left datepicker' } %>
@@ -230,7 +225,7 @@
 			</div>		
 		
 				
-			<div class="">
+			<div class="col-xs-12 col-md-12">
 				<%=link_to 'Cancel', f.object.new_record? ? admin_law_firms_path : admin_law_firm_path, class: 'btn-type-default' %>
 				<%= f.button :submit, f.object.new_record? ? 'Create' : 'Update', class: "btn-type-primary" %>
 			</div>

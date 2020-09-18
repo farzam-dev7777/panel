@@ -113,8 +113,33 @@
 						<%= f.input :number_of_lawyers, label: false, collection: LawFirm::NUMBER_OF_LAWYERS, input_html: { autocomplete: 'off', class: 'text-left' } %>
 					</div>
 				</div>
-			
-				
+			<div class="row col-md-12 show-data-fields">
+			<div class="col-xs-12 col-md-6">
+				<div class="field-label">LXP Status :</div>
+
+				<div class="field-data"><%=  @law_firm.panel_request && @law_firm.panel_request.try(:lxp_status_show) ? @law_firm.panel_request.try(:lxp_status_show) : "-" %></div>
+			</div>
+			<div class="col-xs-12 col-md-6">
+				<div class="field-label">Panel Approved :</div>
+				<div class="field-data"><%= @law_firm.panel_request && @law_firm.panel_request.fully_approved? ? "Yes" : "No" %></div>
+			</div>
+			<% if @law_firm.panel_request && @law_firm.panel_request.try(:docusign_envelope_id).present? %>
+				<div class="col-md-12">
+					<div class="field-label">Document Status</div>
+					<div class="field-data"><%= @law_firm.panel_request.docusign_retainer_envelope.status %></div>
+				</div>
+				<% if @law_firm.panel_request && @law_firm.try(:panel_request).docusign_retainer_envelope.status == "completed"%>
+					<div class="col-md-12">
+						<div class="field-label">Download Document</div>
+						<div class="field-data">
+							<%= link_to "Download Document", admin_panel_request_download_pdf_path(@law_firm.panel_request), class: "" %>
+						</div>
+					</div>
+				<% end %>	
+			<% end %>
+			</div>
+
+
 				<div class="col-xs-12 col-md-12 btn-decor-sp" style="margin-top: 30px;">
 						<%= f.button :submit, 'Update & Continue', class: "btn-type-primary" %>
 				</div>

@@ -2,7 +2,8 @@ class LawFirmsController < BaseController
     
 	def edit
     redirect_to set_new_password_path unless current_user.new_password_set
-		@law_firm = LawFirm.find(current_law_firm.id)
+    @law_firm = LawFirm.find(current_law_firm.id)
+
 	end
 
 	def update
