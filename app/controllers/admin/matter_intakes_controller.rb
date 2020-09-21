@@ -60,6 +60,7 @@ class Admin::MatterIntakesController < Admin::BaseController
   end
 
   def update
+    binding.pry
     @matter_intake = MatterIntake.find_by(id: params[:id])
     if @matter_intake.present? && @matter_intake.update_attributes(matter_intake_params)
       if current_user.role === "internal_lawyers"
