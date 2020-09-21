@@ -1684,16 +1684,20 @@ $('.lxp_review_status').on('click', function() {
 
 })
 
-if($('select#conflict_waiver_confirm_waiver').val() === "false") {
+if($('select#conflict_waiver_confirm_waiver').val() === "true") {
 	$('.confirm_waiver_notes').show()
+	$('.confirm_waiver_btn').val("Confirm")
+	
 }
 
 $('select#conflict_waiver_confirm_waiver').on('change', function() {
 	var selectedValue = this.value;
-	if(selectedValue === "false") {
+	if(selectedValue === "true") {
 		$('.confirm_waiver_notes').show()
+		$('.confirm_waiver_btn').val("Confirm")
 	} else {
 		$('.confirm_waiver_notes').hide()
+		$('.confirm_waiver_btn').val("Next")
 	}
 });
 
