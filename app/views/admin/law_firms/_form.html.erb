@@ -175,10 +175,12 @@
 									<div class="col-xs-12 col-md-6">
 										<label class="label">Username</label>
 										<%= field.input :username, autocomplete: "off", label: false, input_html: { class: 'set-password', disabled: true } %>
-										<label class="label"> Password</label>
-											<%= field.input :password, autocomplete: "off", label: false, input_html: { class: 'set-password', placeholder: "Password" } %>
-											<%= field.input :password_confirmation, autocomplete: "off", label: false, input_html: { class: 'set-password', placeholder: "Password Confirmation" } %>
-											<%= field.input :_destroy, label: "Remove", as: :boolean if field.object.role != "master_user" %>
+											<% if Current.user.role === "lxp" %>
+												<label class="label"> Password</label>
+												<%= field.input :password, autocomplete: "off", label: false, input_html: { class: 'set-password', placeholder: "Password" } %>
+												<%= field.input :password_confirmation, autocomplete: "off", label: false, input_html: { class: 'set-password', placeholder: "Password Confirmation" } %>
+												<%= field.input :_destroy, label: "Remove", as: :boolean if field.object.role != "master_user" %>
+											<% end %>
 									</div>
 									<% end %>
 							<% end %>
