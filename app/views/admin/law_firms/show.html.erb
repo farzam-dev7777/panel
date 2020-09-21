@@ -599,18 +599,17 @@
 										<div class="field-label">Submitted By</div>		
 										<div class="field-data"><%= @panel_request.submitted_by_email %></div>
 									</div>
-								</div>
-								<div class="row">
 									<div class="col-xs-12 col-md-6">
 										<div class="field-label">Line of Business	</div>		
 										<div class="field-data"><%= @panel_request.requested_by %><%= @panel_request.line_of_business %></div>
 									</div>
+									<% if Current.user.role === "lxp" %>
 									<div class="col-xs-12 col-md-6">
 										<div class="field-label">LOB Contact Name	</div>		
 										<div class="field-data"><%= @panel_request.lob_contact_name %></div>
 									</div>
-								</div>
-								<div class="row">
+									<% end %>
+							
 									<div class="col-xs-12 col-md-6">
 										<div class="field-label">Business Manager Name</div>
 										<div class="field-data"><%= @panel_request.business_manager_name %></div>
@@ -619,8 +618,7 @@
 										<div class="field-label">Business Manager Email</div>		
 										<div class="field-data"><%= @panel_request.business_manager_email %></div>
 									</div>
-								</div>
-								<div class="row">
+						
 									<div class="col-xs-12 col-md-6">
 										<div class="field-label">Business Manager Phone	</div>		
 										<div class="field-data"><%= @panel_request.business_manager_phone %></div>
@@ -629,8 +627,7 @@
 										<div class="field-label">Law firm Category</div>		
 										<div class="field-data"><%= @panel_request.law_firm_category %></div>
 									</div>
-								</div>
-								<div class="row">		
+							
 									<div class="col-xs-12 col-md-6">
 										<div class="field-label">Minority Owned</div>		
 										<div class="field-data"><%= @panel_request.minority_owned %></div>
@@ -639,8 +636,7 @@
 										<div class="field-label">Minority Owned Details</div>		
 										<div class="field-data"><%= @panel_request.minority_owned_details %></div>
 									</div>
-								</div>
-								<div class="row">
+							
 									<div class="col-xs-12 col-md-6">
 										<div class="field-label">Women Owned</div>		
 										<div class="field-data"><%= @panel_request.women_owned %></div>
@@ -649,8 +645,6 @@
 										<div class="field-label">Women Owned Details</div>		
 										<div class="field-data"><%= @panel_request.women_owned_details %></div>
 									</div>
-								</div>
-								<div class="row">
 									<div class="col-xs-12 col-md-6">
 										<div class="field-label">Matter Types</div>		
 										<div class="field-data"><%= @panel_request.matter_types.is_a?(Array) ? @panel_request.matter_types.join(", ") : "" %></div>
