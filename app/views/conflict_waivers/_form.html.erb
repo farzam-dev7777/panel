@@ -7,9 +7,9 @@
   
 		<%= simple_form_for [@conflict_waiver] do |f| %>
     <div class="row"> 
-      <div class="col-xs-12 colmd-12">
+      <%# <div class="col-xs-12 colmd-12">
         <label class="inner-label">Conflict Waiver Request</label>
-      </div>
+      </div> %>
       <div class="col-xs-12 col-md-6">
         <label  class="label">Name of law firm</label>
         <%= f.input :name_of_law_firm, label: false, input_html: { value: current_user.law_firm.name, readonly: true } %>
