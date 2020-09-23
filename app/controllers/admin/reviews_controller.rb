@@ -92,6 +92,9 @@ class Admin::ReviewsController < Admin::BaseController
           else
             PanelRequestMailer.notification_for_more_info_to_lob(@panel_request).deliver_now
           end
+          @law_firm = @panel_request.law_firm
+          @law_firm.panel_status =  review_params[:status];
+          @law_firm.save
           @panel_request.save
         elsif params[:review][:reviewable_type] == "MatterIntake"  
           @matter_intake = MatterIntake.find_by(id: params[:review][:reviewable_id])
