@@ -32,13 +32,12 @@
 												</div>
 												<div class="col-xs-12 col-md-4">
 													<%= f.label :panel_status_cont, label: false, :class => 'label' %>
-													<%= f.search_field :panel_status_eq, :class => 'sp-form-control' %>
-													<%#= f.select :panel_status_eq, options_from_collection_for_select(PanelRequest::PANEL_REQUEST_STATUS, "panel_status", @q.panel_status_eq), {:include_blank => 'Select law firm'}, :class => 'sp-form-control' %>
-
+													<%#= f.search_field :panel_status_eq, :class => 'sp-form-control' %>
+													<%= f.select :panel_status_eq, options_from_collection_for_select(LawFirm::PANEL_REQUEST_STATUS, "to_s", "to_s", @q.panel_status_eq), {:include_blank => true}, :class => 'sp-form-control' %>
 												</div>
 												<div class="col-xs-12 text-right">
 													<%= f.submit "Search", class: "btn-type-primary input-btn m-right" %>
-													<%= f.submit "Reset", type: "reset", value: "Reset",  class: "btn-type-default input-btn" %>
+													<%= f.submit "Reset", type: "button", value: "Reset",  class: "btn-type-default input-btn" %>
 												</div>
 											</div>        
 										<% end %>
