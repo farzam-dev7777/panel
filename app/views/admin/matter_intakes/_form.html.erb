@@ -31,7 +31,7 @@
       <% end %>
       <div class="col-xs-12 col-md-6">
         <label class="label">Is this a syndicate matter?<span class="mandatory">*</span></label>
-        <%= f.input :is_syndicate_matter, label: false, as: :select, collection: [['Yes', 'Yes'], ["No", "No"]] %>
+        <%= f.input :is_syndicate_matter, label: false, as: :select, collection: [['Yes, BMO is the lead bank', 'Yes, BMO is the lead bank'],["Yes, BMO is not the lead bank", "Yes, BMO is not the lead bank"], ["No", "No"]]  %>
       </div>
       <div class="col-xs-12 col-md-6">
         <label class="label">Conceal iManage Workspace?<span class="mandatory">*</span></label>
