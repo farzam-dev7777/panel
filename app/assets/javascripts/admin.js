@@ -1765,3 +1765,19 @@ $('select#matter_intake_is_ore_reportable').on('change', function() {
 		$('.litigation_reporting').hide()
 	}
 })
+
+$(document).ready(function(){
+	$('.simple_form_edit_exception_request').click(function(){ 
+		 if($('select#exception_request_line_of_business').val() == ""){
+				$(".exception_request_line_of_business_error").show()
+		 }else{
+				$(".exception_request_line_of_business_error").hide()
+		 }
+		 if($('select#exception_request_matter_involve_following').val() == ""){
+				$(".exception_request_matter_involve_following_error").show()
+		}else{
+				$(".exception_request_matter_involve_following_error").hide()
+		}
+		 
+	});
+});

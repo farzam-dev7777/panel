@@ -58,7 +58,7 @@
         <%#= f.input :retainer_language, as: :radio_buttons, label: false, collection: ConflictWaiver::RETAINER_LANGUAGE_TYPE  %>
       </div>
       <div class="col-xs-12 col-md-6">
-          <label  class="label">Is your request covered by any of the above</label>
+          <label  class="label">Is your request covered by any of the above?</label>
           <%= f.input :confirm_waiver, label: false, required: true, collection: [["Yes", true], ["No", false]]  %>
         </div>
         <div class="col-xs-12 col-md-12 confirm_waiver_notes" style="display:none;">

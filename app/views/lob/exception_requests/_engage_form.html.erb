@@ -64,10 +64,12 @@
             <div class="col-xs-12 col-sm-6 col-md-4">
               <label class="label">Line of Business<span class="mandatory">*</span></label>
               <%= f.input :line_of_business, label: false, required: true, collection: ExceptionRequest::LOB_LIST %>
+              <span class="exception_request_line_of_business_error" style="display:none;color: red;" >This field is required.</span>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-4">
               <label class="label">LOB Contact Name<span class="mandatory">*</span></label>
               <%= f.input :lob_contact_name, label: false, required: true, :input_html => { :value => @exception_request&.lob_contact_name || @current_admin_full_name } %>
+              
             </div>
           </div>
           <!--tr>
@@ -164,6 +166,7 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
               <label class="label">Will this matter involve the following:<span class="mandatory">*</span></label>
               <%= f.input :matter_involve_following, label: false, collection: ExceptionRequest::MATTER_INVOLE_FOLLOWING %>
+              <span class="exception_request_matter_involve_following_error" style="display:none;color: red;" >This field is required.</span>
             </div>
           </div>
           <!--<div class="row">
@@ -188,10 +191,10 @@
               <%= f.input :reson_other, label: false, required: true %>
             </div>-->
           </div>
-          <div class="row">
+          <div class="row" style="margin-top: 20px;">
           <div class="col-xs-12 col-sm-12 col-md-12">
             <a class="tab-next-btn btn-type-default prev-btn-exception" data-tab="tabs-provide">Previous</a>  
-            <%= f.button :submit, @exception_request.new_record? ? "Submit Request" : "Submit Request", class: "btn-type-primary" %>
+            <%= f.button :submit, @exception_request.new_record? ? "Submit Request" : "Submit Request", class: "btn-type-primary simple_form_edit_exception_request" %>
           </div>
         </div>
       </div>
