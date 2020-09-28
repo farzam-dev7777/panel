@@ -22,7 +22,8 @@
 										<span>Filter</span>
 									</div>
 								</div>
-								<div id="collapseThree" class="col-md-12 collapse sp-filter-fields" aria-labelledby="headingThree" data-parent="#sp-filter">
+	
+								<div id="collapseThree" class="col-md-12 collapse <%= @params_string ? "in" : "" %> sp-filter-fields" aria-labelledby="headingThree" data-parent="#sp-filter">
 									<div class="card-body sp-form">
 										<%= search_form_for [:admin, @q] do |f| %>
 											<div class="row">
@@ -32,7 +33,7 @@
 												</div>
 												<div class="col-xs-12 col-md-4">
 												<%= f.label :locations_country_cont %>
-  											<%= f.country_select :locations_country_cont, :class => 'sp-form-control' %>
+  											<%= f.country_select :locations_country_cont, :class => 'sp-form-control', :include_blank => true %>
 													</div>
 												<div class="col-xs-12 col-md-4">
 													<%= f.label :panel_status_cont, label: false, :class => 'label' %>
