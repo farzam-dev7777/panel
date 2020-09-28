@@ -8,7 +8,7 @@ class ConflictWaiver < ApplicationRecord
 
   validates_presence_of :name_of_law_firm, :contact_details, :bmo_business_contact, :reason #, :retainer_language
 
-  validate :confirm_waiver_must_be_true
+  #validate :confirm_waiver_must_be_true
 
   CONFLICT_WAIVER_STATUS = {
     "ALREADY_COVERED": "Covered by retainer agreement",
@@ -41,9 +41,9 @@ class ConflictWaiver < ApplicationRecord
   ]
   
   
-  def confirm_waiver_must_be_true
-    errors.add(:confirm_waiver, "you must confirm that this waiver is not covered by the above waivers") if self.confirm_waiver != true
-  end
+  # def confirm_waiver_must_be_true
+  #   errors.add(:confirm_waiver, "you must confirm that this waiver is not covered by the above waivers") if self.confirm_waiver != true
+  # end
 
   def can_user_change_status?(current_user)
     if current_user.role === 'lxp'
