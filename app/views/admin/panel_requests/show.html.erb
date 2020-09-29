@@ -200,8 +200,8 @@
 									<% if(!@panel_request.law_firm.form_submissions.any?) %>
 										<!-- <div class="col-lg-2 pull-right"> -->
 											<% if(@panel_request.law_firm.user.try(:is_deactivated?)) %>
-												<a class="btn-type-primary send-user-info-btn" data-id="<%= @panel_request.law_firm.user.id %>">Send user information and create new password link </a>
-												<a style="margin-top: 10px;" class="btn-type-primary send-user-info-begin-certification-btn" data-id="<%= @panel_request.law_firm.user.id %>">Send RFI Questionnaire with user active password link </a>
+												<a class="btn-type-primary send-user-info-btn" data-id="<%= @panel_request.law_firm.user.id %>">Send Reset Password Link </a>
+												<a style="margin-top: 10px;" class="btn-type-primary send-user-info-begin-certification-btn" data-id="<%= @panel_request.law_firm.user.id %>">Send RFI and Password Link</a>
 											
 											<% else %>	
 											<a class="btn-type-primary begin-certification-btn" data-id="<%= @panel_request.law_firm.id %>">Send RFI Questionnaire
