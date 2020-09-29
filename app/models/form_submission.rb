@@ -38,8 +38,8 @@ class FormSubmission < ApplicationRecord
 	end
 
   def formatted_status
-   # (self.status == 'approved' ? "Certified" : self.status).try(:titleize)
-   self.status.try(:titleize)
+    self.status == 'decline' ? "Submission Reviewed" : self.status.try(:titleize)
+   
   end
 
   def formatted_evidence_status
