@@ -1694,6 +1694,7 @@ if($('select#conflict_waiver_confirm_waiver').val() === "true") {
 	$('.confirm_waiver_notes').show()
 	$('.confirm_waiver_btn').val("Confirm")
 	
+	
 }
 
 $('select#conflict_waiver_confirm_waiver').on('change', function() {
@@ -1701,9 +1702,11 @@ $('select#conflict_waiver_confirm_waiver').on('change', function() {
 	if(selectedValue === "true") {
 		$('.confirm_waiver_notes').show()
 		$('.confirm_waiver_btn').val("Confirm")
+		$('.confirm_waiver_btn').attr("disabled", "disabled")
 	} else {
 		$('.confirm_waiver_notes').hide()
 		$('.confirm_waiver_btn').val("Next")
+		$('.confirm_waiver_btn').removeAttr("disabled")
 	}
 });
 
