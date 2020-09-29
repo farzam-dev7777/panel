@@ -271,9 +271,15 @@ $(document).ready(function(){
 	
 })
 $('.lxp_sttaus').on('click', function(e){
-	
-	 if($('select#review_status').chosen().val() == "REQUEST_TO_LAWYER"){
-		
+	 if($('select#review_status').chosen().val() == "REQUEST_TO_INPUT"){
+			laywerId = $('select#review_assigned_to_id').chosen().val()
+			if(!laywerId) {
+				swal({
+					title: "Opps!",
+					text: "Please select lawyer"
+				});
+				return false;
+			}
 		swal({
 			title: "Are you sure you would like to approve this, this will notify and require further approval from the selected lawyer.",
 			text: "",

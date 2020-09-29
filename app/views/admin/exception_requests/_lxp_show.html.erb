@@ -34,7 +34,7 @@
                   </div> 
                   <div class="col-xs-12 col-md-12 text-right">
                     <%= link_to 'Cancel', @exception_request.new_record? ? admin_exception_requests_path : admin_conflict_waiver_path, class: 'btn-type-default' %>
-                    <%= f.button :submit, @exception_request.new_record? ? "Submit Request" : "Update Status", class:  @current_user.role === "lxp btn-type-primary" ? "lxp_sttaus btn-type-primary" : "laywr_status btn-type-primary" %>
+                    <%= f.button :submit, @exception_request.new_record? ? "Submit Request" : "Update Status", class:  @current_user.role === "lxp" ? "lxp_sttaus btn-type-primary" : "laywr_status btn-type-primary" %>
                     <% if @exception_request.lxp_status === "APPROVED" %>
                       <a href="javascript:void(0)" class="non-panel_send_retainer btn-type-primary" data-id="<%= @exception_request.id %>">Send Retainer Agreement <span class="loader">&nbsp;&nbsp;<i class="fa fa-refresh fa-spin fa-1x fa-fw"></i></span></a>
                     <% end %>
