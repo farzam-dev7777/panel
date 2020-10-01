@@ -280,22 +280,23 @@ $('.lxp_sttaus').on('click', function(e){
 				});
 				return false;
 			}
-		swal({
-			title: "Are you sure you would like to approve this, this will notify and require further approval from the selected lawyer.",
-			text: "",
-			type: "warning",
-			showCancelButton: true,
-			confirmButtonColor: "#DD6B55",
-			confirmButtonText: "Ok",
-			cancelButtonText: "Cancel",
-			closeOnConfirm: true,
-			closeOnCancel: true
-		},
-		function(isConfirm){
-			if (isConfirm) {
-			 $('#new_review').submit()
-			}
-		});
+			$('#new_review').submit()
+		// swal({
+		// 	title: "Are you sure you would like to approve this, this will notify and require further approval from the selected lawyer.",
+		// 	text: "",
+		// 	type: "warning",
+		// 	showCancelButton: true,
+		// 	confirmButtonColor: "#DD6B55",
+		// 	confirmButtonText: "Ok",
+		// 	cancelButtonText: "Cancel",
+		// 	closeOnConfirm: true,
+		// 	closeOnCancel: true
+		// },
+		// function(isConfirm){
+		// 	if (isConfirm) {
+			
+		// 	}
+		// });
 		return false
 	 }
 	 
