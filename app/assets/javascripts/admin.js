@@ -1693,21 +1693,20 @@ $('.lxp_review_status').on('click', function() {
 
 if($('select#conflict_waiver_confirm_waiver').val() === "true") {
 	$('.confirm_waiver_notes').show()
-	$('.confirm_waiver_btn').val("Confirm")
-	
-	
+	$('.confirm_waiver_btn').addClass('hide')
+	$('.btn_confirm').removeClass('hide')
 }
 
 $('select#conflict_waiver_confirm_waiver').on('change', function() {
 	var selectedValue = this.value;
 	if(selectedValue === "true") {
 		$('.confirm_waiver_notes').show()
-		$('.confirm_waiver_btn').val("Confirm")
-		$('.confirm_waiver_btn').attr("disabled", "disabled")
+		$('.confirm_waiver_btn').addClass('hide')
+		$('.btn_confirm').removeClass('hide')
 	} else {
 		$('.confirm_waiver_notes').hide()
-		$('.confirm_waiver_btn').val("Next")
-		$('.confirm_waiver_btn').removeAttr("disabled")
+		$('.confirm_waiver_btn').removeClass('hide')
+		$('.btn_confirm').addClass('hide')
 	}
 });
 
