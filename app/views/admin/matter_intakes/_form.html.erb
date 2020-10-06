@@ -345,9 +345,14 @@
           </div>
         </div>
       <% end %>
+
+      <% if !@matter_intake.new_record? %>
+          <%= f.input :submit_type, as: :hidden, label: false, :input_html => { :value => "update" } %>
+      <% end %>
+
         <div class="col-xs-12 col-md-12 text-right">
             <%=link_to 'Cancel', @matter_intake.new_record? ? admin_matter_intakes_path : admin_matter_intakes_path, class: 'btn-type-default' %>
-            <%= f.button :submit, @matter_intake.new_record? ? "Submit Matter Intake" : "Update Matter Intake", class: "btn-type-primary" %>
+            <%= f.button :submit, @matter_intake.new_record? ? "Next" : "Next", class: "btn-type-primary" %>
         </div>
     </div>
   <% end %>

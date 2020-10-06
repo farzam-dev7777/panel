@@ -742,10 +742,12 @@ $(".next-btn-exception").click(function () {
 		}
 		$("#tabs-exception").tabs("enable", 1);
 		$("#tabs-exception").tabs("enable", 2);
+		$("#tabs-exception").tabs("enable", 3);
 		$( "#tabs-exception" ).tabs( "option", "active", $("#tabs-exception").tabs('option', 'active')+1 );
 	} else {
 		$("#tabs-exception").tabs("enable", 1);
 		$("#tabs-exception").tabs("enable", 2);
+		$("#tabs-exception").tabs("enable", 3);
 		$( "#tabs-exception" ).tabs( "option", "active", $("#tabs-exception").tabs('option', 'active')+1 );
 	}
 });
@@ -755,7 +757,7 @@ $(".prev-btn-exception").click(function () {
 
 $("#tabs-exception").tabs({
 	active: 0,
-	disabled: [1, 2]
+	disabled: [1, 2, 3]
 });
 // check validation on tabs click
 // $( ".tabs2, .tabs3" ).on( "click", function( event, ui ) {
@@ -1668,15 +1670,19 @@ $('select#panel_request_required_unique_geography').on('change', function() {
 
 if($("select#matter_intake_outside_counsel_engaged").val() == "N/A Internal – no law firm will be engaged" || $("select#matter_intake_outside_counsel_engaged").val() == "" || $('.matter_intake_outside_counsel_engaged_value').attr('data-value') === "N/A Internal – no law firm will be engaged" || $('.matter_intake_outside_counsel_engaged_value').attr('data-value') === "" ) {
 	$('.outside_counsel_engaged').hide()
+	$('.lob_matter_submit_btn').val("Submit")
 } else {
 	$('.outside_counsel_engaged').show()
+	$('.lob_matter_submit_btn').val("Next")
 }
 
 $('select#matter_intake_outside_counsel_engaged').on('change', function() {
 	if(this.value == "N/A Internal – no law firm will be engaged" || this.value == ""){
 		$('.outside_counsel_engaged').hide()
+		$('.lob_matter_submit_btn').val("Submit")
 	} else {
 		$('.outside_counsel_engaged').show()
+		$('.lob_matter_submit_btn').val("Next")
 	}
 })
 
@@ -1774,6 +1780,91 @@ $('select#matter_intake_is_ore_reportable').on('change', function() {
 		$('.litigation_reporting').hide()
 	}
 })
+
+if($("select#matter_intake_receive_personal_information").val() == "Yes" ) {
+	$('.receive_personal_information_data_type_data_list').show()
+} else {
+	$('.receive_personal_information_data_type_data_list').hide()
+}
+
+$('select#matter_intake_receive_personal_information').on('change', function() {
+	if(this.value == "Yes"){
+		$('.receive_personal_information_data_type_data_list').show()
+	} else {
+		$('.receive_personal_information_data_type_data_list').hide()
+	}
+})
+
+if($("select#matter_intake_receive_general_business_data").val() == "Yes" ) {
+	$('.receive_general_business_data_type_data_list').show()
+} else {
+	$('.receive_general_business_data_type_data_list').hide()
+}
+$('select#matter_intake_receive_general_business_data').on('change', function() {
+	if(this.value == "Yes"){
+		$('.receive_general_business_data_type_data_list').show()
+	} else {
+		$('.receive_general_business_data_type_data_list').hide()
+	}
+})
+
+if($("select#matter_intake_applicable_technical_specialty_data").val() == "Yes" ) {
+	$('.applicable_technical_specialty_data_type_data_list').show()
+} else {
+	$('.applicable_technical_specialty_data_type_data_list').hide()
+}
+$('select#matter_intake_applicable_technical_specialty_data').on('change', function() {
+	if(this.value == "Yes"){
+		$('.applicable_technical_specialty_data_type_data_list').show()
+	} else {
+		$('.applicable_technical_specialty_data_type_data_list').hide()
+	}
+})
+
+//New Non-Panel (one-off) Request
+
+
+if($("select#exception_request_receive_personal_information").val() == "Yes" ) {
+	$('.receive_personal_information_data_type_data_list').show()
+} else {
+	$('.receive_personal_information_data_type_data_list').hide()
+}
+
+$('select#exception_request_receive_personal_information').on('change', function() {
+	if(this.value == "Yes"){
+		$('.receive_personal_information_data_type_data_list').show()
+	} else {
+		$('.receive_personal_information_data_type_data_list').hide()
+	}
+})
+
+if($("select#exception_request_receive_general_business_data").val() == "Yes" ) {
+	$('.receive_general_business_data_type_data_list').show()
+} else {
+	$('.receive_general_business_data_type_data_list').hide()
+}
+$('select#exception_request_receive_general_business_data').on('change', function() {
+	if(this.value == "Yes"){
+		$('.receive_general_business_data_type_data_list').show()
+	} else {
+		$('.receive_general_business_data_type_data_list').hide()
+	}
+})
+
+if($("select#exception_request_applicable_technical_specialty_data").val() == "Yes" ) {
+	$('.applicable_technical_specialty_data_type_data_list').show()
+} else {
+	$('.applicable_technical_specialty_data_type_data_list').hide()
+}
+$('select#exception_request_applicable_technical_specialty_data').on('change', function() {
+	if(this.value == "Yes"){
+		$('.applicable_technical_specialty_data_type_data_list').show()
+	} else {
+		$('.applicable_technical_specialty_data_type_data_list').hide()
+	}
+})
+
+
 
 $(document).ready(function(){
 	$('.simple_form_edit_exception_request').click(function(){ 

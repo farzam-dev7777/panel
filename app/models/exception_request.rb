@@ -8,6 +8,9 @@ class ExceptionRequest < ApplicationRecord
   has_many :activity_logs
   has_many :reviews, as: :reviewable
   serialize :reason, Array
+  serialize :receive_personal_information_data_type, Array
+  serialize :receive_general_business_data_type, Array
+  serialize :applicable_technical_specialty_data_type, Array
 
   LOB_LIST = ["Canadian P&C / Services bancaires Particuliers et entreprises - Canada","Capital Markets / Marché des capitaux","Corporate / Services d'entreprise","Technology & Operations / Technologie et opérations (T&O)","US P&C / Services bancaires Particuliers et entreprises - É.-U.","Wealth Management / Gestion de patrimonie"]
   REQUEST_TYPE = {
@@ -190,6 +193,11 @@ class ExceptionRequest < ApplicationRecord
     "BANK_PAY": "Bank Pay",
     "THIRD_PAARTY_PAY": "Third Party Pay"
   }
+
+  RECEIVE_PERSONAL_INFORMATION_DATA_TYPE = ["Account/Card/Credit Card Information (i.e., account type/number, relationship, balances, transactions)","Contact Information (e.g., address, e-mail address, phone #)","Credit Score/History, Credit Bureau Report, Financial Profile Information","Customer Interactions (e.g., digital images, recorded conversations, branch visits)","Date of Birth","Employee Business Contact Information","Employee Identification Number(EIN)","Employee Performance Information (e.g., PPA, performance management)","Employee Personal Information (e.g., compensation, benefits)","Employee's Training Results","Gender, Ethnicity, Physical Attributes","Health Information, including information that is processed on behalf of commercial customers","Individual Authentication Credentials (e.g., password, PIN)","Individual's Name","Lists that include employee name and business contact information","National Personal Identification Number (e.g., Tax ID, SSN, SIN)","Opinions, Survey Responses","Other Financial Information (e.g., income verification, sourced from third parties)","Other Government Issued Personal Identification Number (e.g., driver's license, passport)","Technology Identifiers (e.g., Customer IP address, IMEI number, geolocation, device ID)","Social Media posts"]
+  RECEIVE_GENERAL_BUSINESS_DATA_TYPE = ["Audit Report, internal or external","Branch Directory","Business Continuity Plan (BCP)","Business Strategy, raw closing data, closing analysis, secret reports","Commonly Shared Internal Information (e.g., corporate policies/standards, guidelines, operating procedures, interoffice memos)","Credit Card Information (e.g., PAN, track data, EMV chip data)","External & Regulatory reporting","Financial forecast or results, prior to general or public disclosure","Financial Information Related to Revenue Generation (e.g., balance sheet, profit & loss figures)","Internal Phone Directory","Interviews with news media","Legal Contract Information","Marketing Brochure","Mergers, acquisitions, or divestitures, prior to general or public disclosure","Press Releases","Product Offerings (future), Product formulas methodology or calculations","Published Annual Report, including financials","Securities issuer information that is non-public and material","Strategic plans on mergers, acquisitions, or divestitures, prior to general or public disclosure","Trade Secrets","Trading Books","Transaction Information","Vendor/Third Party Information"]
+  APPLICABLE_TECHNICAL_SPECIALTY_DATA_TYPE = ["Audit/System/Security Logs","Internal Bank IP Address, MAC Address, Hostname and Domain","Metadata","Patents, trademarks, copyrights","Private and symmetric cryptographic key and key parts","Proprietary processes, algorithms or systems","Public cryptographic key","Source Code","Sytem Documentation (e.g., design, functional specs, process, procedure, configuration data, etc.)","Documentation (e.g., design, functional specs, process, producedure, configuration, data, etc.)"]
+  
 
   def waiting_for_internal_lawyers_approval?
     self.lxp_id.present? && self.internal_lawyers_id.present? &&  self.lxp_status.nil?

@@ -229,7 +229,10 @@ class Lob::ExceptionRequestsController < Lob::BaseController
       :niche_preferred_external_counsel_panel_law_firms, :niche_expertise, :required_unique_geography, :geographic_location,
       :involved_engagement, :reson_other, :mode_of_payment, :matter_description, :matter_involve_following, :jurisdiction,
       :matter_types_search, :sub_matter_types_search, :jurisdiction_types_search, :countries_search, :states_search,
-      :women_owned, :women_owned_details, :matter_name, :law_firm_name, matter_types: [], reason: [],
+      :women_owned, :women_owned_details, :matter_name, :law_firm_name, 
+      :receive_personal_information, :receive_general_business_data, :applicable_technical_specialty_data,
+      matter_types: [], reason: [], applicable_technical_specialty_data_type: [], receive_personal_information_data_type: [], receive_general_business_data_type: [],
+      
     )
   end
 

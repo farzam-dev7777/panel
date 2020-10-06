@@ -126,6 +126,41 @@
                 </div>
               </div>
             <% end %>
+             <% if !@matter_intake.outside_counsel_engaged.blank? && @matter_intake.outside_counsel_engaged != 'N/A Internal – no law firm will be engaged' %>
+              <div class="col-xs-12 col-md-12">
+                <div class="field-label"><h2>Information Security Classification:</h2>	</div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Could the law firm engaged on this matter potentially receive any Personal Information data?	</div>
+                <div class="field-data"><%= @matter_intake.receive_personal_information %></div>
+              </div>
+              <% if @matter_intake.receive_personal_information === "Yes" %>
+                <div class="col-xs-12 col-md-12">
+                  <div class="field-label">Select all applicable data types	</div>
+                  <div class="field-data"><%= @matter_intake.receive_personal_information_data_type.reject(&:blank?).join(", ") %></div>
+                </div>
+              <% end %>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Could the law firm engaged on this matter potentially receive any General or Business data?</div>
+                <div class="field-data"><%= @matter_intake.receive_general_business_data %></div>
+              </div>
+              <% if @matter_intake.receive_general_business_data === "Yes" %>
+                <div class="col-xs-12 col-md-12">
+                  <div class="field-label">Select all applicable data types	</div>
+                  <div class="field-data"><%= @matter_intake.receive_general_business_data_type.reject(&:blank?).join(", ") %></div>
+                </div>
+              <% end %>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Could the law firm engaged on this matter potentially receive any Technical or Specialty data?	</div>
+                <div class="field-data"><%= @matter_intake.applicable_technical_specialty_data %></div>
+              </div>
+              <% if @matter_intake.applicable_technical_specialty_data === "Yes" %>
+                <div class="col-xs-12 col-md-12">
+                  <div class="field-label">Select all applicable data types	</div>
+                  <div class="field-data"><%= @matter_intake.applicable_technical_specialty_data_type.reject(&:blank?).join(", ") %></div>
+                </div>
+              <% end %>
+             <% end %>  
           </div>
           </div>
         </div>
@@ -133,3 +168,4 @@
     </div>
   </div>
 </div>
+

@@ -48,6 +48,8 @@ Rails.application.routes.draw do
       end
       collection do 
         post :lxp_rejects
+        get ':matter_intake_id/information_security_classification' => 'matter_intakes#information_security_classification', :as => "matter_intakes_information_security_classification"
+        post ':matter_intake_id/information_security_classification' => 'matter_intakes#update_information_security_classification', :as => "matter_intakes_update_information_security_classification"
       end
     end
 
@@ -165,7 +167,11 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :matter_intakes
+    resources :matter_intakes do
+      collection do
+        get ':matter_intake_id/information_security_classification' => 'matter_intakes#information_security_classification', :as => "matter_intakes_information_security_classification"
+      end
+    end
 
     resources :activity_logs do
       collection do

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200922185002) do
+ActiveRecord::Schema.define(version: 20201006174824) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -206,6 +206,12 @@ ActiveRecord::Schema.define(version: 20200922185002) do
     t.string   "matter_involve_following"
     t.string   "jurisdiction"
     t.text     "reason_details"
+    t.string   "receive_personal_information"
+    t.string   "receive_general_business_data"
+    t.string   "applicable_technical_specialty_data"
+    t.text     "receive_personal_information_data_type"
+    t.text     "receive_general_business_data_type"
+    t.text     "applicable_technical_specialty_data_type"
   end
 
   create_table "faq_categories", force: :cascade do |t|
@@ -621,6 +627,12 @@ ActiveRecord::Schema.define(version: 20200922185002) do
     t.string   "who_requires_access_to_imanage_workspace"
     t.boolean  "email_notification_to_litigation_specialist_team", default: false
     t.string   "asset"
+    t.string   "receive_personal_information"
+    t.string   "receive_general_business_data"
+    t.string   "applicable_technical_specialty_data"
+    t.text     "receive_personal_information_data_type"
+    t.text     "receive_general_business_data_type"
+    t.text     "applicable_technical_specialty_data_type"
   end
 
   create_table "matter_types", force: :cascade do |t|
