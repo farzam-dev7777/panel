@@ -52,7 +52,18 @@
 			</ul>
 		</div>
 </div>
+<br>
 
+<% if Current.user.role === "internal_lawyers" %>
+	<div class="col-lg-12 col-md-12 col-sm-12" style="margin-top: 20px">
+		<div class="sp-form sp-form-bg text-center">
+		<p>	
+			<b> <%= link_to 'Submit New Matter Intake Form (General Intake)', new_admin_matter_intake_path(form_type: "general"), html_options = {class: 'btn-type-primary'}   %></b>
+			<b> <%= link_to 'Submit New Matter Intake Form (Litigation Intake)', new_admin_matter_intake_path(form_type: "litigation"), html_options = {class: 'btn-type-primary'}   %></b>
+		</p>
+		</div>
+	</div>
+<% end %>
 <!-- Engage Non Panel Firms Starts-->
 <div class="col-lg-12 col-md-12 col-sm-12">
 	<div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
