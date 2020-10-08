@@ -552,11 +552,13 @@ $('.searchLawFirm').on('click', function() {
 $('input[name="exception_request[is_work]"]').on('click', function() {
 	is_work_value = $(this).val()
 	if(is_work_value === "No"){
+		$('.engage_non_panel_firm_notes').show()
 		$('.engage_non_panel_firm_btn').val('Next')
 		$('.engage_non_panel_firm_btn').attr('data-disable-with', 'Next')
 		
 		$('.engage_non_panel_firm_btn').removeClass('hide')
 	}else{
+		$('.engage_non_panel_firm_notes').hide()
 		$('.engage_non_panel_firm_btn').val('Confirm')
 		$('.engage_non_panel_firm_btn').attr('data-disable-with', 'Submit Requests')
 		$('.engage_non_panel_firm_btn').removeClass('hide')

@@ -70,7 +70,7 @@
               <div class="row law_firm_list" style="display:none">
                 <div class="col-md-12" id="wid-id-0" data-widget-editbutton="false">
                   <div class="page-header-sp">
-                    <div class="page-title">The below law firms are on BMO's LXP Panel and have negotiated billing terms, including discounts. Please review this list to determine if one of these law firms can do this work.</div>
+                    <div class="page-title">The below law firms are on BMO's LXP Panel and have already signed our general retainer agreeing to BMO's terms and conditions. These firms have also been risk assessed and meet BMO's supplier risk standards.</div>
                     <div> <!-- for more option in header --> </div>
                   </div>
                   <%= simple_form_for [:lob, @exception_request] do |f| %>
@@ -92,6 +92,7 @@
                           <label class="label">Could one of these BMO LXP Panel law firms do the work?</label>
                           <%= f.input :is_work, as: :radio_buttons, label: false, collection: ["Yes", "No"]  %>
                         </div>
+                        <p style="display:none;" class="engage_non_panel_firm_notes">By proceeding with this request, you acknowledge that LXP must approve this request before you can engage the law firm. You also acknowledge that the law firm will be required to sign our retainer agreement, without edits.</p>
                         <div class="">
                             <%= f.input :user_id, :as => :hidden, :input_html => { :value => @current_admin_user_id } %>
                             <%= f.input :matter_types_search, :as => :hidden, :input_html => { :value => "" } %>
