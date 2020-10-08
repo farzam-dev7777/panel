@@ -312,7 +312,7 @@
             </div>
             <div class="col-xs-12 col-md-6 litigation_reporting">
               <label class="label">Process Type Level 1<span class="mandatory">*</span></label>
-              <%= f.input :process_type_level_1, label: false, collection: MatterIntake::ProcessTypeLevel1 %>
+              <%= f.input :process_type_level_1, label: false, collection: MatterIntake::ProcessTypeLevel1.sort_by!{ |e| e.downcase } %>
             </div>
             <div class="col-xs-12 col-md-6 litigation_reporting">
               <label class="label">Process Type Level 2<span class="mandatory">*</span></label>
@@ -320,7 +320,7 @@
             </div>
             <div class="col-xs-12 col-md-6 litigation_reporting">
               <label class="label">Product Type Level 1<span class="mandatory">*</span></label>
-              <%= f.input :product_type_level_1, label: false, collection: MatterIntake::ProductTypeLevel1 %>
+              <%= f.input :product_type_level_1, label: false, collection: MatterIntake::ProductTypeLevel1.sort_by!{ |e| e.downcase } %>
             </div>
             <div class="col-xs-12 col-md-6 litigation_reporting">
               <label class="label">Product Type Level 2<span class="mandatory">*</span></label>
@@ -328,7 +328,7 @@
             </div>
             <div class="col-xs-12 col-md-6 litigation_reporting">
               <label class="label">Event Type Level 1<span class="mandatory">*</span></label>
-              <%= f.input :event_type_level_1, label: false, collection: MatterIntake::EventTypeLevel1 %>
+              <%= f.input :event_type_level_1, label: false, collection: MatterIntake::EventTypeLevel1.sort_by!{ |e| e.downcase } %>
             </div>
             <div class="col-xs-12 col-md-6 litigation_reporting">
               <label class="label">Event Type Level 2<span class="mandatory">*</span></label>
@@ -336,7 +336,7 @@
             </div>
             <div class="col-xs-12 col-md-6 litigation_reporting">
               <label class="label">Business Activity Level 1<span class="mandatory">*</span></label>
-              <%= f.input :business_activity_level_1, label: false, collection: MatterIntake::BusinessActivityLevel1 %>
+              <%= f.input :business_activity_level_1, label: false, collection: MatterIntake::BusinessActivityLevel1.sort_by!{ |e| e.downcase } %>
             </div>
             <div class="col-xs-12 col-md-6 litigation_reporting">
               <label class="label">Business Activity Level 2<span class="mandatory">*</span></label>

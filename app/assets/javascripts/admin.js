@@ -1214,20 +1214,20 @@ function setMatterIntakeProcessLevelType1(value) {
 			options += "<option value='Confirm and Document Transactions'>Confirm and Document Transactions</option>";
 			break;
 		case "Deliver Products and Services":
-			options += "<option value='Order Routing'>Order Routing</option>";
-			options += "<option value='Execution/Order Fill'>Execution/Order Fill</option>";
-			options += "<option value='Position/Portfolio Mgt (proprietary)'>Position/Portfolio Mgt (proprietary)</option>";
-			options += "<option value='Cash, Stock and Securities Mgt'>Cash, Stock and Securities Mgt</option>";
-			options += "<option value='Event Management/Corporate Actions (own assets)'>Event Management/Corporate Actions (own assets)</option>";
-			options += "<option value='Fees Admin, Calculation and Application'>Fees Admin, Calculation and Application</option>";
-			options += "<option value='Calculate and Apply Interest'>Calculate and Apply Interest</option>";
-			options += "<option value='Collateral Management'>Collateral Management</option>";
-			options += "<option value='Product Control'>Product Control</option>";
-			options += "<option value='Portfolio Mgt (client assets)'>Portfolio Mgt (client assets)</option>";
-			options += "<option value='Event Management/Corporate Actions (client assets)'>Event Management/Corporate Actions (client assets)</option>";
-			options += "<option value='Safekeeping of Client Assets'>Safekeeping of Client Assets</option>";
 			options += "<option value='Advisory Services'>Advisory Services</option>";
+			options += "<option value='Calculate and Apply Interest'>Calculate and Apply Interest</option>";
+			options += "<option value='Cash, Stock and Securities Mgt'>Cash, Stock and Securities Mgt</option>";
+			options += "<option value='Collateral Management'>Collateral Management</option>";
 			options += "<option value='Customer Statements'>Customer Statements</option>";
+			options += "<option value='Event Management/Corporate Actions (client assets)'>Event Management/Corporate Actions (client assets)</option>";
+			options += "<option value='Event Management/Corporate Actions (own assets)'>Event Management/Corporate Actions (own assets)</option>";
+			options += "<option value='Execution/Order Fill'>Execution/Order Fill</option>";
+			options += "<option value='Fees Admin, Calculation and Application'>Fees Admin, Calculation and Application</option>";
+			options += "<option value='Order Routing'>Order Routing</option>";
+			options += "<option value='Portfolio Mgt (client assets)'>Portfolio Mgt (client assets)</option>";
+			options += "<option value='Position/Portfolio Mgt (proprietary)'>Position/Portfolio Mgt (proprietary)</option>";
+			options += "<option value='Product Control'>Product Control</option>";
+			options += "<option value='Safekeeping of Client Assets'>Safekeeping of Client Assets</option>";
 			break;
 		case "Develop, Design and Maintain Products, Services and General Business Capabilities":
 			options += "<option value='Market Analysis/Research'>Market Analysis/Research</option>";
@@ -1235,51 +1235,51 @@ function setMatterIntakeProcessLevelType1(value) {
 			options += "<option value='Reference Data Management'>Reference Data Management</option>";
 			break;
 		case "Market Products and Services":
-			options += "<option value='Research (Marketing)'>Research (Marketing)</option>";
-			options += "<option value='Publishing Price Quotes'>Publishing Price Quotes</option>";
 			options += "<option value='Marketing - Other'>Marketing - Other</option>";
+			options += "<option value='Publishing Price Quotes'>Publishing Price Quotes</option>";
+			options += "<option value='Research (Marketing)'>Research (Marketing)</option>";
 			break;
 		case "Sell/Reach Agreement to Conduct Specific Business":
 			options += "<option value='Advisory/Pitch/Pre-Sales'>Advisory/Pitch/Pre-Sales</option>";
 			options += "<option value='Pricing and Quotation'>Pricing and Quotation</option>";
-			options += "<option value='Transaction/Limit Check'>Transaction/Limit Check</option>";
 			options += "<option value='Reach Agreement/Order Receipt'>Reach Agreement/Order Receipt</option>";
+			options += "<option value='Transaction/Limit Check'>Transaction/Limit Check</option>";
 			break;
 		case "Take on and Maintain Clients/Customers, Counterparties and Trade Relationships":
 			options += "<option value='(New) Client Account'>(New) Client Account</option>";
-			options += "<option value='CRM/Client Services'>CRM/Client Services</option>";
 			options += "<option value='Client Due Diligence'>Client Due Diligence</option>";
+			options += "<option value='CRM/Client Services'>CRM/Client Services</option>";
 			options += "<option value='Loan Defaults'>Loan Defaults</option>";
 			break;
 		case "Perform Settlements and Closing Activities":
-			options += "<option value='Payment/Delivery (non-cash/non-physical)'>Payment/Delivery (non-cash/non-physical)</option>";
 			options += "<option value='Cash Payment/Physical Delivery'>Cash Payment/Physical Delivery</option>";
 			options += "<option value='Fails Management'>Fails Management</option>";
+			options += "<option value='Payment/Delivery (non-cash/non-physical)'>Payment/Delivery (non-cash/non-physical)</option>";
 			break;
 		case "Perform Transaction Accounting":
 			options += "<option value='Transaction Accounting'>Transaction Accounting</option>";
 			break;
 		case "Manage Human Resources":
 			options += "<option value='HR Management'>HR Management</option>";
+			options += "<option value='Other HR Issues'>Other HR Issues</option>";
 			options += "<option value='Remuneration, Expenses and Payroll'>Remuneration, Expenses and Payroll</option>";
 			options += "<option value='Travel Accidents'>Travel Accidents</option>";
-			options += "<option value='Other HR Issues'>Other HR Issues</option>";
 			break;
 		case "Manage Information Technology":
 			options += "<option value='IT Development'>IT Development</option>";
 			options += "<option value='IT Implementation'>IT Implementation</option>";
+			options += "<option value='IT Maintenance'>IT Maintenance</option>";
+			options += "<option value='IT Production'>IT Production</option>";
 			options += "<option value='IT Purchasing'>IT Purchasing</option>";
 			options += "<option value='IT Security'>IT Security</option>";
 			options += "<option value='Maintain Infrastructure and Networks'>Maintain Infrastructure and Networks</option>";
-			options += "<option value='IT Production'>IT Production</option>";
 			options += "<option value='Mgt of IT Incidents'>Mgt of IT Incidents</option>";
-			options += "<option value='IT Maintenance'>IT Maintenance</option>";
 			break;
 		case "Manage Financial Reporting and Taxation":
 			options += "<option value='Budgeting and Forecasting'>Budgeting and Forecasting</option>";
+			options += "<option value='Financial Accounting and Reporting'>Financial Accounting and Reporting</option>";
 			options += "<option value='Management Accounting'>Management Accounting</option>";
 			options += "<option value='Management Reporting'>Management Reporting</option>";
-			options += "<option value='Financial Accounting and Reporting'>Financial Accounting and Reporting</option>";
 			options += "<option value='Taxation'>Taxation</option>";
 			break;
 		case "Manage Capital, Funding and Liquidity":
@@ -1287,36 +1287,36 @@ function setMatterIntakeProcessLevelType1(value) {
 			options += "<option value='Management of Corporate Investments'>Management of Corporate Investments</option>";
 			break;
 		case "Manage Suppliers and Outsourcing Service Suppliers":
-			options += "<option value='Take on Outsourcing'>Take on Outsourcing</option>";
 			options += "<option value='Conclusion of Outsourcing Contract'>Conclusion of Outsourcing Contract</option>";
-			options += "<option value='Outsourcing Management and Monitoring'>Outsourcing Management and Monitoring</option>";
-			options += "<option value='Take on Suppliers'>Take on Suppliers</option>";
 			options += "<option value='Conclusion of Suppliers Contract'>Conclusion of Suppliers Contract</option>";
+			options += "<option value='Outsourcing Management and Monitoring'>Outsourcing Management and Monitoring</option>";
 			options += "<option value='Suppliers Management and Monitoring'>Suppliers Management and Monitoring</option>";
+			options += "<option value='Take on Outsourcing'>Take on Outsourcing</option>";
+			options += "<option value='Take on Suppliers'>Take on Suppliers</option>";
 			break;
 		case "Manage Physical Assets and Facilities":
+			options += "<option value='Environmental Protection'>Environmental Protection</option>";
 			options += "<option value='Facility Mgt'>Facility Mgt</option>";
 			options += "<option value='Fleet Mgt'>Fleet Mgt</option>";
-			options += "<option value='Office Equipment'>Office Equipment</option>";
 			options += "<option value='Health and Safety'>Health and Safety</option>";
-			options += "<option value='Physical Security'>Physical Security</option>";
-			options += "<option value='Environmental Protection'>Environmental Protection</option>";
+			options += "<option value='Office Equipment'>Office Equipment</option>";
 			options += "<option value='Other Internal Services'>Other Internal Services</option>";
+			options += "<option value='Physical Security'>Physical Security</option>";
 			break;
 		case "Manage Compliance, Legal, Governance and Audit":
-			options += "<option value='Policies, Governance and Monitoring'>Policies, Governance and Monitoring</option>";
-			options += "<option value='Non-Financial Regulatory Reporting'>Non-Financial Regulatory Reporting</option>";
+			options += "<option value='Administration of Mandates and Directorships'>Administration of Mandates and Directorships</option>";
+			options += "<option value='Audit'>Audit</option>";
+			options += "<option value='Information Integrity Management'>Information Integrity Management</option>";
 			options += "<option value='Legal Advisory Services'>Legal Advisory Services</option>";
 			options += "<option value='Litigation Management'>Litigation Management</option>";
-			options += "<option value='Audit'>Audit</option>";
-			options += "<option value='Administration of Mandates and Directorships'>Administration of Mandates and Directorships</option>";
+			options += "<option value='Non-Financial Regulatory Reporting'>Non-Financial Regulatory Reporting</option>";
+			options += "<option value='Policies, Governance and Monitoring'>Policies, Governance and Monitoring</option>";
 			options += "<option value='Protect Private Information'>Protect Private Information</option>";
-			options += "<option value='Information Integrity Management'>Information Integrity Management</option>";
 			break;
 		case "Manage Risk Systems":
+				options += "<option value='Business Continuity Management'>Business Continuity Management</option>";
 			options += "<option value='Control and Oversight of Models and Methodologies'>Control and Oversight of Models and Methodologies</option>";
 			options += "<option value='Insurance and Recoveries'>Insurance and Recoveries</option>";
-			options += "<option value='Business Continuity Management'>Business Continuity Management</option>";
 			break;
 		default:
 	}
@@ -1341,44 +1341,44 @@ function setMatterIntakeEventType1(value) {
 	var event_type_2_value = $("#matter_intake_event_type_level_2").attr("data-value");
 	switch(value) {
 		case "Internal Fraud":
-			options += "<option value='Unauthorized Activity'>Unauthorized Activity</option>";
-			options += "<option value='Theft and Fraud - In Person - Internal'>Theft and Fraud - In Person - Internal</option>";
 			options += "<option value='Theft and Fraud - Electronic - Internal'>Theft and Fraud - Electronic - Internal</option>";
+			options += "<option value='Theft and Fraud - In Person - Internal'>Theft and Fraud - In Person - Internal</option>";
+			options += "<option value='Unauthorized Activity'>Unauthorized Activity</option>";
 			break;
 		case "External Fraud":
 			options += "<option value='Theft and Fraud - In Person - External'>Theft and Fraud - In Person - External</option>";
 			options += "<option value='Theft and fraud - Electronic - External'>Theft and fraud - Electronic - External</option>";
 			break;
 		case "Employment Practices and Workplace Safety":
+			options += "<option value='Employee Discrimination'>Employee Discrimination</option>";
 			options += "<option value='Employee Management Errors'>Employee Management Errors</option>";
 			options += "<option value='Unsafe Workplace'>Unsafe Workplace</option>";
-			options += "<option value='Employee Discrimination'>Employee Discrimination</option>";
 			break;
 		case "Clients, Products and Business Practices":
-			options += "<option value='Suitability, Disclosure, and Fiduciary'>Suitability, Disclosure, and Fiduciary</option>";
 			options += "<option value='Improper Business or Market Practices'>Improper Business or Market Practices</option>";
-			options += "<option value='Product Flaws'>Product Flaws</option>";
-			options += "<option value='Inappropriate Selection or Excessive Exposure'>Inappropriate Selection or Excessive Exposure</option>";
 			options += "<option value='Inappropriate Advice'>Inappropriate Advice</option>";
+			options += "<option value='Inappropriate Selection or Excessive Exposure'>Inappropriate Selection or Excessive Exposure</option>";
+			options += "<option value='Product Flaws'>Product Flaws</option>";
+			options += "<option value='Suitability, Disclosure, and Fiduciary'>Suitability, Disclosure, and Fiduciary</option>";
 			options += "<option value='Unfounded Lawsuit'>Unfounded Lawsuit</option>";
 			break;
 		case "Disasters and Public Safety":
-			options += "<option value='Property Damage'>Property Damage</option>";
 			options += "<option value='Physical Harm to Third Parties and Property'>Physical Harm to Third Parties and Property</option>";
-			options += "<option value='Wilful Damage'>Wilful Damage</option>";
-			options += "<option value='Terrorism'>Terrorism</option>";
+			options += "<option value='Property Damage'>Property Damage</option>";
 			options += "<option value='Systems Security - Wilful Damage - External'>Systems Security - Wilful Damage - External</option>";
 			options += "<option value='Systems Security - Wilful Damage - Internal'>Systems Security - Wilful Damage - Internal</option>";
+			options += "<option value='Terrorism'>Terrorism</option>";
+			options += "<option value='Wilful Damage'>Wilful Damage</option>";
 			break;
 		case "Technology and Infrastructure Failures":
 			options += "<option value='IT Failures'>IT Failures</option>";
 			options += "<option value='Systemic Infrastructure Failures'>Systemic Infrastructure Failures</option>";
 			break;
 		case "Execution, Delivery and Process Management":
-			options += "<option value='Transaction Capture, Execution, and Maintenance'>Transaction Capture, Execution, and Maintenance</option>";
-			options += "<option value='Monitoring and Reporting Errors'>Monitoring and Reporting Errors</option>";
-			options += "<option value='Customer Intake and Documentation Errors'>Customer Intake and Documentation Errors</option>";
 			options += "<option value='Customer Account Management Errors'>Customer Account Management Errors</option>";
+			options += "<option value='Customer Intake and Documentation Errors'>Customer Intake and Documentation Errors</option>";
+			options += "<option value='Monitoring and Reporting Errors'>Monitoring and Reporting Errors</option>";
+			options += "<option value='Transaction Capture, Execution, and Maintenance'>Transaction Capture, Execution, and Maintenance</option>";
 			break;
 		default:
 	}
@@ -1403,81 +1403,81 @@ function setMatterIntakeProductType1(value) {
 	var product_type_2_value = $("#matter_intake_product_type_level_2").attr("data-value");
 	switch(value) {
 		case "Capital Raising":
-			options += "<option value='Equity Issuance'>Equity Issuance</option>";
 			options += "<option value='Bond Issuance'>Bond Issuance</option>";
-			options += "<option value='Structured Products Issuance'>Structured Products Issuance</option>";
-			options += "<option value='Securitisations'>Securitisations</option>";
+			options += "<option value='Equity Issuance'>Equity Issuance</option>";
 			options += "<option value='Private Placements'>Private Placements</option>";
+			options += "<option value='Securitisations'>Securitisations</option>";
+			options += "<option value='Structured Products Issuance'>Structured Products Issuance</option>";
 			options += "<option value='Syndications'>Syndications</option>";
 			break;
 		case "Corporate Finance Services":
-			options += "<option value='Mergers and Acquisitions'>Mergers and Acquisitions</option>";
-			options += "<option value='Corporate Advisory Services'>Corporate Advisory Services</option>";
-			options += "<option value='Fixed Income'>Fixed Income</option>";
-			options += "<option value='Equities'>Equities</option>";
 			options += "<option value='Commodities'>Commodities</option>";
-			options += "<option value='Foreign Exchange and Money Markets (FX and MM)'>Foreign Exchange and Money Markets (FX and MM)</option>";
-			options += "<option value='Repos/Securities Lending'>Repos/Securities Lending</option>";
-			options += "<option value='Investment Funds'>Investment Funds</option>";
-			options += "<option value='OTC and Securitised Interest Rate Derivatives'>OTC and Securitised Interest Rate Derivatives</option>";
-			options += "<option value='OTC and Securitised Credit Derivatives'>OTC and Securitised Credit Derivatives</option>";
-			options += "<option value='OTC and Securitised FX Derivatives'>OTC and Securitised FX Derivatives</option>";
-			options += "<option value='OTC and Securitised Equity Derivatives'>OTC and Securitised Equity Derivatives</option>";
-			options += "<option value='OTC and Securitised Commodity Derivatives'>OTC and Securitised Commodity Derivatives</option>";
-			options += "<option value='Other OTC and Securitised Derivatives'>Other OTC and Securitised Derivatives</option>";
+			options += "<option value='Corporate Advisory Services'>Corporate Advisory Services</option>";
+			options += "<option value='Equities'>Equities</option>";
 			options += "<option value='Exchange Traded Futures and Options'>Exchange Traded Futures and Options</option>";
+			options += "<option value='Fixed Income'>Fixed Income</option>";
+			options += "<option value='Foreign Exchange and Money Markets (FX and MM)'>Foreign Exchange and Money Markets (FX and MM)</option>";
+			options += "<option value='Investment Funds'>Investment Funds</option>";
+			options += "<option value='Mergers and Acquisitions'>Mergers and Acquisitions</option>";
+			options += "<option value='OTC and Securitised Commodity Derivatives'>OTC and Securitised Commodity Derivatives</option>";
+			options += "<option value='OTC and Securitised Credit Derivatives'>OTC and Securitised Credit Derivatives</option>";
+			options += "<option value='OTC and Securitised Equity Derivatives'>OTC and Securitised Equity Derivatives</option>";
+			options += "<option value='OTC and Securitised FX Derivatives'>OTC and Securitised FX Derivatives</option>";
+			options += "<option value='OTC and Securitised Interest Rate Derivatives'>OTC and Securitised Interest Rate Derivatives</option>";
+			options += "<option value='Other OTC and Securitised Derivatives'>Other OTC and Securitised Derivatives</option>";
+			options += "<option value='Repos/Securities Lending'>Repos/Securities Lending</option>";
 			break;
 		case "Retail Credit":
-			options += "<option value='Retail Cards'>Retail Cards</option>";
-			options += "<option value='Vehicle Loans'>Vehicle Loans</option>";
-			options += "<option value='Vehicle Leasing'>Vehicle Leasing</option>";
-			options += "<option value='Student Loans'>Student Loans</option>";
-			options += "<option value='Mortgages'>Mortgages</option>";
 			options += "<option value='Home Equity Loans and Lines of Credit'>Home Equity Loans and Lines of Credit</option>";
+			options += "<option value='Mortgages'>Mortgages</option>";
+			options += "<option value='Other Consumer Leasing'>Other Consumer Leasing</option>";
 			options += "<option value='Other Secured Consumer Loans'>Other Secured Consumer Loans</option>";
 			options += "<option value='Other Unsecured Consumer Loans'>Other Unsecured Consumer Loans</option>";
-			options += "<option value='Other Consumer Leasing'>Other Consumer Leasing</option>";
 			options += "<option value='Personal standby letters of credit or guarantees'>Personal standby letters of credit or guarantees</option>";
+			options += "<option value='Retail Cards'>Retail Cards</option>";
+			options += "<option value='Student Loans'>Student Loans</option>";
+			options += "<option value='Vehicle Leasing'>Vehicle Leasing</option>";
+			options += "<option value='Vehicle Loans'>Vehicle Loans</option>";
 			break;
 		case "Commercial Credit":
+			options += "<option value='Card Merchant Services'>Card Merchant Services</option>";
 			options += "<option value='Commercial and Industrial Loans'>Commercial and Industrial Loans</option>";
+			options += "<option value='Commercial Cards'>Commercial Cards</option>";
+			options += "<option value='Commercial Leases'>Commercial Leases</option>";
 			options += "<option value='Commercial Real Estate Loans'>Commercial Real Estate Loans</option>";
 			options += "<option value='Construction, Acquisition and Development Loans'>Construction, Acquisition and Development Loans</option>";
-			options += "<option value='Commercial Leases'>Commercial Leases</option>";
-			options += "<option value='Commercial Cards'>Commercial Cards</option>";
-			options += "<option value='Card Merchant Services'>Card Merchant Services</option>";
-			options += "<option value='Project Finance Loans'>Project Finance Loans</option>";
-			options += "<option value='Trade Finance'>Trade Finance</option>";
-			options += "<option value='Standby Letters of Credit, Bank Guarantees, Bankers Acceptances'>Standby Letters of Credit, Bank Guarantees, Bankers Acceptances</option>";
 			options += "<option value='Factoring'>Factoring</option>";
+			options += "<option value='Project Finance Loans'>Project Finance Loans</option>";
+			options += "<option value='Standby Letters of Credit, Bank Guarantees, Bankers Acceptances'>Standby Letters of Credit, Bank Guarantees, Bankers Acceptances</option>";
 			options += "<option value='Structured Lending'>Structured Lending</option>";
+			options += "<option value='Trade Finance'>Trade Finance</option>";
 			break;
 		case "Deposits":
-			options += "<option value='Consumer Current Accounts'>Consumer Current Accounts</option>";
-			options += "<option value='Consumer Notice Accounts'>Consumer Notice Accounts</option>";
 			options += "<option value='Commercial Bank Accounts'>Commercial Bank Accounts</option>";
 			options += "<option value='Commercial Time and Term Deposits'>Commercial Time and Term Deposits</option>";
+			options += "<option value='Consumer Current Accounts'>Consumer Current Accounts</option>";
+			options += "<option value='Consumer Notice Accounts'>Consumer Notice Accounts</option>";
 			options += "<option value='Investment Products'>Investment Products</option>";
 			break;
 		case "Cash Management, Payments and Settlements":
-			options += "<option value='Retail Cash Management'>Retail Cash Management</option>";
+			options += "<option value='Clearing'>Clearing</option>";
 			options += "<option value='Commercial Cash Management'>Commercial Cash Management</option>";
 			options += "<option value='Electronic Payments'>Electronic Payments</option>";
-			options += "<option value='Manual Payments'>Manual Payments</option>";
-			options += "<option value='Clearing'>Clearing</option>";
-			options += "<option value='Settlement'>Settlement</option>";
 			options += "<option value='Exchange Services'>Exchange Services</option>";
+			options += "<option value='Manual Payments'>Manual Payments</option>";
+			options += "<option value='Retail Cash Management'>Retail Cash Management</option>";
+			options += "<option value='Settlement'>Settlement</option>";
 			break;
 		case "Trust/Investment Management":
-			options += "<option value='Custody Services'>Custody Services</option>";
+			options += "<option value='Advisory Portfolio Management'>Advisory Portfolio Management</option>";
 			options += "<option value='Corporate Actions Services'>Corporate Actions Services</option>";
 			options += "<option value='Corporate Trusts'>Corporate Trusts</option>";
-			options += "<option value='Prime Brokerage'>Prime Brokerage</option>";
-			options += "<option value='Financial and Estate Planning'>Financial and Estate Planning</option>";
+			options += "<option value='Custody Services'>Custody Services</option>";
 			options += "<option value='Discretionary Portfolio Management'>Discretionary Portfolio Management</option>";
 			options += "<option value='Execution-only Services'>Execution-only Services</option>";
-			options += "<option value='Advisory Portfolio Management'>Advisory Portfolio Management</option>";
+			options += "<option value='Financial and Estate Planning'>Financial and Estate Planning</option>";
 			options += "<option value='Lombard Credits'>Lombard Credits</option>";
+			options += "<option value='Prime Brokerage'>Prime Brokerage</option>";
 			break;
 		case "Investment Products":
 			options += "<option value='Fund Administration'>Fund Administration</option>";
@@ -1517,14 +1517,14 @@ function setMatterIntakeBusinessActivityLevel1(value) {
 	var business_activity_level_2_value = $("#matter_intake_business_activity_level_2").attr("data-value");
 	switch(value) {
 		case "Corporate Finance":
+			options += "<option value='Advisory Services'>Advisory Services</option>";
 			options += "<option value='Corporate Finance'>Corporate Finance</option>";
 			options += "<option value='Municipal/Government Finance'>Municipal/Government Finance</option>";
-			options += "<option value='Advisory Services'>Advisory Services</option>";
 			break;
 		case "Trading and Sales":
+			options += "<option value='Corporate Investments'>Corporate Investments</option>";
 			options += "<option value='Equities'>Equities</option>";
 			options += "<option value='Global Markets'>Global Markets</option>";
-			options += "<option value='Corporate Investments'>Corporate Investments</option>";
 			options += "<option value='Treasury'>Treasury</option>";
 			break;
 		case "Retail Banking":
@@ -1538,8 +1538,8 @@ function setMatterIntakeBusinessActivityLevel1(value) {
 			options += "<option value='Securities clearing'>Securities clearing</option>";
 			break;
 		case "Agency Services":
-			options += "<option value='Custody'>Custody</option>";
 			options += "<option value='Corporate Trust and Agency'>Corporate Trust and Agency</option>";
+			options += "<option value='Custody'>Custody</option>";
 			options += "<option value='Custom Services'>Custom Services</option>";
 			break;
 		case "Asset Management":
