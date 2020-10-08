@@ -8,6 +8,7 @@
       <div class="col-xs-6 col-md-12">
         <label class="label">Could the law firm engaged on this matter potentially receive any Personal Information data?<span class="mandatory">*</span></label>
         <%= f.input :receive_personal_information, label: false, collection: [["", ""], ['Yes', 'Yes'], ["No", "No"]] %>
+        <p class="custom-error">This field is required</p>
       </div>
       <div class="col-xs-12 col-md-6 receive_personal_information_data_type_data_list" style="display:none">
         <label class="label">Select all applicable data types: </label>
@@ -19,6 +20,7 @@
       <div class="col-xs-12 col-md-12">
         <label class="label">Could the law firm engaged on this matter potentially receive any General or Business data?<span class="mandatory">*</span></label>
         <%= f.input :receive_general_business_data, label: false, collection: [["", ""], ['Yes', 'Yes'], ["No", "No"]] %>
+        <p class="custom-error">This field is required</p>
       </div>
       
       <div class="col-xs-12 col-md-6 receive_general_business_data_type_data_list" style="display:none">
@@ -31,6 +33,7 @@
       <div class="col-xs-12 col-md-12">
         <label class="label">Could the law firm engaged on this matter potentially receive any Technical or Specialty data?<span class="mandatory">*</span></label>
         <%= f.input :applicable_technical_specialty_data, label: false, collection: [["", ""], ['Yes', 'Yes'], ["No", "No"]] %>
+        <p class="custom-error">This field is required</p>
       </div>
      
       <div class="col-xs-12 col-md-6 applicable_technical_specialty_data_type_data_list " style="display:none">
@@ -42,7 +45,7 @@
       <div class="clearfix"></div>
       <div class="col-md-12">
         <%=link_to 'Cancel', @matter_intake.new_record? ? new_lob_matter_intake_path : new_lob_matter_intake_path, class: 'btn-type-default' %>
-        <%= f.button :submit, @matter_intake.new_record? ? "Next" : "Next", class: "btn-type-primary" %>      
+        <%= f.button :submit, @matter_intake.new_record? ? "Submit" : "Submit", class: "btn-type-primary simple_form_edit_matter_intakes" %>      
       </div>
     </div>
   <% end %>

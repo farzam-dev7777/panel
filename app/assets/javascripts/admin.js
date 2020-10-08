@@ -1979,4 +1979,65 @@ $('.simple_form_edit_exception_request').click(function(){
 });
 
 
+$('.simple_form_edit_matter_intakes').click(function(){ 
+	
+	matter_intake_receive_personal_information = $('select#matter_intake_receive_personal_information');
+	matter_intake_receive_general_business_data = $('select#matter_intake_receive_general_business_data');
+	matter_intake_applicable_technical_specialty_data = $('select#matter_intake_applicable_technical_specialty_data'); 
+		
+	if(matter_intake_receive_personal_information.val() == ""){
+		$(matter_intake_receive_personal_information).parent().parent().find(".custom-error").show()
+	}else{
+			$(matter_intake_receive_personal_information).parent().parent().find(".custom-error").hide()
+	}
+	if(matter_intake_receive_general_business_data.val() == ""){
+		$(matter_intake_receive_general_business_data).parent().parent().find(".custom-error").show()
+	}else{
+		$(matter_intake_receive_general_business_data).parent().parent().find(".custom-error").hide()
+	}
+	if(matter_intake_applicable_technical_specialty_data.val() == ""){
+		$(matter_intake_applicable_technical_specialty_data).parent().parent().find(".custom-error").show()
+	}else{
+		$(matter_intake_applicable_technical_specialty_data).parent().parent().find(".custom-error").hide()
+	}
+
+	if(matter_intake_receive_personal_information.val() != "" && matter_intake_receive_general_business_data.val() != "" && matter_intake_applicable_technical_specialty_data.val() != "" ){
+		return true;
+	}else{
+		return false;
+	}
+});
+
+$('.simple_form_admin_matter_intakes').click(function(){ 
+	
+	matter_intake_receive_personal_information = $('select#matter_intake_receive_personal_information');
+	matter_intake_receive_general_business_data = $('select#matter_intake_receive_general_business_data');
+	matter_intake_applicable_technical_specialty_data = $('select#matter_intake_applicable_technical_specialty_data'); 
+		
+	if(matter_intake_receive_personal_information.val() == ""){
+		$(matter_intake_receive_personal_information).parent().parent().find(".custom-error").show()
+	}else{
+			$(matter_intake_receive_personal_information).parent().parent().find(".custom-error").hide()
+	}
+	if(matter_intake_receive_general_business_data.val() == ""){
+		$(matter_intake_receive_general_business_data).parent().parent().find(".custom-error").show()
+	}else{
+		$(matter_intake_receive_general_business_data).parent().parent().find(".custom-error").hide()
+	}
+	if(matter_intake_applicable_technical_specialty_data.val() == ""){
+		$(matter_intake_applicable_technical_specialty_data).parent().parent().find(".custom-error").show()
+	}else{
+		$(matter_intake_applicable_technical_specialty_data).parent().parent().find(".custom-error").hide()
+	}
+
+	if(matter_intake_receive_personal_information.val() != "" && matter_intake_receive_general_business_data.val() != "" && matter_intake_applicable_technical_specialty_data.val() != "" ){
+		return true;
+	}else{
+		return false;
+	}
+});
+
+
+
+
 });
