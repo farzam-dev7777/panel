@@ -60,17 +60,17 @@
 					<div class="dashboard-title">LOB Dashboard</div>
 					<nav class="sp-sidebar">
 						<ul>
-							<li class="<%= active_menu_item('/lob') %>">
+							<li class="<%= active_menu_item('/lob') %> ">
 								<a href="/lob" title="Dashboard"><i class="fa fa-home" aria-hidden="true"></i> <span class="menu-item-parent">Dashboard</span></a>
 							</li>
 							<% if current_user && current_user.role == 'lob'  %>
-								<li class="<%= active_menu_item('/lob/exception_requests') %>">
+								<li class="<%= active_page?(:exception_requests) %> ">
 									<a href="/lob/exception_requests" title="Non-Panel (one-off) Requests"><i class="fa fa-flag" aria-hidden="true"></i> <span class="menu-item-parent">Non-Panel (one-off) Requests</span></a>
 								</li>
-								<li class="<%= active_menu_item('/lob/panel_requests') %>">
+								<li class="<%= active_page?(:panel_requests) %>">
 									<a href="/lob/panel_requests" title="Panel Consideration Requests"><i class="fa fa-file-text-o" aria-hidden="true"></i> <span class="menu-item-parent">Panel Consideration Requests</span></a>
 								</li>
-								<li>
+								<li class="<%= active_page?(:matter_intakes) %>">
 									<a href="/lob/matter_intakes" title="Matter Intake Forms"><i class="fa fa-users" aria-hidden="true"></i> Matter Intake Forms</a>
 								</li>
 								<li class="sp-menu-item-hidden">

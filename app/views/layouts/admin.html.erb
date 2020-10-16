@@ -94,34 +94,34 @@
 					<li class="<%= active_menu_item('/admin') %>">
 						<a href="/admin" title="Dashboard"><i class="fa fa-home" aria-hidden="true"></i> <span class="menu-item-parent">Dashboard</span></a>
 					</li>
-					<li class="<%= active_menu_item('/admin/law_firms') %>">
+					<li class=" <%= active_page?(:law_firms) %>">
 						<a href="/admin/law_firms" title="Law Firms"><i class="fa fa-address-card" aria-hidden="true"></i> <span class="menu-item-parent">Law Firms</span></a>
 					</li>
 					<% if current_user && ( current_user.role == 'lob' || current_user.role == 'lxp' || current_user.role == 'internal_lawyers' ) %>
-						<li class="<%= active_menu_item('/admin/exception_requests') %>">
+						<li class=" <%= active_page?(:exception_requests) %>">
 							<a href="/admin/exception_requests" title="Non-Panel (one-off) Requests"><i class="fa fa-flag" aria-hidden="true"></i> <span class="menu-item-parent">Non-Panel (one-off) Requests</span></a>
 						</li>
 					<% end %>
 					<% if current_user && (  current_user.role == 'lxp' || current_user.role == 'internal_lawyers' ) %>
-						<li class="<%= active_menu_item('/admin/conflict_waivers') %>">
+						<li class=" <%= active_page?(:conflict_waivers) %>">
 							<a href="/admin/conflict_waivers" title="Conflict Waiver"><i class="fa fa-question-circle" aria-hidden="true"></i> <span class="menu-item-parent">Conflict Waiver Requests</span></a>
 						</li>
 					<% end %>	
 					<% if current_user && ( current_user.role == 'internal_lawyers' || current_user.role == 'lxp') %>
-						<li class="<%= active_menu_item('/admin/matter_intakes') %>">
+						<li class=" <%= active_page?(:matter_intakes) %>">
 							<a href="/admin/matter_intakes" title="Matter Intake Forms"><i class="fa fa-users" aria-hidden="true"></i> <span class="menu-item-parent">Matter Intake Forms</span></a>
 						</li>
 					<% end %>	
 					<% if current_user && current_user.role == 'lxp' %>
-						<li class="<%= active_menu_item('/admin/panel_requests') %>">
+						<li class=" <%= active_page?(:panel_requests) %>">
 							<a href="/admin/panel_requests" title="Panel Consideration Requests"><i class="fa fa-file-text-o" aria-hidden="true"></i> <span class="menu-item-parent">Panel Consideration Requests</span></a>
 						</li>
 					<% end %>
 					<% if current_user && current_user.role == 'superadmin' %>
-						<li class="<%= active_menu_item('/admin/users/') %>">
+						<li class=" <%= active_page?(:users) %>">
 							<a href="/admin/users/" title="Manage Users"><i class="fa fa-user-circle-o" aria-hidden="true"></i> <span class="menu-item-parent">Manage Users</span></a>
 						</li>
-						<li class="<%= active_menu_item(edit_admin_system_setting_path(SystemSetting.last || SystemSetting.create)) %>">
+						<li class="<%=  active_menu_item(edit_admin_system_setting_path(SystemSetting.last || SystemSetting.create)) %>">
 							<a href="<%= edit_admin_system_setting_path(SystemSetting.last || SystemSetting.create) %>" title="System Settings"><i class="fa fa-cog" aria-hidden="true"></i> <span class="menu-item-parent">System Settings</span></a>
 						</li>
 					<% end %>
