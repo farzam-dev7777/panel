@@ -50,6 +50,44 @@
 									<div class="field-label">BMO Status</div>
 									<div class="field-data"><%= @conflict_waiver.lxp_status_show %></div>
 								</div>
+								<div class="col-xs-12 col-md-12">         
+									<p><b>Does your request fall within one of the following categories?:</b></p>
+									<ol class="conflict_waiver_categories_list">
+										<li>
+											An issuer or selling security holder in an underwriting; 
+										</li>
+										<li>
+											A borrower in a normal course borrowing/mortgage transaction when we are already
+											represented by other counsel;
+										</li>   
+										<li>
+											A customer in the ordinary course of our business;
+											A party to a transaction where we are a lender or advisor to another party to the
+											transaction;
+										</li>
+										<li>
+											A debtor in a bankruptcy, insolvency, restructuring or other similar proceeding that
+											adjusts creditors’ rights where we are a creditor in such proceeding, provided that (i)
+											you did not act directly or indirectly for us in the transaction or arrangement giving
+											rise to our claim, and (ii) you notify us that you represent the debtor; or
+										</li>
+										<li>
+											A party in a transaction to which we are not a party but where you acted on our
+											behalf in a previous lending transaction with that party, provided that (i) the current
+											transaction is unrelated to the previous lending transaction and (ii) it will have no
+											bearing and/impact on the previous lending transaction.
+										</li>
+									</ol>
+								</div>
+								<div class="col-xs-12 col-md-6">
+									<div class="field-label">Is your request covered by any of the above?</div>
+									<div class="field-data"><%= @conflict_waiver.confirm_waiver === true ? "Yes" : "No"  %></div>
+								</div>
+								<% if @conflict_waiver.confirm_waiver === true %>
+									<div class="col-xs-12 col-md-12 confirm_waiver_notes" >
+										<p>It appears your request is covered by your retainer agreement with BMO and there is no need to submit this request. If you are unsure, please select "No" above to proceed with submitting the request</p>
+									</div>
+								<% end %>	
 								<!--<div class="col-xs-12 col-md-6">
 									<div class="field-label">Internal Lawyer Status</div>
 									<div class="field-data"><%= @conflict_waiver.internal_lawyers_status_show %></div>
