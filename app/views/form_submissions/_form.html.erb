@@ -41,7 +41,7 @@
               data-form-submission-status=<%= @form_submission.status %>>
 
               <% if @form_submission.status == 'follow_up' %>
-                <div class="col-md-10 col-md-offset-1 toggle-view">
+                <div class="col-md-12 toggle-view">
                   <a id="view-only-follow-ups" href="javascript:void(0)">View Only Follow Up Questions</a>
                   &nbsp; &nbsp; &nbsp; | &nbsp; &nbsp; &nbsp;
                   <a id="view-all-questions" href="javascript:void(0)">View All Questions</a>
@@ -54,7 +54,7 @@
                 <%= yield :form %>
               </div>
               <div class="cloned-form clearfix">
-                <div class="col-md-10 col-md-offset-1 form-enclosure">
+                <div class="col-md-12  form-enclosure">
                   
                 </div>
               </div>
