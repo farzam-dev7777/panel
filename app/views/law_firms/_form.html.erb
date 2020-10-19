@@ -126,9 +126,9 @@
 			<% if @law_firm.panel_request && @law_firm.panel_request.try(:docusign_envelope_id).present? %>
 				<div class="col-md-12">
 					<div class="field-label">Document Status</div>
-					<div class="field-data"><%= @law_firm.try(:panel_request).docusign_retainer_envelope.status %></div>
+					<div class="field-data"><%= @law_firm.try(:panel_request).try(docusign_retainer_envelope).try(:status) %></div>
 				</div>
-				<% if @law_firm.panel_request && @law_firm.try(:panel_request).docusign_retainer_envelope.status == "completed"%>
+				<% if @law_firm.panel_request && @law_firm.try(:panel_request).try(docusign_retainer_envelope).try(:status) == "completed"%>
 					<div class="col-md-12">
 						<div class="field-label">Download Document</div>
 						<div class="field-data">
