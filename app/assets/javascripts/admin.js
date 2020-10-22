@@ -1758,7 +1758,7 @@ $('.email_wnn_documents').on('click', function() {
 
 $('.non-panel_send_retainer').on('click', function() {
 
-	message = "Confirmation: Send Retainer Agreement to Law Firm"
+	message = "Confirmation: Send Retainer Agreement"
 	var non_panel_id = $(this).attr("data-id");
 	swal({
 		title: message,
