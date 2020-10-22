@@ -17,6 +17,7 @@
 		</div>
 		<div class="col-md-4">  
 				<%= f.input :docusign_access_token, label: false, input_html: {rows: 15, cols: 10} %>
+				<b>Docusign Token Expires At : <%= SystemSetting.fetch.docusign_token_expires_at.strftime('%d %b %Y at %I:%M %p') %></b>
 		</div>
 		<div class="col-md-4">
 			<a href="/auth/docusign" class="request_docusign_access_token btn-type-primary">Request Docusign Access Token</a>
