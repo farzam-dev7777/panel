@@ -22,19 +22,19 @@
 					<div class="sp-form-bg show-data-fields">
 						<div class="row form-flex-wrap">
 							<!--<div class="col-xs-12 col-md-6">
-								<div class="field-label">Requested By:</div>
+								<div class="field-label">Requested By</div>
 								<div class="field-data"><%= @panel_request.requested_by %></div>
 							</div>-->
 							<div class="col-xs-12 col-md-6">
-								<div class="field-label">Submitted By: </div>		
+								<div class="field-label">Submitted By</div>		
 								<div class="field-data"><%= @panel_request.submitted_by_email %></div>
 							</div>
 							<div class="col-xs-12 col-md-6">
-								<div class="field-label">Line of Business	</div>		
+								<div class="field-label">Line of Business</div>		
 								<div class="field-data"><%= @panel_request.line_of_business %></div>
 							</div>
 							<div class="col-xs-12 col-md-6">
-								<div class="field-label">LOB Contact Name	</div>		
+								<div class="field-label">LOB Contact Name</div>		
 								<div class="field-data"><%= @panel_request.lob_contact_name %></div>
 							</div>
 							<!--<div class="col-xs-12 col-md-6">
@@ -50,72 +50,72 @@
 								<div class="field-data"><%= @panel_request.business_manager_phone %></div>
 							</div>-->
 							<div class="col-md-12">
-									<div class="inner-label">Law Firm :</div>		
+									<div class="inner-label">Law Firm</div>		
 									<div class="row inner-form-field">
 										<div class="col-xs-12 col-md-6">
-											<div class="field-label">Law Firm Category : </div>
+											<div class="field-label">Law Firm Category</div>
 											<div class="field-data"><%= @panel_request.law_firm.law_firm_category %></div>
 										</div>
 										<div class="col-xs-12 col-md-6">
-											<div class="field-label">Name : </div>
+											<div class="field-label">Name</div>
 											<div class="field-data"><%= @panel_request.law_firm&.name %></div>
 										</div>
 										<div class="col-xs-12 col-md-6">
-											<div class="field-label">Contact Name : </div>
+											<div class="field-label">Contact Name</div>
 											<div class="field-data"><%= @panel_request.law_firm&.contact_name %></div>
 										</div>
 										<div class="col-xs-12 col-md-6">
-											<div class="field-label">Email : </div>		
+											<div class="field-label">Email</div>		
 											<div class="field-data"><%= @panel_request.law_firm&.email %></div>
 										</div>
 										<div class="col-xs-12 col-md-6">
-											<div class="field-label">Phone : </div>		
+											<div class="field-label">Phone</div>		
 											<div class="field-data"><%= @panel_request.law_firm&.phone %></div>
 										</div>
 										<div class="col-xs-12 col-md-6">
-											<div class="field-label">Would You use this firm on a regular basis? : </div>		
+											<div class="field-label">Would You use this firm on a regular basis?</div>		
 											<div class="field-data"><%= @panel_request.law_firm&.firm_use_on_regular_basis %></div>
 										</div>
 										<!--<div class="col-xs-12 col-md-12">
-											<div class="field-label">Description : </div>		
+											<div class="field-label">Description</div>		
 											<div class="field-data"><%= @panel_request.law_firm.description %></div>
 										</div>
 										<div class="col-xs-12 col-md-6">
-											<div class="field-label">Relationship Manager Name :	</div>		
+											<div class="field-label">Relationship Manager Name</div>		
 											<div class="field-data"><%= @panel_request.law_firm.relationship_manager_name %></div>
 										</div>
 										<div class="col-xs-12 col-md-6">
-											<div class="field-label">Relationship Manager Email : </div>		
+											<div class="field-label">Relationship Manager Email</div>		
 											<div class="field-data"><%= @panel_request.law_firm.relationship_manager_email %></div>
 										</div>
 										<div class="col-xs-12 col-md-6">
-											<div class="field-label">Relationship Manager Phone : </div>		
+											<div class="field-label">Relationship Manager Phone</div>		
 											<div class="field-data"><%= @panel_request.law_firm.relationship_manager_phone %></div>
 										</div>
 										<div class="col-xs-12 col-md-6">
-											<div class="field-label">Select Matter Type : </div>		
+											<div class="field-label">Select Matter Type</div>		
 											<div class="field-data"><%= @panel_request.law_firm.matter_types.map(&:matter_type).join(", ") %></div>
 										</div>
 										<div class="col-xs-12 col-md-6">
-											<div class="field-label">Select Sub Matter Type : </div>		
+											<div class="field-label">Select Sub Matter Type</div>		
 											<div class="field-data"><%= @panel_request.law_firm.sub_matter_types.map(&:sub_matter_type).join(", ") %></div>
 										</div>
 										<div class="col-xs-12 col-md-6">
-											<div class="field-label">Select Jurisdiction Type : </div>		
+											<div class="field-label">Select Jurisdiction Type</div>		
 											<div class="field-data"><%= @panel_request.law_firm.jurisdiction_types.map(&:jurisdiction_type).join(", ") %></div>
 										</div>
 										<div class="col-xs-12 col-md-6">
-											<div class="field-label">Select Country : </div>		
+											<div class="field-label">Select Country</div>		
 											<div class="field-data"><%= @panel_request.law_firm.countries.map(&:name).join(", ") %></div>
 										</div>
 										<div class="col-xs-12 col-md-6">
-											<div class="field-label">Select State/Province : </div>		
+											<div class="field-label">Select State/Province</div>		
 											<div class="field-data"><%= @panel_request.law_firm.states.map(&:name).join(", ") %></div>
 										</div>-->
 									</div>
 								</div>
 							<div class="col-xs-12 col-md-6">
-								<div class="field-label">What type of matters would this firm work on? :</div>		
+								<div class="field-label">What type of matters would this firm work on?</div>		
 								<div class="field-data"><%= @panel_request.matter_types.join(', ') %></div>
 							</div>
 							<div class="col-xs-12 col-md-6">
@@ -123,31 +123,31 @@
 								<div class="field-data"><%= @panel_request.niche_preferred_external_counsel_panel_law_firms %></div>
 							</div>
 							<div class="col-xs-12 col-md-6">
-								<div class="field-label">If yes, please describe niche expertise :</div>		
+								<div class="field-label">If yes, please describe niche expertise</div>		
 								<div class="field-data"><%= @panel_request.niche_expertise %></div>
 							</div>
 							<div class="col-xs-12 col-md-6">
-								<div class="field-label">Does this firm practice in a location not already covered by a BMO LXP Panel law firm? :</div>		
+								<div class="field-label">Does this firm practice in a location not already covered by a BMO LXP Panel law firm?</div>		
 								<div class="field-data"><%= @panel_request.required_unique_geography %></div>
 							</div>
 							<div class="col-xs-12 col-md-6">
-								<div class="field-label">If yes, confirm location :</div>		
+								<div class="field-label">If yes, confirm location</div>		
 								<div class="field-data"><%= @panel_request.geographic_location %></div>
 							</div>
 							<div class="col-xs-12 col-md-6">
-								<div class="field-label">Would engagements of this firm involve the following :</div>		
+								<div class="field-label">Would engagements of this firm involve the following</div>		
 								<div class="field-data"><%= @panel_request.involved_engagement %></div>
 							</div>
 							<div class="col-xs-12 col-md-6">
-								<div class="field-label">Is this a certified minority/woman owned firm? :</div>		
+								<div class="field-label">Is this a certified minority/woman owned firm?</div>		
 								<div class="field-data"><%= @panel_request.women_owned %></div>
 							</div>
 							<div class="col-xs-12 col-md-6">
-								<div class="field-label">If yes, which organization certified the firm? :</div>		
+								<div class="field-label">If yes, which organization certified the firm?</div>		
 								<div class="field-data"><%= @panel_request.women_owned_details %></div>
 							</div>
 							<div class="col-xs-12 col-md-12">
-								<div class="field-label">Are there additional reasons to consider this firm for BMO's LXP Panel? Provide details :</div>		
+								<div class="field-label">Are there additional reasons to consider this firm for BMO's LXP Panel? Provide details</div>		
 								<div class="field-data"><%= @panel_request.reason_other %></div>
 							</div>
 							<!--<div class="col-xs-12 col-md-6">
@@ -167,11 +167,11 @@
 								<div class="field-data"><%= @panel_request.women_owned_details %></div>
 							</div>-->
 							<div class="col-xs-12 col-md-6">
-								<div class="field-label">LXP Status :</div>
+								<div class="field-label">LXP Status</div>
 								<div class="field-data"><%=  @panel_request.lxp_status_show ? @panel_request.lxp_status_show : "-" %></div>
 							</div>
 							<div class="col-xs-12 col-md-6">
-								<div class="field-label">Panel Approved :</div>
+								<div class="field-label">Panel Approved</div>
 								<div class="field-data"><%= @panel_request.fully_approved? ? "Yes" : "No" %></div>
 							</div>
 							<% if @panel_request.docusign_envelope_id.present? %>

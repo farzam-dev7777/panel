@@ -5,30 +5,30 @@
       <div class="sp-form-bg show-data-fields">
         <div class="row">
           <div class="col-md-12">
-            <div class="inner-label">Law Firm :</div>		
+            <div class="inner-label">Law Firm</div>		
             <div class="row inner-form-field">
               <div class="col-xs-12 col-md-6">
-                <div class="field-label">Law Firm Category : </div>
+                <div class="field-label">Law Firm Category</div>
                 <div class="field-data"><%= @exception_request.law_firm.try(:law_firm_category).try(:titleize) %></div>
               </div>
               <div class="col-xs-12 col-md-6">
-                <div class="field-label">Name : </div>
+                <div class="field-label">Name</div>
                 <div class="field-data"><%= @exception_request.law_firm.try(:name) %></div>
               </div>
               <div class="col-xs-12 col-md-6">
-                <div class="field-label">Email : </div>		
+                <div class="field-label">Email</div>		
                 <div class="field-data"><%= @exception_request.law_firm.try(:email) %></div>
               </div>
               <div class="col-xs-12 col-md-6">
-                <div class="field-label">Phone : </div>		
+                <div class="field-label">Phone</div>		
                 <div class="field-data"><%= @exception_request.law_firm.try(:phone) %></div>
               </div>
               <!--div class="col-xs-12 col-md-6">
-                <div class="field-label">Country : </div>		
+                <div class="field-label">Country</div>		
                 <div class="field-data"><%= @exception_request.show_countries_names %></div>
               </div>
               <div class="col-xs-12 col-md-6">
-                <div class="field-label">State : </div>		
+                <div class="field-label">State</div>		
                 <div class="field-data"><%= @exception_request.show_states_names %></div>
               </div-->
               <!--<div class="col-xs-12 col-md-6">
@@ -42,59 +42,59 @@
             </div>
           </div>
           <div class="col-xs-12 col-md-6">
-            <div class="field-label">Matter Type	:	</div>
+            <div class="field-label">Matter Type</div>
             <div class="field-data"><%= @exception_request.matter_types_formated %></div>
           </div>
           <div class="col-xs-12 col-md-6">
-            <div class="field-label">Country	:	</div>
+            <div class="field-label">Country</div>
             <div class="field-data"><%= @exception_request.countries_formated %></div>
           </div>
             <div class="col-xs-12 col-md-6">
-            <div class="field-label">State/Province	:	</div>
+            <div class="field-label">State/Province</div>
             <div class="field-data"><%= @exception_request.states_formated %></div>
           </div>
           <div class="col-xs-12 col-md-6">
-            <div class="field-label">Reason For Request	:	</div>
+            <div class="field-label">Reason For Request</div>
             <div class="field-data"><%= @exception_request.reason.reject(&:blank?).join(", ") %></div>
           </div>
           <div class="col-xs-12 col-md-6">
-            <div class="field-label">Provide details of reason(s) selected :	</div>
+            <div class="field-label">Provide details of reason(s) selected</div>
             <div class="field-data"><%= @exception_request.reason_details %></div>
           </div>
           <div class="col-xs-12 col-md-6">
-            <div class="field-label">Who is paying the law firm? :	</div>
+            <div class="field-label">Who is paying the law firm?</div>
             <div class="field-data"><%= @exception_request.payer %></div>
           </div>
           <div class="col-xs-12 col-md-6">
-            <div class="field-label">Submitted By :	</div>
+            <div class="field-label">Submitted By</div>
             <div class="field-data"><%= @exception_request.submitted_by_email %></div>
           </div>
           <div class="col-xs-12 col-md-6">
-            <div class="field-label">Line of Business :	</div>		
+            <div class="field-label">Line of Business</div>		
             <div class="field-data"><%= @exception_request.line_of_business %></div>
           </div>
           <div class="col-xs-12 col-md-6">
-            <div class="field-label">LOB Contact Name :	</div>		
+            <div class="field-label">LOB Contact Name</div>		
             <div class="field-data"><%= @exception_request.lob_contact_name %></div>
           </div>
           <!--<div class="col-xs-12 col-md-6">
-            <div class="field-label">Requested By :	</div>
+            <div class="field-label">Requested By</div>
             <div class="field-data"><%= @exception_request.requested_by %></div>
           </div>-->
           <div class="col-xs-12 col-md-6">
-            <div class="field-label">Name of Matter/ Client	:</div>
+            <div class="field-label">Name of Matter/ Client</div>
             <div class="field-data"><%= @exception_request&.matter_name %></div>
           </div>
           <!--<div class="col-xs-12 col-md-6">
-            <div class="field-label">How will this matter be paid? :</div>
+            <div class="field-label">How will this matter be paid?</div>
             <div class="field-data"><%= @exception_request&.mode_of_payment %></div>
           </div>-->
           <div class="col-xs-12 col-md-6">
-            <div class="field-label">Description of the matter :</div>
+            <div class="field-label">Description of the matter</div>
             <div class="field-data"><%= @exception_request&.matter_description %></div>
           </div>
           <div class="col-xs-12 col-md-6">
-            <div class="field-label">Will this matter involve the following :</div>
+            <div class="field-label">Will this matter involve the following</div>
             <div class="field-data"><%= @exception_request&.matter_involve_following %></div>
           </div>
           <!--div class="col-xs-12 col-md-6">
@@ -127,10 +127,8 @@
           </div>-->
 
             <div class="col-xs-12 col-md-12">
-              <div class="field-label"><h2>Information Security Classification:</h2>	</div>
+              <div class="inner-label">Information Security Classification</div>
             </div>
-
-
             <div class="col-xs-12 col-md-12">
               <div class="field-label">Could the law firm engaged on this matter potentially receive any Personal Information data?	</div>
               <div class="field-data"><%= @exception_request.receive_personal_information %></div>

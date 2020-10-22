@@ -152,7 +152,7 @@
       <% if @form_type == "litigation" || @matter_intake&.form_type == "litigation" %>
         
         <div class="col-md-12">
-          <div class="inner-label">Case Details :</div>
+          <div class="inner-label">Case Details</div>
           <div class="inner-form-field form-flex-wrap">
             <div class="col-xs-12 col-md-6">
               <label class="label">Background/Key Facts (other than matter description)</label>
@@ -213,7 +213,7 @@
           </div>
         </div>
         <div class="col-md-12">
-          <div class="inner-label">Claim Information :</div>
+          <div class="inner-label">Claim Information</div>
           <div class="inner-form-field form-flex-wrap">
             <div class="col-xs-12 col-md-6">
               <label class="label">Date Suit Filed</label>
@@ -258,7 +258,7 @@
           </div>
         </div>
         <div class="col-md-12">
-          <div class="inner-label">Court Details :</div>
+          <div class="inner-label">Court Details</div>
           <div class="inner-form-field form-flex-wrap">
             <div class="col-xs-12 col-md-6">
               <label class="label">Court Name</label>
@@ -279,20 +279,20 @@
           </div>
         </div>
         <div class="col-md-12">
-          <div class="inner-label">Comset Details :</div>
+          <div class="inner-label">Comset Details</div>
           <div class="inner-form-field form-flex-wrap">
             <div class="col-xs-12 col-md-6">
               <label class="label">Comset Issues</label>
               <%= f.input :comset_issues, label: false, collection: MatterIntake::ComsetIssues %>
             </div>
             <div class="col-xs-12 col-md-6">
-              <label class="label">Comset Ref:</label>
+              <label class="label">Comset Ref</label>
               <%= f.input :comset_ref, label: false %>
             </div>
           </div>
         </div>
         <div class="col-md-12">
-          <div class="inner-label">Reporting :</div>
+          <div class="inner-label">Reporting</div>
           <div class="inner-form-field form-flex-wrap">
             <div class="col-xs-12 col-md-6 work_area_reportable work_area_reportable_litigation" style="<%= @form_type === 'general' ? 'display: none;' : '' %>">
               <label class="label">Is this matter ORE reportable?<span class="mandatory">*</span></label>

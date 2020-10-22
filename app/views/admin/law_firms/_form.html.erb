@@ -28,7 +28,7 @@
 		<div class="row form-flex-wrap">
 			
 			<div class="col-md-12">
-				<div class="inner-label">Contact Information :</div>
+				<div class="inner-label">Contact Information</div>
 					<div class="inner-form-field form-flex-wrap">
 						<div class="col-xs-12 col-md-6">
 							<label class="label">Category</label>
@@ -79,7 +79,7 @@
 			</div>		
 
 			<div class="col-md-12">
-				<div class="inner-label">SEMS Information :</div>
+				<div class="inner-label">SEMS Information</div>
 					<div class="inner-form-field form-flex-wrap">
 						<div class="col-xs-12 col-md-6">
 							<label class="label">Engagement Number</label>
@@ -116,8 +116,8 @@
 				</div>	
 			
 
-			<div class="col-md-12">
-				<div class="inner-label">Law Firm Information :</div>
+			
+				<div class="inner-label">Law Firm Information</div>
 					<div class="inner-form-field form-flex-wrap">
 							<div class="col-xs-12 col-md-6">
 							<label class="label"><i class="fa fa-question-circle-o help-text" data-help="All users that have access to law firm files, electronic or physical"></i> No. of personnel </label>
@@ -144,10 +144,10 @@
 							<%= f.input :merger_combination, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
 						</div>
 				</div>
-			</div>
+			
 
-			<div class="col-md-12">
-				<div class="inner-label">Law Firm Login :</div>
+			
+				<div class="inner-label">Law Firm Login</div>
 					<div class="inner-form-field form-flex-wrap">
 						<% if @law_firm.new_record? %>
 							<div class="col-xs-12 col-md-6">
@@ -186,7 +186,7 @@
 							<% end %>
 						</div>	
 				</div>
-			</div>
+			
 			<% if Current.user.role === "internal_lawyers" %>
 				<div class="col-xs-12 col-md-6">
 					<label class="label">Relationship Manager Name</label>
