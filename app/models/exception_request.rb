@@ -234,8 +234,8 @@ class ExceptionRequest < ApplicationRecord
         template_id: Rails.application.secrets[:docusign]["retainer_template_id"],
         signer_email: signer_email,
         signer_name: signer_name,
-        lxp_email: Rails.application.secrets[:lxp_contact]["email"],
-        lxp_name: Rails.application.secrets[:lxp_contact]["name"]
+        lxp_email: SystemSetting.fetch.lxp_email,
+        lxp_name: SystemSetting.fetch.lxp_name
       },
       base_path: Rails.application.secrets[:docusign]["base_path"],
       account_id: Rails.application.secrets[:docusign]["account_id"],
