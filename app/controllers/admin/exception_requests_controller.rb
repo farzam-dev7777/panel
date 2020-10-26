@@ -101,14 +101,14 @@ class Admin::ExceptionRequestsController < Admin::BaseController
       else 
         render json: {
           message: "Problem in sending retainer aggreement.",
-          title: "Opps!",
+          title: "oops!",
           icon: "error"
         }
       end
     else
       render json: {
         message: "Problem in sending retainer aggreement. Non-Panel/ User not found.",
-        title: "Opps!",
+        title: "oops!",
         icon: "error"
       }
     end     

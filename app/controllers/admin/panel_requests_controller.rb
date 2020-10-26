@@ -88,14 +88,14 @@ class Admin::PanelRequestsController < Admin::BaseController
       else
         render json: {
           message: "WNN Documents not sent.",
-          title: "Opps!",
+          title: "oops!",
           icon: "error"
         }
       end
     else
       render json: {
         message: "WNN Documents not sent. Law Firm/ Email not found.",
-        title: "Opps!",
+        title: "oops!",
         icon: "error"
       }
     end

@@ -285,7 +285,7 @@ $('.lxp_sttaus').on('click', function(e){
 			laywerId = $('select#review_assigned_to_id').chosen().val()
 			if(!laywerId) {
 				swal({
-					title: "Opps!",
+					title: "oops!",
 					text: "Please select lawyer"
 				});
 				return false;
@@ -486,21 +486,21 @@ $('.searchLawFirm').on('click', function() {
 	state = $('select#law_firm_states').chosen().val()
 	if(!matter_type) {
 		swal({
-			title: "Opps!",
+			title: "oops!",
 			text: "Please select matter type"
 		});
 		return false;
 	}
 	if(!country) {
 		swal({
-			title: "Opps!",
+			title: "oops!",
 			text: "Please select country"
 		});
 		return false;
 	}
 	if(!state) {
 		swal({
-			title: "Opps!",
+			title: "oops!",
 			text: "Please select state"
 		});
 		return false;
@@ -586,7 +586,7 @@ $('.engage_non_panel_firm_btn').on('click', function() {
 			return true
 		}else{
 			swal({
-				title: "Opps!",
+				title: "oops!",
 				text: "Please select any one law firm"
 			});
 			return false
