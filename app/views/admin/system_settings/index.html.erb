@@ -16,7 +16,8 @@
 			Docusign Access Token
 		</div>
 		<div class="col-md-4">  
-				<%= f.input :docusign_access_token, label: false, input_html: {rows: 15, cols: 10} %>
+				<%#= f.input :docusign_access_token, label: false, input_html: {rows: 15, cols: 10} %>
+				<br>
 				<b>Docusign Token Expires At : <%= @settings.docusign_token_expires_at.strftime('%d %b %Y at %I:%M %p') %></b>
 		</div>
 		<div class="col-md-4">
