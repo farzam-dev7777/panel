@@ -204,6 +204,28 @@ class PanelRequest < ApplicationRecord
             :name => args[:lob_name],
             :roleName => 'lob'
     })
+
+    ext = DocuSign_eSign::Text.new
+    text.document_id = '1'
+    text.page_number = '1'
+    text.x_position = '280'
+    text.y_position = '172'
+    text.font = 'helvetica'
+    text.font_size = 'size14'
+    text.tab_label = '*lawfirmname'
+    text.height = '23'
+    text.width = '84'
+    text.required = 'false'
+    text.locked = 'true'
+    text.bold = 'true'
+    text.value = "Test by M" #self&.law_firm&.name
+    text.locked = 'false'
+    text.tab_id = 'name'
+
+    tabs = DocuSign_eSign::Tabs.new
+    tabs.text_tabs = [text]
+    lxp.tabs = tabs
+
     # Add the TemplateRole objects to the envelope object
     envelope_definition.template_roles = [signer, lxp]
     envelope_definition
