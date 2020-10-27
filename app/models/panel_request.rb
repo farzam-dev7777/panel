@@ -205,7 +205,7 @@ class PanelRequest < ApplicationRecord
             :roleName => 'lob'
     })
 
-    ext = DocuSign_eSign::Text.new
+    text = DocuSign_eSign::Text.new
     text.document_id = '1'
     text.page_number = '1'
     text.x_position = '280'
