@@ -94,20 +94,20 @@ class Admin::ExceptionRequestsController < Admin::BaseController
       signer_name =  @user.username
       if @exception_request.send_retainer_for_esigning(signer_email, signer_name)
         render json: {
-          message: "Retainer aggreement sent successfully.",
+          message: "Retainer agreeement sent successfully.",
           title: "Success",
           icon: "success"
         }
       else 
         render json: {
-          message: "Problem in sending retainer aggreement.",
+          message: "Problem in sending retainer agreeement.",
           title: "oops!",
           icon: "error"
         }
       end
     else
       render json: {
-        message: "Problem in sending retainer aggreement. Non-Panel/ User not found.",
+        message: "Problem in sending retainer agreeement. Non-Panel/ User not found.",
         title: "oops!",
         icon: "error"
       }
