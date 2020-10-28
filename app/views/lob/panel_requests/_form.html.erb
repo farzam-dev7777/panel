@@ -14,7 +14,7 @@
           <%= f.input :submitted_by_email, label: false, :input_html => { :value => @current_lob_user_email, :readonly => true } %>
           <%= f.input :user_id, :as => :hidden, :input_html => { :value => @current_lob_user_id } %>
           <%= f.input :request_type, :as => :hidden, :input_html => { :value => "ADD_TO_LAW_FIRM_PANEL" } %>
-          <%= f.input :status, :as => :hidden, :input_html => { :value => "Deactivate" } %>
+          <%= f.input :status, :as => :hidden, :input_html => { :value => "Received" } %>
         </div>
         <div class="col-xs-12 col-md-6">
           <label class="label">Line of Business<span class="mandatory">*</span></label>
