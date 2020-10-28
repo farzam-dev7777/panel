@@ -1,6 +1,12 @@
 
 <div class="lob_dashboard main-container">
 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<div class="page-header-sp m-top">
+			<div class="page-title">Non-Panel (one-off) Requests</div>
+			<div>
+				<%= link_to 'Submit New Non-Panel (one-off) Request', engage_non_panel_firm_lob_exception_requests_path, html_options = {class: 'page-header-btn'}   %> 
+			</div>
+		</div>
 		<ul id="sparks" class="top-status-card">
 			<li class="sparks-info color-border-01">
 				<a href="/lob/exception_requests" class="card-content">

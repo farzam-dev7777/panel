@@ -218,14 +218,15 @@ class PanelRequest < ApplicationRecord
     text.required = 'false'
     text.locked = 'true'
     text.bold = 'true'
-    text.value = "Test by M" #self&.law_firm&.name
+    text.value = self&.law_firm&.name
     text.locked = 'false'
     text.tab_id = 'name'
 
     tabs = DocuSign_eSign::Tabs.new
     tabs.text_tabs = [text]
     lxp.tabs = tabs
-
+    signer.tabs = tabs
+   
     # Add the TemplateRole objects to the envelope object
     envelope_definition.template_roles = [signer, lxp]
     envelope_definition

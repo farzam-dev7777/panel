@@ -384,6 +384,7 @@ class ExceptionRequest < ApplicationRecord
 
     tabs = DocuSign_eSign::Tabs.new
     tabs.text_tabs = [text]
+    signer.tabs = tabs
     lxp.tabs = tabs
 
     # Add the TemplateRole objects to the envelope object
