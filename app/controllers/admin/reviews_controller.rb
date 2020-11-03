@@ -43,6 +43,8 @@ class Admin::ReviewsController < Admin::BaseController
             # ExceptionRequestMailer.form_status_notification_to_lob_for_sign(@exception_request).deliver_now
           elsif current_user.role === 'lxp' && review_params[:assigned_to_id].present?
             ExceptionRequestMailer.form_status_notification_to_internal_lawyer(@exception_request,params[:review][:assigned_to_id]).deliver_now
+          elsif current_user.role === 'lxp' && review_params[:status] == 'RETAINER_AGREEMENT_SENT'
+            @exception_request.update_attributes(lxp_status: review_params[:status])
           elsif current_user.role === 'internal_lawyers' && review_params[:status] == 'APPROVED'
             @exception_request.update_attributes(lxp_status: "REVIEWED_BY_LAWYER")
             ExceptionRequestMailer.form_status_notification_to_lxp(@exception_request).deliver_now

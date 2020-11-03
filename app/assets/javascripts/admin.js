@@ -1780,9 +1780,9 @@ $('.non-panel_send_retainer').on('click', function() {
 		closeOnCancel: true
 	},
 	function(isConfirm){
-		debugger
 		if (isConfirm) {
 			if(non_panel_id) {
+				$(".non_panel_send_retainer_status").html("")
 				$(".loader").show();
 				$.ajax({
 					url: "/admin/exception_requests/send_retainer_aggreement",
@@ -1791,11 +1791,31 @@ $('.non-panel_send_retainer').on('click', function() {
 				})
 				.done(function( response) {
 					if(response){
-						swal({
-							title: response.title,
-							icon: response.icon,
-							text: response.message
-						});	
+							$(".non_panel_send_retainer_status").html(response.title)
+							swal({
+								title: response.title,
+								icon: response.icon,
+								text: response.message,
+								confirmButtonText: "Ok",
+								cancelButtonText: "Cancel",
+								closeOnConfirm: true,
+								closeOnCancel: true
+							},
+							function(isConfirm){
+								if (isConfirm) {
+									if($(".non_panel_send_retainer_status").html() === "Success"){
+										options = "<option value='RETAINER_AGREEMENT_SENT'>Retainer Agreement Sent</option>";
+										$('#review_status').html(options);
+										$("#review_status").trigger("chosen:updated")
+										$("#new_review").submit()
+									}
+								}
+							});
+						// swal({
+						// 	title: response.title,
+						// 	icon: response.icon,
+						// 	text: response.message,
+						// });	
 						$(".loader").hide();
 					}
 				});
