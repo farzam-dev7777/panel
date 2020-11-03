@@ -118,12 +118,12 @@ class Admin::ReviewsController < Admin::BaseController
             @conflict_waiver.update_attributes(lxp_status: review_params[:status])
             ConflictWaiverMailer.form_status_notification_to_lxp_for_info_internal_lawyers(@conflict_waiver).deliver_now 
           else
-            binding.pry
            if current_user.role === 'lxp' &&  review_params[:status] == 'ALREADY_COVERED'
             @conflict_waiver.update_attributes(retainer_cover: params[:review][:retainer_cover])
             ConflictWaiverMailer.form_status_notification_to_user(@conflict_waiver).deliver_now
-           elsif current_user.role === 'lxp' && ['APPROVED', 'IN_REVIEW_LXP','REJECTED', 'REQUEST_INFO'].include? review_params[:status]   
+           elsif current_user.role === 'lxp' && (review_params[:status] === 'APPROVED' ||  review_params[:status] === 'REQUEST_INFO' || review_params[:status] === 'IN_REVIEW_LXP' || review_params[:status] === 'REJECTED')
               ConflictWaiverMailer.form_status_notification_to_user(@conflict_waiver).deliver_now 
+              @conflict_waiver.update_attributes(lxp_status: review_params[:status])
            elsif current_user.role === 'internal_lawyers' &&  review_params[:status] == 'REJECTED'
             @conflict_waiver.update_attributes(lxp_status: review_params[:status])
             ConflictWaiverMailer.form_status_notification_to_user(@conflict_waiver).deliver_now
@@ -156,7 +156,7 @@ class Admin::ReviewsController < Admin::BaseController
   private
 
   def review_params
-    params.require(:review).permit(:description, :status, :assigned_to_id, :pay_type)
+    params.require(:review).permit(:description, :status, :assigned_to_id, :pay_type, :reviewable_type, :reviewable_id, :retainer_cover)
   end
 
 end

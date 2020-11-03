@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201022124547) do
+ActiveRecord::Schema.define(version: 20201102124940) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -116,6 +116,7 @@ ActiveRecord::Schema.define(version: 20201022124547) do
     t.integer  "law_firm_id"
     t.integer  "assigned_to_id"
     t.text     "retainer_language"
+    t.text     "retainer_cover"
   end
 
   create_table "countries", force: :cascade do |t|
@@ -431,6 +432,14 @@ ActiveRecord::Schema.define(version: 20201022124547) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "law_firms_feedbacks", id: false, force: :cascade do |t|
+    t.integer  "law_firm_id"
+    t.integer  "feedbacks_id"
+    t.string   "feedback"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
   create_table "law_firms_jurisdiction_types", id: false, force: :cascade do |t|
     t.integer  "law_firm_id"
     t.integer  "jurisdiction_type_id"
@@ -712,6 +721,7 @@ ActiveRecord::Schema.define(version: 20201022124547) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.string   "pay_type"
+    t.text     "retainer_cover"
   end
 
   create_table "security_alerts", force: :cascade do |t|
