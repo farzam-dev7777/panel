@@ -101,6 +101,10 @@
               <div class="field-label">Panel or Non-Panel Firm</div>
               <div class="field-data"><%= @matter_intake.firm_type %></div>
             </div>
+            <div class="col-xs-12 col-md-6">
+              <label class="field-label">Is this a syndicate matter</label>
+              <div class="field-data"><%= @matter_intake.is_syndicate_matter %></div>
+            </div>
             <% if @matter_intake.firm_type === "Non-Panel" || @matter_intake.firm_type === "Panel & Non-Panel Firms"  %>
               <div class="col-xs-12 col-md-6">
                 <div class="field-label">Name of Non-Panel Firm</div>
@@ -201,10 +205,7 @@
             <label class="label">Is this matter otherwise reportable? (e.g. board reporting)<span class="mandatory">*</span></label>
             <%= f.input :is_otherwise_reportable, label: false, collection: [['Yes', 'Yes'], ["No", "No"]] %>
           </div>
-          <div class="col-xs-12 col-md-6">
-            <label class="label">Is this a syndicate matter?<span class="mandatory">*</span></label>
-            <%= f.input :is_syndicate_matter, label: false, collection: [['Yes, BMO is the lead bank', 'Yes, BMO is the lead bank'],["Yes, BMO is not the lead bank", "Yes, BMO is not the lead bank"] , ["No", "No"]] %>
-          </div>
+          
           <div class="col-xs-12 col-md-6">
             <label class="label">Conceal iManage Workspace?<span class="mandatory">*</span></label>
             <%= f.input :is_conceal_imanage_workspace, label: false, collection: [['Yes', 'Yes'], ["No", "No"]], :selected => @matter_intake.is_conceal_imanage_workspace.nil? ? 'No' : @matter_intake.is_conceal_imanage_workspace %>

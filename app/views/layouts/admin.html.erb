@@ -94,6 +94,9 @@
 					<li class="<%= active_menu_item('/admin') %>">
 						<a href="/admin" title="Dashboard"><i class="fa fa-home" aria-hidden="true"></i> <span class="menu-item-parent">Dashboard</span></a>
 					</li>
+					<li class=" <%= active_page?(:form_submissions) %>">
+						<a href="/admin/form_submissions" title="RFI"><i class="fa fa-list" aria-hidden="true"></i> <span class="menu-item-parent">RFI</span></a>
+					</li>
 					<li class=" <%= active_page?(:law_firms) %>">
 						<a href="/admin/law_firms" title="Law Firms"><i class="fa fa-address-card" aria-hidden="true"></i> <span class="menu-item-parent">Law Firms</span></a>
 					</li>

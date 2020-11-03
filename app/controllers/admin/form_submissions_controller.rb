@@ -11,7 +11,9 @@ class Admin::FormSubmissionsController < Admin::BaseController
                 :current_step, :wizard_path, :last_step
   
   def index
-  	@form_submissions = FormSubmission.all.decorate
+    @form_submissions = FormSubmission.all.decorate
+    @q = FormSubmission.ransack(params[:q])
+    @form_submissions = @q.result(distinct: true).order('created_at DESC')
   end
 
   def before_steps

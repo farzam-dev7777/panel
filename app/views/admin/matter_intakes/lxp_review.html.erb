@@ -10,19 +10,64 @@
   <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
     <div class="page-header-sp m-top">
       <div class="page-title">
+        Requires an Update
+      </div>
+      <div class="back-edit-actions">
+        <a class="btn-type-default" href="/admin/matter_intakes">
+          <%= image_tag "chevron-back-icon.svg", alt:"Back" %>
+        </a>
+      </div>
+    </div>
+    <div class="  ">
+      <!-- widget content -->
+      <div class="view-request">
+        <div class="tab-content view-request">
+              <div class="exceptationRequestProcesss">
+              
+                <div class="sp-form sp-form-bg">
+                  <%= simple_form_for [:admin, Review.new()] do |f| %>
+                    <div class="row">
+                      <div class="col-xs-12 col-md-6">
+                        <label class="label">Comment</label>
+                          <%= f.input :description, label: false %>
+                          <%= f.input :reviewable_type, label: false, as: :hidden, input_html: { value: @matter_intake.class.to_s } %>
+                          <%= f.input :reviewable_id, label: false, as: :hidden, input_html: { value: @matter_intake.id } %>
+                      </div>		
+                      <div class="col-xs-12 col-md-6">
+                        <label class="label">Status</label>
+                        <%= f.input :status, label: false, collection: [["Requires an update","requires_an_update"]]%>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-12 col-md-6 internal_lawyers_box" style="display:none">
+                        <label class="label">Assign to</label>
+                        <%= f.input :assigned_to_id, label: false, collection: User.where(role: "internal_lawyers").map{|user| [user.email, user.id] } %>
+                      </div> 
+                      <div class="col-xs-12 col-md-12 text-right">
+                        <%= f.button :submit, @matter_intake.new_record? ? "REQUIRES AN UPDATE" : "REQUIRES AN UPDATE", class:  "btn-type-primary" %>
+                      </div>
+                    </div>
+                <% end %>
+                </div>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="margin-top:20px" class="col-lg-12 col-md-12 col-sm-12">
+  <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+    <div class="page-header-sp m-top">
+      <div class="page-title">
       <% if @matter_intake.user_id.present? %>  <!-- Lob initiated form field -->
         Matter Intake Forms Review (Combined Part-A & Part-B)
       <% else %>
         Matter Intake Forms Review
       <% end %>
       </div>
-      <div class="back-edit-actions">
-        <a class="btn-type-default" href="/admin/matter_intakes">
-          <%= image_tag "chevron-back-icon.svg", alt:"Back" %>
-        </a>
-        <!--<button class='btn-type-primary lxp_rejects'>Requires an Update</button>
-        <input type="hidden" value="<%= @matter_intake.id %>" id="matter_intake_id" /-->
-      </div>
+      
     </div>
     <div class="  ">
       <!-- widget content -->
@@ -443,50 +488,7 @@
   </div>
 </div>
 
-<div class="clearfix"></div>
-
-<div class="col-lg-12 col-md-12 col-sm-12">
-<div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
-  <div class="page-header-sp">
-    <div class="page-title">Requires an Update</div>
-    <div class="back-edit-actions">
-    </div>
-  </div>
-  <div class="  ">
-    <div class="jarviswidget-editbox"></div>
-    <!-- widget content -->
-    
-    <div class="exceptationRequestProcesss">
-      
-        <div class="sp-form sp-form-bg">
-          <%= simple_form_for [:admin, Review.new()] do |f| %>
-            <div class="row">
-              <div class="col-xs-12 col-md-6">
-                <label class="label">Comment</label>
-                  <%= f.input :description, label: false %>
-                  <%= f.input :reviewable_type, label: false, as: :hidden, input_html: { value: @matter_intake.class.to_s } %>
-                  <%= f.input :reviewable_id, label: false, as: :hidden, input_html: { value: @matter_intake.id } %>
-              </div>		
-              <div class="col-xs-12 col-md-6">
-                <label class="label">Status</label>
-                <%= f.input :status, label: false, collection: [["Requires an update","requires_an_update"]]%>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-12 col-md-6 internal_lawyers_box" style="display:none">
-                <label class="label">Assign to</label>
-                <%= f.input :assigned_to_id, label: false, collection: User.where(role: "internal_lawyers").map{|user| [user.email, user.id] } %>
-              </div> 
-              <div class="col-xs-12 col-md-12 text-right">
-                <%= f.button :submit, @matter_intake.new_record? ? "REQUIRES AN UPDATE" : "REQUIRES AN UPDATE", class:  "btn-type-primary" %>
-              </div>
-            </div>
-        <% end %>
-        </div>
-    </div>
-  </div>
-</div>
-</div>
+ 
 
 <div class="clearfix"></div>
 

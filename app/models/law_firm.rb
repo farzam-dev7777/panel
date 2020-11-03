@@ -20,6 +20,7 @@ class LawFirm < ApplicationRecord
   has_many :sub_matter_types, :through => :law_firms_sub_matter_types
   has_many :law_firms_jurisdiction_types
   has_many :jurisdiction_types, :through => :law_firms_jurisdiction_types
+  #has_many :feedbacks, :through => :law_firms_feedbacks
   has_many :law_firms_countries
   has_many :countries, :through => :law_firms_countries
   has_many :law_firms_states

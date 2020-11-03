@@ -37,8 +37,14 @@
             </div>
             <div class="col-xs-12 col-md-6">
               <div class="field-label">LXP Status</div>
-              <div class="field-data"><%=  @conflict_waiver.lxp_status_show   %></div>
+              <div class="field-data"><%=  @conflict_waiver.lxp_status_show  %></div>
             </div>
+            <% if @conflict_waiver.lxp_status === "ALREADY_COVERED" %>
+             <div class="col-xs-12 col-md-6">
+              <div class="field-label">Which part of the retainer covers</div>
+              <div class="field-data"><%=  @conflict_waiver.retainer_cover   %></div>
+            </div>
+            <% end%>
             <div class="col-xs-12 col-md-6">
               <div class="field-label">Internal Lawyer Status</div>
               <div class="field-data"><%= @conflict_waiver.internal_lawyers_status_show %></div>
@@ -95,6 +101,10 @@
                   <div style="display:none;" class="col-xs-12 col-md-6 internal_lawyers_box">
                     <label class="label">Assign to</label>
                     <%= f.input :assigned_to_id, label: false, collection: User.where(role: "internal_lawyers").map{|user| [user.email, user.id] } %>
+                  </div>
+                  <div style="display:none;" class="col-xs-12 col-md-6 retainer_cover_box">
+                    <label class="label">Select which part of the retainer covers</label>
+                    <%= f.input :retainer_cover, label: false, collection: ConflictWaiver::RETAINER_LANGUAGE_TYPE %>
                   </div>
                   <% end %> 
                   <div class="col-xs-12 col-md-12">

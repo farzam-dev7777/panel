@@ -50,6 +50,12 @@
 									<div class="field-label">BMO Status</div>
 									<div class="field-data"><%= @conflict_waiver.lxp_status_show %></div>
 								</div>
+								<% if @conflict_waiver.lxp_status === "ALREADY_COVERED" %>
+								<div class="col-xs-12 col-md-6">
+									<div class="field-label">Which part of the retainer covers</div>
+									<div class="field-data"><%=  @conflict_waiver.retainer_cover   %></div>
+								</div>
+								<% end%>
 								<div class="col-xs-12 col-md-12">         
 									<p><b>Does your request fall within one of the following categories?</b></p>
 									<ol class="conflict_waiver_categories_list">

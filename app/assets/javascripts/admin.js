@@ -226,12 +226,20 @@ $('#login-form').each(function() {
 	});
 	// conflict Waiver approval Processs
 	$('.conflictWaiverProcesss select#review_status').chosen().change(function() {
-		if(this.value == "APPROVED"){
+		if(this.value == "ASSIGN_TO_LAWYER"){
 			$(".conflictWaiverProcesss  .internal_lawyers_box").show()
 			
 		}else{
 			$(".conflictWaiverProcesss .internal_lawyers_box").hide()
 			$('.conflictWaiverProcesss select#review_assigned_to_id').val('').trigger('chosen:updated');
+		}
+
+		if(this.value == "ALREADY_COVERED"){
+			$(".conflictWaiverProcesss  .retainer_cover_box").show()
+			
+		}else{
+			$(".conflictWaiverProcesss .retainer_cover_box").hide()
+			$('.conflictWaiverProcesss select#review_retainer_cover').val('').trigger('chosen:updated');
 		}
 	});
 

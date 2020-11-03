@@ -209,6 +209,10 @@
                 <div class="field-label">Legal Entity</div>
                 <div class="field-data"><%= @matter_intake.paying_entity %></div>
               </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Is this a syndicate matter?</div>
+                <div class="field-data"><%= @matter_intake.is_syndicate_matter %></div>
+              </div>
               <% if @matter_intake.user_id.present? %>  <!-- Lob initiated form field -->
                 <div class="col-xs-12 col-md-6">
                   <div class="field-label">Additional Comments for LRC Lawyer</div>
