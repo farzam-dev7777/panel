@@ -102,7 +102,7 @@ class MatterIntake < ApplicationRecord
   
   validates_presence_of :is_otherwise_reportable, :mi_matter, :nature_of_events, :process_type_level_1, :process_type_level_2, :product_type_level_1, :product_type_level_2,
     :event_type_level_1, :event_type_level_2, :business_activity_level_1, :business_activity_level_2,
-    :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && matter_intake.form_type === "litigation" && matter_intake.is_ore_reportable === "Yes" }
+    :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && matter_intake.is_ore_reportable === "Yes" }
   
   #### Litigation Intake Lawyer Initiated validation Endss ####
 

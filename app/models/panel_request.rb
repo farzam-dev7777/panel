@@ -56,7 +56,7 @@ class PanelRequest < ApplicationRecord
     "None of the above"
   ]
 
-  validates_presence_of :submitted_by_email, :line_of_business, :lob_contact_name, :women_owned  #:minority_owned
+  validates_presence_of :submitted_by_email, :line_of_business, :women_owned, :niche_preferred_external_counsel_panel_law_firms, :matter_types, :required_unique_geography, :involved_engagement, :women_owned
 
 
   def matter_types

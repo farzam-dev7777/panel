@@ -1708,8 +1708,8 @@ $('select#matter_intake_outside_counsel_engaged').on('change', function() {
 })
 
 $('.lxp_review_status').on('click', function() {
+	
 	var status = $(this).attr("data-status");
-
 	if(status) {
 		$('#review_status').val(status);
 		$('#review_status').trigger('chosen:updated');

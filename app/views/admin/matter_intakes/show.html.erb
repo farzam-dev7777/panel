@@ -103,12 +103,58 @@
               <% if @matter_intake.work_area === "Regulatory" && @matter_intake.form_type != "litigation" %> 
                 <div class="col-xs-12 col-md-6">
                   <div class="field-label">Is this matter ORE reportable?</div>
-                  <div class="field-data"><%= @matter_intake.is_ore_reportable %></div>
+                  <div class="field-data">
+                    <%= @matter_intake.is_ore_reportable %>
+                    <input type="hidden" id="litigation_reporting" value="<%= @matter_intake.is_ore_reportable %>" />
+                  </div> 
                 </div>
                 <div class="col-xs-12 col-md-6">
                   <div class="field-label">Is this matter otherwise reportable? (e.g. board reporting)</div>
                   <div class="field-data"><%= @matter_intake.is_otherwise_reportable %></div>
                 </div>
+
+                <div class="col-xs-12 col-md-6 litigation_reporting">
+                  <div class="field-label">M&I Matter</div>
+                  <div class="field-data"><%= @matter_intake.mi_matter %></div>
+                </div>
+                <div class="col-xs-12 col-md-6 litigation_reporting">
+                  <div class="field-label">Nature of Events</div>
+                  <div class="field-data"><%= @matter_intake.nature_of_events %></div>
+                </div>
+                <div class="col-xs-12 col-md-6 litigation_reporting">
+                  <div class="field-label">Process Type Level 1</div>
+                  <div class="field-data"><%= @matter_intake.process_type_level_1 %></div>
+                </div>
+                <div class="col-xs-12 col-md-6 litigation_reporting">
+                  <div class="field-label">Process Type Level 2</div>
+                  <div class="field-data"><%= @matter_intake.process_type_level_2 %></div>
+                </div>
+                <div class="col-xs-12 col-md-6 litigation_reporting">
+                  <div class="field-label">Product Type Level 1</div>
+                  <div class="field-data"><%= @matter_intake.product_type_level_1 %></div>
+                </div>
+                <div class="col-xs-12 col-md-6 litigation_reporting">
+                  <div class="field-label">Product Type Level 2</div>
+                  <div class="field-data"><%= @matter_intake.product_type_level_2 %></div>
+                </div>
+                <div class="col-xs-12 col-md-6 litigation_reporting">
+                  <div class="field-label">Event Type Level 1</div>
+                  <div class="field-data"><%= @matter_intake.event_type_level_1 %></div>
+                </div>
+                <div class="col-xs-12 col-md-6 litigation_reporting">
+                  <div class="field-label">Event Type Level 2</div>
+                  <div class="field-data"><%= @matter_intake.event_type_level_2 %></div>
+                </div>
+                <div class="col-xs-12 col-md-6 litigation_reporting">
+                  <div class="field-label">Business Activity Level 1</div>
+                  <div class="field-data"><%= @matter_intake.business_activity_level_1 %></div>
+                </div>
+                <div class="col-xs-12 col-md-6 litigation_reporting">
+                  <div class="field-label">Business Activity Level 2</div>
+                  <div class="field-data"><%= @matter_intake.business_activity_level_2 %></div>
+                </div>
+
+
                <% end %>
               <% end %>
               <div class="col-xs-12 col-md-6">

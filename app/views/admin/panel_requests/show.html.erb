@@ -12,7 +12,7 @@
 					<a class="btn-type-default" href="/admin/panel_requests">
 						<%= image_tag "chevron-back-icon.svg", alt:"Back" %>
 					</a>
-					<% if current_user.role == 'lxp' &&  @panel_request.try(:lxp_status) != 'APPROVED' %>
+					<% if( current_user.role == 'lxp' || current_user.role == 'internal_lawyers' )&&  @panel_request.try(:lxp_status) != 'APPROVED' %>
 						<a class="btn-type-primary" href="/admin/panel_requests/<%= @panel_request.id %>/edit">
 							Edit
 						</a>
@@ -38,11 +38,11 @@
 									<div class="field-label">Line of Business	</div>		
 									<div class="field-data"><%= @panel_request.requested_by %><%= @panel_request.line_of_business %></div>
 								</div>
-								<div class="col-xs-12 col-md-6">
+								<!--<div class="col-xs-12 col-md-6">
 									<div class="field-label">LOB Contact Name	</div>		
 									<div class="field-data"><%= @panel_request.lob_contact_name %></div>
 								</div>
-								<!--<div class="col-xs-12 col-md-6">
+								<div class="col-xs-12 col-md-6">
 									<div class="field-label">Business Manager Name</div>
 									<div class="field-data"><%= @panel_request.business_manager_name %></div>
 								</div>
@@ -173,7 +173,7 @@
 										<div class="field-label">Document Status</div>
 										<div class="field-data"><%= @panel_request.docusign_retainer_envelope.try(:status) %></div>
 									</div>
-									<% if @panel_request.docusign_retainer_envelope.try(:status) == "completed"%>
+									<% if @panel_request.docusign_retainer_envelope.try(:status) == "completed" %>
 										<div class="col-md-12">
 											<div class="field-label">Download Document</div>
 											<div class="field-data">
@@ -197,7 +197,7 @@
 										<!-- </div> -->
 									<% end %>
 
-									<% if(!@panel_request.law_firm.form_submissions.any?) %>
+									<% if(!@panel_request.law_firm.form_submissions.any?) && current_user.role === "lxp"  %>
 										<!-- <div class="col-lg-2 pull-right"> -->
 											<% if(@panel_request.law_firm.user.try(:is_deactivated?)) %>
 												<a class="btn-type-primary send-user-info-btn" data-id="<%= @panel_request.law_firm.user.id %>">Send Reset Password Link </a>
@@ -218,5 +218,6 @@
     </div>
 	</div>
  
-
+<% if current_user.role === "lxp" %>
  <%= render "#{current_user.role}_show" %>
+<% end %> 

@@ -43,7 +43,7 @@ class LawFirm < ApplicationRecord
   #after_create :generate_a_new_user 
   # acts_as_messageable
 
-  validates_presence_of :name, :phone
+  validates_presence_of :name, :firm_use_on_regular_basis
 
   before_create :set_law_firm_email_to_user_email
 

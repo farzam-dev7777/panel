@@ -9,14 +9,16 @@ module ButtonHelper
       if (submissions.latest.submitted)
         if submissions.latest.total_score && submissions.latest.status == 'approved'
           gauge(submissions.latest)
-        # elsif(submissions.latest.status == 'decline')
-        #   link_to 'Your submission has been declined', '#', html_options = {class: 'btn-type-primary dashboard-certificate-button text-center', disabled: true}  
+        elsif(submissions.latest.status == 'decline')
+          link_to 'Submission Reviewed', '#', html_options = {class: 'btn-type-primary dashboard-certificate-button text-center', disabled: true}  
         elsif submissions.latest.submitted
           link_to 'Your submission is being reviewed', '#', html_options = {class: 'btn-type-primary dashboard-certificate-button text-center', disabled: true}  
         elsif submissions.latest.status == 'started'
           link_to 'Continue RFI Process', pricing_step_form_submission_path(submissions.latest), html_options = {class: 'btn-type-primary dashboard-certificate-button'}  
         
         end
+      elsif(submissions.latest.status == 'decline')
+        link_to 'Submission Reviewed', '#', html_options = {class: 'btn-type-primary dashboard-certificate-button text-center', disabled: true}  
       elsif(submissions.latest.status == 'sent')
         link_to 'Begin RFI Process', pricing_step_form_submission_path(submissions.latest), html_options = {class: 'btn-type-primary dashboard-certificate-button'}
       elsif(submissions.latest.status == 'started')

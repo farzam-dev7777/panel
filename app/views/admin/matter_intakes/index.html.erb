@@ -86,7 +86,7 @@
               <th>Name of Matter/Client</th>
               <!--th>Law Firm Suggested</th-->
               <th>T360 Matter Number</th>
-              <!--<th>Budget amount</th>-->
+              <th>Form Type</th>
               <th>Status</th>
               <!--<th>Action</th>-->
             </tr>
@@ -115,7 +115,7 @@
                 <td><%= matter_intake.name_of_matter_client %></td>
                 <!--td><%= matter_intake.law_firm.try(:name) %></td-->
                 <td><%= matter_intake.matter_number %></td>
-                <!--<td><%= matter_intake.budget_amount %></td>-->
+                <td><%= matter_intake.form_type %></td>
                 <td>
                   <div class="status">
                     <span class="<%= matter_intake.status === "matter_open" ? 'label label-success' : 'label label-default' %>"> 

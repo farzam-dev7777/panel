@@ -22,11 +22,11 @@
           <label class="label">Line of Business<span class="mandatory">*</span></label>
           <%= f.input :line_of_business, label: false, collection: PanelRequest::LOB_LIST %>
         </div>
-        <div class="col-xs-12 col-md-6">
+        <!--div class="col-xs-12 col-md-6">
           <label class="label">LOB Contact Name<span class="mandatory">*</span></label>
           <%= f.input :lob_contact_name, label: false %>
         </div>
-        <!--<div class="col-xs-12 col-md-6">
+        <<div class="col-xs-12 col-md-6">
           <label class="label">Business Manager Name</label>
           <%= f.input :business_manager_name, label: false %>
         </div>
@@ -62,7 +62,7 @@
                   </div> 
                   <% end %>
                   <div class="col-xs-12 col-md-6">
-                    <label class="label">Phone<span class="mandatory">*</span></label>
+                    <label class="label">Phone</label>
                     <%= field.input :phone, label: false %>
                   </div>
                   <!--<div class="col-xs-12 col-md-6">
@@ -85,7 +85,7 @@
                     <label class="label">Would You use this firm on a regular basis?<span class="mandatory">*</span></label>
                     <%= field.input :firm_use_on_regular_basis, as: :select, required: true,  label: false, collection: [["Yes", "Yes"], ["No", "No"]] %>
                   </div>
-                  <div class="col-xs-12 col-md-6">
+                  <!--div class="col-xs-12 col-md-6">
                     <label class="label">Temp. Password</label>
                     <%= field.input :temp_password, autocomplete: "off", label: false, input_html: { class: 'set-password' } %>
                     <p style="color: #949494;" class="text-left"><em>Minimum 10 characters required</em></p>	
@@ -93,7 +93,7 @@
                   <div class="col-xs-12 col-md-6">
                     <label class="label">Confirm Password</label>
                     <%= field.input :temp_password_confirmation, autocomplete: "off", label: false, input_html: { class: 'set-password' } %>
-                  </div>
+                  </div-->
                 </div>
               </div>
             <% end %>
