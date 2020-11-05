@@ -313,18 +313,22 @@ nav ul li a:active {
   border: 1px solid #D7DFE9;
 }
 .table-decoration thead tr th{
-  font-weight: 500;
+  font-weight: bold;
   font-size: 12px;
-  color: #7E858E;
+  color: #171F46;
   text-align: left !important;
   padding: 24px 10px;
   text-transform: uppercase;
   vertical-align: middle;
 }
+.table-decoration tbody tr:hover td{
+  color: #171F46 !important;
+}
+
 .table-decoration tbody tr td{
   font-weight: 500;
   font-size: 14px;
-  color: #171F46;
+  color: #7E858E;
   padding: 18px 10px;
   vertical-align: middle;
 }
@@ -338,6 +342,7 @@ nav ul li a:active {
 .table-decoration tbody tr:hover{
   background-color: #f0f0f0 !important;
 }
+ 
 .table-decoration tbody tr:nth-child(even){
   background-color: #F9F9F9;
 }
@@ -360,9 +365,9 @@ nav ul li a:active {
   justify-content: center; */
 }
 .table-decoration tbody tr td .firm-name .name-avatar img{
-  width: 35px;
+  width: 25px;
   border-radius: 4px;
-  height: 35px;
+  height: 25px;
 }
 /* .table-decoration tbody tr td .status{
   
@@ -484,7 +489,7 @@ nav ul li a:active {
   font-weight: 500;
   font-size: 12px;
   line-height: 16px;
-  color: #7E858E;
+  color: #171F46;
   padding: 0px;
   white-space: break-spaces;
 }
@@ -525,6 +530,7 @@ nav ul li a:active {
   padding: 0px 10px !important;
   box-sizing: border-box;
   height: 38px;
+  color: #7E858E;
 }
 .sp-form > form .form-control:focus{
   border: 1px solid #D7DFE9;
@@ -640,14 +646,14 @@ nav ul li a:active {
   font-weight: 500;
   font-size: 12px;
   line-height: 16px;
-  color: #7E858E;
+  color: #171F46;
   margin-bottom: 15px;
 }
 .show-data-fields .field-data{
   font-weight: normal;
   font-size: 14px;
   line-height: 24px;
-  color: #171F46;
+  color: #7E858E;
   margin-bottom: 25px;
   border: 1px solid #D7DFE9;
   border-radius: 2px;
