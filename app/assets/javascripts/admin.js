@@ -640,7 +640,7 @@ $('select#matter_intake_bmo_lawyer_name').on('change', function() {
 });
 
 // hide on load
-if($('select#matter_intake_work_area').val() === "Regulatory") {
+if($('select#matter_intake_work_area').val() === "Regulatory" || $('select#matter_intake_work_area').val() === "Regulatory / Réglementation") {
 	$('.work_area_reportable').show()
 } else {
 	$('.work_area_reportable').hide()
@@ -653,7 +653,7 @@ $('select#matter_intake_work_area').on('change', function() {
 	// var form_type = $('#matter_intake_form_type').val();
 	// if(form_type === "general" || form_type === "litigation") {
 		var work_area = this.value;
-		if(work_area === "Regulatory") {
+		if(work_area === "Regulatory" || $('select#matter_intake_work_area').val() === "Regulatory / Réglementation") {
 			$('.work_area_reportable').show()
 		} else {
 			$('.work_area_reportable').hide()
