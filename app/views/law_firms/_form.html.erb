@@ -95,6 +95,13 @@
 
 				<div class="col-xs-12 col-md-6">
 					<label class="label">Locations</label>
+					<div class="col-md-12 no-padding">
+						<div class="col-md-3">
+							<div class="form-group optional law_firm_locations_country"><b>Country</b></div>
+						</div>
+						<div class="col-md-4"><b>Province</b></div>
+						<div class="col-md-4"><b>City</b></div> 
+					</div>
 					<%= f.simple_fields_for :locations do |field| %>
 						<%= render partial: "location_fields", locals: {f: field} %>
 					<% end %>
