@@ -1,11 +1,12 @@
 <div class="col-md-12 no-padding location-object location-<%= f.object.try(:id) %>">
-  <!-- <div class="col-md-4"><%= f.input :city, input_html: { class: 'no-margin no-padding' }, label: false %></div> -->
+  
   <div class="col-md-3">
     <div class="form-group optional law_firm_locations_country">
       <%= f.country_select :country, input_html: { class: 'no-margin no-padding' }, label: false %>
     </div>
   </div>
-  <!-- <div class="col-md-4"><%= f.input :province, as: :select, input_html: { class: 'no-margin no-padding', placeholder: "Please select a country first", data: {"province" => f.object.province} }, label: false %></div> -->
+  <div class="col-md-4"><%= f.input :province, as: :select, input_html: { class: 'no-margin no-padding', placeholder: "Please select a country first", data: {"province" => f.object.province} }, label: false %></div>
+  <div class="col-md-4"><%= f.input :city, input_html: { class: 'no-margin no-padding' }, label: false %></div> 
   <div class="col-md-1" style="line-height: 35px;">
     <%= link_to_remove_association "<i class='fa fa-minus-circle'></i>".html_safe, f, { wrapper_class: "location-#{f.object.try(:id)}" }  %>
   </div>
