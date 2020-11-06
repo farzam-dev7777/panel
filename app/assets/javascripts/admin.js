@@ -1711,6 +1711,7 @@ $('.lxp_review_status').on('click', function() {
 	
 	var status = $(this).attr("data-status");
 	if(status) {
+		$('#review_status').removeAttr('disabled');
 		$('#review_status').val(status);
 		$('#review_status').trigger('chosen:updated');
 		$(".form-submit-btn.lxp_sttaus").trigger('click');

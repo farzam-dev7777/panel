@@ -30,6 +30,7 @@ class Admin::ReviewsController < Admin::BaseController
       ))
 
       if @review.save
+       
         if params[:review][:reviewable_type] == "ExceptionRequest"
           
           @exception_request = ExceptionRequest.find_by_id(params[:review][:reviewable_id])
@@ -60,7 +61,7 @@ class Admin::ReviewsController < Admin::BaseController
         elsif params[:review][:reviewable_type] == "PanelRequest"
           @panel_request = PanelRequest.find_by_id(params[:review][:reviewable_id])
           @panel_request.lxp_status = review_params[:status]
-         
+
           if current_user.role === 'lxp' &&  review_params[:status] == 'PANEL_RETAINER'
             @lob = User.find_by_id(@panel_request.user_id)
             lob_email = @lob.email
