@@ -74,6 +74,13 @@ GEM
     amoeba (3.1.0)
       activerecord (>= 3.2.6)
     arel (7.1.4)
+    axlsx (2.0.1)
+      htmlentities (~> 4.3.1)
+      nokogiri (>= 1.4.1)
+      rubyzip (~> 1.0.0)
+    axlsx_rails (0.5.2)
+      actionpack (>= 3.1)
+      axlsx (>= 2.0.1)
     bcrypt (3.1.13)
     bindex (0.8.1)
     breadcrumbs_on_rails (3.0.1)
@@ -154,6 +161,7 @@ GEM
       rotp (= 1.6.1)
     google-qr (0.2.2)
     hashie (4.1.0)
+    htmlentities (4.3.4)
     http-accept (1.7.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
@@ -325,6 +333,7 @@ GEM
     ruby-graphviz (1.2.4)
     ruby-vips (2.0.15)
       ffi (~> 1.9)
+    rubyzip (1.0.0)
     sass (3.7.4)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
@@ -404,6 +413,8 @@ DEPENDENCIES
   activerecord-sortable
   activesupport-current_attributes
   amoeba
+  axlsx (~> 2.0)
+  axlsx_rails
   breadcrumbs_on_rails
   byebug
   cancan

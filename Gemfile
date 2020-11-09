@@ -27,6 +27,9 @@ gem 'omniauth-docusign'
 gem 'public_uid'
 gem 'mixpanel-ruby'
 
+gem 'axlsx', '~> 2.0'
+gem "axlsx_rails"
+
 gem 'rails-assets-qTip2', source: 'https://rails-assets.org'
 gem 'rails-assets-sweetalert', source: 'https://rails-assets.org'
 gem 'rails-assets-toastr', source: 'https://rails-assets.org'

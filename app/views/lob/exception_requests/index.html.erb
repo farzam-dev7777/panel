@@ -9,6 +9,10 @@
       <div class="page-title">Non-Panel (one-off) Requests</div>
       <div>
         <%= link_to 'Submit New Non-Panel (one-off) Request', engage_non_panel_firm_lob_exception_requests_path, html_options = {class: 'page-header-btn'}   %> 
+       <%=
+      link_to 'Download as Excel',
+      lob_exception_requests_path(format: :xlsx)
+    %>
       </div>
     </div>
 

@@ -8,6 +8,14 @@ class Lob::ExceptionRequestsController < Lob::BaseController
     @q = ExceptionRequest.ransack(params[:q])
     @exception_requests = @q.result(distinct: true).where(user_id: current_user.id  ).order('created_at DESC')   
     add_breadcrumb "Exception request", :admin_exception_requests_path
+    respond_to do |format|
+      format.xlsx {
+        response.headers[
+          'Content-Disposition'
+        ] = "attachment; filename=Exception request List.xlsx"
+      }
+      format.html { render :index }
+    end
   end
 
   def show
