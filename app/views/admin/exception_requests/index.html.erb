@@ -6,7 +6,9 @@
   <div class="jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
     <div class="page-header-sp m-top">
       <div class="page-title">Non-Panel (one-off) Requests</div>
-      <div></div>
+      <div>
+       <%= link_to 'Download as Excel', admin_exception_requests_path(format: :xlsx), html_options = {class: 'page-header-btn'}   %> 
+      </div>
     </div>
     <% if current_user.role == "lob" %>
 		  <div class="no-padding">

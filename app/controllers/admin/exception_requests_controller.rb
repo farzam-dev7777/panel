@@ -13,7 +13,14 @@ class Admin::ExceptionRequestsController < Admin::BaseController
     else
       @exception_requests = @q.result(distinct: true).where(user_id: current_user.id).order('created_at DESC')
     end
-   
+    respond_to do |format|
+      format.xlsx {
+        response.headers[
+          'Content-Disposition'
+        ] = "attachment; filename=Exception request List.xlsx"
+      }
+      format.html { render :index }
+    end
     add_breadcrumb "Exception request", :admin_exception_requests_path
   end
 
