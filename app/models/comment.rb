@@ -9,8 +9,6 @@ class Comment < ActiveRecord::Base
   #acts_as_votable
 
   belongs_to :commentable, :polymorphic => true
-  belongs_to :actor, class_name: 'User'
-  belongs_to :assigned_to, class_name: 'User'
 
   # NOTE: Comments belong to a user
   belongs_to :user
