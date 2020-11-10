@@ -550,6 +550,10 @@ hr.note-seperator {
   margin-bottom: 20px;
   margin-right: 27px;
 }
+.dashboard-certificate-button-export {
+  margin-right: 0 !important;
+}
+
 
 .check-mark-wrapper {
   float: left !important;

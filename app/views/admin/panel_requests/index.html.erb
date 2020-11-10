@@ -8,6 +8,7 @@
     <div class="page-title">Panel Consideration Requests</div>
     <div class="back-edit-actions">
       <%= link_to 'Submit New Panel Consideration Request', new_admin_panel_request_path, html_options = {class: 'btn-type-primary dashboard-certificate-button'}   %>
+      <%= link_to 'Download as Excel', admin_panel_requests_path(format: :xlsx), html_options = {class: 'btn-type-primary dashboard-certificate-button dashboard-certificate-button-export '}   %> 
     </div>
   </div>
   <div class="">

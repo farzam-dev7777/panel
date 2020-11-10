@@ -13,6 +13,16 @@ class Admin::PanelRequestsController < Admin::BaseController
     else
       @panel_requests = @q.result.order('created_at DESC') 
     end 
+
+    respond_to do |format|
+      format.xlsx {
+        response.headers[
+          'Content-Disposition'
+        ] = "attachment; filename=Exception request List.xlsx"
+      }
+      format.html { render :index }
+    end
+    
     add_breadcrumb "Panel request", :admin_panel_requests_path
   end
 

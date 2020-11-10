@@ -1,0 +1,63 @@
+wb = xlsx_package.workbook
+
+wb.styles do |style|
+  project_heading = style.add_style(b: true, sz: 14)
+  heading = style.add_style(b: true)
+
+  wb.add_worksheet(name: "Panel Consideration Requests") do |sheet|
+    # Add a title row
+    #sheet.add_row ["Panel Consideration Requests List"], style: project_heading
+    # Add the date this was downloaded
+    #sheet.add_row ["Downloaded at", Time.now.strftime("%b %-d, %Y")]
+    # Add a blank row
+    #sheet.add_row []
+    # Create the header row
+    sheet.add_row [
+      "Date Submitted", 
+      "Submitted By", 
+      "Line of Business", 
+      "Law Firm Type", 
+      "Law Firm Name", 
+      "Law Firm Contact Name", 
+      "Law Firm Email", 
+      "Law Firm Phone", 
+      "Would You use this firm on a regular basis?", 
+      "What type of matters would this firm work on?", 
+      "Does this firm have a specific niche expertise not available from a BMO LXP Panel law firm?", 
+      "If yes, please describe niche expertise", 
+      "Does this firm practice in a location not already covered by a BMO LXP Panel law firm?", 
+      "If yes, confirm location", 
+      "Would engagements of this firm involve the following", 
+      "Is this a certified minority/woman owned firm?", 
+      "If yes, which organization certified the firm?", 
+      "Are there additional reasons to consider this firm for BMO's LXP Panel? Provide details", 
+      "LXP Status", 
+      "Panel Approved" 
+      ], style: heading
+    # Create entries for each item
+     @panel_requests.each do |panel_request|
+      sheet.add_row [
+        panel_request.created_at.strftime('%d %b %Y at %I:%M %p'),
+        panel_request.submitted_by_email,
+        panel_request.line_of_business,
+        panel_request.law_firm.law_firm_category,
+        panel_request.law_firm.name,
+        panel_request.law_firm.contact_name,
+        !panel_request.law_firm.user.try(:email).blank? ? panel_request.law_firm.user.try(:email) : '-',
+        panel_request.law_firm.phone,
+        panel_request.law_firm.firm_use_on_regular_basis,
+        panel_request.matter_types.join(', '),
+        panel_request.niche_preferred_external_counsel_panel_law_firms,
+        panel_request.niche_expertise,
+        panel_request.required_unique_geography,
+        panel_request.geographic_location,
+        panel_request.involved_engagement,
+        panel_request.women_owned,
+        panel_request.women_owned_details,
+        panel_request.reason_other,
+        panel_request.lxp_status_show ? panel_request.lxp_status_show : "-",
+        panel_request.fully_approved? ? "Yes" : "No",
+        ]
+    end
+  end
+end
