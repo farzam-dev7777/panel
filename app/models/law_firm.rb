@@ -20,7 +20,9 @@ class LawFirm < ApplicationRecord
   has_many :sub_matter_types, :through => :law_firms_sub_matter_types
   has_many :law_firms_jurisdiction_types
   has_many :jurisdiction_types, :through => :law_firms_jurisdiction_types
-  #has_many :feedbacks, :through => :law_firms_feedbacks
+  has_many :feedbacks
+  has_many :values
+  has_many :issues
   has_many :law_firms_countries
   has_many :countries, :through => :law_firms_countries
   has_many :law_firms_states
@@ -31,10 +33,14 @@ class LawFirm < ApplicationRecord
   serialize :practice_area, Array
   serialize :type_of_matters_your_law_firm_handles_for_us, Array
   serialize :type_of_services_your_law_firm_provides_generally, Array
+  
 
   accepts_nested_attributes_for :history_submissions
 
   accepts_nested_attributes_for :locations, allow_destroy: true
+  accepts_nested_attributes_for :feedbacks, allow_destroy: true
+  accepts_nested_attributes_for :values, allow_destroy: true
+  accepts_nested_attributes_for :issues, allow_destroy: true
   accepts_nested_attributes_for :jurisdictions, allow_destroy: true
   accepts_nested_attributes_for :users, allow_destroy: true
 

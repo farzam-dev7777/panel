@@ -3,15 +3,17 @@ class ExceptionRequest < ApplicationRecord
   #serialize :matter_types, Array
 
   self.per_page = 10
+  acts_as_commentable
   belongs_to :user
   belongs_to :law_firm
   has_many :activity_logs
   has_many :reviews, as: :reviewable
+  has_many :comments, as: :commentable  
   serialize :reason, Array
   serialize :receive_personal_information_data_type, Array
   serialize :receive_general_business_data_type, Array
   serialize :applicable_technical_specialty_data_type, Array
-
+  
   LOB_LIST = ["Canadian P&C / Services bancaires Particuliers et entreprises - Canada","Capital Markets / Marché des capitaux","Corporate / Services d'entreprise","Technology & Operations / Technologie et opérations (T&O)","US P&C / Services bancaires Particuliers et entreprises - É.-U.","Wealth Management / Gestion de patrimonie"]
   REQUEST_TYPE = {
     "EXCEPTION": "Exception",

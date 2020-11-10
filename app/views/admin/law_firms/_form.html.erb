@@ -124,33 +124,7 @@
 			
 
 			
-				<div class="inner-label">Law Firm Information</div>
-					<div class="inner-form-field form-flex-wrap">
-							<div class="col-xs-12 col-md-6">
-							<label class="label"><i class="fa fa-question-circle-o help-text" data-help="All users that have access to law firm files, electronic or physical"></i> No. of personnel </label>
-							<%= f.input :number_of_lawyers, label: false, collection: LawFirm::NUMBER_OF_LAWYERS, input_html: { autocomplete: 'off', class: 'text-left' } %>
-						</div>
-						<div class="col-xs-12 col-md-6">
-							<label class="label">Diverse</label>
-							<%= f.input :diverse, label: false, collection: LawFirm::DIVESER, input_html: { autocomplete: 'off', class: 'text-left' } %>
-						</div>
-						<div class="col-xs-12 col-md-6">
-							<label class="label">Value-Add Activities</label>
-							<%= f.input :value_add_activities, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
-						</div>
-						<div class="col-xs-12 col-md-6">
-							<label class="label">Feedback</label>
-							<%= f.input :feedback, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
-						</div>
-						<div class="col-xs-12 col-md-6">
-							<label class="label">Issues</label>
-							<%= f.input :issues, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
-						</div>
-						<div class="col-xs-12 col-md-6">
-							<label class="label">Merger/Combination</label>
-							<%= f.input :merger_combination, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
-						</div>
-				</div>
+				
 			
 
 			
@@ -193,7 +167,50 @@
 							<% end %>
 						</div>	
 				</div>
-			
+			<div class="inner-label">Law Firm Information</div>
+					<div class="inner-form-field form-flex-wrap">
+							<div class="col-xs-12 col-md-6">
+							<label class="label"><i class="fa fa-question-circle-o help-text" data-help="All users that have access to law firm files, electronic or physical"></i> No. of personnel </label>
+							<%= f.input :number_of_lawyers, label: false, collection: LawFirm::NUMBER_OF_LAWYERS, input_html: { autocomplete: 'off', class: 'text-left' } %>
+						</div>
+						<div class="col-xs-12 col-md-6">
+							<label class="label">Diverse</label>
+							<%= f.input :diverse, label: false, collection: LawFirm::DIVESER, input_html: { autocomplete: 'off', class: 'text-left' } %>
+						</div>
+						<div class="col-xs-12 col-md-6">
+							<label class="label">Value-Add Activities</label>
+							<%= f.simple_fields_for :values do |field| %>
+								<%= render partial: "value_fields", locals: {f: field} %>
+							<% end %>
+							<div class="add-css">
+								<%= link_to_add_association '<span href="javascript:void(0);" class="btn-type-default"><i class="fa fa-plus-circle"></i> Add Law Firm\'s Value(s)</span>'.html_safe, f, :values %>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-md-6">
+							<label class="label">Feedback</label>
+							<%= f.simple_fields_for :feedbacks do |field| %>
+								<%= render partial: "feedback_fields", locals: {f: field} %>
+							<% end %>
+							<div class="add-css">
+								<%= link_to_add_association '<span href="javascript:void(0);" class="btn-type-default"><i class="fa fa-plus-circle"></i> Add Law Firm\'s Feedback(s)</span>'.html_safe, f, :feedbacks %>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-md-6">
+							<label class="label">Issues</label>
+							<%= f.simple_fields_for :issues do |field| %>
+								<%= render partial: "issue_fields", locals: {f: field} %>
+							<% end %>
+							<div class="add-css">
+								<%= link_to_add_association '<span href="javascript:void(0);" class="btn-type-default"><i class="fa fa-plus-circle"></i> Add Law Firm\'s Issue(s)</span>'.html_safe, f, :issues %>
+							</div>
+						</div>
+						<div class="col-xs-12 col-md-6">
+							<label class="label">Merger/Combination</label>
+							<%= f.input :merger_combination, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
+						</div>
+				</div>
 			<% if Current.user.role === "internal_lawyers" %>
 				<div class="col-xs-12 col-md-6">
 					<label class="label">Relationship Manager Name</label>

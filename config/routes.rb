@@ -144,6 +144,7 @@ Rails.application.routes.draw do
     end
     resources :conflict_waivers
     resources :reviews
+    resources :comments
     get '/internal_dashboard/notifications', to: 'internal_dashboard#notifications'
     resources :internal_dashboard do
       collection do
@@ -192,6 +193,7 @@ Rails.application.routes.draw do
     resources :panel_requests do
       get :download_pdf 
     end
+    resources :comments
     resources :exception_requests do
       collection do
         get :engage_non_panel_firm 

@@ -63,7 +63,7 @@ gem 'activesupport-current_attributes'
 gem 'rails-breadcrumbs'
 
 gem  'nokogiri'
-
+gem 'acts_as_commentable_with_threading'
 group :development, :test do
   gem 'byebug', platform: :mri
   gem 'pry'
