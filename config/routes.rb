@@ -123,6 +123,17 @@ Rails.application.routes.draw do
       get :download_pdf 
       collection do
         post :send_retainer_aggreement
+        get :engage_non_panel_firm 
+        post :get_sub_matter_types 
+        post :get_state
+        post :get_law_firm_list
+        get :select_law_firm 
+        get 'select_law_firm/:id' => 'exception_requests#select_law_firm'
+        get ':law_firm_id/new' => 'exception_requests#new', :as => "exception_request_new"
+        get ':exception_request_id/new_engage_non_panel_firm' => 'exception_requests#new_engage_non_panel_firm', :as => "exception_request_new_engage"
+        get ':exception_request_id/update_engage_non_panel_firm' => 'exception_requests#update_engage_non_panel_firm', :as => "exception_request_update_engage"
+        get ':law_firm_new/create' => 'exception_requests#law_firm_new', :as => "law_firm_new_create"
+        post :law_firm_create
       end
     end
     resources :panel_requests do

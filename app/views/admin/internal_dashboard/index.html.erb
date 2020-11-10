@@ -60,6 +60,12 @@
 		<p>	
 			<b> <%= link_to 'Submit New Matter Intake Form (General Intake)', new_admin_matter_intake_path(form_type: "general"), html_options = {class: 'btn-type-primary'}   %></b>
 			<b> <%= link_to 'Submit New Matter Intake Form (Litigation Intake)', new_admin_matter_intake_path(form_type: "litigation"), html_options = {class: 'btn-type-primary'}   %></b>
+
+		</p>
+		<p>
+		<% if current_user.role == "internal_lawyers" %>
+			<b> <%= link_to 'Submit New Non-Panel (one-off) Request', engage_non_panel_firm_admin_exception_requests_path, html_options = {class: 'btn-type-primary'}   %> </b>
+		<% end %>
 		</p>
 		</div>
 	</div>

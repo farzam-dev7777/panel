@@ -259,7 +259,7 @@ class ExceptionRequest < ApplicationRecord
       
       self.docusign_envelope_id = envelope_id
       self.save
-
+      
       ExceptionRequestMailer.form_status_notification_to_lob_for_sign(self).deliver_now
     rescue DocuSign_eSign::ApiError => e
       error = JSON.parse e.response_body

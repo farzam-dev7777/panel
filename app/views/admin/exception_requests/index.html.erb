@@ -7,7 +7,10 @@
     <div class="page-header-sp m-top">
       <div class="page-title">Non-Panel (one-off) Requests</div>
       <div>
-       <%= link_to 'Download as Excel', admin_exception_requests_path(format: :xlsx), html_options = {class: 'page-header-btn'}   %> 
+      <% if current_user.role == "internal_lawyers" %>
+        <%= link_to 'Submit New Non-Panel (one-off) Request', engage_non_panel_firm_admin_exception_requests_path, html_options = {class: 'page-header-btn'}   %> 
+      <% end %>
+      <%= link_to 'Download as Excel', admin_exception_requests_path(format: :xlsx), html_options = {class: 'page-header-btn'}   %> 
       </div>
     </div>
     <% if current_user.role == "lob" %>
@@ -99,10 +102,10 @@
                     <%= exception_request.created_at.strftime('%d %b %Y at %I:%M %p') %>
                   </td>
                   <td>
-                    <% if exception_request.requested_by.present? %>
+                    <% if exception_request.user_id.present? %>
                       <div class="firm-name">
-                        <div class="name-avatar"><img src="<%= get_avatar_image(exception_request&.requested_by&.gsub(" ", "+")) %>"></div>
-                        <div><%= exception_request.requested_by %></div>
+                        <div class="name-avatar"><img src="<%= get_avatar_image(exception_request&.user.username&.gsub(" ", "+")) %>"></div>
+                        <div><%= exception_request.user.username %></div>
                       </div>
                     <% end %>  
                   </td>

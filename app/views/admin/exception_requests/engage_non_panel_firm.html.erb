@@ -1,0 +1,117 @@
+<div class="clearfix"></div>
+<style>
+  input, textarea, select { padding: 0px !important; margin: 0px; background: transparent; }
+  .inner-table{
+    border:1px solid #ccc;
+  }
+  select, option {
+    width: 300px;
+  }
+  .chosen-container {
+    width: 300px !important;
+  } 
+  option {
+    overflow: hidden;
+    white-sapce: no-wrap;
+    text-overflow: ellipsis;
+  }
+</style>
+
+<div class="">
+  <div class="col-lg-12">
+    <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+      <div class="page-header-sp m-top">
+        <div class="page-title">Non-Panel (one-off) Request</div>
+        <div> <!-- for more option in header right side --> </div>
+      </div>
+      <div class="">
+        
+        <!-- widget content -->
+        <div class="widget-body">
+          <div class="">
+            <div classs="">
+              <div class="sp-form sp-form-bg engageFormAdmin">
+                <%= simple_form_for [:admin, @law_firm] do |f| %>
+                  <div class="row">
+                    <div class="col-xs-12 col-md-4">
+                      <label class="label">Select Matter Type<span class="mandatory">*</span></label>
+                      <%= f.input :matter_types, label: false, collection: MatterType.all.reject{|mt| mt.matter_type === "Litigation / Litiges"}.map{|mt| [mt.matter_type, mt.id] }, required: true %>
+                    </div>
+                    <!--<div class="col-xs-12 col-md-4 sub_matter_type_box" style="display:none">
+                      <span class="text-left sub_matter_type">
+                         <label class="label">Select Sub Matter Type</label>
+                        <%= f.input :sub_matter_types, label: false, collection: []  %>
+                      </span>
+                    </div>-->
+                    <div class="col-xs-12 col-md-4 hide">
+                      <span class="text-left jurisdiction_type">
+                        <label class="label">Select Jurisdiction Type</label>
+                        <%= f.input :jurisdiction_types, label: false, collection: JurisdictionType.all.map{|mt| [mt.jurisdiction_type, mt.id] }  %>
+                      </span>
+                    </div>
+                    <div class="col-xs-12 col-md-4">
+                      <span class="text-left country_type">
+                        <label class="label">Select Country<span class="mandatory">*</span></label>
+                        <%= f.input :countries, label: false, collection: Country.order(:position).map{|mt| [mt.name, mt.id] }, required: true  %>
+                      </span>
+                    </div>
+                    <div class="col-xs-12 col-md-4 state_type_box" style="display:none">
+                      <span class="text-left state_type">
+                        <label class="label">Select State/Province<span class="mandatory">*</span></label>
+                        <%= f.input :states, label: false, collection: State.all.map{|mt| [mt.name, mt.id] }, required: true %>
+                      </span>
+                    </div>
+                    <div class="col-xs-12 col-md-12 hide_next_btn_non_panel">
+                      <%= f.button :submit, @law_firm.new_record? ? "Next" : "Submit", class: "btn-type-primary searchLawFirmAdmin" %>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+              <div class="row law_firm_list" style="display:none">
+                <div class="col-md-12" id="wid-id-0" data-widget-editbutton="false">
+                  <div class="page-header-sp">
+                    <div class="page-title">The below law firms are on BMO's LXP Panel and have already signed our general retainer agreeing to BMO's terms and conditions. These firms have also been risk assessed and meet BMO's supplier risk standards.</div>
+                    <div> <!-- for more option in header --> </div>
+                  </div>
+                  <%= simple_form_for [:admin, @exception_request] do |f| %>
+                    <div class="widget-body no-padding">
+                      <div class="sp-form-bg select-law-firm">
+                        <table id="dt_basic"  class="table table-striped table-bordered table-hover dataTable" width="100%">
+                          <thead>
+                            <tr style="background: #0352CA;color: #fff;">
+                              <th>Select</th>
+                              <th> Name</th>
+                              <th>Email</th>
+                              <th>Phone</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                          </tbody>
+                        </table>
+                        <div class=" ">
+                          <label class="label">Could one of these BMO LXP Panel law firms do the work?</label>
+                          <%= f.input :is_work, as: :radio_buttons, label: false, collection: ["Yes", "No"]  %>
+                        </div>
+                        <p style="display:none;" class="engage_non_panel_firm_notes">By proceeding with this request, you acknowledge that LXP must approve this request before you can engage the law firm. You also acknowledge that the law firm will be required to sign our retainer agreement, without edits.</p>
+                        <div class="">
+                            <%= f.input :user_id, :as => :hidden, :input_html => { :value => @current_admin_user_id } %>
+                            <%= f.input :matter_types_search, :as => :hidden, :input_html => { :value => "" } %>
+                            <%= f.input :sub_matter_types_search, :as => :hidden, :input_html => { :value => "" } %>
+                            <%= f.input :jurisdiction_types_search, :as => :hidden, :input_html => { :value => "" } %>
+                            <%= f.input :countries_search, :as => :hidden, :input_html => { :value => "" } %>
+                            <%= f.input :states_search, :as => :hidden, :input_html => { :value => "" } %>
+                            <%= f.button :submit, @exception_request.new_record? ? "Submit Request" : "Update Request", class: "btn-type-primary engage_non_panel_firm_btn hide" %>
+                        </div>
+                      </div>
+                    </div>
+                  <% end %>  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

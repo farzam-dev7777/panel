@@ -1,0 +1,115 @@
+<div class="clearfix"></div>
+<style>
+    input, textarea, select { padding: 0px !important; margin: 0px; background: transparent; }
+    .form-group{
+      width: 80%;
+      margin: 10px auto;
+    }
+    .simple_form.new_exception_request{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+    .notic{
+      border-radius: 5px;
+      color: #000;
+      background: #f4363669;
+      padding: 12px 17px 1px 17px;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+
+  </style>
+<div class="container">
+  <div class="col-lg-12 col-md-12 col-sm-12">
+    <div class="jarviswidget jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+      <header>
+        <span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
+        <h2 class="font-md"><strong>Law Firm </strong></h2>				
+      </header>
+      <div class="no-padding">
+        <div class="jarviswidget-editbox"></div>
+        <!-- widget content -->
+        <div class="widget-body">
+          <div class="table-responsive" style=" min-height: 300px; ">
+            <% if @law_firm %>
+              <tbody>
+                  <div class="col-md-12 select_law_firm">
+                      <div class="col-md-3 column title">Law Firm Details : </div>		
+                      <div class="col-md-9 data">
+                          <div style="" class="firmDetails">
+                            <div class="col-md-9 tab-pane ">
+                              <div class="col-md-12">
+                                <div class="col-md-6 column">Law Firm Category : </div>
+                                <div class="col-md-6 data firmName"><%= @law_firm.law_firm_category %></div>
+                              </div>
+                              <div class="col-md-12">
+                                <div class="col-md-6 column">Name : </div>
+                                <div class="col-md-6 data firmName"><%= @law_firm.name %></div>
+                              </div>
+                              <div class="col-md-12">
+                                <div class="col-md-6 column">Email : </div>		
+                                <div class="col-md-6 data firmEmail"><%= @law_firm.email %></div>
+                              </div>
+                              <div class="col-md-12">
+                                <div class="col-md-6 column">Phone : </div>		
+                                <div class="col-md-6 data firmPhone"><%= @law_firm.phone %></div>
+                              </div>
+                              <div class="col-md-12">
+                                <div class="col-md-6 column">Description : </div>		
+                                <div class="col-md-6 data firmPhone"><%= @law_firm.description %></div>
+                              </div>
+                              <div class="col-md-12">
+                                <div class="col-md-6 column">Relationship Manager Name :	</div>		
+                                <div class="col-md-6 data firmPhone"><%= @law_firm.relationship_manager_name %></div>
+                              </div>
+                              <div class="col-md-12">
+                                <div class="col-md-6 column">Relationship Manager Email : </div>		
+                                <div class="col-md-6 data firmPhone"><%= @law_firm.relationship_manager_email %></div>
+                              </div>
+                              <div class="col-md-12">
+                                <div class="col-md-6 column">Relationship Manager Phone : </div>		
+                                <div class="col-md-6 data firmPhone"><%= @law_firm.relationship_manager_phone %></div>
+                              </div>
+                             
+                            </div>
+                          </div>
+                          <% if @law_firm.law_firm_category == "PANEL" %>
+                          <div class="col-md-12">
+                            <div class="col-md-12 notic">
+                                <p> Since you selected a law firm that is already on panel, exception is not required.</p>
+                            </div>
+                          </div>
+                        <% else %>
+                          <div class="col-md-12">
+                              <%= link_to "Submit Exception Request", exception_request_new_lob_exception_requests_path(@law_firm.id), class: "btn btn-secondary" %>	
+                          </div>
+                        <% end %> 
+                      </div>
+                    </div>
+              </tbody>
+            <% else %>
+              <div classs="row">
+                <%= simple_form_for [:lob, @exception_request] do |f| %>
+                  <div class="col-md-5">
+                    <%= f.input :law_firm_name, label: "Select Law Firm", :input_html => { :class => "form-control col-xs-9" } ,collection: @law_firms.map{ |law_firm| ["#{law_firm.name} - #{law_firm.id}", law_firm.id] }, prompt: "Select Firm" %>
+                  </div>
+              
+                <div class="col-md-1">OR</div>
+                <div class="col-md-6">
+                    <div class="col-md-8">
+                        <b><%= link_to 'Create A New Law Firm', "law_firm_new/create", html_options = {class: 'btn btn-primary btn-lg dashboard-certificate-button'}   %></b></p>
+                    </div>
+                </div>
+                <% end %>
+              </div>
+            <% end %>
+             
+          </div>
+              
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -11,8 +11,8 @@
 					<a class="btn-type-default" href="/admin/exception_requests">
 						<%= image_tag "chevron-back-icon.svg", alt:"Back" %>
 					</a>
-          <% if current_user.role == "lob" %>
-            <%= link_to "Edit".html_safe, edit_admin_exception_request_path, class: "btn-type-primary" %>
+          <% if current_user.id == @exception_request.user_id %>
+            <%= link_to "Edit".html_safe, exception_request_update_engage_admin_exception_requests_path(@exception_request), class: "btn-type-primary" %>
           <% end %>
         </div>
 			</div>
