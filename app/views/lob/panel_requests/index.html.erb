@@ -68,7 +68,9 @@
           <thead>
             <tr>
               <th>Date Submitted</th>
+              <th>Line of Business</th>
               <th>Law Firm Name</th>
+              <th>Law Firm Email</th>
               <th>LXP Status</th>
             </tr>
           </thead>
@@ -79,7 +81,9 @@
                 <%= panel_request.created_at.strftime('%d %b %Y at %I:%M %p') %>
               </td>
               
-              <td><%= panel_request&.law_firm&.name %></td>
+              <td><%= panel_request&.line_of_business %></td>
+              <td><%= panel_request&.law_frim_name %></td>
+              <td><%= panel_request&.law_firm_mail %></td>
               <td>
                 <div class="status">
                   <% if panel_request.lxp_status.present? %>

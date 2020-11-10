@@ -17,86 +17,47 @@
             <%= f.input :submitted_by_email, label: false, :input_html => { :value => @current_admin_user_email, :readonly => true } %>
             <%= f.input :user_id, :as => :hidden, :input_html => { :value => @current_admin_user_id } %>
             <%= f.input :request_type, :as => :hidden, :input_html => { :value => "ADD_TO_LAW_FIRM_PANEL" } %>
+            <%= f.input :status, :as => :hidden, :input_html => { :value => "Received" } %>
         </div>
         <div class="col-xs-12 col-md-6">
           <label class="label">Line of Business<span class="mandatory">*</span></label>
           <%= f.input :line_of_business, label: false, collection: PanelRequest::LOB_LIST %>
         </div>
-        <!--div class="col-xs-12 col-md-6">
-          <label class="label">LOB Contact Name<span class="mandatory">*</span></label>
-          <%= f.input :lob_contact_name, label: false %>
-        </div>
-        <<div class="col-xs-12 col-md-6">
-          <label class="label">Business Manager Name</label>
-          <%= f.input :business_manager_name, label: false %>
-        </div>
-        <div class="col-xs-12 col-md-6">
-          <label class="label">Business Manager Email</label>
-          <%= f.input :business_manager_email, label: false %>
-        </div>
-        <div class="col-xs-12 col-md-6">
-          <label class="label">Business Manager Phone</label>
-          <%= f.input :business_manager_phone, label: false %>
-        </div>-->
+      
         <div class="col-md-12">
           <label class="inner-label">Law Firm</label>
           <div class="">
-            <%= f.simple_fields_for :law_firm do |field| %>
-              <div class="inner-form-field">
-                <div class="row form-flex-wrap">
-                  <div class="col-xs-12 col-md-6">
+
+               <div class="inner-form-field">
+                <div class="row">
+                  <div class="col-xs-12 col-md-6 col-sm-6">
                     <label class="label">Name<span class="mandatory">*</span></label>
-                    <%= field.input :name, label: false %>
-                    <%= field.input :law_firm_category, :as => :hidden, :input_html => { :value => "PANEL" } %>
+                    <%= f.input :law_frim_name, label: false, required: true %>
+                    <%= f.input :law_firm_category, :as => :hidden, :input_html => { :value => "PANEL" } %>
                   </div>
-                  <div class="col-xs-12 col-md-6">
+                  <div class="col-xs-12 col-md-6 col-sm-6">
                     <label class="label">Contact Name<span class="mandatory">*</span></label>
-                    <%= field.input :contact_name, label: false %>
+                    <%= f.input :law_firm_contact_name, label: false, required: true %>
                   </div>
-                  <%= field.simple_fields_for :users do |user_field| %>
-                  <div class="col-xs-12 col-md-6">
-                    <label class="label">Email<span class="mandatory">*</span></label>
-                    <%= user_field.input :email, label: false %>
-                    <%= user_field.input :role, :as => :hidden, label: false, :input_html => { :value => "master_user" }%>
-                    <%= user_field.input :empty_user, :as => :hidden, label: false, :input_html => { :value => true }%>
-                  </div> 
-                  <% end %>
-                  <div class="col-xs-12 col-md-6">
-                    <label class="label">Phone</label>
-                    <%= field.input :phone, label: false %>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                      <label class="label">Email<span class="mandatory">*</span></label>
+                      <%= f.input :law_firm_mail, label: false %>
+                      <%= f.input :law_firm_role, :as => :hidden, label: false, :input_html => { :value => "master_user" }%>
+                    </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12 col-sm-6 col-md-6">
+                    <label class="label">Phone<span class="mandatory">*</span></label>
+                    <%= f.input :law_firm_phone, label: false %>
                   </div>
-                  <!--<div class="col-xs-12 col-md-6">
-                    <label class="label">Description</label>
-                    <td><%= field.input :description, label: false %></td>
-                  </div>
-                  <div class="col-xs-12 col-md-6">
-                    <label class="label">Relationship Manager Name</label>
-                    <%= field.input :relationship_manager_name, label: false %>
-                  </div>
-                  <div class="col-xs-12 col-md-6">
-                    <label class="label">Relationship Manager Email</label>
-                    <%= field.input :relationship_manager_email, label: false %>
-                  </div>
-                  <div class="col-xs-12 col-md-6">
-                    <label class="label">Relationship Manager Phone</label>
-                    <%= field.input :relationship_manager_phone, label: false %>
-                  </div>-->
                   <div class="col-xs-12 col-sm-6 col-md-6">
                     <label class="label">Would You use this firm on a regular basis?<span class="mandatory">*</span></label>
-                    <%= field.input :firm_use_on_regular_basis, as: :select, required: true,  label: false, collection: [["Yes", "Yes"], ["No", "No"]] %>
+                    <%= f.input :firm_use_on_regular_basis, as: :select, required: true,  label: false, collection: [["Yes", "Yes"], ["No", "No"]] %>
                   </div>
-                  <!--div class="col-xs-12 col-md-6">
-                    <label class="label">Temp. Password</label>
-                    <%= field.input :temp_password, autocomplete: "off", label: false, input_html: { class: 'set-password' } %>
-                    <p style="color: #949494;" class="text-left"><em>Minimum 10 characters required</em></p>	
-                  </div>
-                  <div class="col-xs-12 col-md-6">
-                    <label class="label">Confirm Password</label>
-                    <%= field.input :temp_password_confirmation, autocomplete: "off", label: false, input_html: { class: 'set-password' } %>
-                  </div-->
                 </div>
               </div>
-            <% end %>
           </div>
         </div>
         <!--<div class="col-xs-12 col-md-6">

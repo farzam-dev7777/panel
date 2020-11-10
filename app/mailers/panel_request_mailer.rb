@@ -59,6 +59,11 @@ class PanelRequestMailer < ApplicationMailer
 		mail(to: @user.email, subject: "Your Panel Request status has been approved.")
 	end
 
+	def notification_for_status_to_user(panel_request)
+		@panel_request = panel_request
+		@user = User.find_by_id(@panel_request.user_id)
+		mail(to: @user.email, subject: "Your Panel Request status has been updated.")
+	end
 	def send_wnn_documents_to_law_firm(panel_request)
 		@panel_request = panel_request
 		@law_firm = @panel_request&.law_firm

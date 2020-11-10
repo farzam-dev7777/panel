@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201102124940) do
+ActiveRecord::Schema.define(version: 20201110172254) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -100,6 +100,23 @@ ActiveRecord::Schema.define(version: 20201102124940) do
     t.string   "data"
     t.string   "encrypted_in_flight"
     t.string   "encrypted_at_rest"
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.integer  "commentable_id"
+    t.string   "commentable_type"
+    t.string   "title"
+    t.text     "body"
+    t.string   "subject"
+    t.integer  "user_id",          null: false
+    t.integer  "parent_id"
+    t.integer  "lft"
+    t.integer  "rgt"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "assigned_to_id"
+    t.index ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type", using: :btree
+    t.index ["user_id"], name: "index_comments_on_user_id", using: :btree
   end
 
   create_table "conflict_waivers", force: :cascade do |t|
@@ -219,6 +236,14 @@ ActiveRecord::Schema.define(version: 20201102124940) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "feedbacks", id: false, force: :cascade do |t|
+    t.integer  "law_firm_id"
+    t.integer  "feedbacks_id"
+    t.string   "feedback"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "file_attachments", force: :cascade do |t|
@@ -357,6 +382,14 @@ ActiveRecord::Schema.define(version: 20201102124940) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "issues", force: :cascade do |t|
+    t.integer  "law_firm_id"
+    t.integer  "issues_id"
+    t.string   "issue"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "jurisdiction_types", force: :cascade do |t|
     t.string   "jurisdiction_type"
     t.datetime "created_at",        null: false
@@ -408,9 +441,9 @@ ActiveRecord::Schema.define(version: 20201102124940) do
     t.string   "information_security_contact"
     t.string   "information_security_contact_email"
     t.string   "diverse"
-    t.string   "value_add_activities"
-    t.string   "feedback"
-    t.string   "issues"
+    t.text     "value_add_activities"
+    t.text     "feedback"
+    t.text     "issues"
     t.string   "merger_combination"
     t.string   "engagement_number"
     t.string   "relationship_number"
@@ -430,14 +463,6 @@ ActiveRecord::Schema.define(version: 20201102124940) do
     t.integer  "country_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-  end
-
-  create_table "law_firms_feedbacks", id: false, force: :cascade do |t|
-    t.integer  "law_firm_id"
-    t.integer  "feedbacks_id"
-    t.string   "feedback"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
   end
 
   create_table "law_firms_jurisdiction_types", id: false, force: :cascade do |t|
@@ -679,8 +704,8 @@ ActiveRecord::Schema.define(version: 20201102124940) do
     t.text     "women_owned_details"
     t.string   "matter_name"
     t.text     "matter_types"
-    t.datetime "created_at",                                       null: false
-    t.datetime "updated_at",                                       null: false
+    t.datetime "created_at",                                                       null: false
+    t.datetime "updated_at",                                                       null: false
     t.string   "law_firm_name"
     t.string   "business_manager_name"
     t.string   "business_manager_phone"
@@ -696,6 +721,13 @@ ActiveRecord::Schema.define(version: 20201102124940) do
     t.text     "geographic_location"
     t.string   "involved_engagement"
     t.text     "reason_other"
+    t.string   "law_frim_name"
+    t.string   "law_firm_contact_name"
+    t.string   "law_firm_mail"
+    t.string   "law_firm_role"
+    t.string   "law_firm_phone"
+    t.boolean  "firm_use_on_regular_basis",                        default: false
+    t.datetime "archived_at"
   end
 
   create_table "queued_notifications", force: :cascade do |t|
@@ -878,6 +910,14 @@ ActiveRecord::Schema.define(version: 20201102124940) do
     t.string   "status"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  end
+
+  create_table "values", id: false, force: :cascade do |t|
+    t.integer  "law_firm_id"
+    t.integer  "values_id"
+    t.string   "value"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "vendors", force: :cascade do |t|

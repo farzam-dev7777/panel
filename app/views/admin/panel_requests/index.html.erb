@@ -68,6 +68,7 @@
               <th>Date Submitted</th>
               <th>Submitted By</th>
               <th>Law Firm Name</th>
+              <th>Law Firm Email</th>
               <th>Panel Status</th>
               <th>LXP Status</th>
               <!--<th width="8%">Action</th>-->
@@ -78,8 +79,9 @@
             <tr onClick="window.location.href='/admin/panel_requests/<%= panel_request.id %>'">
               <td data-order="<%= panel_request.created_at.strftime('%Y%m%d%I%M') %>"><%= panel_request.created_at.strftime('%d %b %Y at %I:%M %p') %></td>
      
-              <td><%= panel_request.submitted_by_email %></td>
-              <td><%= panel_request&.law_firm&.name %></td>
+               <td><%= panel_request&.line_of_business %></td>
+              <td><%= panel_request&.law_frim_name %></td>
+              <td><%= panel_request&.law_firm_mail %></td>
               <td>
                 <div class="status">
                   <% if panel_request.status.present? %>

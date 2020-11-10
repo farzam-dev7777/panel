@@ -77,6 +77,7 @@ class Admin::ReviewsController < Admin::BaseController
             @panel_request.send_retainer_for_esigning(lob_email, lob_name, user_email, user_name)
             end
             if review_params[:status] == 'PANEL_RETAINER'
+              @panel_request.status = 'PANEL_RETAINER'
               PanelRequestMailer.notification_for_retainer_to_law_firm(@panel_request).deliver_now
             else
               PanelRequestMailer.notification_for_retainer_to_lob(@panel_request).deliver_now
@@ -84,20 +85,55 @@ class Admin::ReviewsController < Admin::BaseController
             PanelRequestMailer.notification_for_retainer_to_user(@panel_request).deliver_now
           elsif current_user.role === 'lxp' &&  review_params[:status] == 'REJECTED'
             PanelRequestMailer.notification_for_rejected_to_user(@panel_request).deliver_now
+          elsif current_user.role === 'lxp' &&  review_params[:status] == 'ARCHIVED'
+            @panel_request.status = 'ARCHIVED'
+            @panel_request.archived_at = Time.now 
+            PanelRequestMailer.notification_for_status_to_user(@panel_request).deliver_now
+          elsif current_user.role === 'lxp' &&  review_params[:status] == 'UN_ARCHIVED'
+            @panel_request.status = 'UN_ARCHIVED'
+            @panel_request.archived_at = nil 
+            PanelRequestMailer.notification_for_status_to_user(@panel_request).deliver_now  
+          elsif current_user.role === 'lxp' &&  review_params[:status] == 'LAW_FIRM_CREATED'
+            @panel_request.status = 'LAW_FIRM_CREATED'
+            @panel_request.archived_at = nil 
+            
+            @user = User.new
+            @user.email = @panel_request.law_firm_mail
+            @user.role = 'master_user'
+            @user.empty_user = true
+            @user.status = nil
+            if @user.save
+              @law_firm = LawFirm.new
+              @law_firm.user_id = @user.id
+              @law_firm.name = @panel_request.law_frim_name
+              @law_firm.law_firm_category = @panel_request.law_firm_category
+              @law_firm.contact_name = @panel_request.law_firm_contact_name
+              @law_firm.firm_use_on_regular_basis = @panel_request.firm_use_on_regular_basis
+              @law_firm.email = @panel_request.law_firm_mail
+              @law_firm.phone = @panel_request.law_firm_phone
+              @law_firm.save
+              @panel_request.update_attributes(law_firm_id: @law_firm.id)
+              @user.law_firm_id =  @law_firm.id
+              @user.save
+              flash[:notice] = "Law Firm Created"
+            else
+              flash[:notice] = "Law Firm Already Exist"
+            end
+            PanelRequestMailer.notification_for_status_to_user(@panel_request).deliver_now  
           elsif current_user.role === 'lxp' &&  review_params[:status] == 'APPROVED'
             @panel_request.status = 'Activate'
             @panel_request.law_firm.status = 'Activate'
             @user = @panel_request.law_firm.user
             @user.status = 'Activate'
             @user.save
-            PanelRequestMailer.notification_for_approved_to_lob(@panel_request).deliver_now
-            PanelRequestMailer.notification_for_approved_to_user(@panel_request).deliver_now
+            #PanelRequestMailer.notification_for_approved_to_lob(@panel_request).deliver_now
+            PanelRequestMailer.notification_for_status_to_user(@panel_request).deliver_now
           else
-            PanelRequestMailer.notification_for_more_info_to_lob(@panel_request).deliver_now
+            PanelRequestMailer.notification_for_status_to_user(@panel_request).deliver_now
           end
-          @law_firm = @panel_request.law_firm
-          @law_firm.panel_status =  review_params[:status];
-          @law_firm.save
+          # @law_firm = @panel_request.law_firm
+          # @law_firm.panel_status =  review_params[:status];
+          # @law_firm.save
           @panel_request.save
         elsif params[:review][:reviewable_type] == "MatterIntake"  
           @matter_intake = MatterIntake.find_by(id: params[:review][:reviewable_id])

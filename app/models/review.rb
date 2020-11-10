@@ -50,6 +50,9 @@ class Review < ApplicationRecord
      
       elsif self.reviewable_type == "MatterIntake"
         self.status
+      elsif self.reviewable_type == "PanelRequest"
+    
+        PanelRequest::PANEL_REQUEST_STATUS[self.status.to_sym]
       else
         if  ConflictWaiver::CONFLICT_WAIVER_STATUS[self.status.to_sym]
           ConflictWaiver::CONFLICT_WAIVER_STATUS[self.status.to_sym]

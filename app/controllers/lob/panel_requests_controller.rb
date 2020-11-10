@@ -66,8 +66,6 @@ class Lob::PanelRequestsController < Lob::BaseController
   def edit
     @panel_request = PanelRequest.find(params[:id])
     @law_firm = @panel_request.law_firm
-    @user = @law_firm.user
-
     @current_lob_user_email = @panel_request.submitted_by_email
     @current_lob_user_id = @panel_request.user_id
 
@@ -102,14 +100,15 @@ class Lob::PanelRequestsController < Lob::BaseController
       :business_manager_name, :business_manager_phone, 
       :business_manager_email, :minority_owned, :minority_owned_details, :reason_other, :involved_engagement, :geographic_location,
       :required_unique_geography, :niche_expertise, :niche_preferred_external_counsel_panel_law_firms, 
+      :law_frim_name, :law_firm_contact_name, :law_firm_mail, :law_firm_role, :law_firm_phone, :firm_use_on_regular_basis, :archived_at, :law_firm_category,
       :women_owned, :women_owned_details, :law_firm_name, :status, matter_types: [],
-      law_firm_attributes: [
-        :name, :law_firm_category, :status, :contact_name, :firm_use_on_regular_basis,
-        :email, :phone, :description, :relationship_manager_name, 
-        :relationship_manager_email, :relationship_manager_phone ,
-        matter_type_ids:[], sub_matter_type_ids: [], jurisdiction_type_ids: [], state_ids: [], country_ids: [],
-        users_attributes: [:email, :role, :empty_user, :status]
-      ]
+      # law_firm_attributes: [
+      #   :name, :law_firm_category, :status, :contact_name, :firm_use_on_regular_basis,
+      #   :email, :phone, :description, :relationship_manager_name, 
+      #   :relationship_manager_email, :relationship_manager_phone ,
+      #   matter_type_ids:[], sub_matter_type_ids: [], jurisdiction_type_ids: [], state_ids: [], country_ids: [],
+      #   users_attributes: [:email, :role, :empty_user, :status]
+      # ]
     )
   end
   def update_panel_requests_params
@@ -118,14 +117,16 @@ class Lob::PanelRequestsController < Lob::BaseController
       :lob_contact_name, :law_firm_id, :request_type, :niche_preferred_external_counsel_panel_law_firms,
       :business_manager_name, :business_manager_phone, :niche_expertise, :required_unique_geography,
       :business_manager_email, :minority_owned, :minority_owned_details, :geographic_location, 
+      :law_frim_name, :law_firm_contact_name, :law_firm_mail, :law_firm_role, :law_firm_phone, :firm_use_on_regular_basis, :archived_at, :law_firm_category,
       :women_owned, :women_owned_details, :law_firm_name, :status, :involved_engagement, :reason_other, matter_types: [],
-      law_firm_attributes: [
-        :id, :name, :law_firm_category, :status,:contact_name, :firm_use_on_regular_basis,
-        :email, :phone, :description, :relationship_manager_name, 
-        :relationship_manager_email, :relationship_manager_phone ,
-        matter_type_ids:[], sub_matter_type_ids: [], jurisdiction_type_ids: [], state_ids: [], country_ids: [],
-        users_attributes: [:id, :email, :role, :empty_user, :status]
-      ]
+      
+      # law_firm_attributes: [
+      #   :id, :name, :law_firm_category, :status,:contact_name, :firm_use_on_regular_basis,
+      #   :email, :phone, :description, :relationship_manager_name, 
+      #   :relationship_manager_email, :relationship_manager_phone ,
+      #   matter_type_ids:[], sub_matter_type_ids: [], jurisdiction_type_ids: [], state_ids: [], country_ids: [],
+      #   users_attributes: [:id, :email, :role, :empty_user, :status]
+      # ]
     )
   end
 

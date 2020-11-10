@@ -39,107 +39,36 @@
         <div class="col-md-12">
           <label class="inner-label">Law Firm</label>
           <div class="">
-            <%= f.simple_fields_for :law_firm do |field| %>
               <div class="inner-form-field">
                 <div class="row">
                   <div class="col-xs-12 col-md-6 col-sm-6">
                     <label class="label">Name<span class="mandatory">*</span></label>
-                    <%= field.input :name, label: false, required: true %>
-                    <%= field.input :law_firm_category, :as => :hidden, :input_html => { :value => "PANEL" } %>
-                    <%= field.input :status, :as => :hidden, :input_html => { :value => "Deactivate" } %>
+                    <%= f.input :law_frim_name, label: false, required: true %>
+                    <%= f.input :law_firm_category, :as => :hidden, :input_html => { :value => "PANEL" } %>
                   </div>
                   <div class="col-xs-12 col-md-6 col-sm-6">
                     <label class="label">Contact Name<span class="mandatory">*</span></label>
-                    <%= field.input :contact_name, label: false, required: true %>
+                    <%= f.input :law_firm_contact_name, label: false, required: true %>
                   </div>
                 </div>
                 <div class="row">
-                  <%= field.simple_fields_for :users do |user_field| %>
                     <div class="col-xs-12 col-md-12">
                       <label class="label">Email<span class="mandatory">*</span></label>
-                      <%= user_field.input :email, label: false %>
-                      <%= user_field.input :role, :as => :hidden, label: false, :input_html => { :value => "master_user" }%>
-                      <%= user_field.input :empty_user, :as => :hidden, label: false, :input_html => { :value => true }%>
-                      <%= user_field.input :status, :as => :hidden, :input_html => { :value => "Deactivate" } %>
+                      <%= f.input :law_firm_mail, label: false %>
+                      <%= f.input :law_firm_role, :as => :hidden, label: false, :input_html => { :value => "master_user" }%>
                     </div>
-                  <% end %>
                 </div>
                 <div class="row">
                   <div class="col-xs-12 col-sm-6 col-md-6">
                     <label class="label">Phone<span class="mandatory">*</span></label>
-                    <%= field.input :phone, label: false %>
+                    <%= f.input :law_firm_phone, label: false %>
                   </div>
                   <div class="col-xs-12 col-sm-6 col-md-6">
                     <label class="label">Would You use this firm on a regular basis?<span class="mandatory">*</span></label>
-                    <%= field.input :firm_use_on_regular_basis, as: :select, required: true,  label: false, collection: [["Yes", "Yes"], ["No", "No"]] %>
+                    <%= f.input :firm_use_on_regular_basis, as: :select, required: true,  label: false, collection: [["Yes", "Yes"], ["No", "No"]] %>
                   </div>
                 </div>
-                <!--<div class="row">
-                  <div class="col-xs-12 col-md-6">
-                    <label class="label">Phone</label>
-                    <%= field.input :phone, label: false %>
-                  </div>
-                  <div class="col-xs-12 col-md-6">
-                    <label class="label">Description</label>
-                    <%= field.input :description, label: false %>
-                  </div>
-                </div>-->
-                <!--<div class="row">
-                  <div class="col-xs-12 col-md-6">
-                    <label class="label">Relationship Manager Name</label>
-                    <%= field.input :relationship_manager_name, label: false %>
-                  </div>
-                  <div class="col-xs-12 col-md-6">
-                    <label class="label">Relationship Manager Email</label>
-                    <%= field.input :relationship_manager_email, label: false %>
-                  </div>
-                </div>-->
-                <!--<div class="row">
-                  <div class="col-xs-12 col-md-6">
-                    <label class="label">Relationship Manager Phone</label>
-                    <%= field.input :relationship_manager_phone, label: false %>
-                  </div>
-                  <div class="col-xs-12 col-md-6">
-                    <label class="label">Select Country</label>
-                    <span class="country_type"><%= field.input :country_ids, label: false, collection: Country.order(:position).map{|mt| [mt.name, mt.id] } , input_html: { multiple: false }   %></span>
-                  </div>
-                  
-                </div>
-                <div class="row">
-                  <div class="col-xs-12 col-md-6 sub_matter_type_box" style="display:none;">
-                    <label class="label">Select Sub Matter Type</label>
-                    <span class="sub_matter_type"><%= field.input :sub_matter_type_ids, label: false, collection: SubMatterType.all.map{|mt| [mt.sub_matter_type, mt.id] } , input_html: { multiple: true }   %></span>
-                  </div>
-                  <div class="col-xs-12 col-md-12 multiple-selector">
-                    <label class="label">Select Jurisdiction Type</label>
-                    <span class="jurisdiction_type"><%= field.input :jurisdiction_type_ids, label: false, collection: JurisdictionType.all.map{|mt| [mt.jurisdiction_type, mt.id] } , input_html: { multiple: true }   %></span>
-                  </div>
-                </div>
-                <div class="row">
-                <div class="col-xs-12 col-md-12 matter_type multiple-selector">
-                  <label class="label">Select Matter Type</label>
-                  <%= field.input :matter_type_ids, label: false, collection: MatterType.all.map{|mt| [mt.matter_type, mt.id] } , input_html: { multiple: true }   %>
-                </div>
-                <div class="col-xs-12 col-md-6 state_type_box" style="display:none;">
-                  <label class="label">Select State/Province</label>
-                  <span class="state_type"><%= field.input :state_ids, label: false, collection: State.all.map{|mt| [mt.name, mt.id] } , input_html: { multiple: false }   %></span>
-                </div>
-                </div>-->
-                <!-- <tr>
-                  <td class="text-right" width="20%"><strong>Temp. Password</strong></td>
-                  <td>
-                    <%= field.input :temp_password, autocomplete: "off", label: false, input_html: { class: 'set-password' } %>
-                    <p style="color: #949494;" class="text-left"><em>Minimum 10 characters required</em></p>	
-                  </td>
-                </tr>
-                  <tr>
-                  <td class="text-right" width="20%"><strong>Confirm Password</strong></td>
-                  <td>
-                    <%= field.input :temp_password_confirmation, autocomplete: "off", label: false, input_html: { class: 'set-password' } %>
-                  </td>
-                </tr> -->
               </div>
-            <% end %>
           </div>
         </div>
         <div class="col-xs-12 col-md-12 multiple-selector">
