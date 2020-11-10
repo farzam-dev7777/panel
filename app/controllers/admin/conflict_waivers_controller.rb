@@ -12,6 +12,14 @@ class Admin::ConflictWaiversController < Admin::BaseController
       @q = ConflictWaiver.ransack(params[:q])
       @conflict_waivers = @q.result(distinct: true).order('created_at DESC')
     end
+    respond_to do |format|
+      format.xlsx {
+        response.headers[
+          'Content-Disposition'
+        ] = "attachment; filename=Conflict Waivers List.xlsx"
+      }
+      format.html { render :index }
+    end
     add_breadcrumb "Conflict Waiver", :admin_conflict_waivers_path
   end
 

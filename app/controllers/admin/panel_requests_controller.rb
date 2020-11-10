@@ -18,7 +18,7 @@ class Admin::PanelRequestsController < Admin::BaseController
       format.xlsx {
         response.headers[
           'Content-Disposition'
-        ] = "attachment; filename=Exception request List.xlsx"
+        ] = "attachment; filename=Panel Request List.xlsx"
       }
       format.html { render :index }
     end

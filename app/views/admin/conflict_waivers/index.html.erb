@@ -5,7 +5,9 @@
   <div class="jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
     <div class="page-header-sp m-top">
 		  <div class="page-title">Conflict Waiver Requests</div>
-      <div class="back-edit-actions"></div>
+      <div class="back-edit-actions">
+      <%= link_to 'Download as Excel', admin_conflict_waivers_path(format: :xlsx), html_options = {class: 'btn-type-primary dashboard-certificate-button dashboard-certificate-button-export '}   %> 
+      </div>
     </div>
     <!-- widget div-->
     

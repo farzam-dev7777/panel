@@ -17,7 +17,7 @@ class Admin::ExceptionRequestsController < Admin::BaseController
       format.xlsx {
         response.headers[
           'Content-Disposition'
-        ] = "attachment; filename=Exception request List.xlsx"
+        ] = "attachment; filename=Exception Request List.xlsx"
       }
       format.html { render :index }
     end
