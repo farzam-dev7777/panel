@@ -221,15 +221,15 @@
 											</div>
 											<div class="col-xs-12 col-md-6">
 												<label class="field-label">Value-Add Activities</label>
-												<div class="field-data"><%= @law_firm.value_add_activities %> </div>
+												<div class="field-data"><%= @law_firm.values.map{|value| [value.value].reject(&:nil?).join(',') }.join("<br />").html_safe %></div>
 											</div>
 											<div class="col-xs-12 col-md-6">
 												<label class="field-label">Feedback</label>
-												<div class="field-data"><%= @law_firm.feedback %> </div>
+												<div class="field-data"><%= @law_firm.feedbacks.map{|feedback| [feedback.feedback].reject(&:nil?).join(',') }.join("<br />").html_safe %></div>
 											</div>
 											<div class="col-xs-12 col-md-6">
 												<label class="field-label">Issues</label>
-												<div class="field-data"><%= @law_firm.issues %> </div>
+												<div class="field-data"><%= @law_firm.issues.map{|issue| [issue.issue].reject(&:nil?).join(',') }.join("<br />").html_safe %></div>
 											</div>
 											<div class="col-xs-12 col-md-6">
 												<label class="field-label">Merger/Combination</label>

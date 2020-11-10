@@ -67,6 +67,10 @@ GEM
       tzinfo (~> 1.1)
     activesupport-current_attributes (0.0.2)
       activesupport (>= 4.2.0)
+    acts_as_commentable_with_threading (2.0.1)
+      activerecord (>= 4.0)
+      activesupport (>= 4.0)
+      awesome_nested_set (>= 3.0)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
     airbrussh (1.4.0)
@@ -74,6 +78,8 @@ GEM
     amoeba (3.1.0)
       activerecord (>= 3.2.6)
     arel (7.1.4)
+    awesome_nested_set (3.2.1)
+      activerecord (>= 4.0.0, < 7.0)
     axlsx (2.0.1)
       htmlentities (~> 4.3.1)
       nokogiri (>= 1.4.1)
@@ -412,6 +418,7 @@ DEPENDENCIES
   activemodel-serializers-xml
   activerecord-sortable
   activesupport-current_attributes
+  acts_as_commentable_with_threading
   amoeba
   axlsx (~> 2.0)
   axlsx_rails

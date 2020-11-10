@@ -1,0 +1,100 @@
+
+
+  <div class="col-lg-12 col-md-12 col-sm-12">
+    <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+      <div class="page-header-sp">
+        <div class="page-title">Comments</div>
+        <div class="back-edit-actions">
+        </div>
+      </div>
+      <div class="  ">
+        <div class="jarviswidget-editbox"></div>
+        <!-- widget content -->
+        
+        <div class="exceptationRequestProcesss">
+          
+            <div class="sp-form sp-form-bg">
+              <%= simple_form_for [:admin, Comment.new()] do |f| %>
+                <div class="row">
+                  <div class="col-xs-12 col-md-6">
+                    <label class="label">Comment</label>
+                      <%= f.input :body, label: false %>
+                      <%= f.input :commentable_type, label: false, as: :hidden, input_html: { value: @exception_request.class.to_s } %>
+                      <%= f.input :commentable_id, label: false, as: :hidden, input_html: { value: @exception_request.id } %>
+                      <%= f.input :user_id, label: false, as: :hidden, input_html: { value: @current_user.id } %>
+                  </div>	
+                  <div class="col-xs-12 col-md-6">
+                    <label class="label">Assign to</label>
+                    <%= f.input :assigned_to_id, label: false, collection: User.where(role: ["internal_lawyers", "lxp"]).map{|user| [user.email, user.id] } %>
+                  </div>	
+                </div>
+                
+                <div class="row"> 
+                  <div class="col-xs-12 col-md-12 text-right">
+                    <%= f.button :submit, "Submit Comment", class:  @current_user.role === "lxp" ? " btn-type-primary" : " btn-type-primary" %>
+                  </div>
+                </div>
+            <% end %>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="col-md-12">
+    <%- if @exception_request.comments.size > 0 %>
+      <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+        <div class="page-header-sp">
+          <div class="page-title">Comments Log</div>
+          <div class="back-edit-actions">
+        </div>
+      </div>
+        <div>
+          <!-- MAIN PANEL -->
+          <div role="main">
+            <!-- MAIN CONTENT -->
+            <div>
+              <!-- row -->
+              <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                  <div class="sp-form-bg">
+                    <!-- Timeline Content -->
+                    <div class="smart-timeline">
+                      <ul class="smart-timeline-list">
+                        <% @exception_request.comments.reverse.each do |comment| %>
+                        <% if comment.assigned_to_id.present? &&  ( comment.assigned_to_id === @current_user.id || comment.user_id === @current_user.id ) %>
+                          <li data-id="<%= comment.id %>">
+                              <div class="smart-timeline-icon">
+                                R
+                              </div>
+                              <div class="smart-timeline-time">
+                                <small><%= comment.created_at.strftime('%d %b %Y at %I:%M %p') %></small>
+                              </div>
+                              <div class="smart-timeline-content">
+                                <p>
+                                  <strong>
+                                  <%= comment.user.email %> commented to <%= comment.assigned_to.email %>
+                                  <strong>
+                                </p>
+                                <p>
+                                  <%= comment.body %>
+                                </p>
+                              </div>
+                            </li>
+                          <% end %>
+                        <% end %>
+                      </ul>
+                    </div>
+                    <!-- END Timeline Content -->
+                  </div>
+                </div>
+              </div>
+              <!-- end row -->
+            </div>
+            <!-- END MAIN CONTENT -->
+          </div>
+          <!-- END MAIN PANEL -->
+        </div>
+      </div>
+    <% end %>
+  </div>

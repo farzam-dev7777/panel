@@ -227,9 +227,6 @@ class Admin::LawFirmsController < Admin::BaseController
       :information_security_contact,
       :information_security_contact_email,
       :diverse,
-      :value_add_activities,
-      :feedback,
-      :issues,
       :merger_combination,
       :engagement_number,
       :relationship_number,
@@ -246,6 +243,12 @@ class Admin::LawFirmsController < Admin::BaseController
         :id, :address1, :address2,
         :city, :province, :postal_code,
         :country, :_destroy
+      ], feedbacks_attributes: [
+        :id, :feedback, :_destroy
+      ], values_attributes: [
+        :id, :value, :_destroy
+      ], issues_attributes: [
+        :id, :issue, :_destroy
       ], jurisdictions_attributes: [
         :id, :country, :_destroy, city: []
       ], users_attributes: [
