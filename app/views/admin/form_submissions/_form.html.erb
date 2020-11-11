@@ -48,16 +48,176 @@
 
       <% if(last_step && !save_and_follow_up?(@form_submission.id)) %>
         <div>
-
+          	<div class="tab-content">
+              <div class="tab-pane fade in active" id="hr1">
+                <div class="sp-form-bg show-data-fields">
+                  <div class="row send-password-link">
+                   <h2 style=" font-weight: bold; margin-left: 0; "> Law Firm Information :</h2>
+                    <div class="row">
+                     
+                      <div class="col-md-12">
+                        <div class="inner-label">Contact Information</div>
+                        <div class="inner-form-field form-flex-wrap">
+                          <div class="col-xs-12 col-md-6">
+                            <div class="field-label">Law Firm Name </div>
+                            <div class="field-data"><%= @form_submission.law_firm.name %></div>
+                          </div>
+                          <div class="col-xs-12 col-md-6">
+                            <label class="field-label">BMO Relationship Partner Name</label>
+                            <div class="field-data"><%= @form_submission.law_firm.bmo_relationship_partner_name  %> </div>
+                          </div>
+                          <div class="col-xs-12 col-md-6">
+                            <label class="field-label">BMO Relationship Partner Email</label>
+                            <div class="field-data"><%= @form_submission.law_firm.bmo_relationship_partner_email  %> </div>
+                          </div>
+                          <div class="col-xs-12 col-md-6">
+                            <label class="field-label">BMO Relationship Partner Phone No.</label>
+                            <div class="field-data"><%= @form_submission.law_firm.bmo_relationship_partner_phone_number  %> </div>
+                          </div>
+                          <div class="col-xs-12 col-md-6">
+                            <label class="field-label">Additional BMO Relationship Contact Name (optional)</label>
+                            <div class="field-data"><%= @form_submission.law_firm.secondary_rm_contact %> </div>
+                          </div>
+                          <div class="col-xs-12 col-md-6">
+                            <label class="field-label">Additional BMO Relationship Contact Email (optional)</label>
+                            <div class="field-data"><%= @form_submission.law_firm.secondary_rm_contact_email %> </div>
+                          </div>
+                          <div class="col-xs-12 col-md-6">
+                            <label class="field-label">Billing Contact Name</label>
+                            <div class="field-data"><%= @form_submission.law_firm.billing_contact_name %> </div>
+                          </div>
+                          <div class="col-xs-12 col-md-6">
+                            <label class="field-label">Billing Contact Email</label>
+                            <div class="field-data"><%= @form_submission.law_firm.billing_contact_email %> </div>
+                          </div>
+                          <div class="col-xs-12 col-md-6">
+                            <div class="field-label">Locations</div>	
+                          
+                            <div class="field-data"><%= @form_submission.law_firm.locations.map{|location| [location.city, location.province, @form_submission.law_firm.country_name(location.country)].reject(&:nil?).join(',') }.join("<br />").html_safe %></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="inner-label">SEMS Information</div>
+                        <div class="inner-form-field form-flex-wrap">
+                          <div class="col-xs-12 col-md-6">
+                            <label class="field-label">Engagement Number</label>
+                            <div class="field-data"><%= @form_submission.law_firm.engagement_number  %> </div>
+                          </div>
+                          <div class="col-xs-12 col-md-6">
+                            <label class="field-label">Relationship Number</label>
+                            <div class="field-data"><%= @form_submission.law_firm.relationship_number %> </div>
+                          </div>
+                          <div class="col-xs-12 col-md-6">
+                            <label class="field-label">Information Security Class</label>
+                            <div class="field-data"><%= @form_submission.law_firm.information_security_class %> </div>
+                          </div>
+                          <div class="col-xs-12 col-md-6">
+                            <label class="field-label">Information Security Assessment Outcome</label>
+                            <div class="field-data"><%= @form_submission.law_firm.information_security_assessment_outcome %> </div>
+                          </div>
+                          <div class="col-xs-12 col-md-6">
+                            <label class="field-label">Action Plan Findings</label>
+                            <div class="field-data"><%= @form_submission.law_firm.action_plan_findings %> </div>
+                          </div>
+                          <div class="col-xs-12 col-md-6">
+                            <label class="field-label">Action Plan Status</label>
+                            <div class="field-data"><%= @form_submission.law_firm.action_plan_status  %> </div>
+                          </div>
+                          <div class="col-xs-12 col-md-6">
+                            <label class="field-label">Information Security Contact Name</label>
+                            <div class="field-data"><%= @form_submission.law_firm.information_security_contact %> </div>
+                          </div>
+                          <div class="col-xs-12 col-md-6">
+                            <label class="field-label">Information Security Contact Email</label>
+                            <div class="field-data"><%= @form_submission.law_firm.information_security_contact_email %> </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="inner-label">Law Firm Information</div>
+                          <div class="inner-form-field form-flex-wrap">
+                            <div class="col-xs-12 col-md-6">
+                              <div class="field-label">No. of personnel</div>		
+                              <div class="field-data"><%= @form_submission.law_firm.number_of_lawyers %></div>
+                            </div>
+                          
+                            <div class="col-xs-12 col-md-6">
+                              <label class="field-label">Diverse</label>
+                              <div class="field-data"><%= @form_submission.law_firm.diverse %> </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                              <label class="field-label">Value-Add Activities</label>
+                              <div class="field-data"><%= @form_submission.law_firm.values.map{|value| [value.value].reject(&:nil?).join(',') }.join("<br />").html_safe %></div>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                              <label class="field-label">Feedback</label>
+                              <div class="field-data"><%= @form_submission.law_firm.feedbacks.map{|feedback| [feedback.feedback].reject(&:nil?).join(',') }.join("<br />").html_safe %></div>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                              <label class="field-label">Issues</label>
+                              <div class="field-data"><%= @form_submission.law_firm.issues.map{|issue| [issue.issue].reject(&:nil?).join(',') }.join("<br />").html_safe %></div>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                              <label class="field-label">Merger/Combination</label>
+                              <div class="field-data"><%= @form_submission.law_firm.merger_combination  %> </div>
+                            </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="inner-label">Law Firm Information</div>
+                          <div class="inner-form-field form-flex-wrap">
+                            <div class="col-xs-12 col-md-6">
+                              <div class="field-label">Username</div>
+                              <div class="field-data"><%= !@form_submission.law_firm.user.try(:username).blank? ? @form_submission.law_firm.user.try(:username) : '-' %></div>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                              <div class="field-label">Law Firm Login Email </div>
+                              <div class="field-data"><%= !@form_submission.law_firm.user.try(:email).blank? ? @form_submission.law_firm.user.try(:email) : '-' %></div>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                              <div class="field-label">Law Firm Login User Phone </div>
+                              <div class="field-data"><%= @form_submission.law_firm.phone %></div>
+                            </div>
+                          </div>
+                      </div>
+                    
+                      <% if Current.user.role === "internal_lawyers" %>
+                        <div class="col-xs-12 col-md-6">
+                          <div class="field-label">Relationship Manager Name	</div>
+                          <div class="field-data"><%= @form_submission.law_firm.relationship_manager_name %></div>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                          <div class="field-label">Relationship Manager Email </div>
+                          <div class="field-data"><%= @form_submission.law_firm.relationship_manager_email %></div>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                          <div class="field-label">Relationship Manager Phone </div>
+                          <div class="field-data"><%= @form_submission.law_firm.relationship_manager_phone %></div>
+                        </div>
+                      <% end %>
+                      <!--div class="col-xs-12 col-md-6">
+                        <div class="field-label">Initial Date of Engagement with BMO</div>		
+                        <div class="field-data"><%= @form_submission.law_firm.initial_date_of_engagement_with_the_bank && @form_submission.law_firm.initial_date_of_engagement_with_the_bank.in_time_zone('Eastern Time (US & Canada)').strftime(LawFirm::DATE_FORMAT) %></div>
+                      </div-->
+                      <div class="col-xs-12 col-md-6">
+                        <div class="field-label">Types of matters your law firm has handled for us to date</div>		
+                        <div class="field-data"><%= @form_submission.law_firm.type_of_matters_your_law_firm_handles_for_us.reject(&:blank?).join(", ") %></div>
+                      </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="score-form-3">
-            <% @law_firm = @form_submission.law_firm %>
+            <% @form_submission.law_firm = @form_submission.law_firm %>
 
             <div class="score-form">
               <div class="col-md-12 text-center">
-                <p class="rating-label">TOTAL SCORE (<%= @law_firm.total_calculated_score(@form_submission) %>)</p>
+                <p class="rating-label">TOTAL SCORE (<%= @form_submission.law_firm.total_calculated_score(@form_submission) %>)</p>
                 <div class="readonly-total-score-rating force-center" 
-                    data-score="<%= @law_firm.total_calculated_score(@form_submission) %>"
-                    data-color="<%= @form_submission.try(:color, @law_firm.total_calculated_score(@form_submission), 'total_calculated_score') %>"></div>
+                    data-score="<%= @form_submission.law_firm.total_calculated_score(@form_submission) %>"
+                    data-color="<%= @form_submission.try(:color, @form_submission.law_firm.total_calculated_score(@form_submission), 'total_calculated_score') %>"></div>
               </div>
             </div>
 
@@ -78,11 +238,11 @@
                   data-assessor_score=<%= @form_submission.assessor_score || 0 %>></div>
             </div>
               <div class="col-md-4 text-center">
-                <p class="rating-label">RESPONSIVE SCORE (<%= @law_firm.responsiveness_rate %>)</p>
+                <p class="rating-label">RESPONSIVE SCORE (<%= @form_submission.law_firm.responsiveness_rate %>)</p>
                 <p class="rating-label no-margin-bottom">40%</p>
                 <div class="readonly-responsiveness-score-rating force-center" 
-                    data-score="<%= @law_firm.responsiveness_rate %>"
-                    data-color="<%= @form_submission.try(:color, @law_firm.responsiveness_rate, 'responsiveness_rate') %>"></div>
+                    data-score="<%= @form_submission.law_firm.responsiveness_rate %>"
+                    data-color="<%= @form_submission.try(:color, @form_submission.law_firm.responsiveness_rate, 'responsiveness_rate') %>"></div>
               </div>
             </div>
 
