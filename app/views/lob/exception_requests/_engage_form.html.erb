@@ -96,6 +96,7 @@
                       <label class="label">Name<span class="mandatory">*</span></label>
                       <%= field.input :name, label: false , required: true %>
                       <%= field.input :law_firm_category, :as => :hidden, :input_html => { :value => "NON_PANEL" } %>
+                      <%= field.input :firm_use_on_regular_basis, label: false, as: :hidden, input_html: { value: "No" } %>
                       <p class="custom-error">This field is required</p>
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-6">
