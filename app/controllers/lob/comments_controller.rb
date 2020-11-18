@@ -11,8 +11,8 @@ class Admin::CommentsController < Admin::BaseController
       if @comment.save
         redirect_to :back, notice: "comment Added"
       else
-        flash.now[:alert] = @comment.errors.full_messages.join(', ')
-        render :new
+        #flash.now[:alert] = @comment.errors.full_messages.join(', ')
+        redirect_to :back, alert: @comment.errors.full_messages.join(', ')
       end
     end
   end

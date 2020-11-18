@@ -289,6 +289,14 @@ $('#login-form').each(function() {
 	
 })
 $('.lxp_sttaus').on('click', function(e){
+	if($('select#review_status').chosen().val() == ""){
+		swal({
+			title: "oops!",
+			text: "Please select status"
+		});
+		return false;
+	}
+
 	 if($('select#review_status').chosen().val() == "REQUEST_TO_INPUT"){
 			laywerId = $('select#review_assigned_to_id').chosen().val()
 			if(!laywerId) {
