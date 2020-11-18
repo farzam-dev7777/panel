@@ -6,7 +6,7 @@
 				<div class="page-title">Add Review
         <% if @panel_request.status.present? %>
 					<span style=" color: #fff; "  class="<%= @panel_request.status === "Activate" ? 'label label-success' : 'label label-default' %>"> 
-						Panel Status :<%= @panel_request.try(:status).try(:titleize) %>
+						Panel Status: <%= @panel_request.try(:status).try(:titleize) %>
 					</span>
 				<% end %>
 				<% if @panel_request.lxp_status_show.present? %>
@@ -59,9 +59,7 @@
                     <!--a href="javascript:void(0)" class="lxp_review_status btn-type-primary" data-status="APPROVED">Approve</a-->
                     
                     
-                    <% if @panel_request.fully_approved? %>
-                      <a href="javascript:void(0)" class="email_wnn_documents btn-type-primary" data-id="<%= @panel_request.id %>">Email WNN Documents <span class="loader">&nbsp;&nbsp;<i class="fa fa-refresh fa-spin fa-1x fa-fw"></i></span></a>
-                    <% end %>
+                    
                     <!--<div class="project-context sp-inner-dropdown">
                       <span class="dropdown-toggle sp-derpdwon" data-toggle="dropdown">
                         <div class="dropdown-text">Update</div>

@@ -6,12 +6,12 @@
         <div class="page-title">LXP Review
         <% if @exception_request.lxp_status.present? %>
           <span style=" color: #fff; "  class="<%= @exception_request.lxp_status === "APPROVED" ? 'label label-success' : 'label label-default' %>"> 
-            LXP Status : <%= @exception_request.lxp_status_show %>
+            LXP Status: <%= @exception_request.lxp_status_show %>
           </span>
         <% end %>
           <% if @exception_request.internal_lawyers_status.present? %>
             <span style=" color: #fff; "  class="<%= @exception_request.internal_lawyers_status === "APPROVED" ? 'label label-success' : 'label label-default' %>"> 
-              Lawyers Status : <%= @exception_request.try(:internal_lawyers_status).try(:titleize) %>
+              Lawyers Status: <%= @exception_request.try(:internal_lawyers_status).try(:titleize) %>
             </span>
           <% end %>
         </div>

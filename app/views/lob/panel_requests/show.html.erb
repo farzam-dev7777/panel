@@ -10,7 +10,7 @@
 				<div class="page-title">Panel Consideration Request
 					<% if @panel_request.lxp_status.present? %>
 						<span style=" color: #fff; " class="<%= @panel_request.lxp_status === "APPROVED" ? 'label label-success' : 'label label-default' %>"> 
-							LXP Status : <%= @panel_request.try(:lxp_status).try(:titleize) %>
+							LXP Status: <%= @panel_request.try(:lxp_status).try(:titleize) %>
 						</span>
           <% end %>
 				</div>

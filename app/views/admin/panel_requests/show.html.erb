@@ -10,12 +10,12 @@
 				<div class="page-title">Panel Consideration Requests
 				<% if @panel_request.status.present? %>
 					<span style=" color: #fff; "  class="<%= @panel_request.status === "Activate" ? 'label label-success' : 'label label-default' %>"> 
-						Panel Status :<%= @panel_request.try(:status).try(:titleize) %>
+					Panel Status: <%= @panel_request.try(:status).try(:titleize) %>
 					</span>
 				<% end %>
 				<% if @panel_request.lxp_status_show.present? %>
 					<span style=" color: #fff; "  class="<%= @panel_request.lxp_status_show === "Approved" ? 'label label-success' : 'label label-default' %>"> 
-					 LXP Status:	<%= @panel_request.try(:lxp_status_show).try(:titleize) %>
+					 LXP Status: <%= @panel_request.try(:lxp_status_show).try(:titleize) %>
 					</span>
 				<% end %>
 				</div>
@@ -132,13 +132,20 @@
 											<div class="field-label">Download Document</div>
 											<div class="field-data">
 												<%= link_to "Download Document", admin_panel_request_download_pdf_path(@panel_request), class: "" %>
+											
 											</div>
+											
 										</div>
 									<% end %>	
 								<% end %>
 							<% if @panel_request.law_firm.present? &&(!@panel_request.law_firm.form_submissions.any?) && current_user.role === "lxp"  %>
 								<div class="col-xs-12 col-md-12">
 									<%= link_to "View Law Firm", admin_law_firm_url(@panel_request.law_firm), class: "btn-type-default" %>
+								</div>
+								<div class="col-xs-12 col-md-12">
+									<% if @panel_request.fully_approved? %>
+										<a href="javascript:void(0)" class="email_wnn_documents btn-type-primary" data-id="<%= @panel_request.id %>">Email WNN Documents <span class="loader">&nbsp;&nbsp;<i class="fa fa-refresh fa-spin fa-1x fa-fw"></i></span></a>
+									<% end %>
 								</div>
 								<div class="col-xs-12 col-md-12 mobile-action-btn">	
 									<% if(@panel_request.law_firm.form_submissions.any? && @panel_request.law_firm.form_submissions.latest.status == 'approved') %>

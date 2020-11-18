@@ -9,12 +9,12 @@
         <div class="page-title">Conflict Waiver Request
          <% if @conflict_waiver.lxp_status_show.present? %>
             <span style=" color: #fff; "  class="<%= @conflict_waiver.lxp_status_show === "Approved" ? 'label label-success' : 'label label-default' %>"> 
-             LXP Status : <%= @conflict_waiver.try(:lxp_status_show).try(:titleize) %>
+             LXP Status: <%= @conflict_waiver.try(:lxp_status_show).try(:titleize) %>
             </span>
         <% end %>
         <% if @conflict_waiver.internal_lawyers_status_show.present? %>
           <span style=" color: #fff; "  class="<%= @conflict_waiver.internal_lawyers_status_show === "Approve" ? 'label label-success' : 'label label-default' %>"> 
-            Lawyer Status : <%= @conflict_waiver.try(:internal_lawyers_status_show).try(:titleize) %>
+            Lawyer Status: <%= @conflict_waiver.try(:internal_lawyers_status_show).try(:titleize) %>
           </span>
         <% end %>
         </div>
@@ -83,7 +83,7 @@
             <% end %>
             <% if @conflict_waiver.lxp_status_show.present? %>
                 <span style=" color: #fff; "  class="<%= @conflict_waiver.lxp_status_show === "Approved" ? 'label label-success' : 'label label-default' %>"> 
-                LXP Status : <%= @conflict_waiver.try(:lxp_status_show).try(:titleize) %>
+                LXP Status: <%= @conflict_waiver.try(:lxp_status_show).try(:titleize) %>
                 </span>
             <% end %>
             <% if @conflict_waiver.internal_lawyers_status_show.present? %>
