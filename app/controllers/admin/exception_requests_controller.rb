@@ -276,10 +276,10 @@ class Admin::ExceptionRequestsController < Admin::BaseController
   def send_retainer_aggreement
     @exception_request = ExceptionRequest.find_by(id: params[:id])
     @user = User.find_by_id(@exception_request.user_id)
-    
-    if @exception_request.present? && @user.present?
-      signer_email = @user.email
-      signer_name =  @user.username
+
+    if @exception_request.present? && @exception_request.law_firm.present?
+      signer_email = @exception_request.law_firm.email
+      signer_name =  @exception_request.law_firm.name
       if @exception_request.send_retainer_for_esigning(signer_email, signer_name)
         render json: {
           message: "Retainer agreeement sent successfully.",
