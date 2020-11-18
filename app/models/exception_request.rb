@@ -368,27 +368,34 @@ class ExceptionRequest < ApplicationRecord
             :roleName => 'lxp'
     })
 
-    # text = DocuSign_eSign::Text.new
-    # text.document_id = '1'
-    # text.page_number = '1'
-    # text.x_position = '280'
-    # text.y_position = '172'
-    # text.font = 'helvetica'
-    # text.font_size = 'size14'
-    # text.tab_label = '*lawfirmname'
-    # text.height = '23'
-    # text.width = '84'
-    # text.required = 'false'
-    # text.locked = 'true'
-    # text.bold = 'true'
-    # text.value = self&.law_firm&.name
-    # text.locked = 'false'
-    # text.tab_id = 'name'
+    text = DocuSign_eSign::Text.new
+    text.document_id = '1'
+    text.page_number = '1'
+    text.x_position = '86'
+    text.y_position = '183'
+    text.font = 'arial'
+    text.font_size = 'size9'
+    text.tab_label = '*lawfirmname'
+    text.height = '70'
+    text.width = '250'
+    text.locked = 'true'
+    text.bold = 'true'
+    text.value = self&.law_firm&.name
+    text.tab_id = 'name'
+    text.required = 'true'
 
-    # tabs = DocuSign_eSign::Tabs.new
-    # tabs.text_tabs = [text]
-    # signer.tabs = tabs
-    # lxp.tabs = tabs
+    sign_here = DocuSign_eSign::SignHere.new
+    sign_here.document_id = '1'
+    sign_here.page_number = '3'
+    sign_here.x_position = '109'
+    sign_here.y_position = '649'
+    sign_here.tab_label = '*signersignature'
+
+    tabs = DocuSign_eSign::Tabs.new
+    tabs.text_tabs = [text]
+    tabs.sign_here_tabs = [sign_here]
+    signer.tabs = tabs
+    lxp.tabs = tabs
 
     # Add the TemplateRole objects to the envelope object
     envelope_definition.template_roles = [signer, lxp]
