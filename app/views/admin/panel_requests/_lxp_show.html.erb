@@ -3,7 +3,18 @@
   <div class="col-lg-12 col-md-12 col-sm-12">
     <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
       <div class="page-header-sp">
-				<div class="page-title">Add Review</div>
+				<div class="page-title">Add Review
+        <% if @panel_request.status.present? %>
+					<span style=" color: #fff; "  class="<%= @panel_request.status === "Activate" ? 'label label-success' : 'label label-default' %>"> 
+						Panel Status :<%= @panel_request.try(:status).try(:titleize) %>
+					</span>
+				<% end %>
+				<% if @panel_request.lxp_status_show.present? %>
+					<span style=" color: #fff; "  class="<%= @panel_request.lxp_status_show === "Approved" ? 'label label-success' : 'label label-default' %>"> 
+					 LXP Status:	<%= @panel_request.try(:lxp_status_show).try(:titleize) %>
+					</span>
+				<% end %>
+        </div>
 				<div class="back-edit-actions">
 				</div>
 			</div>

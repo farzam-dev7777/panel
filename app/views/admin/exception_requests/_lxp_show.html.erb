@@ -3,7 +3,18 @@
   <div class="col-lg-12 col-md-12 col-sm-12">
     <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
       <div class="page-header-sp">
-        <div class="page-title">LXP Review</div>
+        <div class="page-title">LXP Review
+        <% if @exception_request.lxp_status.present? %>
+          <span style=" color: #fff; "  class="<%= @exception_request.lxp_status === "APPROVED" ? 'label label-success' : 'label label-default' %>"> 
+            LXP Status : <%= @exception_request.lxp_status_show %>
+          </span>
+        <% end %>
+          <% if @exception_request.internal_lawyers_status.present? %>
+            <span style=" color: #fff; "  class="<%= @exception_request.internal_lawyers_status === "APPROVED" ? 'label label-success' : 'label label-default' %>"> 
+              Lawyers Status : <%= @exception_request.try(:internal_lawyers_status).try(:titleize) %>
+            </span>
+          <% end %>
+        </div>
         <div class="back-edit-actions">
         </div>
       </div>
@@ -23,7 +34,7 @@
                       <%= f.input :reviewable_id, label: false, as: :hidden, input_html: { value: @exception_request.id } %>
                   </div>		
                   <div class="col-xs-12 col-md-6">
-                    <label class="label">Status</label>
+                    <label class="label">Status </label>
                     <%= f.input :status, label: false, collection: ExceptionRequest::EXCEPTION_REQUEST_STATUS.map{|value,key| [key, value]}%>
                   </div>
                 </div>
