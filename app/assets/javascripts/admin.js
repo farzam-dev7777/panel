@@ -1949,7 +1949,7 @@ $('.email_wnn_documents').on('click', function() {
 
 $('.non-panel_send_retainer').on('click', function() {
 
-	message = "Confirmation: Send Retainer Agreement"
+	message = "Confirmation: " + $(this).attr("data-message")
 	var non_panel_id = $(this).attr("data-id");
 	swal({
 		title: message,

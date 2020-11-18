@@ -179,6 +179,7 @@ class ExceptionRequest < ApplicationRecord
 
   EXCEPTION_REQUEST_STATUS2 = {
     "REQUEST_TO_INPUT": "Lawyer Input Requested",
+    "RETAINER_AGREEMENT_SENT": "Retainer Agreement Sent",
     "APPROVED": "Approved",
     "REJECTED": "Rejected",
     "REVIEWED_BY_LAWYER": "Reviewed by Lawyer",
