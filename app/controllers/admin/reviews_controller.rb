@@ -71,11 +71,13 @@ class Admin::ReviewsController < Admin::BaseController
             #@user = User.with_deactivated.find_by(id: user_id)
             @user = @panel_request.try(:law_firm).try(:user)
             if @user.present?
-            user_email = @user.email
-            user_name =  @user.username
-
-            @panel_request.send_retainer_for_esigning(lob_email, lob_name, user_email, user_name)
+              user_email = @user.email
+              user_name =  @user.username
+            else
+              user_email = @panel_request.law_firm_mail
+              user_name =  @panel_request.law_frim_name
             end
+            @panel_request.send_retainer_for_esigning(lob_email, lob_name, user_email, user_name)
             if review_params[:status] == 'PANEL_RETAINER'
               @panel_request.status = 'PANEL_RETAINER'
               PanelRequestMailer.notification_for_retainer_to_law_firm(@panel_request).deliver_now

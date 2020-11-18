@@ -38,7 +38,7 @@
                     <%= link_to 'Cancel', @panel_request.new_record? ? admin_panel_requests_path : admin_panel_requests_path, class: 'btn-type-default' %>
                     <%= f.button :submit, @panel_request.new_record? ? "Submit Request" : "Update Status", class:  @current_user.role === "lxp" ? "lxp_sttaus btn-type-primary hide" : "laywr_status btn-type-primary hide" %>
                     <% if @panel_request.status === "ARCHIVED" %>
-                       <a href="javascript:void(0)" class="lxp_review_status btn-type-primary" data-status="UN_ARCHIVED">Un Archived</a>
+                       <a href="javascript:void(0)" class="lxp_review_status btn-type-primary" data-status="UN_ARCHIVED">Un Archive</a>
                     <% elsif @panel_request.status === "LAW_FIRM_CREATED" %>
                       <a href="javascript:void(0)" class="lxp_review_status btn-type-primary" data-status="PANEL_RETAINER">Send Retainer Agreement</a>
                    <% elsif @panel_request.status === "PANEL_RETAINER" %>
@@ -48,7 +48,7 @@
                      <a href="javascript:void(0)" class="lxp_review_status btn-type-primary" data-status="PANEL_RETAINER">Re Send Retainer Agreement</a>
                     <% else %>
                       <a href="javascript:void(0)" class="lxp_review_status btn-type-danger" data-status="REJECTED">Reject</a>
-                      <a href="javascript:void(0)" class="lxp_review_status btn-type-primary" data-status="ARCHIVED">Archived</a>
+                      <a href="javascript:void(0)" class="lxp_review_status btn-type-primary" data-status="ARCHIVED">Archive</a>
                       <a href="javascript:void(0)" class="lxp_review_status btn-type-primary" data-status="LAW_FIRM_CREATED">Create Law Firm</a>
                     <% end %>
                    
