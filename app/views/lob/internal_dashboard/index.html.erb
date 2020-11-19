@@ -293,7 +293,7 @@
 							<% @panel_requests.each do |panel_request| %>
 							
 								<tr onClick="window.location.href='/lob/panel_requests/<%= panel_request.id %>'">
-									<td data-order="<%= panel_request.created_at.strftime('%Y%m%d%I%M') %>">
+									<td data-order="<%= panel_request.created_at.strftime('%Y%m%d%H%M') %>">
 										<%= panel_request.created_at.strftime('%d %b %Y at %I:%M %p') %>
 									</td>
 									<td><%= panel_request&.law_firm&.name %></td>

@@ -61,7 +61,7 @@
 						</thead>
 						<tbody>
 							<% @form_submissions.each do |submission| %>
-								<tr class="form_submissions-row" data-order="<%= submission.created_at.strftime('%Y%m%d%I%M') %>" data-id="<%= submission.id %>">
+								<tr class="form_submissions-row" data-order="<%= submission.created_at.strftime('%Y%m%d%H%M') %>" data-id="<%= submission.id %>">
 									<td>
 										<% if submission.law_firm.present? %>
 											<%= link_to submission.law_firm.try(:name), admin_law_firm_path(submission.law_firm) if submission.law_firm %>
