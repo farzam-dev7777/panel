@@ -218,10 +218,19 @@ $('#login-form').each(function() {
 	$('.exceptationRequestProcesss select#review_status').chosen().change(function() {
 		if(this.value == "REQUEST_TO_INPUT") {
 			$(".exceptationRequestProcesss  .internal_lawyers_box").show()
+			$(".exceptationRequestProcesss .lxp_sttaus_btn").show()
+			$(".exceptationRequestProcesss .lxp_request_retainer").hide()
 			
+		}else if(this.value == "SEND_RETAINER_AGREEMENT"){
+			$(".exceptationRequestProcesss .lxp_sttaus_btn").hide()
+			$(".exceptationRequestProcesss  .internal_lawyers_box").hide()
+			$(".exceptationRequestProcesss .lxp_request_retainer").show()
+
 		}else{
 			$(".exceptationRequestProcesss .internal_lawyers_box").hide()
 			$('.exceptationRequestProcesss select#review_assigned_to_id').val('').trigger('chosen:updated');
+			$(".exceptationRequestProcesss .lxp_sttaus_btn").show()
+			$(".exceptationRequestProcesss .lxp_request_retainer").hide()
 		}
 	});
 	// conflict Waiver approval Processs
@@ -1995,9 +2004,9 @@ $('.non-panel_send_retainer').on('click', function() {
 							function(isConfirm){
 								if (isConfirm) {
 									if($(".non_panel_send_retainer_status").html() === "Success"){
-										options = "<option value='RETAINER_AGREEMENT_SENT'>Retainer Agreement Sent</option>";
-										$('#review_status').html(options);
-										$("#review_status").trigger("chosen:updated")
+										//options = "<option value='RETAINER_AGREEMENT_SENT'>Retainer Agreement Sent</option>";
+										//$('#review_status').html(options);
+									//	$("#review_status").trigger("chosen:updated")
 										$("#new_review").submit()
 									}
 								}

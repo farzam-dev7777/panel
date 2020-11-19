@@ -173,13 +173,23 @@ class ExceptionRequest < ApplicationRecord
 
   EXCEPTION_REQUEST_STATUS = {
     "REQUEST_TO_INPUT": "Lawyer Input Requested",
+    "SEND_RETAINER_AGREEMENT": "Send Retainer Agreement",
     "APPROVED": "Approved",
     "REJECTED": "Rejected"
   }
 
+  EXCEPTION_REQUEST_STATUS_2 = {
+    "REQUEST_TO_INPUT": "Lawyer Input Requested",
+    "SEND_RETAINER_AGREEMENT": "Re Send Retainer Agreement",
+    "APPROVED": "Approved",
+    "REJECTED": "Rejected"
+  }
+  
+
   EXCEPTION_REQUEST_STATUS2 = {
     "REQUEST_TO_INPUT": "Lawyer Input Requested",
     "RETAINER_AGREEMENT_SENT": "Retainer Agreement Sent",
+    "SEND_RETAINER_AGREEMENT": "Retainer Agreement Sent",
     "APPROVED": "Approved",
     "REJECTED": "Rejected",
     "REVIEWED_BY_LAWYER": "Reviewed by Lawyer",
@@ -212,7 +222,11 @@ class ExceptionRequest < ApplicationRecord
 
   def lxp_status_show
     if !self.lxp_status.blank?
-      ExceptionRequest::EXCEPTION_REQUEST_STATUS2[self.lxp_status.try(:to_sym)]
+      if self.lxp_status === "RETAINER_AGREEMENT_SENT" || self.lxp_status === "SEND_RETAINER_AGREEMENT"
+         self.docusign_retainer_envelope.try(:status) == "completed" ? "Retainer Agreement Signed" :   "Retainer Agreement Sent"
+      else
+        ExceptionRequest::EXCEPTION_REQUEST_STATUS2[self.lxp_status.try(:to_sym)]
+      end
     end
   end
   def internal_lawyers_status_show
@@ -236,9 +250,9 @@ class ExceptionRequest < ApplicationRecord
       envelope_args: {
         template_id: Rails.application.secrets[:docusign]["retainer_template_id"],
         signer_email: signer_email,
-        signer_name: signer_name,
-        lxp_email: SystemSetting.fetch.lxp_email,
-        lxp_name: SystemSetting.fetch.lxp_name
+        signer_name: signer_name
+        # lxp_email: SystemSetting.fetch.lxp_email,
+        # lxp_name: SystemSetting.fetch.lxp_name
       },
       base_path: Rails.application.secrets[:docusign]["base_path"],
       account_id: Rails.application.secrets[:docusign]["account_id"],

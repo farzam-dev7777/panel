@@ -42,7 +42,7 @@ class Review < ApplicationRecord
   def status_show
     if self.status.present?
       if self.reviewable_type == "ExceptionRequest"
-        if self.status === "RETAINER_AGREEMENT_SENT"
+        if self.status === "RETAINER_AGREEMENT_SENT" || self.status === "SEND_RETAINER_AGREEMENT"
             "Retainer Agreement Sent"
         else
           ExceptionRequest::EXCEPTION_REQUEST_STATUS[self.status.to_sym]
