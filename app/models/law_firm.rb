@@ -74,7 +74,7 @@ class LawFirm < ApplicationRecord
   INFORMATION_SECURITY_ASSESSMENT_OUTCOME = ["ImprovementRequired", "Satisfactory", "Unsatisfactory"]
   
   JURISDICTION_COUNTRIES = ["Canada","United States of America"].freeze
-  LAW_FRIM_STATUS = ['Activate', 'Deactivate']
+  LAW_FRIM_STATUS = ['Active', 'Deactivate']
   EMAIL_PREFIX = "@check.com"
   TIME_FORMAT = "%d %b %y, %I:%M %Z"
   DATE_FORMAT = "%d %b %y"

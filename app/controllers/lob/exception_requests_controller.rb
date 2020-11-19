@@ -133,7 +133,7 @@ class Lob::ExceptionRequestsController < Lob::BaseController
     if params[:matter_type].present? ||  params[:sub_matter_type].present? || params[:jurisdiction_type].present? || params[:country].present? || params[:state].present?
       where = Hash.new
       where['law_firm_category'] = "PANEL"
-      where['status'] = "Activate"
+      where['status'] = "Active"
       if params[:matter_type].present?
         where['law_firms_matter_types'] =  { 
           matter_type_id: params[:matter_type].to_i

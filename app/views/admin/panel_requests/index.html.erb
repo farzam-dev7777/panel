@@ -85,7 +85,7 @@
               <td>
                 <div class="status">
                   <% if panel_request.status.present? %>
-                    <span class="<%= panel_request.status === "Activate" ? 'label label-success' : 'label label-default' %>"> 
+                    <span class="<%= panel_request.status === "Active" ? 'label label-success' : 'label label-default' %>"> 
                       <%= panel_request.try(:status).try(:titleize) %>
                     </span>
                   <% end %>

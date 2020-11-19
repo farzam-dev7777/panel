@@ -19,7 +19,7 @@ class PanelRequest < ApplicationRecord
     "PANEL": "Panel",
     "NON_PANEL": "Non Panel"
   }
-  PANAL_STATUS = ['Activate', 'Received']
+  PANAL_STATUS = ['Active', 'Received']
   MATTER_TYPES = [
     "Contractual Transactions (non-lending) / Traduction contractuelle (autre que des prêt",
     "Corporate Governance / Gouvernance d'entreprise",

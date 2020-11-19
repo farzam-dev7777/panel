@@ -123,10 +123,10 @@ class Admin::ReviewsController < Admin::BaseController
             end
             PanelRequestMailer.notification_for_status_to_user(@panel_request).deliver_now  
           elsif current_user.role === 'lxp' &&  review_params[:status] == 'APPROVED'
-            @panel_request.status = 'Activate'
-            @panel_request.law_firm.status = 'Activate'
+            @panel_request.status = 'Active'
+            @panel_request.law_firm.status = 'Active'
             @user = @panel_request.law_firm.user
-            @user.status = 'Activate'
+            @user.status = 'Active'
             @user.save
             #PanelRequestMailer.notification_for_approved_to_lob(@panel_request).deliver_now
             PanelRequestMailer.notification_for_status_to_user(@panel_request).deliver_now

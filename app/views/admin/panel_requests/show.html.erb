@@ -9,7 +9,7 @@
 			<div class="page-header-sp m-top">
 				<div class="page-title">Panel Consideration Requests
 				<% if @panel_request.status.present? %>
-					<span style=" color: #fff; "  class="<%= @panel_request.status === "Activate" ? 'label label-success' : 'label label-default' %>"> 
+					<span style=" color: #fff; "  class="<%= @panel_request.status === "Active" ? 'label label-success' : 'label label-default' %>"> 
 					Panel Status: <%= @panel_request.try(:status).try(:titleize) %>
 					</span>
 				<% end %>

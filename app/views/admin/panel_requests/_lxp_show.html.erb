@@ -5,7 +5,7 @@
       <div class="page-header-sp">
 				<div class="page-title">Add Review
         <% if @panel_request.status.present? %>
-					<span style=" color: #fff; "  class="<%= @panel_request.status === "Activate" ? 'label label-success' : 'label label-default' %>"> 
+					<span style=" color: #fff; "  class="<%= @panel_request.status === "Active" ? 'label label-success' : 'label label-default' %>"> 
 						Panel Status: <%= @panel_request.try(:status).try(:titleize) %>
 					</span>
 				<% end %>
@@ -44,7 +44,7 @@
                    <% elsif @panel_request.status === "PANEL_RETAINER" %>
                       <a href="javascript:void(0)" class="lxp_review_status btn-type-primary" data-status="PANEL_RETAINER">Re Send Retainer Agreement</a>
                       <a href="javascript:void(0)" class="lxp_review_status btn-type-primary" data-status="APPROVED">Approve</a>
-                    <% elsif @panel_request.status === "Activate" %>
+                    <% elsif @panel_request.status === "Active" %>
                      <a href="javascript:void(0)" class="lxp_review_status btn-type-primary" data-status="PANEL_RETAINER">Re Send Retainer Agreement</a>
                     <% else %>
                       <a href="javascript:void(0)" class="lxp_review_status btn-type-danger" data-status="REJECTED">Reject</a>
