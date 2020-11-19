@@ -114,49 +114,51 @@
 						</thead>
 						<tbody>
 							<% @exception_requests.each do |exception_request| %>
-								<tr onClick="window.location.href='/admin/exception_requests/<%= exception_request.id %>'">
-									<td>
-										<%= exception_request.created_at.strftime('%d %b %Y at %I:%M %p') %>
-									</td>
-									<td>
-										<% if exception_request.requested_by.present? %>
-											<div class="firm-name">
-												<div class="name-avatar"><img src="<%= get_avatar_image(exception_request&.requested_by&.gsub(" ", "+")) %>"></div>
-												<div><%= exception_request.requested_by %></div>
-											</div>
-										<% end %>
-									</td>
-									<td><%= exception_request&.lob_contact_name %></td>
-									<td><%= exception_request&.line_of_business %></td>
-									<td><%= exception_request&.law_firm.try(:name) %></td>
-									<td><%= exception_request&.try(:matter_name) %></td>
-									<% if current_user.role === "lxp" %>
+								<% if exception_request.law_firm_id.present?  %>
+									<tr onClick="window.location.href='/admin/exception_requests/<%= exception_request.id %>'">
 										<td>
-											<div class="status">
-												<% if exception_request.lxp_status.present? %>
-													<span class="<%= exception_request.lxp_status === "APPROVED" ? 'label label-success' : 'label label-default' %>"> 
-														<%= exception_request.lxp_status_show %>
-													</span>
-												<% end %>
-											</div>
+											<%= exception_request.created_at.strftime('%d %b %Y at %I:%M %p') %>
 										</td>
-									<% end %>
-									<td>
-										<% if exception_request.internal_lawyers_status.present? %>
-										<div class="status">
-											<span class="<%= exception_request.internal_lawyers_status === "APPROVED" ? 'label label-success' : 'label label-default' %>"> 
-												<%= exception_request.try(:internal_lawyers_status).try(:titleize) %>
-											</span>
-										</div>
+										<td>
+											<% if exception_request.requested_by.present? %>
+												<div class="firm-name">
+													<div class="name-avatar"><img src="<%= get_avatar_image(exception_request&.requested_by&.gsub(" ", "+")) %>"></div>
+													<div><%= exception_request.requested_by %></div>
+												</div>
+											<% end %>
+										</td>
+										<td><%= exception_request&.lob_contact_name %></td>
+										<td><%= exception_request&.line_of_business %></td>
+										<td><%= exception_request&.law_firm.try(:name) %></td>
+										<td><%= exception_request&.try(:matter_name) %></td>
+										<% if current_user.role === "lxp" %>
+											<td>
+												<div class="status">
+													<% if exception_request.lxp_status.present? %>
+														<span class="<%= exception_request.lxp_status === "APPROVED" ? 'label label-success' : 'label label-default' %>"> 
+															<%= exception_request.lxp_status_show %>
+														</span>
+													<% end %>
+												</div>
+											</td>
 										<% end %>
-									</td>
-									<!--<td>
-										<% if current_user.role == 'lob' &&  exception_request.try(:lxp_status) != 'APPROVED' %>
-											<%= link_to "Edit", edit_admin_exception_request_path(exception_request), class: "btn btn-xs btn-primary" %>
-										<% end %> 
-										<%= link_to "Review", admin_exception_request_path(exception_request), class: "btn btn-xs btn-secondary" %>	
-									</td>-->
-								</tr>
+										<td>
+											<% if exception_request.internal_lawyers_status.present? %>
+											<div class="status">
+												<span class="<%= exception_request.internal_lawyers_status === "APPROVED" ? 'label label-success' : 'label label-default' %>"> 
+													<%= exception_request.try(:internal_lawyers_status).try(:titleize) %>
+												</span>
+											</div>
+											<% end %>
+										</td>
+										<!--<td>
+											<% if current_user.role == 'lob' &&  exception_request.try(:lxp_status) != 'APPROVED' %>
+												<%= link_to "Edit", edit_admin_exception_request_path(exception_request), class: "btn btn-xs btn-primary" %>
+											<% end %> 
+											<%= link_to "Review", admin_exception_request_path(exception_request), class: "btn btn-xs btn-secondary" %>	
+										</td>-->
+									</tr>
+								<% end %>
 							<% end %>
 						</tbody>
 					</table>

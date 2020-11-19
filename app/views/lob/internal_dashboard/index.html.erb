@@ -103,67 +103,67 @@
 						</thead>
 						<tbody>
 							<% @exception_requests.each do |exception_request| %>
-							<% if exception_request.law_firm_id.present? %>
-								<tr onClick="window.location.href='/lob/exception_requests/<%= exception_request.id %>'">
-									<td>
-										<%= exception_request.created_at.strftime('%d %b %Y at %I:%M %p') %>
-									</td>
-									<td>
-										<% if exception_request.requested_by.present? %>
-											<div class="firm-name">
-												<div class="name-avatar">
-													<img src="<%= get_avatar_image(exception_request&.requested_by&.gsub(" ", "+")) %>"></div>
-												<div><%= exception_request.requested_by %></div>
+								<% if exception_request.law_firm_id.present? %>
+									<tr onClick="window.location.href='/lob/exception_requests/<%= exception_request.id %>'">
+										<td>
+											<%= exception_request.created_at.strftime('%d %b %Y at %I:%M %p') %>
+										</td>
+										<td>
+											<% if exception_request.requested_by.present? %>
+												<div class="firm-name">
+													<div class="name-avatar">
+														<img src="<%= get_avatar_image(exception_request&.requested_by&.gsub(" ", "+")) %>"></div>
+													<div><%= exception_request.requested_by %></div>
+												</div>
+											<% end %>	
+										</td>
+										<td><%= exception_request.submitted_by_email %></td>
+										<td><%= exception_request.lob_contact_name %></td>
+										<td><%= exception_request.try(:law_firm).try(:name) %></td>
+										<td><%= exception_request.try(:matter_name) %></td>
+										<td>
+											<div class="status">
+												<% if exception_request.status_for_lob.present? %>
+													<span class="<%= exception_request.status_for_lob === "APPROVED" ? 'label label-success' : 'label label-default' %>"> 
+														<%= exception_request.try(:status_for_lob) %>
+													</span>
+												<% end %>
 											</div>
-										<% end %>	
-									</td>
-									<td><%= exception_request.submitted_by_email %></td>
-									<td><%= exception_request.lob_contact_name %></td>
-									<td><%= exception_request.try(:law_firm).try(:name) %></td>
-									<td><%= exception_request.try(:matter_name) %></td>
-									<td>
-										<div class="status">
-											<% if exception_request.status_for_lob.present? %>
-												<span class="<%= exception_request.status_for_lob === "APPROVED" ? 'label label-success' : 'label label-default' %>"> 
-													<%= exception_request.try(:status_for_lob) %>
-												</span>
-											<% end %>
-										</div>
-									</td>
-									<!--<td>
-										<div class="status">
-											<% if exception_request.lxp_status_show.present? %>
-												<span class="<%= exception_request.lxp_status_show === "Approved" ? 'label label-success' : 'label label-default' %>"> 
-													<%= exception_request.try(:lxp_status_show).try(:titleize) %>
-												</span>
-											<% end %>
-										</div>
-										<% exception_request.lxp_status_show %>
-									</td>-->
-									<!--<td>
-										<div class="status">
-											<% if exception_request.internal_lawyers_status_show.present? %>
-												<span class="<%= exception_request.internal_lawyers_status_show === "Approved" ? 'label label-success' : 'label label-default' %>"> 
-													<%= exception_request.try(:internal_lawyers_status_show).try(:titleize) %>
-												</span>
-											<% end %>
-										</div>
-										<% exception_request.internal_lawyers_status_show %>
-									</td>-->
-									<!--<td>
-										<div class="action-fields">
-											<% if current_user.role == 'lob' &&  exception_request.try(:lxp_status) != 'APPROVED' %>
-												<a class="action-btn" href="/lob/exception_requests/<%= exception_request.id %>/edit">
-													<%= image_tag "edit-icon.svg", alt:"Edit" %>
+										</td>
+										<!--<td>
+											<div class="status">
+												<% if exception_request.lxp_status_show.present? %>
+													<span class="<%= exception_request.lxp_status_show === "Approved" ? 'label label-success' : 'label label-default' %>"> 
+														<%= exception_request.try(:lxp_status_show).try(:titleize) %>
+													</span>
+												<% end %>
+											</div>
+											<% exception_request.lxp_status_show %>
+										</td>-->
+										<!--<td>
+											<div class="status">
+												<% if exception_request.internal_lawyers_status_show.present? %>
+													<span class="<%= exception_request.internal_lawyers_status_show === "Approved" ? 'label label-success' : 'label label-default' %>"> 
+														<%= exception_request.try(:internal_lawyers_status_show).try(:titleize) %>
+													</span>
+												<% end %>
+											</div>
+											<% exception_request.internal_lawyers_status_show %>
+										</td>-->
+										<!--<td>
+											<div class="action-fields">
+												<% if current_user.role == 'lob' &&  exception_request.try(:lxp_status) != 'APPROVED' %>
+													<a class="action-btn" href="/lob/exception_requests/<%= exception_request.id %>/edit">
+														<%= image_tag "edit-icon.svg", alt:"Edit" %>
+													</a>
+												<% end %> 
+												<a class="action-btn" href="/lob/exception_requests/<%= exception_request.id %>">
+													<%= image_tag "view-icon.svg", alt:"View" %>
 												</a>
-											<% end %> 
-											<a class="action-btn" href="/lob/exception_requests/<%= exception_request.id %>">
-												<%= image_tag "view-icon.svg", alt:"View" %>
-											</a>
-										</div>
-									</td>-->
-								</tr>
-								<% end %>
+											</div>
+										</td>-->
+									</tr>
+									<% end %>
 							<% end %>
 						</tbody>
 					</table>
