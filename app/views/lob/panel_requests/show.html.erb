@@ -121,14 +121,14 @@
 								<div class="field-label">Are there additional reasons to consider this firm for BMO's LXP Panel? Provide details</div>		
 								<div class="field-data"><%= @panel_request.reason_other %></div>
 							</div>
-							<div class="col-xs-12 col-md-6">
+							<!--div class="col-xs-12 col-md-6">
 								<div class="field-label">LXP Status</div>
 								<div class="field-data"><%=  @panel_request.lxp_status_show ? @panel_request.lxp_status_show : "-" %></div>
-							</div>
-							<div class="col-xs-12 col-md-6">
+							</div-->
+							<!--div class="col-xs-12 col-md-6">
 								<div class="field-label">Panel Approved</div>
 								<div class="field-data"><%= @panel_request.fully_approved? ? "Yes" : "No" %></div>
-							</div>
+							</div-->
 							<% if @panel_request.docusign_envelope_id.present? %>
 								<div class="col-xs-12 col-md-6">
 									<div class="field-label">Document Status</div>

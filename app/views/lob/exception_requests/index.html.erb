@@ -142,7 +142,11 @@
                     <div class="status">
                       <% if exception_request.status_for_lob.present? %>
                         <span class="<%= exception_request.status_for_lob === "APPROVED" ? 'label label-success' : 'label label-default' %>"> 
-                          <%= exception_request.try(:status_for_lob) %>
+                          <% if exception_request.internal_lawyers_status ===  "REJECTED" %>
+                            <%= exception_request.try(:internal_lawyers_status) %>
+                          <% else %>  
+                            <%= exception_request.try(:status_for_lob) %>
+                          <% end %>
                         </span>
                       <% end %>
                     </div>
