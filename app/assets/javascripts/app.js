@@ -310,7 +310,8 @@ $(document).ready(function(){
       window.location.pathname.indexOf("/relationship_step") > -1 || 
       window.location.pathname.indexOf("/diversity_step") > -1 || 
       window.location.pathname.indexOf("/innovation_step") > -1 || 
-      window.location.pathname.indexOf("/resourcing_step") > -1) {
+      window.location.pathname.indexOf("/resourcing_step") > -1 || 
+      window.location.pathname.indexOf("/lawfirm_step") > -1) {
     replaceChosenWithSelect2();
     $(document).on('change paste keyup', 'select, input', function(){
       replaceChosenWithSelect2();

@@ -5,7 +5,7 @@ class FormSubmissionsController < BaseController
   load_and_authorize_resource
   
   before_action :follow_ups, except: :index
-  before_action :before_steps, only: [:pricing_step, :relationship_step, :diversity_step, :innovation_step, :resourcing_step]
+  before_action :before_steps, only: [:pricing_step, :relationship_step, :diversity_step, :innovation_step, :resourcing_step, :lawfirm_step]
   before_action :before_non_dynamic_forms, only: [:technology_step, :history_step]
 
   before_action :prevent_resubmission, only: [:update, :submit_forms]
@@ -25,6 +25,7 @@ class FormSubmissionsController < BaseController
 
   def before_steps
     @form_submission = FormSubmission.find(params[:id])
+    if current_step === :lawfirm
     @form = @form_submission.send("form_#{current_step}")
   end
 
@@ -92,6 +93,9 @@ class FormSubmissionsController < BaseController
   end
 
   def resourcing_step
+  end
+
+  def lawfirm_step
   end
 
 
@@ -199,6 +203,8 @@ class FormSubmissionsController < BaseController
                     @form_submission.follow_ups.innovation.decorate
                   when :resourcing
                     @form_submission.follow_ups.resourcing.decorate
+                  when :lawfirm
+                    #@form_submission.follow_ups.lawfirm.decorate  
                   end
       
   end
@@ -218,6 +224,8 @@ class FormSubmissionsController < BaseController
           stats[:innovation] = (stats[:innovation] || 0) + 1
         when 'Resourcing'
           stats[:resourcing] = (stats[:resourcing] || 0) + 1
+        when 'Lawfirm'
+          stats[:lawfirm] = (stats[:lawfirm] || 0) + 1  
         end 
       else
         case form_value.class.to_s
@@ -239,7 +247,7 @@ private
   end
 
   def steps
-    [:pricing, :relationship, :diversity, :innovation, :resourcing]
+    [:pricing, :relationship, :diversity, :innovation, :resourcing, :lawfirm]
   end
 
   def wizard_path(step)
@@ -277,7 +285,7 @@ private
   end
 
   def last_step
-    current_step_path.include? "resourcing_step"
+    current_step_path.include? "lawfirm_step"
   end
 
   def first_step

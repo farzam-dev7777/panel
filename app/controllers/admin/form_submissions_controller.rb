@@ -4,7 +4,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
   layout 'admin', :except => :show
 
   before_action :follow_ups, except: :index
-  before_action :before_steps, only: [:pricing_step, :relationship_step, :diversity_step, :innovation_step, :resourcing_step]
+  before_action :before_steps, only: [:pricing_step, :relationship_step, :diversity_step, :innovation_step, :resourcing_step, :lawfirm_step]
   #before_action :before_non_dynamic_forms, only: [:technology_step, :history_step]
 
   helper_method :next_step_path, :current_step_path, :steps, :previous_step_path, 
@@ -57,6 +57,10 @@ class Admin::FormSubmissionsController < Admin::BaseController
 
     # send file for download
     send_data pdf, :filename => "#{@form_submission.law_firm.users.first.try(:username)}_form_submission_#{Time.now}.pdf", :type => "application/pdf", :disposition => "attachment"
+  end
+
+  def lawfirm_step
+
   end
 
   def resourcing_step
@@ -259,6 +263,8 @@ class Admin::FormSubmissionsController < Admin::BaseController
                       @form_submission.follow_ups.innovation.decorate
                     when :resourcing
                       @form_submission.follow_ups.resourcing.decorate
+                    when :lawfirm
+                      #@form_submission.follow_ups.lawfirm.decorate  
                     end
       
   end
@@ -396,7 +402,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
   end
 
   def steps
-    [:pricing, :relationship, :diversity, :innovation, :resourcing]
+    [:pricing, :relationship, :diversity, :innovation, :resourcing, :lawfirm]
   end
 
   def wizard_path(step)
@@ -430,7 +436,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
   end
 
   def last_step
-    current_step_path.include? "resourcing_step"
+    current_step_path.include? "lawfirm_step"
   end
   
   def form_submissions_params

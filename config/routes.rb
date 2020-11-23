@@ -104,6 +104,7 @@ Rails.application.routes.draw do
         get :diversity_step
         get :innovation_step
         get :resourcing_step
+        get :lawfirm_step
         get :process_step
         get :technology_step
         get :history_step
@@ -248,6 +249,7 @@ Rails.application.routes.draw do
       get :diversity_step
       get :innovation_step
       get :resourcing_step
+      get :lawfirm_step
       get :process_step
       get :technology_step
       get :history_step

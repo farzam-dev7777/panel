@@ -121,6 +121,8 @@ class Admin::LawFirmsController < Admin::BaseController
       ff.save
     end
 
+     
+
     if new_form_submission.save
       last_form_submission.update_attributes(expiry_date: nil)
       @law_firm.log_activity('recertification_process_initiated', true, current_user)
