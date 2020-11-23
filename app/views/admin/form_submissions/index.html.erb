@@ -47,9 +47,10 @@
 			<div>
 				<!-- widget content -->
 				<div class="table-dyanmic-search table-responsive">
-					<table id="dt_basic" class="table table-decoration table-bordered" data-ordering="7" width="100%">
+					<table id="dt_basic" class="table table-decoration table-bordered"   width="100%">
 						<thead>			                
 							<tr>
+								<th>Date Submitted</th>
 								<th>Law Firm Name</th>
 								<th>Score</th>
 								<th>Onboarded</th>
@@ -62,6 +63,7 @@
 						<tbody>
 							<% @form_submissions.each do |submission| %>
 								<tr class="form_submissions-row" data-order="<%= submission.created_at.strftime('%Y%m%d%H%M') %>" data-id="<%= submission.id %>">
+									<td data-order="<%= submission.created_at.strftime('%Y%m%d%H%M') %>"><%= submission.created_at.strftime('%d %b %Y at %I:%M %p') %></td>
 									<td>
 										<% if submission.law_firm.present? %>
 											<%= link_to submission.law_firm.try(:name), admin_law_firm_path(submission.law_firm) if submission.law_firm %>
