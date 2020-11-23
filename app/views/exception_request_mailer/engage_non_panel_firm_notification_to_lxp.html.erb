@@ -1,16 +1,20 @@
-A New Engage Non Panel Request searched with below criteria and find out related law firm <%= @exception_request.law_firm.name %>. <br> 
-<% if @exception_request.try(:matter_types_formated).present? %>
-  Matter : <%= @exception_request.try(:matter_types_formated) %> <br>
-<% end %>  
-<% if @exception_request.try(:sub_matter_types_formated).present? %>
-    Sub Matter : <%= @exception_request.try(:sub_matter_types_formated) %> <br>
-<% end %>  
-<% if @exception_request.try(:jurisdiction_types_formated).present? %>
-  Jurisdiction: <%= @exception_request.try(:jurisdiction_types_formated) %> <br>
-<% end %>  
-<% if @exception_request.try(:countries_formated).present? %>
-  Country: <%= @exception_request.try(:countries_formated) %> <br>
-<% end %>  
-<% if @exception_request.try(:states_formated).present? %>
-  States : <%= @exception_request.try(:states_formated) %> <br>
-<% end %>  
+<div class="">
+  <p class="user-inner-content">
+  A New Engage Non Panel Request searched with below criteria and find out related law firm <%= @exception_request.law_firm.name %>. <br> 
+  <% if @exception_request.try(:matter_types_formated).present? %>
+    Matter : <%= @exception_request.try(:matter_types_formated) %> <br>
+  <% end %>  
+  <% if @exception_request.try(:sub_matter_types_formated).present? %>
+      Sub Matter : <%= @exception_request.try(:sub_matter_types_formated) %> <br>
+  <% end %>  
+  <% if @exception_request.try(:jurisdiction_types_formated).present? %>
+    Jurisdiction: <%= @exception_request.try(:jurisdiction_types_formated) %> <br>
+  <% end %>  
+  <% if @exception_request.try(:countries_formated).present? %>
+    Country: <%= @exception_request.try(:countries_formated) %> <br>
+  <% end %>  
+  <% if @exception_request.try(:states_formated).present? %>
+    States : <%= @exception_request.try(:states_formated) %> <br>
+  <% end %>  
+</p>
+</div>
