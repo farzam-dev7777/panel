@@ -452,8 +452,12 @@ nav ul li a:active {
   display: flex;
   justify-content: flex-end;
 }
+.search-filter-sp .card-header-with-left-buttons {
+  justify-content: space-between !important;
+}
 .filter-title{
-  display: inline-flex;
+  display: flex;
+  align-items: center;
   cursor: pointer;
 }
 .filter-title img{
@@ -1199,4 +1203,15 @@ nav ul li a:active {
   
 }
 .sp-form-layout .instructions-wrapper{
+}
+
+.action-buttons-alignment {
+  display: flex;
+  align-items: center;
+}
+.action-buttons-alignment a {
+  margin-right: 10px;
+}
+.action-buttons-alignment a:last-child {
+  margin-right: 0px;
 }

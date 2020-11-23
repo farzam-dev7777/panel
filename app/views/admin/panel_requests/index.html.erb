@@ -7,8 +7,8 @@
   <div class="page-header-sp m-top">
     <div class="page-title">Panel Consideration Requests</div>
     <div class="back-edit-actions">
-      <%= link_to 'Submit New Panel Consideration Request', new_admin_panel_request_path, html_options = {class: 'btn-type-primary dashboard-certificate-button'}   %>
-      <%= link_to 'Download as Excel', admin_panel_requests_path(format: :xlsx), html_options = {class: 'btn-type-primary dashboard-certificate-button dashboard-certificate-button-export '}   %> 
+      <!-- <%= link_to 'Submit New Panel Consideration Request', new_admin_panel_request_path, html_options = {class: 'btn-type-primary dashboard-certificate-button'}   %> -->
+      <!-- <%= link_to 'Download as Excel', admin_panel_requests_path(format: :xlsx), html_options = {class: 'btn-type-primary dashboard-certificate-button dashboard-certificate-button-export '}   %> -->
     </div>
   </div>
   <div class="">
@@ -22,7 +22,15 @@
         <div class="sp-filter">
           <div class="accordion" id="sp-filter">
             <div class="card z-depth-0">
-              <div class="card-header" id="headingThree">
+              <div class="card-header card-header-with-left-buttons" id="headingThree">
+                <div class="action-buttons-alignment">
+                  <a class="action-btn export-icon" href="<%= new_admin_panel_request_path %>">
+                    <%= image_tag "add.svg", alt:"Submit New Panel Consideration Request" %>
+                  </a>
+                  <a class="action-btn export-icon" href="<%= admin_panel_requests_path(format: :xlsx) %>">
+                    <%= image_tag "export-excel.png", alt:"Export" %>
+                  </a>
+                </div>
                 <div class="collapsed filter-title" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                   <%= image_tag "filter-icon.svg", alt:"score" %>
                   <span>Filter</span>

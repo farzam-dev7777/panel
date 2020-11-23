@@ -5,11 +5,6 @@
   <div class="jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
     <div class="page-header-sp m-top">
 		  <div class="page-title">Conflict Waiver Requests</div>
-      <div class="back-edit-actions">
-      	<a class="action-btn export-icon" href="<%= admin_conflict_waivers_path(format: :xlsx) %>">
-          <%= image_tag "export.png", alt:"Export" %>
-        </a>
-      </div>
     </div>
     <!-- widget div-->
     
@@ -19,7 +14,12 @@
         <div class="sp-filter">
           <div class="accordion" id="sp-filter">
             <div class="card z-depth-0">
-              <div class="card-header" id="headingThree">
+              <div class="card-header card-header-with-left-buttons" id="headingThree">
+                <div>
+                  <a class="action-btn export-icon" href="<%= admin_conflict_waivers_path(format: :xlsx) %>">
+                    <%= image_tag "export-excel.png", alt:"Export" %>
+                  </a>
+                </div>
                 <div class="collapsed filter-title" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                   <%= image_tag "filter-icon.svg", alt:"score" %>
                   <span>Filter</span>
