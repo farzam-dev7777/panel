@@ -90,10 +90,10 @@ class Admin::MatterIntakesController < Admin::BaseController
       end
     else
       flash[:alert] = "There was an error updating matter intake request. #{@matter_intake.errors.full_messages.join(', ')}"
-      @matter_intake = MatterIntake.find_by(id: params[:id])
+      # @matter_intake = MatterIntake.find_by(id: params[:id])
       @current_lxp_user = current_user
       if @matter_intake.form_type.nil?
-        render :review,  id: @matter_intake.id
+        render :action => 'review', id: @matter_intake.id
       else
         render :edit,  id: @matter_intake.id
       end
