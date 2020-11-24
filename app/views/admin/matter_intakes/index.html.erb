@@ -7,7 +7,7 @@
 <div class="jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false"> 
   <div class="page-header-sp m-top">
     <div class="page-title">Matter Intake Forms</div>
-    <div>
+    <!-- <div>
       <% if @current_user.role === "internal_lawyers" %>
         <div class="project-context sp-inner-dropdown">
           <span class="dropdown-toggle sp-derpdwon" data-toggle="dropdown">
@@ -25,10 +25,9 @@
               <%= link_to 'Litigation Intake', new_admin_matter_intake_path(form_type: "litigation"), html_options = {class: ''}   %>
             </li> 
           </ul>
-          <!-- end dropdown-menu-->
         </div>
       <% end %>
-    </div>
+    </div> -->
   </div>
   
   <div class="">
@@ -38,12 +37,29 @@
         <div class="sp-filter">
           <div class="accordion" id="sp-filter">
             <div class="card z-depth-0">
-              <div class="card-header" id="headingThree">
-                <div class="collapsed filter-title" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                  <%= image_tag "filter-icon.svg", alt:"score" %>
-                  <span>Filter</span>
+              <% if @current_user.role === "internal_lawyers" %>
+                <div class="card-header card-header-with-left-buttons" id="headingThree">
+                  <div class="action-buttons-alignment">
+                    <a class="action-btn export-icon" href="<%= new_admin_matter_intake_path(form_type: 'general') %>">
+                      <span class="anchor-text">General Intake</span> <%= image_tag "add.svg", alt:"General Intake" %>
+                    </a>
+                    <a class="action-btn export-icon" href="<%= new_admin_matter_intake_path(form_type: 'litigation') %>">
+                      <span class="anchor-text">Litigation Intake</span><%= image_tag "add.svg", alt:"Litigation Intake" %>
+                    </a>
+                  </div>
+                  <div class="collapsed filter-title" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    <%= image_tag "filter-icon.svg", alt:"score" %>
+                    <span>Filter</span>
+                  </div>
                 </div>
-              </div>
+              <% else %>
+                <div class="card-header" id="headingThree">
+                  <div class="collapsed filter-title" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    <%= image_tag "filter-icon.svg", alt:"score" %>
+                    <span>Filter</span>
+                  </div>
+                </div>
+              <% end %>
               <div id="collapseThree" class="col-md-12 collapse sp-filter-fields" aria-labelledby="headingThree" data-parent="#sp-filter">
                 <div class="card-body sp-form">
                   <%= search_form_for [:admin, @q] do |f| %>

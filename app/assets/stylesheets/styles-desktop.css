@@ -1215,3 +1215,16 @@ nav ul li a:active {
 .action-buttons-alignment a:last-child {
   margin-right: 0px;
 }
+
+.action-buttons-alignment a {
+  width: auto;
+  color: #000000;
+}
+
+.action-buttons-alignment a:hover {
+  color: #000000;
+}
+
+.anchor-text {
+  padding: 5px;
+}
