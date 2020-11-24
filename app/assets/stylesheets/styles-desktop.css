@@ -1232,3 +1232,9 @@ nav ul li a:active {
 .action-buttons-alignment a:hover {
   color: #000000;
 }
+
+.dashboard-btn-group {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}

@@ -58,7 +58,7 @@
 	</div>
 </div>
 <% if Current.user.role === "lob" %>
-	<div class="col-lg-12 col-md-12 col-sm-12" style="margin-top: 20px">
+	<!-- <div class="col-lg-12 col-md-12 col-sm-12" style="margin-top: 20px">
 		<div class="sp-form sp-form-bg text-center">
 		<p>	
 			<b> <%= link_to 'Submit New Non-Panel (one-off) Request', engage_non_panel_firm_lob_exception_requests_path, html_options = {class: 'btn-type-primary'}   %></b>
@@ -68,6 +68,19 @@
 		<p>
 			<b><%= link_to 'Submit New Panel Consideration Request', new_lob_panel_request_path, html_options = {class: 'btn-type-primary'}   %></b>
 		</p>
+		</div>
+	</div>-->
+	<div class="col-lg-12 col-md-12 col-sm-12 dashboard-btn-group" style="margin-top: 50px;">
+		<div class="action-buttons-alignment">
+			<a class="action-btn export-icon" href="<%= engage_non_panel_firm_lob_exception_requests_path %>">
+				<span>Add Non-Panel Request</span> <%= image_tag "add.svg", alt:"Submit New Non-Panel (one-off) Request" %>
+			</a>
+			<a class="action-btn export-icon" href="<%= new_lob_matter_intake_path %>">
+				<span>Add Matter Intake Form</span> <%= image_tag "add.svg", alt:"Submit New Matter Intake Form" %>
+			</a>
+			<a class="action-btn export-icon" href="<%= new_lob_panel_request_path %>">
+				<span>Add Panel Consideration Request</span> <%= image_tag "add.svg", alt:"Submit New Panel Consideration Request" %>
+			</a>
 		</div>
 	</div>
 <% end %>
