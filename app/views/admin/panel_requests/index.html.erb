@@ -25,10 +25,10 @@
               <div class="card-header card-header-with-left-buttons" id="headingThree">
                 <div class="action-buttons-alignment">
                   <a class="action-btn export-icon" href="<%= new_admin_panel_request_path %>">
-                    <%= image_tag "add.svg", alt:"Submit New Panel Consideration Request" %>
+                    <span>Add</span> <%= image_tag "add.svg", alt:"Submit New Panel Consideration Request" %>
                   </a>
                   <a class="action-btn export-icon" href="<%= admin_panel_requests_path(format: :xlsx) %>">
-                    <%= image_tag "export-excel.png", alt:"Export" %>
+                    <span>Export</span> <%= image_tag "export-excel.png", alt:"Export" %>
                   </a>
                 </div>
                 <div class="collapsed filter-title" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">

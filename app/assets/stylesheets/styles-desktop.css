@@ -1212,6 +1212,12 @@ nav ul li a:active {
 .action-buttons-alignment a {
   margin-right: 10px;
 }
+
+.action-buttons-alignment a img {
+  width: 20px;
+  margin-left: 5px;
+}
+
 .action-buttons-alignment a:last-child {
   margin-right: 0px;
 }
@@ -1219,13 +1225,10 @@ nav ul li a:active {
 .action-buttons-alignment a {
   width: auto;
   color: #000000;
-  padding: 2px;
+  padding: 5px;
+  height: 35px;
 }
 
 .action-buttons-alignment a:hover {
   color: #000000;
-}
-
-.anchor-text {
-  padding: 5px;
 }

@@ -40,11 +40,11 @@
                   <div class="action-buttons-alignment">
                     <% if current_user.role == "internal_lawyers" %>
                       <a class="action-btn export-icon" href="<%= engage_non_panel_firm_admin_exception_requests_path %>">
-                        <%= image_tag "add.svg", alt:"Submit New Non-Panel (one-off) Request" %>
+                        <span>Add</span> <%= image_tag "add.svg", alt:"Submit New Non-Panel (one-off) Request" %>
                       </a>
                     <% end %>
                     <a class="action-btn export-icon" href="<%= admin_exception_requests_path(format: :xlsx) %>">
-                      <%= image_tag "export-excel.png", alt:"Export" %>
+                      <span>Export</span><%= image_tag "export-excel.png", alt:"Export" %>
                     </a>
                   </div>
                   <div class="collapsed filter-title" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
