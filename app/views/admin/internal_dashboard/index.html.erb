@@ -68,8 +68,9 @@
 </div>
 <br>
 
+
 <% if Current.user.role === "internal_lawyers" %>
-	<div class="col-lg-12 col-md-12 col-sm-12" style="margin-top: 20px">
+	<!--<div class="col-lg-12 col-md-12 col-sm-12" style="margin-top: 20px">
 		<div class="sp-form sp-form-bg text-center">
 		<p>	
 			<b> <%= link_to 'Submit New Matter Intake Form (General Intake)', new_admin_matter_intake_path(form_type: "general"), html_options = {class: 'btn-type-primary'}   %></b>
@@ -82,14 +83,34 @@
 		<% end %>
 		</p>
 		</div>
+	</div>-->
+	<div class="col-lg-12 col-md-12 col-sm-12 dashboard-btn-group" style="margin-top: 50px;">
+		<div class="action-buttons-alignment">
+			<a class="action-btn export-icon" href="<%= new_admin_matter_intake_path(form_type: "general") %>">
+				<span>Add Matter Intake Form (General)</span> <%= image_tag "add.svg", alt:"Submit New Matter Intake Form (General Intake)" %>
+			</a>
+			<a class="action-btn export-icon" href="<%= new_admin_matter_intake_path(form_type: "litigation") %>">
+				<span>Add Matter Intake Form (Litigation)</span> <%= image_tag "add.svg", alt:"Submit New Matter Intake Form (Litigation Intake)" %>
+			</a>
+			<a class="action-btn export-icon" href="<%= engage_non_panel_firm_admin_exception_requests_path %>">
+				<span>Add Non-Panel Request</span> <%= image_tag "add.svg", alt:"Submit New Non-Panel (one-off) Request" %>
+			</a>
+		</div>
 	</div>
 <% end %>
 <% if Current.user.role === "lxp" %>
-	<div class="col-lg-12 col-md-12 col-sm-12" style="margin-top: 20px">
+	<!-- <div class="col-lg-12 col-md-12 col-sm-12" style="margin-top: 20px">
 		<div class="sp-form sp-form-bg text-center">
 		<p>	
 			<b> <%= link_to 'SUBMIT NEW PANEL CONSIDERATION REQUEST', new_admin_panel_request_path, html_options = {class: 'btn-type-primary'}   %></b>
 		</p>
+		</div>
+	</div>-->
+	<div class="col-lg-12 col-md-12 col-sm-12 dashboard-btn-group" style="margin-top: 50px;">
+		<div class="action-buttons-alignment">
+			<a class="action-btn export-icon" href="<%= new_admin_panel_request_path %>">
+				<span>Add Panel Consideration Request</span> <%= image_tag "add.svg", alt:"SUBMIT NEW PANEL CONSIDERATION REQUEST" %>
+			</a>
 		</div>
 	</div>
 <% end %>
