@@ -38,13 +38,13 @@
           <div class="accordion" id="sp-filter">
             <div class="card z-depth-0">
               <% if @current_user.role === "internal_lawyers" %>
-                <div class="card-header card-header-with-left-buttons" id="headingThree">
+                <div class="card-header" id="headingThree">
                   <div class="action-buttons-alignment">
-                    <a class="action-btn export-icon" href="<%= new_admin_matter_intake_path(form_type: 'general') %>">
-                      <span>General Intake</span> <%= image_tag "add.svg", alt:"General Intake" %>
+                    <a class="export-icon right-action-btns" href="<%= new_admin_matter_intake_path(form_type: 'general') %>">
+                      <%= image_tag "add.svg", alt:"General Intake" %> <span>General Intake</span>
                     </a>
-                    <a class="action-btn export-icon" href="<%= new_admin_matter_intake_path(form_type: 'litigation') %>">
-                      <span>Litigation Intake</span><%= image_tag "add.svg", alt:"Litigation Intake" %>
+                    <a class="export-icon right-action-btns" href="<%= new_admin_matter_intake_path(form_type: 'litigation') %>">
+                      <%= image_tag "add.svg", alt:"Litigation Intake" %> <span>Litigation Intake</span>
                     </a>
                   </div>
                   <div class="collapsed filter-title" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">

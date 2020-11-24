@@ -36,15 +36,15 @@
           <div class="sp-filter">
             <div class="accordion" id="sp-filter">
               <div class="card z-depth-0">
-                <div class="card-header card-header-with-left-buttons" id="headingThree">
+                <div class="card-header" id="headingThree">
                   <div class="action-buttons-alignment">
                     <% if current_user.role == "internal_lawyers" %>
-                      <a class="action-btn export-icon" href="<%= engage_non_panel_firm_admin_exception_requests_path %>">
-                        <span>Add</span> <%= image_tag "add.svg", alt:"Submit New Non-Panel (one-off) Request" %>
+                      <a class="export-icon right-action-btns" href="<%= engage_non_panel_firm_admin_exception_requests_path %>">
+                        <%= image_tag "add.svg", alt:"Submit New Non-Panel (one-off) Request" %>  <span>Add</span> 
                       </a>
                     <% end %>
-                    <a class="action-btn export-icon" href="<%= admin_exception_requests_path(format: :xlsx) %>">
-                      <span>Export</span><%= image_tag "export-excel.png", alt:"Export" %>
+                    <a class="export-icon right-action-btns" href="<%= admin_exception_requests_path(format: :xlsx) %>">
+                      <%= image_tag "export-excel.png", alt:"Export" %> <span>Export</span>
                     </a>
                   </div>
                   <div class="collapsed filter-title" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
