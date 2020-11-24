@@ -32,11 +32,25 @@
 						</div>
 						<div class="card-details">
 							<div class="total-record"><%= @matter_intakes_count %></div>
-							<div class="card-name">Matter Intake Forms</div>
+							<div class="card-name">All Matter Intake Forms</div>
 							<div class="card-tag-line">Tag lines goes here</div>
 						</div>
 					</a>
 				</li>
+					<% if current_user.role === "lxp" %>
+					<li class="sparks-info color-border-03">
+						<a href="/admin/matter_intakes" class="card-content">
+							<div class="card-icon bg-color-03">
+								<%= image_tag "approved-icon.svg", alt:"Matter Intake Forms" %> 
+							</div>
+							<div class="card-details">
+								<div class="total-record"><%= @matter_open_intakes_count %></div>
+								<div class="card-name">Matter Open</div>
+								<div class="card-tag-line">Tag lines goes here</div>
+							</div>
+						</a>
+					</li>
+			<% end %>	
 				<li class="sparks-info color-border-02">
 					<a href="/admin/panel_requests" class="card-content">
 						<div class="card-icon bg-color-02">

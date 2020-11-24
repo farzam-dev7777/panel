@@ -12,24 +12,41 @@ class Admin::InternalDashboardController < Admin::BaseController
       @exception_requests = ExceptionRequest.distinct.order('created_at DESC').limit(5)
       @conflict_waivers = ConflictWaiver.distinct.order('created_at DESC').limit(5)
       @matter_intakes = MatterIntake.distinct.order('created_at DESC').limit(5)
-      @matter_intakes_count = MatterIntake.distinct.where(status: "matter_open").count()
+      @matter_open_intakes_count = MatterIntake.distinct.where(status: "matter_open").count()
+      @matter_intakes_count = MatterIntake.distinct.order('created_at DESC').count()
+
+      @law_firms = LawFirm.distinct.joins(:form_submissions).order('law_firms.updated_at DESC').limit(5)
+      @panel_requests = PanelRequest.order('created_at DESC').limit(5)
+      @exception_requests_submitted = ExceptionRequest.where( lxp_status: [nil, ""]).count()
+      @confilictc_requests_submitted = ConflictWaiver.where(lxp_status: [nil, ""]).count()
+      @panel_requests_submitted = PanelRequest.count()
+
     elsif current_user.role === "internal_lawyers"
-      @exception_requests = ExceptionRequest.where(internal_lawyers_id: current_user.id).order('created_at DESC').limit(5)
+      @exception_requests = ExceptionRequest.where( lxp_status: [nil, ""], internal_lawyers_id: current_user.id).or( ExceptionRequest.where( lxp_status: [nil, ""], user_id: current_user.id) ).limit(5)
       @conflict_waivers = ConflictWaiver.where(assigned_to_id: current_user.id).order('created_at DESC').limit(5)
       @matter_intakes = MatterIntake.where(lawyer_id: current_user.id).order('created_at DESC').limit(5)
       @matter_intakes_count = MatterIntake.where(lawyer_id: current_user.id).count()
+
+      @law_firms = LawFirm.distinct.joins(:form_submissions).order('law_firms.updated_at DESC').limit(5)
+      @panel_requests = PanelRequest.where(user_id: current_user.id).limit(5)
+      @exception_requests_submitted = ExceptionRequest.where( lxp_status: [nil, ""], internal_lawyers_id: current_user.id).or( ExceptionRequest.where( lxp_status: [nil, ""], user_id: current_user.id) ).count()
+      @confilictc_requests_submitted = ConflictWaiver.where(lxp_status: [nil, ""]).count()
+      @panel_requests_submitted = PanelRequest.where(user_id: current_user.id).count()
+      
     else
       @exception_requests = ExceptionRequest.where(user_id: current_user.id).order('created_at DESC').limit(5)
       @conflict_waivers = []
       @matter_intakes = []
       @matter_intakes_count = 0
+
+      @law_firms = LawFirm.distinct.joins(:form_submissions).order('law_firms.updated_at DESC').limit(5)
+      @panel_requests = PanelRequest.order('created_at DESC').limit(5)
+      @exception_requests_submitted = ExceptionRequest.where( lxp_status: [nil, ""]).count()
+      @confilictc_requests_submitted = ConflictWaiver.where(lxp_status: [nil, ""]).count()
+      @panel_requests_submitted = PanelRequest.where(user_id: current_user.id).count()
     end
 
-    @law_firms = LawFirm.distinct.joins(:form_submissions).order('law_firms.updated_at DESC').limit(5)
-    @panel_requests = PanelRequest.order('created_at DESC').limit(5)
-    @exception_requests_submitted = ExceptionRequest.where( lxp_status: [nil, ""]).count()
-    @confilictc_requests_submitted = ConflictWaiver.where(lxp_status: [nil, ""]).count()
-    @panel_requests_submitted = PanelRequest.where(user_id: current_user.id).count()
+ 
   end
 
   def show
