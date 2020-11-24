@@ -25,7 +25,6 @@ class FormSubmissionsController < BaseController
 
   def before_steps
     @form_submission = FormSubmission.find(params[:id])
-    if current_step === :lawfirm
     @form = @form_submission.send("form_#{current_step}")
   end
 
