@@ -57,23 +57,26 @@
 			<div>
 				<!-- widget content -->
 				<div class="table-dyanmic-search table-responsive">
-					<table id="dt_basic" class="table table-decoration table-bordered" data-ordering="7" width="100%">
+					<table id="dt_basic" class="table table-decoration table-bordered"  width="100%">
 						<thead>			                
 							<tr>
+							<th>Date Submitted</th>
 								<th>Law Firm Name</th>
 								<!--th>Username</th-->
 								<th>Relationship Partner Name</th>
 								<th>Relationship Partner Email</th>
 								<th>Location</th>
 								<th>Score</th>
-								<th>Onboarded</th>
+								 
 								<th>Status</th>
 								<th width="10%">RFI Status</th>
 							</tr>
 						</thead>
 						<tbody>
 							<% @law_firms.each do |firm| %>
-								<tr class="law-firm-row" data-order="<%= firm.created_at.strftime('%Y%m%d%H%M') %>" data-id="<%= firm.id %>">
+								
+								<tr class="law-firm-row" data-id="<%= firm.id %>">
+								<td data-order="<%= firm.created_at.strftime('%Y%m%d%H%M') %>"><%= firm.created_at.strftime('%d %b %Y at %I:%M %p') %></td>
 									<td>
 										<% if firm.name.present? %>
 											<div class="firm-name">
@@ -95,11 +98,7 @@
 											</span> 
 										</div>
 									</td>
-									<td>
-										<div class="date-time">
-											<%= firm.created_at.strftime(LawFirm::TIME_FORMAT) %>
-										</div>
-									</td>
+								 
 									<td>
 										<div class="date-time">
 											<%= firm.panel_request.try(:lxp_status_show) %>

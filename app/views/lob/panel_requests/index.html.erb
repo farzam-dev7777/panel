@@ -6,7 +6,7 @@
   <div class="page-header-sp m-top">
     <div class="page-title">Panel Consideration Requests</div>
     <div>
-      <%= link_to 'Submit New Panel Consideration Request', new_lob_panel_request_path, html_options = {class: 'page-header-btn'}   %>
+      <!-- <%= link_to 'Submit New Panel Consideration Request', new_lob_panel_request_path, html_options = {class: 'page-header-btn'}   %> -->
       
     </div>
   </div>
@@ -30,6 +30,11 @@
           <div class="accordion" id="sp-filter">
             <div class="card z-depth-0">
               <div class="card-header" id="headingThree">
+                <div class="action-buttons-alignment">
+                  <a class="export-icon right-action-btns" href="<%= new_lob_panel_request_path %>">
+                    <%= image_tag "add.svg", alt:"Submit New Panel Consideration Request" %> <span>Add</span>
+                  </a>
+                </div>
                 <div class="collapsed filter-title" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                   <%= image_tag "filter-icon.svg", alt:"score" %>
                   <span>Filter</span>
@@ -71,7 +76,7 @@
               <th>Line of Business</th>
               <th>Law Firm Name</th>
               <th>Law Firm Email</th>
-              <th>LXP Status</th>
+              <!--th>LXP Status</th-->
             </tr>
           </thead>
           <tbody>
@@ -84,7 +89,7 @@
               <td><%= panel_request&.line_of_business %></td>
               <td><%= panel_request&.law_frim_name %></td>
               <td><%= panel_request&.law_firm_mail %></td>
-              <td>
+              <!--td>
                 <div class="status">
                   <% if panel_request.lxp_status.present? %>
                     <span class="<%= panel_request.lxp_status === "APPROVED" ? 'label label-success' : 'label label-default' %>"> 
@@ -95,7 +100,7 @@
                   <% end %>
                 </div>
                 <% panel_request.lxp_status_show ? panel_request.lxp_status_show : "-" %>
-              </td>
+              </td-->
             </tr>
             <% end %>
           </tbody>

@@ -118,10 +118,12 @@
 									<div class="field-label">LXP Status</div>
 									<div class="field-data"><%=  @panel_request.lxp_status_show ? @panel_request.lxp_status_show : "-" %></div>
 								</div>
-								<div class="col-xs-12 col-md-6">
-									<div class="field-label">Panel Approved</div>
-									<div class="field-data"><%= @panel_request.fully_approved? ? "Yes" : "No" %></div>
-								</div>
+								<% if current_user.role === "lxp" %>
+									<div class="col-xs-12 col-md-6">
+										<div class="field-label">Panel Approved</div>
+										<div class="field-data"><%= @panel_request.fully_approved? ? "Yes" : "No" %></div>
+									</div>
+								<% end %>	
 								<% if @panel_request.docusign_envelope_id.present? %>
 									<div class="col-md-12">
 										<div class="field-label">Document Status</div>

@@ -7,8 +7,8 @@
   <div class="page-header-sp m-top">
     <div class="page-title">Panel Consideration Requests</div>
     <div class="back-edit-actions">
-      <%= link_to 'Submit New Panel Consideration Request', new_admin_panel_request_path, html_options = {class: 'btn-type-primary dashboard-certificate-button'}   %>
-      <%= link_to 'Download as Excel', admin_panel_requests_path(format: :xlsx), html_options = {class: 'btn-type-primary dashboard-certificate-button dashboard-certificate-button-export '}   %> 
+      <!-- <%= link_to 'Submit New Panel Consideration Request', new_admin_panel_request_path, html_options = {class: 'btn-type-primary dashboard-certificate-button'}   %> -->
+      <!-- <%= link_to 'Download as Excel', admin_panel_requests_path(format: :xlsx), html_options = {class: 'btn-type-primary dashboard-certificate-button dashboard-certificate-button-export '}   %> -->
     </div>
   </div>
   <div class="">
@@ -23,6 +23,14 @@
           <div class="accordion" id="sp-filter">
             <div class="card z-depth-0">
               <div class="card-header" id="headingThree">
+                <div class="action-buttons-alignment">
+                  <a class="export-icon right-action-btns" href="<%= new_admin_panel_request_path %>">
+                    <%= image_tag "add.svg", alt:"Submit New Panel Consideration Request" %> <span>Add</span>
+                  </a>
+                  <a class="export-icon right-action-btns" href="<%= admin_panel_requests_path(format: :xlsx) %>">
+                    <%= image_tag "export-excel.png", alt:"Export" %> <span>Export</span>
+                  </a>
+                </div>
                 <div class="collapsed filter-title" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                   <%= image_tag "filter-icon.svg", alt:"score" %>
                   <span>Filter</span>
@@ -62,15 +70,17 @@
       <!-- search filter end -->
       <!-- widget content -->
       <div class="table-dyanmic-search table-responsive">
-        <table id="dt_basic" class="table table-decoration table-bordered" width="100%">
+        <table id="dt_basic" class="table table-decoration table-bordered"  width="100%">
           <thead>
             <tr>
               <th>Date Submitted</th>
-              <th>Submitted By</th>
+              <th>Line Of Business</th>
               <th>Law Firm Name</th>
               <th>Law Firm Email</th>
-              <th>Panel Status</th>
+               <th>Panel Status</th>
+              <% if current_user.role == 'lxp' %>  
               <th>LXP Status</th>
+               <% end %>
               <!--<th width="8%">Action</th>-->
             </tr>
           </thead>
@@ -82,16 +92,19 @@
                <td><%= panel_request&.line_of_business %></td>
               <td><%= panel_request&.law_frim_name %></td>
               <td><%= panel_request&.law_firm_mail %></td>
-              <td>
-                <div class="status">
-                  <% if panel_request.status.present? %>
-                    <span class="<%= panel_request.status === "Active" ? 'label label-success' : 'label label-default' %>"> 
-                      <%= panel_request.try(:status).try(:titleize) %>
-                    </span>
-                  <% end %>
-                </div>
-                <% panel_request.status %>
-              </td>
+              
+                <td>
+                  <div class="status">
+                    <% if panel_request.status.present? %>
+                      <span class="<%= panel_request.status === "Active" ? 'label label-success' : 'label label-default' %>"> 
+                        <%= panel_request.try(:status).try(:titleize) %>
+                      </span>
+                    <% end %>
+                  </div>
+                  <% panel_request.status %>
+                </td>
+              
+              <% if current_user.role == 'lxp' %> 
               <td>
                 <div class="status">
                   <% if panel_request.lxp_status_show.present? %>
@@ -104,6 +117,7 @@
                 </div>
                 <% panel_request.lxp_status_show ? panel_request.lxp_status_show : "-" %>
               </td>
+              <% end %> 
               <!--<td>
                 <div class="action-fields">
                   <a class="action-btn" href=/admin/panel_requests/<%= panel_request.id %>">

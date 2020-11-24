@@ -452,8 +452,12 @@ nav ul li a:active {
   display: flex;
   justify-content: flex-end;
 }
+.search-filter-sp .card-header-with-left-buttons {
+  justify-content: space-between !important;
+}
 .filter-title{
-  display: inline-flex;
+  display: flex;
+  align-items: center;
   cursor: pointer;
 }
 .filter-title img{
@@ -1199,4 +1203,54 @@ nav ul li a:active {
   
 }
 .sp-form-layout .instructions-wrapper{
+}
+
+.action-buttons-alignment {
+  display: flex;
+  align-items: center;
+}
+.action-buttons-alignment a {
+  margin-right: 10px;
+}
+
+.action-buttons-alignment a img {
+  width: 20px;
+  margin-left: 5px;
+}
+
+.right-action-btns img {
+  width: 16px !important;
+  margin-right: 5px !important;
+  margin-left: 0px !important;
+}
+
+.action-buttons-alignment a span {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  color: #7E858E;
+  text-transform: uppercase;
+}
+
+.action-buttons-alignment a {
+  width: auto;
+  color: #000000;
+  padding: 5px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+}
+
+.action-buttons-alignment a:hover {
+  color: #000000;
+}
+
+.dashboard-btn-group {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.right-action-btns {
+  padding-left: 0px !important;
 }

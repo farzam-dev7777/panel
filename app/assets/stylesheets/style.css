@@ -466,6 +466,10 @@ span.select2-selection__arrow{
 }
 .qtip-default .qtip-icon{ padding: 4px; }
 
+.export-icon img{
+  width: 25px;
+}
+
 .need-follow-up {
   /*background-color: rgba(255, 168, 168, 0.7) !important;*/
   border: 2px solid #ff8282 !important;

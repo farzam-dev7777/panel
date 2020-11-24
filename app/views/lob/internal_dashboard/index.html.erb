@@ -58,7 +58,7 @@
 	</div>
 </div>
 <% if Current.user.role === "lob" %>
-	<div class="col-lg-12 col-md-12 col-sm-12" style="margin-top: 20px">
+	<!-- <div class="col-lg-12 col-md-12 col-sm-12" style="margin-top: 20px">
 		<div class="sp-form sp-form-bg text-center">
 		<p>	
 			<b> <%= link_to 'Submit New Non-Panel (one-off) Request', engage_non_panel_firm_lob_exception_requests_path, html_options = {class: 'btn-type-primary'}   %></b>
@@ -68,6 +68,19 @@
 		<p>
 			<b><%= link_to 'Submit New Panel Consideration Request', new_lob_panel_request_path, html_options = {class: 'btn-type-primary'}   %></b>
 		</p>
+		</div>
+	</div>-->
+	<div class="col-lg-12 col-md-12 col-sm-12 dashboard-btn-group" style="margin-top: 50px;">
+		<div class="action-buttons-alignment">
+			<a class="action-btn export-icon" href="<%= engage_non_panel_firm_lob_exception_requests_path %>">
+				<span>Add Non-Panel Request</span> <%= image_tag "add.svg", alt:"Submit New Non-Panel (one-off) Request" %>
+			</a>
+			<a class="action-btn export-icon" href="<%= new_lob_matter_intake_path %>">
+				<span>Add Matter Intake Form</span> <%= image_tag "add.svg", alt:"Submit New Matter Intake Form" %>
+			</a>
+			<a class="action-btn export-icon" href="<%= new_lob_panel_request_path %>">
+				<span>Add Panel Consideration Request</span> <%= image_tag "add.svg", alt:"Submit New Panel Consideration Request" %>
+			</a>
 		</div>
 	</div>
 <% end %>
@@ -123,9 +136,13 @@
 										<td><%= exception_request.try(:matter_name) %></td>
 										<td>
 											<div class="status">
-												<% if exception_request.status_for_lob.present? %>
+												  <% if exception_request.status_for_lob.present? %>
 													<span class="<%= exception_request.status_for_lob === "APPROVED" ? 'label label-success' : 'label label-default' %>"> 
-														<%= exception_request.try(:status_for_lob) %>
+														<% if exception_request.internal_lawyers_status ===  "REJECTED" %>
+															<%= exception_request.try(:internal_lawyers_status) %>
+														<% else %>  
+															<%= exception_request.try(:status_for_lob) %>
+														<% end %>
 													</span>
 												<% end %>
 											</div>
@@ -284,8 +301,9 @@
 							<tr>
 								<th>Date Submitted</th>
 								<th>Law Firm Name</th>
+              <th>Law Firm Email</th>
 								<!--<th>Status</th>-->
-								<th>LXP Status</th>
+								<!--th>LXP Status</th-->
 								<!--<th width="8%">Action</th>-->
 							</tr>
 						</thead>
@@ -296,7 +314,8 @@
 									<td data-order="<%= panel_request.created_at.strftime('%Y%m%d%H%M') %>">
 										<%= panel_request.created_at.strftime('%d %b %Y at %I:%M %p') %>
 									</td>
-									<td><%= panel_request&.law_firm&.name %></td>
+									<td><%= panel_request&.law_frim_name %></td>
+              <td><%= panel_request&.law_firm_mail %></td>
 									<!--<td>
 										<div class="status">
 											<span class="<%= panel_request.status === "Active" ? 'label label-success' : 'label label-default' %>"> 
@@ -304,7 +323,7 @@
 											</span>
 										</div>
 									</td>-->
-									<td>
+									<!--td>
 										<div class="status">
 											<% if panel_request.lxp_status.present? %>
 												<span class="<%= panel_request.lxp_status === "APPROVED" ? 'label label-success' : 'label label-default' %>"> 
@@ -312,7 +331,7 @@
 												</span>
 											<% end %>
 										</div>
-									</td>
+									</td-->
 									<!--<td>
 										<div class="action-fields">
 											<% if current_user.role == 'lob' &&  panel_request.try(:lxp_status) != 'APPROVED' %>

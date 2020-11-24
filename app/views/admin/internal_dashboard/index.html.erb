@@ -32,7 +32,7 @@
 						</div>
 						<div class="card-details">
 							<div class="total-record"><%= @matter_intakes_count %></div>
-							<div class="card-name">Matter Intake Forms</div>
+							<div class="card-name">All Matter Intake Forms</div>
 							<div class="card-tag-line">Tag lines goes here</div>
 						</div>
 					</a>
@@ -54,8 +54,9 @@
 </div>
 <br>
 
+
 <% if Current.user.role === "internal_lawyers" %>
-	<div class="col-lg-12 col-md-12 col-sm-12" style="margin-top: 20px">
+	<!--<div class="col-lg-12 col-md-12 col-sm-12" style="margin-top: 20px">
 		<div class="sp-form sp-form-bg text-center">
 		<p>	
 			<b> <%= link_to 'Submit New Matter Intake Form (General Intake)', new_admin_matter_intake_path(form_type: "general"), html_options = {class: 'btn-type-primary'}   %></b>
@@ -68,14 +69,34 @@
 		<% end %>
 		</p>
 		</div>
+	</div>-->
+	<div class="col-lg-12 col-md-12 col-sm-12 dashboard-btn-group" style="margin-top: 50px;">
+		<div class="action-buttons-alignment">
+			<a class="action-btn export-icon" href="<%= new_admin_matter_intake_path(form_type: "general") %>">
+				<span>Add Matter Intake Form (General)</span> <%= image_tag "add.svg", alt:"Submit New Matter Intake Form (General Intake)" %>
+			</a>
+			<a class="action-btn export-icon" href="<%= new_admin_matter_intake_path(form_type: "litigation") %>">
+				<span>Add Matter Intake Form (Litigation)</span> <%= image_tag "add.svg", alt:"Submit New Matter Intake Form (Litigation Intake)" %>
+			</a>
+			<a class="action-btn export-icon" href="<%= engage_non_panel_firm_admin_exception_requests_path %>">
+				<span>Add Non-Panel Request</span> <%= image_tag "add.svg", alt:"Submit New Non-Panel (one-off) Request" %>
+			</a>
+		</div>
 	</div>
 <% end %>
 <% if Current.user.role === "lxp" %>
-	<div class="col-lg-12 col-md-12 col-sm-12" style="margin-top: 20px">
+	<!-- <div class="col-lg-12 col-md-12 col-sm-12" style="margin-top: 20px">
 		<div class="sp-form sp-form-bg text-center">
 		<p>	
 			<b> <%= link_to 'SUBMIT NEW PANEL CONSIDERATION REQUEST', new_admin_panel_request_path, html_options = {class: 'btn-type-primary'}   %></b>
 		</p>
+		</div>
+	</div>-->
+	<div class="col-lg-12 col-md-12 col-sm-12 dashboard-btn-group" style="margin-top: 50px;">
+		<div class="action-buttons-alignment">
+			<a class="action-btn export-icon" href="<%= new_admin_panel_request_path %>">
+				<span>Add Panel Consideration Request</span> <%= image_tag "add.svg", alt:"SUBMIT NEW PANEL CONSIDERATION REQUEST" %>
+			</a>
 		</div>
 	</div>
 <% end %>
@@ -326,7 +347,7 @@
 </div>
 <!-- Matter Intakes Ends-->
 
-<% if current_user.role == 'lxp' %>
+ 
 	<div class="col-lg-12 col-md-12 col-sm-12">
 		<div class=" jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
 			<div class="page-header-sp mobile-dashboard-header">
@@ -347,9 +368,13 @@
 								<tr>
 									<th>Date Submitted</th>
 									<th>Submitted By</th>
-									<th>Law Firm Name</th>
-									<th>Panel Status</th>
-              		<th>LXP Status</th>
+									<th>Law Firm Name</th> 
+ 									<th>Panel Status</th>
+									<% if current_user.role == 'lxp' %> 
+										<th>LXP Status</th>
+									<% end %>
+              		
+										
 									<!--<th>Action</th>-->
 								</tr>
 							</thead>
@@ -358,30 +383,34 @@
 								<tr onClick="window.location.href='/admin/panel_requests/<%= panel_request.id %>'">
 									<td data-order="<%= panel_request.created_at.strftime('%Y%m%d%H%M') %>"><%= panel_request.created_at.strftime('%d %b %Y at %I:%M %p') %></td>
 								
-									<td><%= panel_request.submitted_by_email %></td>
-									<td><%= panel_request&.law_firm&.name %></td>
-									<td>
-										<div class="status">
-											<% if panel_request.status.present? %>
-												<span class="<%= panel_request.status === "Active" ? 'label label-success' : 'label label-default' %>"> 
-													<%= panel_request.try(:status).try(:titleize) %>
-												</span>
-											<% end %>
-										</div>
-										<% panel_request.status %>
-									</td>
-									<td>
-										<div class="status">
-											<% if panel_request.lxp_status_show.present? %>
-												<span class="<%= panel_request.lxp_status_show === "Approved" ? 'label label-success' : 'label label-default' %>"> 
-													<%= panel_request.try(:lxp_status_show).try(:titleize) %>
-												</span>
-											<% else %>
-												<div class="text-center">-</div>
-											<% end %>
-										</div>
-										<% panel_request.lxp_status_show ? panel_request.lxp_status_show : "-" %>
-									</td>
+									 <td><%= panel_request&.law_frim_name %></td>
+              		<td><%= panel_request&.law_firm_mail %></td>
+									
+										<td>
+											<div class="status">
+												<% if panel_request.status.present? %>
+													<span class="<%= panel_request.status === "Active" ? 'label label-success' : 'label label-default' %>"> 
+														<%= panel_request.try(:status).try(:titleize) %>
+													</span>
+												<% end %>
+											</div>
+											<% panel_request.status %>
+										</td>
+									
+									<% if current_user.role == 'lxp' %>
+										<td>
+											<div class="status">
+												<% if panel_request.lxp_status_show.present? %>
+													<span class="<%= panel_request.lxp_status_show === "Approved" ? 'label label-success' : 'label label-default' %>"> 
+														<%= panel_request.try(:lxp_status_show).try(:titleize) %>
+													</span>
+												<% else %>
+													<div class="text-center">-</div>
+												<% end %>
+											</div>
+											<% panel_request.lxp_status_show ? panel_request.lxp_status_show : "-" %>
+										</td>
+									<% end %>
 									<!--<td>
 										<% if current_user.role == 'lxp' &&  panel_request.try(:lxp_status) != 'APPROVED' %>
 											<%= link_to "Edit", edit_admin_panel_request_path(panel_request), class: "btn btn-xs btn-primary" %>
@@ -397,5 +426,5 @@
 			</div>
 		</div>
 	</div>
-<% end %>
+ 
 

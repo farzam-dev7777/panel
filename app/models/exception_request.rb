@@ -153,9 +153,9 @@ class ExceptionRequest < ApplicationRecord
   def status_for_lob
     status = ""
     if self.lxp_status === 'APPROVED'
-      status = "APPROVED"
+      "APPROVED"
     end
-    status
+    ExceptionRequest::EXCEPTION_REQUEST_STATUS2[self.lxp_status.try(:to_sym)]
   end
 
   def can_user_change_status?(current_user)
