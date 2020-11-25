@@ -112,6 +112,7 @@ Rails.application.routes.draw do
         post :save_and_follow_up
         post :approve
         post :decline
+        post :law_firm_update
         get  :download_submission_pdf
       end
       collection do
@@ -255,6 +256,7 @@ Rails.application.routes.draw do
       get :history_step
       get :submit_forms
       get :technology_profile
+      post :law_firm_update
       get :history_profile
     end
   end

@@ -48,22 +48,22 @@
                 </div>
               <% end %>
 
-            <%= simple_form_for @form_submission, validate: true, :html => {:multipart => true, authenticity_token: true} do |f| %>
-              <input id="redirect_value" type="hidden" name="redirect_value">
-              <div class="real-form clearfix">
-                <% if current_step === :lawfirm %>
-                  tetewt
-                <% else %>
-                  <%= yield :form %>
-                <% end %>
-                
-              </div>
-              <div class="cloned-form clearfix">
-                <div class="col-md-12  form-enclosure">
+              <% if current_step === :lawfirm %>
+                <%= render "lawfirm_step_show" %>
+              <% else %>
+                <%= simple_form_for @form_submission, validate: true, :html => {:multipart => true, authenticity_token: true} do |f| %>
+                  <input id="redirect_value" type="hidden" name="redirect_value">
+                  <div class="real-form clearfix">
+                    <%= yield :form %> 
+                  </div>
+                <div class="cloned-form clearfix">
+                  <div class="col-md-12  form-enclosure">
                   
+                  </div>
                 </div>
-              </div>
+              <% end %>
             <% end %>
+            
           </div>
         </div>
           
@@ -71,13 +71,16 @@
 
           <div class="text-center">
             <div class="btn-group">
+             
               <% if @form_submission.is_available_to_user %>
 
                 <% if !first_step %>
                   <%= link_to "Prev".html_safe, previous_step_path, class: 'btn-type-primary submit-form' %>
                 <% end %>
-                <%= link_to "Save".html_safe, current_step_path, class: 'btn-type-primary submit-form save-btn' %>
-
+                <% if(!last_step) %>
+                  <%= link_to "Save".html_safe, current_step_path, class: 'btn-type-primary submit-form save-btn' %>
+                <% end %>
+                
                 <% if(last_step) %>
                   <% if(current_user.role == 'master_user') %>
                     <a href="#" class="btn-type-primary finalize-submission" data-form_id=<%= params[:id] %>>
@@ -95,12 +98,20 @@
                   <%= link_to "Next".html_safe, next_step_path, class: 'btn-type-primary submit-form next-btn' %>
                 <% end %>
 
+
+
               <% else %>
 
                 <% if !first_step %>
                   <%= link_to " Prev".html_safe, previous_step_path, class: 'btn-type-primary' %>
                 <% end %>
-
+                <% if(last_step) %>
+                  <% if(current_user.role == 'master_user') %>
+                    <a href="#" class="btn-type-primary finalize-submission-lawfirm" data-form_id=<%= params[:id] %>>
+                      Submit 
+                    </a>
+                  <% end %>
+                <% end %>  
                 <% if !last_step %>
                   <%= link_to "Next".html_safe, next_step_path, class: 'btn-type-primary' %>
                   <% end %>

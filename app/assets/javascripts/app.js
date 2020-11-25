@@ -1180,6 +1180,31 @@ $(document).ready(function(){
     
   })
 
+
+  $('a.finalize-submission-lawfirm').on('click', function(e){
+    e.preventDefault();
+
+    var data = $(this).data();
+    swal({
+      title: "Are you sure?",
+      text: "",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "Yes, submit it!",
+      cancelButtonText: "No, don't submit!",
+      closeOnConfirm: true,
+      closeOnCancel: true
+    },
+    function(isConfirm){
+      if (isConfirm) {
+        $('.rfi_lawfirm .rfi-lawfirm-btn').trigger("click")
+      }
+    });
+
+    
+  })
+
   $('.delete-security-alert').on('click', function(e){
     e.preventDefault();
     var id = $(this).data('id');

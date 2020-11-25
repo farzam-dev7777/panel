@@ -235,6 +235,18 @@ class Admin::FormSubmissionsController < Admin::BaseController
     redirect_to first_step_path
   end
 
+  def law_firm_update
+    @law_firm = LawFirm.find(@form_submission.law_firm.id)
+  	if @law_firm.update_attributes(law_firms_params)
+      @law_firm.user.update_attributes(password: params[:law_firm][:password]) if (params[:law_firm][:password] && !params[:law_firm][:password].blank?  && params[:law_firm][:password].length >= 10)
+       
+  		redirect_to first_step_path, notice: "RFI Updated"
+  	else
+  		redirect_to first_step_path
+  	end
+  end
+
+
   def update
     @form_submission = FormSubmission.find(params[:id])
     if @form_submission.update(form_submissions_params)
@@ -468,6 +480,57 @@ class Admin::FormSubmissionsController < Admin::BaseController
       score = 0.0
     end
     score
+  end
+
+  def law_firms_params
+  	params.require(:law_firm).permit(
+      :name, :description, :email, :phone, :temp_password,
+      :temp_password_confirmation, :relationship_manager_email,
+      :relationship_manager_name, :relationship_manager_phone,
+      :law_firm_type, :principle_name, :principle_title,
+      :principle_contact_info, :parent_company, :sister_firm,
+      :initial_date_of_engagement_with_the_bank,
+      :secondary_rm_contact,
+      :secondary_rm_contact_email,
+      :billing_contact_name,
+      :billing_contact_email,
+      :information_security_contact,
+      :information_security_contact_email,
+      :diverse,
+      :merger_combination,
+      :engagement_number,
+      :relationship_number,
+      :information_security_class,
+      :information_security_assessment_outcome,
+      :action_plan_findings,
+      :action_plan_status,
+      :confidentiality_level_of_matters_that_are_handled,
+      :number_of_lawyers, :law_firm_category, 
+      :bmo_relationship_partner_email,
+      :bmo_relationship_partner_name,
+      :bmo_relationship_partner_phone_number,
+      locations_attributes: [
+        :id, :address1, :address2,
+        :city, :province, :postal_code,
+        :country, :_destroy
+      ], feedbacks_attributes: [
+        :id, :feedback, :_destroy
+      ], values_attributes: [
+        :id, :value, :_destroy
+      ], issues_attributes: [
+        :id, :issue, :_destroy
+      ], jurisdictions_attributes: [
+        :id, :country, :_destroy, city: []
+      ], users_attributes: [
+        :id, :password,
+        :password_confirmation, :_destroy
+      ],
+      practice_area: [],
+      matter_type_ids:[], sub_matter_type_ids: [], jurisdiction_type_ids: [], state_ids: [], country_ids: [],
+      type_of_matters_your_law_firm_handles_for_us: [],
+      type_of_services_your_law_firm_provides_generally: [],
+      confidentiality_level_of_matters_that_are_handled: []
+    )
   end
 
 end
