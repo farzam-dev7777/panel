@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201110172254) do
+ActiveRecord::Schema.define(version: 20201126191333) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -238,7 +238,7 @@ ActiveRecord::Schema.define(version: 20201110172254) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "feedbacks", id: false, force: :cascade do |t|
+  create_table "feedbacks", force: :cascade do |t|
     t.integer  "law_firm_id"
     t.integer  "feedbacks_id"
     t.string   "feedback"
@@ -465,14 +465,14 @@ ActiveRecord::Schema.define(version: 20201110172254) do
     t.datetime "updated_at",  null: false
   end
 
-  create_table "law_firms_jurisdiction_types", id: false, force: :cascade do |t|
+  create_table "law_firms_jurisdiction_types", force: :cascade do |t|
     t.integer  "law_firm_id"
     t.integer  "jurisdiction_type_id"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
   end
 
-  create_table "law_firms_matter_types", id: false, force: :cascade do |t|
+  create_table "law_firms_matter_types", force: :cascade do |t|
     t.integer  "law_firm_id"
     t.integer  "matter_type_id"
     t.datetime "created_at",     null: false
@@ -486,7 +486,7 @@ ActiveRecord::Schema.define(version: 20201110172254) do
     t.datetime "updated_at",  null: false
   end
 
-  create_table "law_firms_sub_matter_types", id: false, force: :cascade do |t|
+  create_table "law_firms_sub_matter_types", force: :cascade do |t|
     t.integer  "law_firm_id"
     t.integer  "sub_matter_type_id"
     t.datetime "created_at",         null: false
@@ -912,7 +912,7 @@ ActiveRecord::Schema.define(version: 20201110172254) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
-  create_table "values", id: false, force: :cascade do |t|
+  create_table "values", force: :cascade do |t|
     t.integer  "law_firm_id"
     t.integer  "values_id"
     t.string   "value"

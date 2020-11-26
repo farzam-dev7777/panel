@@ -2305,7 +2305,11 @@ $('.simple_form_admin_matter_intakes').click(function(){
 		return false;
 	}
 });
-
+if($($( "#rfi_lawfirm_form" ).hasClass( "rfi_lawfirm" ))){
+	$('.rfi_lawfirm form input').removeAttr('disabled')
+	$('.rfi_lawfirm form select').removeAttr('disabled')
+	$('.rfi_lawfirm form select').trigger('chosen:updated');
+}
 
 
 

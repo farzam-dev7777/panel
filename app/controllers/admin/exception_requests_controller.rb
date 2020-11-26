@@ -235,7 +235,6 @@ class Admin::ExceptionRequestsController < Admin::BaseController
     #     params[:law_firm][:law_firms_matter_types_attributes][:matter_type_id] << mt
     #   end
     # end
-    # binding.pry
     @current_user_id = current_user.id
     if @law_firm.save
 

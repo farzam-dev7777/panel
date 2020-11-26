@@ -147,7 +147,6 @@ class FormSubmissionsController < BaseController
   end
 
   def update
-   # binding.pry
     @form_submission = FormSubmission.find(params[:id])
     if @form_submission.update(form_submissions_params)
       @form_submission.last_submitted_by = current_user

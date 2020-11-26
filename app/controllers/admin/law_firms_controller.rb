@@ -40,7 +40,7 @@ class Admin::LawFirmsController < Admin::BaseController
   end
 
   def update
-  	@law_firm = LawFirm.find(params[:id])
+    @law_firm = LawFirm.find(params[:id])
     if @law_firm.update_attributes(law_firms_params)
       @law_firm.user.update_attributes(password: params[:law_firm][:password]) if (params[:law_firm][:password] && !params[:law_firm][:password].blank?  && params[:law_firm][:password].length >= 10)
       flash[:notice] = "Law firm information updated"
