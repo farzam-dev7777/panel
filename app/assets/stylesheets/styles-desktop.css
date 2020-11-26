@@ -1232,6 +1232,10 @@ nav ul li a:active {
   text-transform: uppercase;
 }
 
+.action-buttons-alignment a span.blue-text{ 
+  color: #0051CA; 
+}
+
 .action-buttons-alignment a {
   width: auto;
   color: #000000;
