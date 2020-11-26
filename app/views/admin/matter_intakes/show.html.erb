@@ -294,7 +294,13 @@
               <% if @matter_intake.receive_personal_information === "Yes" %>
                 <div class="col-xs-12 col-md-12">
                   <div class="field-label">Select all applicable data types	</div>
-                  <div class="field-data"><%= @matter_intake.receive_personal_information_data_type.reject(&:blank?).join(", ") %></div>
+                  <div class="field-data">
+                  
+                  
+                    <% @matter_intake.applicable_technical_specialty_data_type.reject(&:blank?).each do |applicable_technical_specialty_data_type| %>
+                      <span class="tag-line"><%= applicable_technical_specialty_data_type %></span>
+                    <% end %>
+                  </div>
                 </div>
               <% end %>
               <div class="col-xs-12 col-md-6">
@@ -304,7 +310,11 @@
               <% if @matter_intake.receive_general_business_data === "Yes" %>
                 <div class="col-xs-12 col-md-12">
                   <div class="field-label">Select all applicable data types	</div>
-                  <div class="field-data"><%= @matter_intake.receive_general_business_data_type.reject(&:blank?).join(", ") %></div>
+                  <div class="field-data"> 
+                     <% @matter_intake.receive_general_business_data_type.reject(&:blank?).each do |receive_general_business_data_type| %>
+                      <span class="tag-line"><%= receive_general_business_data_type %></span>
+                    <% end %>
+                  </div>
                 </div>
               <% end %>
               <div class="col-xs-12 col-md-6">
@@ -314,7 +324,12 @@
               <% if @matter_intake.applicable_technical_specialty_data === "Yes" %>
                 <div class="col-xs-12 col-md-12">
                   <div class="field-label">Select all applicable data types	</div>
-                  <div class="field-data"><%= @matter_intake.applicable_technical_specialty_data_type.reject(&:blank?).join(", ") %></div>
+                  <div class="field-data">
+                  
+                     <% @matter_intake.applicable_technical_specialty_data_type.reject(&:blank?).each do |applicable_technical_specialty_data_type| %>
+                      <span class="tag-line"><%= applicable_technical_specialty_data_type %></span>
+                    <% end %>
+                  </div>
                 </div>
               <% end %>
                 <!-- Information Security Classification End--> 

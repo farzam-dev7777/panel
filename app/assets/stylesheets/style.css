@@ -529,7 +529,19 @@ hr.note-seperator {
 .rfi_lawfirm .sp-form .multiple-selector .chosen-container .chosen-choices {
   border-bottom: 1px solid #ccc !important;
 }
- 
+
+.tag-line{
+  background-color: #0051CA !important;
+  border-radius: 4px !important;
+  color: #FFFF;
+  margin-left: 10px;
+  margin-top: 3px;
+  padding: 0 4px;
+}
+
+.tag-fields{
+  
+}
 
 .note-wrapper{
   width: 50px;

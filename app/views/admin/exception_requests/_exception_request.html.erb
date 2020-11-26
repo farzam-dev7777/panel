@@ -136,18 +136,27 @@
             <% if @exception_request.receive_personal_information === "Yes" %>
               <div class="col-xs-12 col-md-12">
                 <div class="field-label">Select all applicable data types	</div>
-                <div class="field-data"><%= @exception_request.receive_personal_information_data_type.reject(&:blank?).join(", ") %></div>
+                <div class="field-data tag-fields">
+                  <% @exception_request.receive_personal_information_data_type.reject(&:blank?).each do |receive_personal_information_data_type| %>
+                    <span class="tag-line"><%= receive_personal_information_data_type %></span>
+                  <% end %>
+                </div>
               </div>
             <% end %>
 
             <div class="col-xs-12 col-md-12">
               <div class="field-label">Could the law firm engaged on this matter potentially receive any General or Business data?</div>
-              <div class="field-data"><%= @exception_request.receive_general_business_data %></div>
+              <div class="field-data tag-fields">
+              <%= @exception_request.receive_general_business_data %></div>
             </div>  
             <% if @exception_request.receive_general_business_data === "Yes" %>
               <div class="col-xs-12 col-md-12">
                 <div class="field-label">Select all applicable data types	</div>
-                <div class="field-data"><%= @exception_request.receive_general_business_data_type.reject(&:blank?).join(", ") %></div>
+                <div class="field-data tag-fields">
+                  <% @exception_request.receive_general_business_data_type.reject(&:blank?).each do |receive_general_business_data_type| %>
+                    <span class="tag-line"><%= receive_general_business_data_type %></span>
+                  <% end %>
+               </div>
               </div>
             <% end %>
 
@@ -159,7 +168,11 @@
             <% if @exception_request.applicable_technical_specialty_data === "Yes" %>
               <div class="col-xs-12 col-md-12">
                 <div class="field-label">Select all applicable data types	</div>
-                <div class="field-data"><%= @exception_request.applicable_technical_specialty_data_type.reject(&:blank?).join(", ") %></div>
+                <div class="field-data">
+                  <% @exception_request.applicable_technical_specialty_data_type.reject(&:blank?).each do |applicable_technical_specialty_data_type| %>
+                    <span class="tag-line"><%= applicable_technical_specialty_data_type %></span>
+                  <% end %>
+                </div>
               </div>
             <% end %>             
 
