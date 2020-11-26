@@ -140,7 +140,14 @@
                         <span class="<%= exception_request.internal_lawyers_status === "APPROVED" ? 'label label-success' : 'label label-default' %>"> 
                           <%= exception_request.try(:internal_lawyers_status).try(:titleize) %>
                         </span>
+                      <% else %>
+                         <% if current_user.role === "internal_lawyers" %>
+                         <span class="label label-default"> 
+                          	Lawyer Input Requested
+                        </span>
+                       <% end %>
                       <% end %>
+
                     </div>
                   </td>
                   <!--<td>
