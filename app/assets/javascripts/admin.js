@@ -297,6 +297,16 @@ $('#login-form').each(function() {
 	
 	
 })
+$('.laywr_status').on('click', function(e){
+	if($('select#review_status').chosen().val() == ""){
+	 
+		$('select#review_status').val("COMMENTS_BY_LAWYER") 
+		$('select#review_status').trigger("chosen:updated")
+	 
+	} 	
+	});
+
+
 $('.lxp_sttaus').on('click', function(e){
 	if($('select#review_status').chosen().val() == ""){
 		swal({
@@ -1034,6 +1044,7 @@ $('.adminLawFirm select#law_firm_country_ids').on('change', function() {
 	}
 	
 });
+$('#select_type').trigger('chosen:updated');
 
 
 if($('.adminLawFirm select#law_firm_matter_type_ids').val()){

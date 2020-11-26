@@ -181,6 +181,7 @@ class ExceptionRequest < ApplicationRecord
   EXCEPTION_REQUEST_STATUS_2 = {
     "REQUEST_TO_INPUT": "Lawyer Input Requested",
     "SEND_RETAINER_AGREEMENT": "Resend Retainer Agreement",
+    "COMMENTS_BY_LAWYER": "Comments by Lawyer",
     "APPROVED": "Approved",
     "REJECTED": "Rejected"
   }
@@ -191,13 +192,14 @@ class ExceptionRequest < ApplicationRecord
     "RETAINER_AGREEMENT_SENT": "Retainer Agreement Sent",
     "SEND_RETAINER_AGREEMENT": "Retainer Agreement Sent",
     "APPROVED": "Approved",
+    "COMMENTS_BY_LAWYER": "Comments by Lawyer",
     "REJECTED": "Rejected",
     "REVIEWED_BY_LAWYER": "Reviewed by Lawyer",
     "reviewed_by_lawyer": "Reviewed by Lawyer"
   }
 
   EXCEPTION_REQUEST_STATUS_LAWYER= {
-    "": "Select",
+    "COMMENTS_BY_LAWYER": "Comments by Lawyer",
     "APPROVED": "Approved",
     "REJECTED": "Rejected"
   }
@@ -230,8 +232,9 @@ class ExceptionRequest < ApplicationRecord
     end
   end
   def internal_lawyers_status_show
+     
     if self.internal_lawyers_status.present?
-      ExceptionRequest::EXCEPTION_REQUEST_STATUS2[self.internal_lawyers_status.to_sym]
+      ExceptionRequest::EXCEPTION_REQUEST_STATUS2[self.internal_lawyers_status]
     end
   end
 

@@ -20,7 +20,7 @@
                       <%= f.input :reviewable_type, label: false, as: :hidden, input_html: { value: @exception_request.class.to_s } %>
                       <%= f.input :reviewable_id, label: false, as: :hidden, input_html: { value: @exception_request.id } %>
                   </div>		
-                  <div class="col-xs-12 col-md-6">
+                  <div class="col-xs-12 col-md-6 lawyerInputExcepation">
                     <label class="label">Lawyer Input</label>
                     <%= f.input :status, label: false, collection: ExceptionRequest::EXCEPTION_REQUEST_STATUS_LAWYER.map{|value,key| [key, value]}%>
                   </div> 
