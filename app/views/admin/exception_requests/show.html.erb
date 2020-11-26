@@ -7,10 +7,17 @@
     <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
       <div class="page-header-sp m-top">
 				<div class="page-title">Non-Panel (one-off) Requests
+       
           <% if @exception_request.lxp_status.present? %>
             <span style=" color: #fff; "  class="<%= @exception_request.lxp_status === "APPROVED" ? 'label label-success' : 'label label-default' %>"> 
               LXP Status: <%= @exception_request.lxp_status_show %>
             </span>
+            <br>
+            <% if @exception_request.lxp_status === "REQUEST_TO_INPUT" && @exception_request.reviews.reverse.last.status === "REQUEST_TO_INPUT" %>
+              <span  style=" background: #e0e0e0; padding: 13px; margin-top: 10px; border-radius: 10px; width: 100%; "> 
+                LXP Comments :. <%= @exception_request.reviews.reverse.last.description %>
+              </span>
+            <% end %>  
           <% end %>
           <% if @exception_request.internal_lawyers_status.present? %>
             <span style=" color: #fff; "  class="<%= @exception_request.internal_lawyers_status === "APPROVED" ? 'label label-success' : 'label label-default' %>"> 
