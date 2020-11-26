@@ -141,7 +141,7 @@
                           <%= exception_request.try(:internal_lawyers_status).try(:titleize) %>
                         </span>
                       <% else %>
-                         <% if current_user.role === "internal_lawyers" %>
+                         <% if exception_request.lxp_status.present? && exception_request.lxp_status === "REQUEST_TO_INPUT" %>
                          <span class="label label-default"> 
                           	Lawyer Input Requested
                         </span>
