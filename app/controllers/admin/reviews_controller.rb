@@ -97,9 +97,8 @@ class Admin::ReviewsController < Admin::BaseController
             PanelRequestMailer.notification_for_status_to_user(@panel_request).deliver_now  
           elsif current_user.role === 'lxp' &&  review_params[:status] == 'LAW_FIRM_CREATED'
             @panel_request.status = 'LAW_FIRM_CREATED'
-            @panel_request.archived_at = nil 
-            
-            @user = User.new
+            @panel_request.archived_at = nil  
+            @user = User.new 
             @user.email = @panel_request.law_firm_mail
             @user.role = 'master_user'
             @user.empty_user = true
@@ -107,6 +106,7 @@ class Admin::ReviewsController < Admin::BaseController
             if @user.save
               @law_firm = LawFirm.new
               @law_firm.user_id = @user.id
+              @law_firm.law_firm_category = "PANEL"
               @law_firm.name = @panel_request.law_frim_name
               @law_firm.law_firm_category = @panel_request.law_firm_category
               @law_firm.contact_name = @panel_request.law_firm_contact_name
