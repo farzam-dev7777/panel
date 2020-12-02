@@ -531,9 +531,9 @@ hr.note-seperator {
 }
 
 .tag-line{
-  background-color: #add8e6 !important;
+  background-color: #5baefe !important;
   border-radius: 4px !important;
-  color: #000;
+  color: #fff;
   margin-left: 10px;
   margin-top: 3px;
   padding: 0 4px;
@@ -584,6 +584,22 @@ hr.note-seperator {
   margin-right: 0 !important;
 }
 
+.has-error input,
+.has-error select,
+.has-error .chosen-container,
+.has-error .textarea,
+  {
+    border: 1px solid #ff7676  !important; 
+}
+
+
+.has-error input{ border: 1px solid #ff7676  !important; }
+.has-error select{ border: 1px solid #ff7676  !important; }
+.has-error .chosen-container{ border: 1px solid #ff7676  !important; }
+.has-error textarea{ border: 1px solid #ff7676  !important; }
+.has-error .help-block{
+  text-transform: capitalize;
+}
 
 .check-mark-wrapper {
   float: left !important;

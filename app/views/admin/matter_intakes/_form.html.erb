@@ -3,7 +3,7 @@
     <div class="row form-flex-wrap">
       <div class="col-xs-12 col-md-6">
         <label class="label">BMO lawyer name<span class="mandatory">*</span></label>
-          <%= f.input :bmo_lawyer_name, label: false, :input_html => { :value => @matter_intake&.bmo_lawyer_name || current_user.try(:full_name) } %>
+          <%= f.input :bmo_lawyer_name, label: false, required: true, :input_html => { :value => @matter_intake&.bmo_lawyer_name || current_user.try(:full_name) } %>
           <%= f.input :lawyer_id, as: :hidden, label: false, :input_html => { :value => current_user.try(:id) } %>
           <%= f.input :form_type, as: :hidden, label: false, :input_html => { :value => @form_type || @matter_intake&.form_type } %>
       </div>

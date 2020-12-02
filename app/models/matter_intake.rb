@@ -36,7 +36,7 @@ class MatterIntake < ApplicationRecord
   #### validation for lob initiated but for lawyer for Form-B starts ####
   
   validates_presence_of :bmo_lawyer_name, :legal_group_of_bmo_lawyer, :work_area, :work_area_type, :is_conceal_imanage_workspace,
-    :is_paper_file, :name_of_matter_client, :matter_description, :paying_entity,
+    :is_paper_file, :name_of_matter_client, :matter_description, :paying_entity, :type_of_price,
     :if => Proc.new { |matter_intake| matter_intake.user_id.present? && matter_intake.user.role == "lob" && Current.user && Current.user.role === "internal_lawyers" }
 
   validates_presence_of :afa_details,

@@ -5,6 +5,18 @@
 		  
 		</div>
 		<ul id="sparks" class="top-status-card">
+			<li class="sparks-info color-border-03">
+				<a href="/lob/matter_intakes" class="card-content">
+					<div class="card-icon bg-color-03">
+						<%= image_tag "approved-icon.svg", alt:"Exceptions" %> 
+					</div>
+					<div class="card-details">
+						<div class="total-record"><%= @matter_intakes_count %></div>
+						<div class="card-name">Matter Intake Forms</div>
+						<div class="card-tag-line">Tag lines goes here</div>
+					</div>
+				</a>
+			</li>
 			<li class="sparks-info color-border-01">
 				<a href="/lob/exception_requests" class="card-content">
 					<div class="card-icon bg-color-01">
@@ -29,18 +41,7 @@
 					</div>
 				</a>
 			</li>
-			<li class="sparks-info color-border-03">
-				<a href="/lob/matter_intakes" class="card-content">
-					<div class="card-icon bg-color-03">
-						<%= image_tag "approved-icon.svg", alt:"Exceptions" %> 
-					</div>
-					<div class="card-details">
-						<div class="total-record"><%= @matter_intakes_count %></div>
-						<div class="card-name">Matter Intake Forms</div>
-						<div class="card-tag-line">Tag lines goes here</div>
-					</div>
-				</a>
-			</li>
+			
 			<!-- <li class="sparks-info color-border-04">
 				<a href="javascript:void(0);" class="card-content">
 					<div class="card-icon bg-color-04">
@@ -71,19 +72,110 @@
 	</div>-->
 	<div class="col-lg-12 col-md-12 col-sm-12 dashboard-btn-group" style="margin-top: 50px;">
 		<div class="action-buttons-alignment">
+			<a class="action-btn export-icon" href="<%= new_lob_matter_intake_path %>">
+				<span class="blue-text">New Matter Request</span> <%= image_tag "add.svg", alt:"Submit New Matter Intake Form" %>
+			</a>
 			<a class="action-btn export-icon" href="<%= engage_non_panel_firm_lob_exception_requests_path %>">
-				<span class="blue-text">Non-Panel Request</span> <%= image_tag "add.svg", alt:"Submit New Non-Panel (one-off) Request" %>
+				<span class="blue-text">New Non-Panel Request</span> <%= image_tag "add.svg", alt:"Submit New Non-Panel (one-off) Request" %>
 			</a>
 		
 			<a class="action-btn export-icon" href="<%= new_lob_panel_request_path %>">
-				<span class="blue-text">Panel Consideration Request</span> <%= image_tag "add.svg", alt:"Submit New Panel Consideration Request" %>
+				<span class="blue-text">New Panel Consideration Request</span> <%= image_tag "add.svg", alt:"Submit New Panel Consideration Request" %>
 			</a>
-				<a class="action-btn export-icon" href="<%= new_lob_matter_intake_path %>">
-				<span class="blue-text">New Matter Request</span> <%= image_tag "add.svg", alt:"Submit New Matter Intake Form" %>
-			</a>
+			
 		</div>
 	</div>
 <% end %>
+<!--  Matter Intakes -->
+<div class="col-lg-12 col-md-12 col-sm-12">
+	<div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+		<div class="page-header-sp mobile-dashboard-header">
+			<div class="page-title"> Matter Intake Forms</div>
+			<div class="back-edit-actions">
+				<a class="btn-show-more" href="/lob/matter_intakes">
+        Show more
+      	</a>
+			</div>
+  	</div>			
+		<div class="no-padding">
+			<!-- widget content -->
+			<div class="widget-body">
+				<div class="table-dyanmic-search table-responsive">
+					<table id="" class="table table-decoration table-bordered" width="100%">
+						<thead>
+							<tr>
+								<th>Date Submitted</th>
+								<th>Submitter Name</th>
+								<!--<th>LOB Contact Name</th>-->
+								<!--<th>Type of Matter</th>-->
+								<!--th>Law Firm Suggested</th-->
+								<th>BMO lawyer name</th>
+								<th>Matter Name</th>
+								<th>T360 Matter Number</th>
+								<!--<th>Budget amount</th>-->
+								<th>Status</th>
+								<!--<th>Action</th>-->
+							</tr>
+						</thead>
+						<tbody>
+							<% @matter_intakes.each do |matter_intake| %>
+								<tr onClick="window.location.href='/lob/matter_intakes/<%= matter_intake.id %>'">
+									<td>
+										<%= matter_intake.created_at.strftime('%d %b %Y at %I:%M %p') %>
+									</td>
+									<td>
+										<% if matter_intake.submitter_name.present? %>
+											<div class="firm-name">
+												<div class="name-avatar"><img src="<%= get_avatar_image(matter_intake&.submitter_name&.gsub(" ", "+")) %>"></div>
+												<div><%= matter_intake&.submitter_name %></div>
+											</div>
+										<% end %>	
+									</td>
+									<!--<td><%= matter_intake.lob_contact_name %></td>-->
+									<!--<td>
+										<%= matter_intake&.matter_type&.matter_type %>
+									</td>-->
+									<!--td><%= matter_intake&.law_firm&.name %></td-->
+									<td>
+										<%= matter_intake&.bmo_lawyer_name %>
+									</td>
+									<td>
+										<%= matter_intake&.name_of_matter_client %>
+									</td>
+									<td>
+										<%= matter_intake&.matter_number %>
+									</td>
+									<!--<td><%= matter_intake.budget_amount %></td>-->
+									<td>
+										<div class="status">
+											<span class="<%= matter_intake&.status === "matter_open" ? 'label label-success' : 'label label-default' %>"> 
+												<%= matter_intake.show_status %>
+											</span>
+										</div>
+									</td>
+									<!--<td>
+										<div class="action-fields">
+											<% if matter_intake.status === "awaiting_lawyer_review" %>
+												<a class="action-btn" href="/lob/matter_intakes/<%= matter_intake.id %>/edit">
+													<%= image_tag "edit-icon.svg", alt:"Edit" %>
+												</a>
+											<% end %>
+											<a class="action-btn" href="/lob/matter_intakes/<%= matter_intake.id %>">
+												<%= image_tag "view-icon.svg", alt:"View" %>
+											</a>
+										</div>
+									</td>-->
+								</tr>
+							<% end %>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--  Matter Intakes END -->
+
 <!-- Engage Non Panel Firms --> 
 <div class="col-lg-12 col-md-12 col-sm-12">
 	<div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
@@ -191,95 +283,7 @@
 </div>
 <!-- Engage Non Panel Firms END -->
 
-<!--  Matter Intakes -->
-<div class="col-lg-12 col-md-12 col-sm-12">
-	<div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
-		<div class="page-header-sp mobile-dashboard-header">
-			<div class="page-title"> Matter Intake Forms</div>
-			<div class="back-edit-actions">
-				<a class="btn-show-more" href="/lob/matter_intakes">
-        Show more
-      	</a>
-			</div>
-  	</div>			
-		<div class="no-padding">
-			<!-- widget content -->
-			<div class="widget-body">
-				<div class="table-dyanmic-search table-responsive">
-					<table id="" class="table table-decoration table-bordered" width="100%">
-						<thead>
-							<tr>
-								<th>Date Submitted</th>
-								<th>Submitter Name</th>
-								<!--<th>LOB Contact Name</th>-->
-								<!--<th>Type of Matter</th>-->
-								<!--th>Law Firm Suggested</th-->
-								<th>BMO lawyer name</th>
-								<th>Matter Name</th>
-								<th>T360 Matter Number</th>
-								<!--<th>Budget amount</th>-->
-								<th>Status</th>
-								<!--<th>Action</th>-->
-							</tr>
-						</thead>
-						<tbody>
-							<% @matter_intakes.each do |matter_intake| %>
-								<tr onClick="window.location.href='/lob/matter_intakes/<%= matter_intake.id %>'">
-									<td>
-										<%= matter_intake.created_at.strftime('%d %b %Y at %I:%M %p') %>
-									</td>
-									<td>
-										<% if matter_intake.submitter_name.present? %>
-											<div class="firm-name">
-												<div class="name-avatar"><img src="<%= get_avatar_image(matter_intake&.submitter_name&.gsub(" ", "+")) %>"></div>
-												<div><%= matter_intake&.submitter_name %></div>
-											</div>
-										<% end %>	
-									</td>
-									<!--<td><%= matter_intake.lob_contact_name %></td>-->
-									<!--<td>
-										<%= matter_intake&.matter_type&.matter_type %>
-									</td>-->
-									<!--td><%= matter_intake&.law_firm&.name %></td-->
-									<td>
-										<%= matter_intake&.bmo_lawyer_name %>
-									</td>
-									<td>
-										<%= matter_intake&.name_of_matter_client %>
-									</td>
-									<td>
-										<%= matter_intake&.matter_number %>
-									</td>
-									<!--<td><%= matter_intake.budget_amount %></td>-->
-									<td>
-										<div class="status">
-											<span class="<%= matter_intake&.status === "matter_open" ? 'label label-success' : 'label label-default' %>"> 
-												<%= matter_intake.show_status %>
-											</span>
-										</div>
-									</td>
-									<!--<td>
-										<div class="action-fields">
-											<% if matter_intake.status === "awaiting_lawyer_review" %>
-												<a class="action-btn" href="/lob/matter_intakes/<%= matter_intake.id %>/edit">
-													<%= image_tag "edit-icon.svg", alt:"Edit" %>
-												</a>
-											<% end %>
-											<a class="action-btn" href="/lob/matter_intakes/<%= matter_intake.id %>">
-												<%= image_tag "view-icon.svg", alt:"View" %>
-											</a>
-										</div>
-									</td>-->
-								</tr>
-							<% end %>
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<!--  Matter Intakes END -->
+
 
 <!-- Panel Requests -->
 <div class="col-lg-12 col-md-12 col-sm-12">
