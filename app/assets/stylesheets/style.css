@@ -531,9 +531,9 @@ hr.note-seperator {
 }
 
 .tag-line{
-  background-color: #0051CA !important;
+  background-color: #add8e6 !important;
   border-radius: 4px !important;
-  color: #FFFF;
+  color: #000;
   margin-left: 10px;
   margin-top: 3px;
   padding: 0 4px;
