@@ -13,7 +13,7 @@
 				<div class="page-title">Matter Intake Forms
         <% if @matter_intake.status.present? %>
           <span style=" color: #fff; "  class="<%= @matter_intake.status === "matter_open" ? 'label label-success' : 'label label-default' %>"> 
-            Status :<%= @matter_intake.show_status %>
+            Status: <%= @matter_intake.show_status %>
           </span>
           </div>
         <% end %>

@@ -9,7 +9,7 @@
       <div class="page-title">Non-Panel (one-off) Requests 
           <% if @exception_request.status_for_lob.present? %>
             <span style=" color: #fff; " class="<%= @exception_request.status_for_lob === "APPROVED" ? 'label label-success' : 'label label-default' %>"> 
-              Status : <%= @exception_request.try(:status_for_lob) %>
+              Status: <%= @exception_request.try(:status_for_lob) %>
             </span>
           <% end %>
       </div>
