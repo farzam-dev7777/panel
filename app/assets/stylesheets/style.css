@@ -542,6 +542,9 @@ hr.note-seperator {
 .tag-fields{
   
 }
+.page-title span{
+  font-weight: normal;
+}
 
 .note-wrapper{
   width: 50px;
