@@ -17,7 +17,7 @@
   collection: collection,
   required: field.required,
   as: field.as,
-  blank: 'Please Select option(s)',
+  blank: 'Please Select option',
   input_html: { 
     multiple: v.object.try(:form_field).try(:type) == 'MultiSelectField', 
     class: 'multselect-field no-margin', 
