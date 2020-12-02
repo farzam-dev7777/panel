@@ -72,14 +72,15 @@
 	</div>-->
 	<div class="col-lg-12 col-md-12 col-sm-12 dashboard-btn-group" style="margin-top: 50px;">
 		<div class="action-buttons-alignment">
-			<a class="action-btn export-icon" href="<%= new_admin_matter_intake_path(form_type: "general") %>">
-				<span class="blue-text">Matter Intake Form (General)</span> <%= image_tag "add.svg", alt:"Submit New Matter Intake Form (General Intake)" %>
-			</a>
+			
 			<a class="action-btn export-icon" href="<%= new_admin_matter_intake_path(form_type: "litigation") %>">
 				<span class="blue-text">Matter Intake Form (Litigation)</span> <%= image_tag "add.svg", alt:"Submit New Matter Intake Form (Litigation Intake)" %>
 			</a>
 			<a class="action-btn export-icon" href="<%= engage_non_panel_firm_admin_exception_requests_path %>">
 				<span class="blue-text">Non-Panel Request</span> <%= image_tag "add.svg", alt:"Submit New Non-Panel (one-off) Request" %>
+			</a>
+			<a class="action-btn export-icon" href="<%= new_admin_matter_intake_path(form_type: "general") %>">
+				<span class="blue-text">Matter Intake Form (General)</span> <%= image_tag "add.svg", alt:"Submit New Matter Intake Form (General Intake)" %>
 			</a>
 		</div>
 	</div>
