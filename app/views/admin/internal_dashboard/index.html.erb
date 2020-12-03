@@ -40,7 +40,7 @@
 			
 				
 				<li class="sparks-info color-border-02">
-					<a href="/admin/panel_requests" class="card-content">
+					<a href="/admin/panel_requests" class="card-content" >
 						<div class="card-icon bg-color-02">
 							<%= image_tag "submitted-icon.svg", alt:"Panel Consideration Requests" %> 
 						</div>
@@ -75,13 +75,13 @@
 	<div class="col-lg-12 col-md-12 col-sm-12 dashboard-btn-group" style="margin-top: 50px;">
 		<div class="action-buttons-alignment">
 			
-			<a class="action-btn export-icon" href="<%= new_admin_matter_intake_path(form_type: "litigation") %>">
+			<a class="action-btn export-icon" href="<%= new_admin_matter_intake_path(form_type: "litigation") %>" data-toggle="tooltip" data-placement="top" title="Submit New Matter Intake Form (Litigation Intake)">
 				<span class="blue-text">New Matter Request (Litigation)</span> <%= image_tag "add.svg", alt:"Submit New Matter Intake Form (Litigation Intake)" %>
 			</a>
-			<a class="action-btn export-icon" href="<%= new_admin_matter_intake_path(form_type: "general") %>">
+			<a class="action-btn export-icon" href="<%= new_admin_matter_intake_path(form_type: "general") %>" data-toggle="tooltip" data-placement="top" title="Submit New Matter Intake Form (General Intake)">
 				<span class="blue-text">New Matter Request (General)</span> <%= image_tag "add.svg", alt:"Submit New Matter Intake Form (General Intake)" %>
 			</a>
-			<a class="action-btn export-icon" href="<%= engage_non_panel_firm_admin_exception_requests_path %>">
+			<a class="action-btn export-icon" href="<%= engage_non_panel_firm_admin_exception_requests_path %>" data-toggle="tooltip" data-placement="top" title="Submit New Non-Panel (one-off) Request">
 				<span class="blue-text">New Non-Panel Request</span> <%= image_tag "add.svg", alt:"Submit New Non-Panel (one-off) Request" %>
 			</a>
 			
@@ -98,7 +98,7 @@
 	</div>-->
 	<div class="col-lg-12 col-md-12 col-sm-12 dashboard-btn-group" style="margin-top: 50px;">
 		<div class="action-buttons-alignment">
-			<a class="action-btn export-icon" href="<%= new_admin_panel_request_path %>">
+			<a class="action-btn export-icon" href="<%= new_admin_panel_request_path %>" data-toggle="tooltip" data-placement="top" title="Submit New Panel Consideration Request">
 				<span class="blue-text">Panel Consideration Request</span> <%= image_tag "add.svg", alt:"SUBMIT NEW PANEL CONSIDERATION REQUEST" %>
 			</a>
 		</div>

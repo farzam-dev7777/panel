@@ -1,5 +1,5 @@
 $(document).ready(function(){
-
+	$('[data-toggle="tooltip"]').tooltip()
 	// All forms stop submitting on enter - as per client requirement
 	$('form').on('keyup keypress', function(e) {
 		var keyCode = e.keyCode || e.which;
