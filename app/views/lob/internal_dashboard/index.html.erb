@@ -78,11 +78,11 @@
 			<a class="action-btn export-icon" href="<%= engage_non_panel_firm_lob_exception_requests_path %>" data-toggle="tooltip" data-placement="top" title="Submit New Non-Panel (one-off) Request">
 				<span class="blue-text">New Non-Panel Request</span> <%= image_tag "add.svg", alt:"Submit New Non-Panel (one-off) Request" %>
 			</a>
-		
-			<a class="action-btn export-icon" href="<%= new_lob_panel_request_path %>" data-toggle="tooltip" data-placement="top" title="Submit New Panel Consideration Request">
-				<span class="blue-text">New Panel Consideration Request</span> <%= image_tag "add.svg", alt:"Submit New Panel Consideration Request" %>
-			</a>
-			
+			<% if SystemSetting.fetch.panel_status === "Yes" %>
+				<a class="action-btn export-icon" href="<%= new_lob_panel_request_path %>" data-toggle="tooltip" data-placement="top" title="Submit New Panel Consideration Request">
+					<span class="blue-text">New Panel Consideration Request</span> <%= image_tag "add.svg", alt:"Submit New Panel Consideration Request" %>
+				</a>
+			<% end %>
 		</div>
 	</div>
 <% end %>

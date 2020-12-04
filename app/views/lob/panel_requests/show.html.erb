@@ -18,7 +18,10 @@
 					<a class="btn-type-default" href="/lob/panel_requests">
 						<%= image_tag "chevron-back-icon.svg", alt:"Back" %>
 					</a>
-					<%= link_to "Edit".html_safe, edit_lob_panel_request_path, class: "btn-type-primary" %>
+					<% if SystemSetting.fetch.panel_status === "Yes" %>
+						 <%= link_to "Edit".html_safe, edit_lob_panel_request_path, class: "btn-type-primary" %>
+					<% end %>
+					
 				</div>
   		</div>
 			

@@ -18,7 +18,9 @@
 		<div class="col-md-4">  
 				<%#= f.input :docusign_access_token, label: false, input_html: {rows: 15, cols: 10} %>
 				<br>
-				<b>Docusign Token Expires At : <%= @settings.docusign_token_expires_at.strftime('%d %b %Y at %I:%M %p') %></b>
+				<% if @settings.docusign_token_expires_at.present? %>
+					<b>Docusign Token Expires At : <%= @settings.docusign_token_expires_at.strftime('%d %b %Y at %I:%M %p') %></b>
+				<% end %>	
 		</div>
 		<div class="col-md-4">
 			<a href="/auth/docusign" class="request_docusign_access_token btn-type-primary">Request Docusign Access Token</a>
@@ -39,6 +41,14 @@
 		</div>
 		<div class="col-md-4">  
 				<%= f.input :lxp_name, label: false, input_html: {rows: 15, cols: 10} %> 
+		</div> 
+	</div>
+	<div class="col-md-12">
+		<div class="col-md-2">
+			Panel Consideration Request Open For Lob/Lawyers
+		</div>
+		<div class="col-md-4">  
+		<%= f.input :panel_status, as: :radio_buttons, label: false, collection: [["Yes", "Yes"], ["No", "No"]] %>
 		</div> 
 	</div>
  	<div class="col-md-12"> 

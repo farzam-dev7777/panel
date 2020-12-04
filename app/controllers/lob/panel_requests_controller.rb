@@ -56,21 +56,29 @@ class Lob::PanelRequestsController < Lob::BaseController
   end
 
   def new
-    @panel_request = PanelRequest.new
-    @law_firm = @panel_request.build_law_firm
-    @user = @law_firm.users.build       
-    @current_lob_user_email = current_lob_user.email
-    @current_lob_user_id = current_lob_user.id
+    if SystemSetting.fetch.panel_status === "Yes"
+      @panel_request = PanelRequest.new
+      @law_firm = @panel_request.build_law_firm
+      @user = @law_firm.users.build       
+      @current_lob_user_email = current_lob_user.email
+      @current_lob_user_id = current_lob_user.id
+    else
+      redirect_to :lob_panel_requests
+      flash[:alert] = "New Panel Request Submissions Not Allowed."
+    end  
   end
 
   def edit
-    @panel_request = PanelRequest.find(params[:id])
-    @law_firm = @panel_request.law_firm
-    @current_lob_user_email = @panel_request.submitted_by_email
-    @current_lob_user_id = @panel_request.user_id
-
-    add_breadcrumb "#{@panel_request.requested_by}", :lob_panel_request_path 
-    
+    if SystemSetting.fetch.panel_status === "Yes"
+      @panel_request = PanelRequest.find(params[:id])
+      @law_firm = @panel_request.law_firm
+      @current_lob_user_email = @panel_request.submitted_by_email
+      @current_lob_user_id = @panel_request.user_id
+      add_breadcrumb "#{@panel_request.requested_by}", :lob_panel_request_path 
+    else
+      redirect_to :lob_panel_requests
+      flash[:alert] = "Edit Panel Request Submissions Not Allowed."
+    end  
   end
  
 

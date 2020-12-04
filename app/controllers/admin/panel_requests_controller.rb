@@ -68,20 +68,32 @@ class Admin::PanelRequestsController < Admin::BaseController
   end
 
   def new
-    @panel_request = PanelRequest.new
-    @law_firm =  @panel_request.build_law_firm
-    @user = @law_firm.users.build     
-    @current_admin_user_email = current_admin_user.email
-    @current_admin_user_id = current_admin_user.id
+    
+    if current_user.role === "lxp" || SystemSetting.fetch.panel_status === "Yes"
+      @panel_request = PanelRequest.new
+      @law_firm =  @panel_request.build_law_firm
+      @user = @law_firm.users.build     
+      @current_admin_user_email = current_admin_user.email
+      @current_admin_user_id = current_admin_user.id
+    else
+      redirect_to :admin_panel_requests
+      flash[:alert] = "New Panel Request Submissions Not Allowed."
+    end
+
   end
 
   def edit
-    @panel_request = PanelRequest.find(params[:id])
-    @current_admin_user_email = @panel_request.submitted_by_email
-    @current_admin_user_id = @panel_request.user_id
 
-    add_breadcrumb "#{@panel_request.requested_by}", :admin_panel_request_path 
-    
+    if current_user.role === "lxp" || SystemSetting.fetch.panel_status === "Yes" 
+      @panel_request = PanelRequest.find(params[:id])
+      @current_admin_user_email = @panel_request.submitted_by_email
+      @current_admin_user_id = @panel_request.user_id
+
+      add_breadcrumb "#{@panel_request.requested_by}", :admin_panel_request_path 
+    else
+      redirect_to :admin_panel_requests
+      flash[:alert] = "New Panel Request Submissions Not Allowed."
+    end
   end
 
   def download_pdf

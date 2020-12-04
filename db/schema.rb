@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201126191333) do
+ActiveRecord::Schema.define(version: 20201204071801) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -819,6 +819,7 @@ ActiveRecord::Schema.define(version: 20201126191333) do
     t.datetime "docusign_token_expires_at"
     t.string   "lxp_name",                  default: "Manpreet"
     t.string   "lxp_email",                 default: "manpreet@metawarelabs.com"
+    t.string   "panel_status",              default: "No"
   end
 
   create_table "technologies", force: :cascade do |t|

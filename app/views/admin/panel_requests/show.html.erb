@@ -24,9 +24,11 @@
 						<%= image_tag "chevron-back-icon.svg", alt:"Back" %>
 					</a>
 					<% if( current_user.role == 'lxp' || current_user.role == 'internal_lawyers' )&&  @panel_request.try(:lxp_status) != 'APPROVED' %>
-						<a class="btn-type-primary" href="/admin/panel_requests/<%= @panel_request.id %>/edit">
-							Edit
-						</a>
+						<% if current_user.role === "lxp"  || SystemSetting.fetch.panel_status === "Yes" %>
+							<a class="btn-type-primary" href="/admin/panel_requests/<%= @panel_request.id %>/edit">
+								Edit
+							</a>
+						<% end %> 
 					<% end %> 
 				</div>
 			</div>
