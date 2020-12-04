@@ -113,7 +113,7 @@
           <%= f.input :reason_other, label: false, required: true %>
         </div>
         <div class="col-xs-12 col-md-12">
-          <%=link_to 'Cancel', @panel_request.new_record? ? admin_exception_requests_path : admin_law_firm_path, class: 'btn-type-default' %>
+          <%=link_to 'Cancel', @panel_request.new_record? ? admin_panel_requests_path : admin_panel_requests_path, class: 'btn-type-default' %>
           <%= f.button :submit, @panel_request.new_record? ? "Submit Request" : "Update Request", class: "btn-type-primary" %>
         </div>
     </div>
