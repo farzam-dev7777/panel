@@ -1929,24 +1929,35 @@ $('.lxp_review_status').on('click', function() {
 
 })
 
-if($('select#conflict_waiver_confirm_waiver').val() === "true") {
+if($('select#conflict_waiver_confirm_waiver').val()) {
 	$('.confirm_waiver_notes').show()
-	$('.confirm_waiver_btn').addClass('hide')
-	$('.btn_confirm').removeClass('hide')
+	$('.cw-next-step-btn').hide()
+	$(".cm-repesenting").show()
+	$(".cw-submit-btn").show()
 }
 
 $('select#conflict_waiver_confirm_waiver').on('change', function() {
 	var selectedValue = this.value;
 	if(selectedValue === "true") {
 		$('.confirm_waiver_notes').show()
-		$('.confirm_waiver_btn').addClass('hide')
-		$('.btn_confirm').removeClass('hide')
+		// $('.confirm_waiver_btn').addClass('hide')
+		// $('.btn_confirm').removeClass('hide')
 	} else {
 		$('.confirm_waiver_notes').hide()
-		$('.confirm_waiver_btn').removeClass('hide')
-		$('.btn_confirm').addClass('hide')
+		// $('.confirm_waiver_btn').removeClass('hide')
+		// $('.btn_confirm').addClass('hide')
 	}
 });
+
+$('.cw-next-step-btn').on('click', function() {
+	$(this).hide();
+	
+	$(".cm-repesenting").show()
+	$(".cw-submit-btn").show()
+	return false
+
+})
+
 
 
 $(".loader").hide();

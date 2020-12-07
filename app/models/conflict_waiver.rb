@@ -6,6 +6,8 @@ class ConflictWaiver < ApplicationRecord
   has_many :activity_logs
   has_many :reviews, as: :reviewable
 
+  serialize :types_of_matters, Array
+
   validates_presence_of :name_of_law_firm, :contact_details, :bmo_business_contact, :reason #, :retainer_language
 
   #validate :confirm_waiver_must_be_true

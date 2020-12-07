@@ -1,0 +1,56 @@
+<style>
+	input, textarea, select { padding: 0px !important; margin: 0px; background: transparent; }
+</style>
+
+
+<div class="sp-form sp-form-bg">
+  
+    <%= simple_form_for([@conflict_waiver], 
+      :url => url_for(:action => 'client_info_update', :controller => 'conflict_waivers'),
+      :method => 'post', html: { class: '' }) do |f| %>
+      <%= f.input :conflict_waiver_id, :as => :hidden, :input_html => { :value => @conflict_waiver.id } %>
+      <%= f.input :repesenting, :as => :hidden, :input_html => { :value => @conflict_waiver.repesenting } %>
+    <div class="row"> 
+      <% if @conflict_waiver.repesenting === "Other Client" %>
+        <div class="col-xs-12 col-md-6">
+          <label  class="label">Name(s) Of the other Clients </label>
+          <%= f.input :name_of_other_client, as: :text, label: false, input_html: { rows: 5 } %>
+        </div>
+        <div class="col-xs-12 col-md-6">
+          <label  class="label">Description Of Transaction </label>
+          <%= f.input :description_of_transaction, as: :text, label: false, input_html: { rows: 5 } %>
+        </div>
+         <div class="col-xs-12 col-md-6">
+          <label  class="label">Nature And Extent Of Mandate, e.g. Nagotiation, Documentation And Closing of Transaction </label>
+          <%= f.input :nature_of_mandate, as: :text, label: false, input_html: { rows: 5 } %>
+        </div>
+        <div class="col-xs-12 col-md-6">
+          <label  class="label">Office Locations </label>
+          <%= f.input :office_locattion, as: :text, label: false, input_html: { rows: 5 } %>
+        </div>
+        <div class="col-xs-12 col-md-6">
+          <label  class="label">Names Of Primary Professionals Responsible For Managing The Mandate And The Transaction </label>
+          <%= f.input :names_of_primary, as: :text, label: false, input_html: { rows: 5 } %>
+        </div>
+      
+		  <% end %>
+      <% if @conflict_waiver.repesenting === "BMO" %>
+        <div class="col-xs-12 col-md-6">
+          <label  class="label">Name(s) Of the other Clients </label>
+          <%= f.input :name_of_other_client, as: :text, label: false, input_html: { rows: 5 } %>
+        </div>
+        <div class="col-xs-12 col-md-6">
+          <label  class="label">Description Of Transaction </label>
+          <%= f.input :description_of_transaction, as: :text, label: false, input_html: { rows: 5 } %>
+        </div>
+          <div class="col-xs-12 col-md-12 multiple-selector">
+          <label  class="label">Types Of Matters For Which Your Firm Represents Other Client</label>
+          <%= f.input :types_of_matters, label: false, collection: LawFirm::TYPES_OF_MATTERS_FOR_US, input_html: { autocomplete: 'off', class: 'text-left', multiple: true } %>
+        </div> 
+		  <% end %> 
+        <div class="col-xs-12 col-md-12 cw-submit-btn">
+            <%= f.button :submit, @conflict_waiver.new_record? ? "Submit" : "Submit", class: "btn-type-primary confirm_waiver_btn" %>
+        </div>
+      </div>
+		<% end %>
+</div>

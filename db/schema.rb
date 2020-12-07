@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201204071801) do
+ActiveRecord::Schema.define(version: 20201207025553) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -125,8 +125,8 @@ ActiveRecord::Schema.define(version: 20201204071801) do
     t.string   "bmo_business_contact"
     t.text     "reason"
     t.integer  "user_id"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.boolean  "confirm_waiver"
     t.string   "lxp_status"
     t.string   "internal_lawyers_status"
@@ -134,6 +134,13 @@ ActiveRecord::Schema.define(version: 20201204071801) do
     t.integer  "assigned_to_id"
     t.text     "retainer_language"
     t.text     "retainer_cover"
+    t.string   "repesenting"
+    t.text     "name_of_other_client"
+    t.text     "description_of_transaction"
+    t.text     "nature_of_mandate"
+    t.text     "office_locattion"
+    t.text     "names_of_primary"
+    t.text     "types_of_matters"
   end
 
   create_table "countries", force: :cascade do |t|

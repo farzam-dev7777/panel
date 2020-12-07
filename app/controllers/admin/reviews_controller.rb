@@ -148,7 +148,7 @@ class Admin::ReviewsController < Admin::BaseController
         else
           @conflict_waiver = ConflictWaiver.find_by_id(params[:review][:reviewable_id])
           if current_user.role === 'lxp' && ( review_params[:status] == 'ASSIGN_TO_LAWYER' && review_params[:assigned_to_id].present?)
-      
+            @conflict_waiver.update_attributes(assigned_to_id: review_params[:assigned_to_id])
             ConflictWaiverMailer.form_status_notification_to_internal_lawyer(@conflict_waiver,params[:review][:assigned_to_id]).deliver_now
             #ConflictWaiverMailer.form_status_approved_notification_to_law_firm_by_lxp(@conflict_waiver).deliver_now 
           elsif current_user.role === 'internal_lawyers' && review_params[:status] == 'APPROVED'

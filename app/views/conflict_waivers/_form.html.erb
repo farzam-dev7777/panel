@@ -24,7 +24,7 @@
         <%= f.input :bmo_business_contact, label: false %>
       </div>
       <div class="col-xs-12 col-md-6">
-        <label  class="label">Reason for request</label>
+        <label  class="label">Reason ( Your firm Believes that this transaction may give rise to a Conflict</label>
         <%= f.input :reason, as: :text, label: false, input_html: { rows: 1 } %>
       </div>
       <div class="col-xs-12 col-md-12">         
@@ -60,14 +60,21 @@
       <div class="col-xs-12 col-md-6">
           <label  class="label">Is your request covered by any of the above?</label>
           <%= f.input :confirm_waiver, label: false, required: true, collection: [["Yes", true], ["No", false]]  %>
+      </div>
+      <div class="col-xs-12 col-md-12 confirm_waiver_notes" style="display:none;">
+        <p>It appears your request is covered by your retainer agreement with BMO and there is no need to submit this request. If you are unsure, please select "No" above to proceed with submitting the request</p>
+      </div>
+      <div class="col-xs-12 col-md-12 cw-next-step">
+          <%=link_to 'Next', "/", class: 'btn-type-primary cw-next-step-btn' %>
+      </div>
+      <div class="col-xs-12 col-md-6 cm-repesenting " style="display:none">
+        <label class="label">Conflict Representing: </label>
+        <div class="sp-checkbox">
+          <%= f.input :repesenting, as: :radio_buttons, label: false, collection: [["Other Client", "Other Client"], ["BMO", "BMO"]]  %>  
         </div>
-        <div class="col-xs-12 col-md-12 confirm_waiver_notes" style="display:none;">
-          <p>It appears your request is covered by your retainer agreement with BMO and there is no need to submit this request. If you are unsure, please select "No" above to proceed with submitting the request</p>
-        </div>
-        
-      <div class="col-xs-12 col-md-12">
-          <%=link_to 'Cancel', @conflict_waiver.new_record? ? admin_exception_requests_path : admin_law_firm_path, class: 'btn-type-default' %>
-          <%=link_to 'Confirm', "/", class: 'btn-type-primary btn_confirm hide' %>
+      </div>
+      <div class="col-xs-12 col-md-12 cw-submit-btn" style="display:none">
+          <%=link_to 'Cancel', @conflict_waiver.new_record? ? conflict_waivers_path : conflict_waivers_path, class: 'btn-type-default' %>
           <%= f.button :submit, @conflict_waiver.new_record? ? "Next" : "Next", class: "btn-type-primary confirm_waiver_btn" %>
       </div>
     </div>

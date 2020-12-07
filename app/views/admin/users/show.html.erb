@@ -79,7 +79,7 @@
                   <% end %> 
                   <tr>
                     <td colspan="2">
-                      <%= link_to 'Cancel', @conflict_waiver.new_record? ? admin_exception_requests_path : admin_conflict_waiver_path, class: 'btn btn-danger btn-sm' %>
+                      <%= link_to 'Cancel', @conflict_waiver.new_record? ? admin_conflict_waiver_path : admin_conflict_waiver_path, class: 'btn btn-danger btn-sm' %>
                       <%= f.button :submit, @conflict_waiver.new_record? ? "Submit Request" : "Update Status", class:  @current_user.role === "lxp" ? "lxp_sttaus" : "laywr_status" %>
                     </td>
                   </tr>

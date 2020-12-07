@@ -268,7 +268,12 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :conflict_waivers
+  resources :conflict_waivers do 
+    collection do 
+      get ':conflict_waiver_id/client_info' => 'conflict_waivers#client_info', :as => "conflict_waivers_client_info"
+      post :client_info_update
+    end
+  end
 
   resources :technology_values do
     collection do
