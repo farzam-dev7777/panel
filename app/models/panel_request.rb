@@ -44,7 +44,7 @@ class PanelRequest < ApplicationRecord
     "REQUEST_INFO": "Request More Info",
     "PANEL_RETAINER": "Retainer sent",
     "LAW_FIRM_CREATED": "Law Firm Created",
-    "LAW_FIRM_EXIST": "Law Firm Already Exist",
+    "LAW_FIRM_EXIST": "Law Firm Already Exists",
     "ARCHIVED": "Archived",
     "UN_ARCHIVED": "Un Archived",
     "APPROVED": "Approved",

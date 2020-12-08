@@ -123,7 +123,7 @@ class Admin::ReviewsController < Admin::BaseController
             else
               @panel_request.status = 'LAW_FIRM_EXIST'
               @panel_request.lxp_status = 'LAW_FIRM_EXIST'
-              flash[:alert] = "Law Firm Already Exist"
+              flash[:alert] = "Law Firm Already Exists"
             end
             
           elsif current_user.role === 'lxp' &&  review_params[:status] == 'APPROVED'
