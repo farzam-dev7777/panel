@@ -96,7 +96,7 @@ class Admin::ReviewsController < Admin::BaseController
             @panel_request.archived_at = nil 
             PanelRequestMailer.notification_for_status_to_user(@panel_request).deliver_now  
           elsif current_user.role === 'lxp' &&  review_params[:status] == 'LAW_FIRM_CREATED'
-            @panel_request.status = 'LAW_FIRM_CREATED'
+            
             @panel_request.archived_at = nil  
             @user = User.new 
             @user.email = @panel_request.law_firm_mail
@@ -117,11 +117,15 @@ class Admin::ReviewsController < Admin::BaseController
               @panel_request.update_attributes(law_firm_id: @law_firm.id)
               @user.law_firm_id =  @law_firm.id
               @user.save
+              @panel_request.status = 'LAW_FIRM_CREATED'
               flash[:notice] = "Law Firm Created"
+              PanelRequestMailer.notification_for_status_to_user(@panel_request).deliver_now  
             else
-              flash[:notice] = "Law Firm Already Exist"
+              @panel_request.status = 'LAW_FIRM_EXIST'
+              @panel_request.lxp_status = 'LAW_FIRM_EXIST'
+              flash[:alert] = "Law Firm Already Exist"
             end
-            PanelRequestMailer.notification_for_status_to_user(@panel_request).deliver_now  
+            
           elsif current_user.role === 'lxp' &&  review_params[:status] == 'APPROVED'
             @panel_request.status = 'Active'
             @panel_request.law_firm.status = 'Active'
@@ -182,7 +186,9 @@ class Admin::ReviewsController < Admin::BaseController
           redirect_to admin_root_path
         elsif params[:review][:reviewable_type] == "MatterIntake" && current_user.role === 'lxp'
           redirect_to admin_matter_intakes_path  
-        else
+        elsif params[:review][:reviewable_type] == "PanelRequest" && current_user.role === 'lxp'
+          redirect_to :back  
+        else  
           redirect_to :back, notice: "Review Added"
         end
 
