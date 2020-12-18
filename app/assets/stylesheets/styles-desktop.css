@@ -1226,14 +1226,14 @@ nav ul li a:active {
 
 .action-buttons-alignment a span {
   font-weight: 500;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 16px;
   color: #7E858E;
   text-transform: uppercase;
 }
 
 .action-buttons-alignment a span.blue-text{ 
-  color: #0051CA; 
+  color: #0051CA !important; 
 }
 
 .action-buttons-alignment a {
@@ -1258,4 +1258,28 @@ nav ul li a:active {
 
 .right-action-btns {
   padding-left: 0px !important;
+}
+.add-button{
+  border: 1px solid #7E858E;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  color: #0051CA;
+  text-transform: uppercase;
+}
+.add-button{
+  width: auto;
+  color: #000000;
+  padding: 5px  !important;
+  height: 30px   !important;
+  padding: 10px  !important;
+  display: flex;
+  align-items: center;
+}
+.add-button span{
+  color: #0051CA !important;
+}
+.add-button img{
+  margin-left: 0px !important;
 }

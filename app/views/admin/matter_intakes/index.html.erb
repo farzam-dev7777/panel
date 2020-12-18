@@ -40,10 +40,10 @@
               <% if @current_user.role === "internal_lawyers" %>
                 <div class="card-header" id="headingThree">
                   <div class="action-buttons-alignment">
-                    <a class="export-icon right-action-btns" href="<%= new_admin_matter_intake_path(form_type: 'general') %>">
+                    <a class="export-icon right-action-btns add-button" href="<%= new_admin_matter_intake_path(form_type: 'general') %>">
                       <%= image_tag "add.svg", alt:"General Intake" %> <span>General Intake</span>
                     </a>
-                    <a class="export-icon right-action-btns" href="<%= new_admin_matter_intake_path(form_type: 'litigation') %>">
+                    <a class="export-icon right-action-btns add-button" href="<%= new_admin_matter_intake_path(form_type: 'litigation') %>">
                       <%= image_tag "add.svg", alt:"Litigation Intake" %> <span>Litigation Intake</span>
                     </a>
                   </div>

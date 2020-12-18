@@ -25,7 +25,7 @@
               <div class="card-header" id="headingThree">
                 <div class="action-buttons-alignment">
                 <% if current_user.role === "lxp"  || SystemSetting.fetch.panel_status === "Yes" %>
-                  <a class="export-icon right-action-btns" href="<%= new_admin_panel_request_path %>">
+                  <a class="export-icon right-action-btns add-button" href="<%= new_admin_panel_request_path %>">
                     <%= image_tag "add.svg", alt:"Submit New Panel Consideration Request" %> <span>Add</span>
                   </a>
                   <% end %>
