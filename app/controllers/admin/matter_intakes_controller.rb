@@ -81,11 +81,11 @@ class Admin::MatterIntakesController < Admin::BaseController
           redirect_to admin_matter_intakes_path
         end
        
-      elsif current_user.role === "lxp" && @matter_intake.matter_number.present?
-        @matter_intake.update_attributes(lxp_reviewed_at: Time.now, status: 'matter_open', lxp_id: current_user.id)
+      elsif current_user.role === "lxp" && @matter_intake.status.present?
+        @matter_intake.update_attributes(lxp_reviewed_at: Time.now, status: @matter_intake.status.downcase, lxp_id: current_user.id)
         @matter_intake.add_log_matter_open_by_lxp(current_user)
         @matter_intake.send_notification_to_lawyer_and_lxp
-        flash[:notice] = "Matter opened in T360 with matter number #{@matter_intake.matter_number}."
+        flash[:notice] = "Matter status updated to #{MatterIntake::MATTER_STATUS[@matter_intake.status.upcase.to_sym]}."
         redirect_to admin_matter_intakes_path
       end
     else

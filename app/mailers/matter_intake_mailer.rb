@@ -24,7 +24,7 @@ class MatterIntakeMailer < ApplicationMailer
     @matter_intake = matter_intake
     # Sending email to lawyer
     if @matter_intake.lawyer.present? && @matter_intake.lawyer.email.present?
-      mail(to: @matter_intake.lawyer.email, subject: "Matter intake case has been opened in T360")
+      mail(to: @matter_intake.lawyer.email, subject: "Matter intake status changed.")
     end
   end
 
@@ -32,7 +32,7 @@ class MatterIntakeMailer < ApplicationMailer
     @matter_intake = matter_intake
     # Sending email to lob
     if @matter_intake.user_id.present? && @matter_intake.user.email.present?
-      mail(to: @matter_intake.user.email, subject: "New matter intake case has been opened in T360")
+      mail(to: @matter_intake.user.email, subject: "Matter intake status changed.")
     end
   end
 

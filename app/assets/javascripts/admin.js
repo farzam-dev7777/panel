@@ -1346,6 +1346,11 @@ function setMatterIntakeWorkAreaOptions(value) {
 			}
 			break;	
 		default:
+			valueArray = [value];
+				for (var i = 0; i < valueArray.length; i++) {
+					options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
+				}
+				break;
 	}
 	$('#matter_intake_work_area_type').html(options);
 	// for Lob initiated lawyer
@@ -2322,6 +2327,33 @@ if($($( "#rfi_lawfirm_form" ).hasClass( "rfi_lawfirm" ))){
 	$('.rfi_lawfirm form select').trigger('chosen:updated');
 }
 
-
+$('#matter_intake_status').chosen().change(function() {
+	if(this.value == "MATTER_OPEN") {
+		$(".matter_number_input").show()
+	}else{
+		$(".matter_number_input").hide()
+		$("#matter_intake_matter_number").val("")
+	}
+});
+	$('.matter_status_by_lxp').on('click', function(e){
+		if($('select#matter_intake_status').chosen().val() == ""){
+			swal({
+				title: "oops!",
+				text: "Please select status"
+			});
+			return false;
+		}
+	
+		 if($('select#matter_intake_status').chosen().val() === "MATTER_OPEN"){
+			matter_intake_matter_number = $('#matter_intake_matter_number').val()
+				if(!matter_intake_matter_number) {
+					swal({
+						title: "oops!",
+						text: "Please Enter matter number"
+					});
+					return false;
+				}
+		 }
+		});
 
 });

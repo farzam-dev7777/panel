@@ -576,13 +576,17 @@
     <div class="sp-form sp-form-bg">
       <%= simple_form_for [:admin, @matter_intake] do |f| %> 
         <div class="row">
-          <div class="col-xs-12 col-md-6">
+          <div class="col-xs-12 col-md-6 matter_number_input" style="display:none">
             <label class="label">Matter Number</label>
             <%= f.input :matter_number, label: false %>
           </div>
+           <div class="col-xs-12 col-md-6">
+            <label class="label">Status </label>
+            <%= f.input :status, label: false, collection: MatterIntake::MATTER_STATUS.map{|value,key| [key, value]} %>
+          </div>
           <div class="col-xs-12 col-md-12 text-right">
             <%= link_to 'Cancel', @matter_intake.new_record? ? new_admin_matter_intake_path : admin_matter_intakes_path, class: 'btn-type-default' %>
-            <%= f.button :submit, @matter_intake.new_record? ? "Submit" : "Submit", class: "btn-type-primary" %>
+            <%= f.button :submit, @matter_intake.new_record? ? "Submit" : "Submit", class: "btn-type-primary matter_status_by_lxp" %>
           </div>
         </div>
       <% end %>

@@ -110,6 +110,11 @@ class MatterIntake < ApplicationRecord
 
   FORM_TYPE = ["general", "litigation"]
 
+  MATTER_STATUS = {
+    "MATTER_OPEN": "Matter Open",
+    "MATTER_NOT_OPEN": "Matter Not Open"
+  }
+  
   HUMANIZED_ATTRIBUTES = {
     :name_of_matter_client => "Name of Matter/Client", 
     :matter_type_id => "Type of Matter",
@@ -594,8 +599,8 @@ class MatterIntake < ApplicationRecord
       actor_id: current_user.id,
       reviewable_type: self.class.to_s,
       reviewable_id: self.id,
-      description: "#{current_user.try(:full_name)} opened matter in T360 with matter number: #{self.matter_number}.",
-      status: "matter_open"
+      description: "#{current_user.try(:full_name)} change matter status to : #{MatterIntake::MATTER_STATUS[self.status.upcase.to_sym]}" ,
+      status: self.status.downcase
     )
   end
 
