@@ -122,6 +122,8 @@ class Admin::ReviewsController < Admin::BaseController
               PanelRequestMailer.notification_for_status_to_user(@panel_request).deliver_now  
             else
               @panel_request.status = 'LAW_FIRM_EXIST'
+              @review.status = 'LAW_FIRM_EXIST'
+              @review.save
               @panel_request.lxp_status = 'LAW_FIRM_EXIST'
               flash[:alert] = "Law Firm Already Exists"
             end
