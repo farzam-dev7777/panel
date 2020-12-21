@@ -71,9 +71,11 @@
 				<li>
 					<a data-toggle="tab" href="#hr6">Conflict Waiver</a>
 				</li>
-				<li>
-					<a data-toggle="tab" href="#hr7">Panel Consideration Requests</a>
-				</li>
+				<% if(@law_firm.panel_request.present?) %>
+					<li>
+						<a data-toggle="tab" href="#hr7">Panel Consideration Requests</a>
+					</li>
+				<% end %>
 			</ul>	
 			</div>
 		</div>
@@ -587,72 +589,75 @@
 	
 							
 					</div>
-					<div class="tab-pane fade" id="hr7">
-						<% if @panel_request %>
-							<div class="sp-form-bg show-data-fields">
-								<div class="row">
-									<div class="col-xs-12 col-md-6">
-										<div class="field-label">Requested By	</div>
-										<div class="field-data"><%= @panel_request.requested_by %></div>
-									</div>
-									<div class="col-xs-12 col-md-6">
-										<div class="field-label">Submitted By</div>		
-										<div class="field-data"><%= @panel_request.submitted_by_email %></div>
-									</div>
-									<div class="col-xs-12 col-md-6">
-										<div class="field-label">Line of Business	</div>		
-										<div class="field-data"><%= @panel_request.requested_by %><%= @panel_request.line_of_business %></div>
-									</div>
-									<% if Current.user.role === "lxp" %>
-									<div class="col-xs-12 col-md-6">
-										<div class="field-label">LOB Contact Name	</div>		
-										<div class="field-data"><%= @panel_request.lob_contact_name %></div>
-									</div>
-									<% end %>
+					<% if(@law_firm.panel_request.present?) %>
+						<div class="tab-pane fade" id="hr7">
+							<% if @panel_request %>
+								<div class="sp-form-bg show-data-fields">
+									<div class="row">
+										<div class="col-xs-12 col-md-6">
+											<div class="field-label">Requested By	</div>
+											<div class="field-data"><%= @panel_request.requested_by %></div>
+										</div>
+										<div class="col-xs-12 col-md-6">
+											<div class="field-label">Submitted By</div>		
+											<div class="field-data"><%= @panel_request.submitted_by_email %></div>
+										</div>
+										<div class="col-xs-12 col-md-6">
+											<div class="field-label">Line of Business	</div>		
+											<div class="field-data"><%= @panel_request.requested_by %><%= @panel_request.line_of_business %></div>
+										</div>
+										<% if Current.user.role === "lxp" %>
+										<div class="col-xs-12 col-md-6">
+											<div class="field-label">LOB Contact Name	</div>		
+											<div class="field-data"><%= @panel_request.lob_contact_name %></div>
+										</div>
+										<% end %>
+								
+										<div class="col-xs-12 col-md-6">
+											<div class="field-label">Business Manager Name</div>
+											<div class="field-data"><%= @panel_request.business_manager_name %></div>
+										</div>
+										<div class="col-xs-12 col-md-6">
+											<div class="field-label">Business Manager Email</div>		
+											<div class="field-data"><%= @panel_request.business_manager_email %></div>
+										</div>
 							
-									<div class="col-xs-12 col-md-6">
-										<div class="field-label">Business Manager Name</div>
-										<div class="field-data"><%= @panel_request.business_manager_name %></div>
+										<div class="col-xs-12 col-md-6">
+											<div class="field-label">Business Manager Phone	</div>		
+											<div class="field-data"><%= @panel_request.business_manager_phone %></div>
+										</div>	
+										<div class="col-xs-12 col-md-6">
+											<div class="field-label">Type</div>		
+											<div class="field-data"><%= @panel_request.law_firm_category %></div>
+										</div>
+								
+										<div class="col-xs-12 col-md-6">
+											<div class="field-label">Minority Owned</div>		
+											<div class="field-data"><%= @panel_request.minority_owned %></div>
+										</div>
+										<div class="col-xs-12 col-md-6">
+											<div class="field-label">Minority Owned Details</div>		
+											<div class="field-data"><%= @panel_request.minority_owned_details %></div>
+										</div>
+								
+										<div class="col-xs-12 col-md-6">
+											<div class="field-label">Women Owned</div>		
+											<div class="field-data"><%= @panel_request.women_owned %></div>
+										</div>
+										<div class="col-xs-12 col-md-6">
+											<div class="field-label">Women Owned Details</div>		
+											<div class="field-data"><%= @panel_request.women_owned_details %></div>
+										</div>
+										<div class="col-xs-12 col-md-6">
+											<div class="field-label">Matter Types</div>		
+											<div class="field-data"><%= @panel_request.matter_types.is_a?(Array) ? @panel_request.matter_types.join(", ") : "" %></div>
+										</div>	
 									</div>
-									<div class="col-xs-12 col-md-6">
-										<div class="field-label">Business Manager Email</div>		
-										<div class="field-data"><%= @panel_request.business_manager_email %></div>
-									</div>
-						
-									<div class="col-xs-12 col-md-6">
-										<div class="field-label">Business Manager Phone	</div>		
-										<div class="field-data"><%= @panel_request.business_manager_phone %></div>
-									</div>	
-									<div class="col-xs-12 col-md-6">
-										<div class="field-label">Type</div>		
-										<div class="field-data"><%= @panel_request.law_firm_category %></div>
-									</div>
-							
-									<div class="col-xs-12 col-md-6">
-										<div class="field-label">Minority Owned</div>		
-										<div class="field-data"><%= @panel_request.minority_owned %></div>
-									</div>
-									<div class="col-xs-12 col-md-6">
-										<div class="field-label">Minority Owned Details</div>		
-										<div class="field-data"><%= @panel_request.minority_owned_details %></div>
-									</div>
-							
-									<div class="col-xs-12 col-md-6">
-										<div class="field-label">Women Owned</div>		
-										<div class="field-data"><%= @panel_request.women_owned %></div>
-									</div>
-									<div class="col-xs-12 col-md-6">
-										<div class="field-label">Women Owned Details</div>		
-										<div class="field-data"><%= @panel_request.women_owned_details %></div>
-									</div>
-									<div class="col-xs-12 col-md-6">
-										<div class="field-label">Matter Types</div>		
-										<div class="field-data"><%= @panel_request.matter_types.is_a?(Array) ? @panel_request.matter_types.join(", ") : "" %></div>
-									</div>	
 								</div>
-							</div>
+							<% end %>	
+						</div>
+
 						<% end %>	
-					</div>
 				</div>
 				<!-- end widget body text-->
 			</div>

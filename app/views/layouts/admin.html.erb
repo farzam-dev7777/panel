@@ -42,7 +42,7 @@
 				<% if current_user.role == "lxp" %>
 					LXP Dashboard
 				<% elsif current_user.role == "lop" %>
-					LOP Dashboard
+					LOB Dashboard
 				<% elsif current_user.role == "internal_lawyers" %>
 					Internal Lawyers Dashboard
 				<% else %>
@@ -97,8 +97,11 @@
 					<li class=" <%= active_page?(:form_submissions) %>">
 						<a href="/admin/form_submissions" title="RFI"><i class="fa fa-list" aria-hidden="true"></i> <span class="menu-item-parent">RFI</span></a>
 					</li>
-					<li class=" <%= active_page?(:law_firms) %>">
-						<a href="/admin/law_firms" title="Law Firms"><i class="fa fa-address-card" aria-hidden="true"></i> <span class="menu-item-parent">Law Firms</span></a>
+					<li class=" <%= active_page?(:panel_law_firms) %>">
+						<a href="/admin/law_firms/panel_law_firms" title="Law Firms"><i class="fa fa-address-card" aria-hidden="true"></i> <span class="menu-item-parent">Panel Law firms</span></a>
+					</li>
+					<li class=" <%= active_page?(:panel_non_law_firms) %>">
+						<a href="/admin/law_firms/panel_non_law_firms" title="Law Firms"><i class="fa fa-address-card" aria-hidden="true"></i> <span class="menu-item-parent">Non Panel Law firms</span></a>
 					</li>
 					<% if current_user && ( current_user.role == 'lob' || current_user.role == 'lxp' || current_user.role == 'internal_lawyers' ) %>
 						<li class=" <%= active_page?(:exception_requests) %>">

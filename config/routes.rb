@@ -29,6 +29,8 @@ Rails.application.routes.draw do
       
       end
       collection do
+        get :panel_law_firms
+        get :panel_non_law_firms
         post :get_sub_matter_types 
         post :get_state
         post :get_law_firm_list

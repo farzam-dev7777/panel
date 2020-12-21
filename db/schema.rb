@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201207025553) do
+ActiveRecord::Schema.define(version: 20201221165446) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -711,8 +711,8 @@ ActiveRecord::Schema.define(version: 20201207025553) do
     t.text     "women_owned_details"
     t.string   "matter_name"
     t.text     "matter_types"
-    t.datetime "created_at",                                                       null: false
-    t.datetime "updated_at",                                                       null: false
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
     t.string   "law_firm_name"
     t.string   "business_manager_name"
     t.string   "business_manager_phone"
@@ -733,7 +733,7 @@ ActiveRecord::Schema.define(version: 20201207025553) do
     t.string   "law_firm_mail"
     t.string   "law_firm_role"
     t.string   "law_firm_phone"
-    t.boolean  "firm_use_on_regular_basis",                        default: false
+    t.string   "firm_use_on_regular_basis"
     t.datetime "archived_at"
   end
 

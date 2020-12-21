@@ -1651,3 +1651,24 @@ p.email-error{
   margin-top: -10px;
 }
 
+.ribbon-box {
+  background: #f13838;
+  display: flex;
+  flex-direction: revert;
+  padding: 11px;
+}
+.ribbon-box span{
+  font-size: 20px;
+  color: #fff;
+}
+.ribbon-box a{
+  font-size: 20px;
+    color: #fff;
+    margin-left: 40px;
+    border: 1px solid;
+    padding: 2px;
+    width: 100px;
+    border-radius: 10px;
+    text-align: center;
+}
+}
