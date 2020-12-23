@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201221165446) do
+ActiveRecord::Schema.define(version: 20201222162413) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -201,7 +201,6 @@ ActiveRecord::Schema.define(version: 20201221165446) do
     t.datetime "created_at",                                                       null: false
     t.datetime "updated_at",                                                       null: false
     t.text     "matter_types"
-    t.string   "law_firm_name"
     t.string   "business_manager_name"
     t.string   "business_manager_phone"
     t.string   "business_manager_email"
@@ -237,6 +236,11 @@ ActiveRecord::Schema.define(version: 20201221165446) do
     t.text     "receive_personal_information_data_type"
     t.text     "receive_general_business_data_type"
     t.text     "applicable_technical_specialty_data_type"
+    t.string   "law_frim_name"
+    t.string   "law_firm_name"
+    t.string   "law_firm_email"
+    t.string   "law_firm_phone"
+    t.string   "firm_use_on_regular_basis"
   end
 
   create_table "faq_categories", force: :cascade do |t|

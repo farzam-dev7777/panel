@@ -105,9 +105,9 @@
           </thead>
           <tbody>
             <% @exception_requests.each do |exception_request| %>
-            <% if exception_request.law_firm_id.present?  %>
+            <% if exception_request.law_firm_name.present?  %>
               <tr onClick="window.location.href='/admin/exception_requests/<%= exception_request.id %>'">
-                <% if exception_request.law_firm_id.present? %>
+                <% if exception_request.law_firm_name.present? %>
                   <td data-order="<%= exception_request.created_at.strftime('%Y%m%d%H%M') %>">
                     <%= exception_request.created_at.strftime('%d %b %Y at %I:%M %p') %>
                   </td>
@@ -121,7 +121,7 @@
                   </td>
                   <td><%= exception_request&.lob_contact_name %></td>
                   <td><%= exception_request.line_of_business %></td>
-                  <td><%= exception_request.law_firm.try(:name) %></td>
+                  <td><%= exception_request.law_firm_name %></td>
                   <td><%= exception_request&.try(:matter_name) %></td>
                   <% if current_user.role === "lxp" %>
                   <td>

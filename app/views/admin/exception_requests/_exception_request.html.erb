@@ -9,19 +9,19 @@
             <div class="row inner-form-field">
               <div class="col-xs-12 col-md-6">
                 <div class="field-label">Law Firm Category</div>
-                <div class="field-data"><%= @exception_request.law_firm.try(:law_firm_category).try(:titleize) %></div>
+                <div class="field-data"><%= @exception_request.law_firm_category.try(:titleize) %></div>
               </div>
               <div class="col-xs-12 col-md-6">
                 <div class="field-label">Name</div>
-                <div class="field-data"><%= @exception_request.law_firm.try(:name) %></div>
+                <div class="field-data"><%= @exception_request.law_firm_name %></div>
               </div>
               <div class="col-xs-12 col-md-6">
                 <div class="field-label">Email</div>		
-                <div class="field-data"><%= @exception_request.law_firm.try(:email) %></div>
+                <div class="field-data"><%= @exception_request.law_firm_email %></div>
               </div>
               <div class="col-xs-12 col-md-6">
                 <div class="field-label">Phone</div>		
-                <div class="field-data"><%= @exception_request.law_firm.try(:phone) %></div>
+                <div class="field-data"><%= @exception_request.law_firm_phone %></div>
               </div>
               <!--div class="col-xs-12 col-md-6">
                 <div class="field-label">Country</div>		

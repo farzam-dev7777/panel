@@ -49,6 +49,38 @@ class Admin::ReviewsController < Admin::BaseController
           elsif current_user.role === 'internal_lawyers' && review_params[:status] == 'APPROVED'
             @exception_request.update_attributes(lxp_status: "REVIEWED_BY_LAWYER")
             ExceptionRequestMailer.form_status_notification_to_lxp(@exception_request).deliver_now
+          elsif current_user.role === 'lxp' &&  review_params[:status] == 'LAW_FIRM_CREATED'  
+            @user = User.new 
+            @user.email = @exception_request.law_firm_email
+            @user.role = 'master_user'
+            @user.empty_user = true
+            @user.status = nil
+            if @user.save
+              @law_firm = LawFirm.new
+              @law_firm.user_id = @user.id
+              @law_firm.law_firm_category = "NON_PANEL"
+              @law_firm.name = @exception_request.law_firm_name
+              @law_firm.law_firm_category = @exception_request.law_firm_category
+              @law_firm.firm_use_on_regular_basis = @exception_request.firm_use_on_regular_basis
+              @law_firm.email = @exception_request.law_firm_email
+              @law_firm.phone = @exception_request.law_firm_phone
+              @law_firm.save
+              @exception_request.update_attributes(law_firm_id: @law_firm.id)
+              @user.law_firm_id =  @law_firm.id
+              @user.save
+             
+              @exception_request.lxp_status = 'LAW_FIRM_CREATED'
+              flash[:notice] = "Law Firm Created"
+              @review.status = 'LAW_FIRM_CREATED'
+              @review.save
+              ExceptionRequestMailer.form_status_notification_to_lxp(@exception_request).deliver_now
+            else
+              @review.status = 'LAW_FIRM_EXIST'
+              @review.save
+              @exception_request.lxp_status = 'LAW_FIRM_EXIST'
+              flash[:alert] = "Law Firm Already Exists"
+            end  
+            @exception_request.save
           else
             if current_user.role === 'internal_lawyers'
               @exception_request.update_attributes(lxp_status: "REVIEWED_BY_LAWYER")

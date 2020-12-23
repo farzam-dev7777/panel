@@ -30,6 +30,7 @@
                       <%= f.input :reviewable_type, label: false, as: :hidden, input_html: { value: @panel_request.class.to_s } %>
                       <%= f.input :reviewable_id, label: false, as: :hidden, input_html: { value: @panel_request.id } %>
                   </div>		
+                  
                   <div class="col-xs-12 col-md-6" style="display: none;">
                     <label class="label">Status</label>
                     <%= f.input :status, label: false, collection: PanelRequest::PANEL_REQUEST_STATUS.map{|value,key| [key, value]}%>

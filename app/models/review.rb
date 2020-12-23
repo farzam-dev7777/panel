@@ -45,7 +45,7 @@ class Review < ApplicationRecord
         if self.status === "RETAINER_AGREEMENT_SENT" || self.status === "SEND_RETAINER_AGREEMENT"
             "Retainer Agreement Sent"
         else
-          ExceptionRequest::EXCEPTION_REQUEST_STATUS[self.status.to_sym]
+          ExceptionRequest::EXCEPTION_REQUEST_STATUS_2[self.status.to_sym]
         end
      
       elsif self.reviewable_type == "MatterIntake"

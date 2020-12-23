@@ -177,17 +177,23 @@ class ExceptionRequest < ApplicationRecord
     "APPROVED": "Approved",
     "REJECTED": "Rejected"
   }
+  NON_PANAL_STATUS = ['Active', 'Received']
 
   EXCEPTION_REQUEST_STATUS_2 = {
+    "DRAFT": "Draft",
     "REQUEST_TO_INPUT": "Lawyer Input Requested",
     "SEND_RETAINER_AGREEMENT": "Resend Retainer Agreement",
     "COMMENTS_BY_LAWYER": "Comments by Lawyer",
     "APPROVED": "Approved",
-    "REJECTED": "Rejected"
+    "REJECTED": "Rejected",
+    "LAW_FIRM_CREATED": "Law Firm Created",
+    "LAW_FIRM_EXIST": "Law Firm Already Exists"
   }
   
+ 
 
   EXCEPTION_REQUEST_STATUS2 = {
+    "Received": "Received",
     "REQUEST_TO_INPUT": "Lawyer Input Requested",
     "RETAINER_AGREEMENT_SENT": "Retainer Agreement Sent",
     "SEND_RETAINER_AGREEMENT": "Retainer Agreement Sent",
@@ -195,6 +201,8 @@ class ExceptionRequest < ApplicationRecord
     "COMMENTS_BY_LAWYER": "Comments by Lawyer",
     "REJECTED": "Rejected",
     "REVIEWED_BY_LAWYER": "Reviewed by Lawyer",
+    "LAW_FIRM_CREATED": "Law Firm Created",
+    "LAW_FIRM_EXIST": "Law Firm Already Exists",
     "reviewed_by_lawyer": "Reviewed by Lawyer"
   }
 

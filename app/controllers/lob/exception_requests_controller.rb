@@ -72,20 +72,22 @@ class Lob::ExceptionRequestsController < Lob::BaseController
   def update
     @exception_request = ExceptionRequest.find(params[:id])
     if @exception_request.update_attributes(exception_requests_params)
-      if @exception_request.law_firm_id.present? 
-        @law_firm = LawFirm.find(@exception_request.law_firm_id)
-        @law_firm.update_attributes(exception_request_law_firms_params) 
-        flash[:notice] = "Thank you for submitting a Non-Panel (one-off) Request"
-        redirect_to lob_root_path
-        #redirect_to lob_exception_request_path
-      else
-        @law_firm = LawFirm.new(exception_request_law_firms_params)
-        @law_firm.save
-        @exception_request.update_attributes(law_firm_id: @law_firm.id)
-        flash[:notice] = "Thank you for submitting a Non-Panel (one-off) Request"
-        redirect_to lob_root_path
-        #redirect_to lob_exception_request_path
-      end
+      # if @exception_request.law_firm_id.present? 
+      #   #@law_firm = LawFirm.find(@exception_request.law_firm_id)
+      #   #@law_firm.update_attributes(exception_request_law_firms_params) 
+      #   flash[:notice] = "Thank you for submitting a Non-Panel (one-off) Request"
+      #   redirect_to lob_root_path
+      #   #redirect_to lob_exception_request_path
+      # else
+      #   #@law_firm = LawFirm.new(exception_request_law_firms_params)
+      #   #@law_firm.save
+      #   @exception_request.update_attributes(law_firm_id: @law_firm.id)
+      #   flash[:notice] = "Thank you for submitting a Non-Panel (one-off) Request"
+      #   redirect_to lob_root_path
+      #   #redirect_to lob_exception_request_path
+      # end
+      flash[:notice] = "Thank you for submitting a Non-Panel (one-off) Request"
+      redirect_to lob_exception_request_path
       ExceptionRequestMailer.engage_new_non_panel_firm_notification_to_lxp(@exception_request).deliver_now
     else
       @law_firms = LawFirm.all
@@ -230,13 +232,13 @@ class Lob::ExceptionRequestsController < Lob::BaseController
     
     params.require(:exception_request).permit(
       :requested_by, :submitted_by_email, :user_id, :line_of_business, :notes,
-      :lob_contact_name, :law_firm_id, :request_type, :reason_details,
-      :law_firm_category, :minority_owned, :minority_owned_details,
+      :lob_contact_name, :law_firm_email, :law_firm_name, :law_firm_phone, :firm_use_on_regular_basis, :law_firm_id, :request_type, :reason_details,
+      :law_firm_category, :minority_owned, :minority_owned_details, :lxp_status,
       :business_manager_name, :business_manager_phone, :business_manager_email, :is_work, :payer,
       :niche_preferred_external_counsel_panel_law_firms, :niche_expertise, :required_unique_geography, :geographic_location,
       :involved_engagement, :reson_other, :mode_of_payment, :matter_description, :matter_involve_following, :jurisdiction,
       :matter_types_search, :sub_matter_types_search, :jurisdiction_types_search, :countries_search, :states_search,
-      :women_owned, :women_owned_details, :matter_name, :law_firm_name, 
+      :women_owned, :women_owned_details, :matter_name, 
       :receive_personal_information, :receive_general_business_data, :applicable_technical_specialty_data,
       matter_types: [], reason: [], applicable_technical_specialty_data_type: [], receive_personal_information_data_type: [], receive_general_business_data_type: [],
       
