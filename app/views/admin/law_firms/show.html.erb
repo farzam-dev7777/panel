@@ -279,6 +279,19 @@
 									<div class="field-label">Types of matters your law firm has handled for us to date</div>		
 									<div class="field-data"><%= @law_firm.type_of_matters_your_law_firm_handles_for_us.reject(&:blank?).join(", ") %></div>
 								</div>
+
+								<div class="col-xs-12 col-md-6">
+									<div class="field-label">Matter Type</div>		
+									<div class="field-data"><%= @law_firm.show_matter_types %></div>
+								</div>
+								<div class="col-xs-12 col-md-6">
+									<div class="field-label">Country</div>		
+									<div class="field-data"><%= @law_firm.show_countries_names %></div>
+								</div>
+								<div class="col-xs-12 col-md-6">
+									<div class="field-label">State</div>		
+									<div class="field-data"><%= @law_firm.show_states_names %></div>
+								</div>
 							</div>
 						</div>
 						
