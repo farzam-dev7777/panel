@@ -81,6 +81,11 @@ class Admin::ReviewsController < Admin::BaseController
               flash[:alert] = "Law Firm Already Exists"
             end  
             @exception_request.save
+          elsif current_user.role === 'lxp' &&  review_params[:status] == 'ASSIGN_LAW_FIRM'    
+            @review.status = 'ASSIGN_LAW_FIRM'
+            @review.save
+            @exception_request.update_attributes(law_firm_id: review_params[:law_firm_id])
+            @exception_request.save
           else
             if current_user.role === 'internal_lawyers'
               @exception_request.update_attributes(lxp_status: "REVIEWED_BY_LAWYER")
@@ -237,7 +242,7 @@ class Admin::ReviewsController < Admin::BaseController
   private
 
   def review_params
-    params.require(:review).permit(:description, :status, :assigned_to_id, :pay_type, :reviewable_type, :reviewable_id, :retainer_cover)
+    params.require(:review).permit(:description, :status, :assigned_to_id, :pay_type, :reviewable_type, :reviewable_id, :retainer_cover, :law_firm_id)
   end
 
 end

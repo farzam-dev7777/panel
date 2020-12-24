@@ -226,11 +226,16 @@ $('#login-form').each(function() {
 			$(".exceptationRequestProcesss  .internal_lawyers_box").hide()
 			$(".exceptationRequestProcesss .lxp_request_retainer").show()
 
-		}else{
+		}else if(this.value == "ASSIGN_LAW_FIRM"){
+			$(".exceptationRequestProcesss  .law_firm_box").show()
+			$(".exceptationRequestProcesss .lxp_sttaus_btn").show()
+		}
+		else{
 			$(".exceptationRequestProcesss .internal_lawyers_box").hide()
 			$('.exceptationRequestProcesss select#review_assigned_to_id').val('').trigger('chosen:updated');
 			$(".exceptationRequestProcesss .lxp_sttaus_btn").show()
 			$(".exceptationRequestProcesss .lxp_request_retainer").hide()
+			$(".exceptationRequestProcesss  .law_firm_box").hide()
 		}
 	});
 	// conflict Waiver approval Processs
@@ -366,6 +371,20 @@ $('.lxp_sttaus').on('click', function(e){
 		});
 		return false
 	}
+	
+	if($('select#review_status').chosen().val() == "ASSIGN_LAW_FIRM"){
+		laywerId = $('select#review_law_firm_id').chosen().val()
+		if(!laywerId) {
+			swal({
+				title: "oops!",
+				text: "Please select law firm"
+			});
+			return false;
+		}
+		$('#new_review').submit()
+	return false
+ }
+	
 	 
 	});
 // $('.lxp_excepation_sttaus').on('click', function(e){

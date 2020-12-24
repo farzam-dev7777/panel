@@ -186,8 +186,15 @@ class ExceptionRequest < ApplicationRecord
     "COMMENTS_BY_LAWYER": "Comments by Lawyer",
     "APPROVED": "Approved",
     "REJECTED": "Rejected",
+    "ASSIGN_LAW_FIRM": "Assigned law firm",
     "LAW_FIRM_CREATED": "Law Firm Created",
     "LAW_FIRM_EXIST": "Law Firm Already Exists"
+  }
+
+  EXCEPTION_REQUEST_STATUS_3 = {
+    "ASSIGN_LAW_FIRM": "Assigned law firm",
+    "LAW_FIRM_CREATED": "Law Firm Created",
+    "REJECTED": "Rejected"
   }
   
  
@@ -198,6 +205,7 @@ class ExceptionRequest < ApplicationRecord
     "RETAINER_AGREEMENT_SENT": "Retainer Agreement Sent",
     "SEND_RETAINER_AGREEMENT": "Retainer Agreement Sent",
     "APPROVED": "Approved",
+    "ASSIGN_LAW_FIRM": "Assigned law firm",
     "COMMENTS_BY_LAWYER": "Comments by Lawyer",
     "REJECTED": "Rejected",
     "REVIEWED_BY_LAWYER": "Reviewed by Lawyer",
