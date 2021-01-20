@@ -19,28 +19,29 @@
 	<div class="page-header-sp m-top">
 		<div class="page-title"></div>
 		<div class="back-edit-actions mobile-action-btn">
-			<% if (@law_firm.form_submissions.any? && @law_firm.form_submissions.latest.status == 'decertified') %>
-				<a class="btn-type-primary" data-id='<%= @law_firm.id %>' data-name='<%= @law_firm.name %>'>Recertify</a>
-				<div class="">
-					<hr>
-					<div class="alert alert-danger">
-						<strong><%= @law_firm.name %></strong> has been decertified. <em>(<%= @law_firm.form_submissions.latest.reason %>)</em>
+		<% if @law_firm.law_firm_category === "PANEL" %>
+				<% if (@law_firm.form_submissions.any? && @law_firm.form_submissions.latest.status == 'decertified') %>
+					<a class="btn-type-primary" data-id='<%= @law_firm.id %>' data-name='<%= @law_firm.name %>'>Recertify</a>
+					<div class="">
+						<hr>
+						<div class="alert alert-danger">
+							<strong><%= @law_firm.name %></strong> has been decertified. <em>(<%= @law_firm.form_submissions.latest.reason %>)</em>
+						</div>
 					</div>
-				</div>
-			<% else %>
-			<% if(@law_firm.form_submissions.any? && @law_firm.form_submissions.latest.status == 'approved') %>
-				<a class="btn-type-primary" data-id='<%= @law_firm.id %>' data-name='<%= @law_firm.name %>'>Remove from Panel</a>
-				<a class="btn-type-primary begin-recertification-btn" data-id="<%= @law_firm.id %>">Send RFI Questionnaire again</a>
-			<% end %>
-			<% if(!@law_firm.form_submissions.any?) %>
-				<% if(@law_firm.user.try(:is_deactivated?)) %>
-					<a class="btn-type-primary send-user-info-btn" data-id="<%= @law_firm.user.id %>">Send user information and create new password link </a>
-					<a class="btn-type-primary send-user-info-begin-certification-btn" data-id="<%= @law_firm.user.id %>">Send RFI Questionnaire with user active password link </a>
-					<% else %>	
-					<a class="btn-type-primary begin-certification-btn" data-id="<%= @law_firm.id %>">Send RFI Questionnaire</a>
-					<% end %>	
-			<% end %>
-
+				<% else %>
+					<% if(@law_firm.form_submissions.any? && @law_firm.form_submissions.latest.status == 'approved') %>
+						<a class="btn-type-primary" data-id='<%= @law_firm.id %>' data-name='<%= @law_firm.name %>'>Remove from Panel</a>
+						<a class="btn-type-primary begin-recertification-btn" data-id="<%= @law_firm.id %>">Send RFI Questionnaire again</a>
+					<% end %>
+					<% if(!@law_firm.form_submissions.any?) %>
+							<% if(@law_firm.user.try(:is_deactivated?)) %>
+							<a class="btn-type-primary send-user-info-btn" data-id="<%= @law_firm.user.id %>">Send user information and create new password link </a>
+							<a class="btn-type-primary send-user-info-begin-certification-btn" data-id="<%= @law_firm.user.id %>">Send RFI Questionnaire with user active password link </a>
+							<% else %>	
+							<a class="btn-type-primary begin-certification-btn" data-id="<%= @law_firm.id %>">Send RFI Questionnaire</a>
+							<% end %>	
+					<% end %>
+				<% end %>
 			<% end %>
 		</div>
 	</div>
@@ -55,9 +56,11 @@
 				<!-- <li>
 					<a data-toggle="tab" href="#hr2"> <i class="fa fa-lg fa-arrow-circle-o-up"></i> <span class="hidden-mobile hidden-tablet"> History </span></a>
 				</li> -->
+				<% if @law_firm.law_firm_category === "PANEL" %>
 				<li>
 					<a data-toggle="tab" href="#hr3">RFI</a>
 				</li>
+				<% end %>
 				<!-- 
 				<li>
 					<a data-toggle="tab" href="#hrst"> <i class="fa fa-lg fa-lock"></i> <span class="hidden-mobile hidden-tablet"> Security Threats </span></a>
@@ -90,7 +93,7 @@
 						<div class="sp-form-bg show-data-fields">
 							<div class="row send-password-link">
 								<div class="col-md-12">
-									<% if @law_firm.user.try(:id)%>
+									<% if @law_firm.law_firm_category === "PANEL" && @law_firm.user.try(:id)%>
 										<a class="btn-type-primary send-user-info-btn" data-id="<%= @law_firm.user.id %>">Send new password link </a>
 									<% end %>
 									<% if(@law_firm.form_submissions.try(:latest).try(:status) == 'approved') %>
