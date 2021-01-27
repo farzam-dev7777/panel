@@ -93,8 +93,8 @@
               <td data-order="<%= panel_request.created_at.strftime('%Y%m%d%H%M') %>"><%= panel_request.created_at.strftime('%d %b %Y at %I:%M %p') %></td>
      
                <td><%= panel_request&.line_of_business %></td>
-              <td><%= panel_request&.law_frim_name %></td>
-              <td><%= panel_request&.law_firm_mail %></td>
+              <td><%= panel_request.law_frim_name.present? ?  panel_request&.law_frim_name : "-" %></td>
+              <td><%= panel_request.law_firm_mail? ? panel_request&.law_firm_mail : "-" %></td>
               
                 <td>
                   <div class="status">

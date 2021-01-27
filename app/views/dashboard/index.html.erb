@@ -29,6 +29,7 @@
 					<table class="table table-decoration table-bordered">
 						<thead>
 						<tr>
+							<th>Date Submitted</th>
 							<th>Name of law firm</th>
 							<th>Date of submission</th>
 							<th>BMO Status</th>
@@ -39,9 +40,22 @@
 						<tbody>
 							<%- current_law_firm.conflict_waivers.each do |conflict_waiver|  %>
 							<tr>
+								<td data-order="<%= conflict_waiver.created_at.strftime('%Y%m%d%H%M') %>">
+                  <%= conflict_waiver.created_at.strftime('%d %b %Y at %I:%M %p') %>
+                </td>
 								<td><%= conflict_waiver.name_of_law_firm %></td>
 								<td><%= conflict_waiver.created_at.strftime("%d %b, %Y") %></td>
-								<td><%= conflict_waiver.lxp_status_show %></td>
+								<td>
+									 <% if conflict_waiver.lxp_status_show.present? %>
+                    <div class="status">
+                      <span class="<%= conflict_waiver.lxp_status_show === "Approved" ? 'label label-success' : 'label label-default' %>"> 
+                        <%= conflict_waiver.try(:lxp_status_show).try(:titleize) %>
+                      </span>
+                    </div>
+                  <% else %>
+                    -
+                  <% end %>
+								</td>
 								<!--<td><%= conflict_waiver.internal_lawyers_status_show %></td>-->
 								<td>
 									<div class="action-fields">

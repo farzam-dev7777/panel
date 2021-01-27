@@ -67,6 +67,8 @@
 									<td>
 										<% if submission.law_firm.present? %>
 											<%= link_to submission.law_firm.try(:name), admin_law_firm_path(submission.law_firm) if submission.law_firm %>
+										<% else %>
+										-
 										<% end %>	
 									</td>
 									<td>
@@ -75,6 +77,8 @@
 												<% if submission.try(:latest).try(:status) == 'approved' %>
 													<% score = firm.total_calculated_score(submission.try(:latest)) %>
 													<div class="total-score" data-color="<%= submission.try(:latest).try(:color, score, 'total_calculated_score') %>" data-score=<%= score %>></div>
+												<% else %>
+												-
 												<% end %>
 											</span> 
 										</div>
@@ -86,12 +90,12 @@
 									</td>
 									<td>
 										<div class="date-time">
-											<%= submission.approved_at %>
+											<%= submission.approved_at.present? ? submission.approved_at : "-"  %>
 										</div>
 									</td>
 									<td>
 										<div class="date-time">
-											<%= submission.expiry_date %>
+											<%= submission.expiry_date.present? ? submission.expiry_date : "-" %>
 										</div>
 									</td>
 									<td>

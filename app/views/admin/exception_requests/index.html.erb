@@ -130,6 +130,8 @@
                         <span class="<%= exception_request.lxp_status === "APPROVED" ? 'label label-success' : 'label label-default' %>"> 
                           <%= exception_request.lxp_status_show %>
                         </span>
+                      <% else %>
+                      -
                       <% end %>
                     </div>
                   </td>
@@ -145,6 +147,8 @@
                          <span class="label label-default"> 
                           	Lawyer Input Requested
                         </span>
+                       <% else %>
+                       -
                        <% end %>
                       <% end %>
 

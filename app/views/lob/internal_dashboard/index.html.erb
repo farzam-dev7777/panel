@@ -143,7 +143,8 @@
 										<%= matter_intake&.name_of_matter_client %>
 									</td>
 									<td>
-										<%= matter_intake&.matter_number %>
+									
+										<%= matter_intake.matter_number.present? ? matter_intake&.matter_number : "-" %>
 									</td>
 									<!--<td><%= matter_intake.budget_amount %></td>-->
 									<td>
@@ -214,11 +215,11 @@
 											<%= exception_request.created_at.strftime('%d %b %Y at %I:%M %p') %>
 										</td>
 										<td>
-											<% if exception_request.requested_by.present? %>
+											<% if exception_request.user_id.present? %>
 												<div class="firm-name">
 													<div class="name-avatar">
-														<img src="<%= get_avatar_image(exception_request&.requested_by&.gsub(" ", "+")) %>"></div>
-													<div><%= exception_request.requested_by %></div>
+														<img src="<%= get_avatar_image(exception_request&.user.username&.gsub(" ", "+")) %>"></div>
+													<div><%= exception_request.user.username %></div>
 												</div>
 											<% end %>	
 										</td>

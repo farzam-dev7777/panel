@@ -85,18 +85,25 @@
 												<div class="name-avatar"><img src="<%= get_avatar_image(firm&.name&.gsub(" ", "+")) %>"></div>
 												<div><%= firm.name %></div>
 											</div>
+										<% else %>
+										-
 										<% end %>	
 									</td>
-									<td><%= firm.try(:bmo_relationship_partner_name) %></td>
-									<td><%= firm.try(:bmo_relationship_partner_email) %></td>
-									<td><%= firm.locations.map{|location| [location.city, location.province, firm.country_name(location.country)].reject(&:nil?).join(',') }.join(", ").html_safe %></td>
+									<td><%= firm.bmo_relationship_partner_name.present? ? firm.try(:bmo_relationship_partner_name) : "-" %></td>
+									<td><%= firm.bmo_relationship_partner_email.present? ? firm.try(:bmo_relationship_partner_email) : "-" %></td>
+
+									
+									<td><%= firm.locations.present? ? firm.locations.map{|location| [location.city, location.province, firm.country_name(location.country)].reject(&:nil?).join(',') }.join(", ").html_safe : "-" %></td>
 									<td>
 										<div> 
 											<span class="percent txt-color-blue bold">
 												<% if firm.form_submissions.try(:latest).try(:status) == 'approved' %>
 													<% score = firm.total_calculated_score(firm.form_submissions.try(:latest)) %>
 													<div class="total-score" data-color="<%= firm.form_submissions.try(:latest).try(:color, score, 'total_calculated_score') %>" data-score=<%= score %>></div>
+												<% else %>
+												-
 												<% end %>
+
 											</span> 
 										</div>
 									</td>
