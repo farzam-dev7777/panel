@@ -6,6 +6,6 @@ class SystemSetting < ApplicationRecord
 	end
 
 	def self.fetch
-		@settings ||= SystemSetting.last || SystemSetting.create
+		@settings = SystemSetting.last
 	end
 end
