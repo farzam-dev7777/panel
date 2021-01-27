@@ -9,14 +9,25 @@ class Admin::MatterIntakesController < Admin::BaseController
     @q = MatterIntake.ransack(params[:q])
     @current_user = current_user
     if current_user.role === "internal_lawyers"
-      if params[:attention] === "true"
-        @matter_intakes = @q.result(distinct: true).where(lawyer_id: current_user.id).where(status: ["awaiting_lawyer_review", "awaiting_lawyer_update"]).order('created_at DESC')
+      if params[:filter] === "yes"
+        @matter_intakes = @q.result(distinct: true).where.not(status: ["matter_open", "matter_not_open"]).order('created_at DESC')
+
       else
-        @matter_intakes = @q.result(distinct: true).where(lawyer_id: current_user.id).order('created_at DESC')
-      end
+        if params[:attention] === "true"
+          @matter_intakes = @q.result(distinct: true).where(lawyer_id: current_user.id).where(status: ["awaiting_lawyer_review", "awaiting_lawyer_update"]).order('created_at DESC')
+        else
+          @matter_intakes = @q.result(distinct: true).where(lawyer_id: current_user.id).order('created_at DESC')
+        end
+      end 
+      
      
     elsif current_user.role === "lxp"
-      @matter_intakes = @q.result(distinct: true).order('created_at DESC')
+      if params[:filter] === "yes"
+        @matter_intakes = @q.result(distinct: true).where.not(status: ["matter_open", "matter_not_open"]).  order('created_at DESC')
+        
+      else 
+        @matter_intakes = @q.result(distinct: true).order('created_at DESC')
+      end
     else
       @matter_intakes = []
     end

@@ -5,8 +5,14 @@ class Lob::ExceptionRequestsController < Lob::BaseController
   add_breadcrumb "Dashboard", :root_path
 
   def index
-    @q = ExceptionRequest.ransack(params[:q])
-    @exception_requests = @q.result(distinct: true).where(user_id: current_user.id  ).order('created_at DESC')   
+    if params[:filter] === "yes"
+      @q = ExceptionRequest.ransack(params[:q])
+      @exception_requests = @q.result(distinct: true).where(user_id: current_user.id).where.not(law_firm_id:[nil]).where( lxp_status: [nil, "", "REQUEST_TO_INPUT", "SEND_RETAINER_AGREEMENT"]).order('created_at DESC') 
+    else
+      @q = ExceptionRequest.ransack(params[:q])
+      @exception_requests = @q.result(distinct: true).where(user_id: current_user.id  ).order('created_at DESC') 
+    end
+      
     add_breadcrumb "Exception request", :admin_exception_requests_path
     respond_to do |format|
       format.xlsx {

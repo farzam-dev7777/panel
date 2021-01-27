@@ -7,9 +7,18 @@ class Admin::ExceptionRequestsController < Admin::BaseController
   def index
     @q = ExceptionRequest.ransack(params[:q])
     if current_user.role === "lxp"
-      @exception_requests = @q.result(distinct: true).order('created_at DESC')
+    if params[:filter] === "yes"
+        @exception_requests = @q.result(distinct: true).where.not(law_firm_id:[nil]).where( lxp_status: [nil, "", "REQUEST_TO_INPUT", "SEND_RETAINER_AGREEMENT"]).order('created_at DESC')
+      else
+        @exception_requests = @q.result(distinct: true).order('created_at DESC')
+      end
     elsif current_user.role === "internal_lawyers"
-      @exception_requests = @q.result(distinct: true).where('internal_lawyers_id=? OR user_id=?', current_user.id, current_user.id).order('created_at DESC')
+      if params[:filter] === "yes"
+        @exception_requests = @q.result(distinct: true).where.not(law_firm_id:[nil]).where( lxp_status: [nil, "", "REQUEST_TO_INPUT", "SEND_RETAINER_AGREEMENT"]).order('created_at DESC')
+      else
+        @exception_requests = @q.result(distinct: true).where('internal_lawyers_id=? OR user_id=?', current_user.id, current_user.id).order('created_at DESC')
+      end
+      
     else
       @exception_requests = @q.result(distinct: true).where(user_id: current_user.id).order('created_at DESC')
     end

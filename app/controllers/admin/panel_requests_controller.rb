@@ -7,9 +7,19 @@ class Admin::PanelRequestsController < Admin::BaseController
   def index
     @q = PanelRequest.ransack(params[:q])
     if current_user.role === "lxp"
-      @panel_requests = @q.result.order('created_at DESC') 
+      if params[:filter] === "yes"
+        @panel_requests = @q.result.where.not(status: ["ARCHIVED", "LAW_FIRM_CREATED"]).order('created_at DESC') 
+      else
+        @panel_requests = @q.result.order('created_at DESC') 
+      end
+      
     elsif current_user.role === "internal_lawyers"
-      @panel_requests = @q.result(distinct: true).where(user_id: current_user.id).order('created_at DESC')  
+      if params[:filter] === "yes"
+        @panel_requests = @q.result(distinct: true).where.not(status: ["ARCHIVED", "LAW_FIRM_CREATED"]).order('created_at DESC')  
+      else
+        @panel_requests = @q.result(distinct: true).where(user_id: current_user.id).order('created_at DESC')  
+      end
+      
     else
       @panel_requests = @q.result.order('created_at DESC') 
     end 

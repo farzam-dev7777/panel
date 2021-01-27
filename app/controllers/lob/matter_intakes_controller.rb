@@ -5,8 +5,14 @@ class Lob::MatterIntakesController < Lob::BaseController
   add_breadcrumb "Dashboard", :root_path
 
   def index
-    @q = MatterIntake.ransack(params[:q])
-    @matter_intakes = @q.result(distinct: true).where(user_id: current_user.id).order('created_at DESC')   
+    if params[:filter] === "yes"
+      @q = MatterIntake.ransack(params[:q])
+      @matter_intakes = @q.result(distinct: true).where(user_id: current_user.id).where(status: ["matter_open", "matter_not_open"]).order('created_at DESC')   
+    else
+      @q = MatterIntake.ransack(params[:q])
+     @matter_intakes = @q.result(distinct: true).where(user_id: current_user.id).order('created_at DESC')   
+    end
+    
     add_breadcrumb "Matter intake", :lob_matter_intakes_path
   end
 
