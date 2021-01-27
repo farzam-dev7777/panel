@@ -90,9 +90,9 @@
                 <%= panel_request.created_at.strftime('%d %b %Y at %I:%M %p') %>
               </td>
               
-              <td><%= panel_request&.line_of_business %></td>
-              <td><%= panel_request&.law_frim_name %></td>
-              <td><%= panel_request&.law_firm_mail %></td>
+              <td><%= panel_request.line_of_business.present? ? panel_request&.line_of_business : "-" %></td>
+              <td><%= panel_request.law_frim_name.present? ? panel_request&.law_frim_name : "-" %></td>
+              <td><%= panel_request.law_frim_name.present? ? panel_request&.law_firm_mail : "-" %></td>
               <!--td>
                 <div class="status">
                   <% if panel_request.lxp_status.present? %>

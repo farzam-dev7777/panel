@@ -107,8 +107,8 @@
                 </td>
                 <!--<td><%= matter_intake&.lob_contact_name %></td>-->
                 <!--td><%= matter_intake&.law_firm.try(:name) %></td-->
-                <td><%= matter_intake&.bmo_lawyer_name %></td>
-                <td><%= matter_intake&.name_of_matter_client %></td>
+                <td><%= matter_intake.bmo_lawyer_name.present? ? matter_intake&.bmo_lawyer_name : "-" %></td>
+                <td><%= matter_intake.name_of_matter_client? ? matter_intake&.name_of_matter_client : "-" %></td>
                 <td><%= matter_intake.matter_number.present? ? matter_intake&.matter_number : "-" %></td>
                 <td>
                   <div class="status">
