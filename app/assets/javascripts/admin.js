@@ -1964,16 +1964,21 @@ $('select#conflict_waiver_confirm_waiver').on('change', function() {
 	var selectedValue = this.value;
 	if(selectedValue === "true") {
 		$('.confirm_waiver_notes').show()
-		// $('.confirm_waiver_btn').addClass('hide')
-		// $('.btn_confirm').removeClass('hide')
+
+		$('.cw-next-step-btn').text("----")
+
 	} else {
 		$('.confirm_waiver_notes').hide()
-		// $('.confirm_waiver_btn').removeClass('hide')
-		// $('.btn_confirm').addClass('hide')
+
+		$('.cw-next-step-btn').text("Next")
 	}
 });
 
 $('.cw-next-step-btn').on('click', function() {
+	if ($('select#conflict_waiver_confirm_waiver').val() === "true"){
+		return false;
+	}
+	
 	$(this).hide();
 	
 	$(".cm-repesenting").show()

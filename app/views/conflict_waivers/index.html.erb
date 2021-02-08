@@ -20,30 +20,23 @@
           <thead>
             <tr>
               <th>Date Submitted</th>
-              <th>Name of law firm</th>
-              <th>Contact details</th>
-              <th>BMO business  contact</th>
-               <th>BMO Status</th>
-	              <th width="8%">Action</th>
+              <th>Conflict Representing</th>
+              <th>BMO Business Contact</th>
+              <th>Status Update Date</th>
+              <th>Status</th>
+	            <th width="8%">Action</th>
               <!--<th width="8%">Action</th>-->
             </tr>
           </thead>
           <tbody>
             <% @conflict_waivers.each do |conflict_waiver| %>
-              <tr onClick="window.location.href='/admin/conflict_waivers/<%= conflict_waiver.id %>'">
+              <tr onClick="window.location.href='/conflict_waivers/<%= conflict_waiver.id %>'">
                 <td data-order="<%= conflict_waiver.created_at.strftime('%Y%m%d%H%M') %>">
                   <%= conflict_waiver.created_at.strftime('%d %b %Y at %I:%M %p') %>
                 </td>  
-                <td>
-                  <% if conflict_waiver.name_of_law_firm.present? %>
-                    <div class="firm-name">
-                      <div class="name-avatar"><img src="<%= get_avatar_image(conflict_waiver&.name_of_law_firm&.gsub(" ", "+")) %>"></div>
-                      <div><%= conflict_waiver.name_of_law_firm %></div>
-                    </div>
-                  <% end %>
-                </td>
-                <td><%= conflict_waiver.contact_details %></td>
+                <td><%= conflict_waiver.repesenting %></td>
                 <td><%= conflict_waiver.bmo_business_contact %></td>
+                <td><%= conflict_waiver.updated_at.strftime('%d %b %Y at %I:%M %p') %></td>
                 <td>
                   <% if conflict_waiver.lxp_status_show.present? %>
                     <div class="status">

@@ -6,7 +6,9 @@
           <%= f.input :bmo_lawyer_name, label: false, required: true, :input_html => { :value => @matter_intake&.bmo_lawyer_name || current_user.try(:full_name) } %>
           <%= f.input :lawyer_id, as: :hidden, label: false, :input_html => { :value => current_user.try(:id) } %>
           <%= f.input :form_type, as: :hidden, label: false, :input_html => { :value => @form_type || @matter_intake&.form_type } %>
+          <%= f.input :submitter_name, as: :hidden, label: false, :input_html => { :value => current_user.try(:username) } %>
       </div>
+      
       <div class="col-xs-12 col-md-6">
         <label class="label">Legal Group of BMO Lawyer<span class="mandatory">*</span></label>
         <%= f.input :legal_group_of_bmo_lawyer, label: false, collection: MatterIntake::LegalGroupBMOLawyer %>
@@ -161,7 +163,7 @@
       </div>
       <div class="col-xs-12 col-md-6 non_panel_firm internal-matter" style="display: none;">
         <label class="label">Name of Non-Panel Firm<span class="mandatory">*</span></label>
-        <%= f.input :name_of_non_panel_firm, label: false %>
+        <%= f.input :name_of_non_panel_firm, label: false, collection: LawFirm.where(law_firm_category: "NON_PANEL").map{ |lf| [lf.name, lf.name] } %> 
       </div>
       <div class="col-xs-12 col-md-6 internal-matter">
         <label class="label">Type of Pricing<span class="mandatory">*</span></label>

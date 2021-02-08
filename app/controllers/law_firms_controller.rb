@@ -44,7 +44,7 @@ class LawFirmsController < BaseController
         flash[:alert] = user.errors.full_messages.join(", ")
       end
     else
-      flash[:alert] = "You're only allowed to add #{current_law_firm.law_firm_user_limit} collaborators"
+      flash[:alert] = "You're only allowed to add #{current_law_firm.law_firm_user_limit} user"
     end
     redirect_to add_users_law_firms_path
   end

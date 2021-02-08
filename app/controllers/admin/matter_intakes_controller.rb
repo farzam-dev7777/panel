@@ -94,7 +94,7 @@ class Admin::MatterIntakesController < Admin::BaseController
           @matter_intake.send_notification_to_lxp
           @matter_intake.send_notification_litigation_specialist_team
           @matter_intake.add_log_for_lawyer_submission_to_lxp(current_user)
-          flash[:notice] = "Matter intake Form-B saved."
+          flash[:notice] = "Matter intake Form-B submitted."
           redirect_to admin_matter_intakes_path
         end
        

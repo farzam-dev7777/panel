@@ -57,7 +57,7 @@
       </div>
       <div class="col-xs-12 col-md-6 non_panel_firm" style="display: none;">
         <label class="label">Name of Non-Panel Firm<span class="mandatory">*</span></label>
-        <%= f.input :name_of_non_panel_firm, label: false %>
+        <%= f.input :name_of_non_panel_firm, label: false, collection: LawFirm.where(law_firm_category: "NON_PANEL").map{ |lf| [lf.name, lf.name] } %>
       </div>  
       <div class="col-xs-12 col-md-6">
         <label  class="label">Business/Group paying for this matter (level 1)<span class="mandatory">*</span></label>
