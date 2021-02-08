@@ -17,7 +17,7 @@ class Admin::InternalDashboardController < Admin::BaseController
       @conflict_waivers = ConflictWaiver.distinct.order('created_at DESC').limit(5)
       @exception_requests = ExceptionRequest.distinct.order('created_at DESC').limit(5)
       
-      @matter_intakes = MatterIntake.distinct.order('created_at DESC').limit(5)
+      @matter_intakes = MatterIntake.where(status: ["awaiting_lawyer_review", "awaiting_lawyer_update"]).order('created_at DESC').limit(5)
       #@matter_open_intakes_count = MatterIntake.distinct.where(status: "matter_open").count()
      
 
