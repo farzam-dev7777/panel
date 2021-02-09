@@ -123,6 +123,11 @@
 							<a href="/admin/panel_requests" title="Panel Consideration Requests"><i class="fa fa-file-text-o" aria-hidden="true"></i> <span class="menu-item-parent">Panel Consideration Requests</span></a>
 						</li>
 					<% end %>
+					<% if current_user && current_user.role == 'lxp' %>
+						<li class=" <%= active_page?(:security_alerts) %>">
+							<a href="/admin/security_alerts" title="Security Alerts"><i class="fa fa-file-text-o" aria-hidden="true"></i> <span class="menu-item-parent">Security Alerts</span></a>
+						</li>
+					<% end %>
 					<% if current_user && current_user.role == 'superadmin' %>
 						<li class=" <%= active_page?(:users) %>">
 							<a href="/admin/users/" title="Manage Users"><i class="fa fa-user-circle-o" aria-hidden="true"></i> <span class="menu-item-parent">Manage Users</span></a>
