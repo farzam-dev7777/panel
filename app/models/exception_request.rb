@@ -186,14 +186,18 @@ class ExceptionRequest < ApplicationRecord
     "COMMENTS_BY_LAWYER": "Comments by Lawyer",
     "APPROVED": "Approved",
     "REJECTED": "Rejected",
-    "ASSIGN_LAW_FIRM": "Assigned law firm",
-    "LAW_FIRM_CREATED": "Law Firm Created",
+    "ASSIGN_LAW_FIRM": "Approve - Assign an existing law firm",
+    "LAW_FIRM_CREATED": "Approve - Create a new law firm",
+    "LAW_FIRM_CREATED_ASSIGN_LAWYER": "Create a new law firm and assign a lawyer",
+    "ASSIGN_LAW_FIRM_ASSIGN_LAWYER": "Assign an existing law firm and assign a lawyer",
     "LAW_FIRM_EXIST": "Law Firm Already Exists"
   }
 
   EXCEPTION_REQUEST_STATUS_3 = {
-    "ASSIGN_LAW_FIRM": "Assigned law firm",
-    "LAW_FIRM_CREATED": "Law Firm Created",
+    "ASSIGN_LAW_FIRM": "Approve - Assign an existing law firm",
+    "LAW_FIRM_CREATED": "Approve - Create a new law firm",
+    "LAW_FIRM_CREATED_ASSIGN_LAWYER": "Create a new law firm and assign a lawyer",
+    "ASSIGN_LAW_FIRM_ASSIGN_LAWYER": "Assign an existing law firm and assign a lawyer",
     "REJECTED": "Rejected"
   }
   
@@ -205,11 +209,13 @@ class ExceptionRequest < ApplicationRecord
     "RETAINER_AGREEMENT_SENT": "Retainer Agreement Sent",
     "SEND_RETAINER_AGREEMENT": "Retainer Agreement Sent",
     "APPROVED": "Approved",
-    "ASSIGN_LAW_FIRM": "Assigned law firm",
+    "ASSIGN_LAW_FIRM": "Approve - Assign an existing law firm",
     "COMMENTS_BY_LAWYER": "Comments by Lawyer",
     "REJECTED": "Rejected",
     "REVIEWED_BY_LAWYER": "Reviewed by Lawyer",
-    "LAW_FIRM_CREATED": "Law Firm Created",
+    "LAW_FIRM_CREATED": "Approve - Create a new law firm",
+    "LAW_FIRM_CREATED_ASSIGN_LAWYER": "Create a new law firm and assign a lawyer",
+    "ASSIGN_LAW_FIRM_ASSIGN_LAWYER": "Assign an existing law firm and assign a lawyer",
     "LAW_FIRM_EXIST": "Law Firm Already Exists",
     "reviewed_by_lawyer": "Reviewed by Lawyer"
   }

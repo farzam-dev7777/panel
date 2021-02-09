@@ -42,6 +42,10 @@
                       <label class="label">Select Law Firm</label>
                       <%= f.input :law_firm_id, label: false, collection: LawFirm.where(law_firm_category: "NON_PANEL").map{|lf| [lf.name, lf.id] },  input_html: { multiple: false }%>
                     </div> 
+                    <div class="col-xs-12 col-md-6 internal_lawyers_box" style="display:none">
+                      <label class="label">Assign to</label>
+                      <%= f.input :assigned_to_id, label: false, collection: User.where(role: "internal_lawyers").map{|user| [user.email, user.id] } %>
+                    </div> 
                     <div class="col-xs-12 col-md-12 text-right">
                       <%= link_to 'Cancel', @exception_request.new_record? ? admin_exception_requests_path : admin_exception_requests_path, class: 'btn-type-default' %>
                       <%= f.button :submit, @exception_request.new_record? ? "Submit Request" : "Submit", class:  @current_user.role === "lxp" ? "lxp_sttaus lxp_sttaus_btn btn-type-primary " : "laywr_status btn-type-primary " %>

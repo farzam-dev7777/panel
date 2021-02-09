@@ -42,8 +42,8 @@ class Admin::ReviewsController < Admin::BaseController
             # signer_name =  @user.username
             # @exception_request.send_retainer_for_esigning(signer_email, signer_name)
             # ExceptionRequestMailer.form_status_notification_to_lob_for_sign(@exception_request).deliver_now
-          elsif current_user.role === 'lxp' && review_params[:assigned_to_id].present?
-            ExceptionRequestMailer.form_status_notification_to_internal_lawyer(@exception_request,params[:review][:assigned_to_id]).deliver_now
+          # elsif current_user.role === 'lxp' &&  review_params[:assigned_to_id].present?
+          #   ExceptionRequestMailer.form_status_notification_to_internal_lawyer(@exception_request,params[:review][:assigned_to_id]).deliver_now
           elsif current_user.role === 'lxp' && review_params[:status] == 'SEND_RETAINER_AGREEMENT'
             @exception_request.update_attributes(lxp_status: review_params[:status])
           elsif current_user.role === 'internal_lawyers' && review_params[:status] == 'APPROVED'
@@ -65,6 +65,7 @@ class Admin::ReviewsController < Admin::BaseController
               @law_firm.email = @exception_request.law_firm_email
               @law_firm.phone = @exception_request.law_firm_phone
               @law_firm.save
+              @exception_request.update_attributes(lxp_status: "APPROVED")
               @exception_request.update_attributes(law_firm_id: @law_firm.id)
               @user.law_firm_id =  @law_firm.id
               @user.save
@@ -81,9 +82,48 @@ class Admin::ReviewsController < Admin::BaseController
               flash[:alert] = "Law Firm Already Exists"
             end  
             @exception_request.save
+          elsif current_user.role === 'lxp' &&  review_params[:status] == 'LAW_FIRM_CREATED_ASSIGN_LAWYER'  
+            @user = User.new 
+            @user.email = @exception_request.law_firm_email
+            @user.role = 'master_user'
+            @user.empty_user = true
+            @user.status = nil
+            if @user.save
+              @law_firm = LawFirm.new
+              @law_firm.user_id = @user.id
+              @law_firm.law_firm_category = "NON_PANEL"
+              @law_firm.name = @exception_request.law_firm_name
+              @law_firm.law_firm_category = @exception_request.law_firm_category
+              @law_firm.firm_use_on_regular_basis = @exception_request.firm_use_on_regular_basis
+              @law_firm.email = @exception_request.law_firm_email
+              @law_firm.phone = @exception_request.law_firm_phone
+              @law_firm.save
+              @exception_request.update_attributes(lxp_status: "APPROVED")
+              @exception_request.update_attributes(law_firm_id: @law_firm.id)
+              @user.law_firm_id =  @law_firm.id
+              @user.save
+              flash[:notice] = "Law Firm Created and lawyer assigned."
+              @review.status = 'LAW_FIRM_CREATED_ASSIGN_LAWYER'
+              @review.save
+              ExceptionRequestMailer.form_status_notification_to_internal_lawyer(@exception_request,params[:review][:assigned_to_id]).deliver_now
+              ExceptionRequestMailer.form_status_notification_to_lxp(@exception_request).deliver_now  
+            else
+              @review.status = 'LAW_FIRM_EXIST'
+              @review.save
+              @exception_request.lxp_status = 'LAW_FIRM_EXIST'
+              flash[:alert] = "Law Firm Already Exists"
+            end  
+            @exception_request.save 
           elsif current_user.role === 'lxp' &&  review_params[:status] == 'ASSIGN_LAW_FIRM'    
             @review.status = 'ASSIGN_LAW_FIRM'
             @review.save
+            @exception_request.update_attributes(lxp_status: "APPROVED")
+            @exception_request.update_attributes(law_firm_id: review_params[:law_firm_id])
+            @exception_request.save
+          elsif current_user.role === 'lxp' &&  review_params[:status] == 'ASSIGN_LAW_FIRM_ASSIGN_LAWYER'    
+            @review.status = 'ASSIGN_LAW_FIRM_ASSIGN_LAWYER'
+            @review.save
+            ExceptionRequestMailer.form_status_notification_to_internal_lawyer(@exception_request,params[:review][:assigned_to_id]).deliver_now
             @exception_request.update_attributes(law_firm_id: review_params[:law_firm_id])
             @exception_request.save
           else

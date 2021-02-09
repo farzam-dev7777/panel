@@ -229,7 +229,14 @@ $('#login-form').each(function() {
 		}else if(this.value == "ASSIGN_LAW_FIRM"){
 			$(".exceptationRequestProcesss  .law_firm_box").show()
 			$(".exceptationRequestProcesss .lxp_sttaus_btn").show()
+		}else if(this.value == "LAW_FIRM_CREATED_ASSIGN_LAWYER"){
+			$(".exceptationRequestProcesss  .internal_lawyers_box").show()
+			$(".exceptationRequestProcesss .law_firm_box").hide()
+		}else if(this.value == "ASSIGN_LAW_FIRM_ASSIGN_LAWYER"){
+			$(".exceptationRequestProcesss  .internal_lawyers_box").show()
+			$(".exceptationRequestProcesss .law_firm_box").show()
 		}
+		
 		else{
 			$(".exceptationRequestProcesss .internal_lawyers_box").hide()
 			$('.exceptationRequestProcesss select#review_assigned_to_id').val('').trigger('chosen:updated');
@@ -331,24 +338,43 @@ $('.lxp_sttaus').on('click', function(e){
 				return false;
 			}
 			$('#new_review').submit()
-		// swal({
-		// 	title: "Are you sure you would like to approve this, this will notify and require further approval from the selected lawyer.",
-		// 	text: "",
-		// 	type: "warning",
-		// 	showCancelButton: true,
-		// 	confirmButtonColor: "#DD6B55",
-		// 	confirmButtonText: "Ok",
-		// 	cancelButtonText: "Cancel",
-		// 	closeOnConfirm: true,
-		// 	closeOnCancel: true
-		// },
-		// function(isConfirm){
-		// 	if (isConfirm) {
-			
-		// 	}
-		// });
 		return false
 	 }
+
+	 if($('select#review_status').chosen().val() == "LAW_FIRM_CREATED_ASSIGN_LAWYER"){
+			laywerId = $('select#review_assigned_to_id').chosen().val()
+			if(!laywerId) {
+				swal({
+					title: "oops!",
+					text: "Please select lawyer"
+				});
+				return false;
+			}
+			$('#new_review').submit()
+		return false
+	}
+
+	if($('select#review_status').chosen().val() == "ASSIGN_LAW_FIRM_ASSIGN_LAWYER"){
+		lawFirmId = $('select#review_law_firm_id').chosen().val()
+		laywerId = $('select#review_assigned_to_id').chosen().val()
+		if(!lawFirmId) {
+			swal({
+				title: "oops!",
+				text: "Please select law firm"
+			});
+			return false;
+		}
+		if(!laywerId) {
+			swal({
+				title: "oops!",
+				text: "Please select lawyer"
+			});
+			return false;
+		}
+
+		$('#new_review').submit()
+	return false
+}
 	 
 	if($('select#review_status').chosen().val() == "PANEL_RETAINER"){
 		message = "Confirmation: Send Retainer Agreement to Law Firm"
