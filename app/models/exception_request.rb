@@ -184,8 +184,8 @@ class ExceptionRequest < ApplicationRecord
     "REQUEST_TO_INPUT": "Lawyer Input Requested",
     "SEND_RETAINER_AGREEMENT": "Resend Retainer Agreement",
     "COMMENTS_BY_LAWYER": "Comments by Lawyer",
-    "APPROVED": "Approved",
-    "REJECTED": "Rejected",
+    "APPROVED": "Approve",
+    "REJECTED": "Reject",
     "ASSIGN_LAW_FIRM": "Approve - Assign an existing law firm",
     "LAW_FIRM_CREATED": "Approve - Create a new law firm",
     "LAW_FIRM_CREATED_ASSIGN_LAWYER": "Create a new law firm and assign a lawyer",
@@ -208,10 +208,10 @@ class ExceptionRequest < ApplicationRecord
     "REQUEST_TO_INPUT": "Lawyer Input Requested",
     "RETAINER_AGREEMENT_SENT": "Retainer Agreement Sent",
     "SEND_RETAINER_AGREEMENT": "Retainer Agreement Sent",
-    "APPROVED": "Approved",
+    "APPROVED": "Approve",
     "ASSIGN_LAW_FIRM": "Approve - Assign an existing law firm",
     "COMMENTS_BY_LAWYER": "Comments by Lawyer",
-    "REJECTED": "Rejected",
+    "REJECTED": "Reject",
     "REVIEWED_BY_LAWYER": "Reviewed by Lawyer",
     "LAW_FIRM_CREATED": "Approve - Create a new law firm",
     "LAW_FIRM_CREATED_ASSIGN_LAWYER": "Create a new law firm and assign a lawyer",
@@ -222,8 +222,8 @@ class ExceptionRequest < ApplicationRecord
 
   EXCEPTION_REQUEST_STATUS_LAWYER= {
     "COMMENTS_BY_LAWYER": "Comments by Lawyer",
-    "APPROVED": "Approved",
-    "REJECTED": "Rejected"
+    "APPROVED": "Approve",
+    "REJECTED": "Reject"
   }
   
   EXCEPTION_REQUEST_PAY_TYPE = {

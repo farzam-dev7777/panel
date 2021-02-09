@@ -47,8 +47,8 @@ class PanelRequest < ApplicationRecord
     "LAW_FIRM_EXIST": "Law Firm Already Exists",
     "ARCHIVED": "Archived",
     "UN_ARCHIVED": "Un Archived",
-    "APPROVED": "Approved",
-    "REJECTED": "Rejected"
+    "APPROVED": "Approve",
+    "REJECTED": "Reject"
   }
 
   INVOLVED_ENGAGEMENT = [

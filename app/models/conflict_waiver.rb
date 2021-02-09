@@ -13,8 +13,8 @@ class ConflictWaiver < ApplicationRecord
   #validate :confirm_waiver_must_be_true
 
   CONFLICT_WAIVER_STATUS = {
-    "APPROVED": "Approved",
-    "REJECTED": "Rejected",
+    "APPROVED": "Approve",
+    "REJECTED": "Reject",
     "IN_REVIEW": "In Review",
     "ALREADY_COVERED": "Covered under retainer",
     "REQUEST_INFO": "More info required",
@@ -24,18 +24,18 @@ class ConflictWaiver < ApplicationRecord
 
   CONFLICT_WAIVER_STATUS_LXP = {
     "ALREADY_COVERED": "Covered under retainer",
-    "APPROVED": "Approved",
+    "APPROVED": "Approve",
     "REQUEST_INFO": "More info required",
     "ASSIGN_TO_LAWYER": "Assigned to lawyer",
     "IN_REVIEW_LXP": "In Review (LXP)",
-    "REJECTED": "Rejected"
+    "REJECTED": "Reject"
   }
 
 
 
   CONFLICT_WAIVER_STATUS_LAWYER = {
-    "APPROVED": "Approved",
-    "REJECTED": "Rejected",
+    "APPROVED": "Approve",
+    "REJECTED": "Reject",
     "REQUEST_INFO": "Request Info ",
     "IN_REVIEW": "In Review"
   }
