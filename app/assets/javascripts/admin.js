@@ -1990,8 +1990,10 @@ $('select#conflict_waiver_confirm_waiver').on('change', function() {
 	var selectedValue = this.value;
 	if(selectedValue === "true") {
 		$('.confirm_waiver_notes').show()
-
-		$('.cw-next-step-btn').text("----")
+		$(".cm-repesenting").hide()
+		$(".cw-submit-btn").hide()
+ 
+		$('.cw-next-step-btn').text("Close").show()
 
 	} else {
 		$('.confirm_waiver_notes').hide()
@@ -2371,6 +2373,81 @@ $('.simple_form_admin_matter_intakes').click(function(){
 		return false;
 	}
 });
+
+$('.simple_form_confirm_waiver_btn_bmo').click(function(){ 
+	conflict_waiver_name_of_other_client = $('#conflict_waiver_name_of_other_client');
+	conflict_waiver_description_of_transaction = $('#conflict_waiver_description_of_transaction');
+	
+		
+	if(conflict_waiver_name_of_other_client.val() == ""){
+		$(conflict_waiver_name_of_other_client).parent().parent().find(".custom-error").show()
+	}else{
+			$(conflict_waiver_name_of_other_client).parent().parent().find(".custom-error").hide()
+	}
+	if(conflict_waiver_description_of_transaction.val() == ""){
+		$(conflict_waiver_description_of_transaction).parent().parent().find(".custom-error").show()
+	}else{
+		$(conflict_waiver_description_of_transaction).parent().parent().find(".custom-error").hide()
+	}
+ 
+
+	if(conflict_waiver_name_of_other_client.val() != "" && conflict_waiver_description_of_transaction.val() != "" ){
+		return true;
+	}else{
+		return false;
+	}
+});
+
+
+$('.simple_form_confirm_waiver_btn_other').click(function(){ 
+	conflict_waiver_name_of_other_client = $('#conflict_waiver_name_of_other_client');
+	conflict_waiver_description_of_transaction = $('#conflict_waiver_description_of_transaction');
+	conflict_waiver_nature_of_mandate = $('#conflict_waiver_nature_of_mandate');
+	conflict_waiver_office_locattion = $('#conflict_waiver_office_locattion');
+	conflict_waiver_names_of_primary = $('#conflict_waiver_names_of_primary');
+	
+	
+		
+	if(conflict_waiver_name_of_other_client.val() == ""){
+		$(conflict_waiver_name_of_other_client).parent().parent().find(".custom-error").show()
+	}else{
+			$(conflict_waiver_name_of_other_client).parent().parent().find(".custom-error").hide()
+	}
+	if(conflict_waiver_description_of_transaction.val() == ""){
+		$(conflict_waiver_description_of_transaction).parent().parent().find(".custom-error").show()
+	}else{
+		$(conflict_waiver_description_of_transaction).parent().parent().find(".custom-error").hide()
+	}
+
+	if(conflict_waiver_nature_of_mandate.val() == ""){
+		$(conflict_waiver_nature_of_mandate).parent().parent().find(".custom-error").show()
+	}else{
+		$(conflict_waiver_nature_of_mandate).parent().parent().find(".custom-error").hide()
+	}
+
+	if(conflict_waiver_office_locattion.val() == ""){
+		$(conflict_waiver_office_locattion).parent().parent().find(".custom-error").show()
+	}else{
+		$(conflict_waiver_office_locattion).parent().parent().find(".custom-error").hide()
+	}
+
+	if(conflict_waiver_names_of_primary.val() == ""){
+		$(conflict_waiver_names_of_primary).parent().parent().find(".custom-error").show()
+	}else{
+		$(conflict_waiver_names_of_primary).parent().parent().find(".custom-error").hide()
+	}
+ 
+
+	if(conflict_waiver_name_of_other_client.val() != "" && conflict_waiver_description_of_transaction.val() != ""  && conflict_waiver_nature_of_mandate.val() != "" && conflict_waiver_office_locattion.val() != "" && conflict_waiver_names_of_primary.val() != ""){
+		return true;
+	}else{
+		return false;
+	}
+});
+
+
+
+
 if($($( "#rfi_lawfirm_form" ).hasClass( "rfi_lawfirm" ))){
 	$('.rfi_lawfirm form input').removeAttr('disabled')
 	$('.rfi_lawfirm form select').removeAttr('disabled')

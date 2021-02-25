@@ -47,8 +47,8 @@ class ConflictWaiversController < BaseController
         end 
         ConflictWaiverMailer.form_submited_notification_to_lxp(@conflict_waiver).deliver_now
         ConflictWaiverMailer.form_submited_notification_to_user(@conflict_waiver).deliver_now
-        flash[:notice] = "Conflict Waiver saved"
-        redirect_to :conflict_waivers
+        flash[:notice] = "Conflict Waiver Request submitted"
+        redirect_to :root
         
       else
         flash[:alert] = "There was an error submiting the Conflict Waiver"

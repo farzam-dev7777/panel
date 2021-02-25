@@ -24,11 +24,11 @@
         <%= f.input :bmo_business_contact, label: false %>
       </div>
       <div class="col-xs-12 col-md-6">
-        <label  class="label">Reason ( Your firm Believes that this transaction may give rise to a Conflict</label>
+        <label  class="label">Reason your firm believes this transaction may give rise to a conflict</label>
         <%= f.input :reason, as: :text, label: false, input_html: { rows: 1 } %>
       </div>
       <div class="col-xs-12 col-md-12">         
-        <p><b>As part of your retainer agreement, the following are conflicts are waived, please:</b></p>
+        <p><b>As part of your retainer agreement, the follwoing are conflicts are waived, please:</b></p>
         <ol class="conflict_waiver_categories_list">
           <li>
             An issuer or selling security holder in an underwriting; 
@@ -68,9 +68,9 @@
           <%=link_to 'Next', "/", class: 'btn-type-primary cw-next-step-btn' %>
       </div>
       <div class="col-xs-12 col-md-6 cm-repesenting " style="display:none">
-        <label class="label">Conflict Representing: </label>
+        <label class="label">Are you representing BMO in this matter: </label>
         <div class="sp-checkbox">
-          <%= f.input :repesenting, as: :radio_buttons, label: false, collection: [["Other Client", "Other Client"], ["BMO", "BMO"]]  %>  
+          <%= f.input :repesenting, as: :radio_buttons, label: false, collection: [["Yes", "BMO"], ["No", "Other Client"]]  %>  
         </div>
       </div>
       <div class="col-xs-12 col-md-12 cw-submit-btn" style="display:none">

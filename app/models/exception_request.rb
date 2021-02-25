@@ -183,19 +183,19 @@ class ExceptionRequest < ApplicationRecord
     "DRAFT": "Draft",
     "REQUEST_TO_INPUT": "Lawyer Input Requested",
     "SEND_RETAINER_AGREEMENT": "Resend Retainer Agreement",
-    "COMMENTS_BY_LAWYER": "Comments by Lawyer",
+    "COMMENTS_BY_LAWYER": "Comment to LXP",
     "APPROVED": "Approve",
     "REJECTED": "Reject",
-    "ASSIGN_LAW_FIRM": "Approve - Assign an existing law firm",
-    "LAW_FIRM_CREATED": "Approve - Create a new law firm",
+    "ASSIGN_LAW_FIRM": "Assign an existing law firm",
+    "LAW_FIRM_CREATED": "Create a new law firm",
     "LAW_FIRM_CREATED_ASSIGN_LAWYER": "Create a new law firm and assign a lawyer",
     "ASSIGN_LAW_FIRM_ASSIGN_LAWYER": "Assign an existing law firm and assign a lawyer",
     "LAW_FIRM_EXIST": "Law Firm Already Exists"
   }
 
   EXCEPTION_REQUEST_STATUS_3 = {
-    "ASSIGN_LAW_FIRM": "Approve - Assign an existing law firm",
-    "LAW_FIRM_CREATED": "Approve - Create a new law firm",
+    "ASSIGN_LAW_FIRM": "Assign an existing law firm",
+    "LAW_FIRM_CREATED": "Create a new law firm",
     "LAW_FIRM_CREATED_ASSIGN_LAWYER": "Create a new law firm and assign a lawyer",
     "ASSIGN_LAW_FIRM_ASSIGN_LAWYER": "Assign an existing law firm and assign a lawyer",
     "REJECTED": "Rejected"
@@ -209,11 +209,11 @@ class ExceptionRequest < ApplicationRecord
     "RETAINER_AGREEMENT_SENT": "Retainer Agreement Sent",
     "SEND_RETAINER_AGREEMENT": "Retainer Agreement Sent",
     "APPROVED": "Approve",
-    "ASSIGN_LAW_FIRM": "Approve - Assign an existing law firm",
-    "COMMENTS_BY_LAWYER": "Comments by Lawyer",
+    "ASSIGN_LAW_FIRM": "Assign an existing law firm",
+    "COMMENTS_BY_LAWYER": "Comment to LXP",
     "REJECTED": "Reject",
     "REVIEWED_BY_LAWYER": "Reviewed by Lawyer",
-    "LAW_FIRM_CREATED": "Approve - Create a new law firm",
+    "LAW_FIRM_CREATED": "Create a new law firm",
     "LAW_FIRM_CREATED_ASSIGN_LAWYER": "Create a new law firm and assign a lawyer",
     "ASSIGN_LAW_FIRM_ASSIGN_LAWYER": "Assign an existing law firm and assign a lawyer",
     "LAW_FIRM_EXIST": "Law Firm Already Exists",
@@ -221,7 +221,7 @@ class ExceptionRequest < ApplicationRecord
   }
 
   EXCEPTION_REQUEST_STATUS_LAWYER= {
-    "COMMENTS_BY_LAWYER": "Comments by Lawyer",
+    "COMMENTS_BY_LAWYER": "Comment to LXP",
     "APPROVED": "Approve",
     "REJECTED": "Reject"
   }

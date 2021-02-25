@@ -14,7 +14,7 @@
     <table class="table table-striped">
       <tbody>
         <tr>
-          <td class="text-right" width="20%"><strong>Line of Business</strong></td>
+          <td class="text-right" width="20%"><strong>Line of Business/Group</strong></td>
           <td><%= f.input :line_of_business, label: false, collection: ExceptionRequest::LOB_LIST, :selected => current_user.line_of_business  %></td>
         </tr>
         <tr>

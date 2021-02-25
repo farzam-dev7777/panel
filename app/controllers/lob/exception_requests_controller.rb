@@ -93,7 +93,7 @@ class Lob::ExceptionRequestsController < Lob::BaseController
       #   #redirect_to lob_exception_request_path
       # end
       flash[:notice] = "Thank you for submitting a Non-Panel (one-off) Request"
-      redirect_to lob_exception_request_path
+      redirect_to :root
       ExceptionRequestMailer.engage_new_non_panel_firm_notification_to_lxp(@exception_request).deliver_now
     else
       @law_firms = LawFirm.all

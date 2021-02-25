@@ -72,23 +72,23 @@
             </div>
             <% if @conflict_waiver.repesenting === "Other Client" %>	
               <div class="col-xs-12 col-md-6">
-                <div class="field-label">Name(s) Of the other Clients</div>
+                <div class="field-label">Name of other client(s)</div>
                 <div class="field-data"><%= @conflict_waiver.name_of_other_client %></div>
               </div>
                 <div class="col-xs-12 col-md-6">
-                <div class="field-label">Description Of Transactio</div>
+                <div class="field-label">Description of transaction</div>
                 <div class="field-data"><%= @conflict_waiver.description_of_transaction %></div>
               </div>
                 <div class="col-xs-12 col-md-6">
-                <div class="field-label">Nature And Extent Of Mandate, e.g. Nagotiation, Documentation And Closing of Transaction</div>
+                <div class="field-label">Describe the nature and extent of the mandate (e.g. negotiation, documentation, and closing of the transaction)</div>
                 <div class="field-data"><%= @conflict_waiver.nature_of_mandate %></div>
               </div> 
               <div class="col-xs-12 col-md-6">
-                <div class="field-label">Office Locations</div>
+                <div class="field-label">Office location(s) of primary lawyer(s)</div>
                 <div class="field-data"><%= @conflict_waiver.office_locattion %></div>
               </div>
                 <div class="col-xs-12 col-md-6">
-                <div class="field-label">Names Of Primary Professionals Responsible For Managing The Mandate And The Transaction </div>
+                <div class="field-label">Name of primary lawyer(s) managing the matter </div>
                 <div class="field-data"><%= @conflict_waiver.names_of_primary %></div>
               </div>
             <% end %>
@@ -101,11 +101,11 @@
                   <div class="field-label">Description Of Transaction</div>
                   <div class="field-data"><%= @conflict_waiver.description_of_transaction %></div>
                 </div>
-                <div class="col-xs-12 col-md-6">
+                <!--div class="col-xs-12 col-md-6">
                   <div class="field-label">Types Of Matters For Which Your Firm Represents Other Client</div>
                   <div class="field-data"><%= @conflict_waiver.types_of_matters.reject { |e| e.to_s.empty? }.join(', ') %></div>
                   
-                </div>
+                </div-->
             <% end %>
             <div class="col-xs-12 col-md-6">
               <div class="field-label">Waiver Completely Approved</div>

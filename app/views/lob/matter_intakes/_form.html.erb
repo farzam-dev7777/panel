@@ -1,5 +1,5 @@
 <style>
-	input, textarea, select { padding: 0px !important; margin: 0px; background: transparent; }
+	/* /input, textarea, select { padding: 0px !important; margin: 0px; background: transparent; } */
 </style>
 
 <div class="sp-form sp-form-bg">
@@ -16,7 +16,7 @@
       </div>-->
       <div class="col-xs-12 col-md-6">
         <label  class="label">Name of Matter/Client<span class="mandatory">*</span></label>
-        <%= f.input :name_of_matter_client, label: false %>
+        <%= f.input :name_of_matter_client, label: false, required: true %>
       </div>
       <div class="col-xs-12 col-md-6">
         <label  class="label">Type of Matter<span class="mandatory">*</span></label>
