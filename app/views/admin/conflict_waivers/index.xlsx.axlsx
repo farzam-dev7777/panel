@@ -16,7 +16,7 @@ wb.styles do |style|
       "Date Submitted", 
       "Name of law firm",
       "Contact details",
-      "BMO Business contact",
+      "BMO contact",
       "Reason for Request",
       "LXP Status",
       "Internal Lawyer Status",

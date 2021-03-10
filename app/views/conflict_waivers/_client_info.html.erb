@@ -43,12 +43,12 @@
 		  <% end %>
       <% if @conflict_waiver.repesenting === "BMO" %>
         <div class="col-xs-12 col-md-6">
-          <label  class="label">Name(s) Of the other Clients </label>
+          <label  class="label">Name of other client(s) </label>
           <%= f.input :name_of_other_client, as: :text, label: false, input_html: { rows: 5 } %>
           <p class="custom-error">This field is required</p>
         </div>
         <div class="col-xs-12 col-md-6">
-          <label  class="label">Description Of Transaction </label>
+          <label  class="label">Description of transaction </label>
           <%= f.input :description_of_transaction, as: :text, label: false, input_html: { rows: 5 } %>
           <p class="custom-error">This field is required</p>
         </div>

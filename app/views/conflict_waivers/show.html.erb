@@ -39,7 +39,7 @@
 									<div class="field-data"><%= @conflict_waiver.contact_details %></div>
 								</div>
 								<div class="col-xs-12 col-md-6">
-									<div class="field-label">BMO Business contact	</div>		
+									<div class="field-label">BMO contact	</div>		
 									<div class="field-data"><%= @conflict_waiver.bmo_business_contact %></div>
 								</div>
 								<div class="col-xs-12 col-md-6">
@@ -122,11 +122,11 @@
 								<% end %>
 								<% if @conflict_waiver.repesenting === "BMO" %>
 										<div class="col-xs-12 col-md-6">
-											<div class="field-label">Name(s) Of the other Clients</div>
+											<div class="field-label">Name of other client(s)</div>
 											<div class="field-data"><%= @conflict_waiver.name_of_other_client %></div>
 										</div>
 										<div class="col-xs-12 col-md-6">
-											<div class="field-label">Description Of Transaction</div>
+											<div class="field-label">Description of transaction</div>
 											<div class="field-data"><%= @conflict_waiver.description_of_transaction %></div>
 										</div>
 										<!--div class="col-xs-12 col-md-6">
