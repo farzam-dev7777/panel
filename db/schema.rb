@@ -830,7 +830,7 @@ ActiveRecord::Schema.define(version: 20201224183819) do
     t.text     "docusign_refresh_token"
     t.datetime "docusign_token_expires_at"
     t.string   "lxp_name",                  default: "Manpreet"
-    t.string   "lxp_email",                 default: "manpreet@metawarelabs.com"
+    t.string   "lxp_email",                 default: "manpreet@grcconsulting.ca"
     t.string   "panel_status",              default: "No"
   end
 

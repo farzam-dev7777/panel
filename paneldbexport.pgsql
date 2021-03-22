@@ -2374,16 +2374,16 @@ COPY public.active_admin_comments (id, namespace, body, resource_id, resource_ty
 --
 
 COPY public.activity_logs (id, law_firm_id, event_type, custom_message, loggable_type, loggable_id, created_at, updated_at, read, notify, email, source, status) FROM stdin;
-1210	100	account_created	Onboarded	LawFirm	100	2019-09-13 04:31:12.202921	2019-09-13 04:31:12.202921	\N	t	manpreet@metawarelabs.com	User	\N
+1210	100	account_created	Onboarded	LawFirm	100	2019-09-13 04:31:12.202921	2019-09-13 04:31:12.202921	\N	t	manpreet@grcconsulting.ca	User	\N
 1211	100	information_security_policy_request_initiated	SEAL process started	FormSubmission	110	2019-09-18 04:51:26.048744	2019-09-18 04:51:26.048744	\N	t	4cb81e6b@check.com	User	\N
-1212	101	account_created	Onboarded	LawFirm	101	2019-09-18 14:58:38.795704	2019-09-18 14:58:38.795704	\N	t	manpreet@metawarelabs.com	User	\N
+1212	101	account_created	Onboarded	LawFirm	101	2019-09-18 14:58:38.795704	2019-09-18 14:58:38.795704	\N	t	manpreet@grcconsulting.ca	User	\N
 1213	101	information_security_policy_request_initiated	SEAL process started	FormSubmission	111	2019-09-18 15:00:09.087923	2019-09-18 15:00:09.087923	\N	t	2cafea76@check.com	User	\N
-1214	102	account_created	Onboarded	LawFirm	102	2019-09-18 15:23:44.54083	2019-09-18 15:23:44.54083	\N	t	manpreet@metawarelabs.com	User	\N
+1214	102	account_created	Onboarded	LawFirm	102	2019-09-18 15:23:44.54083	2019-09-18 15:23:44.54083	\N	t	manpreet@grcconsulting.ca	User	\N
 1215	103	information_security_policy_request_initiated	SEAL process started	FormSubmission	112	2019-09-18 19:52:01.102927	2019-09-18 19:52:01.102927	\N	t	a213a5fa@check.com	User	\N
-1216	103	information_security_policy_request_initiated	SEAL process started	FormSubmission	113	2019-09-18 20:08:57.185446	2019-09-18 20:08:57.185446	\N	t	manpreet@metawarelabs.com	User	\N
+1216	103	information_security_policy_request_initiated	SEAL process started	FormSubmission	113	2019-09-18 20:08:57.185446	2019-09-18 20:08:57.185446	\N	t	manpreet@grcconsulting.ca	User	\N
 1217	103	information_security_policy_submitted	SEAL form submitted	FormSubmission	113	2019-09-18 20:17:09.536974	2019-09-18 20:17:09.536974	\N	t	a213a5fa@check.com	User	\N
 1218	104	account_created	Onboarded	LawFirm	104	2019-09-19 13:21:58.360792	2019-09-19 13:21:58.360792	\N	t	a213a5fa@check.com	User	\N
-1219	105	account_created	Onboarded	LawFirm	105	2019-09-20 18:57:28.185606	2019-09-20 18:57:28.185606	\N	t	manpreet@metawarelabs.com	User	\N
+1219	105	account_created	Onboarded	LawFirm	105	2019-09-20 18:57:28.185606	2019-09-20 18:57:28.185606	\N	t	manpreet@grcconsulting.ca	User	\N
 1220	104	information_security_policy_request_initiated	SEAL process started	FormSubmission	114	2019-09-24 14:37:53.135195	2019-09-24 14:37:53.135195	\N	t	lxpuser@mailinator.com	User	\N
 1221	104	conflict_waiver_submited	New Conflict waiver submited	ConflictWaiver	6	2019-09-25 03:26:56.189235	2019-09-25 03:26:56.189235	\N	f	2c9e31e6@check.com	User	\N
 1222	104	conflict_waiver_submited	New Conflict waiver submited	ConflictWaiver	7	2019-09-25 03:42:23.780531	2019-09-25 03:42:23.780531	\N	f	2c9e31e6@check.com	User	\N
@@ -3737,17 +3737,17 @@ COPY public.users (id, email, username, encrypted_password, reset_password_token
 108	lobuser@mailinator.com	lobuser	$2a$11$3BnyEtfXY8U.w9zwrllB..8Zg/m5oNNbw5SubooWRnHrx3jpuk4pm	\N	\N	\N	0	\N	\N	\N	\N	2019-10-01 15:33:39.210708	2019-10-01 15:33:39.210708	\N	\N	\N	lob	\N	f	\N	\N	\N	\N	\N
 109	demolxp@mailinator.com	demo_lxp	$2a$11$tZjJcseaht6XkXry8yJ9.ujlhvL3pGdjzqCmbfE4KnH.g/fZYhhaK	\N	\N	\N	0	\N	\N	\N	\N	2019-10-01 15:40:22.279271	2019-10-01 15:40:22.279271	\N	\N	\N	lxp	\N	f	\N	\N	\N	\N	\N
 111	demolawyers@mailinator.com	demo_lawyers	$2a$11$/MuKuK/uobGoJFBr5DPRG.9I0vuhHbPmwGdgqCg8oLk3u52iBlXci	\N	\N	\N	0	\N	\N	\N	\N	2019-10-01 15:40:22.507816	2019-10-01 15:40:22.507816	\N	\N	\N	internal_lawyers	\N	f	\N	\N	\N	\N	\N
-96	manpreet@metawarelabs.com	manpreetnarang	$2a$11$EUYDerz4ukJb8uQtgQaixOw1SC638JmHxucZZPkH/N/CzLYKUtEsi	\N	\N	\N	35	2019-11-07 13:53:16.472947	2019-11-06 17:04:45.810454	::1	::1	2019-09-10 17:28:50.320119	2019-11-07 13:53:16.476321	\N	\N	qeo667ynslya3oxu	superadmin	\N	t	\N	\N	\N	\N	\N
+96	manpreet@grcconsulting.ca	manpreetnarang	$2a$11$EUYDerz4ukJb8uQtgQaixOw1SC638JmHxucZZPkH/N/CzLYKUtEsi	\N	\N	\N	35	2019-11-07 13:53:16.472947	2019-11-06 17:04:45.810454	::1	::1	2019-09-10 17:28:50.320119	2019-11-07 13:53:16.476321	\N	\N	qeo667ynslya3oxu	superadmin	\N	t	\N	\N	\N	\N	\N
 110	demolob@mailinator.com	demo_lob	$2a$11$TrbUJN6yspc5AzudLQ/pJOcUmHD/gWx/mg8m8M.qo8t359EXKChLC	\N	\N	\N	1	2019-10-01 15:40:31.920906	2019-10-01 15:40:31.920906	::1	::1	2019-10-01 15:40:22.394291	2019-10-01 18:14:21.76053	\N	\N	jwkjiexbif5py6mv	lob	\N	t	\N	\N	\N	\N	\N
-106	manish@metawarelabs.com	lob	$2a$11$u95YdDPiGeXHAnBcM9YnGeDnTLp/Bi4HcXlzQUkk6jEGPgCsAYiFG	\N	\N	\N	113	2019-11-13 20:14:23.043444	2019-11-12 16:31:10.461022	::1	::1	2019-10-01 14:15:44.164282	2019-11-13 20:14:23.047315	\N	\N	ulwbvxywnisvsdmd	lob	\N	t	\N	Lob User	sdfsdf	Technology & Operations	TEST
+106	manish@grcconsulting.ca	lob	$2a$11$u95YdDPiGeXHAnBcM9YnGeDnTLp/Bi4HcXlzQUkk6jEGPgCsAYiFG	\N	\N	\N	113	2019-11-13 20:14:23.043444	2019-11-12 16:31:10.461022	::1	::1	2019-10-01 14:15:44.164282	2019-11-13 20:14:23.047315	\N	\N	ulwbvxywnisvsdmd	lob	\N	t	\N	Lob User	sdfsdf	Technology & Operations	TEST
 127	manish@mailinator.com	manish@mailinator.com	$2a$11$AsWKieNdPXsHbSq5v/uGUOBjzOsXevA/aiQd16SM5HO6S7GBbnU9i	\N	\N	\N	2	2019-11-06 03:32:35.471662	2019-11-06 03:30:49.044409	::1	::1	2019-11-05 18:53:24.842337	2019-11-06 03:32:35.474065	\N	\N	\N	lob	\N	f	\N	test	chhipa	LOB	RRRRR
-126	vishnu@metawarelabs.com	Vishnu@metawarelabs.com	$2a$11$EUIFBFK5j9K9b6AxkwYzT.O21keeoZRLiRe1R8MgIqIeuR1o2svSi	\N	\N	\N	0	\N	\N	\N	\N	2019-11-05 17:30:46.439166	2019-11-05 17:30:46.439166	\N	\N	\N	lxp	\N	f	\N	Vishnu	Kunara	\N	\N
+126	vishnu@grcconsulting.ca	Vishnu@grcconsulting.ca	$2a$11$EUIFBFK5j9K9b6AxkwYzT.O21keeoZRLiRe1R8MgIqIeuR1o2svSi	\N	\N	\N	0	\N	\N	\N	\N	2019-11-05 17:30:46.439166	2019-11-05 17:30:46.439166	\N	\N	\N	lxp	\N	f	\N	Vishnu	Kunara	\N	\N
 104	lawyers@mailinator.com	lawyers	$2a$11$TUJtHoEUnFP72N47ZF3GteK30Ts0ywH4HtUGTDy3Bal1V78WOVe.K	\N	\N	\N	38	2019-11-11 15:00:28.617909	2019-11-07 17:01:54.356089	::1	::1	2019-09-25 17:10:03.963865	2019-11-11 15:00:28.619006	\N	\N	\N	internal_lawyers	\N	t	\N	\N	\N	\N	\N
 98	lxpuser@mailinator.com	lxpuser	$2a$11$ENSOWoY5/HIKLf87YRh7G.yp311CNuo/GR6NCUc4CfhbWvpINwjte	\N	\N	\N	188	2019-11-12 18:17:55.633105	2019-11-12 15:36:45.775059	::1	::1	2019-09-13 17:33:59.325748	2019-11-12 18:17:55.634873	\N	\N	hswiof7hj5b2pcn6	lxp	\N	t	\N	MLXP	MLXP		
 130	om@abcc.com	om@abcc.com	$2a$11$9zpypRP4KXnDH8Pah2BiZ.vScXgRGlzMX2.RVn9ciRp/GjH//.CYC	\N	\N	\N	0	\N	\N	\N	\N	2019-11-06 17:16:38.472414	2019-11-06 17:35:53.229923	\N	\N	\N	lob	\N	f	\N	Om	k	Capital Markets	LOB1
 131	om@asdasd.com	om@asdasd.com	$2a$11$MoDfYZlji3lrbIXyGSGnc.9usr6adFzrf4khNke6MneALilG0U5ce	\N	\N	\N	3	2019-11-07 03:13:32.265995	2019-11-07 03:10:54.751877	::1	::1	2019-11-06 17:54:18.221646	2019-11-07 03:13:32.272532	\N	\N	\N	lxp	\N	f	\N	Om	prakash		
 139	gssdf	gssdf	$2a$11$/dDgajafyUg1xcminW0E1ezYTZi1HLyQGsAJBX/TVqIw7Gc.i77ba	a1b1bc551f8762e79c3524c80063483d1a2aaf5503c306444ce25abe7fec2b65	2019-11-12 19:45:33.246326	\N	0	\N	\N	\N	\N	2019-11-12 15:31:54.427586	2019-11-12 19:45:33.24698	2019-11-13 01:15:18	\N	qmefsygr6pziyjlw	master_user	151	f	\N	\N	\N	\N	\N
-138	abc@metawarelabs.com	abc@metawarelabs.com	$2a$11$cFNq72KoXIP5r3qvMBf0GOGKY6kdHzUgp8/lPZ7P5RsR7wySNLtZS	\N	\N	\N	0	\N	\N	\N	\N	2019-11-12 15:11:32.082905	2019-11-12 15:11:32.082905	2019-11-12 15:31:54.418053	\N	\N	user	150	f	\N	\N	\N	\N	\N
+138	abc@grcconsulting.ca	abc@grcconsulting.ca	$2a$11$cFNq72KoXIP5r3qvMBf0GOGKY6kdHzUgp8/lPZ7P5RsR7wySNLtZS	\N	\N	\N	0	\N	\N	\N	\N	2019-11-12 15:11:32.082905	2019-11-12 15:11:32.082905	2019-11-12 15:31:54.418053	\N	\N	user	150	f	\N	\N	\N	\N	\N
 141	sdfsdf@sdfsdfsd.sdfds	sdfsdf@sdfsdfsd.sdfds	$2a$11$0hnWBuRsuBjjZWZcCFUYHOkZ.a4UgIx6whg1DO4JjqKhI4EL9n0nK	\N	\N	\N	0	\N	\N	\N	\N	2019-11-13 20:15:00.767006	2019-11-13 20:15:00.767006	2019-11-13 20:15:00.689108	\N	\N	master_user	153	f	\N	\N	\N	\N	\N
 \.
 
