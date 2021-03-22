@@ -5,12 +5,141 @@ class MatterIntake < ApplicationRecord
   belongs_to :law_firm
   belongs_to :matter_type
   belongs_to :lawyer, class_name: 'InternalLawyer', foreign_key: 'lawyer_id'
-
+  serialize :receive_personal_information_data_type, Array
+  serialize :receive_general_business_data_type, Array
+  serialize :applicable_technical_specialty_data_type, Array
   has_many :reviews, as: :reviewable
+  
+  
+  mount_uploader :asset, DocUploader
 
-  validates_presence_of :submitter_name, :matter_type_id, :if => Proc.new { |matter_intake| matter_intake.user_id.present? }
-  # validates_presence_of  :if => Proc.new { |matter_intake| matter_intake.user_id.present? }
+  #### validation for lob initiated starts ####
+  validates_presence_of :submitter_name, :name_of_matter_client, :matter_type_id, :matter_description, :following_matter_involve,
+    :bmo_lawyer_name, :lob_contact_for_po, :cost_centre_for_legal_fees, :business_paying_for_matter, :jurisdiction,
+    :group_paying_for_matter, :paying_entity, :outside_counsel_engaged, :is_syndicate_matter,
+    :if => Proc.new { |matter_intake| matter_intake.user_id.present? && matter_intake.user.role == "lob" }
 
+  validates_presence_of :firm_type,
+    :if => Proc.new { |matter_intake| matter_intake.user_id.present? && matter_intake.user.role == "lob" && matter_intake.outside_counsel_engaged === "Yes" }
+
+    validates_presence_of :name_of_non_panel_firm,
+    :if => Proc.new { |matter_intake| matter_intake.user_id.present? && matter_intake.user.role == "lob" && matter_intake.firm_type === "Non-Panel"  }
+
+  validates_presence_of :name_of_panel_firm,
+    :if => Proc.new { |matter_intake| matter_intake.user_id.present? && matter_intake.user.role == "lob" && matter_intake.firm_type === "Panel"  }
+
+  validates_presence_of :name_of_panel_firm, :name_of_non_panel_firm,
+    :if => Proc.new { |matter_intake| matter_intake.user_id.present? && matter_intake.user.role == "lob" && matter_intake.firm_type === "Panel & Non-Panel Firms"  }
+  
+  #### validation for lob initiated ends ####
+
+  #### validation for lob initiated but for lawyer for Form-B starts ####
+  
+  validates_presence_of :bmo_lawyer_name, :legal_group_of_bmo_lawyer, :work_area, :work_area_type, :is_conceal_imanage_workspace,
+    :is_paper_file, :name_of_matter_client, :matter_description, :paying_entity, :type_of_price,
+    :if => Proc.new { |matter_intake| matter_intake.user_id.present? && matter_intake.user.role == "lob" && Current.user && Current.user.role === "internal_lawyers" }
+
+  validates_presence_of :afa_details,
+    :if => Proc.new { |matter_intake| matter_intake.user_id.present? && matter_intake.user.role == "lob" && Current.user && Current.user.role === "internal_lawyers" && matter_intake.is_alternative_fee_arrangement === "Yes" }
+
+  validates_presence_of :who_requires_access_to_imanage_workspace,
+    :if => Proc.new { |matter_intake| matter_intake.user_id.present? && matter_intake.user.role == "lob" && Current.user && Current.user.role === "internal_lawyers" && matter_intake.is_conceal_imanage_workspace === "Yes" }
+
+    validates_presence_of :is_ore_reportable, :is_otherwise_reportable,
+    :if => Proc.new { |matter_intake| matter_intake.user_id.present? && matter_intake.user.role == "lob" && Current.user && Current.user.role === "internal_lawyers" && matter_intake.work_area === "Regulatory" }
+  #### validation for lob initiated but for lawyer for Form-B ends ####
+
+  #### Validation common in General & Litigation intake starts ####
+
+  validates_presence_of :bmo_lawyer_name, :legal_group_of_bmo_lawyer, :work_area, :work_area_type, :is_syndicate_matter,
+    :is_conceal_imanage_workspace, :is_paper_file, :name_of_matter_client, :matter_description, :paying_entity,
+    :business_paying_for_matter, :group_paying_for_matter, :jurisdiction, :outside_counsel_engaged,
+    :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && FORM_TYPE.include?(matter_intake.form_type) }
+
+  validates_presence_of :who_requires_access_to_imanage_workspace,
+    :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && FORM_TYPE.include?(matter_intake.form_type) && matter_intake.is_conceal_imanage_workspace === "Yes" }
+
+  validates_presence_of :following_matter_involve, :cost_centre_for_legal_fees, :lob_contact_for_po, :firm_type, :type_of_price,
+    :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && FORM_TYPE.include?(matter_intake.form_type) && matter_intake.outside_counsel_engaged != "N/A Internal – no law firm will be engaged" }
+  
+  validates_presence_of :name_of_non_panel_firm,
+    :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && FORM_TYPE.include?(matter_intake.form_type) && matter_intake.firm_type === "Non-Panel"  }
+
+  validates_presence_of :name_of_panel_firm,
+    :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && FORM_TYPE.include?(matter_intake.form_type) && matter_intake.firm_type === "Panel"  }
+
+  validates_presence_of :name_of_panel_firm, :name_of_non_panel_firm,
+    :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && FORM_TYPE.include?(matter_intake.form_type) && matter_intake.firm_type === "Panel & Non-Panel Firms"  }
+
+  #### Validation common in General & Litigation intake starts ####
+
+  #### General Intake Lawyer Initiated validation starts ####
+
+  validates_presence_of :is_alternative_fee_arrangement,
+    :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && matter_intake.form_type === "general" && !TYPE_OF_PRICE.include?(matter_intake.type_of_price) }
+
+  validates_presence_of :afa_details,
+    :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && matter_intake.form_type === "general" && matter_intake.is_alternative_fee_arrangement === "Yes" }
+
+  #### General Intake Lawyer Initiated validation Ends ####
+
+  #### Litigation Intake Lawyer Initiated validation Starts ####
+
+  validates_presence_of :can_reimbursed_matter, :primary_issue, :allegation_of_employee_misconduct,
+    :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && matter_intake.form_type === "litigation" && matter_intake.outside_counsel_engaged != "N/A Internal – no law firm will be engaged" }
+  
+  validates_presence_of :is_alternative_fee_arrangement,
+    :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && matter_intake.form_type === "litigation" && !TYPE_OF_PRICE.include?(matter_intake.type_of_price) }
+
+  validates_presence_of :afa_details,
+    :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && matter_intake.form_type === "litigation" && matter_intake.is_alternative_fee_arrangement === "Yes" }
+  
+  validates_presence_of :is_ore_reportable, :is_otherwise_reportable,
+    :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && FORM_TYPE.include?(matter_intake.form_type) && matter_intake.work_area === "Regulatory" }
+
+  validates_presence_of :is_ore_reportable,
+    :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && matter_intake.form_type === "litigation" }
+  
+  validates_presence_of :is_otherwise_reportable, :mi_matter, :nature_of_events, :process_type_level_1, :process_type_level_2, :product_type_level_1, :product_type_level_2,
+    :event_type_level_1, :event_type_level_2, :business_activity_level_1, :business_activity_level_2,
+    :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && matter_intake.is_ore_reportable === "Yes" }
+  
+  #### Litigation Intake Lawyer Initiated validation Endss ####
+
+  TYPE_OF_PRICE = ["Hourly Billing", "Work done at no cost"]
+
+  FORM_TYPE = ["general", "litigation"]
+
+  MATTER_STATUS = {
+    "MATTER_OPEN": "Matter Open",
+    "MATTER_NOT_OPEN": "Matter Not Open"
+  }
+  
+  HUMANIZED_ATTRIBUTES = {
+    :name_of_matter_client => "Name of Matter/Client", 
+    :matter_type_id => "Type of Matter",
+    :following_matter_involve => "Will this matter involve the following",
+    :mode_of_payment => "How will this law firm be paid",
+    :lob_contact_for_po => "Name of PO approver",
+    :business_paying_for_matter => "Business/Group paying for this matter (level 1)",
+    :group_paying_for_matter => "Business/Group paying for this matter (level 2)",
+    :work_area_type => "Work Area Level 2",
+    :is_syndicate_matter => "Is this a syndicate matter",
+    :is_conceal_imanage_workspace => "Conceal iManage Workspace",
+    :is_paper_file => "Paper file",
+    :firm_type => "Panel or Non-Panel Firm",
+    :asset => "Document",
+    :outside_counsel_engaged => "Is outside counsel being engaged",
+    :is_ore_reportable => "Is this matter ORE reportable",
+    :is_otherwise_reportable => "Is this matter otherwise reportable",
+    :can_reimbursed_matter => "Could this matter be reimbursed"
+  }
+
+  RECEIVE_PERSONAL_INFORMATION_DATA_TYPE = ["Account/Card/Credit Card Information (i.e., account type/number, relationship, balances, transactions)","Contact Information (e.g., address, e-mail address, phone #)","Credit Score/History, Credit Bureau Report, Financial Profile Information","Customer Interactions (e.g., digital images, recorded conversations, branch visits)","Date of Birth","Employee Business Contact Information","Employee Identification Number(EIN)","Employee Performance Information (e.g., PPA, performance management)","Employee Personal Information (e.g., compensation, benefits)","Employee's Training Results","Gender, Ethnicity, Physical Attributes","Health Information, including information that is processed on behalf of commercial customers","Individual Authentication Credentials (e.g., password, PIN)","Individual's Name","Lists that include employee name and business contact information","National Personal Identification Number (e.g., Tax ID, SSN, SIN)","Opinions, Survey Responses","Other Financial Information (e.g., income verification, sourced from third parties)","Other Government Issued Personal Identification Number (e.g., driver's license, passport)","Technology Identifiers (e.g., Customer IP address, IMEI number, geolocation, device ID)","Social Media posts"]
+  RECEIVE_GENERAL_BUSINESS_DATA_TYPE = ["Audit Report (Internal or Extneral)","Branch Directory","Business Continuity Plan (BCP)","Business Strategy, raw closing data, closing analysis, secret reports","Commonly Shared Internal Information (e.g., corporate policies/standards, guidelines, operating procedures, interoffice memos)","Credit Card Information (e.g., PAN, track data, EMV chip data)","External & Regulatory reporting","Financial forecast or results, prior to general or public disclosure","Financial Information Related to Revenue Generation (e.g., balance sheet, profit & loss figures)","Internal Phone Directory","Interviews with news media","Legal Contract Information","Marketing Brochure","Mergers, acquisitions, or divestitures, prior to general or public disclosure","Press Releases","Product Offerings (future), Product formulas methodology or calculations","Publish Annual Report (Incl. Financials)","Securities issuer information that is non-public and material","Strategic plans on mergers, acquisitions, or divestitures, prior to general or public disclosure","Trade Secrets","Trading Books","Transaction Information","Vendor/Third Party Information"]
+  APPLICABLE_TECHNICAL_SPECIALTY_DATA_TYPE = ["Audit/System/Security Logs","Internal Bank IP Address, MAC Address, Hostname and Domain","Metadata","Patents, trademarks, copyrights","Private and symmetric cryptographic key and key parts","Proprietary processes, algorithms or systems","Public cryptographic key","Source Code","Sytem Documentation (e.g., design, functional specs, process, procedure, configuration data, etc.)","Documentation (e.g., design, functional specs, process, producedure, configuration, data, etc.)"]
+  
+  
   LOB_CONTACT_NAMES = [
     "Alan Elliott",
     "Julian Webb",
@@ -19,9 +148,10 @@ class MatterIntake < ApplicationRecord
   ]
 
   LegalGroupBMOLawyer = [
-    "Capital Markets",
     "Canadian P&C",
+    "Capital Markets",
     "Corporate Affairs",
+    "Regulatory",
     "Technology & Operations",
     "Wealth Management"
   ]
@@ -44,7 +174,10 @@ class MatterIntake < ApplicationRecord
   ]
 
   WorkAreaLitigation = [
-    "Litigation"
+    "Employment (non-action)",
+    "Legal Administration",
+    "Litigation",
+    "Regulatory"
   ]
 
   Jurisdiction = [
@@ -140,10 +273,9 @@ class MatterIntake < ApplicationRecord
   ]
 
   MatterBePaidOptions = [
-    "A third party or BMO’s customer is paying",
-    "BMO is paying but will be reimbursed by a third party or BMO’s customer",
     "BMO is paying",
-    "N/A Internal – no law firm will be engaged"
+    "BMO is paying and will be reimbursed by a third party/customer",
+    "Third party/Customer paying law firm directly"
   ]
 
   LegalEntity = [
@@ -183,9 +315,9 @@ class MatterIntake < ApplicationRecord
   FirmType = ['Panel', 'Non-Panel', 'Panel & Non-Panel Firms']
 
   OutsideCounselEngaged = [
-    "Yes, BMO is paying and will not be reimbursed",
-    "Yes, a third party or BMO’s customer is paying",
-    "Yes, BMO is paying but will be reimbursed by a third party or BMO’s customer",
+    "Yes, bank pay",
+    "Yes, third party/customer paying law firm directly",
+    "Yes, BMO is paying and will be reimbursed by a third party/customer",
     "N/A Internal – no law firm will be engaged"
   ]
 
@@ -405,12 +537,32 @@ class MatterIntake < ApplicationRecord
     "Branch Banking"
   ]
 
+  MatterInvolveFollowing = [
+    "Combination of confidential information with over 10,000 records",
+    "Combination of sensitive and confidential information with over 10,000 records",
+    "Litigation",
+    "Merger/Acquisition",
+    "Personal Identifiable Information > 10,000 records",
+    "None of the above"
+  ]
+
+  # For overriding fields name in error messages
+  def self.human_attribute_name(attribute, options = {})
+    HUMANIZED_ATTRIBUTES[attribute.to_sym] || super
+  end
+
   def send_notification_to_lawyer
     MatterIntakeMailer.send_notification_to_lawyer_for_form_submission(self).deliver_now
   end
 
   def send_notification_to_lxp
     MatterIntakeMailer.send_notification_to_lxp_for_form_submission(self).deliver_now
+  end
+
+  def send_notification_litigation_specialist_team
+    if self.email_notification_to_litigation_specialist_team
+      MatterIntakeMailer.send_notification_litigation_specialist_team(self).deliver_now
+    end
   end
 
   def send_notification_to_lawyer_and_lxp
@@ -428,7 +580,7 @@ class MatterIntake < ApplicationRecord
       reviewable_type: self.class.to_s,
       reviewable_id: self.id,
       description: "#{self.lawyer.try(:full_name)} submitted matter intake form for LXP review.",
-      status: "waiting_for_lxp_review"
+      status: "awaiting_lxp_review"
     )
   end
 
@@ -437,8 +589,8 @@ class MatterIntake < ApplicationRecord
       actor_id: current_user.id,
       reviewable_type: self.class.to_s,
       reviewable_id: self.id,
-      description: "#{current_user.try(:full_name)} rejects matter intake form and retuns to lawyer for completion/updation.",
-      status: "waiting_for_lawyer_updation"
+      description: "#{current_user.try(:full_name)} returned to lawyer for update.",
+      status: "awaiting_lawyer_update"
     )
   end
 
@@ -447,9 +599,17 @@ class MatterIntake < ApplicationRecord
       actor_id: current_user.id,
       reviewable_type: self.class.to_s,
       reviewable_id: self.id,
-      description: "#{current_user.try(:full_name)} opened matter in T360 with matter number: #{self.matter_number}.",
-      status: "matter_open"
+      description: "#{current_user.try(:full_name)} change matter status to : #{MatterIntake::MATTER_STATUS[self.status.upcase.to_sym]}" ,
+      status: self.status.downcase
     )
+  end
+
+  def show_status
+    if self.status === "awaiting_lxp_review"
+      "Awaiting LXP Review"
+    else
+      self.try(:status).try(:titleize)
+    end
   end
 
 end

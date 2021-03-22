@@ -27,7 +27,8 @@ class FormField < ApplicationRecord
   accepts_nested_attributes_for :children
 
   def validate_value(form_value)
-    form_value.errors.add :value, "can't be blank" if required? && form_value.value.blank?
+    #form_value.errors.add :value, "can't be blank" if required? && form_value.value.blank?
+    form_value.errors.add :value, "" if required? && form_value.value.blank?
 
     add_validation_errors(form_value)
     form_value

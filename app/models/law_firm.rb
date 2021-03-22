@@ -20,19 +20,27 @@ class LawFirm < ApplicationRecord
   has_many :sub_matter_types, :through => :law_firms_sub_matter_types
   has_many :law_firms_jurisdiction_types
   has_many :jurisdiction_types, :through => :law_firms_jurisdiction_types
+  has_many :feedbacks
+  has_many :values
+  has_many :issues
   has_many :law_firms_countries
   has_many :countries, :through => :law_firms_countries
   has_many :law_firms_states
   has_many :states, :through => :law_firms_states
   has_many :matter_intakes
+  has_one :panel_request
 
   serialize :practice_area, Array
   serialize :type_of_matters_your_law_firm_handles_for_us, Array
   serialize :type_of_services_your_law_firm_provides_generally, Array
+  
 
   accepts_nested_attributes_for :history_submissions
 
   accepts_nested_attributes_for :locations, allow_destroy: true
+  accepts_nested_attributes_for :feedbacks, allow_destroy: true
+  accepts_nested_attributes_for :values, allow_destroy: true
+  accepts_nested_attributes_for :issues, allow_destroy: true
   accepts_nested_attributes_for :jurisdictions, allow_destroy: true
   accepts_nested_attributes_for :users, allow_destroy: true
 
@@ -41,7 +49,7 @@ class LawFirm < ApplicationRecord
   #after_create :generate_a_new_user 
   # acts_as_messageable
 
-  validates_presence_of :name, :phone
+  validates_presence_of :name, :firm_use_on_regular_basis
 
   before_create :set_law_firm_email_to_user_email
 
@@ -49,14 +57,24 @@ class LawFirm < ApplicationRecord
 
   USER_LIMIT = 3
 
+  PANEL_REQUEST_STATUS = [
+    "",
+    "APPROVED",
+    "REJECTED",
+    "PANEL_RETAINER"
+  ]
+
   PRACTICE_AREAS = ["Administrative law","Advertising law","Admiralty law","Agency law","Alcohol law","Alternative dispute resolution","Animal law","Antitrust law (or competition law)","Appellate practice","Art law (or art and culture law)","Aviation law","Banking law","Bankruptcy law (creditor debtor rights law or insolvency and reorganization law)","Bioethics","Bird law","Business law (or commercial law); commercial litigation","Business organizations law (or companies law)","Civil law or common law","Class action litigation/Mass tort litigation","Communications law","Computer law","Conflict of law (or private international law)","Constitutional law","Construction law","Consumer law","Contract law","Copyright law","Corporate law (or company law)"," also corporate compliance law and corporate governance law","Criminal law","Cryptography law","Cultural property law","Custom (law)","Cyber law","Defamation","Derivatives and futures law","Drug control law","Elder law","Employee benefits law (ERISA)","Employment law","Energy law","Entertainment law","Environmental law","Equipment finance law","Evidence","Family law","FDA law","Financial services regulation law","Firearm law","Food law","Franchise law","Gaming law","Health and safety law","Health law","Immigration law","Insurance law","Intellectual property law","International law","International trade and finance law","Internet law","Juvenile law","Labour law (or Labor law)","Land use & zoning law","Litigation","Martial law","Media law","Medical law","Mergers & acquisitions law","Military law","Mining law","Music law","Mutual funds law","Nationality law","Native American law","Obscenity law","Oil & gas law","Parliamentary law","Patent law","Poverty law","Privacy law","Private equity law","Private funds law / Hedge funds law","Procedural law","Product liability litigation","Property law","Public health law","Public International Law","Railroad law","Real estate law","Securities law / Capital markets law","Social Security disability law","Space law","Sports law","Statutory law","Tax law","Technology law","Timber law","Tort law","Trademark law","Transport law / Transportation law","Trusts & estates law","Utilities Regulation","Venture capital law","Water law","Sexual Law"].freeze
   COMPANY_TYPES = ["LP", "LLP", "LLC", "S", "CORP/SOLE", "PROP"].freeze
   TYPES_OF_MATTERS = ["Aboriginal","Acquisition finance and corporate lending","Administrative and public law","Alternative dispute resolution (ADR)","Antitrust and competition","Appellate","Asset based lending","Asset finance","Aviation","Banking and finance","Bankruptcy, financial restructuring and insolvency","Business ethics and anti-corruption","Business immigration and international mobility","Business method patents","Business services","Canadian North and Arctic","Cannabis","Capital markets","Cartels and antitrust investigation","Chapter 11 debtor and trustee representation","Charities and tax exempt organizations","Class actions","Cleantech and renewable energy","Communications, media and entertainment","Construction, engineering and infrastructure","Consumer markets","Copyright and entertainment","Corporate and commercial","Corporate finance and securities","Corporate trustees","Cross-border insolvency representation","Debt capital markets","Derivatives","Dispute resolution and litigation","e-Discovery","Emerging tech services: Come grow with us","Employee benefits and executive compensation","Employment and labour","Energy","Environmental and social sustainability","Environmental law","Equity capital markets","Federal employment and labour","Financial institutions","Financial institutions, funds and creditor representation","Financial services regulation","Food and agribusiness","Forestry","Franchising","Fraud and asset recovery","Governance and directors' liability","Healthcare services","Immigration law","Infrastructure, mining and commodities","Infrastructure / Public-Private Partnerships","Insurance","Intellectual property","International arbitration","International trade","Life sciences and healthcare","Linguistic services","Merger control","Mergers and acquisitions","Mining and resources","Mining disputes","Municipal planning","Municipal restructuring and bankruptcy","Occupational health and safety and workers' compensation (workplace safety and insurance)","Official creditors’ committee representation","Oil and gas","Outsourcing","Patents","Pensions","Pharmaceuticals and life sciences","Ports","Power and utilities","Privacy and access to information","Private equity","Product liability","Professional liability","Rail","Real estate","Recall and crisis management","Regulation and investigations","Renewables","Risk advisory","Securities litigation, regulation and enforcement","Securitization","Shipping","Sourcing and technology","Special situations","Structured trade and commodity finance","Sustainability and climate change","Tax","Technology","Technology and innovation","Trade-marks and branding","Trade secrets","Transnational litigation","Transport","Water","Wealth and private client","White-collar crime"].freeze
-  TYPES_OF_MATTERS_FOR_US = ["Contractual Transactions (non-lending)","Corporate Governance","Employment (non-action)","General Customer Inquiries","Legal Administration","Lending & Financing (inc. Secured Transactions & Workouts)","M&A","Marketing","New Products","Real Estate","Regulatory","SAMU (Special Accounts Management Unit)","Tax","Intellectual Property","Wills/Estates"]
+  TYPES_OF_MATTERS_FOR_US = ["Contractual Transactions (non-lending)","Corporate Governance","Employment (non-action)","Lending & Financing (inc. Secured Transactions & Workouts)","M&A","Marketing","New Products","Real Estate","Regulatory","SAMU (Special Accounts Management Unit)","Tax","Intellectual Property","Wills/Estates"]
   NUMBER_OF_LAWYERS = ["<10", "<100", "<1000", ">1000"]
+  DIVESER = ["Yes", "No"]
+  INFORMATION_SECURITY_CLASS = ["A", "B"]
+  INFORMATION_SECURITY_ASSESSMENT_OUTCOME = ["ImprovementRequired", "Satisfactory", "Unsatisfactory"]
   
   JURISDICTION_COUNTRIES = ["Canada","United States of America"].freeze
-  LAW_FRIM_STATUS = ['Activate', 'Deactivate']
+  LAW_FRIM_STATUS = ['Active', 'Deactivate']
   EMAIL_PREFIX = "@check.com"
   TIME_FORMAT = "%d %b %y, %I:%M %Z"
   DATE_FORMAT = "%d %b %y"
@@ -167,6 +185,45 @@ class LawFirm < ApplicationRecord
     LawFirm.where('id NOT IN (SELECT DISTINCT(law_firm_id) FROM form_submissions)')
   end
 
+  def country_name(country_code)
+    country = ISO3166::Country[country_code]
+    country.translations[I18n.locale.to_s] || country.name
+  end
+
+  def show_countries_names
+    name = []
+    if self && self.countries && self.countries.count > 0
+      countries_ids = self.countries.pluck(:country_id)
+      if countries_ids.count > 0
+        countries_ids.each do |country_id|
+          country = Country.find_by(id: country_id)
+          if country.present?
+            name << country.name
+          end
+        end
+      end
+    end
+    name&.join(", ")
+  end
+
+  def show_states_names
+    name = []
+    if self && self.states && self.states.count > 0
+      state_ids = self.states.pluck(:state_id)
+      if state_ids.count > 0
+        state_ids.each do |state_id|
+          state = State.find_by(id: state_id)
+          if state.present?
+            name << state.name
+          end
+        end
+      end
+    end
+    name&.join(", ")
+  end
+
+
+  
   def show_matter_types
     if self.matter_types && self.matter_types.count > 0
       self.matter_types.map(&:matter_type).join(",")

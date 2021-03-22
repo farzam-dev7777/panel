@@ -310,7 +310,8 @@ $(document).ready(function(){
       window.location.pathname.indexOf("/relationship_step") > -1 || 
       window.location.pathname.indexOf("/diversity_step") > -1 || 
       window.location.pathname.indexOf("/innovation_step") > -1 || 
-      window.location.pathname.indexOf("/resourcing_step") > -1) {
+      window.location.pathname.indexOf("/resourcing_step") > -1 || 
+      window.location.pathname.indexOf("/lawfirm_step") > -1) {
     replaceChosenWithSelect2();
     $(document).on('change paste keyup', 'select, input', function(){
       replaceChosenWithSelect2();
@@ -604,7 +605,7 @@ $(document).ready(function(){
       type: "warning",
       showCancelButton: true,
       confirmButtonColor: "#DD6B55",
-      confirmButtonText: "Yes, send User info!",
+      confirmButtonText: "Yes, send user password reset link!",
       cancelButtonText: "Cancel",
       closeOnConfirm: true,
       closeOnCancel: true
@@ -818,7 +819,6 @@ $(document).ready(function(){
     e.preventDefault();
 
     window.skipUnload = true;
-    
     $(this).find('.loader').removeClass('hidden');
     window.link_to_redirect_to = $(this).attr('href');
     if(!ajaxRequestInProcess){
@@ -836,7 +836,7 @@ $(document).ready(function(){
     toastr.success('Your progress has been saved successfully', 'Saved');
     link = window.link_to_redirect_to;
     if(link == window.location.pathname){
-      if ((window.location.href.indexOf("technology_step") > -1)) {
+      if ((window.location.href.indexOf("pricing_step") > -1)) {
         window.location.reload();
       }
     } else{ 
@@ -1156,7 +1156,7 @@ $(document).ready(function(){
     var data = $(this).data();
     swal({
       title: "Are you sure?",
-      text: "Once submitted, the Policy and Process sections will not be available for editing unless reopened by the Panel Administrator.The Technology and History sections will remain open for updates.",
+      text: "",
       type: "warning",
       showCancelButton: true,
       confirmButtonColor: "#DD6B55",
@@ -1174,6 +1174,31 @@ $(document).ready(function(){
         .done(function( data ) {
           window.location.href = '/';
         });
+      }
+    });
+
+    
+  })
+
+
+  $('a.finalize-submission-lawfirm').on('click', function(e){
+    e.preventDefault();
+
+    var data = $(this).data();
+    swal({
+      title: "Are you sure?",
+      text: "",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "Yes, submit it!",
+      cancelButtonText: "No, don't submit!",
+      closeOnConfirm: true,
+      closeOnCancel: true
+    },
+    function(isConfirm){
+      if (isConfirm) {
+        $('.rfi_lawfirm .rfi-lawfirm-btn').trigger("click")
       }
     });
 

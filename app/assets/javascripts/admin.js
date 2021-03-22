@@ -1,4 +1,23 @@
 $(document).ready(function(){
+	$('[data-toggle="tooltip"]').tooltip()
+	// All forms stop submitting on enter - as per client requirement
+	$('form').on('keyup keypress', function(e) {
+		var keyCode = e.keyCode || e.which;
+		if (keyCode === 13) { 
+			e.preventDefault();
+			return false;
+		}
+	})
+
+$('#login-form').each(function() {
+		$(this).find('input').keypress(function(e) {
+				// Enter pressed?
+				if(e.which == 10 || e.which == 13) {
+						this.form.submit();
+				}
+		});
+
+});
 
   $('.datetimepicker').datetimepicker();
 
@@ -197,22 +216,51 @@ $(document).ready(function(){
 	});
 	// Exceptation Request approval Processs 
 	$('.exceptationRequestProcesss select#review_status').chosen().change(function() {
-		if(this.value == "REQUEST_TO_LAWYER"){
+		if(this.value == "REQUEST_TO_INPUT") {
 			$(".exceptationRequestProcesss  .internal_lawyers_box").show()
+			$(".exceptationRequestProcesss .lxp_sttaus_btn").show()
+			$(".exceptationRequestProcesss .lxp_request_retainer").hide()
 			
-		}else{
+		}else if(this.value == "SEND_RETAINER_AGREEMENT"){
+			$(".exceptationRequestProcesss .lxp_sttaus_btn").hide()
+			$(".exceptationRequestProcesss  .internal_lawyers_box").hide()
+			$(".exceptationRequestProcesss .lxp_request_retainer").show()
+
+		}else if(this.value == "ASSIGN_LAW_FIRM"){
+			$(".exceptationRequestProcesss  .law_firm_box").show()
+			$(".exceptationRequestProcesss .lxp_sttaus_btn").show()
+		}else if(this.value == "LAW_FIRM_CREATED_ASSIGN_LAWYER"){
+			$(".exceptationRequestProcesss  .internal_lawyers_box").show()
+			$(".exceptationRequestProcesss .law_firm_box").hide()
+		}else if(this.value == "ASSIGN_LAW_FIRM_ASSIGN_LAWYER"){
+			$(".exceptationRequestProcesss  .internal_lawyers_box").show()
+			$(".exceptationRequestProcesss .law_firm_box").show()
+		}
+		
+		else{
 			$(".exceptationRequestProcesss .internal_lawyers_box").hide()
 			$('.exceptationRequestProcesss select#review_assigned_to_id').val('').trigger('chosen:updated');
+			$(".exceptationRequestProcesss .lxp_sttaus_btn").show()
+			$(".exceptationRequestProcesss .lxp_request_retainer").hide()
+			$(".exceptationRequestProcesss  .law_firm_box").hide()
 		}
 	});
 	// conflict Waiver approval Processs
 	$('.conflictWaiverProcesss select#review_status').chosen().change(function() {
-		if(this.value == "APPROVED"){
+		if(this.value == "ASSIGN_TO_LAWYER"){
 			$(".conflictWaiverProcesss  .internal_lawyers_box").show()
 			
 		}else{
 			$(".conflictWaiverProcesss .internal_lawyers_box").hide()
 			$('.conflictWaiverProcesss select#review_assigned_to_id').val('').trigger('chosen:updated');
+		}
+
+		if(this.value == "ALREADY_COVERED"){
+			$(".conflictWaiverProcesss  .retainer_cover_box").show()
+			
+		}else{
+			$(".conflictWaiverProcesss .retainer_cover_box").hide()
+			$('.conflictWaiverProcesss select#review_retainer_cover').val('').trigger('chosen:updated');
 		}
 	});
 
@@ -261,31 +309,75 @@ $(document).ready(function(){
 	
 	
 })
+$('.laywr_status').on('click', function(e){
+	if($('select#review_status').chosen().val() == ""){
+	 
+		$('select#review_status').val("COMMENTS_BY_LAWYER") 
+		$('select#review_status').trigger("chosen:updated")
+	 
+	} 	
+	});
+
+
 $('.lxp_sttaus').on('click', function(e){
-	
-	 if($('select#review_status').chosen().val() == "REQUEST_TO_LAWYER"){
-		
+	if($('select#review_status').chosen().val() == ""){
 		swal({
-			title: "Are you sure you would like to approve this, this will notify and require further approval from the selected lawyer.",
-			text: "",
-			type: "warning",
-			showCancelButton: true,
-			confirmButtonColor: "#DD6B55",
-			confirmButtonText: "Ok",
-			cancelButtonText: "Cancel",
-			closeOnConfirm: true,
-			closeOnCancel: true
-		},
-		function(isConfirm){
-			if (isConfirm) {
-			 $('#new_review').submit()
-			}
+			title: "oops!",
+			text: "Please select status"
 		});
+		return false;
+	}
+
+	 if($('select#review_status').chosen().val() == "REQUEST_TO_INPUT"){
+			laywerId = $('select#review_assigned_to_id').chosen().val()
+			if(!laywerId) {
+				swal({
+					title: "oops!",
+					text: "Please select lawyer"
+				});
+				return false;
+			}
+			$('#new_review').submit()
 		return false
 	 }
+
+	 if($('select#review_status').chosen().val() == "LAW_FIRM_CREATED_ASSIGN_LAWYER"){
+			laywerId = $('select#review_assigned_to_id').chosen().val()
+			if(!laywerId) {
+				swal({
+					title: "oops!",
+					text: "Please select lawyer"
+				});
+				return false;
+			}
+			$('#new_review').submit()
+		return false
+	}
+
+	if($('select#review_status').chosen().val() == "ASSIGN_LAW_FIRM_ASSIGN_LAWYER"){
+		lawFirmId = $('select#review_law_firm_id').chosen().val()
+		laywerId = $('select#review_assigned_to_id').chosen().val()
+		if(!lawFirmId) {
+			swal({
+				title: "oops!",
+				text: "Please select law firm"
+			});
+			return false;
+		}
+		if(!laywerId) {
+			swal({
+				title: "oops!",
+				text: "Please select lawyer"
+			});
+			return false;
+		}
+
+		$('#new_review').submit()
+	return false
+}
 	 
 	if($('select#review_status').chosen().val() == "PANEL_RETAINER"){
-		message = "Confirm To Emails Retainer to Law Firm to sign"
+		message = "Confirmation: Send Retainer Agreement to Law Firm"
 
 		swal({
 			title: message,
@@ -305,6 +397,20 @@ $('.lxp_sttaus').on('click', function(e){
 		});
 		return false
 	}
+	
+	if($('select#review_status').chosen().val() == "ASSIGN_LAW_FIRM"){
+		laywerId = $('select#review_law_firm_id').chosen().val()
+		if(!laywerId) {
+			swal({
+				title: "oops!",
+				text: "Please select law firm"
+			});
+			return false;
+		}
+		$('#new_review').submit()
+	return false
+ }
+	
 	 
 	});
 // $('.lxp_excepation_sttaus').on('click', function(e){
@@ -352,7 +458,7 @@ function toast(text){
  
 
 
-//engage_non_panel_firm Search
+//engage_non_panel_firm Search for lob
 
 $('.engageForm select#law_firm_matter_types').on('change', function() {
 	if(this.value){
@@ -389,7 +495,7 @@ $('.engageForm select#law_firm_countries').on('change', function() {
 			.done(function( data ) {
 				if(data){
 					$('.state_type_box').show()
-					var options = "<option value=''> Select State</option>";
+					var options = "<option value=''> Select State/Province</option>";
 					for (var i=0; i < data.data.length; i++){
 						options += "<option value="+data.data[i].id+">"+data.data[i].name+"</option>";
 					};
@@ -438,7 +544,106 @@ $('.engageForm select#law_firm_country_ids').on('change', function() {
 			.done(function( data ) {
 				if(data){
 					$('.state_type_box').show()
-					var options = "<option value=''> Select State</option>";
+					var options = "<option value=''> Select State/Province</option>";
+					for (var i=0; i < data.data.length; i++){
+						options += "<option value="+data.data[i].id+">"+data.data[i].name+"</option>";
+					};
+					$('#law_firm_states_ids').html(options);
+					$("#law_firm_states_ids").trigger("chosen:updated");       // updates chosen
+					return false;    
+				}
+			});
+	}
+	
+});
+
+//engage_non_panel_firm Search for adminn
+
+$('.engageFormAdmin select#law_firm_matter_types').on('change', function() {
+	if(this.value){
+		
+		$.ajax({
+			url: "/admin/exception_requests/get_sub_matter_types",
+			method: "post",
+			data: {id : this.value}
+		})
+			.done(function( data ) {
+				if(data){
+					$('.sub_matter_type_box').show()
+					var options = "<option value=''> Select Sub Matter Type</option>";
+					for (var i=0; i < data.data.length; i++){
+						options += "<option value="+data.data[i].id+">"+data.data[i].sub_matter_type+"</option>";
+					};
+					$('#law_firm_sub_matter_types').html(options);
+					$("#law_firm_sub_matter_types").trigger("chosen:updated");       // updates chosen
+					return false;    
+				}
+			});
+	}
+	
+});
+
+$('.engageFormAdmin select#law_firm_countries').on('change', function() {
+	if(this.value){
+		
+		$.ajax({
+			url: "/admin/exception_requests/get_state",
+			method: "post",
+			data: {id : this.value}
+		})
+			.done(function( data ) {
+				if(data){
+					$('.state_type_box').show()
+					var options = "<option value=''> Select State/Province</option>";
+					for (var i=0; i < data.data.length; i++){
+						options += "<option value="+data.data[i].id+">"+data.data[i].name+"</option>";
+					};
+					$('#law_firm_states').html(options);
+					$("#law_firm_states").trigger("chosen:updated");       // updates chosen
+					return false;    
+				}
+			});
+	}
+	
+});
+
+
+$('.engageFormAdmin select#law_firm_matter_type_ids').on('change', function() {
+	if(this.value){
+		
+		$.ajax({
+			url: "/admin/exception_requests/get_sub_matter_types",
+			method: "post",
+			data: {id : $('select#law_firm_matter_type_ids').val()}
+		})
+			.done(function( data ) {
+				if(data){
+					$('.sub_matter_type_box').show()
+					var options = "<option value=''> Select Sub Matter Type</option>";
+					for (var i=0; i < data.data.length; i++){
+						options += "<option value="+data.data[i].id+">"+data.data[i].sub_matter_type+"</option>";
+					};
+					$('#law_firm_sub_matter_type_ids').html(options);
+					$("#law_firm_sub_matter_type_ids").trigger("chosen:updated");       // updates chosen
+					return false;    
+				}
+			});
+	}
+});
+
+
+$('.engageFormAdmin select#law_firm_country_ids').on('change', function() {
+	if(this.value){
+		
+		$.ajax({
+			url: "/admin/exception_requests/get_state",
+			method: "post",
+			data: {id : $('select#law_firm_country_ids').val()}
+		})
+			.done(function( data ) {
+				if(data){
+					$('.state_type_box').show()
+					var options = "<option value=''> Select State/Province</option>";
 					for (var i=0; i < data.data.length; i++){
 						options += "<option value="+data.data[i].id+">"+data.data[i].name+"</option>";
 					};
@@ -452,12 +657,35 @@ $('.engageForm select#law_firm_country_ids').on('change', function() {
 });
 
 
+
+
 $('.searchLawFirm').on('click', function() {
 	matter_type = $('select#law_firm_matter_types').chosen().val()
 	sub_matter_type = $('select#law_firm_sub_matter_types').chosen().val()
 	jurisdiction_type = $('select#law_firm_jurisdiction_types').chosen().val()
 	country = $('select#law_firm_countries').chosen().val()
 	state = $('select#law_firm_states').chosen().val()
+	if(!matter_type) {
+		swal({
+			title: "oops!",
+			text: "Please select matter type"
+		});
+		return false;
+	}
+	if(!country) {
+		swal({
+			title: "oops!",
+			text: "Please select country"
+		});
+		return false;
+	}
+	if(!state) {
+		swal({
+			title: "oops!",
+			text: "Please select state"
+		});
+		return false;
+	}
 	if(matter_type > 0  || sub_matter_type > 0 || jurisdiction_type > 0 || country > 0 || state > 0){
 		$('input#exception_request_matter_types_search').val(matter_type)
 		$('input#exception_request_sub_matter_types_search').val(sub_matter_type)
@@ -477,7 +705,7 @@ $('.searchLawFirm').on('click', function() {
 		})
 			.done(function( data ) {
 				var html = "<table>";
-				if(data){
+				if(data.data.length > 0 ){
 						for (var i=0; i < data.data.length; i++){
 							html += 
 							`<tr id=lawFirm_${data.data[i].id}>
@@ -488,13 +716,20 @@ $('.searchLawFirm').on('click', function() {
 								</tr>`;	
 							//options += "<option value="+data.data[i].id+">"+data.data[i].sub_matter_type+"</option>";
 						};
-						
+						html += "</table>";		
+						$('.law_firm_list table#dt_basic').find('tbody').html(html)
+						$('.law_firm_list').show()
+						$('.hide_next_btn_non_panel').hide()
 				}else{
-					html += "<tr><td>No Law Firm Match Your criteria<td></tr>";		
+					//html += "<tr><td>No Law Firm Match Your criteria<td></tr>";		
+					//html += "</table>";		
+					//$('.law_firm_list table#dt_basic').find('tbody').html(html)
+					//$('.law_firm_list').show()
+					$('input[name="exception_request[law_firm_id]"]').attr('checked',false);
+					$("#exception_request_is_work_no").prop('checked', true);
+					$('#new_exception_request').submit()
 				}
-				 html += "</table>";		
-				 $('.law_firm_list table#dt_basic').find('tbody').html(html)
-				 $('.law_firm_list').show()
+				
 			});
 	}else{
 		swal({
@@ -505,16 +740,115 @@ $('.searchLawFirm').on('click', function() {
 	return false
 });
 
+$('.searchLawFirmAdmin').on('click', function() {
+	matter_type = $('select#law_firm_matter_types').chosen().val()
+	sub_matter_type = $('select#law_firm_sub_matter_types').chosen().val()
+	jurisdiction_type = $('select#law_firm_jurisdiction_types').chosen().val()
+	country = $('select#law_firm_countries').chosen().val()
+	state = $('select#law_firm_states').chosen().val()
+	if(!matter_type) {
+		swal({
+			title: "oops!",
+			text: "Please select matter type"
+		});
+		return false;
+	}
+	if(!country) {
+		swal({
+			title: "oops!",
+			text: "Please select country"
+		});
+		return false;
+	}
+	if(!state) {
+		swal({
+			title: "oops!",
+			text: "Please select state"
+		});
+		return false;
+	}
+	if(matter_type > 0  || sub_matter_type > 0 || jurisdiction_type > 0 || country > 0 || state > 0){
+		$('input#exception_request_matter_types_search').val(matter_type)
+		$('input#exception_request_sub_matter_types_search').val(sub_matter_type)
+		$('input#exception_request_jurisdiction_types_search').val(jurisdiction_type)
+		$('input#exception_request_countries_search').val(country)
+		$('input#exception_request_states_search').val(state)
+		$.ajax({
+			url: "/admin/exception_requests/get_law_firm_list",
+			method: "post",
+			data: {
+				matter_type : matter_type,
+				sub_matter_type : sub_matter_type,
+				jurisdiction_type : jurisdiction_type,
+				country : country,
+				state : state
+			}
+		})
+			.done(function( data ) {
+				var html = "<table>";
+				if(data.data.length > 0 ){
+						for (var i=0; i < data.data.length; i++){
+							html += 
+							`<tr id=lawFirm_${data.data[i].id}>
+									<td><input name="exception_request[law_firm_id]" type="radio" value="${data.data[i].id}" /></td>
+									<td>${data.data[i].name}</td>
+									<td>${data.data[i].email}</td>
+									<td>${data.data[i].phone}(${data.data[i].phone})</td>
+								</tr>`;	
+							//options += "<option value="+data.data[i].id+">"+data.data[i].sub_matter_type+"</option>";
+						};
+						html += "</table>";		
+						$('.law_firm_list table#dt_basic').find('tbody').html(html)
+						$('.law_firm_list').show()
+						$('.hide_next_btn_non_panel').hide()
+				}else{
+					//html += "<tr><td>No Law Firm Match Your criteria<td></tr>";		
+					//html += "</table>";		
+					//$('.law_firm_list table#dt_basic').find('tbody').html(html)
+					//$('.law_firm_list').show()
+					$('input[name="exception_request[law_firm_id]"]').attr('checked',false);
+					$("#exception_request_is_work_no").prop('checked', true);
+					$('#new_exception_request').submit()
+				}
+				
+			});
+	}else{
+		swal({
+			title: "Oops!",
+			text: "Please select atleast one option"
+		});
+	}
+	return false
+})
+
+$('input[name="exception_request[is_work]"]').on('click', function() {
+	is_work_value = $(this).val()
+	if(is_work_value === "No"){
+		$('.engage_non_panel_firm_notes').show()
+		$('.engage_non_panel_firm_btn').val('Next')
+		$('.engage_non_panel_firm_btn').attr('data-disable-with', 'Next')
+		
+		$('.engage_non_panel_firm_btn').removeClass('hide')
+	}else{
+		$('.engage_non_panel_firm_notes').hide()
+		$('.engage_non_panel_firm_btn').val('Confirm')
+		$('.engage_non_panel_firm_btn').attr('data-disable-with', 'Submit Requests')
+		$('.engage_non_panel_firm_btn').removeClass('hide')
+	}
+
+
+});
+
 $('.engage_non_panel_firm_btn').on('click', function() {
 	law_firm_id = $('input[name="exception_request[law_firm_id]"]:checked').val()
 	is_work = $('input[name="exception_request[is_work]"]:checked').val()
-
+	
 	if(is_work === "Yes"){
 		if(law_firm_id){
 			return true
 		}else{
 			swal({
-				title: "Opps!",
+				title: "oops!",
 				text: "Please select any one law firm"
 			});
 			return false
@@ -531,7 +865,8 @@ $('.engage_non_panel_firm_btn').on('click', function() {
 	}
 	
 });
-$(".simple_form.edit_exception_request").validate();
+
+
 
 //$(".simple_form.edit_exception_request").validator();
 // $(function() {
@@ -558,16 +893,28 @@ $('select#matter_intake_bmo_lawyer_name').on('change', function() {
 	$('#matter_intake_lawyer_id').val(id);
 });
 
+// hide on load
+if($('select#matter_intake_work_area').val() === "Regulatory" || $('select#matter_intake_work_area').val() === "Regulatory / Réglementation") {
+	$('.work_area_reportable').show()
+} else {
+	$('.work_area_reportable').hide()
+}
+
+// Litigation reportable always show
+$('.work_area_reportable_litigation').show()
+
 $('select#matter_intake_work_area').on('change', function() {
-	var form_type = $('#matter_intake_form_type').val();
-	if(form_type === "general") {
+	// var form_type = $('#matter_intake_form_type').val();
+	// if(form_type === "general" || form_type === "litigation") {
 		var work_area = this.value;
-		if(work_area === "Regulatory") {
+		if(work_area === "Regulatory" || $('select#matter_intake_work_area').val() === "Regulatory / Réglementation") {
 			$('.work_area_reportable').show()
 		} else {
 			$('.work_area_reportable').hide()
 		}
-	}
+		// Litigation reportable always show
+		$('.work_area_reportable_litigation').show()
+	// }
 })
 
 $(document).ready(function() {
@@ -608,41 +955,89 @@ $(document).ready(function() {
 
 	// Handle on Load
 	var type_of_price = ["Hourly Billing", "Work done at no cost"];
-	
-	if(type_of_price.includes(matter_intake_type_of_price)) {
+
+	if(matter_intake_type_of_price != "" && !type_of_price.includes(matter_intake_type_of_price)) {
 		$('.alternative_fee').show();
-		$('#matter_intake_is_alternative_fee_arrangement').val("true")
+		$('#matter_intake_is_alternative_fee_arrangement').val("Yes")
 		$("#matter_intake_is_alternative_fee_arrangement").trigger("chosen:updated")
 	} else {
 		$('.alternative_fee').hide();
-		$('#matter_intake_is_alternative_fee_arrangement').val("false")
+		$('#matter_intake_is_alternative_fee_arrangement').val("No")
 		$('#matter_intake_afa_details').val('')
 		$("#matter_intake_is_alternative_fee_arrangement").trigger("chosen:updated")
 	}
 
 	$('select#matter_intake_type_of_price').on('change', function() {
 		var selectedValue = this.value;
-		if(type_of_price.includes(selectedValue)) {
+		if(!type_of_price.includes(selectedValue)) {
 			$('.alternative_fee').show();
-			$('#matter_intake_is_alternative_fee_arrangement').val("true")
+			$('#matter_intake_is_alternative_fee_arrangement').val("Yes")
 			$("#matter_intake_is_alternative_fee_arrangement").trigger("chosen:updated")
 		} else {
 			$('.alternative_fee').hide();
 			$('#matter_intake_afa_details').val('')
-			$('#matter_intake_is_alternative_fee_arrangement').val("false")
+			$('#matter_intake_is_alternative_fee_arrangement').val("No")
 			$("#matter_intake_is_alternative_fee_arrangement").trigger("chosen:updated")
 		}
 	});
 })
+
+// Handle matter_intake_afa_details on matter_intake_is_alternative_fee_arrangement Change / load
+if($('#matter_intake_is_alternative_fee_arrangement').val()){
+	if($('#matter_intake_is_alternative_fee_arrangement').val() === "Yes") {
+		$('.matter_intake_afa_details').parent().show();
+	} else {
+		$('.matter_intake_afa_details').parent().hide();
+		$('#matter_intake_afa_details').val('')
+	}
+}
+$('select#matter_intake_is_alternative_fee_arrangement').on('change', function() {
+	if(this.value === "Yes") {
+		$('.matter_intake_afa_details').parent().show();
+	} else {
+		$('.matter_intake_afa_details').parent().hide();
+		$('#matter_intake_afa_details').val('')
+	}
+});
  
 $(".next-btn-exception").click(function () {
-	$( "#tabs-exception" ).tabs( "option", "active", $("#tabs-exception").tabs('option', 'active')+1 );
+	if($(this).attr('data-current-tab') === "Confirm-the-reason") {
+		var reasonArray = []
+		$(".exception_request_reason input.check_boxes:checked").each(function(){
+			reasonArray.push($(this).val());
+		});
+		var reason_details = $('#exception_request_reason_details').val();
+		if(reasonArray.length < 1) {
+			swal("Oops!", "Please confirm why a Non-Panel law firm is required for this matter?", "error");
+			return false;
+		}
+		if(reason_details === "") {
+			swal("Oops!", "Please provide details of reason(s) selected.", "error");
+			return false;
+		}
+		$("#tabs-exception").tabs("enable", 1);
+		$("#tabs-exception").tabs("enable", 2);
+	//	$("#tabs-exception").tabs("enable", 3);
+		$( "#tabs-exception" ).tabs( "option", "active", $("#tabs-exception").tabs('option', 'active')+1 );
+	} else {
+		$("#tabs-exception").tabs("enable", 1);
+		$("#tabs-exception").tabs("enable", 2);
+	//	$("#tabs-exception").tabs("enable", 3);
+		$( "#tabs-exception" ).tabs( "option", "active", $("#tabs-exception").tabs('option', 'active')+1 );
+	}
 });
 $(".prev-btn-exception").click(function () {
 	$( "#tabs-exception" ).tabs( "option", "active", $("#tabs-exception").tabs('option', 'active')-1 );
 });
 
-
+$("#tabs-exception").tabs({
+	active: 0,
+	disabled: [1, 2, 3]
+});
+// check validation on tabs click
+// $( ".tabs2, .tabs3" ).on( "click", function( event, ui ) {
+// 	$( "#tabs-exception" ).tabs( "option", "active", "tabs-reason" );
+// })
 // adminLawFirm
 $(".adminLawFirm .new_law_firm").validate();
 
@@ -682,7 +1077,7 @@ $('.adminLawFirm select#law_firm_country_ids').on('change', function() {
 			.done(function( data ) {
 				if(data){
 					$('.state_type_box').show()
-					var options = "<option value=''> Select State</option>";
+					var options = "<option value=''> Select State/Province</option>";
 					for (var i=0; i < data.data.length; i++){
 						options += "<option value="+data.data[i].id+">"+data.data[i].name+"</option>";
 					};
@@ -694,6 +1089,7 @@ $('.adminLawFirm select#law_firm_country_ids').on('change', function() {
 	}
 	
 });
+$('#select_type').trigger('chosen:updated');
 
 
 if($('.adminLawFirm select#law_firm_matter_type_ids').val()){
@@ -726,7 +1122,7 @@ if($('.adminLawFirm select#law_firm_country_ids').val()){
 	// 	.done(function( data ) {
 	// 		if(data){
 	// 			$('.state_type_box').show()
-	// 			var options = "<option value=''> Select State</option>";
+	// 			var options = "<option value=''> Select State/Province</option>";
 	// 			for (var i=0; i < data.data.length; i++){
 	// 				options += "<option value="+data.data[i].id+">"+data.data[i].name+"</option>";
 	// 			};
@@ -797,7 +1193,7 @@ $('.panelRequestNew select#panel_request_law_firm_attributes_country_ids').on('c
 			.done(function( data ) {
 				if(data){
 					$('.state_type_box').show()
-					var options = "<option value=''> Select State</option>";
+					var options = "<option value=''> Select State/Province</option>";
 					for (var i=0; i < data.data.length; i++){
 						options += "<option value="+data.data[i].id+">"+data.data[i].name+"</option>";
 					};
@@ -820,7 +1216,7 @@ if($('.panelRequestNew select#panel_request_law_firm_attributes_country_ids').va
 	// 	.done(function( data ) {
 	// 		if(data){
 	// 			$('.state_type_box').show()
-	// 			var options = "<option value=''> Select State</option>";
+	// 			var options = "<option value=''> Select State/Province</option>";
 	// 			for (var i=0; i < data.data.length; i++){
 	// 				options += "<option value="+data.data[i].id+">"+data.data[i].name+"</option>";
 	// 			};
@@ -862,116 +1258,254 @@ $('.lxp_rejects').on('click', function() {
  
 });
 
+if($('#matter_type_type_of_matter_lob_initiated').val()) {
+	var work_area_based_on_matter_type = $('#matter_type_type_of_matter_lob_initiated').val();
+	$('.lawyer_work_area_matter_type_based').val(work_area_based_on_matter_type);
+	$('.lawyer_work_area_matter_type_based').trigger("chosen:updated");
+}
+
+// Matter intake for form-b (lob initiate lawyer)
+if($('.lawyer_work_area_matter_type_based').val()) {
+	setMatterIntakeWorkAreaOptions($('.lawyer_work_area_matter_type_based').val())
+}
+
+$('.lawyer_work_area_matter_type_based').on('change', function() {
+	setMatterIntakeWorkAreaOptions(this.value)
+})
+
+if($('select#matter_intake_work_area').val()) {
+	setMatterIntakeWorkAreaOptions($('select#matter_intake_work_area').val())
+}
+
+$('select#matter_intake_work_area').on('change', function() {
+	setMatterIntakeWorkAreaOptions(this.value)
+})
+
+function setMatterIntakeWorkAreaOptions(value) {
+	$('select#matter_intake_work_area_type').empty();
+	var options = "<option value=''> Select option</option>";
+	var work_area_level2_value = $("#matter_intake_work_area_type").attr("data-value");
+	switch(value) {
+		case "Contractual Transactions (non-lending)":
+		case "Contractual Transactions (non-lending) / Traduction contractuelle (autre que des prêt":
+			valueArray = ["Card Services","Cash Management","Client and/or Account Documentation","Closed End Funds","Commercial Paper","DCN","Derivatives","Exchange Traded Funds","Inter-company (BMOFG) Agreements","Interest Rate Notes","IT Procurement (Non-Outsourcing)","Mutual Funds","Non-IT Procurement","NPPNs","Offerings","Outsourcing","PPNs","Professional Services (Consulting)","REPO/SLA","Trade/Finance"];
+			for (var i = 0; i < valueArray.length; i++) {
+				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
+			}
+			break;
+		case "Corporate Governance":
+		case "Corporate Governance / Gouvernance d'entreprise":
+			valueArray = ["BMO Board","Continuous Disclosure","Environment, Social/Governance","Funding Transactions","Reputation Risk Review","Subsidiary Matters"];
+			for (var i = 0; i < valueArray.length; i++) {
+				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
+			}
+			break;
+		case "Employment (non-action)":
+		case "Employment (non-action) / Recrutement (aucune intervention)":
+			valueArray = ["Compensation Program","Employment Contract","Pensions"];
+			for (var i = 0; i < valueArray.length; i++) {
+				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
+			}
+			break;
+		case "General Customer Inquiries":
+		case "General Customer Inquiries / Questions générales de clients":	
+			valueArray = [];
+			for (var i = 0; i < valueArray.length; i++) {
+				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
+			}
+			break;
+		case "Intellectual Property":
+		case "Intellectual Property":
+			valueArray = ["Copyrights","Patents","Trade Secrets","Trademarks"];
+			for (var i = 0; i < valueArray.length; i++) {
+				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
+			}
+			break;
+		case "Legal Administration":
+		case "Legal Administration":
+			valueArray = ["Internal Projects/Budgets/Audit"];
+			for (var i = 0; i < valueArray.length; i++) {
+				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
+			}
+			break;	
+		case "Lending & Financing (inc. Secured Transactions and Workouts)":
+		case "Lending and Financing (inc. secured transactions and workouts) / Financement de prê transactions garanties et les redressements)":	
+			valueArray = ["Commercial","Loan Syndications/Participations","Real Estate/Mortgages","Structured Finance","Trade Finance","Underwriting","Recovery"];
+			for (var i = 0; i < valueArray.length; i++) {
+				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
+			}
+			break;
+		case "M&A":
+		case "Mergers & Acquisitions / Fusions et acquisitions":
+			valueArray = ["Extraordinary (Bank is Party)","Ordinary (Bank is Advisor)"];
+			for (var i = 0; i < valueArray.length; i++) {
+				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
+			}
+			break;
+		case "Marketing":
+		case "Marketing":
+			valueArray = [];
+			for (var i = 0; i < valueArray.length; i++) {
+				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
+			}
+			break;
+		case "New Products":
+		case "New Products / Nouveaux produits":
+			valueArray = ["IDP/NPAP","Product Support"];
+			for (var i = 0; i < valueArray.length; i++) {
+				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
+			}
+			break;
+		case "Real Estate":
+		case "Real Estate (non-lending) / Immobilier (autres que des prêts)":
+			valueArray = ["Facilities","Leasing","Sales/Purchase"];
+			for (var i = 0; i < valueArray.length; i++) {
+				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
+			}
+			break;
+		case "Regulatory":
+		case "Regulatory / Réglementation":
+			valueArray = ["Advisory","Audit","Competition/Anti-trust","Enforcement Action","Filings","Inquiry","Investigations","OBSI Investigation","Privacy/FOI/Ombudsman"];
+			for (var i = 0; i < valueArray.length; i++) {
+				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
+			}
+			break;
+		case "Tax":
+		case "Tax / Fiscalité":
+			valueArray = [];
+			for (var i = 0; i < valueArray.length; i++) {
+				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
+			}
+			break;
+		case "Wills/Estates":
+		case "Wills & Estates / Testaments/successions":	
+			valueArray = ["Estates", "Power of Attorneys"];
+			for (var i = 0; i < valueArray.length; i++) {
+				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
+			}
+			break;
+		case "Litigation":
+			valueArray = ["Class Action/Customer","Class Action/Employment (Inc. Contractors)","Class Action/Non-Customer","Class Action/Securities","Customer/Action","Customer/Complaint (Non-action)","Employment/Action","Employment/Complaint (Non-action)","Internal Review/Investigations/Investigations","Internal Review/Investigations/Review","Non-Customer/Action","Non-Customer/Complaint (Non-action)","Recovery/Other than SAMU","Recovery/SAMU","Regulatory Proceedings/Tribunal","Small Claims","Third-Party Order/Subpoenas/Garnishments","Watching Brief"];
+			for (var i = 0; i < valueArray.length; i++) {
+				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
+			}
+			break;	
+		default:
+			valueArray = [value];
+				for (var i = 0; i < valueArray.length; i++) {
+					options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
+				}
+				break;
+	}
+	$('#matter_intake_work_area_type').html(options);
+	// for Lob initiated lawyer
+	$('.lawyer_work_area_2').html(options);
+	$('.lawyer_work_area_2').trigger("chosen:updated");
+	if(work_area_level2_value) {
+		$("#matter_intake_work_area_type").val(work_area_level2_value);
+	}
+	$("#matter_intake_work_area_type").trigger("chosen:updated")
+}
+
+$('select#matter_intake_is_conceal_imanage_workspace').on('change', function() {
+	setMatterIntakeIManager(this.value)
+})
+
+setMatterIntakeIManager($('#matter_intake_is_conceal_imanage_workspace').val())
+
+function setMatterIntakeIManager(value) {
+	if(value === "Yes") {
+		$('.who_requires_imanager_workspace').show()
+	} else {
+		$('.who_requires_imanager_workspace').hide()
+		$('#matter_intake_who_requires_access_to_imanage_workspace').val('')
+	}
+}
+
 $('select#matter_intake_business_paying_for_matter').on('change', function() {
+	setMatterIntakeBusinessGroupOptions(this.value)
+})
+
+if($('select#matter_intake_business_paying_for_matter').val()) {
+	setMatterIntakeBusinessGroupOptions($('select#matter_intake_business_paying_for_matter').val())
+}
+
+function setMatterIntakeBusinessGroupOptions(value) {
 	$('select#matter_intake_group_paying_for_matter').empty();
-	var options = "<option value=''> Select an option</option>";
-	switch(this.value) {
+	var group_value = $("#matter_intake_group_paying_for_matter").attr("data-value");
+	var options = "<option value=''> Select option</option>";
+	switch(value) {
 		case "Canadian P&C":
-			options += "<option value='Business Banking'>Business Banking</option>";
-			options += "<option value='Collections'>Collections</option>";
-			options += "<option value='Commercial Banking - ABL'>Commercial Banking - ABL</option>";
-			options += "<option value='Commercial Banking - Auto Finance'>Commercial Banking - Auto Finance</option>";
-			options += "<option value='Commercial Banking - Capital Partners'>Commercial Banking - Capital Partners</option>";
-			options += "<option value='Commercial Banking - Diversified Industries'>Commercial Banking - Diversified Industries</option>";
-			options += "<option value='Commercial Banking - Media Finance (incl. Equipment Leasing)'>Commercial Banking - Media Finance (incl. Equipment Leasing)</option>";
-			options += "<option value='Commercial Banking - Real Estate Finance'>Commercial Banking - Real Estate Finance</option>";
-			options += "<option value='Commercial Banking - SAMU'>Commercial Banking - SAMU</option>";
-			options += "<option value='Commercial Banking - Sponsor Finance'>Commercial Banking - Sponsor Finance</option>";
-			options += "<option value='Commercial Banking - Transportation Finance'>Commercial Banking - Transportation Finance</option>";
-			options += "<option value='Commercial Banking - Treasury & Payment Solutions'>Commercial Banking - Treasury & Payment Solutions</option>";
-			options += "<option value='Digital'>Digital</option>";
-			options += "<option value='Personal Banking'>Personal Banking</option>";
-			options += "<option value='Retail & Small Business Payments'>Retail & Small Business Payments</option>";
+			valueArray = ["Business Banking","Commercial Banking - ABL","Commercial Banking - Auto Finance","Commercial Banking - BMO Capital Partners & M&A","Commercial Banking - Corporate Finance","Commercial Banking - Diversified Industries","Commercial Banking - Equipment Leasing","Commercial Banking - Media","Commercial Banking - Other (Regions)","Commercial Banking - Overhead & Support","Commercial Banking - Real Estate Lending","Commercial Banking - Retail Dealer Finance","Commercial Banking - Sponsor Coverage","Commercial Banking - Tranportation Finance","Commercial Banking - Treasury & Payment Solutions","Electronic Banking Services","Other - Customer Contact Centres","Other - Distribution Services","Other - Headquarters","Other - Investment Plan","Personal Banking - Everyday Banking","Personal Banking - Home Financing & Retail Lending","Personal Banking - NA Retail Payments","Personal Banking - Office of the COO","Personal Banking - Sales & Distribution","Personal Banking - SVP Program","Personal Banking - Term Deposits"];
+			for (var i = 0; i < valueArray.length; i++) {
+				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
+			}
 			break;
 		case "Capital Markets":
-			options += "<option value='Global I&CB - Global Advisory (M&A)'>Global I&CB - Global Advisory (M&A)</option>";
-			options += "<option value='Global I&CB - Global Corporate Banking'>Global I&CB - Global Corporate Banking</option>";
-			options += "<option value='Global I&CB - Global Corporate Finance Solutions'> Global I&CB - Global Corporate Finance Solutions</option>";
-			options += "<option value='Global I&CB - Investment Banking'>Global I&CB - Investment Banking</option>";
-			options += "<option value='Global Markets - Cross Asset Solutions'>Global Markets - Cross Asset Solutions</option>";
-			options += "<option value='Global Markets - Cross GM Structuring'>Global Markets - Cross GM Structuring</option>";
-			options += "<option value='Global Markets - Europe & Asia'>Global Markets - Europe & Asia</option>";
-			options += "<option value='Global Markets - Global Equity Products (Equities)'>Global Markets - Global Equity Products (Equities)</option>";
-			options += "<option value='Global Markets - Global Fixed Income, Currencies & Commodities (FICC)'>Global Markets - Global Fixed Income, Currencies & Commodities (FICC)</option>";
-			options += "<option value='Global Markets - Global Markets Corporate Banking'>Global Markets - Global Markets Corporate Banking</option>";
-			options += "<option value='Global Markets - Institutional Relationship Management (IRM)'>Global Markets - Institutional Relationship Management (IRM)</option>";
-			options += "<option value='Global Markets - Strategy & Business Management (SBM)'>Global Markets - Strategy & Business Management (SBM)</option>";
-			options += "<option value='Office of the COO'>Office of the COO</option>";
+			valueArray = ["Global I&CB - Excluding GTM","Global I&CB - HQ","Global I&CB - Merchant Banking","Global I&CB - Treasury & Payment Solutions","Global Markets - Cross Asset Solutions","Global Markets - Global Equity Products (Equities)","Global Markets - Global Fixed Income, Currencies & Commodities (FICC)","Global Markets - HQ and Other (Trading Products HQ, Cross Bus Risk)","Office of the COO"];
+			for (var i = 0; i < valueArray.length; i++) {
+				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
+			}
 			break;
 		case "Corporate":
-			options += "<option value='Audit'>Audit</option>";
-			options += "<option value='Communications'>Communications</option>";
-			options += "<option value='ERPM'>ERPM</option>";
-			options += "<option value='Finance'>Finance</option>";
-			options += "<option value='HR/ER'>HR/ER</option>";
-			options += "<option value='LRC'>LRC</option>";
-			options += "<option value='LRC NonLegal'>LRC NonLegal</option>";
-			options += "<option value='LRC TPP'>LRC TPP</option>";
-			options += "<option value='Marketing & Strategy'>Marketing & Strategy</option>";
-			options += "<option value='People & Culture'>People & Culture</option>";
-			options += "<option value='Real Estate'>Real Estate</option>";
-			options += "<option value='Technology & Operations'>Technology & Operations</option>";
+			valueArray = ["Audit","EI3 - CAO Office","EI3 - Insight Strategies","EI3 - Procurement","EI3 - Projects","EI3 - Real Estate","ERPM & AML","Finance","LRC","LRC Non-Legal","LRC TPP","Marketing & Strategy","Other (BMO Pools, Capital Account, Jupiter, Corp. Initiatives, U.S. Corp Office)","People & Culture - Corporate Communications","People & Culture - HR/ER","People & Culture - Office of the CEO","Senior Corporate Executive Operating","Technology & Operations"]
+			for (var i = 0; i < valueArray.length; i++) {
+				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
+			}
 			break;
 		case "U.S. P&C":
-			options += "<option value='Commercial Banking - BMO Financial Corp'>Commercial Banking - BMO Financial Corp</option>";
-			options += "<option value='Commercial Banking - Corporate Finance'>Commercial Banking - Corporate Finance</option>";
-			options += "<option value='Commercial Banking - Diversified Industries Group (DIG)'>Commercial Banking - Diversified Industries Group (DIG)</option>";
-			options += "<option value='Commercial Banking - Office of COO'>Commercial Banking - Office of COO</option>";
-			options += "<option value='Commercial Banking  -Transportation Finance'>Commercial Banking  -Transportation Finance</option>";
-			options += "<option value='Personal & Business Banking - Branches'>Personal & Business Banking - Branches</option>";
-			options += "<option value='Personal & Business Banking - Business Banking'>Personal & Business Banking - Business Banking</option>";
-			options += "<option value='Personal & Business Banking - Collections'>Personal & Business Banking - Collections</option>";
-			options += "<option value='Personal & Business Banking - Consumer Lending'>Personal & Business Banking - Consumer Lending</option>";
-			options += "<option value='Personal & Business Banking - Deposits'>Personal & Business Banking - Deposits</option>";
-			options += "<option value='Personal & Business Banking - Digital'>Personal & Business Banking - Digital</option>";
-			options += "<option value='Personal & Business Banking - Head of Distribution'>Personal & Business Banking - Head of Distribution</option>";
-			options += "<option value='Personal & Business Banking - Head of Retail'>Personal & Business Banking - Head of Retail</option>";
-			options += "<option value='Personal & Business Banking - Indirect Auto'>Personal & Business Banking - Indirect Auto</option>";
-			options += "<option value='Personal & Business Banking - Retail Payments'>Personal & Business Banking - Retail Payments</option>";
-			options += "<option value='Personal & Business Banking - Retail Specialty Sales  Mortgages'>Personal & Business Banking - Retail Specialty Sales  Mortgages</option>";
-			options += "<option value='Personal & Business Banking - Retail Specialty Sales  Premier Sales'>Personal & Business Banking - Retail Specialty Sales  Premier Sales</option>";
-			options += "<option value='Personal & Business Banking - Risk & Ops'>Personal & Business Banking - Risk & Ops</option>";
+			valueArray = ["Commercial Banking - Agriculture","Commercial Banking - Commercial Real Estate","Commercial Banking - Community Development","Commercial Banking - Corporate Finance","Commercial Banking - Dealer Finance","Commercial Banking - Diversified Industries Group (DIG)","Commercial Banking - EFC","Commercial Banking - Financial Institutions","Commercial Banking - Food & Consumer","Commercial Banking - Other (TPS, Corp Card, Global Treasury Mgmt, OREO, Other Wrap)","Commercial Banking - Transportation Finance","Other - Headquarters","Personal Banking - Brokered CD's","Personal Banking - Cards","Personal Banking - Deposit Products & Segment","Personal Banking - Indirect Auto","Personal Banking - Office of the COO","Personal Banking - Other - BB Strategy","Personal Banking - Other - HQ Administration","Personal Banking - Other - Retail","Personal Banking - Premier","Personal Banking - Regions (Excl. Small Business)","Personal Banking - Retail Lending","Personal Banking - Small Business"]
+			for (var i = 0; i < valueArray.length; i++) {
+				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
+			}
 			break;
 		case "Wealth Management":
-			options += "<option value='Global Asset Management Asia'>Global Asset Management Asia</option>";
-			options += "<option value='Global Asset Management Canada'>Global Asset Management Canada</option>";
-			options += "<option value='Global Asset Management EMEA'>Global Asset Management EMEA</option>";
-			options += "<option value='Global Asset Management U.S.'>Global Asset Management U.S.</option>";
-			options += "<option value='Insurance'>Insurance</option>";
-			options += "<option value='InvestorLine'>InvestorLine</option>";
-			options += "<option value='Personal Wealth Asia'>Personal Wealth Asia</option>";
-			options += "<option value='Personal Wealth Canada'>Personal Wealth Canada</option>";
-			options += "<option value='Wealth U.S.'>Wealth U.S.</option>";
+			valueArray = ["Global Asset Management - BAM HQ","Global Asset Management Asia","Global Asset Management Canada","Global Asset Management EMEA","Global Asset Management U.S.","HQ","Insurance","Personal Wealth - InvestorLine","Personal Wealth Canada","Personal Wealth U.S."];
+			for (var i = 0; i < valueArray.length; i++) {
+				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
+			}
 			break;
 		default:
 	}
 	$('#matter_intake_group_paying_for_matter').html(options);
-	$("#matter_intake_group_paying_for_matter").trigger("chosen:updated")
-})
+	if (group_value) {
+		$("#matter_intake_group_paying_for_matter").val(group_value);
+	}
+	$("#matter_intake_group_paying_for_matter").trigger("chosen:updated");
+}
+
+if($('select#matter_intake_process_type_level_1').val()) {
+	setMatterIntakeProcessLevelType1($('select#matter_intake_process_type_level_1').val())
+}
 
 $('select#matter_intake_process_type_level_1').on('change', function() {
+	setMatterIntakeProcessLevelType1(this.value)
+})
+
+function setMatterIntakeProcessLevelType1(value) {
 	$('select#matter_intake_process_type_level_2').empty();
-	var options = "<option value=''> Select an option</option>";
-	switch(this.value) {
+	var options = "<option value=''> Select option</option>";
+	var process_type_2_value = $("#matter_intake_process_type_level_2").attr("data-value");
+	switch(value) {
 		case "Capture and Document Transactions":
 			options += "<option value='Capture Transactions'>Capture Transactions</option>";
 			options += "<option value='Confirm and Document Transactions'>Confirm and Document Transactions</option>";
 			break;
 		case "Deliver Products and Services":
-			options += "<option value='Order Routing'>Order Routing</option>";
-			options += "<option value='Execution/Order Fill'>Execution/Order Fill</option>";
-			options += "<option value='Position/Portfolio Mgt (proprietary)'>Position/Portfolio Mgt (proprietary)</option>";
-			options += "<option value='Cash, Stock and Securities Mgt'>Cash, Stock and Securities Mgt</option>";
-			options += "<option value='Event Management/Corporate Actions (own assets)'>Event Management/Corporate Actions (own assets)</option>";
-			options += "<option value='Fees Admin, Calculation and Application'>Fees Admin, Calculation and Application</option>";
-			options += "<option value='Calculate and Apply Interest'>Calculate and Apply Interest</option>";
-			options += "<option value='Collateral Management'>Collateral Management</option>";
-			options += "<option value='Product Control'>Product Control</option>";
-			options += "<option value='Portfolio Mgt (client assets)'>Portfolio Mgt (client assets)</option>";
-			options += "<option value='Event Management/Corporate Actions (client assets)'>Event Management/Corporate Actions (client assets)</option>";
-			options += "<option value='Safekeeping of Client Assets'>Safekeeping of Client Assets</option>";
 			options += "<option value='Advisory Services'>Advisory Services</option>";
+			options += "<option value='Calculate and Apply Interest'>Calculate and Apply Interest</option>";
+			options += "<option value='Cash, Stock and Securities Mgt'>Cash, Stock and Securities Mgt</option>";
+			options += "<option value='Collateral Management'>Collateral Management</option>";
 			options += "<option value='Customer Statements'>Customer Statements</option>";
+			options += "<option value='Event Management/Corporate Actions (client assets)'>Event Management/Corporate Actions (client assets)</option>";
+			options += "<option value='Event Management/Corporate Actions (own assets)'>Event Management/Corporate Actions (own assets)</option>";
+			options += "<option value='Execution/Order Fill'>Execution/Order Fill</option>";
+			options += "<option value='Fees Admin, Calculation and Application'>Fees Admin, Calculation and Application</option>";
+			options += "<option value='Order Routing'>Order Routing</option>";
+			options += "<option value='Portfolio Mgt (client assets)'>Portfolio Mgt (client assets)</option>";
+			options += "<option value='Position/Portfolio Mgt (proprietary)'>Position/Portfolio Mgt (proprietary)</option>";
+			options += "<option value='Product Control'>Product Control</option>";
+			options += "<option value='Safekeeping of Client Assets'>Safekeeping of Client Assets</option>";
 			break;
 		case "Develop, Design and Maintain Products, Services and General Business Capabilities":
 			options += "<option value='Market Analysis/Research'>Market Analysis/Research</option>";
@@ -979,51 +1513,51 @@ $('select#matter_intake_process_type_level_1').on('change', function() {
 			options += "<option value='Reference Data Management'>Reference Data Management</option>";
 			break;
 		case "Market Products and Services":
-			options += "<option value='Research (Marketing)'>Research (Marketing)</option>";
-			options += "<option value='Publishing Price Quotes'>Publishing Price Quotes</option>";
 			options += "<option value='Marketing - Other'>Marketing - Other</option>";
+			options += "<option value='Publishing Price Quotes'>Publishing Price Quotes</option>";
+			options += "<option value='Research (Marketing)'>Research (Marketing)</option>";
 			break;
 		case "Sell/Reach Agreement to Conduct Specific Business":
 			options += "<option value='Advisory/Pitch/Pre-Sales'>Advisory/Pitch/Pre-Sales</option>";
 			options += "<option value='Pricing and Quotation'>Pricing and Quotation</option>";
-			options += "<option value='Transaction/Limit Check'>Transaction/Limit Check</option>";
 			options += "<option value='Reach Agreement/Order Receipt'>Reach Agreement/Order Receipt</option>";
+			options += "<option value='Transaction/Limit Check'>Transaction/Limit Check</option>";
 			break;
 		case "Take on and Maintain Clients/Customers, Counterparties and Trade Relationships":
 			options += "<option value='(New) Client Account'>(New) Client Account</option>";
-			options += "<option value='CRM/Client Services'>CRM/Client Services</option>";
 			options += "<option value='Client Due Diligence'>Client Due Diligence</option>";
+			options += "<option value='CRM/Client Services'>CRM/Client Services</option>";
 			options += "<option value='Loan Defaults'>Loan Defaults</option>";
 			break;
 		case "Perform Settlements and Closing Activities":
-			options += "<option value='Payment/Delivery (non-cash/non-physical)'>Payment/Delivery (non-cash/non-physical)</option>";
 			options += "<option value='Cash Payment/Physical Delivery'>Cash Payment/Physical Delivery</option>";
 			options += "<option value='Fails Management'>Fails Management</option>";
+			options += "<option value='Payment/Delivery (non-cash/non-physical)'>Payment/Delivery (non-cash/non-physical)</option>";
 			break;
 		case "Perform Transaction Accounting":
 			options += "<option value='Transaction Accounting'>Transaction Accounting</option>";
 			break;
 		case "Manage Human Resources":
 			options += "<option value='HR Management'>HR Management</option>";
+			options += "<option value='Other HR Issues'>Other HR Issues</option>";
 			options += "<option value='Remuneration, Expenses and Payroll'>Remuneration, Expenses and Payroll</option>";
 			options += "<option value='Travel Accidents'>Travel Accidents</option>";
-			options += "<option value='Other HR Issues'>Other HR Issues</option>";
 			break;
 		case "Manage Information Technology":
 			options += "<option value='IT Development'>IT Development</option>";
 			options += "<option value='IT Implementation'>IT Implementation</option>";
+			options += "<option value='IT Maintenance'>IT Maintenance</option>";
+			options += "<option value='IT Production'>IT Production</option>";
 			options += "<option value='IT Purchasing'>IT Purchasing</option>";
 			options += "<option value='IT Security'>IT Security</option>";
 			options += "<option value='Maintain Infrastructure and Networks'>Maintain Infrastructure and Networks</option>";
-			options += "<option value='IT Production'>IT Production</option>";
 			options += "<option value='Mgt of IT Incidents'>Mgt of IT Incidents</option>";
-			options += "<option value='IT Maintenance'>IT Maintenance</option>";
 			break;
 		case "Manage Financial Reporting and Taxation":
 			options += "<option value='Budgeting and Forecasting'>Budgeting and Forecasting</option>";
+			options += "<option value='Financial Accounting and Reporting'>Financial Accounting and Reporting</option>";
 			options += "<option value='Management Accounting'>Management Accounting</option>";
 			options += "<option value='Management Reporting'>Management Reporting</option>";
-			options += "<option value='Financial Accounting and Reporting'>Financial Accounting and Reporting</option>";
 			options += "<option value='Taxation'>Taxation</option>";
 			break;
 		case "Manage Capital, Funding and Liquidity":
@@ -1031,173 +1565,197 @@ $('select#matter_intake_process_type_level_1').on('change', function() {
 			options += "<option value='Management of Corporate Investments'>Management of Corporate Investments</option>";
 			break;
 		case "Manage Suppliers and Outsourcing Service Suppliers":
-			options += "<option value='Take on Outsourcing'>Take on Outsourcing</option>";
 			options += "<option value='Conclusion of Outsourcing Contract'>Conclusion of Outsourcing Contract</option>";
-			options += "<option value='Outsourcing Management and Monitoring'>Outsourcing Management and Monitoring</option>";
-			options += "<option value='Take on Suppliers'>Take on Suppliers</option>";
 			options += "<option value='Conclusion of Suppliers Contract'>Conclusion of Suppliers Contract</option>";
+			options += "<option value='Outsourcing Management and Monitoring'>Outsourcing Management and Monitoring</option>";
 			options += "<option value='Suppliers Management and Monitoring'>Suppliers Management and Monitoring</option>";
+			options += "<option value='Take on Outsourcing'>Take on Outsourcing</option>";
+			options += "<option value='Take on Suppliers'>Take on Suppliers</option>";
 			break;
 		case "Manage Physical Assets and Facilities":
+			options += "<option value='Environmental Protection'>Environmental Protection</option>";
 			options += "<option value='Facility Mgt'>Facility Mgt</option>";
 			options += "<option value='Fleet Mgt'>Fleet Mgt</option>";
-			options += "<option value='Office Equipment'>Office Equipment</option>";
 			options += "<option value='Health and Safety'>Health and Safety</option>";
-			options += "<option value='Physical Security'>Physical Security</option>";
-			options += "<option value='Environmental Protection'>Environmental Protection</option>";
+			options += "<option value='Office Equipment'>Office Equipment</option>";
 			options += "<option value='Other Internal Services'>Other Internal Services</option>";
+			options += "<option value='Physical Security'>Physical Security</option>";
 			break;
 		case "Manage Compliance, Legal, Governance and Audit":
-			options += "<option value='Policies, Governance and Monitoring'>Policies, Governance and Monitoring</option>";
-			options += "<option value='Non-Financial Regulatory Reporting'>Non-Financial Regulatory Reporting</option>";
+			options += "<option value='Administration of Mandates and Directorships'>Administration of Mandates and Directorships</option>";
+			options += "<option value='Audit'>Audit</option>";
+			options += "<option value='Information Integrity Management'>Information Integrity Management</option>";
 			options += "<option value='Legal Advisory Services'>Legal Advisory Services</option>";
 			options += "<option value='Litigation Management'>Litigation Management</option>";
-			options += "<option value='Audit'>Audit</option>";
-			options += "<option value='Administration of Mandates and Directorships'>Administration of Mandates and Directorships</option>";
+			options += "<option value='Non-Financial Regulatory Reporting'>Non-Financial Regulatory Reporting</option>";
+			options += "<option value='Policies, Governance and Monitoring'>Policies, Governance and Monitoring</option>";
 			options += "<option value='Protect Private Information'>Protect Private Information</option>";
-			options += "<option value='Information Integrity Management'>Information Integrity Management</option>";
 			break;
 		case "Manage Risk Systems":
+				options += "<option value='Business Continuity Management'>Business Continuity Management</option>";
 			options += "<option value='Control and Oversight of Models and Methodologies'>Control and Oversight of Models and Methodologies</option>";
 			options += "<option value='Insurance and Recoveries'>Insurance and Recoveries</option>";
-			options += "<option value='Business Continuity Management'>Business Continuity Management</option>";
 			break;
 		default:
 	}
 	$('#matter_intake_process_type_level_2').html(options);
-	$("#matter_intake_process_type_level_2").trigger("chosen:updated")
-})
+	if(process_type_2_value) {
+		$("#matter_intake_process_type_level_2").val(process_type_2_value);
+	}
+	$("#matter_intake_process_type_level_2").trigger("chosen:updated");
+}
+
+if($('select#matter_intake_event_type_level_1').val()) {
+	setMatterIntakeEventType1($('select#matter_intake_event_type_level_1').val());
+}
 
 $('select#matter_intake_event_type_level_1').on('change', function() {
+	setMatterIntakeEventType1(this.value);
+})
+
+function setMatterIntakeEventType1(value) {
 	$('select#matter_intake_event_type_level_2').empty();
-	var options = "<option value=''> Select an option</option>";
-	switch(this.value) {
+	var options = "<option value=''> Select option</option>";
+	var event_type_2_value = $("#matter_intake_event_type_level_2").attr("data-value");
+	switch(value) {
 		case "Internal Fraud":
-			options += "<option value='Unauthorized Activity'>Unauthorized Activity</option>";
-			options += "<option value='Theft and Fraud - In Person - Internal'>Theft and Fraud - In Person - Internal</option>";
 			options += "<option value='Theft and Fraud - Electronic - Internal'>Theft and Fraud - Electronic - Internal</option>";
+			options += "<option value='Theft and Fraud - In Person - Internal'>Theft and Fraud - In Person - Internal</option>";
+			options += "<option value='Unauthorized Activity'>Unauthorized Activity</option>";
 			break;
 		case "External Fraud":
 			options += "<option value='Theft and Fraud - In Person - External'>Theft and Fraud - In Person - External</option>";
 			options += "<option value='Theft and fraud - Electronic - External'>Theft and fraud - Electronic - External</option>";
 			break;
 		case "Employment Practices and Workplace Safety":
+			options += "<option value='Employee Discrimination'>Employee Discrimination</option>";
 			options += "<option value='Employee Management Errors'>Employee Management Errors</option>";
 			options += "<option value='Unsafe Workplace'>Unsafe Workplace</option>";
-			options += "<option value='Employee Discrimination'>Employee Discrimination</option>";
 			break;
 		case "Clients, Products and Business Practices":
-			options += "<option value='Suitability, Disclosure, and Fiduciary'>Suitability, Disclosure, and Fiduciary</option>";
 			options += "<option value='Improper Business or Market Practices'>Improper Business or Market Practices</option>";
-			options += "<option value='Product Flaws'>Product Flaws</option>";
-			options += "<option value='Inappropriate Selection or Excessive Exposure'>Inappropriate Selection or Excessive Exposure</option>";
 			options += "<option value='Inappropriate Advice'>Inappropriate Advice</option>";
+			options += "<option value='Inappropriate Selection or Excessive Exposure'>Inappropriate Selection or Excessive Exposure</option>";
+			options += "<option value='Product Flaws'>Product Flaws</option>";
+			options += "<option value='Suitability, Disclosure, and Fiduciary'>Suitability, Disclosure, and Fiduciary</option>";
 			options += "<option value='Unfounded Lawsuit'>Unfounded Lawsuit</option>";
 			break;
 		case "Disasters and Public Safety":
-			options += "<option value='Property Damage'>Property Damage</option>";
 			options += "<option value='Physical Harm to Third Parties and Property'>Physical Harm to Third Parties and Property</option>";
-			options += "<option value='Wilful Damage'>Wilful Damage</option>";
-			options += "<option value='Terrorism'>Terrorism</option>";
+			options += "<option value='Property Damage'>Property Damage</option>";
 			options += "<option value='Systems Security - Wilful Damage - External'>Systems Security - Wilful Damage - External</option>";
 			options += "<option value='Systems Security - Wilful Damage - Internal'>Systems Security - Wilful Damage - Internal</option>";
+			options += "<option value='Terrorism'>Terrorism</option>";
+			options += "<option value='Wilful Damage'>Wilful Damage</option>";
 			break;
 		case "Technology and Infrastructure Failures":
 			options += "<option value='IT Failures'>IT Failures</option>";
 			options += "<option value='Systemic Infrastructure Failures'>Systemic Infrastructure Failures</option>";
 			break;
 		case "Execution, Delivery and Process Management":
-			options += "<option value='Transaction Capture, Execution, and Maintenance'>Transaction Capture, Execution, and Maintenance</option>";
-			options += "<option value='Monitoring and Reporting Errors'>Monitoring and Reporting Errors</option>";
-			options += "<option value='Customer Intake and Documentation Errors'>Customer Intake and Documentation Errors</option>";
 			options += "<option value='Customer Account Management Errors'>Customer Account Management Errors</option>";
+			options += "<option value='Customer Intake and Documentation Errors'>Customer Intake and Documentation Errors</option>";
+			options += "<option value='Monitoring and Reporting Errors'>Monitoring and Reporting Errors</option>";
+			options += "<option value='Transaction Capture, Execution, and Maintenance'>Transaction Capture, Execution, and Maintenance</option>";
 			break;
 		default:
 	}
 	$('#matter_intake_event_type_level_2').html(options);
-	$("#matter_intake_event_type_level_2").trigger("chosen:updated")
-})
+	if(event_type_2_value) {
+		$('#matter_intake_event_type_level_2').val(event_type_2_value);
+	}
+	$("#matter_intake_event_type_level_2").trigger("chosen:updated");
+}
+
+if($('select#matter_intake_product_type_level_1').val()) {
+	setMatterIntakeProductType1($('select#matter_intake_product_type_level_1').val());
+}
 
 $('select#matter_intake_product_type_level_1').on('change', function() {
+	setMatterIntakeProductType1(this.value);
+})
+
+function setMatterIntakeProductType1(value) {
 	$('select#matter_intake_product_type_level_2').empty();
-	var options = "<option value=''> Select an option</option>";
-	switch(this.value) {
+	var options = "<option value=''> Select option</option>";
+	var product_type_2_value = $("#matter_intake_product_type_level_2").attr("data-value");
+	switch(value) {
 		case "Capital Raising":
-			options += "<option value='Equity Issuance'>Equity Issuance</option>";
 			options += "<option value='Bond Issuance'>Bond Issuance</option>";
-			options += "<option value='Structured Products Issuance'>Structured Products Issuance</option>";
-			options += "<option value='Securitisations'>Securitisations</option>";
+			options += "<option value='Equity Issuance'>Equity Issuance</option>";
 			options += "<option value='Private Placements'>Private Placements</option>";
+			options += "<option value='Securitisations'>Securitisations</option>";
+			options += "<option value='Structured Products Issuance'>Structured Products Issuance</option>";
 			options += "<option value='Syndications'>Syndications</option>";
 			break;
 		case "Corporate Finance Services":
-			options += "<option value='Mergers and Acquisitions'>Mergers and Acquisitions</option>";
-			options += "<option value='Corporate Advisory Services'>Corporate Advisory Services</option>";
-			options += "<option value='Fixed Income'>Fixed Income</option>";
-			options += "<option value='Equities'>Equities</option>";
 			options += "<option value='Commodities'>Commodities</option>";
-			options += "<option value='Foreign Exchange and Money Markets (FX and MM)'>Foreign Exchange and Money Markets (FX and MM)</option>";
-			options += "<option value='Repos/Securities Lending'>Repos/Securities Lending</option>";
-			options += "<option value='Investment Funds'>Investment Funds</option>";
-			options += "<option value='OTC and Securitised Interest Rate Derivatives'>OTC and Securitised Interest Rate Derivatives</option>";
-			options += "<option value='OTC and Securitised Credit Derivatives'>OTC and Securitised Credit Derivatives</option>";
-			options += "<option value='OTC and Securitised FX Derivatives'>OTC and Securitised FX Derivatives</option>";
-			options += "<option value='OTC and Securitised Equity Derivatives'>OTC and Securitised Equity Derivatives</option>";
-			options += "<option value='OTC and Securitised Commodity Derivatives'>OTC and Securitised Commodity Derivatives</option>";
-			options += "<option value='Other OTC and Securitised Derivatives'>Other OTC and Securitised Derivatives</option>";
+			options += "<option value='Corporate Advisory Services'>Corporate Advisory Services</option>";
+			options += "<option value='Equities'>Equities</option>";
 			options += "<option value='Exchange Traded Futures and Options'>Exchange Traded Futures and Options</option>";
+			options += "<option value='Fixed Income'>Fixed Income</option>";
+			options += "<option value='Foreign Exchange and Money Markets (FX and MM)'>Foreign Exchange and Money Markets (FX and MM)</option>";
+			options += "<option value='Investment Funds'>Investment Funds</option>";
+			options += "<option value='Mergers and Acquisitions'>Mergers and Acquisitions</option>";
+			options += "<option value='OTC and Securitised Commodity Derivatives'>OTC and Securitised Commodity Derivatives</option>";
+			options += "<option value='OTC and Securitised Credit Derivatives'>OTC and Securitised Credit Derivatives</option>";
+			options += "<option value='OTC and Securitised Equity Derivatives'>OTC and Securitised Equity Derivatives</option>";
+			options += "<option value='OTC and Securitised FX Derivatives'>OTC and Securitised FX Derivatives</option>";
+			options += "<option value='OTC and Securitised Interest Rate Derivatives'>OTC and Securitised Interest Rate Derivatives</option>";
+			options += "<option value='Other OTC and Securitised Derivatives'>Other OTC and Securitised Derivatives</option>";
+			options += "<option value='Repos/Securities Lending'>Repos/Securities Lending</option>";
 			break;
 		case "Retail Credit":
-			options += "<option value='Retail Cards'>Retail Cards</option>";
-			options += "<option value='Vehicle Loans'>Vehicle Loans</option>";
-			options += "<option value='Vehicle Leasing'>Vehicle Leasing</option>";
-			options += "<option value='Student Loans'>Student Loans</option>";
-			options += "<option value='Mortgages'>Mortgages</option>";
 			options += "<option value='Home Equity Loans and Lines of Credit'>Home Equity Loans and Lines of Credit</option>";
+			options += "<option value='Mortgages'>Mortgages</option>";
+			options += "<option value='Other Consumer Leasing'>Other Consumer Leasing</option>";
 			options += "<option value='Other Secured Consumer Loans'>Other Secured Consumer Loans</option>";
 			options += "<option value='Other Unsecured Consumer Loans'>Other Unsecured Consumer Loans</option>";
-			options += "<option value='Other Consumer Leasing'>Other Consumer Leasing</option>";
 			options += "<option value='Personal standby letters of credit or guarantees'>Personal standby letters of credit or guarantees</option>";
+			options += "<option value='Retail Cards'>Retail Cards</option>";
+			options += "<option value='Student Loans'>Student Loans</option>";
+			options += "<option value='Vehicle Leasing'>Vehicle Leasing</option>";
+			options += "<option value='Vehicle Loans'>Vehicle Loans</option>";
 			break;
 		case "Commercial Credit":
+			options += "<option value='Card Merchant Services'>Card Merchant Services</option>";
 			options += "<option value='Commercial and Industrial Loans'>Commercial and Industrial Loans</option>";
+			options += "<option value='Commercial Cards'>Commercial Cards</option>";
+			options += "<option value='Commercial Leases'>Commercial Leases</option>";
 			options += "<option value='Commercial Real Estate Loans'>Commercial Real Estate Loans</option>";
 			options += "<option value='Construction, Acquisition and Development Loans'>Construction, Acquisition and Development Loans</option>";
-			options += "<option value='Commercial Leases'>Commercial Leases</option>";
-			options += "<option value='Commercial Cards'>Commercial Cards</option>";
-			options += "<option value='Card Merchant Services'>Card Merchant Services</option>";
-			options += "<option value='Project Finance Loans'>Project Finance Loans</option>";
-			options += "<option value='Trade Finance'>Trade Finance</option>";
-			options += "<option value='Standby Letters of Credit, Bank Guarantees, Bankers Acceptances'>Standby Letters of Credit, Bank Guarantees, Bankers Acceptances</option>";
 			options += "<option value='Factoring'>Factoring</option>";
+			options += "<option value='Project Finance Loans'>Project Finance Loans</option>";
+			options += "<option value='Standby Letters of Credit, Bank Guarantees, Bankers Acceptances'>Standby Letters of Credit, Bank Guarantees, Bankers Acceptances</option>";
 			options += "<option value='Structured Lending'>Structured Lending</option>";
+			options += "<option value='Trade Finance'>Trade Finance</option>";
 			break;
 		case "Deposits":
-			options += "<option value='Consumer Current Accounts'>Consumer Current Accounts</option>";
-			options += "<option value='Consumer Notice Accounts'>Consumer Notice Accounts</option>";
 			options += "<option value='Commercial Bank Accounts'>Commercial Bank Accounts</option>";
 			options += "<option value='Commercial Time and Term Deposits'>Commercial Time and Term Deposits</option>";
+			options += "<option value='Consumer Current Accounts'>Consumer Current Accounts</option>";
+			options += "<option value='Consumer Notice Accounts'>Consumer Notice Accounts</option>";
 			options += "<option value='Investment Products'>Investment Products</option>";
 			break;
 		case "Cash Management, Payments and Settlements":
-			options += "<option value='Retail Cash Management'>Retail Cash Management</option>";
+			options += "<option value='Clearing'>Clearing</option>";
 			options += "<option value='Commercial Cash Management'>Commercial Cash Management</option>";
 			options += "<option value='Electronic Payments'>Electronic Payments</option>";
-			options += "<option value='Manual Payments'>Manual Payments</option>";
-			options += "<option value='Clearing'>Clearing</option>";
-			options += "<option value='Settlement'>Settlement</option>";
 			options += "<option value='Exchange Services'>Exchange Services</option>";
+			options += "<option value='Manual Payments'>Manual Payments</option>";
+			options += "<option value='Retail Cash Management'>Retail Cash Management</option>";
+			options += "<option value='Settlement'>Settlement</option>";
 			break;
 		case "Trust/Investment Management":
-			options += "<option value='Custody Services'>Custody Services</option>";
+			options += "<option value='Advisory Portfolio Management'>Advisory Portfolio Management</option>";
 			options += "<option value='Corporate Actions Services'>Corporate Actions Services</option>";
 			options += "<option value='Corporate Trusts'>Corporate Trusts</option>";
-			options += "<option value='Prime Brokerage'>Prime Brokerage</option>";
-			options += "<option value='Financial and Estate Planning'>Financial and Estate Planning</option>";
+			options += "<option value='Custody Services'>Custody Services</option>";
 			options += "<option value='Discretionary Portfolio Management'>Discretionary Portfolio Management</option>";
 			options += "<option value='Execution-only Services'>Execution-only Services</option>";
-			options += "<option value='Advisory Portfolio Management'>Advisory Portfolio Management</option>";
+			options += "<option value='Financial and Estate Planning'>Financial and Estate Planning</option>";
 			options += "<option value='Lombard Credits'>Lombard Credits</option>";
+			options += "<option value='Prime Brokerage'>Prime Brokerage</option>";
 			break;
 		case "Investment Products":
 			options += "<option value='Fund Administration'>Fund Administration</option>";
@@ -1217,22 +1775,34 @@ $('select#matter_intake_product_type_level_1').on('change', function() {
 		default:
 	}
 	$('#matter_intake_product_type_level_2').html(options);
+	if(product_type_2_value) {
+		$('#matter_intake_product_type_level_2').val(product_type_2_value);
+	}
 	$("#matter_intake_product_type_level_2").trigger("chosen:updated");
-})
+}
+
+if($('#matter_intake_business_activity_level_1').val()) {
+	setMatterIntakeBusinessActivityLevel1($('#matter_intake_business_activity_level_1').val());
+}
 
 $('select#matter_intake_business_activity_level_1').on('change', function() {
+	setMatterIntakeBusinessActivityLevel1(this.value);
+})
+
+function setMatterIntakeBusinessActivityLevel1(value) {
 	$('select#matter_intake_business_activity_level_2').empty();
-	var options = "<option value=''> Select an option</option>";
-	switch(this.value) {
+	var options = "<option value=''> Select option</option>";
+	var business_activity_level_2_value = $("#matter_intake_business_activity_level_2").attr("data-value");
+	switch(value) {
 		case "Corporate Finance":
+			options += "<option value='Advisory Services'>Advisory Services</option>";
 			options += "<option value='Corporate Finance'>Corporate Finance</option>";
 			options += "<option value='Municipal/Government Finance'>Municipal/Government Finance</option>";
-			options += "<option value='Advisory Services'>Advisory Services</option>";
 			break;
 		case "Trading and Sales":
+			options += "<option value='Corporate Investments'>Corporate Investments</option>";
 			options += "<option value='Equities'>Equities</option>";
 			options += "<option value='Global Markets'>Global Markets</option>";
-			options += "<option value='Corporate Investments'>Corporate Investments</option>";
 			options += "<option value='Treasury'>Treasury</option>";
 			break;
 		case "Retail Banking":
@@ -1246,8 +1816,8 @@ $('select#matter_intake_business_activity_level_1').on('change', function() {
 			options += "<option value='Securities clearing'>Securities clearing</option>";
 			break;
 		case "Agency Services":
-			options += "<option value='Custody'>Custody</option>";
 			options += "<option value='Corporate Trust and Agency'>Corporate Trust and Agency</option>";
+			options += "<option value='Custody'>Custody</option>";
 			options += "<option value='Custom Services'>Custom Services</option>";
 			break;
 		case "Asset Management":
@@ -1275,8 +1845,11 @@ $('select#matter_intake_business_activity_level_1').on('change', function() {
 		default:
 	}
 	$('#matter_intake_business_activity_level_2').html(options);
+	if(business_activity_level_2_value) {
+		$('#matter_intake_business_activity_level_2').val(business_activity_level_2_value);
+	}
 	$("#matter_intake_business_activity_level_2").trigger("chosen:updated")
-})
+}
 
 $(document).ready(function() {
 	// general intake
@@ -1289,15 +1862,17 @@ $(document).ready(function() {
 	// litigation inhtake
 	var mode_of_payment_litigation = $('select#matter_intake_outside_counsel_engaged > option:selected').val();
 
-	if(mode_of_payment_litigation == 'N/A Internal – no law firm will be engaged') {
+	if(mode_of_payment_litigation == 'N/A Internal – no law firm will be engaged' || mode_of_payment_litigation ==  "") {
 		$('.internal-matter').hide()
 	} 
 
 })
 
-$('select#matter_intake_mode_of_payment, select#matter_intake_outside_counsel_engaged').on('change', function() {
+$('select#matter_intake_mode_of_payment, select#matter_intake_type_of_price, select#matter_intake_outside_counsel_engaged').on('change', function() {
 	if(this.value == 'N/A Internal – no law firm will be engaged') {
 		$('.internal-matter').hide()
+		$('.panel_firm').hide()
+		$('.non_panel_firm').hide()
 	} else {
 		$('.internal-matter').show()
 		var matter_intake_firm_type = $('select#matter_intake_firm_type > option:selected').val();
@@ -1319,15 +1894,593 @@ $('select#matter_intake_mode_of_payment, select#matter_intake_outside_counsel_en
 			$('.non_panel_firm').hide()
 		}
 	
-		if(type_of_price.includes(matter_intake_type_of_price)) {
+		if(matter_intake_type_of_price != "" && !type_of_price.includes(matter_intake_type_of_price)) {
 			$('.alternative_fee').show();
-			$('#matter_intake_is_alternative_fee_arrangement').val("true")
+			$('#matter_intake_is_alternative_fee_arrangement').val("Yes")
+			$('.afa_details').show();
 			$("#matter_intake_is_alternative_fee_arrangement").trigger("chosen:updated")
 		} else {
 			$('.alternative_fee').hide();
-			$('#matter_intake_is_alternative_fee_arrangement').val("false")
-			$('#matter_intake_afa_details').val('')
+			$('#matter_intake_is_alternative_fee_arrangement').val("No")
+			$('#matter_intake_afa_details').val('');
+			$('.afa_details').hide();
 			$("#matter_intake_is_alternative_fee_arrangement").trigger("chosen:updated")
 		}
 	}
 })
+
+$( ".exception_request_reason input.check_boxes" ).on( "click", function() {
+  var reasonArray = []
+  $(".exception_request_reason input.check_boxes:checked").each(function(){
+    reasonArray.push($(this).val());
+	});
+  if(reasonArray.includes("Expertise") || reasonArray.includes("Cost") ){
+     $('.exception_request_women_owned_box').removeClass('hide')
+  }else{
+		$('.exception_request_women_owned_box').addClass('hide')
+		$("#exception_request_women_owned").val('No');
+		$(".women_owned_details").hide();
+		$('#exception_request_women_owned_details').val('');
+		$("#exception_request_women_owned").trigger("chosen:updated");
+  }
+});
+
+if($('select#panel_request_niche_preferred_external_counsel_panel_law_firms').val() == "Yes"){
+	$('.panel_request_niche_expertise').show()
+}
+$('select#panel_request_niche_preferred_external_counsel_panel_law_firms').on('change', function() {
+	if(this.value == "Yes"){
+		$('.panel_request_niche_expertise').show()
+	}else{
+		$('.panel_request_niche_expertise').hide()
+		$('#panel_request_niche_expertise').val(" ")
+	}
+});
+
+if($('select#panel_request_required_unique_geography').val() == "Yes"){
+	$('.panel_request_geographic_location').show()
+}
+$('select#panel_request_required_unique_geography').on('change', function() {
+	if(this.value == "Yes"){
+		$('.panel_request_geographic_location').show()
+	}else{
+		$('.panel_request_geographic_location').hide()
+		$('#panel_request_geographic_location').val(" ")
+	}
+});
+
+if($("select#matter_intake_outside_counsel_engaged").val() == "N/A Internal – no law firm will be engaged" || $("select#matter_intake_outside_counsel_engaged").val() == "" || $('.matter_intake_outside_counsel_engaged_value').attr('data-value') === "N/A Internal – no law firm will be engaged" || $('.matter_intake_outside_counsel_engaged_value').attr('data-value') === "" ) {
+	$('.outside_counsel_engaged').hide()
+	$('.lob_matter_submit_btn').val("Submit")
+} else {
+	$('.outside_counsel_engaged').show()
+	$('.lob_matter_submit_btn').val("Next")
+}
+
+$('select#matter_intake_outside_counsel_engaged').on('change', function() {
+	if(this.value == "N/A Internal – no law firm will be engaged" || this.value == ""){
+		$('.outside_counsel_engaged').hide()
+		$('.lob_matter_submit_btn').val("Submit")
+	} else {
+		$('.outside_counsel_engaged').show()
+		$('.lob_matter_submit_btn').val("Next")
+	}
+})
+
+$('.lxp_review_status').on('click', function() {
+	
+	var status = $(this).attr("data-status");
+	if(status) {
+		$('#review_status').removeAttr('disabled');
+		$('#review_status').val(status);
+		$('#review_status').trigger('chosen:updated');
+		$(".form-submit-btn.lxp_sttaus").trigger('click');
+	}
+
+})
+
+if($('select#conflict_waiver_confirm_waiver').val()) {
+	$('.confirm_waiver_notes').show()
+	$('.cw-next-step-btn').hide()
+	$(".cm-repesenting").show()
+	$(".cw-submit-btn").show()
+}
+
+$('select#conflict_waiver_confirm_waiver').on('change', function() {
+	var selectedValue = this.value;
+	if(selectedValue === "true") {
+		$('.confirm_waiver_notes').show()
+		$(".cm-repesenting").hide()
+		$(".cw-submit-btn").hide()
+ 
+		$('.cw-next-step-btn').text("Close").show()
+
+	} else {
+		$('.confirm_waiver_notes').hide()
+
+		$('.cw-next-step-btn').text("Next")
+	}
+});
+
+$('.cw-next-step-btn').on('click', function() {
+	if ($('select#conflict_waiver_confirm_waiver').val() === "true"){
+		return false;
+	}
+	
+	$(this).hide();
+	
+	$(".cm-repesenting").show()
+	$(".cw-submit-btn").show()
+	return false
+
+})
+
+
+
+$(".loader").hide();
+
+$('.email_wnn_documents').on('click', function() {
+	var panel_request_id = $(this).attr("data-id");
+
+	if(panel_request_id) {
+		$(".loader").show();
+		$.ajax({
+			url: "/admin/panel_requests/send_wnn_documents",
+			method: "post",
+			data: {id : panel_request_id}
+		})
+		.done(function( response) {
+			if(response){
+				swal({
+					title: response.title,
+					icon: response.icon,
+					text: response.message
+				});	
+				$(".loader").hide();
+			}
+		});
+	}
+
+})
+
+$('.non-panel_send_retainer').on('click', function() {
+
+	message = "Confirmation: " + $(this).attr("data-message")
+	var non_panel_id = $(this).attr("data-id");
+	swal({
+		title: message,
+		text: "",
+		type: "warning",
+		showCancelButton: true,
+		confirmButtonColor: "#DD6B55",
+		confirmButtonText: "Ok",
+		cancelButtonText: "Cancel",
+		closeOnConfirm: true,
+		closeOnCancel: true
+	},
+	function(isConfirm){
+		if (isConfirm) {
+			if(non_panel_id) {
+				$(".non_panel_send_retainer_status").html("")
+				$(".loader").show();
+				$.ajax({
+					url: "/admin/exception_requests/send_retainer_aggreement",
+					method: "post",
+					data: {id : non_panel_id}
+				})
+				.done(function( response) {
+					if(response){
+							$(".non_panel_send_retainer_status").html(response.title)
+							swal({
+								title: response.title,
+								icon: response.icon,
+								text: response.message,
+								confirmButtonText: "Ok",
+								cancelButtonText: "Cancel",
+								closeOnConfirm: true,
+								closeOnCancel: true
+							},
+							function(isConfirm){
+								if (isConfirm) {
+									if($(".non_panel_send_retainer_status").html() === "Success"){
+										//options = "<option value='RETAINER_AGREEMENT_SENT'>Retainer Agreement Sent</option>";
+										//$('#review_status').html(options);
+									//	$("#review_status").trigger("chosen:updated")
+										$("#new_review").submit()
+									}
+								}
+							});
+						// swal({
+						// 	title: response.title,
+						// 	icon: response.icon,
+						// 	text: response.message,
+						// });	
+						$(".loader").hide();
+					}
+				});
+			}
+		}
+	});
+	return false
+
+})
+
+if($("select#matter_intake_is_ore_reportable").val() == "Yes" || $('#litigation_reporting').val() == "Yes") {
+	$('.litigation_reporting').show()
+} else {
+	$('.litigation_reporting').hide()
+}
+
+$('select#matter_intake_is_ore_reportable').on('change', function() {
+	if(this.value == "Yes"){
+		$('.litigation_reporting').show()
+	} else {
+		$('.litigation_reporting').hide()
+	}
+})
+
+if($("select#matter_intake_receive_personal_information").val() == "Yes" ) {
+	$('.receive_personal_information_data_type_data_list').show()
+} else {
+	$('.receive_personal_information_data_type_data_list').hide()
+}
+
+$('select#matter_intake_receive_personal_information').on('change', function() {
+	if(this.value == "Yes"){
+		$('.receive_personal_information_data_type_data_list').show()
+	} else {
+		$('.receive_personal_information_data_type_data_list').hide()
+	}
+})
+
+if($("select#matter_intake_receive_general_business_data").val() == "Yes" ) {
+	$('.receive_general_business_data_type_data_list').show()
+} else {
+	$('.receive_general_business_data_type_data_list').hide()
+}
+$('select#matter_intake_receive_general_business_data').on('change', function() {
+	if(this.value == "Yes"){
+		$('.receive_general_business_data_type_data_list').show()
+	} else {
+		$('.receive_general_business_data_type_data_list').hide()
+	}
+})
+
+if($("select#matter_intake_applicable_technical_specialty_data").val() == "Yes" ) {
+	$('.applicable_technical_specialty_data_type_data_list').show()
+} else {
+	$('.applicable_technical_specialty_data_type_data_list').hide()
+}
+$('select#matter_intake_applicable_technical_specialty_data').on('change', function() {
+	if(this.value == "Yes"){
+		$('.applicable_technical_specialty_data_type_data_list').show()
+	} else {
+		$('.applicable_technical_specialty_data_type_data_list').hide()
+	}
+})
+
+//New Non-Panel (one-off) Request
+
+
+if($("select#exception_request_receive_personal_information").val() == "Yes" ) {
+	$('.receive_personal_information_data_type_data_list').show()
+} else {
+	$('.receive_personal_information_data_type_data_list').hide()
+}
+
+$('select#exception_request_receive_personal_information').on('change', function() {
+	if(this.value == "Yes"){
+		$('.receive_personal_information_data_type_data_list').show()
+	} else {
+		$('.receive_personal_information_data_type_data_list').hide()
+	}
+})
+
+if($("select#exception_request_receive_general_business_data").val() == "Yes" ) {
+	$('.receive_general_business_data_type_data_list').show()
+} else {
+	$('.receive_general_business_data_type_data_list').hide()
+}
+$('select#exception_request_receive_general_business_data').on('change', function() {
+	if(this.value == "Yes"){
+		$('.receive_general_business_data_type_data_list').show()
+	} else {
+		$('.receive_general_business_data_type_data_list').hide()
+	}
+})
+
+if($("select#exception_request_applicable_technical_specialty_data").val() == "Yes" ) {
+	$('.applicable_technical_specialty_data_type_data_list').show()
+} else {
+	$('.applicable_technical_specialty_data_type_data_list').hide()
+}
+$('select#exception_request_applicable_technical_specialty_data').on('change', function() {
+	if(this.value == "Yes"){
+		$('.applicable_technical_specialty_data_type_data_list').show()
+	} else {
+		$('.applicable_technical_specialty_data_type_data_list').hide()
+	}
+})
+
+//$(".simple_form.edit_exception_request").validate();
+
+// $(document).ready(function(){
+// 	$('.simple_form_edit_exception_request').click(function(){ 
+		
+// 		 if($('select#exception_request_matter_involve_following').val() == ""){
+// 				$(".exception_request_matter_involve_following_error").show()
+// 		}else{
+// 				$(".exception_request_matter_involve_following_error").hide()
+// 		}
+		 
+// 	});
+// });
+
+
+function validateEmail(emailField){
+	var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+	if (reg.test(emailField) == false) 
+	{
+			return false;
+	}
+	return true;
+}
+
+$(document).ready(function() {
+	$("#next-btn-information").click(function(){  // capture the click
+		exception_request_line_of_business = $('select#exception_request_line_of_business');
+		exception_request_law_firm_name = $('#exception_request_law_firm_name');
+		exception_request_law_firm_phone = $('#exception_request_law_firm_phone');
+		exception_request_law_firm_email = $('#exception_request_law_firm_email');
+		exception_request_matter_name = $('#exception_request_matter_name');
+		exception_request_matter_description = $('#exception_request_matter_description');
+		exception_request_matter_involve_following = $('select#exception_request_matter_involve_following');
+		exception_request_law_firm_email_val = true;
+		if(exception_request_line_of_business.val() == ""){
+				$(exception_request_line_of_business).parent().parent().find(".custom-error").show()
+		}else{
+				$(exception_request_line_of_business).parent().parent().find(".custom-error").hide()
+		}
+		if(exception_request_law_firm_name.val() == ""){
+			$(exception_request_law_firm_name).parent().parent().find(".custom-error").show()
+		}else{
+				$(exception_request_law_firm_name).parent().parent().find(".custom-error").hide()
+		}
+		if(exception_request_law_firm_phone.val() == ""){
+			$(exception_request_law_firm_phone).parent().parent().find(".custom-error").show()
+		}else{
+				$(exception_request_law_firm_phone).parent().parent().find(".custom-error").hide()
+		}
+		if(exception_request_law_firm_email.val() == ""){
+			$(exception_request_law_firm_email).parent().parent().find(".custom-error").show()
+		}else{
+			exception_request_law_firm_email_val = validateEmail(exception_request_law_firm_email.val())
+			if(exception_request_law_firm_email_val){
+				$(exception_request_law_firm_email).parent().parent().find(".email-error").hide()
+			}else{
+				$(exception_request_law_firm_email).parent().parent().find(".email-error").show()
+			}
+			$(exception_request_law_firm_email).parent().parent().find(".custom-error").hide()
+		}
+		if(exception_request_matter_name.val() == ""){
+			$(exception_request_matter_name).parent().parent().find(".custom-error").show()
+		}else{
+				$(exception_request_matter_name).parent().parent().find(".custom-error").hide()
+		}
+		if(exception_request_matter_description.val() == ""){
+			$(exception_request_matter_description).parent().parent().find(".custom-error").show()
+		}else{
+				$(exception_request_matter_description).parent().parent().find(".custom-error").hide()
+		}
+		if(exception_request_matter_involve_following.val() == ""){
+			$(exception_request_matter_involve_following).parent().parent().find(".custom-error").show()
+		}else{
+				$(exception_request_matter_involve_following).parent().parent().find(".custom-error").hide()
+		}
+		if(exception_request_line_of_business.val() != "" && exception_request_law_firm_name.val() != "" && exception_request_law_firm_phone.val() != "" && exception_request_law_firm_email.val() != "" && exception_request_matter_name.val() != "" && exception_request_matter_description.val() != "" && exception_request_matter_involve_following.val() != "" && exception_request_law_firm_email_val != "" ){
+			$("#tabs-exception").tabs("enable", 3);
+			$("#next-information-btn").click()
+		}else{
+			$("#tabs-exception").tabs("option", "disabled", [3]);
+			return false;
+		}
+	});
+
+$('.simple_form_edit_exception_request').click(function(){ 
+	
+	exception_request_receive_personal_information = $('select#exception_request_receive_personal_information');
+	exception_request_receive_general_business_data = $('select#exception_request_receive_general_business_data');
+	exception_request_applicable_technical_specialty_data = $('select#exception_request_applicable_technical_specialty_data'); 
+		
+	if(exception_request_receive_personal_information.val() == ""){
+		$(exception_request_receive_personal_information).parent().parent().find(".custom-error").show()
+	}else{
+			$(exception_request_receive_personal_information).parent().parent().find(".custom-error").hide()
+	}
+	if(exception_request_receive_general_business_data.val() == ""){
+		$(exception_request_receive_general_business_data).parent().parent().find(".custom-error").show()
+	}else{
+		$(exception_request_receive_general_business_data).parent().parent().find(".custom-error").hide()
+	}
+	if(exception_request_applicable_technical_specialty_data.val() == ""){
+		$(exception_request_applicable_technical_specialty_data).parent().parent().find(".custom-error").show()
+	}else{
+		$(exception_request_applicable_technical_specialty_data).parent().parent().find(".custom-error").hide()
+	}
+
+	if(exception_request_receive_personal_information.val() != "" && exception_request_receive_general_business_data.val() != "" && exception_request_applicable_technical_specialty_data.val() != "" ){
+		return true;
+	}else{
+		return false;
+	}
+});
+
+
+$('.simple_form_edit_matter_intakes').click(function(){ 
+	
+	matter_intake_receive_personal_information = $('select#matter_intake_receive_personal_information');
+	matter_intake_receive_general_business_data = $('select#matter_intake_receive_general_business_data');
+	matter_intake_applicable_technical_specialty_data = $('select#matter_intake_applicable_technical_specialty_data'); 
+		
+	if(matter_intake_receive_personal_information.val() == ""){
+		$(matter_intake_receive_personal_information).parent().parent().find(".custom-error").show()
+	}else{
+			$(matter_intake_receive_personal_information).parent().parent().find(".custom-error").hide()
+	}
+	if(matter_intake_receive_general_business_data.val() == ""){
+		$(matter_intake_receive_general_business_data).parent().parent().find(".custom-error").show()
+	}else{
+		$(matter_intake_receive_general_business_data).parent().parent().find(".custom-error").hide()
+	}
+	if(matter_intake_applicable_technical_specialty_data.val() == ""){
+		$(matter_intake_applicable_technical_specialty_data).parent().parent().find(".custom-error").show()
+	}else{
+		$(matter_intake_applicable_technical_specialty_data).parent().parent().find(".custom-error").hide()
+	}
+
+	if(matter_intake_receive_personal_information.val() != "" && matter_intake_receive_general_business_data.val() != "" && matter_intake_applicable_technical_specialty_data.val() != "" ){
+		return true;
+	}else{
+		return false;
+	}
+});
+
+$('.simple_form_admin_matter_intakes').click(function(){ 
+	
+	matter_intake_receive_personal_information = $('select#matter_intake_receive_personal_information');
+	matter_intake_receive_general_business_data = $('select#matter_intake_receive_general_business_data');
+	matter_intake_applicable_technical_specialty_data = $('select#matter_intake_applicable_technical_specialty_data'); 
+		
+	if(matter_intake_receive_personal_information.val() == ""){
+		$(matter_intake_receive_personal_information).parent().parent().find(".custom-error").show()
+	}else{
+			$(matter_intake_receive_personal_information).parent().parent().find(".custom-error").hide()
+	}
+	if(matter_intake_receive_general_business_data.val() == ""){
+		$(matter_intake_receive_general_business_data).parent().parent().find(".custom-error").show()
+	}else{
+		$(matter_intake_receive_general_business_data).parent().parent().find(".custom-error").hide()
+	}
+	if(matter_intake_applicable_technical_specialty_data.val() == ""){
+		$(matter_intake_applicable_technical_specialty_data).parent().parent().find(".custom-error").show()
+	}else{
+		$(matter_intake_applicable_technical_specialty_data).parent().parent().find(".custom-error").hide()
+	}
+
+	if(matter_intake_receive_personal_information.val() != "" && matter_intake_receive_general_business_data.val() != "" && matter_intake_applicable_technical_specialty_data.val() != "" ){
+		return true;
+	}else{
+		return false;
+	}
+});
+
+$('.simple_form_confirm_waiver_btn_bmo').click(function(){ 
+	conflict_waiver_name_of_other_client = $('#conflict_waiver_name_of_other_client');
+	conflict_waiver_description_of_transaction = $('#conflict_waiver_description_of_transaction');
+	
+		
+	if(conflict_waiver_name_of_other_client.val() == ""){
+		$(conflict_waiver_name_of_other_client).parent().parent().find(".custom-error").show()
+	}else{
+			$(conflict_waiver_name_of_other_client).parent().parent().find(".custom-error").hide()
+	}
+	if(conflict_waiver_description_of_transaction.val() == ""){
+		$(conflict_waiver_description_of_transaction).parent().parent().find(".custom-error").show()
+	}else{
+		$(conflict_waiver_description_of_transaction).parent().parent().find(".custom-error").hide()
+	}
+ 
+
+	if(conflict_waiver_name_of_other_client.val() != "" && conflict_waiver_description_of_transaction.val() != "" ){
+		return true;
+	}else{
+		return false;
+	}
+});
+
+
+$('.simple_form_confirm_waiver_btn_other').click(function(){ 
+	conflict_waiver_name_of_other_client = $('#conflict_waiver_name_of_other_client');
+	conflict_waiver_description_of_transaction = $('#conflict_waiver_description_of_transaction');
+	conflict_waiver_nature_of_mandate = $('#conflict_waiver_nature_of_mandate');
+	conflict_waiver_office_locattion = $('#conflict_waiver_office_locattion');
+	conflict_waiver_names_of_primary = $('#conflict_waiver_names_of_primary');
+	
+	
+		
+	if(conflict_waiver_name_of_other_client.val() == ""){
+		$(conflict_waiver_name_of_other_client).parent().parent().find(".custom-error").show()
+	}else{
+			$(conflict_waiver_name_of_other_client).parent().parent().find(".custom-error").hide()
+	}
+	if(conflict_waiver_description_of_transaction.val() == ""){
+		$(conflict_waiver_description_of_transaction).parent().parent().find(".custom-error").show()
+	}else{
+		$(conflict_waiver_description_of_transaction).parent().parent().find(".custom-error").hide()
+	}
+
+	if(conflict_waiver_nature_of_mandate.val() == ""){
+		$(conflict_waiver_nature_of_mandate).parent().parent().find(".custom-error").show()
+	}else{
+		$(conflict_waiver_nature_of_mandate).parent().parent().find(".custom-error").hide()
+	}
+
+	if(conflict_waiver_office_locattion.val() == ""){
+		$(conflict_waiver_office_locattion).parent().parent().find(".custom-error").show()
+	}else{
+		$(conflict_waiver_office_locattion).parent().parent().find(".custom-error").hide()
+	}
+
+	if(conflict_waiver_names_of_primary.val() == ""){
+		$(conflict_waiver_names_of_primary).parent().parent().find(".custom-error").show()
+	}else{
+		$(conflict_waiver_names_of_primary).parent().parent().find(".custom-error").hide()
+	}
+ 
+
+	if(conflict_waiver_name_of_other_client.val() != "" && conflict_waiver_description_of_transaction.val() != ""  && conflict_waiver_nature_of_mandate.val() != "" && conflict_waiver_office_locattion.val() != "" && conflict_waiver_names_of_primary.val() != ""){
+		return true;
+	}else{
+		return false;
+	}
+});
+
+
+
+
+if($($( "#rfi_lawfirm_form" ).hasClass( "rfi_lawfirm" ))){
+	$('.rfi_lawfirm form input').removeAttr('disabled')
+	$('.rfi_lawfirm form select').removeAttr('disabled')
+	$('.rfi_lawfirm form select').trigger('chosen:updated');
+}
+
+$('#matter_intake_status').chosen().change(function() {
+	if(this.value == "MATTER_OPEN") {
+		$(".matter_number_input").show()
+	}else{
+		$(".matter_number_input").hide()
+		$("#matter_intake_matter_number").val("")
+	}
+});
+	$('.matter_status_by_lxp').on('click', function(e){
+		if($('select#matter_intake_status').chosen().val() == ""){
+			swal({
+				title: "oops!",
+				text: "Please select status"
+			});
+			return false;
+		}
+	
+		 if($('select#matter_intake_status').chosen().val() === "MATTER_OPEN"){
+			matter_intake_matter_number = $('#matter_intake_matter_number').val()
+				if(!matter_intake_matter_number) {
+					swal({
+						title: "oops!",
+						text: "Please Enter matter number"
+					});
+					return false;
+				}
+		 }
+		});
+
+});

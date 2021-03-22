@@ -17,7 +17,7 @@
   }
   .sp-main-page .right-side{
     width: 100%;
-    margin-top: 55px;
+    margin-top: 0px;
   }
   .bmo-logo{
     width: 100%;
@@ -42,15 +42,17 @@
     background: transparent !important;
   }
   .top-status-card li{
-    width: 95%;
+    width: 100%;
     margin-bottom: 15px;
+    box-sizing: border-box !important;
   }
   #logo img {
     padding-left: 10px;
   }
   /* Toggle Menu */
   #menu_toggle {
-    
+    margin-right: 10px;
+    display: block;
   }
   #dashboard_menu {
     display: none;
@@ -58,8 +60,8 @@
     z-index: 99;
     width: 100%;
     background-color: rgb(255, 255, 255);
-    padding-top: 25px;
-    top: 118px;
+    padding-top: 15px;
+    top: 71px;
     border-top: 1px solid #ccc;
     -webkit-box-shadow: 0px 13px 14px -6px rgba(0,0,0,0.2);
     -moz-box-shadow: 0px 13px 14px -6px rgba(0,0,0,0.2);
@@ -80,6 +82,9 @@
     font-weight: bold;
     font-size: 16px;
     text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 15px;
+    display: block;
   }
   /* Toggle Menu END */
   .user-form-sp{
@@ -149,6 +154,8 @@
     display: flex;
     overflow-y: hidden;
     overflow-x: scroll;
+    align-items: flex-end;
+    padding: 0px 0px 15px 0px !important
   }
   .sp-form > form .label {
     white-space: pre-wrap;
@@ -162,4 +169,42 @@
   .sp-form > form select{
     
   } 
+  .sp-menu-item-hidden{
+    display: block;
+  }
+  .sp-menu-item-hidden .user-image{
+    width: 40px;
+    border-radius: 150px;
+  }
+  .sp-menu-item-hidden i{
+    font-size: 1.33333333em;
+    margin-right: 12px;
+  }
+  .hide-profile{
+    display: none !important;
+  }
+  .mobile-action-btn{
+    flex-direction: column;
+  }
+  .mobile-action-btn a:first-child{
+    margin-bottom: 15px;
+  }
+  .mobile-dashboard-header{
+    margin-top: 25px !important;
+    margin-bottom: 10 !important;
+    flex-direction: row;
+  }
+  .mobile-dashboard-header .page-title{
+    width: 70%;
+  }
+  #sparks li {
+    max-height: 75px !important;
+  }
+  .top-status-card .card-content {
+    align-items: center;
+  }
+  .top-status-card .card-content .card-details .total-record{
+    font-size: 38px;
+    line-height: 38px;
+  }
 }

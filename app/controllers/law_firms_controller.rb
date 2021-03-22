@@ -2,7 +2,8 @@ class LawFirmsController < BaseController
     
 	def edit
     redirect_to set_new_password_path unless current_user.new_password_set
-		@law_firm = LawFirm.find(current_law_firm.id)
+    @law_firm = LawFirm.find(current_law_firm.id)
+
 	end
 
 	def update
@@ -26,10 +27,10 @@ class LawFirmsController < BaseController
   def invite_users
     redirect_to root_path unless current_user.role == 'master_user'
     law_firm_user_count = current_law_firm.standard_users.count
-    username = SecureRandom.hex(4)
+    username = params[:email]
     if(law_firm_user_count < current_law_firm.law_firm_user_limit)
-      user = User.new(email: "#{username}#{LawFirm::EMAIL_PREFIX}", 
-                username: username,
+      user = User.new(email: params[:email], 
+                username: params[:email],
                 password: params[:temp_password],
                 password_confirmation: params[:temp_password_confirmation],
                 role: 'user',
@@ -43,7 +44,7 @@ class LawFirmsController < BaseController
         flash[:alert] = user.errors.full_messages.join(", ")
       end
     else
-      flash[:alert] = "You're only allowed to add #{current_law_firm.law_firm_user_limit} collaborators"
+      flash[:alert] = "You're only allowed to add #{current_law_firm.law_firm_user_limit} user"
     end
     redirect_to add_users_law_firms_path
   end
@@ -116,6 +117,26 @@ class LawFirmsController < BaseController
       :sister_firm, 
       :initial_date_of_engagement_with_the_bank,
       :number_of_lawyers,
+      :secondary_rm_contact,
+      :secondary_rm_contact_email,
+      :billing_contact_name,
+      :billing_contact_email,
+      :information_security_contact,
+      :information_security_contact_email,
+      :diverse,
+      :value_add_activities,
+      :feedback,
+      :issues,
+      :merger_combination,
+      :engagement_number,
+      :relationship_number,
+      :information_security_class,
+      :information_security_assessment_outcome,
+      :action_plan_findings,
+      :action_plan_status,
+      :bmo_relationship_partner_email,
+      :bmo_relationship_partner_name,
+      :bmo_relationship_partner_phone_number,
       :confidentiality_level_of_matters_that_are_handled,
       locations_attributes: [
         :id, :address1, :address2, :city, 

@@ -1,41 +1,131 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset='utf-8' />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SEAL</title>
   </head>
-  <body onload='number_pages'>
-    <div id="content" style="background-color: #efefef;">
-      <style>
-        body{
-        font-family: Arial, Helvetica, sans-serif;
-        font-size: 14px;
-        }
-        .main-element-div{
-        width: 1024px; 
-        margin: 0px auto;
-        }
-        .text-center{
+
+<body style="background-color: #E5E5E5;">
+  <div style="max-width: 680px; margin: 0px auto; background-color: #F5F8FA; padding: 25px;">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@100;200;300;400;500;600;700;800;900&display=swap');
+      .mail-inner-container{
+        background-color: #ffffff;
+        padding: 20px;
+      }
+      .data-center{
         text-align: center;
+      }
+      h1.section-heading{
+        font-family: 'Heebo', sans-serif;
+        font-weight: 300;
+        color: #1A1A1A;
+      }
+      .inner-content{
+        font-family: 'Heebo', sans-serif;
+        font-weight: 300;
+        color: #1A1A1A;
+        font-size: 28px;
+        opacity: 0.7;
+      }
+      .link-btn{
+        background-color: #0051CA;
+        font-family: 'Heebo', sans-serif;
+        color: #FFFFFF;
+        text-decoration: none;
+        padding: 15px 50px;
+        border-radius: 4px;
+        font-size: 22px;
+      }
+      .mail-note{
+        color: #141414;
+        opacity: 0.6;
+        font-size: 16px;
+        font-family: 'Heebo', sans-serif;
+        font-weight: normal;
+        margin-bottom: 0px;
+      }
+      .notes-layout{
+        margin-top: 50px;
+        padding-top: 20px;
+        border-top: 1px solid #EDEDF2;
+      }
+      .mail-copyrights{
+        color: #141414;
+        opacity: 0.6;
+        font-size: 16px;
+        font-family: 'Heebo', sans-serif;
+        font-weight: normal;
+        margin-bottom: 0px;
+      }
+      .more-links{
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .more-links a{
+        padding: 10px;
+        color: #141414;
+        font-size: 16px;
+        font-family: 'Heebo', sans-serif;
+        font-weight: normal;
+        text-decoration: none;
+      }
+      .data-center-copyrights{
+        text-align: center;
+      }
+      .user-inner-content {
+        font-family: 'Heebo', sans-serif;
+        font-weight: 300;
+        color: #303030;
+        font-size: 24px;
+        opacity: 0.7;
+        line-height: 32px;
+      }
+      @media only screen and (min-width: 140px) and (max-width: 480px) {
+        .data-center{
+          text-align: unset;
         }
-        .block-padding{
-        margin-top: 25px;
-        margin-bottom: 25px;
+        .link-btn{
+          width: 100%;
+          display: inline-block;
+          text-align: center;
+          padding: 15px 0px;
         }
-      </style>
-      <div class="main-element-div">
-        <table width="100%">
-          <tr class="text-center">
-            <td> 
-              <img src="https://panel.grcx.io/images/panel-black.png" class="block-padding" />
-            </td>
-          </tr>
-          <tr class="text-center">
-            <td style="font-size: 18px; color: #484848; padding: 40px;">
-              <%= yield %>
-            </td>
-          </tr>
-         
-      </table>
+      }
+    </style>
+    <div class="mail-inner-container">
+      <div class="">
+        <img src="https://panel.grcx.io/images/Panel.png" style="width: 100px;">
+      </div>
+      <%# <div class=""><h1 class="section-heading">Reset Your Password</h1></div>
+      <div class="">
+        <p class="user-inner-content">Need to reset your password? No problem. Just click below to get started.</p>
+      </div>
+      <div class="">
+        <a href="#" class="link-btn">Reset My Password</a>
+      </div> %>
+      <%= yield %>
+      <div class="data-center notes-layout">
+        <p class="mail-note">If you received this email by mistake, simply delete it.</p>
+      </div>
     </div>
-  </body>
+    <div class="data-center-copyrights">
+      <p class="mail-copyrights">Copyright © 2020 Seal. All Rights Reserved. We appreciate you!</p>
+    </div>
+    <!--div class="more-links">
+      <a href="#">help@seal.com</a>
+      <a href="#">1(800)232-90-26</a>
+    </div>
+    <div class="more-links">
+      <a href="#"><img src="https://panel.grcx.io/images/icon-instagram.svg"></a>
+      <a href="#"><img src="https://panel.grcx.io/images/icon-fb.svg"></a>
+      <a href="#"><img src="https://panel.grcx.io/images/icon-twitter.svg"></a>
+      <a href="#"><img src="https://panel.grcx.io/images/icon-google.svg"></a>
+    </div-->
+  </div>
+</body>
 </html>

@@ -34,7 +34,7 @@ class Admin::SystemSettingsController < Admin::BaseController
   end
 
   def settings_params
-  	params.require(:system_setting).permit(:score_threshold, :docusign_access_token)
+  	params.require(:system_setting).permit(:score_threshold, :docusign_access_token, :lxp_name, :lxp_email, :panel_status)
   end
 
 end

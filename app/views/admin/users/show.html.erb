@@ -27,7 +27,7 @@
                   <div class="col-md-8 data"><%= @conflict_waiver.contact_details %></div>
                 </div>
                 <div class="col-md-12">
-                  <div class="col-md-4 column">BMO Business contact	</div>
+                  <div class="col-md-4 column">BMO contact	</div>
                   <div class="col-md-8 data"><%= @conflict_waiver.bmo_business_contact %></div>
                 </div>
                 <div class="col-md-12">
@@ -39,7 +39,7 @@
                   <div class="col-md-8 data"><%=  @conflict_waiver.lxp_status_show   %></div>
                 </div>
                 <div class="col-md-12">
-                  <div class="col-md-4 column">Internal Lawyers Status</div>
+                  <div class="col-md-4 column">Internal Lawyer Status</div>
                   <div class="col-md-8 data"><%= @conflict_waiver.internal_lawyers_status_show %></div>
                 </div>
                 
@@ -79,7 +79,7 @@
                   <% end %> 
                   <tr>
                     <td colspan="2">
-                      <%= link_to 'Cancel', @conflict_waiver.new_record? ? admin_exception_requests_path : admin_conflict_waiver_path, class: 'btn btn-danger btn-sm' %>
+                      <%= link_to 'Cancel', @conflict_waiver.new_record? ? admin_conflict_waiver_path : admin_conflict_waiver_path, class: 'btn btn-danger btn-sm' %>
                       <%= f.button :submit, @conflict_waiver.new_record? ? "Submit Request" : "Update Status", class:  @current_user.role === "lxp" ? "lxp_sttaus" : "laywr_status" %>
                     </td>
                   </tr>

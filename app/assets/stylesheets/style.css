@@ -351,13 +351,13 @@ div.link-to-add > * {
   width: 100%;
 }
 .fuelux .wizard ul li {
-  width: 20%;
+  width: 16.5%;
 }
 
 .form-wizard-wrapper {
-  margin: 20px;
+  /* margin: 20px;
   border: 1px solid #ccc;
-  box-shadow: 0px 2px 5px #d8d8d8
+  box-shadow: 0px 2px 5px #d8d8d8 */
 }
 
 .form-wizard-wrapper header,
@@ -445,7 +445,7 @@ textarea[name='message'] {
 }
 
 .select2-results .select2-highlighted, .select2-results__option--highlighted{
-  background: #007ac3;
+  background: #0352CA;
 }
 
 .select2-container--open .select2-dropdown, .select2-drop-active{
@@ -465,6 +465,10 @@ span.select2-selection__arrow{
   font: normal bold 12px/16px Tahoma,sans-serif;
 }
 .qtip-default .qtip-icon{ padding: 4px; }
+
+.export-icon img{
+  width: 25px;
+}
 
 .need-follow-up {
   /*background-color: rgba(255, 168, 168, 0.7) !important;*/
@@ -516,15 +520,41 @@ hr.note-seperator {
   padding-left: 10px !important;
 }
 
+.rfi_lawfirm .label { 
+  color: #000; 
+  font-weight: bold !important;
+  font-size: 14px !important;
+  padding-left: 0;
+}
+.rfi_lawfirm .sp-form .multiple-selector .chosen-container .chosen-choices {
+  border-bottom: 1px solid #ccc !important;
+}
+
+.tag-line{
+  background-color: #5baefe !important;
+  border-radius: 4px !important;
+  color: #fff;
+  margin-left: 10px;
+  margin-top: 3px;
+  padding: 0 4px;
+}
+
+.tag-fields{
+  
+}
+.page-title span{
+  font-weight: normal;
+}
+
 .note-wrapper{
   width: 50px;
   position: absolute;
-  right: -50px;
-  margin-top: 50px;
+  right: -35px;
+  margin-top: 35px;
 }
 
 .qtip-blue {
-  background-color: #007ac3 !important;
+  background-color: #0352CA !important;
 }
 
 .note-controls .note p {
@@ -549,6 +579,26 @@ hr.note-seperator {
   clear: both;
   margin-bottom: 20px;
   margin-right: 27px;
+}
+.dashboard-certificate-button-export {
+  margin-right: 0 !important;
+}
+
+.has-error input,
+.has-error select,
+.has-error .chosen-container,
+.has-error .textarea,
+  {
+    border: 1px solid #ff7676  !important; 
+}
+
+
+.has-error input{ border: 1px solid #ff7676  !important; }
+.has-error select{ border: 1px solid #ff7676  !important; }
+.has-error .chosen-container{ border: 1px solid #ff7676  !important; }
+.has-error textarea{ border: 1px solid #ff7676  !important; }
+.has-error .help-block{
+  text-transform: capitalize;
 }
 
 .check-mark-wrapper {
@@ -576,7 +626,7 @@ hr.note-seperator {
 
 .fuelux .wizard ul li.active {
   color: #ffffff;
-  background: #007ac3;
+  background: #0352CA;
 }
 
 .fuelux .wizard ul li.active .chevron:before {
@@ -584,16 +634,18 @@ hr.note-seperator {
 }
 
 .fuelux .wizard ul li a {
-  border-right-color: #007ac3;
+  border-right-color: #0352CA;
   font-weight: bold;
 }
-
+i.btn-default {
+  background: #000000 !important;
+}
 .fuelux .wizard ul li.active a {
   color: #fff;
 }
 
 .fuelux .wizard ul li.active .chevron:before {
-  border-left: 14px solid #007ac3;
+  border-left: 14px solid #0352CA;
 }
 
 .fuelux .wizard ul li .chevron {
@@ -809,7 +861,7 @@ ul.internal-notes li div p {
 }
 
 .current-stats {
-  background-color: #007ac3;
+  background-color: #0352CA;
   padding: 10px 0px;
 }
 
@@ -836,7 +888,7 @@ ul.internal-notes li div p {
 
 .form-field-header {
   margin-top: 0px;
-  background: #007ac3;
+  background: #0352CA;
   padding: 15px;
   color: #fff;
   font-weight: bold;
@@ -1111,19 +1163,19 @@ table.all-forms tr td {
 .law_firm_locations_country select { width: 100%; }
 
 .lawfirm-activity-color { color: #f39500; }
-.lawfirm-bank-color { color: #0275d8; }
+.lawfirm-bank-color { color: #0352CA; }
 
 .select2-selection { text-align: left; }
 
 .multiselectcantfind {
   font-size: 12px;
-  color: #007ac3;
+  color: #0352CA;
   cursor: pointer;
 }
 
 .ui-accordion .ui-accordion-icons {
   padding-left: 2.2em;
-  background: #007ac3;
+  background: #0352CA;
   color: #fff;
 }
 
@@ -1155,7 +1207,7 @@ table.all-forms tr td {
 }
 
 .chosen-container-multi .chosen-choices li.search-choice {
-  background: #007ac3;
+  background: #0352CA;
   color: #fff;
   box-shadow: none !important;
 }
@@ -1199,10 +1251,11 @@ label.float-field {
 i.btn { padding: 0 !important }
 i.btn input { padding: 8px !important; }
 
-.chosen-container-single .chosen-single span { text-align: left }
+.chosen-container-single .chosen-single span { text-align: left  ; color: #7E858E;}
 .chosen-container .chosen-results li {
   text-align: left;
   padding-left: 11px;
+  color: #7E858E;
 }
 
 li.active {
@@ -1210,7 +1263,7 @@ li.active {
 }
 
 body.smart-style-6 .txt-color-magenta, body.smart-style-6 nav ul li.active>a:before {
-  color: #007ac3!important;
+  color: #0352CA!important;
 }
 
 span.label-light-green {
@@ -1269,7 +1322,7 @@ li.create-option.highlighted a {
 
 .form-submit-btn {
   /* padding: 5px 20px !important;
-  background: #007ac3 !important;
+  background: #0352CA !important;
   color: #fff !important;
   border: none !important;
   font-weight: bold !important;
@@ -1279,13 +1332,13 @@ li.create-option.highlighted a {
 
 .form-submit-btn:hover {
   /* background: #f9f9f9;
-  color: #007ac3;
-  border: 1px solid #007ac3; */
+  color: #0352CA;
+  border: 1px solid #0352CA; */
 }
 
 .tab-next-btn {
   padding: 5px 20px !important;
-  background: #007ac3 !important;
+  background: #0352CA !important;
   color: #fff !important;
   border: none !important;
   font-weight: bold !important;
@@ -1295,8 +1348,8 @@ li.create-option.highlighted a {
 
 .tab-next-btn:hover {
   background: #f9f9f9;
-  color: #007ac3;
-  border: 1px solid #007ac3;
+  color: #0352CA;
+  border: 1px solid #0352CA;
 }
 
 @media (min-width: 768px) {
@@ -1565,4 +1618,60 @@ textarea{
   color: #fff !important;
   text-shadow: none;
   text-align: right;
+}
+
+ol.conflict_waiver_categories_list {
+  /* list-style-type: circle; */
+  padding-inline-start: 18px !important;
+  margin-block-start: 0px;
+}
+
+.checkbox .accept_conflict_waiver_checkbox {
+  margin-top: 0px !important;
+}
+
+label.no-border.form-heading.control-label.parent-f-sized-label {
+  font-size: 20px !important;
+  color: #0352CA;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+p.custom-error{
+  color: red;
+  font-size: 10px;
+  display: none;
+  margin-top: -10px;
+}
+
+p.email-error{
+  color: red;
+  font-size: 10px;
+  display: none;
+  margin-top: -10px;
+}
+
+.ribbon-box {
+  background: #f13838;
+  display: flex;
+  flex-direction: revert;
+  padding: 11px;
+}
+.ribbon-box span{
+  font-size: 20px;
+  color: #fff;
+}
+.ribbon-box a{
+  font-size: 20px;
+    color: #fff;
+    margin-left: 40px;
+    border: 1px solid;
+    padding: 2px;
+    width: 100px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+#doorbell form textarea, #doorbell form input[type="email"]{
+  color: #000;
 }

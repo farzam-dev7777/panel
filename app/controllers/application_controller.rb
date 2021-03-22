@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   helper_method :current_law_firm
+  before_filter :set_current_user
   #before_filter :authenticate_2fa
 
   #before_filter :set_cache_headers
@@ -9,6 +10,10 @@ class ApplicationController < ActionController::Base
     response.headers["Cache-Control"] = "no-cache, no-store"
     response.headers["Pragma"] = "no-cache"
     response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
+  end
+
+  def set_current_user
+    Current.user ||= current_user
   end
 
   def authenticate_2fa
@@ -34,7 +39,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    
+    Current.user = resource
     if ( current_user.role == 'superadmin' || current_user.role == 'admin' || current_user.is_panel_admin_user? )
       if current_user.role == "lob"
         lob_root_url

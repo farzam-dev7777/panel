@@ -17,7 +17,12 @@ class Admin::BaseController < ApplicationController
   end
 
   def authenticate_admin!
-    redirect_to "/", :alert => "Access Denied!" if current_user.role != 'superadmin' && !current_user.is_panel_admin_user?
+    if current_user.role === "lob"
+      redirect_to "/lob", :alert => "" if current_user.role == 'lob'
+    else
+      redirect_to "/", :alert => "Access Denied!" if current_user.role != 'superadmin' && !current_user.is_panel_admin_user?
+    end
+    
   end
 
 end

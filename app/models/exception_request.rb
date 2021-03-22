@@ -3,12 +3,17 @@ class ExceptionRequest < ApplicationRecord
   #serialize :matter_types, Array
 
   self.per_page = 10
+  acts_as_commentable
   belongs_to :user
   belongs_to :law_firm
   has_many :activity_logs
   has_many :reviews, as: :reviewable
+  has_many :comments, as: :commentable  
   serialize :reason, Array
-
+  serialize :receive_personal_information_data_type, Array
+  serialize :receive_general_business_data_type, Array
+  serialize :applicable_technical_specialty_data_type, Array
+  
   LOB_LIST = ["Canadian P&C / Services bancaires Particuliers et entreprises - Canada","Capital Markets / Marché des capitaux","Corporate / Services d'entreprise","Technology & Operations / Technologie et opérations (T&O)","US P&C / Services bancaires Particuliers et entreprises - É.-U.","Wealth Management / Gestion de patrimonie"]
   REQUEST_TYPE = {
     "EXCEPTION": "Exception",
@@ -24,8 +29,7 @@ class ExceptionRequest < ApplicationRecord
     "Corporate Governance / Gouvernance d'entreprise",
     "Employment (non-action) / Recrutement (aucune intervention)",
     "General Customer Inquiries / Questions générales de clients",
-    "Lending and Financing (inc. secured transactions and workouts) / Financement de prê",
-    "transactions garanties et les redressements)",
+    "Lending and Financing (inc. secured transactions and workouts) / Financement de prê transactions garanties et les redressements)",
     "Litigation / Litiges",
     "Mergers & Acquisitions / Fusions et acquisitions",
     "New Products / Nouveaux produits",
@@ -38,18 +42,121 @@ class ExceptionRequest < ApplicationRecord
   MINORITY_OWNED_TYPE = ["Yes", "No"]
   WOMEN_OWNED_TYPE = ["Yes", "No"]
 
-  EXCEPTION_REQUEST_REASON = ["Expertise", "Cost", "Designated Counsel", "No Panel Firm"]
-  EXCEPTION_REQUEST_PAYER =  ["Bank Pay", "Customer Pay"]
+  EXCEPTION_REQUEST_REASON = ["Expertise", "Cost", "Designated Counsel", "Location", "Customer directed"]
+  EXCEPTION_REQUEST_PAYER =  [["Bank Pay", "Bank Pay"], ["Customer paying law firm directly", "Customer Pay"], ["Bank paying and customer reimbursing BMO", "Bank paying and customer reimbursing BMO"]]
   INVOLVED_ENGAGEMENT = [
-    "Merger & Acquisition",
+    "Merger/Acquisition",
     "Litigation",
     "Personam Identifiable information > 10,000 records",
     "Combination of confidential information with over 10,000 records",
     "None of the above"
   ]
-  #validates_presence_of :requested_by, :submitted_by_email, :line_of_business, :lob_contact_name, :minority_owned, :women_owned, :matter_name
+
+  MODE_OF_PAYMENT = ["Bank Pay", "Remuneration par la Banque"]
+
+  MATTER_INVOLE_FOLLOWING = [
+    "Merger/Acquisition",
+    "Litigation",
+    "Personal Identifiable Information > 10,000 records",
+    "Combination of sensitive and confidential information with over 10,000 records",
+    "Combination of confidential information with over 10,000 records",
+    "None of the above"
+  ]
+
+  Jurisdiction = [
+    "AFRICA",
+    "ASIA (NOT CHINA)",
+    "ASIA PACIFIC & OCEANIA (NOT HONG KONG)",
+    "BARBADOS",
+    "BRAZIL",
+    "CANADA",
+    "CANADA - ALBERTA",
+    "CANADA - BRITISH COLUMBIA",
+    "CANADA - MANITOBA",
+    "CANADA - NEW BRUNSWICK",
+    "CANADA - NEWFOUNDLAND AND LABRADOR",
+    "CANADA - NORTHWEST TERRITORIES",
+    "CANADA - NOVA SCOTIA",
+    "CANADA - NUNAVUT",
+    "CANADA - ONTARIO",
+    "CANADA - PRINCE EDWARD ISLAND",
+    "CANADA - QUEBEC",
+    "CANADA - SASKATCHEWAN",
+    "CANADA - YUKON",
+    "CENTRAL AMERICA",
+    "CHINA",
+    "EUROPE (NOT UK OR IRELAND)",
+    "HONG KONG",
+    "IRELAND",
+    "MENA (MIDDLE EAST & NORTH AFRICA)",
+    "NORTH AMERICA",
+    "OTHER INTERNATIONAL",
+    "SOUTH AMERICA (NOT BRAZIL)",
+    "UNITED KINGDOM",
+    "UNITED STATES",
+    "UNITED STATES - ALABAMA",
+    "UNITED STATES - ALASKA",
+    "UNITED STATES - ARIZONA",
+    "UNITED STATES - ARKANSAS",
+    "UNITED STATES - CALIFORNIA",
+    "UNITED STATES - COLORADO",
+    "UNITED STATES - CONNECTICUIT",
+    "UNITED STATES - DELAWARE",
+    "UNITED STATES - FLORIDA",
+    "UNITED STATES - GEORGIA",
+    "UNITED STATES - HAWAII",
+    "UNITED STATES - IDAHO",
+    "UNITED STATES - ILLINOIS",
+    "UNITED STATES - INDIANA",
+    "UNITED STATES - IOWA",
+    "UNITED STATES - KANSAS",
+    "UNITED STATES - KENTUCKY",
+    "UNITED STATES - LOUISIANA",
+    "UNITED STATES - MAINE",
+    "UNITED STATES - MARYLAND",
+    "UNITED STATES - MASSACHUSETTS",
+    "UNITED STATES - MICHIGAN",
+    "UNITED STATES - MINNESOTA",
+    "UNITED STATES - MISSISSIPPI",
+    "UNITED STATES - MISSOURI",
+    "UNITED STATES - MONTANA",
+    "UNITED STATES - NEBRASKA",
+    "UNITED STATES - NEVADA",
+    "UNITED STATES - NEW HAMPSHIRE",
+    "UNITED STATES - NEW JERSEY",
+    "UNITED STATES - NEW MEXICO",
+    "UNITED STATES - NEW YORK",
+    "UNITED STATES - NORTH CAROLINA",
+    "UNITED STATES - NORTH DAKOTA",
+    "UNITED STATES - OHIO",
+    "UNITED STATES - OKLAHOMA",
+    "UNITED STATES - OREGON",
+    "UNITED STATES - PENNSYLVANIA",
+    "UNITED STATES - RHODE ISLAND",
+    "UNITED STATES - SOUTH CAROLINA",
+    "UNITED STATES - SOUTH DAKOTA",
+    "UNITED STATES - TENNESSEE",
+    "UNITED STATES - TEXAS",
+    "UNITED STATES - UTAH",
+    "UNITED STATES - VERMONT",
+    "UNITED STATES - VIRGINIA",
+    "UNITED STATES - WASHINGTON",
+    "UNITED STATES - WASHINGTON D.C.",
+    "UNITED STATES - WEST VIRGINIA",
+    "UNITED STATES - WISCONSIN",
+    "UNITED STATES - WYOMING"
+  ]
+  # validates_presence_of :requested_by, :submitted_by_email, :line_of_business, :lob_contact_name, :minority_owned, :women_owned, :matter_name
 
   belongs_to :law_firm
+
+  def status_for_lob
+    status = ""
+    if self.lxp_status === 'APPROVED'
+      "APPROVED"
+    end
+    ExceptionRequest::EXCEPTION_REQUEST_STATUS2[self.lxp_status.try(:to_sym)]
+  end
 
   def can_user_change_status?(current_user)
     
@@ -65,23 +172,69 @@ class ExceptionRequest < ApplicationRecord
   end
 
   EXCEPTION_REQUEST_STATUS = {
-    "": "Select",
-    "REQUEST_TO_LAWYER": "Request Lawyer Approval",
+    "REQUEST_TO_INPUT": "Lawyer Input Requested",
+    "SEND_RETAINER_AGREEMENT": "Send Retainer Agreement",
     "APPROVED": "Approved",
     "REJECTED": "Rejected"
-    
+  }
+  NON_PANAL_STATUS = ['Active', 'Received']
+
+  EXCEPTION_REQUEST_STATUS_2 = {
+    "DRAFT": "Draft",
+    "REQUEST_TO_INPUT": "Lawyer Input Requested",
+    "SEND_RETAINER_AGREEMENT": "Resend Retainer Agreement",
+    "COMMENTS_BY_LAWYER": "Comment to LXP",
+    "APPROVED": "Approve",
+    "REJECTED": "Reject",
+    "ASSIGN_LAW_FIRM": "Assign an existing law firm",
+    "LAW_FIRM_CREATED": "Create a new law firm",
+    "LAW_FIRM_CREATED_ASSIGN_LAWYER": "Create a new law firm and assign a lawyer",
+    "ASSIGN_LAW_FIRM_ASSIGN_LAWYER": "Assign an existing law firm and assign a lawyer",
+    "LAW_FIRM_EXIST": "Law Firm Already Exists"
+  }
+
+  EXCEPTION_REQUEST_STATUS_3 = {
+    "ASSIGN_LAW_FIRM": "Assign an existing law firm",
+    "LAW_FIRM_CREATED": "Create a new law firm",
+    "LAW_FIRM_CREATED_ASSIGN_LAWYER": "Create a new law firm and assign a lawyer",
+    "ASSIGN_LAW_FIRM_ASSIGN_LAWYER": "Assign an existing law firm and assign a lawyer",
+    "REJECTED": "Rejected"
+  }
+  
+ 
+
+  EXCEPTION_REQUEST_STATUS2 = {
+    "Received": "Received",
+    "REQUEST_TO_INPUT": "Lawyer Input Requested",
+    "RETAINER_AGREEMENT_SENT": "Retainer Agreement Sent",
+    "SEND_RETAINER_AGREEMENT": "Retainer Agreement Sent",
+    "APPROVED": "Approve",
+    "ASSIGN_LAW_FIRM": "Assign an existing law firm",
+    "COMMENTS_BY_LAWYER": "Comment to LXP",
+    "REJECTED": "Reject",
+    "REVIEWED_BY_LAWYER": "Reviewed by Lawyer",
+    "LAW_FIRM_CREATED": "Create a new law firm",
+    "LAW_FIRM_CREATED_ASSIGN_LAWYER": "Create a new law firm and assign a lawyer",
+    "ASSIGN_LAW_FIRM_ASSIGN_LAWYER": "Assign an existing law firm and assign a lawyer",
+    "LAW_FIRM_EXIST": "Law Firm Already Exists",
+    "reviewed_by_lawyer": "Reviewed by Lawyer"
   }
 
   EXCEPTION_REQUEST_STATUS_LAWYER= {
-    "": "Select",
-    "APPROVED": "Approved",
-    "REJECTED": "Rejected"
+    "COMMENTS_BY_LAWYER": "Comment to LXP",
+    "APPROVED": "Approve",
+    "REJECTED": "Reject"
   }
   
   EXCEPTION_REQUEST_PAY_TYPE = {
     "BANK_PAY": "Bank Pay",
     "THIRD_PAARTY_PAY": "Third Party Pay"
   }
+
+  RECEIVE_PERSONAL_INFORMATION_DATA_TYPE = ["Account/Card/Credit Card Information (i.e., account type/number, relationship, balances, transactions)","Contact Information (e.g., address, e-mail address, phone #)","Credit Score/History, Credit Bureau Report, Financial Profile Information","Customer Interactions (e.g., digital images, recorded conversations, branch visits)","Date of Birth","Employee Business Contact Information","Employee Identification Number(EIN)","Employee Performance Information (e.g., PPA, performance management)","Employee Personal Information (e.g., compensation, benefits)","Employee's Training Results","Gender, Ethnicity, Physical Attributes","Health Information, including information that is processed on behalf of commercial customers","Individual Authentication Credentials (e.g., password, PIN)","Individual's Name","Lists that include employee name and business contact information","National Personal Identification Number (e.g., Tax ID, SSN, SIN)","Opinions, Survey Responses","Other Financial Information (e.g., income verification, sourced from third parties)","Other Government Issued Personal Identification Number (e.g., driver's license, passport)","Technology Identifiers (e.g., Customer IP address, IMEI number, geolocation, device ID)","Social Media posts"]
+  RECEIVE_GENERAL_BUSINESS_DATA_TYPE = ["Audit Report (Internal or Extneral)","Branch Directory","Business Continuity Plan (BCP)","Business Strategy, raw closing data, closing analysis, secret reports","Commonly Shared Internal Information (e.g., corporate policies/standards, guidelines, operating procedures, interoffice memos)","Credit Card Information (e.g., PAN, track data, EMV chip data)","External & Regulatory reporting","Financial forecast or results, prior to general or public disclosure","Financial Information Related to Revenue Generation (e.g., balance sheet, profit & loss figures)","Internal Phone Directory","Interviews with news media","Legal Contract Information","Marketing Brochure","Mergers, acquisitions, or divestitures, prior to general or public disclosure","Press Releases","Product Offerings (future), Product formulas methodology or calculations","Publish Annual Report (Incl. Financials)","Securities issuer information that is non-public and material","Strategic plans on mergers, acquisitions, or divestitures, prior to general or public disclosure","Trade Secrets","Trading Books","Transaction Information","Vendor/Third Party Information"]
+  APPLICABLE_TECHNICAL_SPECIALTY_DATA_TYPE = ["Audit/System/Security Logs","Internal Bank IP Address, MAC Address, Hostname and Domain","Metadata","Patents, trademarks, copyrights","Private and symmetric cryptographic key and key parts","Proprietary processes, algorithms or systems","Public cryptographic key","Source Code","Sytem Documentation (e.g., design, functional specs, process, procedure, configuration data, etc.)","Documentation (e.g., design, functional specs, process, producedure, configuration, data, etc.)"]
+  
 
   def waiting_for_internal_lawyers_approval?
     self.lxp_id.present? && self.internal_lawyers_id.present? &&  self.lxp_status.nil?
@@ -93,12 +246,17 @@ class ExceptionRequest < ApplicationRecord
 
   def lxp_status_show
     if !self.lxp_status.blank?
-      ExceptionRequest::EXCEPTION_REQUEST_STATUS[self.lxp_status.try(:to_sym)]
+      if self.lxp_status === "RETAINER_AGREEMENT_SENT" || self.lxp_status === "SEND_RETAINER_AGREEMENT"
+         self.docusign_retainer_envelope.try(:status) == "completed" ? "Retainer Agreement Signed" :   "Retainer Agreement Sent"
+      else
+        ExceptionRequest::EXCEPTION_REQUEST_STATUS2[self.lxp_status.try(:to_sym)]
+      end
     end
   end
   def internal_lawyers_status_show
+     
     if self.internal_lawyers_status.present?
-      ExceptionRequest::EXCEPTION_REQUEST_STATUS[self.internal_lawyers_status.to_sym]
+      ExceptionRequest::EXCEPTION_REQUEST_STATUS2[self.internal_lawyers_status]
     end
   end
 
@@ -116,31 +274,42 @@ class ExceptionRequest < ApplicationRecord
     args = {
       envelope_args: {
         template_id: Rails.application.secrets[:docusign]["retainer_template_id"],
-        signer_email: 'manpreet+lob@metawarelabs.com',
-        signer_name: "Manish - LOB",
-        lxp_email: Rails.application.secrets[:lxp_contact]["email"],
-        lxp_name: Rails.application.secrets[:lxp_contact]["name"]
+        signer_email: signer_email,
+        signer_name: signer_name
+        # lxp_email: SystemSetting.fetch.lxp_email,
+        # lxp_name: SystemSetting.fetch.lxp_name
       },
       base_path: Rails.application.secrets[:docusign]["base_path"],
       account_id: Rails.application.secrets[:docusign]["account_id"],
-      access_token: SystemSetting.fetch.docusign_access_token
+      access_token: SystemSetting.fetch.docusign_access_token,
+      refresh_token: SystemSetting.fetch.docusign_refresh_token
     }
 
-    envelope_args = args[:envelope_args]
-    # 1. Create the envelope request object
-    envelope_definition = make_envelope(envelope_args)
-    # 2. call Envelopes::create API method
-    # Exceptions will be caught by the calling function
-    configuration = DocuSign_eSign::Configuration.new
-    configuration.host = args[:base_path]
-    api_client = DocuSign_eSign::ApiClient.new configuration
-    api_client.default_headers["Authorization"] = "Bearer #{args[:access_token]}"
-    envelope_api = DocuSign_eSign::EnvelopesApi.new(api_client)
-    results = envelope_api.create_envelope args[:account_id], envelope_definition
-    envelope_id = results.envelope_id
-    
-    self.docusign_envelope_id = envelope_id
-    self.save
+    begin
+      envelope_args = args[:envelope_args]
+      # 1. Create the envelope request object
+      envelope_definition = make_envelope(envelope_args)
+      # 2. call Envelopes::create API method
+      # Exceptions will be caught by the calling function
+      configuration = DocuSign_eSign::Configuration.new
+      configuration.host = args[:base_path]
+      api_client = DocuSign_eSign::ApiClient.new configuration
+      api_client.default_headers["Authorization"] = "Bearer #{args[:access_token]}"
+      envelope_api = DocuSign_eSign::EnvelopesApi.new(api_client)
+      results = envelope_api.create_envelope args[:account_id], envelope_definition
+      envelope_id = results.envelope_id
+      
+      self.docusign_envelope_id = envelope_id
+      self.save
+      
+      ExceptionRequestMailer.form_status_notification_to_lob_for_sign(self).deliver_now
+    rescue DocuSign_eSign::ApiError => e
+      error = JSON.parse e.response_body
+      puts "##### Docusign Error #####"
+      @error_code = error['errorCode']
+      @error_message = error['message']
+      puts "Error code: #{@error_code} & Error msg: #{@error_message}"
+    end
   end
 
   def docusign_retainer_envelope
@@ -237,6 +406,36 @@ class ExceptionRequest < ApplicationRecord
             :name => args[:lxp_name],
             :roleName => 'lxp'
     })
+
+    text = DocuSign_eSign::Text.new
+    text.document_id = '1'
+    text.page_number = '1'
+    text.x_position = '86'
+    text.y_position = '183'
+    text.font = 'arial'
+    text.font_size = 'size9'
+    text.tab_label = '*lawfirmname'
+    text.height = '70'
+    text.width = '250'
+    text.locked = 'true'
+    text.bold = 'true'
+    text.value = self&.law_firm&.name
+    text.tab_id = 'name'
+    text.required = 'true'
+
+    sign_here = DocuSign_eSign::SignHere.new
+    sign_here.document_id = '1'
+    sign_here.page_number = '3'
+    sign_here.x_position = '109'
+    sign_here.y_position = '649'
+    sign_here.tab_label = '*signersignature'
+
+    tabs = DocuSign_eSign::Tabs.new
+    tabs.text_tabs = [text]
+    tabs.sign_here_tabs = [sign_here]
+    signer.tabs = tabs
+    lxp.tabs = tabs
+
     # Add the TemplateRole objects to the envelope object
     envelope_definition.template_roles = [signer, lxp]
     envelope_definition
@@ -269,6 +468,56 @@ class ExceptionRequest < ApplicationRecord
   def states_formated
     if self.states_search.present?
       State.find(self.states_search).name 
+    end
+  end
+
+  def show_countries_names
+    name = []
+    if self.law_firm && self.law_firm.countries && self.law_firm.countries.count > 0
+      countries_ids = self.law_firm.countries.pluck(:country_id)
+      if countries_ids.count > 0
+        countries_ids.each do |country_id|
+          country = Country.find_by(id: country_id)
+          if country.present?
+            name << country.name
+          end
+        end
+      end
+    end
+    name&.join(", ")
+  end
+
+  def show_states_names
+    name = []
+    if self.law_firm && self.law_firm.states && self.law_firm.states.count > 0
+      state_ids = self.law_firm.states.pluck(:state_id)
+      if state_ids.count > 0
+        state_ids.each do |state_id|
+          state = State.find_by(id: state_id)
+          if state.present?
+            name << state.name
+          end
+        end
+      end
+    end
+    name&.join(", ")
+  end
+
+  def show_matter_types
+    if self.matter_types.nil?
+      return ""
+    else
+      if self.matter_types.is_a? Array
+        self.matter_types.compact.join(', ')
+      elsif self.matter_types.is_a? Hash
+        if self.matter_types.empty?
+          return ""
+        else 
+          self.matter_types.to_s
+        end
+      else
+        self.matter_types
+      end
     end
   end
 

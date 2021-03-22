@@ -19,14 +19,13 @@ class PanelRequest < ApplicationRecord
     "PANEL": "Panel",
     "NON_PANEL": "Non Panel"
   }
-  PANAL_STATUS = ['Activate', 'Deactivate']
+  PANAL_STATUS = ['Active', 'Received']
   MATTER_TYPES = [
     "Contractual Transactions (non-lending) / Traduction contractuelle (autre que des prêt",
     "Corporate Governance / Gouvernance d'entreprise",
     "Employment (non-action) / Recrutement (aucune intervention)",
     "General Customer Inquiries / Questions générales de clients",
-    "Lending and Financing (inc. secured transactions and workouts) / Financement de prê",
-    "transactions garanties et les redressements)",
+    "Lending and Financing (inc. secured transactions and workouts) / Financement de prê transactions garanties et les redressements)",
     "Litigation / Litiges",
     "Mergers & Acquisitions / Fusions et acquisitions",
     "New Products / Nouveaux produits",
@@ -43,17 +42,29 @@ class PanelRequest < ApplicationRecord
   PANEL_REQUEST_STATUS = {
     "": "Select",
     "REQUEST_INFO": "Request More Info",
-    "PANEL_RETAINER": "Panel Retainer Sent",
-    "APPROVED": "Approved",
-    "REJECTED": "Rejected"
-    
+    "PANEL_RETAINER": "Retainer sent",
+    "LAW_FIRM_CREATED": "Law Firm Created",
+    "LAW_FIRM_EXIST": "Law Firm Already Exists",
+    "ARCHIVED": "Archived",
+    "UN_ARCHIVED": "Un Archived",
+    "APPROVED": "Approve",
+    "REJECTED": "Reject"
   }
 
-  validates_presence_of :requested_by, :submitted_by_email, :line_of_business, :lob_contact_name, :minority_owned, :women_owned
+  INVOLVED_ENGAGEMENT = [
+    "Merger/Acquisition",
+    "Litigation",
+    "Personal Identifiable information > 10,000 records",
+    "Combination of sensitive and confidential information with over 10,000 records",
+    "Combination of confidential information with over 10,000 records",
+    "None of the above"
+  ]
+
+  validates_presence_of :submitted_by_email, :line_of_business, :women_owned, :niche_preferred_external_counsel_panel_law_firms, :matter_types, :required_unique_geography, :involved_engagement, :women_owned, :law_frim_name, :law_firm_contact_name, :law_firm_mail, :law_firm_role, :law_firm_phone, :firm_use_on_regular_basis
 
 
   def matter_types
-    JSON.parse(self.read_attribute(:matter_types) || '{}').reject(&:blank?)
+    JSON.parse(self.read_attribute(:matter_types) || '[]').reject(&:blank?)
   end
 
   def lxp_status_show
@@ -68,32 +79,39 @@ class PanelRequest < ApplicationRecord
   def send_retainer_for_esigning(lob_email, lob_name, user_email, user_name)
     args = {
       envelope_args: {
-        template_id: Rails.application.secrets[:docusign]["retainer_template_id"],
-        signer_email: 'manish+user@metawarelabs.com', #user_email,
-        signer_name: "Manish - user", #user_name,
-        lob_email: 'manish+lob@metawarelabs.com', #lob_email,
-        lob_name: "Manish - lob" #lob_name
+        template_id: Rails.application.secrets[:docusign]["retainer_template_id_panel"],
+        signer_email: user_email,
+        signer_name: user_name,
+        lob_email: lob_email,
+        lob_name: lob_name
       },
       base_path: Rails.application.secrets[:docusign]["base_path"],
       account_id: Rails.application.secrets[:docusign]["account_id"],
       access_token: SystemSetting.fetch.docusign_access_token
     }
-
-    envelope_args = args[:envelope_args]
-    # 1. Create the envelope request object
-    envelope_definition = make_envelope(envelope_args)
-    # 2. call Envelopes::create API method
-    # Exceptions will be caught by the calling function
-    configuration = DocuSign_eSign::Configuration.new
-    configuration.host = args[:base_path]
-    api_client = DocuSign_eSign::ApiClient.new configuration
-    api_client.default_headers["Authorization"] = "Bearer #{args[:access_token]}"
-    envelope_api = DocuSign_eSign::EnvelopesApi.new(api_client)
-    results = envelope_api.create_envelope args[:account_id], envelope_definition
-    envelope_id = results.envelope_id
-    
-    self.docusign_envelope_id = envelope_id
-    self.save
+    begin
+      envelope_args = args[:envelope_args]
+      # 1. Create the envelope request object
+      envelope_definition = make_envelope(envelope_args)
+      # 2. call Envelopes::create API method
+      # Exceptions will be caught by the calling function
+      configuration = DocuSign_eSign::Configuration.new
+      configuration.host = args[:base_path]
+      api_client = DocuSign_eSign::ApiClient.new configuration
+      api_client.default_headers["Authorization"] = "Bearer #{args[:access_token]}"
+      envelope_api = DocuSign_eSign::EnvelopesApi.new(api_client)
+      results = envelope_api.create_envelope args[:account_id], envelope_definition
+      envelope_id = results.envelope_id
+      
+      self.docusign_envelope_id = envelope_id
+      self.save
+    rescue DocuSign_eSign::ApiError => e
+      error = JSON.parse e.response_body
+      puts "##### Docusign Error Panel #####"
+      @error_code = error['errorCode']
+      @error_message = error['message']
+      puts "Error code: #{@error_code} & Error msg: #{@error_message}"
+    end
   end
 
   def docusign_retainer_envelope
@@ -190,6 +208,29 @@ class PanelRequest < ApplicationRecord
             :name => args[:lob_name],
             :roleName => 'lob'
     })
+
+    # text = DocuSign_eSign::Text.new
+    # text.document_id = '1'
+    # text.page_number = '1'
+    # text.x_position = '280'
+    # text.y_position = '172'
+    # text.font = 'helvetica'
+    # text.font_size = 'size14'
+    # text.tab_label = '*lawfirmname'
+    # text.height = '23'
+    # text.width = '84'
+    # text.required = 'false'
+    # text.locked = 'true'
+    # text.bold = 'true'
+    # text.value = self&.law_firm&.name
+    # text.locked = 'false'
+    # text.tab_id = 'name'
+
+    # tabs = DocuSign_eSign::Tabs.new
+    # tabs.text_tabs = [text]
+    # lxp.tabs = tabs
+    # signer.tabs = tabs
+   
     # Add the TemplateRole objects to the envelope object
     envelope_definition.template_roles = [signer, lxp]
     envelope_definition

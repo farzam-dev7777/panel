@@ -121,6 +121,12 @@ module ApplicationHelper
     current_page?(path) ? 'active' : ''
   end
 
+  def active_page?(current_page)
+		return unless request.path.include?(current_page.to_s)
+
+		'active'
+	end
+
   def get_avatar_image(name, background_color = nil, color = nil)
     if background_color.blank?
       color_samples = ["F13838", "4D00CA", "0051CA", "00B2CA", "4C82FF", "FFB800"]

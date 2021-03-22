@@ -38,7 +38,8 @@ class FormSubmission < ApplicationRecord
 	end
 
   def formatted_status
-    (self.status == 'approved' ? "Certified" : self.status).try(:titleize)
+    self.status == 'decline' ? "Submission Reviewed" : self.status.try(:titleize)
+   
   end
 
   def formatted_evidence_status
@@ -52,7 +53,7 @@ class FormSubmission < ApplicationRecord
     submission.form_diversity_id = Form.where(step: 'diversity').last.try(:id)
     submission.form_innovation_id = Form.where(step: 'innovation').last.try(:id)
     submission.form_resourcing_id = Form.where(step: 'resourcing').last.try(:id)
-    submission.law_firm_id = law_firm.id
+    submission.law_firm_id =  law_firm.id
     submission.status = 'sent'
     submission.save
 
@@ -111,6 +112,10 @@ class FormSubmission < ApplicationRecord
 
   def decision_made?
     ['approved', 'decline', 'follow_up'].include? self.status
+  end
+
+  def decision_decline?
+    ['decline'].include? self.status
   end
 
 end

@@ -8,6 +8,8 @@ set :format, :pretty
 set :pty,  false
 set :keep_releases, 4
 
+set :whenever_environment, Proc.new { fetch :stage }
+
 set :whenever_identifier, ->{ "#{fetch(:application)}_#{fetch(:stage)}" }
 
 set :use_sudo, false

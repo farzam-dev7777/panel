@@ -42,7 +42,17 @@ class Review < ApplicationRecord
   def status_show
     if self.status.present?
       if self.reviewable_type == "ExceptionRequest"
-        ExceptionRequest::EXCEPTION_REQUEST_STATUS[self.status.to_sym]
+        if self.status === "RETAINER_AGREEMENT_SENT" || self.status === "SEND_RETAINER_AGREEMENT"
+            "Retainer Agreement Sent"
+        else
+          ExceptionRequest::EXCEPTION_REQUEST_STATUS_2[self.status.to_sym]
+        end
+     
+      elsif self.reviewable_type == "MatterIntake"
+        self.status
+      elsif self.reviewable_type == "PanelRequest"
+    
+        PanelRequest::PANEL_REQUEST_STATUS[self.status.to_sym]
       else
         if  ConflictWaiver::CONFLICT_WAIVER_STATUS[self.status.to_sym]
           ConflictWaiver::CONFLICT_WAIVER_STATUS[self.status.to_sym]

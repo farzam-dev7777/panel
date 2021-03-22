@@ -1,40 +1,133 @@
+
 <% content_for :page_title do %>
-	<span>Law Firm Submissions</span>
+	<span>Law Firms RFI</span>
 <% end %>
 
-<div class="clearfix"></div>
+<div class="col-lg-12">
+	<div class="jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
+			<div class="page-header-sp m-top">
+				<div class="page-title">Law Firms RFIs</div>
+				<div></div>
+  		</div>
+			<!-- widget div-->
 
-<div class="col-lg-8 col-md-8 col-sm-12">
+			<!-- Search Filter -->
+				<div class="search-filter-sp">
+					<div class="sp-filter">
+						<div class="accordion" id="sp-filter">
+							<div class="card z-depth-0">
+								<div class="card-header" id="headingThree">
+									<div class="collapsed filter-title" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+										<%= image_tag "filter-icon.svg", alt:"score" %>
+										<span>Filter</span>
+									</div>
+								</div>
+								<div id="collapseThree" class="col-md-12 collapse <%= @params_string ? "in" : "" %> sp-filter-fields" aria-labelledby="headingThree" data-parent="#sp-filter">
+									<div class="card-body sp-form">
+										<%= search_form_for [:admin, @q] do |f| %>
+											<div class="row">
+												<div class="col-xs-12 col-md-4">
+                            <%= f.label :law_firm_id_eq, :class => 'label' %>
+                            <%= f.select :law_firm_id_eq, options_from_collection_for_select(LawFirm.all, "id", "name", @q.law_firm_id_eq), {:include_blank => 'Select law firm'}, :class => 'sp-form-control' %>
+                        </div>
+												<div class="col-xs-12 text-right">
+													<%= f.submit "Search", class: "btn-type-primary input-btn m-right" %>
+													<a href="/admin/law_firms" title="Law Firms" class="btn-type-default input-btn">Reset</a>
+												</div>
+											</div>        
+										<% end %>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			<!-- Search Filter END -->
 
-	<div class="table-responsive">
-		<table class="table table-bordered text-center">
+			<div>
+				<!-- widget content -->
+				<div class="table-dyanmic-search table-responsive">
+					<table id="dt_basic" class="table table-decoration table-bordered"   width="100%">
+						<thead>			                
+							<tr>
+								<th>Date Submitted</th>
+								<th>Law Firm Name</th>
+								<th>Score</th>
+								<th>Onboarded</th>
+								<th>Approved At</th>
+								<th>Expiry Date</th>
+								<th width="10%">RFI Status</th>
+								<th width="8%">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<% @form_submissions.each do |submission| %>
+								<tr class="form_submissions-row" data-order="<%= submission.created_at.strftime('%Y%m%d%H%M') %>" data-id="<%= submission.id %>">
+									<td data-order="<%= submission.created_at.strftime('%Y%m%d%H%M') %>"><%= submission.created_at.strftime('%d %b %Y at %I:%M %p') %></td>
+									<td>
+										<% if submission.law_firm.present? %>
+											<%= link_to submission.law_firm.try(:name), admin_law_firm_path(submission.law_firm) if submission.law_firm %>
+										<% else %>
+										-
+										<% end %>	
+									</td>
+									<td>
+										<div> 
+											<span class="percent txt-color-blue bold">
+												<% if submission.try(:latest).try(:status) == 'approved' %>
+													<% score = firm.total_calculated_score(submission.try(:latest)) %>
+													<div class="total-score" data-color="<%= submission.try(:latest).try(:color, score, 'total_calculated_score') %>" data-score=<%= score %>></div>
+												<% else %>
+												-
+												<% end %>
+											</span> 
+										</div>
+									</td>
+									<td>
+										<div class="date-time">
+											<%= submission.created_at.strftime(LawFirm::TIME_FORMAT) %>
+										</div>
+									</td>
+									<td>
+										<div class="date-time">
+											<%= submission.approved_at.present? ? submission.approved_at : "-"  %>
+										</div>
+									</td>
+									<td>
+										<div class="date-time">
+											<%= submission.expiry_date.present? ? submission.expiry_date : "-" %>
+										</div>
+									</td>
+									<td>
+										<% if submission.status? %>
+										<span class="label label-<%= submission_status_class(submission) %>"><%= submission.formatted_status %></span>
+										<% else %>
+											<span class="label label-warning">Onboarded</span>
+										<% end %>
+									</td>
+									<td>
+										<% link_to "View Submission", pricing_step_admin_form_submission_path(submission), class: "btn btn-outline-primary btn-xs" %>
+										<div class="action-fields">
+											<a class="action-btn" href="/admin/form_submissions/<%= submission.id %>/pricing_step">
+												<%= image_tag "view-icon.svg", alt:"View" %>
+											</a>
+										</div>	
+									</td>
+								</tr>
+							<% end %>
+						</tbody>
+					</table>
 
-			<tr>
-				<th class="text-center">Law Firm</th>
-				<th class="text-center">Score</th>
-				<th class="text-center">Status</th>
-				<!-- <th class="text-center">Action</th> -->
-			</tr>
+				</div>
+				<!-- end widget content -->
 
-			<% @form_submissions.each do |submission| %>
-				<tr>
-					<td><%= link_to submission.law_firm.try(:name), admin_law_firm_path(submission.law_firm) if submission.law_firm %></td>
-					<td><%= submission.try(:score) || '-' %></td>
+			</div>
+			<!-- end widget div -->
 
-					<td><span class="label label-<%= submission_status_class(submission) %>"><%= submission.status.try(:humanize) %></span></td>
-					<!-- <td class="text-center">
+		</div>
+		<!-- end widget -->
 
-						<%= link_to "Review", pricing_step_admin_form_submission_path(submission), class: "btn btn-xs btn-primary" %>
-
-					</td> -->
-				</tr>
-				
-			<% end %>
-
-		</table>
-		<div class="clearfix"></div>
-
-
-	</div>
 </div>
+
+
 

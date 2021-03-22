@@ -1,12 +1,10 @@
 <% content_for :page_title do %>
   <span>Conflict Waiver</span>
 <% end %>
-<div class="clearfix"></div>
 <div class="col-lg-12">
   <div class="jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
-    <div class="page-header-sp">
-		  <div class="page-title m-top-zero">Conflict Waiver</div>
-      <div class="back-edit-actions"></div>
+    <div class="page-header-sp m-top">
+		  <div class="page-title">Conflict Waiver Requests</div>
     </div>
     <!-- widget div-->
     
@@ -17,6 +15,11 @@
           <div class="accordion" id="sp-filter">
             <div class="card z-depth-0">
               <div class="card-header" id="headingThree">
+                <div class="action-buttons-alignment">
+                  <a class="export-icon right-action-btns" href="<%= admin_conflict_waivers_path(format: :xlsx) %>">
+                   <%= image_tag "export-excel.png", alt:"Export" %>  <span>Export</span>
+                  </a>
+                </div>
                 <div class="collapsed filter-title" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                   <%= image_tag "filter-icon.svg", alt:"score" %>
                   <span>Filter</span>
@@ -51,29 +54,65 @@
       </div>
       <!-- search filter end -->
       <!-- widget content -->
-      <div class="widget-body table-responsive">
+      <div class="table-dyanmic-search table-responsive">
         <table id="dt_basic" class="table table-decoration table-bordered" width="100%">
           <thead>
             <tr>
+              <th>Date Submitted</th>
               <th>Name of law firm</th>
               <th>Contact details</th>
               <th>BMO business  contact</th>
-              <th width="8%">Action</th>
+              <th>LXP Status</th>
+              <th>Internal Lawyer Status</th>
+              <!--<th width="8%">Action</th>-->
             </tr>
           </thead>
           <tbody>
             <% @conflict_waivers.each do |conflict_waiver| %>
-              <tr>
-                <td><%= conflict_waiver.name_of_law_firm %></td>
+              <tr onClick="window.location.href='/admin/conflict_waivers/<%= conflict_waiver.id %>'">
+                <td data-order="<%= conflict_waiver.created_at.strftime('%Y%m%d%H%M') %>">
+                  <%= conflict_waiver.created_at.strftime('%d %b %Y at %I:%M %p') %>
+                </td>  
+                <td>
+                  <% if conflict_waiver.name_of_law_firm.present? %>
+                    <div class="firm-name">
+                      <div class="name-avatar"><img src="<%= get_avatar_image(conflict_waiver&.name_of_law_firm&.gsub(" ", "+")) %>"></div>
+                      <div><%= conflict_waiver.name_of_law_firm %></div>
+                    </div>
+                  <% end %>
+                </td>
                 <td><%= conflict_waiver.contact_details %></td>
                 <td><%= conflict_waiver.bmo_business_contact %></td>
                 <td>
+                  <% if conflict_waiver.lxp_status_show.present? %>
+                    <div class="status">
+                      <span class="<%= conflict_waiver.lxp_status_show === "Approved" ? 'label label-success' : 'label label-default' %>"> 
+                        <%= conflict_waiver.try(:lxp_status_show).try(:titleize) %>
+                      </span>
+                    </div>
+                  <% else %>
+                    -
+                  <% end %>
+                </td>
+                <td>
+                  <% if conflict_waiver.internal_lawyers_status_show.present? %>
+                    <div class="status">
+                      <span class="<%= conflict_waiver.internal_lawyers_status_show === "Approve" ? 'label label-success' : 'label label-default' %>"> 
+                        <%= conflict_waiver.try(:internal_lawyers_status_show).try(:titleize) %>
+                      </span>
+                    </div>
+                  <% else %>
+                    -
+                  <% end %>
+                  <% conflict_waiver.internal_lawyers_status_show %>
+                </td>
+                <!--<td>
                   <div class="action-fields">
                     <a class="action-btn" href="/admin/conflict_waivers/<%= conflict_waiver.id %>">
                       <%= image_tag "view-icon.svg", alt:"View" %>
                     </a>
                   </div>
-                </td>
+                </td>-->
               </tr>
             <% end %>
           </tbody>

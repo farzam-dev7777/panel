@@ -15,8 +15,8 @@
 	<div class="container">
 		<div class="col-lg-12 col-md-12 col-sm-12">
 			<div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
-				<div class="page-header-sp">
-					<div class="page-title m-top-zero">New Conflict Waivers Request</div>
+				<div class="page-header-sp m-top">
+					<div class="page-title">New Conflict Waiver Requests</div>
 					<div class="back-edit-actions">
 						<a class="btn-type-default" href="/conflict_waivers">
 							<%= image_tag "chevron-back-icon.svg", alt:"Back" %>
@@ -39,7 +39,7 @@
 									<div class="field-data"><%= @conflict_waiver.contact_details %></div>
 								</div>
 								<div class="col-xs-12 col-md-6">
-									<div class="field-label">BMO Business contact	</div>		
+									<div class="field-label">BMO contact	</div>		
 									<div class="field-data"><%= @conflict_waiver.bmo_business_contact %></div>
 								</div>
 								<div class="col-xs-12 col-md-6">
@@ -47,17 +47,96 @@
 									<div class="field-data"><%= @conflict_waiver.reason %></div>
 								</div>
 								<div class="col-xs-12 col-md-6">
-									<div class="field-label">LXP Status</div>
+									<div class="field-label">BMO Status</div>
 									<div class="field-data"><%= @conflict_waiver.lxp_status_show %></div>
 								</div>
+								<% if @conflict_waiver.lxp_status === "ALREADY_COVERED" %>
 								<div class="col-xs-12 col-md-6">
-									<div class="field-label">Internal Lawyers Status</div>
-									<div class="field-data"><%= @conflict_waiver.internal_lawyers_status_show %></div>
+									<div class="field-label">Which part of the retainer covers</div>
+									<div class="field-data"><%=  @conflict_waiver.retainer_cover   %></div>
+								</div>
+								<% end%>
+								<div class="col-xs-12 col-md-12">         
+									<p><b>As part of your retainer agreement, the follwoing are conflicts are waived, please:</b></p>
+									<ol class="conflict_waiver_categories_list">
+										<li>
+											An issuer or selling security holder in an underwriting; 
+										</li>
+										<li>
+											A borrower in a normal course borrowing/mortgage transaction when we are already
+											represented by other counsel;
+										</li>   
+										<li>
+											A customer in the ordinary course of our business;
+											A party to a transaction where we are a lender or advisor to another party to the
+											transaction;
+										</li>
+										<li>
+											A debtor in a bankruptcy, insolvency, restructuring or other similar proceeding that
+											adjusts creditors’ rights where we are a creditor in such proceeding, provided that (i)
+											you did not act directly or indirectly for us in the transaction or arrangement giving
+											rise to our claim, and (ii) you notify us that you represent the debtor; or
+										</li>
+										<li>
+											A party in a transaction to which we are not a party but where you acted on our
+											behalf in a previous lending transaction with that party, provided that (i) the current
+											transaction is unrelated to the previous lending transaction and (ii) it will have no
+											bearing and/impact on the previous lending transaction.
+										</li>
+									</ol>
 								</div>
 								<div class="col-xs-12 col-md-6">
-									<div class="field-label">Waiver Completely Approved</div>
-									<div class="field-data"><%= @conflict_waiver.fully_approved? ? "Yes" : "No" %></div>
+									<div class="field-label">Is your request covered by any of the above?</div>
+									<div class="field-data"><%= @conflict_waiver.confirm_waiver === true ? "Yes" : "No"  %></div>
 								</div>
+								<% if @conflict_waiver.confirm_waiver === true %>
+									<div class="col-xs-12 col-md-12 confirm_waiver_notes" >
+										<p>It appears your request is covered by your retainer agreement with BMO and there is no need to submit this request. If you are unsure, please select "No" above to proceed with submitting the request</p>
+									</div>
+								<% end %>	
+								<div class="col-xs-12 col-md-6">
+									<div class="field-label">Conflict Representing</div>
+									<div class="field-data"><%= @conflict_waiver.repesenting %></div>
+								</div>
+								<% if @conflict_waiver.repesenting === "Other Client" %>	
+									<div class="col-xs-12 col-md-6">
+										<div class="field-label">Name of other client(s)</div>
+										<div class="field-data"><%= @conflict_waiver.name_of_other_client %></div>
+									</div>
+										<div class="col-xs-12 col-md-6">
+										<div class="field-label">Description of transaction</div>
+										<div class="field-data"><%= @conflict_waiver.description_of_transaction %></div>
+									</div>
+										<div class="col-xs-12 col-md-6">
+										<div class="field-label">Describe the nature and extent of the mandate (e.g. negotiation, documentation, and closing of the transaction)</div>
+										<div class="field-data"><%= @conflict_waiver.nature_of_mandate %></div>
+									</div> 
+									<div class="col-xs-12 col-md-6">
+										<div class="field-label">Office location(s) of primary lawyer(s)</div>
+										<div class="field-data"><%= @conflict_waiver.office_locattion %></div>
+									</div>
+										<div class="col-xs-12 col-md-6">
+										<div class="field-label">Name of primary lawyer(s) managing the matter </div>
+										<div class="field-data"><%= @conflict_waiver.names_of_primary %></div>
+									</div>
+								<% end %>
+								<% if @conflict_waiver.repesenting === "BMO" %>
+										<div class="col-xs-12 col-md-6">
+											<div class="field-label">Name of other client(s)</div>
+											<div class="field-data"><%= @conflict_waiver.name_of_other_client %></div>
+										</div>
+										<div class="col-xs-12 col-md-6">
+											<div class="field-label">Description of transaction</div>
+											<div class="field-data"><%= @conflict_waiver.description_of_transaction %></div>
+										</div>
+										<!--div class="col-xs-12 col-md-6">
+											<div class="field-label">Types Of Matters For Which Your Firm Represents Other Client</div>
+											<div class="field-data"><%= @conflict_waiver.types_of_matters.reject { |e| e.to_s.empty? }.join(', ') %></div>
+											
+										</div-->
+								<% end %>
+	
+  
 							</div>
 						</div>
 					</div>
@@ -65,3 +144,64 @@
 		</div>
 	</div>
 		 
+ <% if @conflict_waiver.reviews.count > 0 && @conflict_waiver.lxp_status === "REQUEST_INFO" %>
+  <div class="col-md-12">
+    <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+      <div class="page-header-sp">
+        <div class="page-title">Review Logs</div>
+        <div class="back-edit-actions"></div>
+      </div>
+      <div>
+        <!-- MAIN PANEL -->
+        <div role="main">
+          <!-- MAIN CONTENT -->
+          <div> <!-- style="height: 500px;overflow-y: scroll;" -->
+            <!-- row -->
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="sp-form-bg">
+                  <!-- Timeline Content -->
+                  <div class="smart-timeline">
+                    <ul class="smart-timeline-list">
+                      <% @conflict_waiver.reviews.reverse.each do |review| %>
+                      	<% if review.status === "REQUEST_INFO"%>
+													<li data-id="<%= review.id %>">
+															<div class="smart-timeline-icon">
+																R
+															</div>
+															<div class="smart-timeline-time">
+																<small><%= review.created_at.strftime('%d %b %Y at %I:%M %p') %></small>
+																<small><i><%= time_ago_in_words(review.created_at) %> ago</i> </small>
+															</div>
+															<div class="smart-timeline-content">
+																<p>
+																	<strong>
+																		<%- if review.status_show %>
+																			<%= review.actor.email %> change status to <%= review.status_show %>
+																		<% else %>
+																			<%= review.actor.email %> left a comment
+																		<% end %>
+																	<strong>
+																</p>
+																<p>
+																	<%= review.description.blank? ? "NA" : review.description %>
+																</p>
+															</div>
+														</li>
+                      	<% end %>
+                      <% end %>
+                    </ul>
+                  </div>
+                  <!-- END Timeline Content -->
+                </div>
+              </div>
+            </div>
+            <!-- end row -->
+          </div>
+          <!-- END MAIN CONTENT -->
+        </div>
+        <!-- END MAIN PANEL -->
+      </div>
+    </div>
+  </div>
+  <% end %>

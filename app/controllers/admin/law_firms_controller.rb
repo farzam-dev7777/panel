@@ -5,9 +5,45 @@ class Admin::LawFirmsController < Admin::BaseController
   add_breadcrumb "Dashboard", :root_path
 
   def index
-    @law_firms =  LawFirm.where(law_firm_category: "PANEL")
+    @q = LawFirm.includes(:locations).ransack(params[:q])
+    @law_firms = @q.result(distinct: true).where(law_firm_category: "PANEL").order('created_at DESC')
+    # @law_firms =  LawFirm.where(law_firm_category: "PANEL")
+
+    @params_string = false;
+    if !params[:q].nil?
+      @params_string =  params[:q][:name_cont].empty? && params[:q][:locations_country_cont].empty? && params[:q][:panel_status_eq].empty? ? false : true
+    end 
     add_breadcrumb "Law Firms", :admin_law_firms_path
   end
+
+
+  def panel_law_firms
+    @q = LawFirm.includes(:locations).ransack(params[:q])
+    @law_firms = @q.result(distinct: true).where(law_firm_category: "PANEL").order('created_at DESC')
+    # @law_firms =  LawFirm.where(law_firm_category: "PANEL")
+
+    @params_string = false;
+    if !params[:q].nil?
+      @params_string =  params[:q][:name_cont].empty? && params[:q][:locations_country_cont].empty? && params[:q][:panel_status_eq].empty? ? false : true
+    end 
+    add_breadcrumb "Law Firms", :admin_law_firms_path
+  end
+
+
+  def panel_non_law_firms
+    @q = LawFirm.includes(:locations).ransack(params[:q])
+    @law_firms = @q.result(distinct: true).where(law_firm_category: "NON_PANEL").order('created_at DESC')
+    # @law_firms =  LawFirm.where(law_firm_category: "PANEL")
+
+    @params_string = false;
+    if !params[:q].nil?
+      @params_string =  params[:q][:name_cont].empty? && params[:q][:locations_country_cont].empty? && params[:q][:panel_status_eq].empty? ? false : true
+    end 
+    add_breadcrumb "Law Firms", :admin_law_firms_path
+  end
+
+
+
 
   def show
     @law_firm = LawFirm.find(params[:id])
@@ -33,7 +69,7 @@ class Admin::LawFirmsController < Admin::BaseController
   end
 
   def update
-  	@law_firm = LawFirm.find(params[:id])
+    @law_firm = LawFirm.find(params[:id])
     if @law_firm.update_attributes(law_firms_params)
       @law_firm.user.update_attributes(password: params[:law_firm][:password]) if (params[:law_firm][:password] && !params[:law_firm][:password].blank?  && params[:law_firm][:password].length >= 10)
       flash[:notice] = "Law firm information updated"
@@ -113,6 +149,15 @@ class Admin::LawFirmsController < Admin::BaseController
       ff.formable_id = new_form_submission.form.id
       ff.save
     end
+
+    Form.where(step: 'lawfirm').last.form_fields.each do |form_field|
+      next if new_form_submission.form_lawfirm.try(:form_fields).map(&:label).include? form_field.label
+      ff = form_field.amoeba_dup
+      ff.formable_id = new_form_submission.form.id
+      ff.save
+    end
+
+     
 
     if new_form_submission.save
       last_form_submission.update_attributes(expiry_date: nil)
@@ -213,12 +258,35 @@ class Admin::LawFirmsController < Admin::BaseController
       :law_firm_type, :principle_name, :principle_title,
       :principle_contact_info, :parent_company, :sister_firm,
       :initial_date_of_engagement_with_the_bank,
+      :secondary_rm_contact,
+      :secondary_rm_contact_email,
+      :billing_contact_name,
+      :billing_contact_email,
+      :information_security_contact,
+      :information_security_contact_email,
+      :diverse,
+      :merger_combination,
+      :engagement_number,
+      :relationship_number,
+      :information_security_class,
+      :information_security_assessment_outcome,
+      :action_plan_findings,
+      :action_plan_status,
       :confidentiality_level_of_matters_that_are_handled,
       :number_of_lawyers, :law_firm_category, 
+      :bmo_relationship_partner_email,
+      :bmo_relationship_partner_name,
+      :bmo_relationship_partner_phone_number,
       locations_attributes: [
         :id, :address1, :address2,
         :city, :province, :postal_code,
         :country, :_destroy
+      ], feedbacks_attributes: [
+        :id, :feedback, :_destroy
+      ], values_attributes: [
+        :id, :value, :_destroy
+      ], issues_attributes: [
+        :id, :issue, :_destroy
       ], jurisdictions_attributes: [
         :id, :country, :_destroy, city: []
       ], users_attributes: [

@@ -37,7 +37,8 @@
 			<div class="text-center portal-type">
 				<p>LOB Dashboard</p>
 			</div>
-			<div class="project-context user-info">
+			<div><div id="menu_toggle"><%= image_tag "menu-icon.svg", alt:"Menu_icon" %></div></div>
+			<div class="project-context user-info hide-profile">
 				<span class="project-selector dropdown-toggle" data-toggle="dropdown">
 					<%= image_tag get_avatar_image(current_user.full_name), alt:"User", class:"user-image" %> 
 					<span class="drop-down-icon">
@@ -55,25 +56,34 @@
 		<!-- END HEADER -->
 		<div class="sp-main-page">
 			<div class="left-side">
-				<div class="main-mobile-mneu">
-					<div class="dashboard-title">LOB Dashboard</div>
-					<div id="menu_toggle"><%= image_tag "menu-icon.svg", alt:"Menu_icon" %></div>
-				</div>
 				<div class="sticky-left-side" id="dashboard_menu">
+					<div class="dashboard-title">LOB Dashboard</div>
 					<nav class="sp-sidebar">
 						<ul>
-							<li class="<%= active_menu_item('/lob') %>">
-								<a href="/lob" title="blank_"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Dashboard</span></a>
+							<li class="<%= active_menu_item('/lob') %> ">
+								<a href="/lob" title="Dashboard"><i class="fa fa-home" aria-hidden="true"></i> <span class="menu-item-parent">Dashboard</span></a>
 							</li>
 							<% if current_user && current_user.role == 'lob'  %>
-								<li class="<%= active_menu_item('/lob/exception_requests') %>">
-									<a href="/lob/exception_requests" title="blank_"><i class="fa fa-lg fa-fw fa-exclamation"></i> <span class="menu-item-parent">Engage Non Panel Firm</span></a>
+								<li class="<%= active_page?(:exception_requests) %> ">
+									<a href="/lob/exception_requests" title="Non-Panel (one-off) Requests"><i class="fa fa-flag" aria-hidden="true"></i> <span class="menu-item-parent">Non-Panel (one-off) Requests</span></a>
 								</li>
-								<li class="<%= active_menu_item('/lob/panel_requests') %>">
-									<a href="/lob/panel_requests" title="blank_"><i class="fa fa-lg fa-fw fa-check"></i> <span class="menu-item-parent">Panel Request Form</span></a>
+								<li class="<%= active_page?(:panel_requests) %>">
+									<a href="/lob/panel_requests" title="Panel Consideration Requests"><i class="fa fa-file-text-o" aria-hidden="true"></i> <span class="menu-item-parent">Panel Consideration Requests</span></a>
 								</li>
-								<li>
-									<a href="/lob/matter_intakes"><i class="fa fa-lg fa-fw fa-briefcase"></i> Matter Intakes</a>
+								<li class="<%= active_page?(:matter_intakes) %>">
+									<a href="/lob/matter_intakes" title="Matter Intake Forms"><i class="fa fa-users" aria-hidden="true"></i> Matter Intake Forms</a>
+								</li>
+								<li class="sp-menu-item-hidden">
+									<a href="/lob/users/edit_profile/<%= current_user.id %>" title="Edit Profile" data-action="userLogout" >
+										<% image_tag get_avatar_image(current_user.full_name), alt:"User", class:"user-image" %>
+										<i class="fa fa-user-circle-o" aria-hidden="true"></i>
+										<%= current_user.full_name %>
+									</a>
+								</li>
+								<li class="sp-menu-item-hidden">
+									<a href="/users/sign_out" title="Sign Out" data-action="userLogout" data-logout-msg="You can improve your security further after logging out by closing this opened browser">
+									<i class="fa fa-power-off" aria-hidden="true"></i> Logout
+									</a>
 								</li>
 							<% end %>
 						</ul>
@@ -448,12 +458,18 @@
 				phone : 480
 			};
 
+			var sorting_order = 0;
+			if($('#dt_basic').attr('data-ordering')) {
+				sorting_order = parseInt($('#dt_basic').attr('data-ordering'))
+			} else {
+				sorting_order = 0
+			}
 			$('#dt_basic').dataTable({
 				aLengthMenu: [
 	        [10, 25, 50, -1],
 	        [10, 25, 50, "All"]
 		    ],
-				"order": [[ 4, "desc" ]],
+				"order": [[ sorting_order, "desc" ]],
 				"sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-12 hidden-xs'l>r>"+
 					"t"+
 					"<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-xs-12 col-sm-6'p>>",

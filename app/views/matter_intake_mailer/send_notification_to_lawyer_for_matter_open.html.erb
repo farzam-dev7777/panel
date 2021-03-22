@@ -1,1 +1,6 @@
-Matter has been opened in T360 with matter number: <%= @matter_intake.matter_number %> <br>
+<div class="">
+  <p class="user-inner-content">Matter status has been changed to: <%= MatterIntake::MATTER_STATUS[@matter_intake.status.upcase.to_sym] %></p>
+  <% if @matter_intake.matter_number.present? %>
+    <p class="user-inner-content">Matter has been opened in T360 with matter number: <%= @matter_intake.matter_number %></p>
+  <% end %> 
+</div> 

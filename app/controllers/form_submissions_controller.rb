@@ -5,7 +5,7 @@ class FormSubmissionsController < BaseController
   load_and_authorize_resource
   
   before_action :follow_ups, except: :index
-  before_action :before_steps, only: [:pricing_step, :relationship_step, :diversity_step, :innovation_step, :resourcing_step]
+  before_action :before_steps, only: [:pricing_step, :relationship_step, :diversity_step, :innovation_step, :resourcing_step, :lawfirm_step]
   before_action :before_non_dynamic_forms, only: [:technology_step, :history_step]
 
   before_action :prevent_resubmission, only: [:update, :submit_forms]
@@ -94,6 +94,9 @@ class FormSubmissionsController < BaseController
   def resourcing_step
   end
 
+  def lawfirm_step
+  end
+
 
   def technology_profile
   end
@@ -119,24 +122,50 @@ class FormSubmissionsController < BaseController
     redirect_to first_step_path
   end
 
+  def law_firm_update
+    @law_firm = LawFirm.find(@form_submission.law_firm.id)
+  	if @law_firm.update_attributes(law_firms_params)
+  		@law_firm.update_attributes(profile_completed: true)
+       
+      @form_submission = FormSubmission.find(params[:id])
+        @form_submission.submitted = true
+        @form_submission.submitted_on = Time.now
+        @form_submission.status = 'submitted'
+        if (@form_submission.save)
+
+          # Creates action items for the law firm that has just been approved
+          generate_security_threats
+
+          AdminMailer.forms_submitted(@form_submission).deliver_now
+          FormSubmission.log_activity('information_security_policy_submitted', true, @form_submission, current_user)
+        end
+       
+  		redirect_to root_url, notice: "RFI Submited"
+  	else
+  		redirect_to first_step_path
+  	end
+  end
+
   def update
     @form_submission = FormSubmission.find(params[:id])
     if @form_submission.update(form_submissions_params)
       @form_submission.last_submitted_by = current_user
       @form_submission.save
       @form_submission.touch
-      if request.referrer.split('/').last.to_sym == :technology_profile
+      if request.referrer.split('/').last.to_sym == :pricing_step
         FormSubmission.log_activity('technologies_updated', true, @form_submission, current_user)
       elsif request.referrer.split('/').last.to_sym == :history_profile
         FormSubmission.log_activity('history_updated', true, @form_submission, current_user)
       end
       redirect_to params[:redirect_value]
-    elsif form_submissions_params["technology_values_attributes"]
-      @current_step = :technology
-      flash.now[:alert] = 'Please fill all the fields to save'
-      render :technology_step
+    # elsif form_submissions_params["technology_values_attributes"]
+    #   @current_step = :technology
+    #   flash.now[:alert] = 'Please fill all the fields to save'
+    #   render :technology_step
     else
-      render :technology_step
+      # current_step = params[:redirect_value].split("/")
+      # render current_step.last.to_sym
+      redirect_to params[:redirect_value]
     end
   end
 
@@ -151,6 +180,7 @@ class FormSubmissionsController < BaseController
   end
 
   def submit_forms
+    
     @form_submission = FormSubmission.find(params[:id])
     @form_submission.submitted = true
     @form_submission.submitted_on = Time.now
@@ -196,6 +226,8 @@ class FormSubmissionsController < BaseController
                     @form_submission.follow_ups.innovation.decorate
                   when :resourcing
                     @form_submission.follow_ups.resourcing.decorate
+                  when :lawfirm
+                    #@form_submission.follow_ups.lawfirm.decorate  
                   end
       
   end
@@ -215,6 +247,8 @@ class FormSubmissionsController < BaseController
           stats[:innovation] = (stats[:innovation] || 0) + 1
         when 'Resourcing'
           stats[:resourcing] = (stats[:resourcing] || 0) + 1
+        when 'Lawfirm'
+          stats[:lawfirm] = (stats[:lawfirm] || 0) + 1  
         end 
       else
         case form_value.class.to_s
@@ -236,7 +270,7 @@ private
   end
 
   def steps
-    [:pricing, :relationship, :diversity, :innovation, :resourcing]
+    [:pricing, :relationship, :diversity, :innovation, :resourcing, :lawfirm]
   end
 
   def wizard_path(step)
@@ -274,7 +308,7 @@ private
   end
 
   def last_step
-    current_step_path.include? "resourcing_step"
+    current_step_path.include? "lawfirm_step"
   end
 
   def first_step
@@ -284,6 +318,48 @@ private
   def form_submissions_params
     form_submission_attributes = [:id, :form_id]
     params.require(:form_submission).permit(form_submission_attributes + form_values_attributes)
+  end
+
+  def law_firms_params
+    params.require(:law_firm).permit(
+      :name, :description, :email, :phone, :temp_password, 
+      :relationship_manager_email, :law_firm_type, :principle_name,
+      :principle_title, :principle_contact_info, :parent_company,
+      :sister_firm, 
+      :initial_date_of_engagement_with_the_bank,
+      :number_of_lawyers,
+      :secondary_rm_contact,
+      :secondary_rm_contact_email,
+      :billing_contact_name,
+      :billing_contact_email,
+      :information_security_contact,
+      :information_security_contact_email,
+      :diverse,
+      :value_add_activities,
+      :feedback,
+      :issues,
+      :merger_combination,
+      :engagement_number,
+      :relationship_number,
+      :information_security_class,
+      :information_security_assessment_outcome,
+      :action_plan_findings,
+      :action_plan_status,
+      :bmo_relationship_partner_email,
+      :bmo_relationship_partner_name,
+      :bmo_relationship_partner_phone_number,
+      :confidentiality_level_of_matters_that_are_handled,
+      locations_attributes: [
+        :id, :address1, :address2, :city, 
+        :province, :postal_code, :country, :_destroy
+      ], jurisdictions_attributes: [
+        :id, :country, :_destroy, 
+        city: []
+      ], 
+      practice_area: [], 
+      type_of_matters_your_law_firm_handles_for_us: [],
+      type_of_services_your_law_firm_provides_generally: []
+    )
   end
 
 end

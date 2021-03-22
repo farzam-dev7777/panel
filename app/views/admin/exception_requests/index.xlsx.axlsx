@@ -1,0 +1,61 @@
+wb = xlsx_package.workbook
+
+wb.styles do |style|
+  project_heading = style.add_style(b: true, sz: 14)
+  heading = style.add_style(b: true)
+
+  wb.add_worksheet(name: "Exception Requests") do |sheet|
+    # Add a title row
+    #sheet.add_row ["Exception Requests List"], style: project_heading
+    # Add the date this was downloaded
+    #sheet.add_row ["Downloaded at", Time.now.strftime("%b %-d, %Y")]
+    # Add a blank row
+    #sheet.add_row []
+    # Create the header row
+    sheet.add_row [
+      "Date Submitted", 
+      "Law Firm Category",
+      "Name",
+      "Email",
+      "Phone",
+      "Matter Type",
+      "Country",
+      "State/Province",
+      "Reason For Request",
+      "Provide details of reason(s) selected",
+      "Who is paying the law firm?",
+      "Submitted By",
+      "Line of Business",
+      "LOB Contact Name",
+      "Name of Matter/ Client",
+      "Description of the matter",
+      "Will this matter involve the following",
+      "Is this a certified minority/woman owned firm?",
+      "If yes, which organization certified the firm?"
+      ], style: heading
+    # Create entries for each item
+     @exception_requests.each do |exception_request|
+      sheet.add_row [
+        exception_request.created_at.strftime('%d %b %Y at %I:%M %p'),
+        exception_request.law_firm.try(:law_firm_category).try(:titleize), 
+        exception_request.law_firm.try(:name),
+        exception_request.law_firm.try(:email),
+        exception_request.law_firm.try(:phone),
+        exception_request.matter_types_formated,
+        exception_request.countries_formated,
+        exception_request.states_formated,
+        exception_request.reason.reject(&:blank?).join(", "),
+        exception_request.reason_details,
+        exception_request.payer,
+        exception_request.submitted_by_email,
+        exception_request.line_of_business,
+        exception_request.lob_contact_name,
+        exception_request&.matter_name,
+        exception_request&.matter_description,
+        exception_request&.matter_involve_following,
+        exception_request.women_owned,
+        exception_request.women_owned_details
+        ]
+    end
+  end
+end

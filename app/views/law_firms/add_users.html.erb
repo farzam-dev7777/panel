@@ -4,9 +4,9 @@
     <div class="row">
       <div class="col-xs-12 col-md-12">
         <div class="">
-          <div class="page-header-sp">
-            <div class="page-title  m-top-zero">Add new collaborator 
-              <span>You've added <%= current_law_firm.standard_users.count %> of <%= current_law_firm.law_firm_user_limit || 0 %> collaborators</span>
+          <div class="page-header-sp m-top">
+            <div class="page-title">Add New User  
+              <span>You've added <%= current_law_firm.standard_users.count %> of <%= current_law_firm.law_firm_user_limit || 0 %> User</span>
             </div>
           </div>
         </div>
@@ -16,16 +16,19 @@
           <form class="" method="post" action="/law_firms/invite_users">
             <div class="user-form-sp">
             <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
-              <div class="form-group">
+              <div class="form-group col-md-12">
+                <%= email_field_tag :email, nil, placeholder: "Email" -%>
+              </div>
+               <div class="form-group col-md-12">
                 <%= password_field_tag :temp_password, nil, placeholder: "Temporary password" -%>
               </div>
-              <div class="form-group">
+              <div class="form-group col-md-12">
                 <%= password_field_tag :temp_password_confirmation, nil, placeholder: "Temporary password confirmation" -%>
               </div>
             </div>
             <footer class="row" style="margin-top:15px;">
               <div class="col-md-12 text-center">
-                <input type="submit" value="Add New Collaborator" class="btn-type-primary">
+                <input type="submit" value="Add New User" class="btn-type-primary">
               </div>
             </footer>
           </form>
@@ -35,7 +38,7 @@
     <div class="row">
       <div class="col-xs-12 col-md-12">
         <div class="page-header-sp">
-          <div class="page-title">Collaborators</div>
+          <div class="page-title">Users</div>
           <div></div>
         </div>
       </div>

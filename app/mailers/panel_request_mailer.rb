@@ -36,14 +36,17 @@ class PanelRequestMailer < ApplicationMailer
 	end
 	def notification_for_retainer_to_law_firm(panel_request)
 		@panel_request = panel_request
-		@user = User.find_by_id(@panel_request.user_id)
+		@user = User.with_deactivated.find_by_id(@panel_request.user_id)
 		@law_firm = @panel_request.law_firm
 		mail(to: @law_firm.email, subject: "Your Panel Request status has been updated.")
 	end
 	def notification_for_retainer_to_user(panel_request)
 		@panel_request = panel_request
-		@user = @panel_request.law_firm.user
-		mail(to: @user.email, subject: "Your Panel Request status has been updated.")
+		user_id = @panel_request.law_firm.user_id
+		@user = User.with_deactivated.find_by(id: user_id)
+		if @user.present?
+			mail(to: @user.email, subject: "Your Panel Request status has been updated.")
+		end
 	end
 	def notification_for_approved_to_lob(panel_request)
 		@panel_request = panel_request
@@ -54,6 +57,18 @@ class PanelRequestMailer < ApplicationMailer
 		@panel_request = panel_request
 		@user = @panel_request.law_firm.user
 		mail(to: @user.email, subject: "Your Panel Request status has been approved.")
+	end
+
+	def notification_for_status_to_user(panel_request)
+		@panel_request = panel_request
+		@user = User.find_by_id(@panel_request.user_id)
+		mail(to: @user.email, subject: "Your Panel Request status has been updated.")
+	end
+	def send_wnn_documents_to_law_firm(panel_request)
+		@panel_request = panel_request
+		@law_firm = @panel_request&.law_firm
+		attachments['WNN_Documents.zip'] = File.read("#{Rails.root}/lib/assets/WNN_Documents.zip")
+		mail(to: @law_firm.email, subject: "WNN Documents")
 	end
 
 

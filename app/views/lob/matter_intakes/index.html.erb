@@ -1,14 +1,14 @@
 <% content_for :page_title do %>
-  <span>Matter Intakes</span>
+  <span>Matter Intake Forms</span>
   <% end %>
   <div class="clearfix"></div>
 
   <div class="col-lg-12">
 <div class="jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
-  <div class="page-header-sp">
-    <div class="page-title m-top-zero">Matter Intakes</div>
+  <div class="page-header-sp m-top">
+    <div class="page-title">Matter Intake Forms</div>
     <div>
-      <%= link_to 'Submit New Matter Intake', new_lob_matter_intake_path, html_options = {class: 'page-header-btn'}   %>
+      <!-- <%= link_to 'Submit New Matter Intake Form', new_lob_matter_intake_path, html_options = {class: 'page-header-btn'}   %> -->
     </div>
   </div>
   
@@ -26,20 +26,65 @@
         </div>
       </div>
     </div>
-    <!-- widget div-->
+    
+    <!-- Search filter -->
+      <div class="search-filter-sp">
+        <div class="sp-filter">
+          <div class="accordion" id="sp-filter">
+            <div class="card z-depth-0">
+              <div class="card-header" id="headingThree">
+                <div class="action-buttons-alignment">
+                  <a class="export-icon right-action-btns add-button" href="<%= new_lob_matter_intake_path %>">
+                    <%= image_tag "add.svg", alt:"Submit New Matter Intake Form" %> <span>Add</span>
+                  </a>
+                </div>
+                <div class="collapsed filter-title" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  <%= image_tag "filter-icon.svg", alt:"score" %>
+                  <span>Filter</span>
+                </div>
+              </div>
+              <div id="collapseThree" class="col-md-12 collapse sp-filter-fields" aria-labelledby="headingThree" data-parent="#sp-filter">
+                <div class="card-body sp-form">
+                  <%= search_form_for [:lob, @q] do |f| %>
+                    <div class="row">
+                      <div class="col-xs-12 col-sm-4">
+                        <%= f.label :submitter_name_cont, label: false, :class => 'label'  %>
+                        <%= f.search_field :submitter_name_cont, :class => 'sp-form-control' %>
+                      </div>
+                      <div class="col-xs-12 col-sm-4">
+                        <%= f.label :lob_contact_name_cont, :class => 'label' %>
+                        <%= f.search_field :lob_contact_name_cont, :class => 'sp-form-control' %>
+                      </div>
+                      <!--<div class="col-xs-12 col-sm-4">
+                        <%= f.label :law_firm_id_eq, :class => 'label' %>
+                        <%= f.select :law_firm_id_eq, options_from_collection_for_select(LawFirm.all, "id", "name", @q.law_firm_id_eq), {:include_blank => 'Select law firm'}, :class => 'sp-form-control' %>
+                      </div>-->
+                      <div class="col-xs-12 text-right" style="margin-top: 20px;">
+                        <%= f.submit "Search", class: "btn-type-primary input-btn m-right" %>
+                        <%= f.submit "Reset", type: "reset", value: "Reset",  class: "btn-type-default input-btn" %>
+                      </div>
+                    </div>        
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <!-- Search Filter END -->
     <div>
       <!-- widget content -->
       <div class="table-dyanmic-search table-responsive">
         <table id="dt_basic" class="table table-decoration table-bordered" width="100%">
           <thead>
             <tr>
+              <th>Date Submitted</th>
               <th>Submitter Name</th>
-              <th>LOB Contact Name</th>
-              <th>Name of Matter/Client</th>
-              <th>Type of Matter</th> 
-              <th>Law Firm Suggested</th>
+              <!--<th>LOB Contact Name</th>-->
+              <!--th>Law Firm Suggested</th-->
               <th>BMO lawyer name</th>
-              <th>Budget amount</th>
+              <th>Matter Name</th>
+              <th>T360 Matter Number</th> 
               <th>Status</th>
               <!--<th width="8%">Action</th>-->
             </tr>
@@ -47,30 +92,34 @@
           <tbody>
             <% @matter_intakes.each do |matter_intake| %>
               <tr  onClick="window.location.href='/lob/matter_intakes/<%= matter_intake.id %>'">
-                <td>
-                  <div class="firm-name">
-                    <div class="name-avatar">
-                      <img src="<%= get_avatar_image(matter_intake&.submitter_name&.gsub(" ", "+")) %>">
-                    </div>
-                    <div><%= matter_intake.submitter_name %></div>
-                  </div>
+                <td data-order="<%= matter_intake.created_at.strftime('%Y%m%d%H%M') %>">
+                  <%= matter_intake.created_at.strftime('%d %b %Y at %I:%M %p') %>
                 </td>
-                <td><%= matter_intake.lob_contact_name %></td>
-                <td><%= matter_intake.name_of_matter_client %></td>
-                <td><%= matter_intake.matter_type.try(:matter_type) %></td>
-                <td><%= matter_intake.law_firm.try(:name) %></td>
-                <td><%= matter_intake.bmo_lawyer_name %></td>
-                <td><%= matter_intake.budget_amount %></td>
+                <td>
+                  <% if matter_intake.submitter_name.present? %>
+                    <div class="firm-name">
+                      <div class="name-avatar">
+                        <img src="<%= get_avatar_image(matter_intake&.submitter_name&.gsub(" ", "+")) %>">
+                      </div>
+                      <div><%= matter_intake.submitter_name %></div>
+                    </div>
+                  <% end %> 
+                </td>
+                <!--<td><%= matter_intake&.lob_contact_name %></td>-->
+                <!--td><%= matter_intake&.law_firm.try(:name) %></td-->
+                <td><%= matter_intake.bmo_lawyer_name.present? ? matter_intake&.bmo_lawyer_name : "-" %></td>
+                <td><%= matter_intake.name_of_matter_client? ? matter_intake&.name_of_matter_client : "-" %></td>
+                <td><%= matter_intake.matter_number.present? ? matter_intake&.matter_number : "-" %></td>
                 <td>
                   <div class="status">
                   <span class="<%= matter_intake.status === "matter_open" ? 'label label-success' : 'label label-default' %>"> 
-                    <%= matter_intake.status.try(:titleize) %>
+                    <%= matter_intake.show_status %>
                   </span>
                   </div>
                 </td>
                 <!--<td>
                   <div class="action-fields">
-                    <% if matter_intake.status === "waiting_for_lawyer_review" %>
+                    <% if matter_intake.status === "awaiting_lawyer_review" %>
                     <a class="action-btn" href="/lob/matter_intakes/<%= matter_intake.id %>/edit">
                       <%= image_tag "edit-icon.svg", alt:"Edit" %>
                     </a>

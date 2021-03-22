@@ -2,7 +2,7 @@ class DashboardController < BaseController
 
   before_action :check_new_password, only: :index
 
-  def index
+	def index
   	@action_items = []
   	# if current_user.is_a_standard_user?
 	  	# if current_law_firm.profile_completed
@@ -18,10 +18,24 @@ class DashboardController < BaseController
 		# else
 		# 	root_url
 		# end
+
+		if current_user.is_panel_admin_user?
+			redirect_to admin_root_url
+		end
   end
 
   def check_new_password
   	redirect_to set_new_password_path unless current_user.new_password_set
-  end
+	end
+
+	def docusign_callback
+		userinfo = request.env['omniauth.auth']
+		credentials = userinfo.credentials
+    if credentials.token
+			@settings = SystemSetting.fetch
+      @settings.update_attributes(docusign_access_token: credentials.token, docusign_refresh_token: credentials.refresh_token, docusign_token_expires_at: Time.at(credentials.expires_at).to_datetime)
+    end
+    redirect_to admin_root_path
+  end 
   
 end

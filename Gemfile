@@ -20,10 +20,15 @@ gem 'wkhtmltopdf-binary'
 gem 'google-authenticator-rails', '~> 1.6.1'
 gem 'rollbar'
 gem 'country_select'
-gem 'docusign_esign'
+gem 'docusign_esign', '~> 3.4.0'
+gem 'omniauth-oauth2', '~> 1.6.0'
+gem 'omniauth-docusign'
 
 gem 'public_uid'
 gem 'mixpanel-ruby'
+
+gem 'axlsx', '~> 2.0'
+gem "axlsx_rails"
 
 gem 'rails-assets-qTip2', source: 'https://rails-assets.org'
 gem 'rails-assets-sweetalert', source: 'https://rails-assets.org'
@@ -53,11 +58,12 @@ gem "cocoon"
 gem 'will_paginate-bootstrap'
 gem 'nested_form'
 gem 'mailjet'
+gem 'activesupport-current_attributes'
 
 gem 'rails-breadcrumbs'
 
 gem  'nokogiri'
-
+gem 'acts_as_commentable_with_threading'
 group :development, :test do
   gem 'byebug', platform: :mri
   gem 'pry'

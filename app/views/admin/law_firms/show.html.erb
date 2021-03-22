@@ -6,8 +6,8 @@
 
 
 <div class="col-lg-12">
-	<div class="page-header-sp">
-		<div class="page-title m-top-zero"><%= @law_firm.name %></div>
+	<div class="page-header-sp m-top">
+		<div class="page-title"><%= @law_firm.name %></div>
 		<div class="back-edit-actions">
 			<a class="btn-type-default" href="/admin/law_firms">
 				<%= image_tag "chevron-back-icon.svg", alt:"Back" %>
@@ -16,31 +16,32 @@
 		</div>
 	</div>
 	<!-- Page Header -->
-	<div class="page-header-sp">
-		<div class="page-title m-top-zero"></div>
-		<div class="back-edit-actions">
-			<% if (@law_firm.form_submissions.any? && @law_firm.form_submissions.latest.status == 'decertified') %>
-				<a class="btn-type-primary" data-id='<%= @law_firm.id %>' data-name='<%= @law_firm.name %>'>Recertify</a>
-				<div class="">
-					<hr>
-					<div class="alert alert-danger">
-						<strong><%= @law_firm.name %></strong> has been decertified. <em>(<%= @law_firm.form_submissions.latest.reason %>)</em>
+	<div class="page-header-sp m-top">
+		<div class="page-title"></div>
+		<div class="back-edit-actions mobile-action-btn">
+		<% if @law_firm.law_firm_category === "PANEL" %>
+				<% if (@law_firm.form_submissions.any? && @law_firm.form_submissions.latest.status == 'decertified') %>
+					<a class="btn-type-primary" data-id='<%= @law_firm.id %>' data-name='<%= @law_firm.name %>'>Recertify</a>
+					<div class="">
+						<hr>
+						<div class="alert alert-danger">
+							<strong><%= @law_firm.name %></strong> has been decertified. <em>(<%= @law_firm.form_submissions.latest.reason %>)</em>
+						</div>
 					</div>
-				</div>
-			<% else %>
-			<% if(@law_firm.form_submissions.any? && @law_firm.form_submissions.latest.status == 'approved') %>
-				<a class="btn-type-primary" data-id='<%= @law_firm.id %>' data-name='<%= @law_firm.name %>'>Decertify</a>
-				<a class="btn-type-primary begin-recertification-btn" data-id="<%= @law_firm.id %>">Send RFI Questionnaire again</a>
-			<% end %>
-			<% if(!@law_firm.form_submissions.any?) %>
-				<% if(@law_firm.user.try(:is_deactivated?)) %>
-					<a class="btn-type-primary send-user-info-btn" data-id="<%= @law_firm.user.id %>">Send user information and create new password link </a>
-					<a class="btn-type-primary send-user-info-begin-certification-btn" data-id="<%= @law_firm.user.id %>">Send RFI Questionnaire with user active password link </a>
-					<% else %>	
-					<a class="btn-type-primary begin-certification-btn" data-id="<%= @law_firm.id %>">Send RFI Questionnaire</a>
-					<% end %>	
-			<% end %>
-
+				<% else %>
+					<% if(@law_firm.form_submissions.any? && @law_firm.form_submissions.latest.status == 'approved') %>
+						<a class="btn-type-primary" data-id='<%= @law_firm.id %>' data-name='<%= @law_firm.name %>'>Remove from Panel</a>
+						<a class="btn-type-primary begin-recertification-btn" data-id="<%= @law_firm.id %>">Send RFI Questionnaire again</a>
+					<% end %>
+					<% if(!@law_firm.form_submissions.any?) %>
+							<% if(@law_firm.user.try(:is_deactivated?)) %>
+							<a class="btn-type-primary send-user-info-btn" data-id="<%= @law_firm.user.id %>">Send user information and create new password link </a>
+							<a class="btn-type-primary send-user-info-begin-certification-btn" data-id="<%= @law_firm.user.id %>">Send RFI Questionnaire with user active password link </a>
+							<% else %>	
+							<a class="btn-type-primary begin-certification-btn" data-id="<%= @law_firm.id %>">Send RFI Questionnaire</a>
+							<% end %>	
+					<% end %>
+				<% end %>
 			<% end %>
 		</div>
 	</div>
@@ -55,9 +56,11 @@
 				<!-- <li>
 					<a data-toggle="tab" href="#hr2"> <i class="fa fa-lg fa-arrow-circle-o-up"></i> <span class="hidden-mobile hidden-tablet"> History </span></a>
 				</li> -->
+				<% if @law_firm.law_firm_category === "PANEL" %>
 				<li>
 					<a data-toggle="tab" href="#hr3">RFI</a>
 				</li>
+				<% end %>
 				<!-- 
 				<li>
 					<a data-toggle="tab" href="#hrst"> <i class="fa fa-lg fa-lock"></i> <span class="hidden-mobile hidden-tablet"> Security Threats </span></a>
@@ -66,14 +69,16 @@
 					<a data-toggle="tab" href="#hr4"> <i class="fa fa-lg fa-sticky-note-o"></i> <span class="hidden-mobile hidden-tablet"> Internal Notes </span></a>
 				</li> -->
 				<li>
-					<a data-toggle="tab" href="#hr5">Exception Requests</a>
+					<a data-toggle="tab" href="#hr5">Non-Panel (One-Off) Requests</a>
 				</li>
 				<li>
 					<a data-toggle="tab" href="#hr6">Conflict Waiver</a>
 				</li>
-				<li>
-					<a data-toggle="tab" href="#hr7">Panel Request</a>
-				</li>
+				<% if(@law_firm.panel_request.present?) %>
+					<li>
+						<a data-toggle="tab" href="#hr7">Panel Consideration Requests</a>
+					</li>
+				<% end %>
 			</ul>	
 			</div>
 		</div>
@@ -88,8 +93,8 @@
 						<div class="sp-form-bg show-data-fields">
 							<div class="row send-password-link">
 								<div class="col-md-12">
-									<% if @law_firm.user.try(:id)%>
-										<a class="btn-type-primary" data-id="<%= @law_firm.user.id %>">Send new password link </a>
+									<% if @law_firm.law_firm_category === "PANEL" && @law_firm.user.try(:id)%>
+										<a class="btn-type-primary send-user-info-btn" data-id="<%= @law_firm.user.id %>">Send new password link </a>
 									<% end %>
 									<% if(@law_firm.form_submissions.try(:latest).try(:status) == 'approved') %>
 										<% latest_form_submission = @law_firm.form_submissions.latest %>
@@ -128,53 +133,167 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-xs-12 col-md-6">
-									<div class="field-label">Law Firm Name </div>
-									<div class="field-data"><%= @law_firm.name %></div>
+								<div class="col-md-12">
+									<div class="inner-label">Contact Information</div>
+									<div class="inner-form-field form-flex-wrap">
+										<div class="col-xs-12 col-md-6">
+											<div class="field-label">Law Firm Name </div>
+											<div class="field-data"><%= @law_firm.name %></div>
+										</div>
+										<div class="col-xs-12 col-md-6">
+											<label class="field-label">BMO Relationship Partner Name</label>
+											<div class="field-data"><%= @law_firm.bmo_relationship_partner_name  %> </div>
+										</div>
+										<div class="col-xs-12 col-md-6">
+											<label class="field-label">BMO Relationship Partner Email</label>
+											<div class="field-data"><%= @law_firm.bmo_relationship_partner_email  %> </div>
+										</div>
+										<div class="col-xs-12 col-md-6">
+											<label class="field-label">BMO Relationship Partner Phone No.</label>
+											<div class="field-data"><%= @law_firm.bmo_relationship_partner_phone_number  %> </div>
+										</div>
+										<div class="col-xs-12 col-md-6">
+											<label class="field-label">Additional BMO Relationship Contact Name (optional)</label>
+											<div class="field-data"><%= @law_firm.secondary_rm_contact %> </div>
+										</div>
+										<div class="col-xs-12 col-md-6">
+											<label class="field-label">Additional BMO Relationship Contact Email (optional)</label>
+											<div class="field-data"><%= @law_firm.secondary_rm_contact_email %> </div>
+										</div>
+										<div class="col-xs-12 col-md-6">
+											<label class="field-label">Billing Contact Name</label>
+											<div class="field-data"><%= @law_firm.billing_contact_name %> </div>
+										</div>
+										<div class="col-xs-12 col-md-6">
+											<label class="field-label">Billing Contact Email</label>
+											<div class="field-data"><%= @law_firm.billing_contact_email %> </div>
+										</div>
+										<div class="col-xs-12 col-md-6">
+											<div class="field-label">Locations</div>	
+										
+											<div class="field-data"><%= @law_firm.locations.map{|location| [location.city, location.province, @law_firm.country_name(location.country)].reject(&:nil?).join(',') }.join("<br />").html_safe %></div>
+										</div>
+									</div>
 								</div>
-								<div class="col-xs-12 col-md-6">
-									<div class="field-label">Username</div>
-									<div class="field-data"><%= !@law_firm.user.try(:username).blank? ? @law_firm.users.first.try(:username) : '-' %></div>
+								<div class="col-md-12">
+									<div class="inner-label">SEMS Information</div>
+									<div class="inner-form-field form-flex-wrap">
+										<div class="col-xs-12 col-md-6">
+											<label class="field-label">Engagement Number</label>
+											<div class="field-data"><%= @law_firm.engagement_number  %> </div>
+										</div>
+										<div class="col-xs-12 col-md-6">
+											<label class="field-label">Relationship Number</label>
+											<div class="field-data"><%= @law_firm.relationship_number %> </div>
+										</div>
+										<div class="col-xs-12 col-md-6">
+											<label class="field-label">Information Security Class</label>
+											<div class="field-data"><%= @law_firm.information_security_class %> </div>
+										</div>
+										<div class="col-xs-12 col-md-6">
+											<label class="field-label">Information Security Assessment Outcome</label>
+											<div class="field-data"><%= @law_firm.information_security_assessment_outcome %> </div>
+										</div>
+										<div class="col-xs-12 col-md-6">
+											<label class="field-label">Action Plan Findings</label>
+											<div class="field-data"><%= @law_firm.action_plan_findings %> </div>
+										</div>
+										<div class="col-xs-12 col-md-6">
+											<label class="field-label">Action Plan Status</label>
+											<div class="field-data"><%= @law_firm.action_plan_status  %> </div>
+										</div>
+										<div class="col-xs-12 col-md-6">
+											<label class="field-label">Information Security Contact Name</label>
+											<div class="field-data"><%= @law_firm.information_security_contact %> </div>
+										</div>
+										<div class="col-xs-12 col-md-6">
+											<label class="field-label">Information Security Contact Email</label>
+											<div class="field-data"><%= @law_firm.information_security_contact_email %> </div>
+										</div>
+									</div>
 								</div>
-								<div class="col-xs-12 col-md-6">
-									<div class="field-label">Email </div>
-									<div class="field-data"><%= !@law_firm.user.try(:email).blank? ? @law_firm.users.first.try(:email) : '-' %></div>
+								<div class="col-md-12">
+									<div class="inner-label">Law Firm Information</div>
+										<div class="inner-form-field form-flex-wrap">
+											<div class="col-xs-12 col-md-6">
+												<div class="field-label">No. of personnel</div>		
+												<div class="field-data"><%= @law_firm.number_of_lawyers %></div>
+											</div>
+										
+											<div class="col-xs-12 col-md-6">
+												<label class="field-label">Diverse</label>
+												<div class="field-data"><%= @law_firm.diverse %> </div>
+											</div>
+											<div class="col-xs-12 col-md-6">
+												<label class="field-label">Value-Add Activities</label>
+												<div class="field-data"><%= @law_firm.values.map{|value| [value.value].reject(&:nil?).join(',') }.join("<br />").html_safe %></div>
+											</div>
+											<div class="col-xs-12 col-md-6">
+												<label class="field-label">Feedback</label>
+												<div class="field-data"><%= @law_firm.feedbacks.map{|feedback| [feedback.feedback].reject(&:nil?).join(',') }.join("<br />").html_safe %></div>
+											</div>
+											<div class="col-xs-12 col-md-6">
+												<label class="field-label">Issues</label>
+												<div class="field-data"><%= @law_firm.issues.map{|issue| [issue.issue].reject(&:nil?).join(',') }.join("<br />").html_safe %></div>
+											</div>
+											<div class="col-xs-12 col-md-6">
+												<label class="field-label">Merger/Combination</label>
+												<div class="field-data"><%= @law_firm.merger_combination  %> </div>
+											</div>
+									</div>
 								</div>
-								<div class="col-xs-12 col-md-6">
-									<div class="field-label">Phone </div>
-									<div class="field-data"><%= @law_firm.phone %></div>
+								<div class="col-md-12">
+									<div class="inner-label">Law Firm Information</div>
+										<div class="inner-form-field form-flex-wrap">
+											<div class="col-xs-12 col-md-6">
+												<div class="field-label">Username</div>
+												<div class="field-data"><%= !@law_firm.user.try(:username).blank? ? @law_firm.user.try(:username) : '-' %></div>
+											</div>
+											<div class="col-xs-12 col-md-6">
+												<div class="field-label">Law Firm Login Email </div>
+												<div class="field-data"><%= !@law_firm.user.try(:email).blank? ? @law_firm.user.try(:email) : '-' %></div>
+											</div>
+											<div class="col-xs-12 col-md-6">
+												<div class="field-label">Law Firm Login User Phone </div>
+												<div class="field-data"><%= @law_firm.phone %></div>
+											</div>
+										</div>
 								</div>
-								<div class="col-xs-12 col-md-12">
-									<div class="field-label">Description </div>
-									<div class="field-data"><%= @law_firm.description %></div>
-								</div>
-								<div class="col-xs-12 col-md-6">
-									<div class="field-label">Relationship Manager Name	</div>
-									<div class="field-data"><%= @law_firm.relationship_manager_name %></div>
-								</div>
-								<div class="col-xs-12 col-md-6">
-									<div class="field-label">Relationship Manager Email </div>
-									<div class="field-data"><%= @law_firm.relationship_manager_email %></div>
-								</div>
-								<div class="col-xs-12 col-md-6">
-									<div class="field-label">Relationship Manager Phone </div>
-									<div class="field-data"><%= @law_firm.relationship_manager_phone %></div>
-								</div>
-								<div class="col-xs-12 col-md-6">
+							
+								<% if Current.user.role === "internal_lawyers" %>
+									<div class="col-xs-12 col-md-6">
+										<div class="field-label">Relationship Manager Name	</div>
+										<div class="field-data"><%= @law_firm.relationship_manager_name %></div>
+									</div>
+									<div class="col-xs-12 col-md-6">
+										<div class="field-label">Relationship Manager Email </div>
+										<div class="field-data"><%= @law_firm.relationship_manager_email %></div>
+									</div>
+									<div class="col-xs-12 col-md-6">
+										<div class="field-label">Relationship Manager Phone </div>
+										<div class="field-data"><%= @law_firm.relationship_manager_phone %></div>
+									</div>
+								<% end %>
+								<!--div class="col-xs-12 col-md-6">
 									<div class="field-label">Initial Date of Engagement with BMO</div>		
 									<div class="field-data"><%= @law_firm.initial_date_of_engagement_with_the_bank && @law_firm.initial_date_of_engagement_with_the_bank.in_time_zone('Eastern Time (US & Canada)').strftime(LawFirm::DATE_FORMAT) %></div>
-								</div>
+								</div-->
 								<div class="col-xs-12 col-md-6">
 									<div class="field-label">Types of matters your law firm has handled for us to date</div>		
 									<div class="field-data"><%= @law_firm.type_of_matters_your_law_firm_handles_for_us.reject(&:blank?).join(", ") %></div>
 								</div>
+
 								<div class="col-xs-12 col-md-6">
-									<div class="field-label">No. of personnel</div>		
-									<div class="field-data"><%= @law_firm.number_of_lawyers %></div>
+									<div class="field-label">Matter Type</div>		
+									<div class="field-data"><%= @law_firm.show_matter_types %></div>
 								</div>
 								<div class="col-xs-12 col-md-6">
-									<div class="field-label">Locations</div>		
-									<div class="field-data"><%= @law_firm.locations.map{|location| [location.city, location.province, location.country].reject(&:nil?).join(',') }.join("<br />").html_safe %></div>
+									<div class="field-label">Country</div>		
+									<div class="field-data"><%= @law_firm.show_countries_names %></div>
+								</div>
+								<div class="col-xs-12 col-md-6">
+									<div class="field-label">State</div>		
+									<div class="field-data"><%= @law_firm.show_states_names %></div>
 								</div>
 							</div>
 						</div>
@@ -213,14 +332,16 @@
 							<% if @law_firm.form_submissions.any? %>
 								<div class="table-responsive">
 									<table class="table table-decoration table-bordered">
-										<tr>
-											<th>Score</th>
-											<th>Status</th>
-											<th>Approved At</th>
-											<th>Expiry Date</th>
-											<th>Submission</th>
-											<th width="8%">Action</th>
-										</tr>
+										<thead>
+											<tr>
+												<th>Score</th>
+												<th>Status</th>
+												<th>Approved At</th>
+												<th>Expiry Date</th>
+												<th>Submission</th>
+												<th width="8%">Action</th>
+											</tr>
+										</thead>
 										<% @law_firm.form_submissions.each do |submission| %>
 										<tr>
 											<td><%= @law_firm.total_calculated_score(submission) || '-' %></td>
@@ -283,7 +404,10 @@
 									<div class="clearfix"></div>
 								</div>
 								<% else %>
-								<h4 class="text-center no-submissions">There are no submissions to review yet</h4>
+								<div class="sp-form sp-form-bg text-center">
+									<h4 class="text-center no-submissions">There are no submissions to review yet</h4>
+								</div>
+								
 							<% end %>
 						</div>
 					</div>
@@ -379,19 +503,21 @@
 						</form>
 					</div>
 					<div class="tab-pane fade" id="hr5">
-						<div class="sp-form-bg show-data-fields">
+						<div class="">
 							<% if @law_firm.exception_requests.count > 0 %>
 							<div class="table-responsive">
-								<table class="table table-bordered text-center content-in-jarvis">
+								<table class="table table-decoration table-bordered content-in-jarvis">
+									<thead>
 									<tr>
 										<th>Request By</th>
 										<th>Submitted By	</th>
 										<th>LXP Status</th>
-										<th>Internal Lawyers Status</th>
+										<th>Internal Lawyer Status</th>
 										<th>Pay Type</th>
 										<th>Document Status</th>
 										<th width="8%">Action</th>
 									</tr>
+									</thead>
 									<% @law_firm.exception_requests.each do |exception_request| %>
 									<tr>
 										<td><%= exception_request.requested_by %></td>
@@ -409,7 +535,12 @@
 											<% end %>	
 										</td>
 										<td>
-											<%= link_to "View Request", admin_exception_request_path(exception_request), class: "btn btn-outline-primary btn-xs" %>	
+											<% link_to "View Request", admin_exception_request_path(exception_request), class: "btn btn-outline-primary btn-xs" %>	
+												<div class="action-fields">
+													<a class="action-btn" href="/admin/exception_requests/<%= exception_request.id %>">
+														<%= image_tag "view-icon.svg", alt:"View" %>
+													</a>
+												</div>
 										</td>
 									</tr>
 									<% end %>
@@ -417,26 +548,29 @@
 								<div class="clearfix"></div>
 							</div>
 							<% else %>
-								<h4 class="text-center no-submissions">There are no Exception Requests submitted</h4>
+								<div class="sp-form sp-form-bg text-center">
+									<h4 class="text-center no-submissions">There are no Exception Requests submitted</h4>
+								</div>
+								
 							<% end %>
 						</div>
 					</div>
 					<div class="tab-pane fade" id="hr6">
 
-							<div class="sp-form-bg show-data-fields">
+							<div class="">
 	
 									<% if @law_firm.conflict_waivers.count > 0 %>
 									<div class="table-responsive">
 										<table class="table table-decoration table-bordered">
-		
+											<thead>
 											<tr>
 												<th>Contact details	</th>
-												<th>BMO business contact	</th>
+												<th>BMO contact	</th>
 												<th>LXP Status</th>
-												<th>Internal Lawyers Status</th>
+												<th>Internal Lawyer Status</th>
 												<th width="8%">Action</th>
 											</tr>
-		
+											</thead>
 											<% @law_firm.conflict_waivers.each do |conflict_waiver| %>
 												<tr>
 													<td><%= conflict_waiver.contact_details %></td>
@@ -444,7 +578,12 @@
 													<td><%= conflict_waiver.lxp_status_show %></td>
 													<td><%= conflict_waiver.internal_lawyers_status_show %></td>	
 													<td>
-														<%= link_to "View Request", admin_conflict_waiver_path(conflict_waiver), class: "btn btn-outline-primary btn-xs" %>	
+														<% link_to "View Request", admin_conflict_waiver_path(conflict_waiver), class: "btn btn-outline-primary btn-xs" %>	
+														<div class="action-fields">
+															<a class="action-btn" href="/admin/conflict_waivers/<%= conflict_waiver.id %>">
+																<%= image_tag "view-icon.svg", alt:"View" %>
+															</a>
+														</div>
 													</td>
 												</tr>
 												
@@ -456,85 +595,85 @@
 		
 									</div>
 									<% else %>
+									<div class="sp-form sp-form-bg text-center">
 										<h4 class="text-center no-submissions">There are no Conflict Waiver submitted</h4>
+									</div>
+									
 									<% end %>
 								</div>
 	
 	
 							
 					</div>
-					<div class="tab-pane fade" id="hr7">
-						<% if @panel_request %>
-							<div class="sp-form-bg show-data-fields">
-								<div class="row">
-									<div class="col-xs-12 col-md-6">
-										<div class="field-label">Requested By	</div>
-										<div class="field-data"><%= @panel_request.requested_by %></div>
-									</div>
-									<div class="col-xs-12 col-md-6">
-										<div class="field-label">Submitted By</div>		
-										<div class="field-data"><%= @panel_request.submitted_by_email %></div>
+					<% if(@law_firm.panel_request.present?) %>
+						<div class="tab-pane fade" id="hr7">
+							<% if @panel_request %>
+								<div class="sp-form-bg show-data-fields">
+									<div class="row">
+										<div class="col-xs-12 col-md-6">
+											<div class="field-label">Requested By	</div>
+											<div class="field-data"><%= @panel_request.requested_by %></div>
+										</div>
+										<div class="col-xs-12 col-md-6">
+											<div class="field-label">Submitted By</div>		
+											<div class="field-data"><%= @panel_request.submitted_by_email %></div>
+										</div>
+										<div class="col-xs-12 col-md-6">
+											<div class="field-label">Line of Business	</div>		
+											<div class="field-data"><%= @panel_request.requested_by %><%= @panel_request.line_of_business %></div>
+										</div>
+										<% if Current.user.role === "lxp" %>
+										<div class="col-xs-12 col-md-6">
+											<div class="field-label">LOB Contact Name	</div>		
+											<div class="field-data"><%= @panel_request.lob_contact_name %></div>
+										</div>
+										<% end %>
+								
+										<div class="col-xs-12 col-md-6">
+											<div class="field-label">Business Manager Name</div>
+											<div class="field-data"><%= @panel_request.business_manager_name %></div>
+										</div>
+										<div class="col-xs-12 col-md-6">
+											<div class="field-label">Business Manager Email</div>		
+											<div class="field-data"><%= @panel_request.business_manager_email %></div>
+										</div>
+							
+										<div class="col-xs-12 col-md-6">
+											<div class="field-label">Business Manager Phone	</div>		
+											<div class="field-data"><%= @panel_request.business_manager_phone %></div>
+										</div>	
+										<div class="col-xs-12 col-md-6">
+											<div class="field-label">Type</div>		
+											<div class="field-data"><%= @panel_request.law_firm_category %></div>
+										</div>
+								
+										<div class="col-xs-12 col-md-6">
+											<div class="field-label">Minority Owned</div>		
+											<div class="field-data"><%= @panel_request.minority_owned %></div>
+										</div>
+										<div class="col-xs-12 col-md-6">
+											<div class="field-label">Minority Owned Details</div>		
+											<div class="field-data"><%= @panel_request.minority_owned_details %></div>
+										</div>
+								
+										<div class="col-xs-12 col-md-6">
+											<div class="field-label">Women Owned</div>		
+											<div class="field-data"><%= @panel_request.women_owned %></div>
+										</div>
+										<div class="col-xs-12 col-md-6">
+											<div class="field-label">Women Owned Details</div>		
+											<div class="field-data"><%= @panel_request.women_owned_details %></div>
+										</div>
+										<div class="col-xs-12 col-md-6">
+											<div class="field-label">Matter Types</div>		
+											<div class="field-data"><%= @panel_request.matter_types.is_a?(Array) ? @panel_request.matter_types.join(", ") : "" %></div>
+										</div>	
 									</div>
 								</div>
-								<div class="row">
-									<div class="col-xs-12 col-md-6">
-										<div class="field-label">Line of Business	</div>		
-										<div class="field-data"><%= @panel_request.requested_by %><%= @panel_request.line_of_business %></div>
-									</div>
-									<div class="col-xs-12 col-md-6">
-										<div class="field-label">LOB Contact Name	</div>		
-										<div class="field-data"><%= @panel_request.lob_contact_name %></div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-xs-12 col-md-6">
-										<div class="field-label">Business Manager Name</div>
-										<div class="field-data"><%= @panel_request.business_manager_name %></div>
-									</div>
-									<div class="col-xs-12 col-md-6">
-										<div class="field-label">Business Manager Email</div>		
-										<div class="field-data"><%= @panel_request.business_manager_email %></div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-xs-12 col-md-6">
-										<div class="field-label">Business Manager Phone	</div>		
-										<div class="field-data"><%= @panel_request.business_manager_phone %></div>
-									</div>	
-									<div class="col-xs-12 col-md-6">
-										<div class="field-label">Law firm Category</div>		
-										<div class="field-data"><%= @panel_request.law_firm_category %></div>
-									</div>
-								</div>
-								<div class="row">		
-									<div class="col-xs-12 col-md-6">
-										<div class="field-label">Minority Owned</div>		
-										<div class="field-data"><%= @panel_request.minority_owned %></div>
-									</div>
-									<div class="col-xs-12 col-md-6">
-										<div class="field-label">Minority Owned Details</div>		
-										<div class="field-data"><%= @panel_request.minority_owned_details %></div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-xs-12 col-md-6">
-										<div class="field-label">Women Owned</div>		
-										<div class="field-data"><%= @panel_request.women_owned %></div>
-									</div>
-									<div class="col-xs-12 col-md-6">
-										<div class="field-label">Women Owned Details</div>		
-										<div class="field-data"><%= @panel_request.women_owned_details %></div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-xs-12 col-md-6">
-										<div class="field-label">Matter Types</div>		
-										<div class="field-data"><%= @panel_request.matter_types.is_a?(Array) ? @panel_request.matter_types.join(", ") : "" %></div>
-									</div>	
-								</div>
-							</div>
+							<% end %>	
+						</div>
+
 						<% end %>	
-					</div>
 				</div>
 				<!-- end widget body text-->
 			</div>

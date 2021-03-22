@@ -6,17 +6,39 @@
 
 <div class="col-lg-12 col-md-12 col-sm-12">
   <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
-    <div class="page-header-sp">
-      <div class="page-title m-top-zero">Matter Intake</div>
+    <div class="page-header-sp m-top">
+      <div class="page-title">Matter Intake Forms
+        <span class="<%= @matter_intake.status === "matter_open" ? 'label label-success' : 'label label-default' %>"> 
+         Status: <%= @matter_intake.show_status %>
+        </span>
+      </div>
       <div class="back-edit-actions">
         <a class="btn-type-default" href="/admin/matter_intakes">
           <%= image_tag "chevron-back-icon.svg", alt:"Back" %>
         </a>
+        
         <% if @current_user.role === "internal_lawyers" %>
-          <% if @matter_intake.status === "waiting_for_lxp_review" %>
-          <%= link_to "Edit".html_safe, edit_admin_matter_intake_path(id: @matter_intake.id), class: "btn-type-primary" %>
+          <% if @matter_intake.status === "awaiting_lxp_review" || @matter_intake.status === "draft"  %>
+            <% if @matter_intake.user_id.nil? %> 
+              <%= link_to "Edit".html_safe, edit_admin_matter_intake_path(id: @matter_intake.id), class: "btn-type-primary" %>
+            <% else %>
+              <%= link_to "review", review_admin_matter_intake_path(@matter_intake), class: "btn-type-primary" %>	
+            <% end %>
           <% end %>
         <% end %>
+
+        <% if @current_user.role === "internal_lawyers" && (@matter_intake.status === "awaiting_lawyer_review" || @matter_intake.status === "awaiting_lawyer_update") %>
+            <% if @matter_intake.user_id.nil? %> 
+              <%= link_to "Edit".html_safe, edit_admin_matter_intake_path(id: @matter_intake.id), class: "btn-type-primary" %>
+            <% else %>
+              <%= link_to "review", review_admin_matter_intake_path(@matter_intake), class: "btn-type-primary" %>	
+            <% end %>
+        <% elsif @current_user.role === "lxp" %>
+          <% if @matter_intake.status === "awaiting_lxp_review" %>
+            <%= link_to "review", lxp_review_admin_matter_intake_path(@matter_intake), class: "btn-type-primary" %>
+          <% end %>
+        <% end %>
+
       </div>
     </div>
     <div class="">
@@ -25,62 +47,489 @@
         <div class="view-request">
           <div class="sp-form-bg show-data-fields">
             <div class="row">
-              <div class="col-xs-12 col-md-6">
-                <div class="field-label">Submitter Name:	</div>
-                <div class="field-data"><%= @matter_intake.submitter_name %></div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="field-label">LOB Contact Name:	</div>
+              <% if @matter_intake.submitter_name.present? %>
+                <div class="col-xs-12 col-md-6">
+                  <div class="field-label">Submitter Name</div>
+                  <div class="field-data"><%= @matter_intake.submitter_name %></div>
+                </div>
+              <% end %>
+              <!--<div class="col-xs-12 col-md-6">
+                <div class="field-label">LOB Contact Name</div>
                 <div class="field-data"><%= @matter_intake.lob_contact_name %></div>
-              </div>
+              </div>-->
               <div class="col-xs-12 col-md-6">
-                <div class="field-label">Name of Matter/Client:	</div>
+                <div class="field-label">Matter name</div>
                 <div class="field-data"><%= @matter_intake.name_of_matter_client %></div>
               </div>
+              <% if @matter_intake.user_id.present? %>  <!-- Lob initiated form field -->
+                <div class="col-xs-12 col-md-6">
+                  <div class="field-label">Type of Matter</div>
+                  <div class="field-data"><%= @matter_intake.matter_type.try(:matter_type) %></div>
+                </div>
+              <% end %>
               <div class="col-xs-12 col-md-6">
-                <div class="field-label">Type of Matter:	</div>
-                <div class="field-data"><%= @matter_intake.matter_type.try(:matter_type) %></div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="field-label">Matter Description:	</div>
+                <div class="field-label">Matter Description</div>
                 <div class="field-data"><%= @matter_intake.matter_description %></div>
               </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="field-label">How will this matter be paid?:	</div>
+              <% if !@matter_intake.outside_counsel_engaged.blank? && @matter_intake.outside_counsel_engaged != 'N/A Internal – no law firm will be engaged' %>
+                <div class="col-xs-12 col-md-6">
+                  <div class="field-label">Will this matter involve the following?</div>
+                  <div class="field-data"><%= @matter_intake.following_matter_involve %></div>
+                </div>
+              <% end %>
+              <!--div class="col-xs-12 col-md-6">
+                <div class="field-label">How will this matter be paid?</div>
                 <div class="field-data"><%= @matter_intake.mode_of_payment %></div>
-              </div>
+              </div-->
+              <!--<% if @matter_intake && @matter_intake.law_firm %>
+                <div class="col-xs-12 col-md-6">
+                  <div class="field-label">Law Firm Suggested</div>
+                  <div class="field-data"><%= @matter_intake.law_firm.try(:name) %></div>
+                </div>
+              <% end %>-->
               <div class="col-xs-12 col-md-6">
-                <div class="field-label">Law Firm Suggested:	</div>
-                <div class="field-data"><%= @matter_intake.law_firm.try(:name) %></div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="field-label">BMO lawyer name:	</div>
+                <div class="field-label">BMO lawyer name</div>
                 <div class="field-data"><%= @matter_intake.bmo_lawyer_name %></div>
               </div>
               <div class="col-xs-12 col-md-6">
-                <div class="field-label">Budget amount, if already negotiated with the law firm:	</div>
+                <div class="field-label">Legal Group of BMO Lawyer</div>
+                <div class="field-data"><%= @matter_intake.legal_group_of_bmo_lawyer %></div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Work Area</div>
+                <div class="field-data"><%= @matter_intake.work_area %></div>
+              </div>
+              <% if @matter_intake.user_id.nil? %> 
+                <div class="col-xs-12 col-md-6">
+                  <div class="field-label">Work Area Level 2</div>
+                  <div class="field-data"><%= @matter_intake.work_area_type %></div>
+                </div>
+              <% if @matter_intake.work_area === "Regulatory" && @matter_intake.form_type != "litigation" %> 
+                <div class="col-xs-12 col-md-6">
+                  <div class="field-label">Is this matter ORE reportable?</div>
+                  <div class="field-data">
+                    <%= @matter_intake.is_ore_reportable %>
+                    <input type="hidden" id="litigation_reporting" value="<%= @matter_intake.is_ore_reportable %>" />
+                  </div> 
+                </div>
+                <div class="col-xs-12 col-md-6">
+                  <div class="field-label">Is this matter otherwise reportable? (e.g. board reporting)</div>
+                  <div class="field-data"><%= @matter_intake.is_otherwise_reportable %></div>
+                </div>
+
+                <div class="col-xs-12 col-md-6 litigation_reporting">
+                  <div class="field-label">M&I Matter</div>
+                  <div class="field-data"><%= @matter_intake.mi_matter %></div>
+                </div>
+                <div class="col-xs-12 col-md-6 litigation_reporting">
+                  <div class="field-label">Nature of Events</div>
+                  <div class="field-data"><%= @matter_intake.nature_of_events %></div>
+                </div>
+                <div class="col-xs-12 col-md-6 litigation_reporting">
+                  <div class="field-label">Process Type Level 1</div>
+                  <div class="field-data"><%= @matter_intake.process_type_level_1 %></div>
+                </div>
+                <div class="col-xs-12 col-md-6 litigation_reporting">
+                  <div class="field-label">Process Type Level 2</div>
+                  <div class="field-data"><%= @matter_intake.process_type_level_2 %></div>
+                </div>
+                <div class="col-xs-12 col-md-6 litigation_reporting">
+                  <div class="field-label">Product Type Level 1</div>
+                  <div class="field-data"><%= @matter_intake.product_type_level_1 %></div>
+                </div>
+                <div class="col-xs-12 col-md-6 litigation_reporting">
+                  <div class="field-label">Product Type Level 2</div>
+                  <div class="field-data"><%= @matter_intake.product_type_level_2 %></div>
+                </div>
+                <div class="col-xs-12 col-md-6 litigation_reporting">
+                  <div class="field-label">Event Type Level 1</div>
+                  <div class="field-data"><%= @matter_intake.event_type_level_1 %></div>
+                </div>
+                <div class="col-xs-12 col-md-6 litigation_reporting">
+                  <div class="field-label">Event Type Level 2</div>
+                  <div class="field-data"><%= @matter_intake.event_type_level_2 %></div>
+                </div>
+                <div class="col-xs-12 col-md-6 litigation_reporting">
+                  <div class="field-label">Business Activity Level 1</div>
+                  <div class="field-data"><%= @matter_intake.business_activity_level_1 %></div>
+                </div>
+                <div class="col-xs-12 col-md-6 litigation_reporting">
+                  <div class="field-label">Business Activity Level 2</div>
+                  <div class="field-data"><%= @matter_intake.business_activity_level_2 %></div>
+                </div>
+
+
+               <% end %>
+              <% end %>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Conceal iManage Workspace?</div>
+                <div class="field-data"><%= @matter_intake.is_conceal_imanage_workspace %></div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Paper file?</div>
+                <div class="field-data"><%= @matter_intake.is_paper_file %></div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Jurisdiction</div>
+                <div class="field-data"><%= @matter_intake.jurisdiction %></div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Other Party (Other than BMO)</div>
+                <div class="field-data"><%= @matter_intake.other_party %></div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Additional Matter Contact (not specified elsewhere)</div>
+                <div class="field-data"><%= @matter_intake.additional_matter_contact %></div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Other Matter Issues (not specified elsewhere)</div>
+                <div class="field-data"><%= @matter_intake.other_matter_issues %></div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Is outside counsel being engaged?</div>
+                <div class="field-data"><%= @matter_intake.outside_counsel_engaged %></div>
+              </div>
+              <% if Current.user.role === "internal_lawyers" %>
+                <div class="col-xs-12 col-md-6">
+                  <div class="field-label">Branch</div>
+                  <div class="field-data"><%= @matter_intake.branch %></div>
+                </div>
+              <% end %>
+              <% if !@matter_intake.outside_counsel_engaged.blank? && @matter_intake.outside_counsel_engaged != 'N/A Internal – no law firm will be engaged' %>
+                <div class="col-xs-12 col-md-6">
+                  <div class="field-label">Panel or Non-Panel Firm</div>
+                  <div class="field-data"><%= @matter_intake.firm_type %></div>
+                </div>
+                <% if @matter_intake.firm_type === "Non-Panel" || @matter_intake.firm_type === "Panel & Non-Panel Firms"  %>
+                  <div class="col-xs-12 col-md-6">
+                    <div class="field-label">Name of Non-Panel Firm</div>
+                    <div class="field-data"><%= @matter_intake.name_of_non_panel_firm %></div>
+                  </div>
+                <% end %> 
+                <% if @matter_intake.firm_type === "Panel" || @matter_intake.firm_type === "Panel & Non-Panel Firms"  %>
+                  <div class="col-xs-12 col-md-6">
+                    <div class="field-label">Name of Panel Firm</div>
+                    <div class="field-data"><%= @matter_intake.name_of_panel_firm %></div>
+                  </div>
+                <% end %> 
+                <div class="col-xs-12 col-md-6">
+                  <div class="field-label">Type of Pricing</div>
+                  <div class="field-data"><%= @matter_intake.type_of_price %></div>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                  <div class="field-label">AFA Details</div>
+                  <div class="field-data"><%= @matter_intake.afa_details %></div>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                  <div class="field-label">Is there an Alternative Fee Arrangement?</div>
+                  <div class="field-data"><%= @matter_intake.is_alternative_fee_arrangement %></div>
+                </div>
+                <% if @matter_intake.user_id.nil? %>
+                  <div class="col-xs-12 col-md-6">
+                    <div class="field-label">Could this matter be reimbursed?</div>
+                    <div class="field-data"><%= @matter_intake.can_reimbursed_matter ? "Yes" : "No" %></div>
+                  </div>
+                <% end %>   
+              <!--<div class="col-xs-12 col-md-6">
+                <div class="field-label">Budget amount, if already negotiated with the law firm</div>
                 <div class="field-data"><%= @matter_intake.budget_amount %></div>
-              </div>
+              </div>-->
+                <div class="col-xs-12 col-md-6">
+                  <div class="field-label">Name of PO approver</div>
+                  <div class="field-data"><%= @matter_intake.lob_contact_for_po %></div>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                  <div class="field-label">Cost Centre for legal fees</div>
+                  <div class="field-data"><%= @matter_intake.cost_centre_for_legal_fees %></div>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                  <div class="field-label">Deal Code (Capital Markets Only)</div>
+                  <div class="field-data"><%= @matter_intake.deal_code %></div>
+                </div>
+               <% end %> 
               <div class="col-xs-12 col-md-6">
-                <div class="field-label">LOB contact to create PO:	</div>
-                <div class="field-data"><%= @matter_intake.lob_contact_for_po %></div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="field-label">Cost Centre for legal fees:	</div>
-                <div class="field-data"><%= @matter_intake.cost_centre_for_legal_fees %></div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="field-label">Business Paying for this Matter:	</div>
+                <div class="field-label">Business/Group paying for this matter (level 1)</div>
                 <div class="field-data"><%= @matter_intake.business_paying_for_matter %></div>
               </div>
               <div class="col-xs-12 col-md-6">
-                <div class="field-label">Group Paying for this Matter:	</div>
+                <div class="field-label">Business/Group paying for this matter (level 2)</div>
                 <div class="field-data"><%= @matter_intake.group_paying_for_matter %></div>
               </div>
               <div class="col-xs-12 col-md-6">
-                <div class="field-label">Paying Entity:	</div>
+                <div class="field-label">Legal Entity</div>
                 <div class="field-data"><%= @matter_intake.paying_entity %></div>
               </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Is this a syndicate matter?</div>
+                <div class="field-data"><%= @matter_intake.is_syndicate_matter %></div>
+              </div>
+              <% if @matter_intake.user_id.present? %>  <!-- Lob initiated form field -->
+                <div class="col-xs-12 col-md-6">
+                  <div class="field-label">Additional Comments for LRC Lawyer</div>
+                  <div class="field-data"><%= @matter_intake.additional_comments_for_lrc_lawyer %></div>
+                </div>
+              <% end %>
+              <% if !@matter_intake.asset.file.nil? %>
+                <div class="col-xs-12 col-md-6">
+                  <div class="field-label">Document</div>
+                  <div class="field-data">
+                    <a href="<%= @matter_intake.asset&.url %>" target="_blank"><%= @matter_intake.asset.identifier %></a>
+                  </div>
+                </div>
+              <% end %>
+              <% if !@matter_intake.matter_number.nil? %>
+                <div class="col-xs-12 col-md-6">
+                  <div class="field-label">T360 Matter Number</div>
+                  <div class="field-data"><%= @matter_intake.matter_number %></div>
+                </div>
+              <% end %>  
+               <!-- Information Security Classification Start-->
+              <div class="col-xs-12 col-md-12">
+                <div class="inner-label">Information Security Classification</div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Could the law firm engaged on this matter potentially receive any Personal Information data?	</div>
+                <div class="field-data"><%= @matter_intake.receive_personal_information %></div>
+              </div>
+              <% if @matter_intake.receive_personal_information === "Yes" %>
+                <div class="col-xs-12 col-md-12">
+                  <div class="field-label">Select all applicable data types	</div>
+                  <div class="field-data">
+                  
+                  
+                    <% @matter_intake.applicable_technical_specialty_data_type.reject(&:blank?).each do |applicable_technical_specialty_data_type| %>
+                      <span class="tag-line"><%= applicable_technical_specialty_data_type %></span>
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Could the law firm engaged on this matter potentially receive any General or Business data?</div>
+                <div class="field-data"><%= @matter_intake.receive_general_business_data %></div>
+              </div>
+              <% if @matter_intake.receive_general_business_data === "Yes" %>
+                <div class="col-xs-12 col-md-12">
+                  <div class="field-label">Select all applicable data types	</div>
+                  <div class="field-data"> 
+                     <% @matter_intake.receive_general_business_data_type.reject(&:blank?).each do |receive_general_business_data_type| %>
+                      <span class="tag-line"><%= receive_general_business_data_type %></span>
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Could the law firm engaged on this matter potentially receive any Technical or Specialty data?	</div>
+                <div class="field-data"><%= @matter_intake.applicable_technical_specialty_data %></div>
+              </div>
+              <% if @matter_intake.applicable_technical_specialty_data === "Yes" %>
+                <div class="col-xs-12 col-md-12">
+                  <div class="field-label">Select all applicable data types	</div>
+                  <div class="field-data">
+                  
+                     <% @matter_intake.applicable_technical_specialty_data_type.reject(&:blank?).each do |applicable_technical_specialty_data_type| %>
+                      <span class="tag-line"><%= applicable_technical_specialty_data_type %></span>
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
+                <!-- Information Security Classification End--> 
+              <% if @matter_intake.form_type == "litigation" %>
+                <% if !@matter_intake.outside_counsel_engaged.blank? && @matter_intake.outside_counsel_engaged != 'N/A Internal – no law firm will be engaged' %>
+                  <div class="col-md-12">
+                    <div class="inner-label">Case Details</div>
+                    <div class="inner-form-field form-flex-wrap">
+                      <div class="col-xs-12 col-md-6">
+                        <div class="field-label">Background/Key Facts (other than matter description)</div>
+                        <div class="field-data"><%= @matter_intake.key_facts %></div>
+                      </div>
+                      <div class="col-xs-12 col-md-6">
+                        <div class="field-label">Legal Analysis</div>
+                        <div class="field-data"><%= @matter_intake.legal_analysis %></div>
+                      </div>
+                      <div class="col-xs-12 col-md-6">
+                        <div class="field-label">Stage of Litigation</div>
+                        <div class="field-data"><%= @matter_intake.stage_of_litigation %></div>
+                      </div>
+                      <div class="col-xs-12 col-md-6">
+                        <div class="field-label">Allegation of Employee Misconduct?</div>
+                        <div class="field-data"><%= @matter_intake.allegation_of_employee_misconduct %></div>
+                      </div>
+                      <div class="col-xs-12 col-md-6">
+                        <div class="field-label">Primary Issue</div>
+                        <div class="field-data"><%= @matter_intake.primary_issue %></div>
+                      </div>
+                      <div class="col-xs-12 col-md-6">
+                        <div class="field-label">Secondary Issue</div>
+                        <div class="field-data"><%= @matter_intake.secondary_issue %></div>
+                      </div>
+                      <div class="col-xs-12 col-md-6">
+                        <div class="field-label">What Party is BMO in this action?</div>
+                        <div class="field-data"><%= @matter_intake.bmo_party %></div>
+                      </div>
+                      <div class="col-xs-12 col-md-6">
+                        <div class="field-label">Opposing Counsel Firm</div>
+                        <div class="field-data"><%= @matter_intake.opposing_counsel_firm %></div>
+                      </div>
+                      <div class="col-xs-12 col-md-6">
+                        <div class="field-label">Written Legal Notice Required</div>
+                        <div class="field-data"><%= @matter_intake.written_legal_notice_required ? "Yes" : "No" %></div>
+                      </div>
+                      <div class="col-xs-12 col-md-6">
+                        <div class="field-label">Arbitration Offered</div>
+                        <div class="field-data"><%= @matter_intake.arbitration_offered %></div>
+                      </div>
+                      <div class="col-xs-12 col-md-6">
+                        <div class="field-label">Arbitration Accepted</div>
+                        <div class="field-data"><%= @matter_intake.arbitration_accepted %></div>
+                      </div>
+                      <div class="col-xs-12 col-md-6">
+                        <div class="field-label">Branch Manager/Investment Advisor Name</div>
+                        <div class="field-data"><%= @matter_intake.branch_manager_investment_advisor %></div>
+                      </div>
+                      <div class="col-xs-12 col-md-6">
+                        <div class="field-label">Region (Canadian P&C)</div>
+                        <div class="field-data"><%= @matter_intake.region_name %></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="inner-label">Claim Information</div>
+                    <div class="inner-form-field form-flex-wrap">
+                      <div class="col-xs-12 col-md-6">
+                        <div class="field-label">Date Suit Filed</div>
+                        <div class="field-data"><%= @matter_intake.date_suit_filed %></div>
+                      </div>
+                      <div class="col-xs-12 col-md-6">
+                        <div class="field-label">Unquantified Claim</div>
+                        <div class="field-data"><%= @matter_intake.unquantified_claim %></div>
+                      </div>
+                      <div class="col-xs-12 col-md-6">
+                        <div class="field-label">Valued at $50,000 or more</div>
+                        <div class="field-data"><%= @matter_intake.valued_at %></div>
+                      </div>
+                      <div class="col-xs-12 col-md-6">
+                        <div class="field-label">Amount Claimed from BMO 1</div>
+                        <div class="field-data"><%= @matter_intake.amount_claimed_from_bmo_1 %></div>
+                      </div>
+                      <div class="col-xs-12 col-md-6">
+                        <div class="field-label">Amount Claimed 1 currency</div>
+                        <div class="field-data"><%= @matter_intake.amount_claimed_1_currency %></div>
+                      </div>
+                      <div class="col-xs-12 col-md-6">
+                        <div class="field-label">Amount Claimed from BMO 2</div>
+                        <div class="field-data"><%= @matter_intake.amount_claimed_from_bmo_2 %></div>
+                      </div>
+                      <div class="col-xs-12 col-md-6">
+                        <div class="field-label">Amount Claimed 2 currency</div>
+                        <div class="field-data"><%= @matter_intake.amount_claimed_2_currency %></div>
+                      </div>
+                      <div class="col-xs-12 col-md-6">
+                        <div class="field-label">Amount Claimed by BMO</div>
+                        <div class="field-data"><%= @matter_intake.amount_claimed_by_bmo %></div>
+                      </div>
+                      <div class="col-xs-12 col-md-6">
+                        <div class="field-label">Amount Claimed by BMO currency</div>
+                        <div class="field-data"><%= @matter_intake.amount_claimed_by_bmo_currency %></div>
+                      </div>
+                      <div class="col-xs-12 col-md-6">
+                        <div class="field-label">Breakdown of Claim Amount</div>
+                        <div class="field-data"><%= @matter_intake.breakdown_of_claim_amount %></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="inner-label">Court Details</div>
+                    <div class="inner-form-field form-flex-wrap">
+                      <div class="col-xs-12 col-md-6">
+                        <div class="field-label">Court Name</div>
+                        <div class="field-data"><%= @matter_intake.court_name %></div>
+                      </div>
+                      <div class="col-xs-12 col-md-6">
+                        <div class="field-label">Case Caption</div>
+                        <div class="field-data"><%= @matter_intake.case_caption %></div>
+                      </div>
+                      <div class="col-xs-12 col-md-6">
+                        <div class="field-label">Court Type</div>
+                        <div class="field-data"><%= @matter_intake.court_type %></div>
+                      </div>
+                      <div class="col-xs-12 col-md-6">
+                        <div class="field-label">Docket Number</div>
+                        <div class="field-data"><%= @matter_intake.docket_number %></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="inner-label">Comset Details</div>
+                    <div class="inner-form-field form-flex-wrap">
+                      <div class="col-xs-12 col-md-6">
+                        <div class="field-label">Comset Issues</div>
+                        <div class="field-data"><%= @matter_intake.comset_issues %></div>
+                      </div>
+                      <div class="col-xs-12 col-md-6">
+                        <div class="field-label">Comset Ref</div>
+                        <div class="field-data"><%= @matter_intake.comset_ref %></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="inner-label">Reporting</div>
+                    <div class="inner-form-field form-flex-wrap">
+                      <div class="col-xs-12 col-md-6">
+                        <div class="field-label">Is this matter ORE reportable?</div>
+                        <div class="field-data">
+                          <%= @matter_intake.is_ore_reportable %>
+                          <input type="hidden" id="litigation_reporting" value="<%= @matter_intake.is_ore_reportable %>" />
+                        </div>
+                      </div>
+                      <div class="col-xs-12 col-md-6">
+                        <div class="field-label">Is this matter otherwise reportable? (e.g. board reporting)</div>
+                        <div class="field-data"><%= @matter_intake.is_otherwise_reportable %></div>
+                      </div>
+                      <div class="col-xs-12 col-md-6 litigation_reporting">
+                        <div class="field-label">M&I Matter</div>
+                        <div class="field-data"><%= @matter_intake.mi_matter %></div>
+                      </div>
+                      <div class="col-xs-12 col-md-6 litigation_reporting">
+                        <div class="field-label">Nature of Events</div>
+                        <div class="field-data"><%= @matter_intake.nature_of_events %></div>
+                      </div>
+                      <div class="col-xs-12 col-md-6 litigation_reporting">
+                        <div class="field-label">Process Type Level 1</div>
+                        <div class="field-data"><%= @matter_intake.process_type_level_1 %></div>
+                      </div>
+                      <div class="col-xs-12 col-md-6 litigation_reporting">
+                        <div class="field-label">Process Type Level 2</div>
+                        <div class="field-data"><%= @matter_intake.process_type_level_2 %></div>
+                      </div>
+                      <div class="col-xs-12 col-md-6 litigation_reporting">
+                        <div class="field-label">Product Type Level 1</div>
+                        <div class="field-data"><%= @matter_intake.product_type_level_1 %></div>
+                      </div>
+                      <div class="col-xs-12 col-md-6 litigation_reporting">
+                        <div class="field-label">Product Type Level 2</div>
+                        <div class="field-data"><%= @matter_intake.product_type_level_2 %></div>
+                      </div>
+                      <div class="col-xs-12 col-md-6 litigation_reporting">
+                        <div class="field-label">Event Type Level 1</div>
+                        <div class="field-data"><%= @matter_intake.event_type_level_1 %></div>
+                      </div>
+                      <div class="col-xs-12 col-md-6 litigation_reporting">
+                        <div class="field-label">Event Type Level 2</div>
+                        <div class="field-data"><%= @matter_intake.event_type_level_2 %></div>
+                      </div>
+                      <div class="col-xs-12 col-md-6 litigation_reporting">
+                        <div class="field-label">Business Activity Level 1</div>
+                        <div class="field-data"><%= @matter_intake.business_activity_level_1 %></div>
+                      </div>
+                      <div class="col-xs-12 col-md-6 litigation_reporting">
+                        <div class="field-label">Business Activity Level 2</div>
+                        <div class="field-data"><%= @matter_intake.business_activity_level_2 %></div>
+                      </div>
+                      
+                    </div>
+                  </div>
+                <% end %>
+              <% end %>
             </div>
             <div class="clearfix"></div>
           </div>
@@ -143,9 +592,11 @@
                         <div class="smart-timeline-content">
                           <p>
                             <strong>
-                              <%- if review.status_show %>
+                               <%- if review.status === "requires_an_update"  %>
+                                <%= review.actor.full_name %>  returned to lawyer for update
+                              <% elsif review.status_show %>
                                 <%= review.actor.email %> change status to <%= review.status_show %>
-                              <% else %>
+                              <% else %>  
                                 <%= review.actor.email %> left a comment
                               <% end %>
                             <strong>

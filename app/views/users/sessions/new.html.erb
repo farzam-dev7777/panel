@@ -31,9 +31,11 @@
         <div class="sp-signin-form">
           <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {id: 'login-form', class: 'smart-form client-form'}) do |f| %>
             <div class="alert alert-danger login-error"></div>
+              <span class="signin-alert">
               <%- flash.each do |name, msg| -%>
                 <%= content_tag :div, msg, :id => "<div class='alert alert-danger p-error'>flash_#{name}</div>".html_safe if msg.is_a?(String) && msg != 'You need to sign in or sign up before continuing.' %> 
               <%- end -%> 
+              </span>
               <div>
                 <label class="sp-label">Username</label>
                 <div class="sp-input">
@@ -46,13 +48,13 @@
                 <%= f.password_field :password, autocomplete: "off" %>
               </div>
             </div>
-            <div class="sp-signin-btn">
-              <%= f.submit "Agree & Continue", class: 'btn-type-primary' %>  
-            </div>
             <div class="sp-tc">
               <label class="checkbox" style="padding-left: 0px">
                 I agree to the <a href="#" data-toggle="modal" data-target="#tandcModal">Terms &amp; Conditions</a>
               </label>
+            </div>
+            <div class="sp-signin-btn">
+              <%= f.submit "Login", class: 'btn-type-primary' %>  
             </div>
           <% end %>
         </div>
@@ -110,7 +112,7 @@
               </section>
             </fieldset>
             <footer>
-              <%= f.submit "Agree & Continue", class: 'btn btn-primary login-btn' %>  
+              <%= f.submit "Login", class: 'btn btn-primary login-btn' %>  
             </footer>
           <% end %>
         </div>

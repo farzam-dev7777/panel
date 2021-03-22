@@ -9,13 +9,19 @@
 
 <div class="col-lg-12 col-md-12 col-sm-12">
   <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
-    <div class="page-header-sp">
-				<div class="page-title m-top-zero">Matter Intake</div>
+    <div class="page-header-sp m-top">
+				<div class="page-title">Matter Intake Forms
+        <% if @matter_intake.status.present? %>
+          <span style=" color: #fff; "  class="<%= @matter_intake.status === "matter_open" ? 'label label-success' : 'label label-default' %>"> 
+            Status: <%= @matter_intake.show_status %>
+          </span>
+          </div>
+        <% end %>
 				<div class="back-edit-actions">
 					<a class="btn-type-default" href="/lob/matter_intakes">
             <%= image_tag "chevron-back-icon.svg", alt:"Back" %>
           </a>
-          <% if @matter_intake.status === "waiting_for_lawyer_review" %>
+          <% if @matter_intake.status === "awaiting_lawyer_review" %>
             <%= link_to "Edit".html_safe, edit_lob_matter_intake_path, class: "btn-type-primary" %>
           <% end %>
 				</div>
@@ -24,75 +30,162 @@
       <!-- widget content -->
       <div class="">
         <div class="sp-form-bg show-data-fields">
-          <div class="row">
+          <div class="row form-flex-wrap">
             <div class="col-xs-12 col-md-6">
-              <div class="field-label">Submitter Name:	</div>
+              <div class="field-label">Submitter Name</div>
               <div class="field-data"><%= @matter_intake.submitter_name %></div>
             </div>
-            <div class="col-xs-12 col-md-6">
-              <div class="field-label">LOB Contact Name:	</div>
+            <!--<div class="col-xs-12 col-md-6">
+              <div class="field-label">LOB Contact Name</div>
               <div class="field-data"><%= @matter_intake.lob_contact_name %></div>
-            </div>
-          </div>
-          <div class="row">
+            </div> -->        
             <div class="col-xs-12 col-md-6">
-              <div class="field-label">Name of Matter/Client:	</div>
+              <div class="field-label">Name of Matter/Client</div>
               <div class="field-data"><%= @matter_intake.name_of_matter_client %></div>
             </div>
             <div class="col-xs-12 col-md-6">
-              <div class="field-label">Type of Matter:	</div>
+              <div class="field-label">Type of Matter</div>
               <div class="field-data"><%= @matter_intake.matter_type.try(:matter_type) %></div>
-            </div>
-          </div>
-          <div class="row">
+            </div>          
             <div class="col-xs-12 col-md-6">
-              <div class="field-label">Matter Description:	</div>
+              <div class="field-label">Matter Description</div>
               <div class="field-data"><%= @matter_intake.matter_description %></div>
             </div>
             <div class="col-xs-12 col-md-6">
+              <div class="field-label">Will this matter involve the following</div>
+              <div class="field-data"><%= @matter_intake.following_matter_involve %></div>
+            </div>
+            <!--div class="col-xs-12 col-md-6">
               <div class="field-label">How will this matter be paid?:	</div>
               <div class="field-data"><%= @matter_intake.mode_of_payment %></div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-xs-12 col-md-6">
+            </div-->          
+            <!--div class="col-xs-12 col-md-6">
               <div class="field-label">Law Firm Suggested:	</div>
               <div class="field-data"><%= @matter_intake.law_firm.try(:name) %></div>
-            </div>
+            </div-->
             <div class="col-xs-12 col-md-6">
-              <div class="field-label">BMO lawyer name:	</div>
+              <div class="field-label">BMO lawyer name</div>
               <div class="field-data"><%= @matter_intake.bmo_lawyer_name %></div>
+            </div>     
+             <div class="col-xs-12 col-md-6">
+              <div class="field-label">Is outside counsel being engaged?</div>
+              <div class="field-data"><%= @matter_intake.outside_counsel_engaged %></div>
             </div>
-          </div>
-          <div class="row">
             <div class="col-xs-12 col-md-6">
-              <div class="field-label">Budget amount, if already negotiated with the law firm:	</div>
+              <div class="field-label">Panel or Non-Panel Firm</div>
+              <div class="field-data"><%= @matter_intake.firm_type %></div>
+            </div>
+            <% if @matter_intake.firm_type === "Non-Panel" || @matter_intake.firm_type === "Panel & Non-Panel Firms"  %>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Name of Non-Panel Firm</div>
+                <div class="field-data"><%= @matter_intake.name_of_non_panel_firm %></div>
+              </div>
+            <% end %> 
+            <% if @matter_intake.firm_type === "Panel" || @matter_intake.firm_type === "Panel & Non-Panel Firms"  %>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Name of Panel Firm</div>
+                <div class="field-data"><%= @matter_intake.name_of_panel_firm %></div>
+              </div>
+            <% end %>    
+             <div class="col-xs-12 col-md-6">
+              <div class="field-label">Business/Group paying for this matter (level 1)</div>
+              <div class="field-data"><%= @matter_intake.business_paying_for_matter %></div>
+            </div>          
+            <div class="col-xs-12 col-md-6">
+              <div class="field-label">Business/Group paying for this matter (level 2)</div>
+              <div class="field-data"><%= @matter_intake.group_paying_for_matter %></div>
+            </div> 
+            <div class="col-xs-12 col-md-6">
+              <div class="field-label">Budget amount, if already negotiated with the law firm</div>
               <div class="field-data"><%= @matter_intake.budget_amount %></div>
             </div>
             <div class="col-xs-12 col-md-6">
-              <div class="field-label">LOB contact to create PO:	</div>
+              <div class="field-label">Name of PO approver</div>
               <div class="field-data"><%= @matter_intake.lob_contact_for_po %></div>
-            </div>
-          </div>
-          <div class="row">
+            </div>          
             <div class="col-xs-12 col-md-6">
-              <div class="field-label">Cost Centre for legal fees:	</div>
+              <div class="field-label">Cost Centre for legal fees</div>
               <div class="field-data"><%= @matter_intake.cost_centre_for_legal_fees %></div>
             </div>
-            <div class="col-xs-12 col-md-6">
-              <div class="field-label">Business Paying for this Matter:	</div>
-              <div class="field-data"><%= @matter_intake.business_paying_for_matter %></div>
+             <div class="col-xs-12 col-md-6">
+              <div class="field-label">Deal Code (Capital Markets Only)</div>
+              <div class="field-data"><%= @matter_intake.deal_code %></div>
             </div>
-          </div>
-          <div class="row">
+           
             <div class="col-xs-12 col-md-6">
-              <div class="field-label">Group Paying for this Matter:	</div>
-              <div class="field-data"><%= @matter_intake.group_paying_for_matter %></div>
-            </div>
-            <div class="col-xs-12 col-md-6">
-              <div class="field-label">Paying Entity:	</div>
+              <div class="field-label">Paying Entity</div>
               <div class="field-data"><%= @matter_intake.paying_entity %></div>
             </div>
+            <div class="col-xs-12 col-md-6">
+              <div class="field-label">Is this a syndicate matter?</div>
+              <div class="field-data"><%= @matter_intake.is_syndicate_matter %></div>
+            </div>
+            <div class="col-xs-12 col-md-6">
+              <div class="field-label">Additional Comments for LRC Lawyer</div>
+              <div class="field-data"><%= @matter_intake.additional_comments_for_lrc_lawyer %></div>
+            </div>
+            
+            <div class="col-xs-12 col-md-6">
+              <div class="field-label">T360 Matter Number</div>
+              <div class="field-data"><%= @matter_intake.matter_number %></div>
+            </div>
+             
+            
+            <% if !@matter_intake.asset.file.nil? %>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Document</div>
+                <div class="field-data">
+                  <a href="<%= @matter_intake.asset&.url %>" target="_blank"><%= @matter_intake.asset.identifier %></a>
+                </div>
+              </div>
+            <% end %>
+             <% if !@matter_intake.outside_counsel_engaged.blank? && @matter_intake.outside_counsel_engaged != 'N/A Internal – no law firm will be engaged' %>
+              <div class="col-xs-12 col-md-12">
+                <div class="inner-label">Information Security Classification</div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Could the law firm engaged on this matter potentially receive any Personal Information data?	</div>
+                <div class="field-data"><%= @matter_intake.receive_personal_information %></div>
+              </div>
+              <% if @matter_intake.receive_personal_information === "Yes" %>
+                <div class="col-xs-12 col-md-12">
+                  <div class="field-label">Select all applicable data types	</div>
+                  <div class="field-data tag-fields">
+                    <% @matter_intake.receive_personal_information_data_type.reject(&:blank?).each do |receive_personal_information_data_type| %>
+                      <span class="tag-line"><%= receive_personal_information_data_type %></span>
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Could the law firm engaged on this matter potentially receive any General or Business data?</div>
+                <div class="field-data"><%= @matter_intake.receive_general_business_data %></div>
+              </div>
+              <% if @matter_intake.receive_general_business_data === "Yes" %>
+                <div class="col-xs-12 col-md-12">
+                  <div class="field-label">Select all applicable data types	</div>
+                  <div class="field-data tag-fields">
+                  <% @matter_intake.receive_general_business_data_type.reject(&:blank?).each do |receive_general_business_data_type| %>
+                    <span class="tag-line"><%= receive_general_business_data_type %></span>
+                  <% end %>
+                  </div>
+                </div>
+              <% end %>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Could the law firm engaged on this matter potentially receive any Technical or Specialty data?	</div>
+                <div class="field-data"><%= @matter_intake.applicable_technical_specialty_data %></div>
+              </div>
+              <% if @matter_intake.applicable_technical_specialty_data === "Yes" %>
+                <div class="col-xs-12 col-md-12">
+                  <div class="field-label">Select all applicable data types	</div>
+                  <div class="field-data tag-fields">
+                    <% @matter_intake.applicable_technical_specialty_data_type.reject(&:blank?).each do |applicable_technical_specialty_data_type| %>
+                      <span class="tag-line"><%= applicable_technical_specialty_data_type %></span>
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
+             <% end %>  
           </div>
           </div>
         </div>
@@ -100,3 +193,4 @@
     </div>
   </div>
 </div>
+

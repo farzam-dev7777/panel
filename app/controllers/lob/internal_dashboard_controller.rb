@@ -8,13 +8,20 @@ class Lob::InternalDashboardController < Lob::BaseController
   ACTIVITY_LOG_DAYS = 10
 
   def index
+    
     @exception_requests = ExceptionRequest.where(user_id: current_user.id).order('created_at DESC').limit(5)
-    @exception_requests_count = ExceptionRequest.where(user_id: current_user.id).count()
+    @exception_requests_count = ExceptionRequest.where(user_id: current_user.id).where.not(law_firm_id:[nil]).where( lxp_status: [nil, "", "REQUEST_TO_INPUT", "SEND_RETAINER_AGREEMENT"]).count()
+    @matter_intakes_count = MatterIntake.where(user_id: current_user.id).where(status: ["matter_open", "matter_not_open"]).count()
+   
+    @panel_requests_count = PanelRequest.where(user_id: current_user.id).count()
     @exception_requests_submitted = ExceptionRequest.where(user_id: current_user.id, internal_lawyers_status: [nil, ""]).count()
     @exception_requests_approved = ExceptionRequest.where(user_id: current_user.id, lxp_status: "APPROVED", internal_lawyers_status: "APPROVED").count()
     @exception_requests_rejected = ExceptionRequest.where(user_id: current_user.id, internal_lawyers_status: "REJECTED").count()
     @panel_requests = PanelRequest.where(user_id: current_user.id).order('created_at DESC').limit(5)
     @matter_intakes = MatterIntake.where(user_id: current_user.id).order('created_at DESC').limit(5)
+
+
+    
   end
 
   def show

@@ -46,7 +46,7 @@ class ExceptionRequestMailer < ApplicationMailer
 	def form_status_notification_to_law_firm(exception_request)
 		@exception_request = exception_request
 		@user = User.with_deactivated.find_by_id(	@exception_request.user_id)
-		mail(to: @user.email, subject: "Reqest to engage a non-panel request's status has been updated.")
+		mail(to: @user.email, subject: "Request to engage a non-panel request's status has been updated.")
 	end
 
 	def engage_non_panel_firm_notification_to_lxp(exception_request)

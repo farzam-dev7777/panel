@@ -3,7 +3,7 @@
 <div class="col-lg-12 col-md-12 col-sm-12">
     <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
       <div class="page-header-sp">
-          <div class="page-title">Engage Non Panel Request</div>
+          <!--<div class="page-title">Non-Panel (one-off) Requests</div>-->
           <div class="back-edit-actions">
         </div>
       </div>
@@ -20,13 +20,13 @@
                       <%= f.input :reviewable_type, label: false, as: :hidden, input_html: { value: @exception_request.class.to_s } %>
                       <%= f.input :reviewable_id, label: false, as: :hidden, input_html: { value: @exception_request.id } %>
                   </div>		
-                  <div class="col-xs-12 col-md-6">
-                    <label class="label">Status</label>
+                  <div class="col-xs-12 col-md-6 lawyerInputExcepation">
+                    <label class="label">Lawyer Input</label>
                     <%= f.input :status, label: false, collection: ExceptionRequest::EXCEPTION_REQUEST_STATUS_LAWYER.map{|value,key| [key, value]}%>
                   </div> 
                   <div class="col-xs-12 col-md-12 text-right">
                     <%= link_to 'Cancel', @exception_request.new_record? ? admin_exception_requests_path : admin_conflict_waiver_path, class: 'btn-type-default' %>
-                    <%= f.button :submit, @exception_request.new_record? ? "Submit Request" : "Update Status", class:  @current_user.role === "lxp btn-type-primary" ? "lxp_sttaus btn-type-primary" : "laywr_status btn-type-primary" %>
+                    <%= f.button :submit, @exception_request.new_record? ? "Submit Request" : "Submit", class:  @current_user.role === "lxp btn-type-primary" ? "lxp_sttaus btn-type-primary" : "laywr_status btn-type-primary" %>
                   </div>
                 </div>
               <% end %>

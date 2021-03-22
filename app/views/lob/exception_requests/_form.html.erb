@@ -14,7 +14,7 @@
     <table class="table table-striped">
       <tbody>
         <tr>
-          <td class="text-right" width="20%"><strong>Line of Business</strong></td>
+          <td class="text-right" width="20%"><strong>Line of Business/Group</strong></td>
           <td><%= f.input :line_of_business, label: false, collection: ExceptionRequest::LOB_LIST, :selected => current_user.line_of_business  %></td>
         </tr>
         <tr>
@@ -117,7 +117,7 @@
                         <div class="col-md-9 tab-pane ">
                           <div class="col-md-12">
                             <div class="col-md-6 column">Law Firm Category : </div>
-                            <div class="col-md-6 data firmName"><%= @law_firm.law_firm_category %></div>
+                            <div class="col-md-6 data firmName"><%= @law_firm.law_firm_category.try(:titleize) %></div>
                           </div>
                           <div class="col-md-12">
                             <div class="col-md-6 column">Name : </div>
@@ -164,7 +164,7 @@
         </tr>
         <tr>
           <td colspan="2">
-            <%= link_to 'Cancel', @exception_request.new_record? ? admin_exception_requests_path : admin_law_firm_path, class: 'btn btn-danger btn-sm' %>
+            <%= link_to 'Cancel', @exception_request.new_record? ? lob_exception_requests_path : lob_exception_requests_path, class: 'btn btn-danger btn-sm' %>
             <%= f.button :submit, @exception_request.new_record? ? "Submit Request" : "Update Request", class: "" %>
           </td>
         </tr>

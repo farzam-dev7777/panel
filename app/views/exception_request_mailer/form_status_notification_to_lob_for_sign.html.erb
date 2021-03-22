@@ -1,5 +1,6 @@
 
- Your Engage Non Panel Request request was <%= @exception_request.reviews.last.status %> and Non Panel Retainer for signature. <br>
- <%= link_to "Click here", admin_exception_request_url(@exception_request), class: "btn btn-xs btn-secondary" %> to review submission.
-  to view more information
+ <div class="">
+  <p class="user-inner-content">Your Engage Non Panel Request request was <%= @exception_request.reviews.present? ? @exception_request.reviews.last.status : "" %> and Non Panel Retainer for signature. <br>
+  <%= link_to "Click here", admin_exception_request_url(@exception_request), class: "btn btn-xs btn-secondary" %> to review submission to view more information
+  </p>
  

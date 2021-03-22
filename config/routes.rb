@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get '/auth/docusign/callback', to: 'dashboard#docusign_callback'
+  
   namespace :admin do
     devise_for :admin_users, controllers: {
       sessions: 'admin/internal_sessions'
@@ -27,6 +29,8 @@ Rails.application.routes.draw do
       
       end
       collection do
+        get :panel_law_firms
+        get :panel_non_law_firms
         post :get_sub_matter_types 
         post :get_state
         post :get_law_firm_list
@@ -46,6 +50,8 @@ Rails.application.routes.draw do
       end
       collection do 
         post :lxp_rejects
+        get ':matter_intake_id/information_security_classification' => 'matter_intakes#information_security_classification', :as => "matter_intakes_information_security_classification"
+        post ':matter_intake_id/information_security_classification' => 'matter_intakes#update_information_security_classification', :as => "matter_intakes_update_information_security_classification"
       end
     end
 
@@ -100,6 +106,7 @@ Rails.application.routes.draw do
         get :diversity_step
         get :innovation_step
         get :resourcing_step
+        get :lawfirm_step
         get :process_step
         get :technology_step
         get :history_step
@@ -107,6 +114,7 @@ Rails.application.routes.draw do
         post :save_and_follow_up
         post :approve
         post :decline
+        post :law_firm_update
         get  :download_submission_pdf
       end
       collection do
@@ -117,12 +125,30 @@ Rails.application.routes.draw do
     end
     resources :exception_requests do
       get :download_pdf 
+      collection do
+        post :send_retainer_aggreement
+        get :engage_non_panel_firm 
+        post :get_sub_matter_types 
+        post :get_state
+        post :get_law_firm_list
+        get :select_law_firm 
+        get 'select_law_firm/:id' => 'exception_requests#select_law_firm'
+        get ':law_firm_id/new' => 'exception_requests#new', :as => "exception_request_new"
+        get ':exception_request_id/new_engage_non_panel_firm' => 'exception_requests#new_engage_non_panel_firm', :as => "exception_request_new_engage"
+        get ':exception_request_id/update_engage_non_panel_firm' => 'exception_requests#update_engage_non_panel_firm', :as => "exception_request_update_engage"
+        get ':law_firm_new/create' => 'exception_requests#law_firm_new', :as => "law_firm_new_create"
+        post :law_firm_create
+      end
     end
     resources :panel_requests do
-      get :download_pdf 
+      get   :download_pdf
+      collection do
+        post  :send_wnn_documents
+      end
     end
     resources :conflict_waivers
     resources :reviews
+    resources :comments
     get '/internal_dashboard/notifications', to: 'internal_dashboard#notifications'
     resources :internal_dashboard do
       collection do
@@ -157,7 +183,11 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :matter_intakes
+    resources :matter_intakes do
+      collection do
+        get ':matter_intake_id/information_security_classification' => 'matter_intakes#information_security_classification', :as => "matter_intakes_information_security_classification"
+      end
+    end
 
     resources :activity_logs do
       collection do
@@ -167,6 +197,7 @@ Rails.application.routes.draw do
     resources :panel_requests do
       get :download_pdf 
     end
+    resources :comments
     resources :exception_requests do
       collection do
         get :engage_non_panel_firm 
@@ -221,11 +252,13 @@ Rails.application.routes.draw do
       get :diversity_step
       get :innovation_step
       get :resourcing_step
+      get :lawfirm_step
       get :process_step
       get :technology_step
       get :history_step
       get :submit_forms
       get :technology_profile
+      post :law_firm_update
       get :history_profile
     end
   end
@@ -237,7 +270,12 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :conflict_waivers
+  resources :conflict_waivers do 
+    collection do 
+      get ':conflict_waiver_id/client_info' => 'conflict_waivers#client_info', :as => "conflict_waivers_client_info"
+      post :client_info_update
+    end
+  end
 
   resources :technology_values do
     collection do
