@@ -129,7 +129,7 @@ module ApplicationHelper
 
   def get_avatar_image(name, background_color = nil, color = nil)
     if background_color.blank?
-      color_samples = ["F13838", "4D00CA", "0051CA", "00B2CA", "4C82FF", "FFB800"]
+      color_samples = ["F13838", "4D00CA", "00a0af", "00B2CA", "4C82FF", "FFB800"]
       if !name.nil?
         characters = ("a".."z").to_a
         character_index = characters.find_index(name.first.downcase)

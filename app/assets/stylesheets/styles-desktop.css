@@ -150,7 +150,7 @@ body{
   margin-bottom: 5px;
 }
 .sp-sidebar ul li.active{
-  background-color: #0051CA !important;
+  background-color: #00a0af !important;
   border-radius: 4px !important;
 }
 .sp-sidebar ul li.active a{
@@ -214,7 +214,7 @@ nav ul li a:active {
   margin-right: 0px;
 }
 .top-status-card .color-border-01{
-  border-left: 6px solid #0051CA !important;
+  border-left: 6px solid #00a0af !important;
   border-radius: 4px 0px 0px 4px;
 }
 .top-status-card .color-border-02{
@@ -243,7 +243,7 @@ nav ul li a:active {
   justify-content: center;
 }
 .top-status-card .card-content .bg-color-01{
-  background-color:#0051CA;
+  background-color:#00a0af;
 }
 .top-status-card .card-content .bg-color-02{
   background-color:#5BAEFF;
@@ -290,7 +290,7 @@ nav ul li a:active {
   margin-top: 0px;
 }
 .page-header-btn{
-  background-color: #0051CA;
+  background-color: #00a0af;
   font-weight: 500;
   font-size: 15px;
   line-height: 22px;
@@ -356,7 +356,7 @@ nav ul li a:active {
 .table-decoration tbody tr td .firm-name .name-avatar{
   /* width: 35px;
   height: 35px;
-  background-color: #0051CA;
+  background-color: #00a0af;
   border-radius: 4px;
   color: #FFFFFF; */
   margin-right: 10px;
@@ -567,8 +567,8 @@ nav ul li a:active {
   border: none;
 }
 .btn-type-primary{
-  background-color: #0051CA !important;
-  border: 1px solid #0051CA !important;
+  background-color: #00a0af !important;
+  border: 1px solid #00a0af !important;
   border-radius: 4px !important;
   font-size: 14px !important;
   line-height: 21px !important;
@@ -829,7 +829,7 @@ nav ul li a:active {
 .sp-inner-dropdown{
   padding: 0px;
   cursor: pointer;
-  background-color: #0051CA;
+  background-color: #00a0af;
   font-weight: 500;
   font-size: 15px;
   line-height: 22px;
@@ -982,7 +982,7 @@ nav ul li a:active {
   font-size: 14px !important;
   line-height: 24px !important;
   padding:8px 0px !important;
-  border: 0px solid #0051CA !important;
+  border: 0px solid #00a0af !important;
 }
 .sign-in-page .right-side .signin-form .sp-signin-form .sp-signin-btn{
   margin-bottom: 75px;
@@ -1057,8 +1057,8 @@ nav ul li a:active {
 .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
   z-index: 3;
   color: #fff;
-  background-color: #0352ca;
-  border-color: #0352ca;
+  background-color: #00a0af;
+  border-color: #00a0af;
   cursor: default;
 }
 /* Table Dynamic search */
@@ -1233,7 +1233,7 @@ nav ul li a:active {
 }
 
 .action-buttons-alignment a span.blue-text{ 
-  color: #0051CA !important; 
+  color: #00a0af !important; 
 }
 
 .action-buttons-alignment a {
@@ -1265,7 +1265,7 @@ nav ul li a:active {
   font-weight: 500;
   font-size: 14px;
   line-height: 16px;
-  color: #0051CA;
+  color: #00a0af;
   text-transform: uppercase;
 }
 .add-button{
@@ -1278,7 +1278,7 @@ nav ul li a:active {
   align-items: center;
 }
 .add-button span{
-  color: #0051CA !important;
+  color: #00a0af !important;
 }
 .add-button img{
   margin-left: 0px !important;
