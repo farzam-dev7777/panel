@@ -3,7 +3,6 @@
     top: -25px;
   }
 </style>
-
 <div class="col-lg-12 col-md-12 col-sm-12">
   <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
     <div class="page-header-sp m-top">
@@ -88,11 +87,11 @@
                 </div>
               <% end %>-->
               <div class="col-xs-12 col-md-6">
-                <div class="field-label">BMO lawyer name</div>
+                <div class="field-label">Internal lawyer name</div>
                 <div class="field-data"><%= @matter_intake.bmo_lawyer_name %></div>
               </div>
               <div class="col-xs-12 col-md-6">
-                <div class="field-label">Legal Group of BMO Lawyer</div>
+                <div class="field-label">Legal Group of Internal Lawyer</div>
                 <div class="field-data"><%= @matter_intake.legal_group_of_bmo_lawyer %></div>
               </div>
               <div class="col-xs-12 col-md-6">
@@ -110,170 +109,167 @@
                   <div class="field-data">
                     <%= @matter_intake.is_ore_reportable %>
                     <input type="hidden" id="litigation_reporting" value="<%= @matter_intake.is_ore_reportable %>" />
-                  </div> 
-                </div>
-                <div class="col-xs-12 col-md-6">
-                  <div class="field-label">Is this matter otherwise reportable? (e.g. board reporting)</div>
-                  <div class="field-data"><%= @matter_intake.is_otherwise_reportable %></div>
-                </div>
-
-                <div class="col-xs-12 col-md-6 litigation_reporting">
-                  <div class="field-label">M&I Matter</div>
-                  <div class="field-data"><%= @matter_intake.mi_matter %></div>
-                </div>
-                <div class="col-xs-12 col-md-6 litigation_reporting">
-                  <div class="field-label">Nature of Events</div>
-                  <div class="field-data"><%= @matter_intake.nature_of_events %></div>
-                </div>
-                <div class="col-xs-12 col-md-6 litigation_reporting">
-                  <div class="field-label">Process Type Level 1</div>
-                  <div class="field-data"><%= @matter_intake.process_type_level_1 %></div>
-                </div>
-                <div class="col-xs-12 col-md-6 litigation_reporting">
-                  <div class="field-label">Process Type Level 2</div>
-                  <div class="field-data"><%= @matter_intake.process_type_level_2 %></div>
-                </div>
-                <div class="col-xs-12 col-md-6 litigation_reporting">
-                  <div class="field-label">Product Type Level 1</div>
-                  <div class="field-data"><%= @matter_intake.product_type_level_1 %></div>
-                </div>
-                <div class="col-xs-12 col-md-6 litigation_reporting">
-                  <div class="field-label">Product Type Level 2</div>
-                  <div class="field-data"><%= @matter_intake.product_type_level_2 %></div>
-                </div>
-                <div class="col-xs-12 col-md-6 litigation_reporting">
-                  <div class="field-label">Event Type Level 1</div>
-                  <div class="field-data"><%= @matter_intake.event_type_level_1 %></div>
-                </div>
-                <div class="col-xs-12 col-md-6 litigation_reporting">
-                  <div class="field-label">Event Type Level 2</div>
-                  <div class="field-data"><%= @matter_intake.event_type_level_2 %></div>
-                </div>
-                <div class="col-xs-12 col-md-6 litigation_reporting">
-                  <div class="field-label">Business Activity Level 1</div>
-                  <div class="field-data"><%= @matter_intake.business_activity_level_1 %></div>
-                </div>
-                <div class="col-xs-12 col-md-6 litigation_reporting">
-                  <div class="field-label">Business Activity Level 2</div>
-                  <div class="field-data"><%= @matter_intake.business_activity_level_2 %></div>
-                </div>
-
-
-               <% end %>
-              <% end %>
-              <div class="col-xs-12 col-md-6">
-                <div class="field-label">Conceal iManage Workspace?</div>
-                <div class="field-data"><%= @matter_intake.is_conceal_imanage_workspace %></div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="field-label">Paper file?</div>
-                <div class="field-data"><%= @matter_intake.is_paper_file %></div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="field-label">Jurisdiction</div>
-                <div class="field-data"><%= @matter_intake.jurisdiction %></div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="field-label">Other Party (Other than BMO)</div>
-                <div class="field-data"><%= @matter_intake.other_party %></div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="field-label">Additional Matter Contact (not specified elsewhere)</div>
-                <div class="field-data"><%= @matter_intake.additional_matter_contact %></div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="field-label">Other Matter Issues (not specified elsewhere)</div>
-                <div class="field-data"><%= @matter_intake.other_matter_issues %></div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="field-label">Is outside counsel being engaged?</div>
-                <div class="field-data"><%= @matter_intake.outside_counsel_engaged %></div>
-              </div>
-              <% if Current.user.role === "internal_lawyers" %>
-                <div class="col-xs-12 col-md-6">
-                  <div class="field-label">Branch</div>
-                  <div class="field-data"><%= @matter_intake.branch %></div>
-                </div>
-              <% end %>
-              <% if !@matter_intake.outside_counsel_engaged.blank? && @matter_intake.outside_counsel_engaged != 'N/A Internal – no law firm will be engaged' %>
-                <div class="col-xs-12 col-md-6">
-                  <div class="field-label">Panel or Non-Panel Firm</div>
-                  <div class="field-data"><%= @matter_intake.firm_type %></div>
-                </div>
-                <% if @matter_intake.firm_type === "Non-Panel" || @matter_intake.firm_type === "Panel & Non-Panel Firms"  %>
-                  <div class="col-xs-12 col-md-6">
-                    <div class="field-label">Name of Non-Panel Firm</div>
-                    <div class="field-data"><%= @matter_intake.name_of_non_panel_firm %></div>
-                  </div>
-                <% end %> 
-                <% if @matter_intake.firm_type === "Panel" || @matter_intake.firm_type === "Panel & Non-Panel Firms"  %>
-                  <div class="col-xs-12 col-md-6">
-                    <div class="field-label">Name of Panel Firm</div>
-                    <div class="field-data"><%= @matter_intake.name_of_panel_firm %></div>
-                  </div>
-                <% end %> 
-                <div class="col-xs-12 col-md-6">
-                  <div class="field-label">Type of Pricing</div>
-                  <div class="field-data"><%= @matter_intake.type_of_price %></div>
-                </div>
-                <div class="col-xs-12 col-md-6">
-                  <div class="field-label">AFA Details</div>
-                  <div class="field-data"><%= @matter_intake.afa_details %></div>
-                </div>
-                <div class="col-xs-12 col-md-6">
-                  <div class="field-label">Is there an Alternative Fee Arrangement?</div>
-                  <div class="field-data"><%= @matter_intake.is_alternative_fee_arrangement %></div>
-                </div>
-                <% if @matter_intake.user_id.nil? %>
-                  <div class="col-xs-12 col-md-6">
-                    <div class="field-label">Could this matter be reimbursed?</div>
-                    <div class="field-data"><%= @matter_intake.can_reimbursed_matter ? "Yes" : "No" %></div>
-                  </div>
-                <% end %>   
-              <!--<div class="col-xs-12 col-md-6">
+      </div>
+    </div>
+    <div class="col-xs-12 col-md-6">
+      <div class="field-label">Is this matter otherwise reportable? (e.g. board reporting)</div>
+      <div class="field-data"><%= @matter_intake.is_otherwise_reportable %></div>
+    </div>
+    <div class="col-xs-12 col-md-6 litigation_reporting">
+      <div class="field-label">M&I Matter</div>
+      <div class="field-data"><%= @matter_intake.mi_matter %></div>
+    </div>
+    <div class="col-xs-12 col-md-6 litigation_reporting">
+      <div class="field-label">Nature of Events</div>
+      <div class="field-data"><%= @matter_intake.nature_of_events %></div>
+    </div>
+    <div class="col-xs-12 col-md-6 litigation_reporting">
+      <div class="field-label">Process Type Level 1</div>
+      <div class="field-data"><%= @matter_intake.process_type_level_1 %></div>
+    </div>
+    <div class="col-xs-12 col-md-6 litigation_reporting">
+      <div class="field-label">Process Type Level 2</div>
+      <div class="field-data"><%= @matter_intake.process_type_level_2 %></div>
+    </div>
+    <div class="col-xs-12 col-md-6 litigation_reporting">
+      <div class="field-label">Product Type Level 1</div>
+      <div class="field-data"><%= @matter_intake.product_type_level_1 %></div>
+    </div>
+    <div class="col-xs-12 col-md-6 litigation_reporting">
+      <div class="field-label">Product Type Level 2</div>
+      <div class="field-data"><%= @matter_intake.product_type_level_2 %></div>
+    </div>
+    <div class="col-xs-12 col-md-6 litigation_reporting">
+      <div class="field-label">Event Type Level 1</div>
+      <div class="field-data"><%= @matter_intake.event_type_level_1 %></div>
+    </div>
+    <div class="col-xs-12 col-md-6 litigation_reporting">
+      <div class="field-label">Event Type Level 2</div>
+      <div class="field-data"><%= @matter_intake.event_type_level_2 %></div>
+    </div>
+    <div class="col-xs-12 col-md-6 litigation_reporting">
+      <div class="field-label">Business Activity Level 1</div>
+      <div class="field-data"><%= @matter_intake.business_activity_level_1 %></div>
+    </div>
+    <div class="col-xs-12 col-md-6 litigation_reporting">
+      <div class="field-label">Business Activity Level 2</div>
+      <div class="field-data"><%= @matter_intake.business_activity_level_2 %></div>
+    </div>
+  <% end %>
+<% end %>
+<div class="col-xs-12 col-md-6">
+  <div class="field-label">Conceal iManage Workspace?</div>
+  <div class="field-data"><%= @matter_intake.is_conceal_imanage_workspace %></div>
+</div>
+<div class="col-xs-12 col-md-6">
+  <div class="field-label">Paper file?</div>
+  <div class="field-data"><%= @matter_intake.is_paper_file %></div>
+</div>
+<div class="col-xs-12 col-md-6">
+  <div class="field-label">Jurisdiction</div>
+  <div class="field-data"><%= @matter_intake.jurisdiction %></div>
+</div>
+<div class="col-xs-12 col-md-6">
+  <div class="field-label">Other Party</div>
+  <div class="field-data"><%= @matter_intake.other_party %></div>
+</div>
+<div class="col-xs-12 col-md-6">
+  <div class="field-label">Additional Matter Contact (not specified elsewhere)</div>
+  <div class="field-data"><%= @matter_intake.additional_matter_contact %></div>
+</div>
+<div class="col-xs-12 col-md-6">
+  <div class="field-label">Other Matter Issues (not specified elsewhere)</div>
+  <div class="field-data"><%= @matter_intake.other_matter_issues %></div>
+</div>
+<div class="col-xs-12 col-md-6">
+  <div class="field-label">Is outside counsel being engaged?</div>
+  <div class="field-data"><%= @matter_intake.outside_counsel_engaged %></div>
+</div>
+<% if Current.user.role === "internal_lawyers" %>
+  <!--<div class="col-xs-12 col-md-6">
+    <div class="field-label">Branch</div>
+    <div class="field-data"><%= @matter_intake.branch %></div>
+  </div>-->
+<% end %>
+<% if !@matter_intake.outside_counsel_engaged.blank? && @matter_intake.outside_counsel_engaged != 'N/A Internal – no law firm will be engaged' %>
+  <div class="col-xs-12 col-md-6">
+    <div class="field-label">Panel or Non-Panel Firm</div>
+    <div class="field-data"><%= @matter_intake.firm_type %></div>
+  </div>
+  <% if @matter_intake.firm_type === "Non-Panel" || @matter_intake.firm_type === "Panel & Non-Panel Firms"  %>
+    <div class="col-xs-12 col-md-6">
+      <div class="field-label">Name of Non-Panel Firm</div>
+      <div class="field-data"><%= @matter_intake.name_of_non_panel_firm %></div>
+    </div>
+  <% end %>
+  <% if @matter_intake.firm_type === "Panel" || @matter_intake.firm_type === "Panel & Non-Panel Firms"  %>
+    <div class="col-xs-12 col-md-6">
+      <div class="field-label">Name of Panel Firm</div>
+      <div class="field-data"><%= @matter_intake.name_of_panel_firm %></div>
+    </div>
+  <% end %>
+  <div class="col-xs-12 col-md-6">
+    <div class="field-label">Type of Pricing</div>
+    <div class="field-data"><%= @matter_intake.type_of_price %></div>
+  </div>
+  <div class="col-xs-12 col-md-6">
+    <div class="field-label">AFA Details</div>
+    <div class="field-data"><%= @matter_intake.afa_details %></div>
+  </div>
+  <div class="col-xs-12 col-md-6">
+    <div class="field-label">Is there an Alternative Fee Arrangement?</div>
+    <div class="field-data"><%= @matter_intake.is_alternative_fee_arrangement %></div>
+  </div>
+  <% if @matter_intake.user_id.nil? %>
+    <div class="col-xs-12 col-md-6">
+      <div class="field-label">Could this matter be reimbursed?</div>
+      <div class="field-data"><%= @matter_intake.can_reimbursed_matter ? "Yes" : "No" %></div>
+    </div>
+  <% end %>
+  <!--<div class="col-xs-12 col-md-6">
                 <div class="field-label">Budget amount, if already negotiated with the law firm</div>
                 <div class="field-data"><%= @matter_intake.budget_amount %></div>
               </div>-->
-                <div class="col-xs-12 col-md-6">
-                  <div class="field-label">Name of PO approver</div>
-                  <div class="field-data"><%= @matter_intake.lob_contact_for_po %></div>
-                </div>
-                <div class="col-xs-12 col-md-6">
-                  <div class="field-label">Cost Centre for legal fees</div>
-                  <div class="field-data"><%= @matter_intake.cost_centre_for_legal_fees %></div>
-                </div>
-                <div class="col-xs-12 col-md-6">
-                  <div class="field-label">Deal Code (Capital Markets Only)</div>
-                  <div class="field-data"><%= @matter_intake.deal_code %></div>
-                </div>
-               <% end %> 
-              <div class="col-xs-12 col-md-6">
-                <div class="field-label">Business/Group paying for this matter (level 1)</div>
-                <div class="field-data"><%= @matter_intake.business_paying_for_matter %></div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="field-label">Business/Group paying for this matter (level 2)</div>
-                <div class="field-data"><%= @matter_intake.group_paying_for_matter %></div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="field-label">Legal Entity</div>
-                <div class="field-data"><%= @matter_intake.paying_entity %></div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="field-label">Is this a syndicate matter?</div>
-                <div class="field-data"><%= @matter_intake.is_syndicate_matter %></div>
-              </div>
-              <% if @matter_intake.user_id.present? %>  <!-- Lob initiated form field -->
-                <div class="col-xs-12 col-md-6">
-                  <div class="field-label">Additional Comments for LRC Lawyer</div>
-                  <div class="field-data"><%= @matter_intake.additional_comments_for_lrc_lawyer %></div>
-                </div>
-              <% end %>
-              <% if !@matter_intake.asset.file.nil? %>
-                <div class="col-xs-12 col-md-6">
-                  <div class="field-label">Document</div>
-                  <div class="field-data">
-                    <a href="<%= @matter_intake.asset&.url %>" target="_blank"><%= @matter_intake.asset.identifier %></a>
+  <div class="col-xs-12 col-md-6">
+    <div class="field-label">Name of PO approver</div>
+    <div class="field-data"><%= @matter_intake.lob_contact_for_po %></div>
+  </div>
+  <div class="col-xs-12 col-md-6">
+    <div class="field-label">Cost Centre for legal fees</div>
+    <div class="field-data"><%= @matter_intake.cost_centre_for_legal_fees %></div>
+  </div>
+  <div class="col-xs-12 col-md-6">
+    <div class="field-label">Deal Code (Capital Markets Only)</div>
+    <div class="field-data"><%= @matter_intake.deal_code %></div>
+  </div>
+<% end %>
+<div class="col-xs-12 col-md-6">
+  <div class="field-label">Business/Group paying for this matter (level 1)</div>
+  <div class="field-data"><%= @matter_intake.business_paying_for_matter %></div>
+</div>
+<div class="col-xs-12 col-md-6">
+  <div class="field-label">Business/Group paying for this matter (level 2)</div>
+  <div class="field-data"><%= @matter_intake.group_paying_for_matter %></div>
+</div>
+<!-- <div class="col-xs-12 col-md-6">
+  <div class="field-label">Legal Entity</div>
+  <div class="field-data"><%= @matter_intake.paying_entity %></div>
+</div> -->
+<div class="col-xs-12 col-md-6">
+  <div class="field-label">Is this a syndicate matter?</div>
+  <div class="field-data"><%= @matter_intake.is_syndicate_matter %></div>
+</div>
+<% if @matter_intake.user_id.present? %>  <!-- Lob initiated form field -->
+  <div class="col-xs-12 col-md-6">
+    <div class="field-label">Additional Comments for LRC Lawyer</div>
+    <div class="field-data"><%= @matter_intake.additional_comments_for_lrc_lawyer %></div>
+  </div>
+<% end %>
+<% if !@matter_intake.asset.file.nil? %>
+  <div class="col-xs-12 col-md-6">
+    <div class="field-label">Document</div>
+    <div class="field-data">
+      <a href="<%= @matter_intake.asset&.url %>" target="_blank"><%= @matter_intake.asset.identifier %></a>
                   </div>
                 </div>
               <% end %>
@@ -363,7 +359,7 @@
                         <div class="field-data"><%= @matter_intake.secondary_issue %></div>
                       </div>
                       <div class="col-xs-12 col-md-6">
-                        <div class="field-label">What Party is BMO in this action?</div>
+                        <div class="field-label">What party is our organization in this action?</div>
                         <div class="field-data"><%= @matter_intake.bmo_party %></div>
                       </div>
                       <div class="col-xs-12 col-md-6">
@@ -408,7 +404,7 @@
                         <div class="field-data"><%= @matter_intake.valued_at %></div>
                       </div>
                       <div class="col-xs-12 col-md-6">
-                        <div class="field-label">Amount Claimed from BMO 1</div>
+                        <div class="field-label">Amount Claimed from our organization 1</div>
                         <div class="field-data"><%= @matter_intake.amount_claimed_from_bmo_1 %></div>
                       </div>
                       <div class="col-xs-12 col-md-6">
@@ -416,7 +412,7 @@
                         <div class="field-data"><%= @matter_intake.amount_claimed_1_currency %></div>
                       </div>
                       <div class="col-xs-12 col-md-6">
-                        <div class="field-label">Amount Claimed from BMO 2</div>
+                        <div class="field-label">Amount Claimed from our organization 2</div>
                         <div class="field-data"><%= @matter_intake.amount_claimed_from_bmo_2 %></div>
                       </div>
                       <div class="col-xs-12 col-md-6">
@@ -424,11 +420,11 @@
                         <div class="field-data"><%= @matter_intake.amount_claimed_2_currency %></div>
                       </div>
                       <div class="col-xs-12 col-md-6">
-                        <div class="field-label">Amount Claimed by BMO</div>
+                        <div class="field-label">Amount Claimed by our organization</div>
                         <div class="field-data"><%= @matter_intake.amount_claimed_by_bmo %></div>
                       </div>
                       <div class="col-xs-12 col-md-6">
-                        <div class="field-label">Amount Claimed by BMO currency</div>
+                        <div class="field-label">Amount Claimed by our organization currency</div>
                         <div class="field-data"><%= @matter_intake.amount_claimed_by_bmo_currency %></div>
                       </div>
                       <div class="col-xs-12 col-md-6">
@@ -479,72 +475,70 @@
                         <div class="field-data">
                           <%= @matter_intake.is_ore_reportable %>
                           <input type="hidden" id="litigation_reporting" value="<%= @matter_intake.is_ore_reportable %>" />
-                        </div>
-                      </div>
-                      <div class="col-xs-12 col-md-6">
-                        <div class="field-label">Is this matter otherwise reportable? (e.g. board reporting)</div>
-                        <div class="field-data"><%= @matter_intake.is_otherwise_reportable %></div>
-                      </div>
-                      <div class="col-xs-12 col-md-6 litigation_reporting">
-                        <div class="field-label">M&I Matter</div>
-                        <div class="field-data"><%= @matter_intake.mi_matter %></div>
-                      </div>
-                      <div class="col-xs-12 col-md-6 litigation_reporting">
-                        <div class="field-label">Nature of Events</div>
-                        <div class="field-data"><%= @matter_intake.nature_of_events %></div>
-                      </div>
-                      <div class="col-xs-12 col-md-6 litigation_reporting">
-                        <div class="field-label">Process Type Level 1</div>
-                        <div class="field-data"><%= @matter_intake.process_type_level_1 %></div>
-                      </div>
-                      <div class="col-xs-12 col-md-6 litigation_reporting">
-                        <div class="field-label">Process Type Level 2</div>
-                        <div class="field-data"><%= @matter_intake.process_type_level_2 %></div>
-                      </div>
-                      <div class="col-xs-12 col-md-6 litigation_reporting">
-                        <div class="field-label">Product Type Level 1</div>
-                        <div class="field-data"><%= @matter_intake.product_type_level_1 %></div>
-                      </div>
-                      <div class="col-xs-12 col-md-6 litigation_reporting">
-                        <div class="field-label">Product Type Level 2</div>
-                        <div class="field-data"><%= @matter_intake.product_type_level_2 %></div>
-                      </div>
-                      <div class="col-xs-12 col-md-6 litigation_reporting">
-                        <div class="field-label">Event Type Level 1</div>
-                        <div class="field-data"><%= @matter_intake.event_type_level_1 %></div>
-                      </div>
-                      <div class="col-xs-12 col-md-6 litigation_reporting">
-                        <div class="field-label">Event Type Level 2</div>
-                        <div class="field-data"><%= @matter_intake.event_type_level_2 %></div>
-                      </div>
-                      <div class="col-xs-12 col-md-6 litigation_reporting">
-                        <div class="field-label">Business Activity Level 1</div>
-                        <div class="field-data"><%= @matter_intake.business_activity_level_1 %></div>
-                      </div>
-                      <div class="col-xs-12 col-md-6 litigation_reporting">
-                        <div class="field-label">Business Activity Level 2</div>
-                        <div class="field-data"><%= @matter_intake.business_activity_level_2 %></div>
-                      </div>
-                      
-                    </div>
-                  </div>
-                <% end %>
-              <% end %>
-            </div>
-            <div class="clearfix"></div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
+  <div class="col-xs-12 col-md-6">
+    <div class="field-label">Is this matter otherwise reportable? (e.g. board reporting)</div>
+    <div class="field-data"><%= @matter_intake.is_otherwise_reportable %></div>
+  </div>
+  <div class="col-xs-12 col-md-6 litigation_reporting">
+    <div class="field-label">M&I Matter</div>
+    <div class="field-data"><%= @matter_intake.mi_matter %></div>
+  </div>
+  <div class="col-xs-12 col-md-6 litigation_reporting">
+    <div class="field-label">Nature of Events</div>
+    <div class="field-data"><%= @matter_intake.nature_of_events %></div>
+  </div>
+  <div class="col-xs-12 col-md-6 litigation_reporting">
+    <div class="field-label">Process Type Level 1</div>
+    <div class="field-data"><%= @matter_intake.process_type_level_1 %></div>
+  </div>
+  <div class="col-xs-12 col-md-6 litigation_reporting">
+    <div class="field-label">Process Type Level 2</div>
+    <div class="field-data"><%= @matter_intake.process_type_level_2 %></div>
+  </div>
+  <div class="col-xs-12 col-md-6 litigation_reporting">
+    <div class="field-label">Product Type Level 1</div>
+    <div class="field-data"><%= @matter_intake.product_type_level_1 %></div>
+  </div>
+  <div class="col-xs-12 col-md-6 litigation_reporting">
+    <div class="field-label">Product Type Level 2</div>
+    <div class="field-data"><%= @matter_intake.product_type_level_2 %></div>
+  </div>
+  <div class="col-xs-12 col-md-6 litigation_reporting">
+    <div class="field-label">Event Type Level 1</div>
+    <div class="field-data"><%= @matter_intake.event_type_level_1 %></div>
+  </div>
+  <div class="col-xs-12 col-md-6 litigation_reporting">
+    <div class="field-label">Event Type Level 2</div>
+    <div class="field-data"><%= @matter_intake.event_type_level_2 %></div>
+  </div>
+  <div class="col-xs-12 col-md-6 litigation_reporting">
+    <div class="field-label">Business Activity Level 1</div>
+    <div class="field-data"><%= @matter_intake.business_activity_level_1 %></div>
+  </div>
+  <div class="col-xs-12 col-md-6 litigation_reporting">
+    <div class="field-label">Business Activity Level 2</div>
+    <div class="field-data"><%= @matter_intake.business_activity_level_2 %></div>
+  </div>
 </div>
-
+</div>
+<% end %>
+<% end %>
+</div>
+<div class="clearfix"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 <div class="col-md-12">
   <%- if @matter_intake.reviews.size > 0 %>
     <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
       <div class="page-header-sp">
-          <div class="page-title">Review Logs</div>
-          <div class="back-edit-actions">
+        <div class="page-title">Review Logs</div>
+        <div class="back-edit-actions">
         </div>
       </div>
       <div>
@@ -561,8 +555,8 @@
                   <div class="smart-timeline">
                     <ul class="smart-timeline-list">
                       <% @matter_intake.reviews.reverse.each do |review| %>
-                      <% if review.status_from.blank? && review.status.blank? && review.assigned_to_id.present? %>
-                        <li data-id="<%= review.id %>">
+                        <% if review.status_from.blank? && review.status.blank? && review.assigned_to_id.present? %>
+                          <li data-id="<%= review.id %>">
                             <div class="smart-timeline-icon">
                               R
                             </div>
@@ -572,54 +566,54 @@
                             <div class="smart-timeline-content">
                               <p>
                                 <strong>
-                                <%= review.actor.email %> assigned exception request to internal lawyer for approval.
-                                <strong>
-                              </p>
-                              <p>
-                                <%= review.description %>
-                              </p>
-                            </div>
-                          </li>
-                      <% else %>
-                        <li data-id="<%= review.id %>">
-                        <div class="smart-timeline-icon">
-                          R
-                        </div>
-                        <div class="smart-timeline-time">
-                          <small><%= review.created_at.strftime('%d %b %Y at %I:%M %p') %></small>
-                          <small><i><%= time_ago_in_words(review.created_at) %> ago</i> </small>
-                        </div>
-                        <div class="smart-timeline-content">
-                          <p>
-                            <strong>
-                               <%- if review.status === "requires_an_update"  %>
-                                <%= review.actor.full_name %>  returned to lawyer for update
-                              <% elsif review.status_show %>
-                                <%= review.actor.email %> change status to <%= review.status_show %>
-                              <% else %>  
-                                <%= review.actor.email %> left a comment
+                                  <%= review.actor.email %> assigned exception request to internal lawyer for approval.
+                                  <strong>
+                                  </p>
+                                  <p>
+                                    <%= review.description %>
+                                  </p>
+                                </div>
+                              </li>
+                            <% else %>
+                              <li data-id="<%= review.id %>">
+                                <div class="smart-timeline-icon">
+                                  R
+                                </div>
+                                <div class="smart-timeline-time">
+                                  <small><%= review.created_at.strftime('%d %b %Y at %I:%M %p') %></small>
+                                  <small><i><%= time_ago_in_words(review.created_at) %> ago</i> </small>
+                                </div>
+                                <div class="smart-timeline-content">
+                                  <p>
+                                    <strong>
+                                      <%- if review.status === "requires_an_update"  %>
+                                        <%= review.actor.full_name %>  returned to lawyer for update
+                                      <% elsif review.status_show %>
+                                        <%= review.actor.email %> change status to <%= review.status_show %>
+                                      <% else %>
+                                        <%= review.actor.email %> left a comment
+                                      <% end %>
+                                      <strong>
+                                      </p>
+                                      <p>
+                                        <%= review.description.blank? ? "NA" : review.description %>
+                                      </p>
+                                    </div>
+                                  </li>
+                                <% end %>
                               <% end %>
-                            <strong>
-                          </p>
-                          <p>
-                            <%= review.description.blank? ? "NA" : review.description %>
-                          </p>
+                            </ul>
+                          </div>
+                          <!-- END Timeline Content -->
                         </div>
-                      </li>
-                        <% end %>
-                      <% end %>
-                    </ul>
+                      </div>
+                    </div>
+                    <!-- end row -->
                   </div>
-                  <!-- END Timeline Content -->
+                  <!-- END MAIN CONTENT -->
                 </div>
+                <!-- END MAIN PANEL -->
               </div>
             </div>
-            <!-- end row -->
-          </div>
-          <!-- END MAIN CONTENT -->
+          <% end %>
         </div>
-        <!-- END MAIN PANEL -->
-      </div>
-    </div>
-  <% end %>
-</div>

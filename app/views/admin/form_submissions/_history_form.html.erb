@@ -1,26 +1,20 @@
 <%= simple_fields_for @form_submission do |f| %>
   <div class="container">
-    
     <div class="col-md-10 col-md-offset-1 no-padding history-form-wrapper" style="margin-bottom: 55px;">
-	  	<label class="control-label select optional"><strong>List all significant, unauthorized attempts to gain access to bank data whether successful or thwarted. Also, Include Incidences where data was lost or was at risk of loss.</strong> <i class="fa fa-question-circle-o history-qtip"></i></label>
-
-    	<div class=" col-md-12 no-padding">
-	      <%= f.simple_fields_for :history_submissions do |field| %>
-	      	<%= render partial: "history_submission_fields", 
+      <label class="control-label select optional"><strong>List all significant, unauthorized attempts to gain access to organization data whether successful or thwarted. Also, Include Incidences where data was lost or was at risk of loss.</strong> <i class="fa fa-question-circle-o history-qtip"></i></label>
+      <div class=" col-md-12 no-padding">
+        <%= f.simple_fields_for :history_submissions do |field| %>
+          <%= render partial: "history_submission_fields", 
 	      						 locals: {f: field}  %>
-			  <% end %>
-    	</div>
-			<div class="clearfix"></div>
-    	<hr class="seperator">
-			<div class="link-to-add"></div>
-
-			<p>&nbsp;</p>
-			<p>&nbsp;</p>
-			<p>&nbsp;</p>
-			<p>&nbsp;</p>
-
+        <% end %>
+      </div>
+      <div class="clearfix"></div>
+      <hr class="seperator">
+      <div class="link-to-add"></div>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
     </div>
-
   </div>
-
 <% end %>

@@ -2,15 +2,14 @@
   <%= simple_form_for [:admin, @matter_intake] do |f| %>
     <div class="row form-flex-wrap">
       <div class="col-xs-12 col-md-6">
-        <label class="label">BMO lawyer name<span class="mandatory">*</span></label>
-          <%= f.input :bmo_lawyer_name, label: false, required: true, :input_html => { :value => @matter_intake&.bmo_lawyer_name || current_user.try(:full_name) } %>
-          <%= f.input :lawyer_id, as: :hidden, label: false, :input_html => { :value => current_user.try(:id) } %>
-          <%= f.input :form_type, as: :hidden, label: false, :input_html => { :value => @form_type || @matter_intake&.form_type } %>
-          <%= f.input :submitter_name, as: :hidden, label: false, :input_html => { :value => current_user.try(:username) } %>
+        <label class="label">Internal lawyer name<span class="mandatory">*</span></label>
+        <%= f.input :bmo_lawyer_name, label: false, required: true, :input_html => { :value => @matter_intake&.bmo_lawyer_name || current_user.try(:full_name) } %>
+        <%= f.input :lawyer_id, as: :hidden, label: false, :input_html => { :value => current_user.try(:id) } %>
+        <%= f.input :form_type, as: :hidden, label: false, :input_html => { :value => @form_type || @matter_intake&.form_type } %>
+        <%= f.input :submitter_name, as: :hidden, label: false, :input_html => { :value => current_user.try(:username) } %>
       </div>
-      
       <div class="col-xs-12 col-md-6">
-        <label class="label">Legal Group of BMO Lawyer<span class="mandatory">*</span></label>
+        <label class="label">Legal Group of Internal Lawyer<span class="mandatory">*</span></label>
         <%= f.input :legal_group_of_bmo_lawyer, label: false, collection: MatterIntake::LegalGroupBMOLawyer %>
       </div>
       <div class="col-xs-12 col-md-6">
@@ -31,49 +30,49 @@
           <%= f.input :is_otherwise_reportable, label: false, collection: [['Yes', 'Yes'], ["No", "No"]] %>
         </div>
         <div class="col-xs-12 col-md-6 litigation_reporting">
-              <label class="label">M&I Matter<span class="mandatory">*</span></label>
-              <%= f.input :mi_matter, label: false, collection: [['Yes', true], ["No", false]] %>
-            </div>
-            <div class="col-xs-12 col-md-6 litigation_reporting">
-              <label class="label">Nature of Events<span class="mandatory">*</span></label>
-              <%= f.input :nature_of_events, label: false %>
-            </div>
-            <div class="col-xs-12 col-md-6 litigation_reporting">
-              <label class="label">Process Type Level 1<span class="mandatory">*</span></label>
-              <%= f.input :process_type_level_1, label: false, collection: MatterIntake::ProcessTypeLevel1.sort_by!{ |e| e.downcase } %>
-            </div>
-            <div class="col-xs-12 col-md-6 litigation_reporting">
-              <label class="label">Process Type Level 2<span class="mandatory">*</span></label>
-              <%= f.input :process_type_level_2, label: false, collection: [], input_html: { data: {value: "#{@matter_intake&.process_type_level_2}"} } %>
-            </div>
-            <div class="col-xs-12 col-md-6 litigation_reporting">
-              <label class="label">Product Type Level 1<span class="mandatory">*</span></label>
-              <%= f.input :product_type_level_1, label: false, collection: MatterIntake::ProductTypeLevel1.sort_by!{ |e| e.downcase } %>
-            </div>
-            <div class="col-xs-12 col-md-6 litigation_reporting">
-              <label class="label">Product Type Level 2<span class="mandatory">*</span></label>
-              <%= f.input :product_type_level_2, label: false, collection: [], input_html: { data: {value: "#{@matter_intake&.product_type_level_2}"} } %>
-            </div>
-            <div class="col-xs-12 col-md-6 litigation_reporting">
-              <label class="label">Event Type Level 1<span class="mandatory">*</span></label>
-              <%= f.input :event_type_level_1, label: false, collection: MatterIntake::EventTypeLevel1.sort_by!{ |e| e.downcase } %>
-            </div>
-            <div class="col-xs-12 col-md-6 litigation_reporting">
-              <label class="label">Event Type Level 2<span class="mandatory">*</span></label>
-              <%= f.input :event_type_level_2, label: false, collection: [], input_html: { data: {value: "#{@matter_intake&.event_type_level_2}"} } %>
-            </div>
-            <div class="col-xs-12 col-md-6 litigation_reporting">
-              <label class="label">Business Activity Level 1<span class="mandatory">*</span></label>
-              <%= f.input :business_activity_level_1, label: false, collection: MatterIntake::BusinessActivityLevel1.sort_by!{ |e| e.downcase } %>
-            </div>
-            <div class="col-xs-12 col-md-6 litigation_reporting">
-              <label class="label">Business Activity Level 2<span class="mandatory">*</span></label>
-              <%= f.input :business_activity_level_2, label: false, collection: [], input_html: { data: {value: "#{@matter_intake&.business_activity_level_2}"} } %>
-            </div>
+          <label class="label">M&I Matter<span class="mandatory">*</span></label>
+          <%= f.input :mi_matter, label: false, collection: [['Yes', true], ["No", false]] %>
+        </div>
+        <div class="col-xs-12 col-md-6 litigation_reporting">
+          <label class="label">Nature of Events<span class="mandatory">*</span></label>
+          <%= f.input :nature_of_events, label: false %>
+        </div>
+        <div class="col-xs-12 col-md-6 litigation_reporting">
+          <label class="label">Process Type Level 1<span class="mandatory">*</span></label>
+          <%= f.input :process_type_level_1, label: false, collection: MatterIntake::ProcessTypeLevel1.sort_by!{ |e| e.downcase } %>
+        </div>
+        <div class="col-xs-12 col-md-6 litigation_reporting">
+          <label class="label">Process Type Level 2<span class="mandatory">*</span></label>
+          <%= f.input :process_type_level_2, label: false, collection: [], input_html: { data: {value: "#{@matter_intake&.process_type_level_2}"} } %>
+        </div>
+        <div class="col-xs-12 col-md-6 litigation_reporting">
+          <label class="label">Product Type Level 1<span class="mandatory">*</span></label>
+          <%= f.input :product_type_level_1, label: false, collection: MatterIntake::ProductTypeLevel1.sort_by!{ |e| e.downcase } %>
+        </div>
+        <div class="col-xs-12 col-md-6 litigation_reporting">
+          <label class="label">Product Type Level 2<span class="mandatory">*</span></label>
+          <%= f.input :product_type_level_2, label: false, collection: [], input_html: { data: {value: "#{@matter_intake&.product_type_level_2}"} } %>
+        </div>
+        <div class="col-xs-12 col-md-6 litigation_reporting">
+          <label class="label">Event Type Level 1<span class="mandatory">*</span></label>
+          <%= f.input :event_type_level_1, label: false, collection: MatterIntake::EventTypeLevel1.sort_by!{ |e| e.downcase } %>
+        </div>
+        <div class="col-xs-12 col-md-6 litigation_reporting">
+          <label class="label">Event Type Level 2<span class="mandatory">*</span></label>
+          <%= f.input :event_type_level_2, label: false, collection: [], input_html: { data: {value: "#{@matter_intake&.event_type_level_2}"} } %>
+        </div>
+        <div class="col-xs-12 col-md-6 litigation_reporting">
+          <label class="label">Business Activity Level 1<span class="mandatory">*</span></label>
+          <%= f.input :business_activity_level_1, label: false, collection: MatterIntake::BusinessActivityLevel1.sort_by!{ |e| e.downcase } %>
+        </div>
+        <div class="col-xs-12 col-md-6 litigation_reporting">
+          <label class="label">Business Activity Level 2<span class="mandatory">*</span></label>
+          <%= f.input :business_activity_level_2, label: false, collection: [], input_html: { data: {value: "#{@matter_intake&.business_activity_level_2}"} } %>
+        </div>
       <% end %>
       <div class="col-xs-12 col-md-6">
         <label class="label">Is this a syndicate matter?<span class="mandatory">*</span></label>
-        <%= f.input :is_syndicate_matter, label: false, as: :select, collection: [['Yes, BMO is the lead bank', 'Yes, BMO is the lead bank'],["Yes, BMO is not the lead bank", "Yes, BMO is not the lead bank"], ["No", "No"]]  %>
+        <%= f.input :is_syndicate_matter, label: false, as: :select, collection: [['Yes, we are the lead organization', 'Yes, we are the lead organization'],["Yes, we are not the lead organization", "Yes, we are not the lead bank"], ["No", "No"]]  %>
       </div>
       <div class="col-xs-12 col-md-6">
         <label class="label">Conceal iManage Workspace?<span class="mandatory">*</span></label>
@@ -95,10 +94,11 @@
         <label class="label">Matter Description<span class="mandatory">*</span></label>
         <%= f.input :matter_description, as: :string, label: false %>
       </div>
-      <div class="col-xs-12 col-md-6">
+      <!-- <div class="col-xs-12 col-md-6">
         <label class="label">Legal Entity<span class="mandatory">*</span></label>
         <%= f.input :paying_entity, label: false, collection: MatterIntake::LegalEntity %>
       </div>
+    -->
       <div class="col-xs-12 col-md-6">
         <label class="label">Business/Group paying for this matter (level 1)<span class="mandatory">*</span></label>
         <%= f.input :business_paying_for_matter, label: false, collection: MatterIntake::Business %>
@@ -108,17 +108,17 @@
         <%= f.input :group_paying_for_matter, label: false, collection: [], input_html: { data: {value: "#{@matter_intake&.group_paying_for_matter}"} } %>
       </div>
       <% if @form_type == "litigation" || @matter_intake&.form_type == "litigation" %>
-        <div class="col-xs-12 col-md-6">
+        <!-- <div class="col-xs-12 col-md-6">
           <label class="label">Branch</label>
           <%= f.input :branch, label: false %>
-        </div>
+        </div>-->
       <% end %>
       <div class="col-xs-12 col-md-6">
         <label class="label">Jurisdiction<span class="mandatory">*</span></label>
         <%= f.input :jurisdiction, label: false, collection: MatterIntake::Jurisdiction %>
       </div>
       <div class="col-xs-12 col-md-6">
-        <label class="label">Other Party (Other than BMO)</label>
+        <label class="label">Other Party</label>
         <%= f.input :other_party, label: false, collection: MatterIntake::OtherParty %>
       </div>
       <div class="col-xs-12 col-md-6">
@@ -159,11 +159,11 @@
       </div>
       <div class="col-xs-12 col-md-6 panel_firm internal-matter" style="display: none;">
         <label class="label">Name of Panel Firm<span class="mandatory">*</span></label>
-        <%= f.input :name_of_panel_firm, label: false, collection: LawFirm.where(law_firm_category: "PANEL").map{ |lf| [lf.name, lf.name] } %> 
+        <%= f.input :name_of_panel_firm, label: false, collection: LawFirm.where(law_firm_category: "PANEL").map{ |lf| [lf.name, lf.name] } %>
       </div>
       <div class="col-xs-12 col-md-6 non_panel_firm internal-matter" style="display: none;">
         <label class="label">Name of Non-Panel Firm<span class="mandatory">*</span></label>
-        <%= f.input :name_of_non_panel_firm, label: false, collection: LawFirm.where(law_firm_category: "NON_PANEL").map{ |lf| [lf.name, lf.name] } %> 
+        <%= f.input :name_of_non_panel_firm, label: false, collection: LawFirm.where(law_firm_category: "NON_PANEL").map{ |lf| [lf.name, lf.name] } %>
       </div>
       <div class="col-xs-12 col-md-6 internal-matter">
         <label class="label">Type of Pricing<span class="mandatory">*</span></label>
@@ -189,10 +189,7 @@
           <%= f.input :budget_amount, label: false %>
         </div>-->
       <% end %>
-      
-      
       <% if @form_type == "litigation" || @matter_intake&.form_type == "litigation" %>
-        
         <div class="col-md-12">
           <div class="inner-label">Case Details</div>
           <div class="inner-form-field form-flex-wrap">
@@ -221,7 +218,7 @@
               <%= f.input :secondary_issue, label: false, collection: MatterIntake::SecondaryIssue %>
             </div>
             <div class="col-xs-12 col-md-6">
-              <label class="label">What Party is BMO in this action?</label>
+              <label class="label">What party is our organization in this action?</label>
               <%= f.input :bmo_party, label: false, collection: MatterIntake::BMOParty %>
             </div>
             <div class="col-xs-12 col-md-6">
@@ -270,7 +267,7 @@
               <%= f.input :valued_at, label: false, collection: [['Yes', 'Yes'], ["No", "No"]] %>
             </div>
             <div class="col-xs-12 col-md-6">
-              <label class="label">Amount Claimed from BMO 1</label>
+              <label class="label">Amount Claimed from our organization 1</label>
               <%= f.input :amount_claimed_from_bmo_1, label: false %>
             </div>
             <div class="col-xs-12 col-md-6">
@@ -278,7 +275,7 @@
               <%= f.input :amount_claimed_1_currency, label: false, collection: MatterIntake::AmountCurrency %>
             </div>
             <div class="col-xs-12 col-md-6">
-              <label class="label">Amount Claimed from BMO 2</label>
+              <label class="label">Amount Claimed from our organization 2</label>
               <%= f.input :amount_claimed_from_bmo_2, label: false %>
             </div>
             <div class="col-xs-12 col-md-6">
@@ -286,11 +283,11 @@
               <%= f.input :amount_claimed_2_currency, label: false, collection: MatterIntake::AmountCurrency %>
             </div>
             <div class="col-xs-12 col-md-6">
-              <label class="label">Amount Claimed by BMO</label>
+              <label class="label">Amount Claimed by our organization</label>
               <%= f.input :amount_claimed_by_bmo, label: false %>
             </div>
             <div class="col-xs-12 col-md-6">
-              <label class="label">Amount Claimed by BMO currency</label>
+              <label class="label">Amount Claimed by our organization currency</label>
               <%= f.input :amount_claimed_by_bmo_currency, label: false, collection: MatterIntake::AmountCurrency %>
             </div>
             <div class="col-xs-12 col-md-6">
@@ -387,15 +384,13 @@
           </div>
         </div>
       <% end %>
-
       <% if !@matter_intake.new_record? %>
-          <%= f.input :submit_type, as: :hidden, label: false, :input_html => { :value => "update" } %>
+        <%= f.input :submit_type, as: :hidden, label: false, :input_html => { :value => "update" } %>
       <% end %>
-
-        <div class="col-xs-12 col-md-12 text-right">
-            <%=link_to 'Cancel', @matter_intake.new_record? ? admin_matter_intakes_path : admin_matter_intakes_path, class: 'btn-type-default' %>
-            <%= f.button :submit, @matter_intake.new_record? ? "Next" : "Next", class: "btn-type-primary" %>
-        </div>
+      <div class="col-xs-12 col-md-12 text-right">
+        <%=link_to 'Cancel', @matter_intake.new_record? ? admin_matter_intakes_path : admin_matter_intakes_path, class: 'btn-type-default' %>
+        <%= f.button :submit, @matter_intake.new_record? ? "Next" : "Next", class: "btn-type-primary" %>
+      </div>
     </div>
   <% end %>
 </div>
