@@ -32,7 +32,7 @@
       <div class="text-center portal-type">
         <p>
           <% if current_user.role == "lxp" %>
-            LXP Dashboard
+            INTERNAL DASHBOARD
           <% elsif current_user.role == "lop" %>
             LOB Dashboard
           <% elsif current_user.role == "internal_lawyers" %>
@@ -74,7 +74,7 @@
         <div class="sticky-left-side" id="dashboard_menu">
           <div class="dashboard-title">
             <% if current_user.role == "lxp" %>
-              LXP Dashboard
+              INTERNAL DASHBOARD
             <% elsif current_user.role == "lop" %>
               LOP Dashboard
             <% elsif current_user.role == "internal_lawyers" %>
