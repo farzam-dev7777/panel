@@ -6,23 +6,23 @@
     <%= simple_form_for current_law_firm do |f| %>
       <div class="row">
         <div class="col-xs-12 col-md-6">
-          <label class="label">BMO Relationship Partner Name</label>
+          <label class="label">Internal Relationship Partner Name</label>
           <%= f.input :bmo_relationship_partner_name, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
         </div>
         <div class="col-xs-12 col-md-6">
-          <label class="label">BMO Relationship Partner Email</label>
+          <label class="label">Internal Relationship Partner Email</label>
           <%= f.input :bmo_relationship_partner_email, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
         </div>
         <div class="col-xs-12 col-md-6">
-          <label class="label">BMO Relationship Partner Phone No.</label>
+          <label class="label">Internal Relationship Partner Phone No.e No.</label>
           <%= f.input :bmo_relationship_partner_phone_number, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
         </div>
         <div class="col-xs-12 col-md-6">
-          <label class="label">Additional BMO Relationship Contact Name (optional)</label>
+          <label class="label">Additional Internal Relationship Contact Name (optional)</label>
           <%= f.input :secondary_rm_contact, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
         </div>
         <div class="col-xs-12 col-md-6">
-          <label class="label">Additional BMO Relationship Contact Email (optional)</label>
+          <label class="label">Additional Internal Relationship Contact Email (optional)</label>
           <%= f.input :secondary_rm_contact_email, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
         </div>
         <div class="col-xs-12 col-md-6">
@@ -117,7 +117,7 @@
         </div>
         <div class="row col-md-12 show-data-fields">
           <!--div class="col-xs-12 col-md-6">
-				<div class="field-label">LXP Status</div>
+				<div class="field-label">Internal Status</div>
 
 				<div class="field-data"><%=  @law_firm.panel_request && @law_firm.panel_request.try(:lxp_status_show) ? @law_firm.panel_request.try(:lxp_status_show) : "-" %></div>
 			</div>

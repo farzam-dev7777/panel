@@ -1,12 +1,9 @@
 <style>
-	input, textarea, select { padding: 0px !important; margin: 0px; background: transparent; }
+  input, textarea, select { padding: 0px !important; margin: 0px; background: transparent; }
 </style>
-
-
 <div class="sp-form sp-form-bg">
-  
-		<%= simple_form_for [@conflict_waiver] do |f| %>
-    <div class="row"> 
+  <%= simple_form_for [@conflict_waiver] do |f| %>
+    <div class="row">
       <%# <div class="col-xs-12 colmd-12">
         <label class="inner-label">Conflict Waiver Request</label>
       </div> %>
@@ -20,14 +17,14 @@
         <%= f.input :user_id, :as => :hidden, :input_html => { value: @current_user.id } %>
       </div>
       <div class="col-xs-12 col-md-6">
-        <label  class="label">BMO contact</label>
+        <label  class="label">Internal Contact</label>
         <%= f.input :bmo_business_contact, label: false %>
       </div>
       <div class="col-xs-12 col-md-6">
         <label  class="label">Reason your firm believes this transaction may give rise to a conflict</label>
         <%= f.input :reason, as: :text, label: false, input_html: { rows: 1 } %>
       </div>
-      <div class="col-xs-12 col-md-12">         
+      <div class="col-xs-12 col-md-12">
         <p><b>As part of your retainer agreement, the follwoing are conflicts are waived, please:</b></p>
         <ol class="conflict_waiver_categories_list">
           <li>
@@ -36,7 +33,7 @@
           <li>
             A borrower in a normal course borrowing/mortgage transaction when we are already
             represented by other counsel;
-          </li>   
+          </li>
           <li>
             A customer in the ordinary course of our business;
             A party to a transaction where we are a lender or advisor to another party to the
@@ -58,25 +55,25 @@
         <%#= f.input :retainer_language, as: :radio_buttons, label: false, collection: ConflictWaiver::RETAINER_LANGUAGE_TYPE  %>
       </div>
       <div class="col-xs-12 col-md-6">
-          <label  class="label">Is your request covered by any of the above?</label>
-          <%= f.input :confirm_waiver, label: false, required: true, collection: [["Yes", true], ["No", false]]  %>
+        <label  class="label">Is your request covered by any of the above?</label>
+        <%= f.input :confirm_waiver, label: false, required: true, collection: [["Yes", true], ["No", false]]  %>
       </div>
       <div class="col-xs-12 col-md-12 confirm_waiver_notes" style="display:none;">
         <p>It appears your request is covered by your retainer agreement with BMO and there is no need to submit this request. If you are unsure, please select "No" above to proceed with submitting the request</p>
       </div>
       <div class="col-xs-12 col-md-12 cw-next-step">
-          <%=link_to 'Next', "/", class: 'btn-type-primary cw-next-step-btn' %>
+        <%=link_to 'Next', "/", class: 'btn-type-primary cw-next-step-btn' %>
       </div>
       <div class="col-xs-12 col-md-6 cm-repesenting " style="display:none">
         <label class="label">Are you representing BMO in this matter: </label>
         <div class="sp-checkbox">
-          <%= f.input :repesenting, as: :radio_buttons, label: false, collection: [["Yes", "BMO"], ["No", "Other Client"]]  %>  
+          <%= f.input :repesenting, as: :radio_buttons, label: false, collection: [["Yes", "BMO"], ["No", "Other Client"]]  %>
         </div>
       </div>
       <div class="col-xs-12 col-md-12 cw-submit-btn" style="display:none">
-          <%=link_to 'Cancel', @conflict_waiver.new_record? ? conflict_waivers_path : conflict_waivers_path, class: 'btn-type-default' %>
-          <%= f.button :submit, @conflict_waiver.new_record? ? "Next" : "Next", class: "btn-type-primary confirm_waiver_btn" %>
+        <%=link_to 'Cancel', @conflict_waiver.new_record? ? conflict_waivers_path : conflict_waivers_path, class: 'btn-type-default' %>
+        <%= f.button :submit, @conflict_waiver.new_record? ? "Next" : "Next", class: "btn-type-primary confirm_waiver_btn" %>
       </div>
     </div>
-		<% end %>
+  <% end %>
 </div>

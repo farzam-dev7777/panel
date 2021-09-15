@@ -9,7 +9,7 @@
         <div class="page-title">Conflict Waiver Request
          <% if @conflict_waiver.lxp_status_show.present? %>
             <span style=" color: #fff; "  class="<%= @conflict_waiver.lxp_status_show === "Approved" ? 'label label-success' : 'label label-default' %>"> 
-             LXP Status: <%= @conflict_waiver.try(:lxp_status_show).try(:titleize) %>
+             Internal Status: <%= @conflict_waiver.try(:lxp_status_show).try(:titleize) %>
             </span>
         <% end %>
         <% if @conflict_waiver.internal_lawyers_status_show.present? %>
@@ -39,7 +39,7 @@
               <div class="field-data"><%= @conflict_waiver.contact_details %></div>
             </div>
             <div class="col-xs-12 col-md-6">
-              <div class="field-label">BMO contact	</div>
+              <div class="field-label">Internal Contact	</div>
               <div class="field-data"><%= @conflict_waiver.bmo_business_contact %></div>
             </div>
             <div class="col-xs-12 col-md-6">
@@ -47,7 +47,7 @@
               <div class="field-data"><%= @conflict_waiver.reason %></div>
             </div>
             <div class="col-xs-12 col-md-6">
-              <div class="field-label">LXP Status</div>
+              <div class="field-label">Internal Status</div>
               <div class="field-data"><%=  @conflict_waiver.lxp_status_show  %></div>
             </div>
             <% if @conflict_waiver.lxp_status === "ALREADY_COVERED" %>
@@ -122,7 +122,7 @@
         <div class="page-header-sp show-data-fields">
           <div class="page-title">
             <% if Current.user.role === "lxp" %>
-              LXP Status
+              Internal Status
             <% elsif Current.user.role === "internal_lawyers" %>
               Internal Lawyer Status
             <% else %>
@@ -130,7 +130,7 @@
             <% end %>
             <% if @conflict_waiver.lxp_status_show.present? %>
                 <span style=" color: #fff; "  class="<%= @conflict_waiver.lxp_status_show === "Approved" ? 'label label-success' : 'label label-default' %>"> 
-                LXP Status: <%= @conflict_waiver.try(:lxp_status_show).try(:titleize) %>
+                Internal Status: <%= @conflict_waiver.try(:lxp_status_show).try(:titleize) %>
                 </span>
             <% end %>
             <% if @conflict_waiver.internal_lawyers_status_show.present? %>
@@ -155,7 +155,7 @@
                   </div>
                   <%- if @current_user.role === "lxp" %> 
                     <div class="col-xs-12 col-md-6">
-                      <label class="label">LXP Status</label>
+                      <label class="label">Internal Status</label>
                       <%= f.input :status, label: false, collection: ConflictWaiver::CONFLICT_WAIVER_STATUS_LXP.map{|value,key| [key, value]}%>
                     </div>
                   <% end %>  

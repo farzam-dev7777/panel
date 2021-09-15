@@ -217,8 +217,8 @@
 								<th>Date Submitted</th>
 								<th>Name of law firm</th>
 								<th>Contact details</th>
-								<th>BMO contact</th>
-								<th>LXP Status</th>
+								<th>Internal Contact</th>
+								<th>Internal Status</th>
               	<th>Internal Lawyer Status</th>
 								<!--<th width="8%">Action</th>-->
 							</tr>
@@ -305,7 +305,7 @@
 								<th>Law Firm Name</th>
 								<th>Matter Name</th>
 								<% if current_user.role === "lxp" %>
-									<th>LXP Status</th>
+									<th>Internal Status</th>
 								<% end %>
 								<th>Lawyer Status</th>
 								<!--<th width="8%">Action</th>-->
@@ -394,7 +394,7 @@
 									<th>Law Firm Name</th> 
  									<th>Panel Status</th>
 									<% if current_user.role == 'lxp' %> 
-										<th>LXP Status</th>
+										<th>Internal Status</th>
 									<% end %>
               		
 										

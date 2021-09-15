@@ -4,10 +4,9 @@
 <div class="col-lg-12">
   <div class="jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
     <div class="page-header-sp m-top">
-		  <div class="page-title">Conflict Waiver Requests</div>
+      <div class="page-title">Conflict Waiver Requests</div>
     </div>
     <!-- widget div-->
-    
     <div>
       <!-- search filter -->
       <div class="search-filter-sp">
@@ -17,7 +16,7 @@
               <div class="card-header" id="headingThree">
                 <div class="action-buttons-alignment">
                   <a class="export-icon right-action-btns" href="<%= admin_conflict_waivers_path(format: :xlsx) %>">
-                   <%= image_tag "export-excel.png", alt:"Export" %>  <span>Export</span>
+                    <%= image_tag "export-excel.png", alt:"Export" %>  <span>Export</span>
                   </a>
                 </div>
                 <div class="collapsed filter-title" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
@@ -33,18 +32,18 @@
                         <h2 style="margin: 0px 0px 10px;">Search Filter</h2>
                       </div>-->
                       <div class="col-xs-12 col-sm-6">
-                          <%= f.label :name_of_law_firm_cont, label: false, :class => 'label'  %>
-                          <%= f.search_field :name_of_law_firm_cont, :class => 'sp-form-control' %>
+                        <%= f.label :name_of_law_firm_cont, label: false, :class => 'label'  %>
+                        <%= f.search_field :name_of_law_firm_cont, :class => 'sp-form-control' %>
                       </div>
                       <div class="col-xs-12 col-sm-6">
-                          <%= f.label :contact_details_cont, :class => 'label' %>
-                          <%= f.search_field :contact_details_cont, :class => 'sp-form-control' %>
+                        <%= f.label :contact_details_cont, :class => 'label' %>
+                        <%= f.search_field :contact_details_cont, :class => 'sp-form-control' %>
                       </div>
                       <div class="col-xs-12 text-right" style="margin-top: 20px;">
-                          <%= f.submit "Search", class: "btn-type-primary" %>
-                          <%= f.submit "Reset", type: "reset", value: "Reset",  class: "btn-type-default" %>
+                        <%= f.submit "Search", class: "btn-type-primary" %>
+                        <%= f.submit "Reset", type: "reset", value: "Reset",  class: "btn-type-default" %>
                       </div>
-                    </div>        
+                    </div>
                   <% end %>
                 </div>
               </div>
@@ -62,7 +61,7 @@
               <th>Name of law firm</th>
               <th>Contact details</th>
               <th>BMO business  contact</th>
-              <th>LXP Status</th>
+              <th>Internal Status</th>
               <th>Internal Lawyer Status</th>
               <!--<th width="8%">Action</th>-->
             </tr>
@@ -72,7 +71,7 @@
               <tr onClick="window.location.href='/admin/conflict_waivers/<%= conflict_waiver.id %>'">
                 <td data-order="<%= conflict_waiver.created_at.strftime('%Y%m%d%H%M') %>">
                   <%= conflict_waiver.created_at.strftime('%d %b %Y at %I:%M %p') %>
-                </td>  
+                </td>
                 <td>
                   <% if conflict_waiver.name_of_law_firm.present? %>
                     <div class="firm-name">
@@ -86,7 +85,7 @@
                 <td>
                   <% if conflict_waiver.lxp_status_show.present? %>
                     <div class="status">
-                      <span class="<%= conflict_waiver.lxp_status_show === "Approved" ? 'label label-success' : 'label label-default' %>"> 
+                      <span class="<%= conflict_waiver.lxp_status_show === "Approved" ? 'label label-success' : 'label label-default' %>">
                         <%= conflict_waiver.try(:lxp_status_show).try(:titleize) %>
                       </span>
                     </div>
@@ -97,7 +96,7 @@
                 <td>
                   <% if conflict_waiver.internal_lawyers_status_show.present? %>
                     <div class="status">
-                      <span class="<%= conflict_waiver.internal_lawyers_status_show === "Approve" ? 'label label-success' : 'label label-default' %>"> 
+                      <span class="<%= conflict_waiver.internal_lawyers_status_show === "Approve" ? 'label label-success' : 'label label-default' %>">
                         <%= conflict_waiver.try(:internal_lawyers_status_show).try(:titleize) %>
                       </span>
                     </div>

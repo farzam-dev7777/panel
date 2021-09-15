@@ -15,63 +15,63 @@
       <!-- widget div-->
       <div>
         <!-- widget content -->
-         <div class="table-dyanmic-search table-responsive">
-        <table id="dt_basic" class="table table-decoration table-bordered" width="100%">
-          <thead>
-            <tr>
-              <th>Date Submitted</th>
-              <th>Client</th>
-              <th>BMO contact</th>
-              <th>Status Update Date</th>
-              <th>Status</th>
-	            <th width="8%">Action</th>
-              <!--<th width="8%">Action</th>-->
-            </tr>
-          </thead>
-          <tbody>
-            <% @conflict_waivers.each do |conflict_waiver| %>
-              <tr onClick="window.location.href='/conflict_waivers/<%= conflict_waiver.id %>'">
-                <td data-order="<%= conflict_waiver.created_at.strftime('%Y%m%d%H%M') %>">
-                  <%= conflict_waiver.created_at.strftime('%d %b %Y at %I:%M %p') %>
-                </td>  
-                <td><%= conflict_waiver.repesenting %></td>
-                <td><%= conflict_waiver.bmo_business_contact %></td>
-                <td><%= conflict_waiver.updated_at.strftime('%d %b %Y at %I:%M %p') %></td>
-                <td>
-                  <% if conflict_waiver.lxp_status_show.present? %>
-                    <div class="status">
-                      <span class="<%= conflict_waiver.lxp_status_show === "Approved" ? 'label label-success' : 'label label-default' %>"> 
-                        <%= conflict_waiver.try(:lxp_status_show).try(:titleize) %>
-                      </span>
+        <div class="table-dyanmic-search table-responsive">
+          <table id="dt_basic" class="table table-decoration table-bordered" width="100%">
+            <thead>
+              <tr>
+                <th>Date Submitted</th>
+                <th>Client</th>
+                <th>Internal Contact</th>
+                <th>Status Update Date</th>
+                <th>Status</th>
+                <th width="8%">Action</th>
+                <!--<th width="8%">Action</th>-->
+              </tr>
+            </thead>
+            <tbody>
+              <% @conflict_waivers.each do |conflict_waiver| %>
+                <tr onClick="window.location.href='/conflict_waivers/<%= conflict_waiver.id %>'">
+                  <td data-order="<%= conflict_waiver.created_at.strftime('%Y%m%d%H%M') %>">
+                    <%= conflict_waiver.created_at.strftime('%d %b %Y at %I:%M %p') %>
+                  </td>
+                  <td><%= conflict_waiver.repesenting %></td>
+                  <td><%= conflict_waiver.bmo_business_contact %></td>
+                  <td><%= conflict_waiver.updated_at.strftime('%d %b %Y at %I:%M %p') %></td>
+                  <td>
+                    <% if conflict_waiver.lxp_status_show.present? %>
+                      <div class="status">
+                        <span class="<%= conflict_waiver.lxp_status_show === "Approved" ? 'label label-success' : 'label label-default' %>">
+                          <%= conflict_waiver.try(:lxp_status_show).try(:titleize) %>
+                        </span>
+                      </div>
+                    <% else %>
+                      -
+                    <% end %>
+                  </td>
+                  <td>
+                    <div class="action-fields">
+                      <% if conflict_waiver.try(:lxp_status) != 'APPROVED' %>
+                        <a class="action-btn" href="/conflict_waivers/<%= conflict_waiver.id %>/edit">
+                          <%= image_tag "edit-icon.svg", alt:"Edit" %>
+                        </a>
+                      <% end %>
+                      <a class="action-btn" href="/conflict_waivers/<%= conflict_waiver.id %>">
+                        <%= image_tag "view-icon.svg", alt:"View" %>
+                      </a>
                     </div>
-                  <% else %>
-                    -
-                  <% end %>
-                </td>
-                <td>
-									<div class="action-fields">
-										<% if conflict_waiver.try(:lxp_status) != 'APPROVED' %>
-										<a class="action-btn" href="/conflict_waivers/<%= conflict_waiver.id %>/edit">
-											<%= image_tag "edit-icon.svg", alt:"Edit" %>
-										</a>	
-										<% end %>
-										<a class="action-btn" href="/conflict_waivers/<%= conflict_waiver.id %>">
-											<%= image_tag "view-icon.svg", alt:"View" %>
-										</a>
-									</div>	
-								</td>
-                <!--<td>
+                  </td>
+                  <!--<td>
                   <div class="action-fields">
                     <a class="action-btn" href="/admin/conflict_waivers/<%= conflict_waiver.id %>">
                       <%= image_tag "view-icon.svg", alt:"View" %>
                     </a>
                   </div>
                 </td>-->
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
         <!-- end widget content -->
       </div>
       <!-- end widget div -->
