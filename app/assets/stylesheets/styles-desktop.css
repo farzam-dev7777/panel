@@ -1283,3 +1283,6 @@ nav ul li a:active {
 .add-button img{
   margin-left: 0px !important;
 }
+#menu_toggle_container{
+  display: none;
+}

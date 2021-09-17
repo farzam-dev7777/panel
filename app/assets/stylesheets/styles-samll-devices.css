@@ -207,4 +207,7 @@
     font-size: 38px;
     line-height: 38px;
   }
+  #menu_toggle_container{
+    display: initial;
+  }
 }
