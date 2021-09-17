@@ -3,169 +3,167 @@
   top: -25px;
   }
 </style>
-  <div class="col-lg-12">
-    <div class="">
-      <div class="page-header-sp m-top">
-        <div class="page-title">Conflict Waiver Request
-         <% if @conflict_waiver.lxp_status_show.present? %>
-            <span style=" color: #fff; "  class="<%= @conflict_waiver.lxp_status_show === "Approved" ? 'label label-success' : 'label label-default' %>"> 
-             Internal Status: <%= @conflict_waiver.try(:lxp_status_show).try(:titleize) %>
-            </span>
+<div class="col-lg-12">
+  <div class="">
+    <div class="page-header-sp m-top">
+      <div class="page-title">Conflict Waiver Request
+        <% if @conflict_waiver.lxp_status_show.present? %>
+          <span style=" color: #fff; "  class="<%= @conflict_waiver.lxp_status_show === "Approved" ? 'label label-success' : 'label label-default' %>">
+            Internal Status: <%= @conflict_waiver.try(:lxp_status_show).try(:titleize) %>
+          </span>
         <% end %>
         <% if @conflict_waiver.internal_lawyers_status_show.present? %>
-          <span style=" color: #fff; "  class="<%= @conflict_waiver.internal_lawyers_status_show === "Approve" ? 'label label-success' : 'label label-default' %>"> 
+          <span style=" color: #fff; "  class="<%= @conflict_waiver.internal_lawyers_status_show === "Approve" ? 'label label-success' : 'label label-default' %>">
             Lawyer Status: <%= @conflict_waiver.try(:internal_lawyers_status_show).try(:titleize) %>
           </span>
         <% end %>
-        </div>
-        <div class="back-edit-actions">
-          <a class="btn-type-default" href="/admin/conflict_waivers">
-            <%= image_tag "chevron-back-icon.svg", alt:"Back" %>
-          </a>
-        </div>
       </div>
-      <!-- widget div-->
-      <div>
-        <!-- widget content -->
-        <div class="sp-form-bg show-data-fields">
-          <!-- widget body text-->
-          <div class="row">
+      <div class="back-edit-actions">
+        <a class="btn-type-default" href="/admin/conflict_waivers">
+          <%= image_tag "chevron-back-icon.svg", alt:"Back" %>
+        </a>
+      </div>
+    </div>
+    <!-- widget div-->
+    <div>
+      <!-- widget content -->
+      <div class="sp-form-bg show-data-fields">
+        <!-- widget body text-->
+        <div class="row">
+          <div class="col-xs-12 col-md-6">
+            <div class="field-label">Name of law firm	</div>
+            <div class="field-data"><%= @conflict_waiver.name_of_law_firm %></div>
+          </div>
+          <div class="col-xs-12 col-md-6">
+            <div class="field-label">Contact details</div>
+            <div class="field-data"><%= @conflict_waiver.contact_details %></div>
+          </div>
+          <div class="col-xs-12 col-md-6">
+            <div class="field-label">Internal Contact	</div>
+            <div class="field-data"><%= @conflict_waiver.bmo_business_contact %></div>
+          </div>
+          <div class="col-xs-12 col-md-6">
+            <div class="field-label">Reason for Request	</div>
+            <div class="field-data"><%= @conflict_waiver.reason %></div>
+          </div>
+          <div class="col-xs-12 col-md-6">
+            <div class="field-label">Internal Status</div>
+            <div class="field-data"><%=  @conflict_waiver.lxp_status_show  %></div>
+          </div>
+          <% if @conflict_waiver.lxp_status === "ALREADY_COVERED" %>
             <div class="col-xs-12 col-md-6">
-              <div class="field-label">Name of law firm	</div>
-              <div class="field-data"><%= @conflict_waiver.name_of_law_firm %></div>
-            </div>
-            <div class="col-xs-12 col-md-6">
-              <div class="field-label">Contact details</div>
-              <div class="field-data"><%= @conflict_waiver.contact_details %></div>
-            </div>
-            <div class="col-xs-12 col-md-6">
-              <div class="field-label">Internal Contact	</div>
-              <div class="field-data"><%= @conflict_waiver.bmo_business_contact %></div>
-            </div>
-            <div class="col-xs-12 col-md-6">
-              <div class="field-label">Reason for Request	</div>
-              <div class="field-data"><%= @conflict_waiver.reason %></div>
-            </div>
-            <div class="col-xs-12 col-md-6">
-              <div class="field-label">Internal Status</div>
-              <div class="field-data"><%=  @conflict_waiver.lxp_status_show  %></div>
-            </div>
-            <% if @conflict_waiver.lxp_status === "ALREADY_COVERED" %>
-             <div class="col-xs-12 col-md-6">
               <div class="field-label">Which part of the retainer covers</div>
               <div class="field-data"><%=  @conflict_waiver.retainer_cover   %></div>
             </div>
-            <% end%>
-            <div class="col-xs-12 col-md-6">
-              <div class="field-label">Internal Lawyer Status</div>
-              <div class="field-data"><%= @conflict_waiver.internal_lawyers_status_show %></div>
+          <% end%>
+          <div class="col-xs-12 col-md-6">
+            <div class="field-label">Internal Lawyer Status</div>
+            <div class="field-data"><%= @conflict_waiver.internal_lawyers_status_show %></div>
+          </div>
+          <% if @conflict_waiver.confirm_waiver === true %>
+            <div class="col-xs-12 col-md-12 confirm_waiver_notes" >
+              <p>It appears your request is covered by your retainer agreement with BMO and there is no need to submit this request. If you are unsure, please select "No" above to proceed with submitting the request</p>
             </div>
-            
-            <% if @conflict_waiver.confirm_waiver === true %>
-              <div class="col-xs-12 col-md-12 confirm_waiver_notes" >
-                <p>It appears your request is covered by your retainer agreement with BMO and there is no need to submit this request. If you are unsure, please select "No" above to proceed with submitting the request</p>
-              </div>
-            <% end %>	
+          <% end %>
+          <div class="col-xs-12 col-md-6">
+            <div class="field-label">Conflict Representing</div>
+            <div class="field-data"><%= @conflict_waiver.repesenting %></div>
+          </div>
+          <% if @conflict_waiver.repesenting === "Other Client" %>
             <div class="col-xs-12 col-md-6">
-              <div class="field-label">Conflict Representing</div>
-              <div class="field-data"><%= @conflict_waiver.repesenting %></div>
+              <div class="field-label">Name of other client(s)</div>
+              <div class="field-data"><%= @conflict_waiver.name_of_other_client %></div>
             </div>
-            <% if @conflict_waiver.repesenting === "Other Client" %>	
-              <div class="col-xs-12 col-md-6">
-                <div class="field-label">Name of other client(s)</div>
-                <div class="field-data"><%= @conflict_waiver.name_of_other_client %></div>
-              </div>
-                <div class="col-xs-12 col-md-6">
-                <div class="field-label">Description of transaction</div>
-                <div class="field-data"><%= @conflict_waiver.description_of_transaction %></div>
-              </div>
-                <div class="col-xs-12 col-md-6">
-                <div class="field-label">Describe the nature and extent of the mandate (e.g. negotiation, documentation, and closing of the transaction)</div>
-                <div class="field-data"><%= @conflict_waiver.nature_of_mandate %></div>
-              </div> 
-              <div class="col-xs-12 col-md-6">
-                <div class="field-label">Office location(s) of primary lawyer(s)</div>
-                <div class="field-data"><%= @conflict_waiver.office_locattion %></div>
-              </div>
-                <div class="col-xs-12 col-md-6">
-                <div class="field-label">Name of primary lawyer(s) managing the matter </div>
-                <div class="field-data"><%= @conflict_waiver.names_of_primary %></div>
-              </div>
-            <% end %>
-            <% if @conflict_waiver.repesenting === "BMO" %>
-                <div class="col-xs-12 col-md-6">
-                  <div class="field-label">Name of other client(s)</div>
-                  <div class="field-data"><%= @conflict_waiver.name_of_other_client %></div>
-                </div>
-                <div class="col-xs-12 col-md-6">
-                  <div class="field-label">Description of transaction</div>
-                  <div class="field-data"><%= @conflict_waiver.description_of_transaction %></div>
-                </div>
-                <!--div class="col-xs-12 col-md-6">
+            <div class="col-xs-12 col-md-6">
+              <div class="field-label">Description of transaction</div>
+              <div class="field-data"><%= @conflict_waiver.description_of_transaction %></div>
+            </div>
+            <div class="col-xs-12 col-md-6">
+              <div class="field-label">Describe the nature and extent of the mandate (e.g. negotiation, documentation, and closing of the transaction)</div>
+              <div class="field-data"><%= @conflict_waiver.nature_of_mandate %></div>
+            </div>
+            <div class="col-xs-12 col-md-6">
+              <div class="field-label">Office location(s) of primary lawyer(s)</div>
+              <div class="field-data"><%= @conflict_waiver.office_locattion %></div>
+            </div>
+            <div class="col-xs-12 col-md-6">
+              <div class="field-label">Name of primary lawyer(s) managing the matter </div>
+              <div class="field-data"><%= @conflict_waiver.names_of_primary %></div>
+            </div>
+          <% end %>
+          <% if @conflict_waiver.repesenting === "BMO" %>
+            <div class="col-xs-12 col-md-6">
+              <div class="field-label">Name of other client(s)</div>
+              <div class="field-data"><%= @conflict_waiver.name_of_other_client %></div>
+            </div>
+            <div class="col-xs-12 col-md-6">
+              <div class="field-label">Description of transaction</div>
+              <div class="field-data"><%= @conflict_waiver.description_of_transaction %></div>
+            </div>
+            <!--div class="col-xs-12 col-md-6">
                   <div class="field-label">Types Of Matters For Which Your Firm Represents Other Client</div>
                   <div class="field-data"><%= @conflict_waiver.types_of_matters.reject { |e| e.to_s.empty? }.join(', ') %></div>
                   
                 </div-->
-            <% end %>
-            <div class="col-xs-12 col-md-6">
-              <div class="field-label">Waiver Completely Approved</div>
-              <div class="field-data">
-                <% if @conflict_waiver.lxp_status == "APPROVED" || @conflict_waiver.lxp_status == "REJECTED" %>
-                  <%= @conflict_waiver.fully_approved? ? "Yes" : "No" %>
-                <% else %>
-                  <%= @conflict_waiver.fully_approved? ? "Yes" : "" %>
-                <% end %>
-              </div>
+          <% end %>
+          <div class="col-xs-12 col-md-6">
+            <div class="field-label">Waiver Completely Approved</div>
+            <div class="field-data">
+              <% if @conflict_waiver.lxp_status == "APPROVED" || @conflict_waiver.lxp_status == "REJECTED" %>
+                <%= @conflict_waiver.fully_approved? ? "Yes" : "No" %>
+              <% else %>
+                <%= @conflict_waiver.fully_approved? ? "Yes" : "" %>
+              <% end %>
             </div>
           </div>
         </div>
-        <div class="page-header-sp show-data-fields">
-          <div class="page-title">
-            <% if Current.user.role === "lxp" %>
-              Internal Status
-            <% elsif Current.user.role === "internal_lawyers" %>
-              Internal Lawyer Status
-            <% else %>
-              Status
-            <% end %>
-            <% if @conflict_waiver.lxp_status_show.present? %>
-                <span style=" color: #fff; "  class="<%= @conflict_waiver.lxp_status_show === "Approved" ? 'label label-success' : 'label label-default' %>"> 
-                Internal Status: <%= @conflict_waiver.try(:lxp_status_show).try(:titleize) %>
-                </span>
-            <% end %>
-            <% if @conflict_waiver.internal_lawyers_status_show.present? %>
-              <span style=" color: #fff; "  class="<%= @conflict_waiver.internal_lawyers_status_show === "Approve" ? 'label label-success' : 'label label-default' %>"> 
+      </div>
+      <div class="page-header-sp show-data-fields">
+        <div class="page-title">
+          <% if Current.user.role === "lxp" %>
+            Internal Status
+          <% elsif Current.user.role === "internal_lawyers" %>
+            Internal Lawyer Status
+          <% else %>
+            Status
+          <% end %>
+          <% if @conflict_waiver.lxp_status_show.present? %>
+            <span style=" color: #fff; "  class="<%= @conflict_waiver.lxp_status_show === "Approved" ? 'label label-success' : 'label label-default' %>">
+              Internal Status: <%= @conflict_waiver.try(:lxp_status_show).try(:titleize) %>
+            </span>
+          <% end %>
+          <% if @conflict_waiver.internal_lawyers_status_show.present? %>
+            <span style=" color: #fff; "  class="<%= @conflict_waiver.internal_lawyers_status_show === "Approve" ? 'label label-success' : 'label label-default' %>">
               Lawyer Status: <%= @conflict_waiver.try(:internal_lawyers_status_show).try(:titleize) %>
-              </span>
-            <% end %>
-          </div>
-          <div class="back-edit-actions"></div>
+            </span>
+          <% end %>
         </div>
-        <div class="sp-form-bg show-data-fields">
-          <div class="row conflictWaiverProcesss">
-            <%- if @conflict_waiver.can_user_change_status?(current_user) %>
+        <div class="back-edit-actions"></div>
+      </div>
+      <div class="sp-form-bg show-data-fields">
+        <div class="row conflictWaiverProcesss">
+          <%- if @conflict_waiver.can_user_change_status?(current_user) %>
             <div class="sp-form">
               <%= simple_form_for [:admin, Review.new()] do |f| %>
-              
-                  <div class="col-xs-12 col-md-12">
-                    <label class="label">Description</label>
-                    <%= f.input :description, label: false %>
-                    <%= f.input :reviewable_type, label: false, as: :hidden, input_html: { value: @conflict_waiver.class.to_s } %>
-                    <%= f.input :reviewable_id, label: false, as: :hidden, input_html: { value: @conflict_waiver.id } %>
+                <div class="col-xs-12 col-md-12">
+                  <label class="label">Description</label>
+                  <%= f.input :description, label: false %>
+                  <%= f.input :reviewable_type, label: false, as: :hidden, input_html: { value: @conflict_waiver.class.to_s } %>
+                  <%= f.input :reviewable_id, label: false, as: :hidden, input_html: { value: @conflict_waiver.id } %>
+                </div>
+                <%- if @current_user.role === "lxp" %>
+                  <div class="col-xs-12 col-md-6">
+                    <label class="label">Internal Status</label>
+                    <%= f.input :status, label: false, collection: ConflictWaiver::CONFLICT_WAIVER_STATUS_LXP.map{|value,key| [key, value]}%>
                   </div>
-                  <%- if @current_user.role === "lxp" %> 
-                    <div class="col-xs-12 col-md-6">
-                      <label class="label">Internal Status</label>
-                      <%= f.input :status, label: false, collection: ConflictWaiver::CONFLICT_WAIVER_STATUS_LXP.map{|value,key| [key, value]}%>
-                    </div>
-                  <% end %>  
-                  <%- if @current_user.role === "internal_lawyers" %>
-                    <div class="col-xs-12 col-md-6">
-                      <label class="label">Internal Lawyer Status</label>
-                      <%= f.input :status, label: false, collection: ConflictWaiver::CONFLICT_WAIVER_STATUS_LAWYER.map{|value,key| [key, value]}%>
-                    </div>
-                  <% end %> 
-                  <%- if @current_user.role === "lxp" %>
+                <% end %>
+                <%- if @current_user.role === "internal_lawyers" %>
+                  <div class="col-xs-12 col-md-6">
+                    <label class="label">Internal Lawyer Status</label>
+                    <%= f.input :status, label: false, collection: ConflictWaiver::CONFLICT_WAIVER_STATUS_LAWYER.map{|value,key| [key, value]}%>
+                  </div>
+                <% end %>
+                <%- if @current_user.role === "lxp" %>
                   <div style="display:none;" class="col-xs-12 col-md-6 internal_lawyers_box">
                     <label class="label">Assign to</label>
                     <%= f.input :assigned_to_id, label: false, collection: User.where(role: "internal_lawyers").map{|user| [user.email, user.id] } %>
@@ -174,25 +172,24 @@
                     <label class="label">Select which part of the retainer covers</label>
                     <%= f.input :retainer_cover, label: false, collection: ConflictWaiver::RETAINER_LANGUAGE_TYPE %>
                   </div>
-                  <% end %> 
-                  <div class="col-xs-12 col-md-12">
-                    <%= link_to 'Cancel', @conflict_waiver.new_record? ? admin_conflict_waiver_path : admin_conflict_waiver_path, class: 'btn-type-default' %>
-                    <%= f.button :submit, @conflict_waiver.new_record? ? "Submit Request" : "Update Status", class:  @current_user.role === "lxp  btn-type-primary" ? "lxp_sttaus btn-type-primary" : "laywr_status  btn-type-primary" %>
-                  </div>
+                <% end %>
+                <div class="col-xs-12 col-md-12">
+                  <%= link_to 'Cancel', @conflict_waiver.new_record? ? admin_conflict_waiver_path : admin_conflict_waiver_path, class: 'btn-type-default' %>
+                  <%= f.button :submit, @conflict_waiver.new_record? ? "Submit Request" : "Update Status", class:  @current_user.role === "lxp  btn-type-primary" ? "lxp_sttaus btn-type-primary" : "laywr_status  btn-type-primary" %>
+                </div>
               <% end %>
             </div>
-            <% end %>
-          </div>
-          <!-- end widget body text-->
+          <% end %>
         </div>
-        <!-- end widget content -->
+        <!-- end widget body text-->
       </div>
-      <!-- end widget div -->
+      <!-- end widget content -->
     </div>
-    <!-- end widget -->
+    <!-- end widget div -->
   </div>
-
-  <% if @conflict_waiver.reviews.count > 0 %>
+  <!-- end widget -->
+</div>
+<% if @conflict_waiver.reviews.count > 0 %>
   <div class="col-md-12">
     <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
       <div class="page-header-sp">
@@ -212,7 +209,7 @@
                   <div class="smart-timeline">
                     <ul class="smart-timeline-list">
                       <% @conflict_waiver.reviews.reverse.each do |review| %>
-                      <li data-id="<%= review.id %>">
+                        <li data-id="<%= review.id %>">
                           <div class="smart-timeline-icon">
                             R
                           </div>
@@ -228,26 +225,26 @@
                                 <% else %>
                                   <%= review.actor.email %> left a comment
                                 <% end %>
-                              <strong>
-                            </p>
-                            <p>
-                              <%= review.description.blank? ? "NA" : review.description %>
-                            </p>
-                          </div>
-                        </li>
-                      <% end %>
-                    </ul>
+                                <strong>
+                                </p>
+                                <p>
+                                  <%= review.description.blank? ? "NA" : review.description %>
+                                </p>
+                              </div>
+                            </li>
+                          <% end %>
+                        </ul>
+                      </div>
+                      <!-- END Timeline Content -->
+                    </div>
                   </div>
-                  <!-- END Timeline Content -->
                 </div>
+                <!-- end row -->
               </div>
+              <!-- END MAIN CONTENT -->
             </div>
-            <!-- end row -->
+            <!-- END MAIN PANEL -->
           </div>
-          <!-- END MAIN CONTENT -->
         </div>
-        <!-- END MAIN PANEL -->
       </div>
-    </div>
-  </div>
-  <% end %>
+    <% end %>
