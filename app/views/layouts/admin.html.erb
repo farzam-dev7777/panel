@@ -88,9 +88,17 @@
               <li class="<%= active_menu_item('/admin') %>">
                 <a href="/admin" title="Dashboard"><i class="fa fa-home" aria-hidden="true"></i> <span class="menu-item-parent">Dashboard</span></a>
               </li>
+							<li class=" <%= active_page?(:form_submissions) %>">
+                <a href="/admin/form_submissions" title="RFI"><i class="fa fa-list" aria-hidden="true"></i> <span class="menu-item-parent">Panel Selection</span></a>
+              </li>
               <li class=" <%= active_page?(:panel_law_firms) %>">
                 <a href="/admin/law_firms/panel_law_firms" title="Law Firms"><i class="fa fa-address-card" aria-hidden="true"></i> <span class="menu-item-parent">Panel Law firms</span></a>
               </li>
+							<% if current_user && ( current_user.role == 'internal_lawyers' || current_user.role == 'lxp') %>
+                <li class=" <%= active_page?(:matter_intakes) %>">
+                  <a href="/admin/matter_intakes" title="Matters"><i class="fa fa-users" aria-hidden="true"></i> <span class="menu-item-parent">Matters</span></a>
+                </li>
+              <% end %>
               <!-- <li class=" <%= active_page?(:panel_non_law_firms) %>">
                 <a href="/admin/law_firms/panel_non_law_firms" title="Law Firms"><i class="fa fa-address-card" aria-hidden="true"></i> <span class="menu-item-parent">Non Panel Law firms</span></a>
               </li>-->
@@ -99,14 +107,8 @@
                   <a href="/admin/conflict_waivers" title="Conflict Waiver"><i class="fa fa-question-circle" aria-hidden="true"></i> <span class="menu-item-parent">Conflict Waiver Requests</span></a>
                 </li>
               <% end %>
-              <% if current_user && ( current_user.role == 'internal_lawyers' || current_user.role == 'lxp') %>
-                <li class=" <%= active_page?(:matter_intakes) %>">
-                  <a href="/admin/matter_intakes" title="Matters"><i class="fa fa-users" aria-hidden="true"></i> <span class="menu-item-parent">Matters</span></a>
-                </li>
-              <% end %>
-              <li class=" <%= active_page?(:form_submissions) %>">
-                <a href="/admin/form_submissions" title="RFI"><i class="fa fa-list" aria-hidden="true"></i> <span class="menu-item-parent">Panel Selection</span></a>
-              </li>
+              
+              
               <!--<% if current_user && ( current_user.role == 'lob' || current_user.role == 'lxp' || current_user.role == 'internal_lawyers' ) %>
                 <li class=" <%= active_page?(:exception_requests) %>">
                   <a href="/admin/exception_requests" title="Non-Panel (one-off) Requests"><i class="fa fa-flag" aria-hidden="true"></i> <span class="menu-item-parent">Non-Panel (one-off) Requests</span></a>
