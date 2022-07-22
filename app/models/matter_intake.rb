@@ -273,21 +273,16 @@ class MatterIntake < ApplicationRecord
   ]
 
   MatterBePaidOptions = [
-    "BMO is paying",
-    "BMO is paying and will be reimbursed by a third party/customer",
+    "Bank is paying",
+    "Bank is paying and will be reimbursed by a third party/customer",
     "Third party/Customer paying law firm directly"
   ]
 
   LegalEntity = [
-    "Bank of Montreal",
-    "BMO Assurance",
-    "BMO Capital Markets",
-    "BMO Harris",
-    "BMO Invest",
-    "BMO Investorline",
-    "BMO Nesbitt CAD",
-    "BMO Trust Company",
-    "BMO USD"
+    "Option 1",
+    "Option 2",
+    "Option 3",
+    "Option 4"
   ]
 
   TypeOfPrice = [
