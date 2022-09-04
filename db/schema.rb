@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201224183819) do
+ActiveRecord::Schema.define(version: 20220904033018) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -201,6 +201,7 @@ ActiveRecord::Schema.define(version: 20201224183819) do
     t.datetime "created_at",                                                       null: false
     t.datetime "updated_at",                                                       null: false
     t.text     "matter_types"
+    t.string   "law_firm_name"
     t.string   "business_manager_name"
     t.string   "business_manager_phone"
     t.string   "business_manager_email"
@@ -236,8 +237,6 @@ ActiveRecord::Schema.define(version: 20201224183819) do
     t.text     "receive_personal_information_data_type"
     t.text     "receive_general_business_data_type"
     t.text     "applicable_technical_specialty_data_type"
-    t.string   "law_frim_name"
-    t.string   "law_firm_name"
     t.string   "law_firm_email"
     t.string   "law_firm_phone"
     t.string   "firm_use_on_regular_basis"
@@ -830,7 +829,7 @@ ActiveRecord::Schema.define(version: 20201224183819) do
     t.text     "docusign_refresh_token"
     t.datetime "docusign_token_expires_at"
     t.string   "lxp_name",                  default: "Manpreet"
-    t.string   "lxp_email",                 default: "manpreet@grcconsulting.ca"
+    t.string   "lxp_email",                 default: "manpreet@metawarelabs.com"
     t.string   "panel_status",              default: "No"
   end
 
@@ -921,6 +920,9 @@ ActiveRecord::Schema.define(version: 20201224183819) do
     t.string   "two_fa_key"
     t.datetime "two_fa_key_expires_at"
     t.string   "status"
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "okta_group"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end

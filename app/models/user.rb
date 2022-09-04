@@ -8,6 +8,8 @@ class User < ApplicationRecord
          :recoverable, :trackable, 
          :authentication_keys => [:username]
 
+  devise :omniauthable, omniauth_providers: [:okta]
+
   has_one :law_firm
   has_many :activity_logs, as: :loggable
 
@@ -170,6 +172,51 @@ class User < ApplicationRecord
 
   def is_deactivated?
     self.deactivated_at.present?
+  end
+
+  def self.from_omniauth(auth)
+    headers = {
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+      "Authorization": "SSWS #{Rails.application.secrets[:okta]['api_token']}"
+    }
+    begin
+      response = RestClient.get("#{Rails.application.secrets[:okta]['site']}/api/v1/users/#{auth['uid']}/groups", headers=headers)
+      # response = RestClient.get("#{Rails.application.secrets[:okta]['site']}/api/v1/users/#{auth['uid']}", headers=headers)
+      result = JSON.parse(response&.body) if response&.body.present?
+
+      user_groups = result.select {|group| group['type'] === "OKTA_GROUP" } if result.present?
+      user_group = user_groups.first
+      # If user_group present then we find or create user in our database
+      if user_group.present?
+        group_name = user_group.fetch('profile', {}).fetch('name', "")
+        if group_name.present?
+          case group_name
+            when "Panel - Internal Lawyers"
+              role = "internal_lawyers"
+            when "Panel - LXP"
+              role = "lxp"
+            when "Panel - LOB"
+              role = "lob"
+            else
+              role = ""
+          end
+
+          user = User.find_or_create_by(email: auth['info']['email']) do |user|
+            user.provider = auth['provider']
+            user.uid = auth['uid']
+            user.email = auth['info']['email']
+            user.okta_group = group_name
+            user.password = "OktaMetaware@123"
+            user.password_confirmation = "OktaMetaware@123"
+            user.role = role
+          end
+        end
+      end
+    rescue RestClient::ExceptionWithResponse => e
+      # e.response
+      user = nil
+    end
   end
 
 end

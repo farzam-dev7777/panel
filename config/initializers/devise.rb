@@ -1,3 +1,4 @@
+require 'omniauth-okta'
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
@@ -248,7 +249,18 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
-
+  config.omniauth(:okta,
+                  Rails.application.secrets[:okta]["client_id"],
+                  Rails.application.secrets[:okta]["client_secret"],
+                  scope: 'openid profile email',
+                  client_options: {
+                    site:          Rails.application.secrets[:okta]['site'],
+                    authorize_url: "#{Rails.application.secrets[:okta]['site']}/oauth2/default/v1/authorize",
+                    token_url:     "#{Rails.application.secrets[:okta]['site']}/oauth2/default/v1/token",
+                    user_info_url: "#{Rails.application.secrets[:okta]['site']}/oauth2/default/v1/userinfo",
+                    issuer: "#{Rails.application.secrets[:okta]['site']}/oauth2/default",
+                  },
+                  strategy_class: OmniAuth::Strategies::Okta)
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.

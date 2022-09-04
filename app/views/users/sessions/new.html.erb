@@ -57,6 +57,8 @@
               <%= f.submit "Login", class: 'btn-type-primary' %>  
             </div>
           <% end %>
+          <span>Or</span>
+          <%= link_to 'Sign in via Okta', user_okta_omniauth_authorize_path, method: :post %>
         </div>
         <div class="sp-powered">
           <div>Powered By</div>
