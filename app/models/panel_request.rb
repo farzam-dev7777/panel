@@ -10,7 +10,7 @@ class PanelRequest < ApplicationRecord
   has_many :reviews, as: :reviewable
 
 
-  LOB_LIST = ["Canadian P&C / Services bancaires Particuliers et entreprises - Canada","Capital Markets / Marché des capitaux","Corporate / Services d'entreprise","Technology & Operations / Technologie et opérations (T&O)","US P&C / Services bancaires Particuliers et entreprises - É.-U.","Wealth Management / Gestion de patrimonie"]
+  LOB_LIST = ["Retail/Commercial / Services bancaires Particuliers et entreprises - Canada","Capital Markets / Marché des capitaux","Corporate / Services d'entreprise","Technology & Operations / Technologie et opérations (T&O)","US P&C / Services bancaires Particuliers et entreprises - É.-U.","Wealth Management / Gestion de patrimonie"]
   REQUEST_TYPE = {
     "EXCEPTION": "Exception",
     "ADD_TO_LAW_FIRM_PANEL": "Add to Law Firm Panel"
