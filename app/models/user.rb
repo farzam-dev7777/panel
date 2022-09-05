@@ -194,9 +194,9 @@ class User < ApplicationRecord
           case group_name
             when "Panel - Internal Lawyers"
               role = "internal_lawyers"
-            when "Panel - LXP"
+            when "Panel - Master User"
               role = "lxp"
-            when "Panel - LOB"
+            when "Panel - Business User"
               role = "lob"
             else
               role = ""
