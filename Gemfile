@@ -61,6 +61,8 @@ gem 'mailjet'
 gem 'activesupport-current_attributes'
 
 gem 'rails-breadcrumbs'
+gem 'omniauth-okta'
+gem 'rest-client'
 
 gem  'nokogiri'
 gem 'acts_as_commentable_with_threading'

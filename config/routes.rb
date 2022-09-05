@@ -299,7 +299,8 @@ Rails.application.routes.draw do
   devise_for :users, skip: [:registrations], controllers: { 
     sessions: 'users/sessions',
     passwords: 'users/passwords',
-    registrations: 'users/registrations'
+    registrations: 'users/registrations',
+    omniauth_callbacks: 'users/omniauth_callbacks'
   }
   as :user do 
     get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'    
