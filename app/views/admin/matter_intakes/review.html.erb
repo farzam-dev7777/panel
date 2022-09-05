@@ -65,7 +65,7 @@
       <div class="field-data"><%= @matter_intake.bmo_lawyer_name %></div>
     </div>
     <div class="col-xs-12 col-md-6">
-      <div class="field-label">Budget amount, if already negotiated with the law firm</div>
+      <div class="field-label">PO amount</div>
       <div class="field-data"><%= @matter_intake.budget_amount %></div>
     </div>
     <div class="col-xs-12 col-md-6">
@@ -97,7 +97,7 @@
       <div class="field-data"><%= @matter_intake.additional_comments_for_lrc_lawyer %></div>
     </div>
     <div class="col-xs-12 col-md-6">
-      <div class="field-label matter_intake_outside_counsel_engaged_value" data-value="<%= @matter_intake.outside_counsel_engaged %>">Is outside counsel being engaged?</div>
+      <div class="field-label matter_intake_outside_counsel_engaged_value" data-value="<%= @matter_intake.outside_counsel_engaged %>">Engage External Counsel?</div>
       <div class="field-data"><%= @matter_intake.outside_counsel_engaged %></div>
     </div>
     <div class="col-xs-12 col-md-6">
@@ -105,7 +105,7 @@
       <div class="field-data"><%= @matter_intake.firm_type %></div>
     </div>
     <div class="col-xs-12 col-md-6">
-      <label class="field-label">Is this a syndicate matter</label>
+      <label class="field-label">Is this a syndicated matter</label>
       <div class="field-data"><%= @matter_intake.is_syndicate_matter %></div>
     </div>
     <% if @matter_intake.firm_type === "Non-Panel" || @matter_intake.firm_type === "Panel & Non-Panel Firms"  %>
@@ -305,7 +305,7 @@
             <%= f.input :additional_comments_for_lrc_lawyer, label: false %>
           </div>-->
           <!--<div class="col-xs-12 col-md-6">
-            <label  class="label">Is outside counsel being engaged?<span class="mandatory">*</span></label>
+            <label  class="label">Engage External Counsel?<span class="mandatory">*</span></label>
             <%= f.input :outside_counsel_engaged, label: false, collection: [['Yes', true], ["No", false]] %>
           </div>-->
           <!-- will show next fields on basis of above field value-->
@@ -362,7 +362,7 @@
             <%= f.input :afa_details, label: false %>
           </div>
           <!--<div class="col-xs-12 col-md-6">
-            <label class="label">Budget amount, if already negotiated with the law firm</label>
+            <label class="label">PO amount</label>
             <%= f.input :budget_amount, label: false %>
           </div>-->
           <div class="col-xs-12 col-md-12">

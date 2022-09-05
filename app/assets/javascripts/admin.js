@@ -1435,7 +1435,7 @@ function setMatterIntakeBusinessGroupOptions(value) {
 	var group_value = $("#matter_intake_group_paying_for_matter").attr("data-value");
 	var options = "<option value=''> Select option</option>";
 	switch(value) {
-		case "Canadian P&C":
+		case "Retail/Commercial":
 			valueArray = ["Business Banking","Commercial Banking - ABL","Commercial Banking - Auto Finance","Commercial Banking - BMO Capital Partners & M&A","Commercial Banking - Corporate Finance","Commercial Banking - Diversified Industries","Commercial Banking - Equipment Leasing","Commercial Banking - Media","Commercial Banking - Other (Regions)","Commercial Banking - Overhead & Support","Commercial Banking - Real Estate Lending","Commercial Banking - Retail Dealer Finance","Commercial Banking - Sponsor Coverage","Commercial Banking - Tranportation Finance","Commercial Banking - Treasury & Payment Solutions","Electronic Banking Services","Other - Customer Contact Centres","Other - Distribution Services","Other - Headquarters","Other - Investment Plan","Personal Banking - Everyday Banking","Personal Banking - Home Financing & Retail Lending","Personal Banking - NA Retail Payments","Personal Banking - Office of the COO","Personal Banking - Sales & Distribution","Personal Banking - SVP Program","Personal Banking - Term Deposits"];
 			for (var i = 0; i < valueArray.length; i++) {
 				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
