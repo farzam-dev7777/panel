@@ -206,14 +206,16 @@ class User < ApplicationRecord
             user.first_name = auth['info']['first_name']
             user.last_name = auth['info']['last_name']
             user.provider = auth['provider']
-            user.uid = auth['uid']
+            user.provider_uid = auth['uid']
             user.email = auth['info']['email']
-            user.okta_group = group_name
+            user.provider_group = group_name
             user.password = random_password
             user.password_confirmation = random_password
             user.role = role
+            user.new_password_set = true
           end
           user.save
+          user
         end
       end
     rescue RestClient::ExceptionWithResponse => e
@@ -221,5 +223,4 @@ class User < ApplicationRecord
       user = nil
     end
   end
-
 end

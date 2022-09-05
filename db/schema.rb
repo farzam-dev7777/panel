@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20220904033018) do
+ActiveRecord::Schema.define(version: 20220905050219) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -823,13 +823,13 @@ ActiveRecord::Schema.define(version: 20220904033018) do
 
   create_table "system_settings", force: :cascade do |t|
     t.float    "score_threshold"
-    t.datetime "created_at",                                                      null: false
-    t.datetime "updated_at",                                                      null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
     t.text     "docusign_access_token"
     t.text     "docusign_refresh_token"
     t.datetime "docusign_token_expires_at"
-    t.string   "lxp_name",                  default: "Manpreet"
-    t.string   "lxp_email",                 default: "manpreet@metawarelabs.com"
+    t.string   "lxp_name",                  default: ""
+    t.string   "lxp_email",                 default: ""
     t.string   "panel_status",              default: "No"
   end
 
@@ -921,8 +921,8 @@ ActiveRecord::Schema.define(version: 20220904033018) do
     t.datetime "two_fa_key_expires_at"
     t.string   "status"
     t.string   "provider"
-    t.string   "uid"
-    t.string   "okta_group"
+    t.string   "provider_uid"
+    t.string   "provider_group"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
