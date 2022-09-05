@@ -48,7 +48,7 @@ gem 'jquery-rails'
 
 gem 'jquery-ui-rails', '~> 5.0.5'
 gem 'rails-jquery-ui-sortable'
-gem 'carrierwave', github: 'carrierwaveuploader/carrierwave', branch: :master
+gem 'carrierwave'#, github: 'carrierwaveuploader/carrierwave', branch: :master
 gem 'amoeba'
 gem "cancan"
 gem 'jbuilder', '~> 2.5'
