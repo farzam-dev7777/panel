@@ -203,6 +203,8 @@ class User < ApplicationRecord
           end
 
           user = User.find_or_create_by(email: auth['info']['email']) do |user|
+            user.first_name = auth['info']['first_name']
+            user.last_name = auth['info']['last_name']
             user.provider = auth['provider']
             user.uid = auth['uid']
             user.email = auth['info']['email']
