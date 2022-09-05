@@ -124,13 +124,13 @@ class MatterIntake < ApplicationRecord
     :business_paying_for_matter => "Business/Group paying for this matter (level 1)",
     :group_paying_for_matter => "Business/Group paying for this matter (level 2)",
     :work_area_type => "Work Area Level 2",
-    :is_syndicate_matter => "Is this a syndicate matter",
+    :is_syndicate_matter => "Is this a syndicated matter",
     :is_conceal_imanage_workspace => "Conceal iManage Workspace",
     :is_paper_file => "Paper file",
     :firm_type => "Panel or Non-Panel Firm",
     :asset => "Document",
-    :outside_counsel_engaged => "Is outside counsel being engaged",
-    :is_ore_reportable => "Is this matter ORE reportable",
+    :outside_counsel_engaged => "Engage External Counsel",
+    :is_ore_reportable => "Should this matter be reported to Risk",
     :is_otherwise_reportable => "Is this matter otherwise reportable",
     :can_reimbursed_matter => "Could this matter be reimbursed"
   }
@@ -148,7 +148,7 @@ class MatterIntake < ApplicationRecord
   ]
 
   LegalGroupBMOLawyer = [
-    "Canadian P&C",
+    "Retail/Commercial",
     "Capital Markets",
     "Corporate Affairs",
     "Regulatory",
@@ -181,11 +181,6 @@ class MatterIntake < ApplicationRecord
   ]
 
   Jurisdiction = [
-    "AFRICA",
-    "ASIA (NOT CHINA)",
-    "ASIA PACIFIC & OCEANIA (NOT HONG KONG)",
-    "BARBADOS",
-    "BRAZIL",
     "CANADA",
     "CANADA - ALBERTA",
     "CANADA - BRITISH COLUMBIA",
@@ -200,6 +195,11 @@ class MatterIntake < ApplicationRecord
     "CANADA - QUEBEC",
     "CANADA - SASKATCHEWAN",
     "CANADA - YUKON",
+    "AFRICA",
+    "ASIA (NOT CHINA)",
+    "ASIA PACIFIC & OCEANIA (NOT HONG KONG)",
+    "BARBADOS",
+    "BRAZIL",
     "CENTRAL AMERICA",
     "CHINA",
     "EUROPE (NOT UK OR IRELAND)",
@@ -265,10 +265,9 @@ class MatterIntake < ApplicationRecord
   ]
 
   Business = [
-    "Canadian P&C",
+    "Retail/Commercial",
     "Capital Markets",
     "Corporate",
-    "U.S. P&C",
     "Wealth Management"
   ]
 
@@ -311,9 +310,9 @@ class MatterIntake < ApplicationRecord
 
   OutsideCounselEngaged = [
     "Yes, organization pays",
-    "Yes, third party/customer paying law firm directly",
-    "Yes, organization is paying and will be reimbursed by third party/customer",
-    "N/A Internal – no law firm will be engaged"
+    "Yes, customer/third party pays directly",
+    "Yes, organization will be reimbursed by customer/third party",
+    "No"
   ]
 
   StageOfLitigation = [

@@ -43,7 +43,7 @@
         <%= f.input :lawyer_id, as: :hidden, label: false %>
       </div>
       <div class="col-xs-12 col-md-6">
-        <label  class="label">Is outside counsel being engaged?<span class="mandatory">*</span></label>
+        <label  class="label">Engage External Counsel?<span class="mandatory">*</span></label>
         <%= f.input :outside_counsel_engaged, label: false, collection: MatterIntake::OutsideCounselEngaged %>
       </div>
       <div class="col-xs-12 col-md-6 outside_counsel_engaged">
@@ -67,7 +67,7 @@
         <%= f.input :group_paying_for_matter, label: false, collection: [], input_html: { data: {value: "#{@matter_intake&.group_paying_for_matter}"} } %>
       </div>
       <div class="col-xs-12 col-md-6">
-        <label  class="label">Budget amount, if already negotiated with the law firm</label>
+        <label  class="label">PO amount</label>
         <%= f.input :budget_amount, label: false %>
       </div>
       <div class="col-xs-12 col-md-6">
@@ -95,7 +95,7 @@
         <%= f.input :additional_comments_for_lrc_lawyer, label: false %>
       </div>
       <div class="col-xs-12 col-md-6">
-        <label class="label">Is this a syndicate matter?<span class="mandatory">*</span></label>
+        <label class="label">Is this a syndicated matter?<span class="mandatory">*</span></label>
         <%= f.input :is_syndicate_matter, label: false, as: :select, collection: [['Yes, we are the lead organization', 'Yes, we are the lead organization'],["Yes, we are not the lead organization", "Yes, we are not the lead organization"], ["No", "No"]]  %>
       </div>
       <div class="col-xs-12 col-md-6 upload-file-control ">

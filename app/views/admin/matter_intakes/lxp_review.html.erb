@@ -105,7 +105,7 @@
               </div>
               <% if @matter_intake.work_area === "Regulatory" && @matter_intake.form_type != "litigation" %> 
                 <div class="col-xs-12 col-md-6">
-                  <div class="field-label">Is this matter ORE reportable?</div>
+                  <div class="field-label">Should this matter be reported to Risk?</div>
                   <div class="field-data">
                     <%= @matter_intake.is_ore_reportable %>
                     <input type="hidden" id="litigation_reporting" value="<%= @matter_intake.is_ore_reportable %>" />
@@ -157,7 +157,7 @@
     </div>
   <% end %>
   <div class="col-xs-12 col-md-6">
-    <div class="field-label">Is this a syndicate matter?</div>
+    <div class="field-label">Is this a syndicated matter?</div>
     <div class="field-data"><%= @matter_intake.is_syndicate_matter %></div>
   </div>
   <div class="col-xs-12 col-md-6">
@@ -211,7 +211,7 @@
     <div class="field-data"><%= @matter_intake.jurisdiction %></div>
   </div>
   <div class="col-xs-12 col-md-6">
-    <div class="field-label">Is outside counsel being engaged?</div>
+    <div class="field-label">Engage External Counsel?</div>
     <div class="field-data"><%= @matter_intake.outside_counsel_engaged %></div>
   </div>
   <div class="col-xs-12 col-md-6">
@@ -294,7 +294,7 @@
               </div-->
   <% if @matter_intake.user_id.present? %>
     <div class="col-xs-12 col-md-6">
-      <div class="field-label">Budget amount, if already negotiated with the law firm</div>
+      <div class="field-label">PO amount</div>
       <div class="field-data"><%= @matter_intake.budget_amount %></div>
     </div>
   <% end %>
@@ -495,7 +495,7 @@
       <div class="inner-form-field form-flex-wrap">
         <% if @matter_intake.work_area === "Regulatory" %>
           <div class="col-xs-12 col-md-6">
-            <div class="field-label">Is this matter ORE reportable?</div>
+            <div class="field-label">Should this matter be reported to Risk?</div>
             <div class="field-data"><%= @matter_intake.is_ore_reportable %></div>
             <input type="hidden" id="litigation_reporting" value="<%= @matter_intake.is_ore_reportable %>" />
           </div>
