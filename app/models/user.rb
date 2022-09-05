@@ -213,6 +213,7 @@ class User < ApplicationRecord
             user.password_confirmation = random_password
             user.role = role
           end
+          user.save
         end
       end
     rescue RestClient::ExceptionWithResponse => e
