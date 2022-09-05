@@ -14,7 +14,7 @@ class ExceptionRequest < ApplicationRecord
   serialize :receive_general_business_data_type, Array
   serialize :applicable_technical_specialty_data_type, Array
   
-  LOB_LIST = ["Canadian P&C / Services bancaires Particuliers et entreprises - Canada","Capital Markets / Marché des capitaux","Corporate / Services d'entreprise","Technology & Operations / Technologie et opérations (T&O)","US P&C / Services bancaires Particuliers et entreprises - É.-U.","Wealth Management / Gestion de patrimonie"]
+  LOB_LIST = ["Retail/Commercial / Services bancaires Particuliers et entreprises - Canada","Capital Markets / Marché des capitaux","Corporate / Services d'entreprise","Technology & Operations / Technologie et opérations (T&O)","US P&C / Services bancaires Particuliers et entreprises - É.-U.","Wealth Management / Gestion de patrimonie"]
   REQUEST_TYPE = {
     "EXCEPTION": "Exception",
     "ADD_TO_LAW_FIRM_PANEL": "Add to Law Firm Panel"
