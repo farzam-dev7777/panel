@@ -201,7 +201,7 @@ class User < ApplicationRecord
             else
               role = ""
           end
-
+          random_password = "#{SecureRandom.hex(18)}@A123"
           user = User.find_or_create_by(email: auth['info']['email']) do |user|
             user.first_name = auth['info']['first_name']
             user.last_name = auth['info']['last_name']
@@ -209,8 +209,8 @@ class User < ApplicationRecord
             user.uid = auth['uid']
             user.email = auth['info']['email']
             user.okta_group = group_name
-            user.password = "OktaMetaware@123"
-            user.password_confirmation = "OktaMetaware@123"
+            user.password = random_password
+            user.password_confirmation = random_password
             user.role = role
           end
         end
