@@ -22,7 +22,7 @@
       </div>
       <% if @form_type === 'general' || @matter_intake&.form_type === 'general' %>
         <div class="col-xs-12 col-md-6 work_area_reportable">
-          <label class="label">Is this matter ORE reportable?<span class="mandatory">*</span></label>
+          <label class="label">Should this matter be reported to Risk?<span class="mandatory">*</span></label>
           <%= f.input :is_ore_reportable, label: false, collection: [['Yes', 'Yes'], ["No", "No"]] %>
         </div>
         <div class="col-xs-12 col-md-6 work_area_reportable">
@@ -71,21 +71,21 @@
         </div>
       <% end %>
       <div class="col-xs-12 col-md-6">
-        <label class="label">Is this a syndicated matter?<span class="mandatory">*</span></label>
+        <label class="label">Is this a joint matter?<span class="mandatory">*</span></label>
         <%= f.input :is_syndicate_matter, label: false, as: :select, collection: [['Yes, we are the lead organization', 'Yes, we are the lead organization'],["Yes, we are not the lead organization", "Yes, we are not the lead organization"], ["No", "No"]]  %>
       </div>
       <div class="col-xs-12 col-md-6">
-        <label class="label">Conceal iManage Workspace?<span class="mandatory">*</span></label>
+        <label class="label">Is this a coded project?<span class="mandatory">*</span></label>
         <%= f.input :is_conceal_imanage_workspace, label: false, collection: [['Yes', 'Yes'], ["No", "No"]], :selected => @matter_intake.new_record? ? 'No' : @matter_intake.is_conceal_imanage_workspace %>
       </div>
       <div class="col-xs-12 col-md-6 who_requires_imanager_workspace">
         <label class="label">Who requires access to the iManage workspace?<span class="mandatory">*</span></label>
         <%= f.input :who_requires_access_to_imanage_workspace, label: false %>
       </div>
-      <div class="col-xs-12 col-md-6">
+      <!--<div class="col-xs-12 col-md-6">
         <label class="label">Paper file?<span class="mandatory">*</span></label>
         <%= f.input :is_paper_file, label: false, collection: [['Yes', 'Yes'], ["No", "No"]], :selected => @matter_intake.new_record? ? 'No' : @matter_intake.is_paper_file %>
-      </div>
+      </div> -->
       <div class="col-xs-12 col-md-6">
         <label class="label">Matter name<span class="mandatory">*</span></label>
         <%= f.input :name_of_matter_client, label: false %>
@@ -100,11 +100,11 @@
       </div>
     -->
       <div class="col-xs-12 col-md-6">
-        <label class="label">Business/Group paying for this matter (level 1)<span class="mandatory">*</span></label>
+        <label class="label">Payment for external counsel engagement by (level 1)<span class="mandatory">*</span></label>
         <%= f.input :business_paying_for_matter, label: false, collection: MatterIntake::Business %>
       </div>
       <div class="col-xs-12 col-md-6">
-        <label class="label">Business/Group paying for this matter (level 2)<span class="mandatory">*</span></label>
+        <label class="label">Payment for external counsel engagement by (level 2)<span class="mandatory">*</span></label>
         <%= f.input :group_paying_for_matter, label: false, collection: [], input_html: { data: {value: "#{@matter_intake&.group_paying_for_matter}"} } %>
       </div>
       <% if @form_type == "litigation" || @matter_intake&.form_type == "litigation" %>
@@ -334,7 +334,7 @@
           <div class="inner-label">Reporting</div>
           <div class="inner-form-field form-flex-wrap">
             <div class="col-xs-12 col-md-6 work_area_reportable work_area_reportable_litigation" style="<%= @form_type === 'general' ? 'display: none;' : '' %>">
-              <label class="label">Is this matter ORE reportable?<span class="mandatory">*</span></label>
+              <label class="label">Should this matter be reported to Risk?<span class="mandatory">*</span></label>
               <%= f.input :is_ore_reportable, label: false, collection: [['Yes', 'Yes'], ["No", "No"]] %>
             </div>
             <div class="col-xs-12 col-md-6 work_area_reportable work_area_reportable_litigation" style="<%= @form_type === 'general' ? 'display: none;' : '' %>">

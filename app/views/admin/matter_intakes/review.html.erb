@@ -212,7 +212,7 @@
           </div>
           <% if @matter_intake.matter_type.matter_type === "Regulatory / Réglementation" && @matter_intake.form_type != "litigation" %>
             <div class="col-xs-12 col-md-6">
-              <label class="label">Is this matter ORE reportable?<span class="mandatory">*</span></label>
+              <label class="label">Should this matter be reported to Risk?<span class="mandatory">*</span></label>
               <%= f.input :is_ore_reportable, label: false, collection: [['Yes', 'Yes'], ["No", "No"]] %>
             </div>
             <div class="col-xs-12 col-md-6">

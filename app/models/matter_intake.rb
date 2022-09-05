@@ -130,7 +130,7 @@ class MatterIntake < ApplicationRecord
     :firm_type => "Panel or Non-Panel Firm",
     :asset => "Document",
     :outside_counsel_engaged => "Engage External Counsel",
-    :is_ore_reportable => "Is this matter ORE reportable",
+    :is_ore_reportable => "Should this matter be reported to Risk",
     :is_otherwise_reportable => "Is this matter otherwise reportable",
     :can_reimbursed_matter => "Could this matter be reimbursed"
   }
@@ -148,7 +148,7 @@ class MatterIntake < ApplicationRecord
   ]
 
   LegalGroupBMOLawyer = [
-    "Canadian P&C",
+    "Retail/Commercial",
     "Capital Markets",
     "Corporate Affairs",
     "Regulatory",
