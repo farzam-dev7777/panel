@@ -273,21 +273,16 @@ class MatterIntake < ApplicationRecord
   ]
 
   MatterBePaidOptions = [
-    "BMO is paying",
-    "BMO is paying and will be reimbursed by a third party/customer",
+    "Bank is paying",
+    "Bank is paying and will be reimbursed by a third party/customer",
     "Third party/Customer paying law firm directly"
   ]
 
   LegalEntity = [
-    "Bank of Montreal",
-    "BMO Assurance",
-    "BMO Capital Markets",
-    "BMO Harris",
-    "BMO Invest",
-    "BMO Investorline",
-    "BMO Nesbitt CAD",
-    "BMO Trust Company",
-    "BMO USD"
+    "Option 1",
+    "Option 2",
+    "Option 3",
+    "Option 4"
   ]
 
   TypeOfPrice = [
@@ -315,9 +310,9 @@ class MatterIntake < ApplicationRecord
   FirmType = ['Panel', 'Non-Panel', 'Panel & Non-Panel Firms']
 
   OutsideCounselEngaged = [
-    "Yes, bank pay",
+    "Yes, organization pays",
     "Yes, third party/customer paying law firm directly",
-    "Yes, BMO is paying and will be reimbursed by a third party/customer",
+    "Yes, organization is paying and will be reimbursed by third party/customer",
     "N/A Internal – no law firm will be engaged"
   ]
 

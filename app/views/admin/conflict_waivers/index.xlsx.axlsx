@@ -16,9 +16,9 @@ wb.styles do |style|
       "Date Submitted", 
       "Name of law firm",
       "Contact details",
-      "BMO contact",
+      "Internal Contact",
       "Reason for Request",
-      "LXP Status",
+      "Internal Status",
       "Internal Lawyer Status",
       "Waiver Completely Approved"
       ], style: heading

@@ -1,84 +1,80 @@
 <% content_for :page_title do %>
-<span>Non-Panel (one-off) Requests</span>
+  <span>Non-Panel (one-off) Requests</span>
 <% end %>
 <div class="clearfix"></div>
 <div class="col-lg-12">
   <div class="jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
-    
     <div class="page-header-sp m-top">
       <div class="page-title">Non-Panel (one-off) Requests</div>
       <div>
         <!-- <%= link_to 'Submit New Non-Panel (one-off) Request', engage_non_panel_firm_lob_exception_requests_path, html_options = {class: 'page-header-btn'}   %> -->
-       
       </div>
     </div>
-
-
     <% if current_user.role == "lob" %>
-		  <div class="no-padding">
-				<div class="widget-body">
-					<div id="myTabContent" class="tab-content">
-						<div class="tab-pane fade active in padding-10 no-padding-bottom" id="s1">
-							<div class="row no-space text-center">
-								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-									<p><b><%= certification_status(current_law_firm) %></b> 
-									<b></b></p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-      </div>
-    <% end %>  
-    <!-- widget div-->
-    <div>
-      <!-- Search filter -->
-        <div class="search-filter-sp">
-          <div class="sp-filter">
-            <div class="accordion" id="sp-filter">
-              <div class="card z-depth-0">
-                <div class="card-header" id="headingThree">
-                  <div class="action-buttons-alignment">
-                    <a class="export-icon right-action-btns add-button" href="<%= engage_non_panel_firm_lob_exception_requests_path %>">
-                      <%= image_tag "add.svg", alt:"Submit New Non-Panel (one-off) Request" %> <span>Add</span>
-                    </a>
-                  </div>
-                  <div class="collapsed filter-title" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                    <%= image_tag "filter-icon.svg", alt:"score" %>
-                    <span>Filter</span>
-                  </div>
-                </div>
-                <div id="collapseThree" class="col-md-12 collapse sp-filter-fields" aria-labelledby="headingThree" data-parent="#sp-filter">
-                  <div class="card-body sp-form">
-                    <%= search_form_for [:lob, @q] do |f| %>
-                      <div class="row">
-                        <!--<div class="col-xs-12">
-                          <h2 style="margin: 0px 0px 10px;">Search Filter</h2>
-                        </div> -->
-                        <div class="col-xs-12 col-sm-4">
-                          <%= f.label :requested_by_cont, label: false, :class => 'label'  %>
-                          <%= f.search_field :requested_by_cont, :class => 'sp-form-control' %>
-                        </div>
-                        <div class="col-xs-12 col-sm-4">
-                          <%= f.label :submitted_by_email_cont, :class => 'label' %>
-                          <%= f.search_field :submitted_by_email_cont, :class => 'sp-form-control' %>
-                        </div>
-                        <div class="col-xs-12 col-sm-4">
-                          <%= f.label :law_firm_id_eq, :class => 'label' %>
-                          <%= f.select :law_firm_id_eq, options_from_collection_for_select(LawFirm.all, "id", "name", @q.law_firm_id_eq), {:include_blank => 'Select law firm'}, :class => 'sp-form-control' %>
-                        </div>
-                        <div class="col-xs-12 text-right" style="margin-top: 20px;">
-                          <%= f.submit "Search", class: "btn-type-primary input-btn m-right" %>
-                          <%= f.submit "Reset", type: "reset", value: "Reset",  class: "btn-type-default input-btn" %>
-                        </div>
-                      </div>        
-                    <% end %>
-                  </div>
+      <div class="no-padding">
+        <div class="widget-body">
+          <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade active in padding-10 no-padding-bottom" id="s1">
+              <div class="row no-space text-center">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                  <p><b><%= certification_status(current_law_firm) %></b>
+                    <b></b></p>
                 </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
+    <% end %>
+    <!-- widget div-->
+    <div>
+      <!-- Search filter -->
+      <div class="search-filter-sp">
+        <div class="sp-filter">
+          <div class="accordion" id="sp-filter">
+            <div class="card z-depth-0">
+              <div class="card-header" id="headingThree">
+                <div class="action-buttons-alignment">
+                  <a class="export-icon right-action-btns add-button" href="<%= engage_non_panel_firm_lob_exception_requests_path %>">
+                    <%= image_tag "add.svg", alt:"Submit New Non-Panel (one-off) Request" %> <span>Add</span>
+                  </a>
+                </div>
+                <div class="collapsed filter-title" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  <%= image_tag "filter-icon.svg", alt:"score" %>
+                  <span>Filter</span>
+                </div>
+              </div>
+              <div id="collapseThree" class="col-md-12 collapse sp-filter-fields" aria-labelledby="headingThree" data-parent="#sp-filter">
+                <div class="card-body sp-form">
+                  <%= search_form_for [:lob, @q] do |f| %>
+                    <div class="row">
+                      <!--<div class="col-xs-12">
+                          <h2 style="margin: 0px 0px 10px;">Search Filter</h2>
+                        </div> -->
+                      <div class="col-xs-12 col-sm-4">
+                        <%= f.label :requested_by_cont, label: false, :class => 'label'  %>
+                        <%= f.search_field :requested_by_cont, :class => 'sp-form-control' %>
+                      </div>
+                      <div class="col-xs-12 col-sm-4">
+                        <%= f.label :submitted_by_email_cont, :class => 'label' %>
+                        <%= f.search_field :submitted_by_email_cont, :class => 'sp-form-control' %>
+                      </div>
+                      <div class="col-xs-12 col-sm-4">
+                        <%= f.label :law_firm_id_eq, :class => 'label' %>
+                        <%= f.select :law_firm_id_eq, options_from_collection_for_select(LawFirm.all, "id", "name", @q.law_firm_id_eq), {:include_blank => 'Select law firm'}, :class => 'sp-form-control' %>
+                      </div>
+                      <div class="col-xs-12 text-right" style="margin-top: 20px;">
+                        <%= f.submit "Search", class: "btn-type-primary input-btn m-right" %>
+                        <%= f.submit "Reset", type: "reset", value: "Reset",  class: "btn-type-default input-btn" %>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <!-- Search Filter END -->
       <% search_form_for [:lob, @q] do |f| %>
         <!--div class="row">
@@ -98,13 +94,11 @@
             <%= f.submit "Search", class: "btn-type-primary input-btn m-right" %>
             <%= f.submit "Reset", type: "reset", value: "Reset",  class: "btn-type-default input-btn" %>
           </div>
-        </div-->        
+        </div-->
       <% end  %>
       <!-- widget edit box -->
-      
       <!-- end widget edit box -->
       <!-- widget content -->
-      
       <div class="table-dyanmic-search table-responsive">
         <!-- id="dt_basic"  this id for search option in table data -->
         <table id="dt_basic" class="table table-decoration table-bordered" width="100%">
@@ -117,7 +111,7 @@
               <th>Law Firm Name</th>
               <th>Matter Name</th>
               <th>Status</th>
-              <!--<th>LXP Status</th>-->
+              <!--<th>Internal Status</th>-->
               <!--<th>Internal Lawyer Status</th>-->
               <!--<th>Action</th>-->
             </tr>
@@ -138,7 +132,7 @@
                         </div>
                         <div><%= exception_request.user.username %></div>
                       </div>
-                  <% end %> 
+                    <% end %>
                   </td>
                   <td><%= exception_request&.submitted_by_email %></td>
                   <td><%= exception_request&.lob_contact_name %></td>
@@ -147,10 +141,10 @@
                   <td>
                     <div class="status">
                       <% if exception_request.status_for_lob.present? %>
-                        <span class="<%= exception_request.status_for_lob === "APPROVED" ? 'label label-success' : 'label label-default' %>"> 
+                        <span class="<%= exception_request.status_for_lob === "APPROVED" ? 'label label-success' : 'label label-default' %>">
                           <% if exception_request.internal_lawyers_status ===  "REJECTED" %>
                             <%= exception_request.try(:internal_lawyers_status) %>
-                          <% else %>  
+                          <% else %>
                             <%= exception_request.try(:status_for_lob) %>
                           <% end %>
                         </span>

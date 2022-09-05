@@ -1,8 +1,6 @@
 <style>
-	input, textarea, select { padding: 0px !important; margin: 0px; background: transparent; }
+  input, textarea, select { padding: 0px !important; margin: 0px; background: transparent; }
 </style>
-
-
 <div class="col-md-12">
   <div class="page-header-sp m-top">
     <div class="page-title">Conflict Waiver Requests</div>
@@ -14,9 +12,9 @@
   </div>
 </div>
 <div class="col-md-12">
-	<div class="sp-form sp-form-bg">
-		<%= simple_form_for [:admin, @conflict_waiver] do |f| %>
-			<div class="row form-flex-wrap">
+  <div class="sp-form sp-form-bg">
+    <%= simple_form_for [:admin, @conflict_waiver] do |f| %>
+      <div class="row form-flex-wrap">
         <div class="col-xs-12 col-md-6">
           <label class="label">Name of law firm</label>
           <%= f.input :name_of_law_firm, label: false %>
@@ -27,7 +25,7 @@
           <%= f.input :user_id, :as => :hidden, :input_html => { :value => @current_admin_user_id } %>
         </div>
         <div class="col-xs-12 col-md-6">
-          <label class="label">BMO contact</label>
+          <label class="label">Internal Contact</label>
           <%= f.input :bmo_business_contact, label: false %>
         </div>
         <div class="col-xs-12 col-md-12">
@@ -35,15 +33,15 @@
           <%= f.input :reason, label: false %>
         </div>
         <div class="col-xs-12 col-md-12">
-            <label class="checkbox" style="padding-left: 0px">
-              <%= f.input :confirm_waiver, label: "Is your request covered by any of the above?" %>
-            </label>
+          <label class="checkbox" style="padding-left: 0px">
+            <%= f.input :confirm_waiver, label: "Is your request covered by any of the above?" %>
+          </label>
         </div>
         <div class="col-xs-12 col-md-12">
-            <%=link_to 'Cancel', @conflict_waiver.new_record? ? admin_exception_requests_path : admin_law_firm_path, class: 'btn-type-default' %>
-            <%= f.button :submit, @conflict_waiver.new_record? ? "Submit Request" : "Update Request", class: "btn-type-primary" %>
+          <%=link_to 'Cancel', @conflict_waiver.new_record? ? admin_exception_requests_path : admin_law_firm_path, class: 'btn-type-default' %>
+          <%= f.button :submit, @conflict_waiver.new_record? ? "Submit Request" : "Update Request", class: "btn-type-primary" %>
         </div>
-			</div>
-		<% end %>
-	</div>
+      </div>
+    <% end %>
+  </div>
 </div>

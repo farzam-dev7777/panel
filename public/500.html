@@ -1,27 +1,33 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>We're sorry but something went wrong (500)</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
-   	@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;800&display=swap');
-  	/*font-family: 'Heebo', sans-serif;*/
-    body{
+    @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;800&display=swap');
+
+    /*font-family: 'Heebo', sans-serif;*/
+    body {
       margin: 0px;
       font-family: 'Heebo', sans-serif;
     }
-    .error-page{
+
+    .error-page {
       display: flex;
       flex-direction: row;
       height: 100vh;
     }
-    .error-page-left-side{
+
+    .error-page-left-side {
       width: 56%;
     }
-    .error-page-right-side{
+
+    .error-page-right-side {
       width: 44%;
     }
-    .error-image-bg{
+
+    .error-image-bg {
       background: #0079C1 !important;
       background-image: url('/images/500.png') !important;
       background-image: url('/images/500.png'), linear-gradient(#0079C1, #0079C1) !important;
@@ -30,112 +36,134 @@
       background-position: center !important;
       background-repeat: no-repeat;
     }
-    .error-page-left-side img{
+
+    .error-page-left-side img {
       width: 100%;
       height: 100%;
     }
-    .right-side-content{
+
+    .right-side-content {
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
       height: 100vh;
     }
-    .right-side-content .logo{
+
+    .right-side-content .logo {
       width: 140px;
       margin-bottom: 100px;
     }
-    .error-title{
-    	font-family: 'Heebo', sans-serif;
-    	font-weight: 800;
-			font-size: 64px;
-			line-height: 40px;
-			color: #171F46;
-			margin-bottom: 30px;
+
+    .error-title {
+      font-family: 'Heebo', sans-serif;
+      font-weight: 800;
+      font-size: 64px;
+      line-height: 40px;
+      color: #171F46;
+      margin-bottom: 30px;
     }
-    .error-type{
-    	font-weight: normal;
-			font-size: 14px;
-			line-height: 24px;
-			color: #171F46;
-			margin-bottom: 60px;
+
+    .error-type {
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 24px;
+      color: #171F46;
+      margin-bottom: 60px;
     }
-    .go-back .more-link{
-    	background-color: #0051CA;
-			border-radius: 4px;
-			font-weight: 500;
-			font-size: 14px;
-			line-height: 24px;
-			color: #FFFFFF;
-			text-decoration: none;
-			display: inline-flex;
-			 min-width: 390px;
-	    justify-content: center;
-	    padding: 8px 0px;
+
+    .go-back .more-link {
+      background-color: #00a0af;
+      border-radius: 4px;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 24px;
+      color: #FFFFFF;
+      text-decoration: none;
+      display: inline-flex;
+      min-width: 390px;
+      justify-content: center;
+      padding: 8px 0px;
     }
+
     @media only screen and (min-width: 768px) and (max-width: 1088px) {
       .error-page {
         display: flex;
         flex-direction: column;
         height: auto;
       }
+
       .error-page-left-side {
-          width: 100%;
+        width: 100%;
       }
+
       .error-page-right-side {
-          width: 100%;
+        width: 100%;
       }
+
       .right-side-content {
         justify-content: unset;
         height: auto;
         margin-top: 20px;
       }
+
       .right-side-content .logo {
-          margin-bottom: 50px;
+        margin-bottom: 50px;
       }
-      .error-image-bg{
+
+      .error-image-bg {
         height: 49vh;
       }
     }
+
     @media only screen and (min-width: 240px) and (max-width: 767px) {
       .error-page {
         display: flex;
         flex-direction: column;
         height: auto;
       }
+
       .error-page-left-side {
-          width: 100%;
+        width: 100%;
       }
+
       .error-page-right-side {
-          width: 100%;
+        width: 100%;
       }
+
       .right-side-content {
         justify-content: unset;
         height: auto;
         margin-top: 20px;
       }
+
       .right-side-content .logo {
-          margin-bottom: 25px;
+        margin-bottom: 25px;
       }
-      .error-image-bg{
+
+      .error-image-bg {
         height: 50vh;
         width: 100% !important;
         background-position: top !important;
       }
-      .go-back{
+
+      .go-back {
         text-align: center;
         width: 100%;
       }
-      .go-back .more-link{
+
+      .go-back .more-link {
         min-width: 65%;
       }
-      .error-type{
+
+      .error-type {
         margin-bottom: 25px;
       }
-      .error-title{
+
+      .error-title {
         font-size: 45px;
       }
-    } 
+    }
   </style>
 </head>
 
@@ -147,7 +175,7 @@
     </div>
     <div class="error-page-right-side">
       <div class="right-side-content">
-        <img src="images/BMO-logo.svg" class="logo">
+        <img src="images/CWB-logo.svg" class="logo">
         <div class="error-title">Oops!</div>
         <div class="error-type">500 - Internal Error</div>
         <div class="go-back">
@@ -157,4 +185,5 @@
     </div>
   </div>
 </body>
+
 </html>

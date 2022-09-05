@@ -2,10 +2,9 @@
   div#gauge * {
     top: -25px;
   }
-
+  
   input, textarea, select { padding: 0px !important; margin: 0px; background: transparent; }
 </style>
-  
 <div class="col-lg-12 col-md-12 col-sm-12">
   <div class=" jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
     <div class="page-header-sp m-top">
@@ -43,151 +42,148 @@
               <div class="field-data">
                 <%= @matter_intake.matter_type.try(:matter_type) %>
                 <input type="hidden" id="matter_type_type_of_matter_lob_initiated" value="<%= @matter_intake.matter_type.try(:matter_type) %>" />
-              </div>
-            </div>
-            <div class="col-xs-12 col-md-6">
-              <div class="field-label">Matter Description</div>
-              <div class="field-data"><%= @matter_intake.matter_description %></div>
-            </div>
-            <div class="col-xs-12 col-md-6">
-              <div class="field-label">Will this matter involve the following</div>
-              <div class="field-data"><%= @matter_intake.following_matter_involve %></div>
-            </div>
-            <!--div class="col-xs-12 col-md-6">
+      </div>
+    </div>
+    <div class="col-xs-12 col-md-6">
+      <div class="field-label">Matter Description</div>
+      <div class="field-data"><%= @matter_intake.matter_description %></div>
+    </div>
+    <div class="col-xs-12 col-md-6">
+      <div class="field-label">Will this matter involve the following</div>
+      <div class="field-data"><%= @matter_intake.following_matter_involve %></div>
+    </div>
+    <!--div class="col-xs-12 col-md-6">
               <div class="field-label">How will this matter be paid?</div>
               <div class="field-data"><%= @matter_intake.mode_of_payment %></div>
             </div-->
-            <!--div class="col-xs-12 col-md-6">
+    <!--div class="col-xs-12 col-md-6">
               <div class="field-label">Law Firm Suggested</div>
               <div class="field-data"><%= @matter_intake.law_firm.try(:name) %></div>
             </div-->
-            <div class="col-xs-12 col-md-6">
-              <div class="field-label">BMO lawyer name</div>
-              <div class="field-data"><%= @matter_intake.bmo_lawyer_name %></div>
-            </div>
-            <div class="col-xs-12 col-md-6">
-              <div class="field-label">Budget amount, if already negotiated with the law firm</div>
-              <div class="field-data"><%= @matter_intake.budget_amount %></div>
-            </div>
-            <div class="col-xs-12 col-md-6">
-              <div class="field-label">Name of PO approver</div>
-              <div class="field-data"><%= @matter_intake.lob_contact_for_po %></div>
-            </div>
-            <div class="col-xs-12 col-md-6">
-              <div class="field-label">Cost Centre for legal fees</div>
-              <div class="field-data"><%= @matter_intake.cost_centre_for_legal_fees %></div>
-            </div>
-            <div class="col-xs-12 col-md-6">
-              <div class="field-label">Deal Code (Capital Markets Only)</div>
-              <div class="field-data"><%= @matter_intake.deal_code %></div>
-            </div>
-            <div class="col-xs-12 col-md-6">
-              <div class="field-label">Business/Group paying for this matter (level 1)</div>
-              <div class="field-data"><%= @matter_intake.business_paying_for_matter %></div>
-            </div>
-            <div class="col-xs-12 col-md-6">
-              <div class="field-label">Business/Group paying for this matter (level 2)</div>
-              <div class="field-data"><%= @matter_intake.group_paying_for_matter %></div>
-            </div>
-            <div class="col-xs-12 col-md-6">
-              <div class="field-label">Paying Entity</div>
-              <div class="field-data"><%= @matter_intake.paying_entity %></div>
-            </div>
-            <div class="col-xs-12 col-md-6">
-              <div class="field-label">Additional Comments for LRC Lawyer</div>
-              <div class="field-data"><%= @matter_intake.additional_comments_for_lrc_lawyer %></div>
-            </div>
-            <div class="col-xs-12 col-md-6">
-              <div class="field-label matter_intake_outside_counsel_engaged_value" data-value="<%= @matter_intake.outside_counsel_engaged %>">Is outside counsel being engaged?</div>
-              <div class="field-data"><%= @matter_intake.outside_counsel_engaged %></div>
-            </div>
-            <div class="col-xs-12 col-md-6">
-              <div class="field-label">Panel or Non-Panel Firm</div>
-              <div class="field-data"><%= @matter_intake.firm_type %></div>
-            </div>
-            <div class="col-xs-12 col-md-6">
-              <label class="field-label">Is this a syndicate matter</label>
-              <div class="field-data"><%= @matter_intake.is_syndicate_matter %></div>
-            </div>
-            <% if @matter_intake.firm_type === "Non-Panel" || @matter_intake.firm_type === "Panel & Non-Panel Firms"  %>
-              <div class="col-xs-12 col-md-6">
-                <div class="field-label">Name of Non-Panel Firm</div>
-                <div class="field-data"><%= @matter_intake.name_of_non_panel_firm %></div>
-              </div>
-            <% end %> 
-            <% if @matter_intake.firm_type === "Panel" || @matter_intake.firm_type === "Panel & Non-Panel Firms"  %>
-              <div class="col-xs-12 col-md-6">
-                <div class="field-label">Name of Panel Firm</div>
-                <div class="field-data"><%= @matter_intake.name_of_panel_firm %></div>
-                
-              </div>
-            <% end %> 
-            <% if !@matter_intake.outside_counsel_engaged.blank? && @matter_intake.outside_counsel_engaged != 'N/A Internal – no law firm will be engaged' %>
-             <!-- Information Security Classification Start-->
-              <div class="col-xs-12 col-md-12">
-                <div class="inner-label">Information Security Classification</div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="field-label">Could the law firm engaged on this matter potentially receive any Personal Information data?	</div>
-                <div class="field-data"><%= @matter_intake.receive_personal_information %></div>
-              </div>
-              <% if @matter_intake.receive_personal_information === "Yes" %>
-                <div class="col-xs-12 col-md-12">
-                  <div class="field-label">Select all applicable data types	</div>
-                  <div class="field-data tag-fields"> 
-                    <% @matter_intake.receive_personal_information_data_type.reject(&:blank?).each do |receive_personal_information_data_type| %>
-                      <span class="tag-line"><%= receive_personal_information_data_type %></span>
-                    <% end %>
-                  </div>
-                </div>
-              <% end %>
-              <div class="col-xs-12 col-md-6">
-                <div class="field-label">Could the law firm engaged on this matter potentially receive any General or Business data?</div>
-                <div class="field-data"><%= @matter_intake.receive_general_business_data %></div>
-              </div>
-              <% if @matter_intake.receive_general_business_data === "Yes" %>
-                <div class="col-xs-12 col-md-12">
-                  <div class="field-label">Select all applicable data types	</div>
-                  <div class="field-data tag-fields">
-                    <% @matter_intake.receive_general_business_data_type.reject(&:blank?).each do |receive_general_business_data_type| %>
-                      <span class="tag-line"><%= receive_general_business_data_type %></span>
-                    <% end %>
-                  </div> 
-                  </div>
-                
-              <% end %>
-              <div class="col-xs-12 col-md-6">
-                <div class="field-label">Could the law firm engaged on this matter potentially receive any Technical or Specialty data?	</div>
-                <div class="field-data"><%= @matter_intake.applicable_technical_specialty_data %></div>
-              </div>
-              <% if @matter_intake.applicable_technical_specialty_data === "Yes" %>
-                <div class="col-xs-12 col-md-12">
-                  <div class="field-label">Select all applicable data types	</div>
-                  <div class="field-data tag-fields"> 
-                    <% @matter_intake.applicable_technical_specialty_data_type.reject(&:blank?).each do |applicable_technical_specialty_data_type| %>
-                      <span class="tag-line"><%= applicable_technical_specialty_data_type %></span>
-                    <% end %>
-                  </div>
-                </div>
-              <% end %>
-              <!-- Information Security Classification End--> 
-            <% end %>   
-            <% if !@matter_intake.asset.file.nil? %>
-              <div class="col-xs-12 col-md-6">
-                <div class="field-label">Document</div>
-                <div class="field-data">
-                  <a href="<%= @matter_intake.asset&.url %>" target="_blank"><%= @matter_intake.asset.identifier %></a>
-                </div>
-              </div>
+    <div class="col-xs-12 col-md-6">
+      <div class="field-label">Internal lawyer name</div>
+      <div class="field-data"><%= @matter_intake.bmo_lawyer_name %></div>
+    </div>
+    <div class="col-xs-12 col-md-6">
+      <div class="field-label">Budget amount, if already negotiated with the law firm</div>
+      <div class="field-data"><%= @matter_intake.budget_amount %></div>
+    </div>
+    <div class="col-xs-12 col-md-6">
+      <div class="field-label">Name of PO approver</div>
+      <div class="field-data"><%= @matter_intake.lob_contact_for_po %></div>
+    </div>
+    <div class="col-xs-12 col-md-6">
+      <div class="field-label">Cost Centre for legal fees</div>
+      <div class="field-data"><%= @matter_intake.cost_centre_for_legal_fees %></div>
+    </div>
+    <div class="col-xs-12 col-md-6">
+      <div class="field-label">Deal Code (Capital Markets Only)</div>
+      <div class="field-data"><%= @matter_intake.deal_code %></div>
+    </div>
+    <div class="col-xs-12 col-md-6">
+      <div class="field-label">Business/Group paying for this matter (level 1)</div>
+      <div class="field-data"><%= @matter_intake.business_paying_for_matter %></div>
+    </div>
+    <div class="col-xs-12 col-md-6">
+      <div class="field-label">Business/Group paying for this matter (level 2)</div>
+      <div class="field-data"><%= @matter_intake.group_paying_for_matter %></div>
+    </div>
+    <div class="col-xs-12 col-md-6">
+      <div class="field-label">Paying Entity</div>
+      <div class="field-data"><%= @matter_intake.paying_entity %></div>
+    </div>
+    <div class="col-xs-12 col-md-6">
+      <div class="field-label">Additional Comments for Internal Lawyer</div>
+      <div class="field-data"><%= @matter_intake.additional_comments_for_lrc_lawyer %></div>
+    </div>
+    <div class="col-xs-12 col-md-6">
+      <div class="field-label matter_intake_outside_counsel_engaged_value" data-value="<%= @matter_intake.outside_counsel_engaged %>">Is outside counsel being engaged?</div>
+      <div class="field-data"><%= @matter_intake.outside_counsel_engaged %></div>
+    </div>
+    <div class="col-xs-12 col-md-6">
+      <div class="field-label">Panel or Non-Panel Firm</div>
+      <div class="field-data"><%= @matter_intake.firm_type %></div>
+    </div>
+    <div class="col-xs-12 col-md-6">
+      <label class="field-label">Is this a syndicate matter</label>
+      <div class="field-data"><%= @matter_intake.is_syndicate_matter %></div>
+    </div>
+    <% if @matter_intake.firm_type === "Non-Panel" || @matter_intake.firm_type === "Panel & Non-Panel Firms"  %>
+      <div class="col-xs-12 col-md-6">
+        <div class="field-label">Name of Non-Panel Firm</div>
+        <div class="field-data"><%= @matter_intake.name_of_non_panel_firm %></div>
+      </div>
+    <% end %>
+    <% if @matter_intake.firm_type === "Panel" || @matter_intake.firm_type === "Panel & Non-Panel Firms"  %>
+      <div class="col-xs-12 col-md-6">
+        <div class="field-label">Name of Panel Firm</div>
+        <div class="field-data"><%= @matter_intake.name_of_panel_firm %></div>
+      </div>
+    <% end %>
+    <% if !@matter_intake.outside_counsel_engaged.blank? && @matter_intake.outside_counsel_engaged != 'N/A Internal – no law firm will be engaged' %>
+      <!-- Information Security Classification Start-->
+      <div class="col-xs-12 col-md-12">
+        <div class="inner-label">Information Security Classification</div>
+      </div>
+      <div class="col-xs-12 col-md-6">
+        <div class="field-label">Could the law firm engaged on this matter potentially receive any Personal Information data?	</div>
+        <div class="field-data"><%= @matter_intake.receive_personal_information %></div>
+      </div>
+      <% if @matter_intake.receive_personal_information === "Yes" %>
+        <div class="col-xs-12 col-md-12">
+          <div class="field-label">Select all applicable data types	</div>
+          <div class="field-data tag-fields">
+            <% @matter_intake.receive_personal_information_data_type.reject(&:blank?).each do |receive_personal_information_data_type| %>
+              <span class="tag-line"><%= receive_personal_information_data_type %></span>
             <% end %>
           </div>
-          <div class="clearfix"></div>
+        </div>
+      <% end %>
+      <div class="col-xs-12 col-md-6">
+        <div class="field-label">Could the law firm engaged on this matter potentially receive any General or Business data?</div>
+        <div class="field-data"><%= @matter_intake.receive_general_business_data %></div>
+      </div>
+      <% if @matter_intake.receive_general_business_data === "Yes" %>
+        <div class="col-xs-12 col-md-12">
+          <div class="field-label">Select all applicable data types	</div>
+          <div class="field-data tag-fields">
+            <% @matter_intake.receive_general_business_data_type.reject(&:blank?).each do |receive_general_business_data_type| %>
+              <span class="tag-line"><%= receive_general_business_data_type %></span>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+      <div class="col-xs-12 col-md-6">
+        <div class="field-label">Could the law firm engaged on this matter potentially receive any Technical or Specialty data?	</div>
+        <div class="field-data"><%= @matter_intake.applicable_technical_specialty_data %></div>
+      </div>
+      <% if @matter_intake.applicable_technical_specialty_data === "Yes" %>
+        <div class="col-xs-12 col-md-12">
+          <div class="field-label">Select all applicable data types	</div>
+          <div class="field-data tag-fields">
+            <% @matter_intake.applicable_technical_specialty_data_type.reject(&:blank?).each do |applicable_technical_specialty_data_type| %>
+              <span class="tag-line"><%= applicable_technical_specialty_data_type %></span>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+      <!-- Information Security Classification End-->
+    <% end %>
+    <% if !@matter_intake.asset.file.nil? %>
+      <div class="col-xs-12 col-md-6">
+        <div class="field-label">Document</div>
+        <div class="field-data">
+          <a href="<%= @matter_intake.asset&.url %>" target="_blank"><%= @matter_intake.asset.identifier %></a>
         </div>
       </div>
-    </div>
+    <% end %>
   </div>
+  <div class="clearfix"></div>
 </div>
-
+</div>
+</div>
+</div>
+</div>
 <div class="col-lg-12 col-md-12 col-sm-12">
   <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
     <div class="page-header-sp">
@@ -198,12 +194,12 @@
       <%= simple_form_for [:admin, @matter_intake] do |f| %>
         <div class="row form-flex-wrap">
           <div class="col-xs-12 col-md-6">
-            <label class="label">BMO lawyer name<span class="mandatory">*</span></label>
+            <label class="label">Internal lawyer name<span class="mandatory">*</span></label>
             <%= f.input :bmo_lawyer_name, label: false, collection: InternalLawyer.all.map {|il| [il.full_name, il.full_name, {'data-id'=>il.id}]} %>
             <%= f.input :lawyer_id, as: :hidden, label: false %>
           </div>
           <div class="col-xs-12 col-md-6">
-            <label class="label">Legal Group of BMO Lawyer<span class="mandatory">*</span></label>
+            <label class="label">Legal Group of Internal Lawyer<span class="mandatory">*</span></label>
             <%= f.input :legal_group_of_bmo_lawyer, label: false, collection: MatterIntake::LegalGroupBMOLawyer %>
           </div>
           <div class="col-xs-12 col-md-6">
@@ -214,7 +210,7 @@
             <label class="label">Work Area Level 2<span class="mandatory">*</span></label>
             <%= f.input :work_area_type, label: false, as: :select, collection: [], input_html: { class: "lawyer_work_area_2", data: {value: "#{@matter_intake&.work_area_type}"} } %>
           </div>
-           <% if @matter_intake.matter_type.matter_type === "Regulatory / Réglementation" && @matter_intake.form_type != "litigation" %> 
+          <% if @matter_intake.matter_type.matter_type === "Regulatory / Réglementation" && @matter_intake.form_type != "litigation" %>
             <div class="col-xs-12 col-md-6">
               <label class="label">Is this matter ORE reportable?<span class="mandatory">*</span></label>
               <%= f.input :is_ore_reportable, label: false, collection: [['Yes', 'Yes'], ["No", "No"]] %>
@@ -224,46 +220,46 @@
               <%= f.input :is_otherwise_reportable, label: false, collection: [['Yes', 'Yes'], ["No", "No"]] %>
             </div>
           <% end %>
-           <div class="col-xs-12 col-md-6 litigation_reporting">
-              <label class="label">M&I Matter<span class="mandatory">*</span></label>
-              <%= f.input :mi_matter, label: false, collection: [['Yes', true], ["No", false]] %>
-            </div>
-            <div class="col-xs-12 col-md-6 litigation_reporting">
-              <label class="label">Nature of Events<span class="mandatory">*</span></label>
-              <%= f.input :nature_of_events, label: false %>
-            </div>
-            <div class="col-xs-12 col-md-6 litigation_reporting">
-              <label class="label">Process Type Level 1<span class="mandatory">*</span></label>
-              <%= f.input :process_type_level_1, label: false, collection: MatterIntake::ProcessTypeLevel1.sort_by!{ |e| e.downcase } %>
-            </div>
-            <div class="col-xs-12 col-md-6 litigation_reporting">
-              <label class="label">Process Type Level 2<span class="mandatory">*</span></label>
-              <%= f.input :process_type_level_2, label: false, collection: [], input_html: { data: {value: "#{@matter_intake&.process_type_level_2}"} } %>
-            </div>
-            <div class="col-xs-12 col-md-6 litigation_reporting">
-              <label class="label">Product Type Level 1<span class="mandatory">*</span></label>
-              <%= f.input :product_type_level_1, label: false, collection: MatterIntake::ProductTypeLevel1.sort_by!{ |e| e.downcase } %>
-            </div>
-            <div class="col-xs-12 col-md-6 litigation_reporting">
-              <label class="label">Product Type Level 2<span class="mandatory">*</span></label>
-              <%= f.input :product_type_level_2, label: false, collection: [], input_html: { data: {value: "#{@matter_intake&.product_type_level_2}"} } %>
-            </div>
-            <div class="col-xs-12 col-md-6 litigation_reporting">
-              <label class="label">Event Type Level 1<span class="mandatory">*</span></label>
-              <%= f.input :event_type_level_1, label: false, collection: MatterIntake::EventTypeLevel1.sort_by!{ |e| e.downcase } %>
-            </div>
-            <div class="col-xs-12 col-md-6 litigation_reporting">
-              <label class="label">Event Type Level 2<span class="mandatory">*</span></label>
-              <%= f.input :event_type_level_2, label: false, collection: [], input_html: { data: {value: "#{@matter_intake&.event_type_level_2}"} } %>
-            </div>
-            <div class="col-xs-12 col-md-6 litigation_reporting">
-              <label class="label">Business Activity Level 1<span class="mandatory">*</span></label>
-              <%= f.input :business_activity_level_1, label: false, collection: MatterIntake::BusinessActivityLevel1.sort_by!{ |e| e.downcase } %>
-            </div>
-            <div class="col-xs-12 col-md-6 litigation_reporting">
-              <label class="label">Business Activity Level 2<span class="mandatory">*</span></label>
-              <%= f.input :business_activity_level_2, label: false, collection: [], input_html: { data: {value: "#{@matter_intake&.business_activity_level_2}"} } %>
-            </div>
+          <div class="col-xs-12 col-md-6 litigation_reporting">
+            <label class="label">M&I Matter<span class="mandatory">*</span></label>
+            <%= f.input :mi_matter, label: false, collection: [['Yes', true], ["No", false]] %>
+          </div>
+          <div class="col-xs-12 col-md-6 litigation_reporting">
+            <label class="label">Nature of Events<span class="mandatory">*</span></label>
+            <%= f.input :nature_of_events, label: false %>
+          </div>
+          <div class="col-xs-12 col-md-6 litigation_reporting">
+            <label class="label">Process Type Level 1<span class="mandatory">*</span></label>
+            <%= f.input :process_type_level_1, label: false, collection: MatterIntake::ProcessTypeLevel1.sort_by!{ |e| e.downcase } %>
+          </div>
+          <div class="col-xs-12 col-md-6 litigation_reporting">
+            <label class="label">Process Type Level 2<span class="mandatory">*</span></label>
+            <%= f.input :process_type_level_2, label: false, collection: [], input_html: { data: {value: "#{@matter_intake&.process_type_level_2}"} } %>
+          </div>
+          <div class="col-xs-12 col-md-6 litigation_reporting">
+            <label class="label">Product Type Level 1<span class="mandatory">*</span></label>
+            <%= f.input :product_type_level_1, label: false, collection: MatterIntake::ProductTypeLevel1.sort_by!{ |e| e.downcase } %>
+          </div>
+          <div class="col-xs-12 col-md-6 litigation_reporting">
+            <label class="label">Product Type Level 2<span class="mandatory">*</span></label>
+            <%= f.input :product_type_level_2, label: false, collection: [], input_html: { data: {value: "#{@matter_intake&.product_type_level_2}"} } %>
+          </div>
+          <div class="col-xs-12 col-md-6 litigation_reporting">
+            <label class="label">Event Type Level 1<span class="mandatory">*</span></label>
+            <%= f.input :event_type_level_1, label: false, collection: MatterIntake::EventTypeLevel1.sort_by!{ |e| e.downcase } %>
+          </div>
+          <div class="col-xs-12 col-md-6 litigation_reporting">
+            <label class="label">Event Type Level 2<span class="mandatory">*</span></label>
+            <%= f.input :event_type_level_2, label: false, collection: [], input_html: { data: {value: "#{@matter_intake&.event_type_level_2}"} } %>
+          </div>
+          <div class="col-xs-12 col-md-6 litigation_reporting">
+            <label class="label">Business Activity Level 1<span class="mandatory">*</span></label>
+            <%= f.input :business_activity_level_1, label: false, collection: MatterIntake::BusinessActivityLevel1.sort_by!{ |e| e.downcase } %>
+          </div>
+          <div class="col-xs-12 col-md-6 litigation_reporting">
+            <label class="label">Business Activity Level 2<span class="mandatory">*</span></label>
+            <%= f.input :business_activity_level_2, label: false, collection: [], input_html: { data: {value: "#{@matter_intake&.business_activity_level_2}"} } %>
+          </div>
           <div class="col-xs-12 col-md-6">
             <label class="label">Conceal iManage Workspace?<span class="mandatory">*</span></label>
             <%= f.input :is_conceal_imanage_workspace, label: false, collection: [['Yes', 'Yes'], ["No", "No"]], :selected => @matter_intake.is_conceal_imanage_workspace.nil? ? 'No' : @matter_intake.is_conceal_imanage_workspace %>
@@ -284,16 +280,16 @@
             <label class="label">Matter Description<span class="mandatory">*</span></label>
             <%= f.input :matter_description, as: :string, label: false %>
           </div>
-          <div class="col-xs-12 col-md-6">
+          <!-- <div class="col-xs-12 col-md-6">
             <label class="label">Legal Entity<span class="mandatory">*</span></label>
             <td><%= f.input :paying_entity, label: false %></td>
-          </div>
+          </div> -->
           <!--<div class="col-xs-12 col-md-6">
             <label class="label">Jurisdiction<span class="mandatory">*</span></label>
             <%= f.input :jurisdiction, label: false, collection: MatterIntake::Jurisdiction %>
           </div>-->
           <div class="col-xs-12 col-md-6">
-            <label class="label">Other Party (Other than BMO)</label>
+            <label class="label">Other Party</label>
             <%= f.input :other_party, label: false, collection: MatterIntake::OtherParty %>
           </div>
           <div class="col-xs-12 col-md-6">
@@ -305,7 +301,7 @@
             <%= f.input :other_matter_issues, label: false %>
           </div>
           <!--<div class="col-xs-12 col-md-6">
-            <label  class="label">Additional Comments for LRC Lawyer</label>
+            <label  class="label">Additional Comments for Internal Lawyer</label>
             <%= f.input :additional_comments_for_lrc_lawyer, label: false %>
           </div>-->
           <!--<div class="col-xs-12 col-md-6">
@@ -369,94 +365,92 @@
             <label class="label">Budget amount, if already negotiated with the law firm</label>
             <%= f.input :budget_amount, label: false %>
           </div>-->
-          
           <div class="col-xs-12 col-md-12">
             <%=link_to 'Cancel', @matter_intake.new_record? ? new_admin_matter_intake_path : admin_matter_intakes_path, class: 'btn-type-default' %>
             <%= f.button :submit, @matter_intake.new_record? ? "Submit Matter Intake" : "Submit Matter Intake", class: "btn-type-primary" %>
           </div>
         </div>
       <% end %>
+    </div>
   </div>
-</div>
-
-<div class="col-md-12">
-  <%- if @matter_intake.reviews.size > 0 %>
-    <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
-      <div class="page-header-sp">
+  <div class="col-md-12">
+    <%- if @matter_intake.reviews.size > 0 %>
+      <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+        <div class="page-header-sp">
           <div class="page-title">Review Logs </div>
           <div class="back-edit-actions">
+          </div>
         </div>
-      </div>
-      <div>
-        <!-- MAIN PANEL -->
-        <div role="main">
-          <!-- MAIN CONTENT -->
-          <div>
-            <!-- row -->
-            <div class="row">
-              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <div class="sp-form-bg">
-                  <!-- Timeline Content -->
-                  <div class="smart-timeline">
-                    <ul class="smart-timeline-list">
-                      <% @matter_intake.reviews.reverse.each do |review| %>
-                      <% if review.status_from.blank? && review.status.blank? && review.assigned_to_id.present? %>
-                        <li data-id="<%= review.id %>">
-                            <div class="smart-timeline-icon">
-                              R
-                            </div>
-                            <div class="smart-timeline-time">
-                              <small><%= review.created_at.strftime('%d %b %Y at %I:%M %p') %></small>
-                            </div>
-                            <div class="smart-timeline-content">
-                              <p>
-                                <strong>
-                                <%= review.actor.email %> assigned exception request to internal lawyer for approval.
-                                <strong>
-                              </p>
-                              <p>
-                                <%= review.description %>
-                              </p>
-                            </div>
-                          </li>
-                      <% else %>
-                        <li data-id="<%= review.id %>">
-                        <div class="smart-timeline-icon">
-                          R
-                        </div>
-                        <div class="smart-timeline-time">
-                          <small><%= review.created_at.strftime('%d %b %Y at %I:%M %p') %></small>
-                          <small><i><%= time_ago_in_words(review.created_at) %> ago</i> </small>
-                        </div>
-                        <div class="smart-timeline-content">
-                          <p>
-                            <strong>
-                              <%- if review.status_show %>
-                                <%= review.actor.email %> change status to <%= review.status_show %>
+        <div>
+          <!-- MAIN PANEL -->
+          <div role="main">
+            <!-- MAIN CONTENT -->
+            <div>
+              <!-- row -->
+              <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                  <div class="sp-form-bg">
+                    <!-- Timeline Content -->
+                    <div class="smart-timeline">
+                      <ul class="smart-timeline-list">
+                        <% @matter_intake.reviews.reverse.each do |review| %>
+                          <% if review.status_from.blank? && review.status.blank? && review.assigned_to_id.present? %>
+                            <li data-id="<%= review.id %>">
+                              <div class="smart-timeline-icon">
+                                R
+                              </div>
+                              <div class="smart-timeline-time">
+                                <small><%= review.created_at.strftime('%d %b %Y at %I:%M %p') %></small>
+                              </div>
+                              <div class="smart-timeline-content">
+                                <p>
+                                  <strong>
+                                    <%= review.actor.email %> assigned exception request to internal lawyer for approval.
+                                    <strong>
+                                    </p>
+                                    <p>
+                                      <%= review.description %>
+                                    </p>
+                                  </div>
+                                </li>
                               <% else %>
-                                <%= review.actor.email %> left a comment
-                              <% end %>
-                            <strong>
-                          </p>
-                          <p>
-                            <%= review.description.blank? ? "NA" : review.description %>
-                          </p>
+                                <li data-id="<%= review.id %>">
+                                  <div class="smart-timeline-icon">
+                                    R
+                                  </div>
+                                  <div class="smart-timeline-time">
+                                    <small><%= review.created_at.strftime('%d %b %Y at %I:%M %p') %></small>
+                                    <small><i><%= time_ago_in_words(review.created_at) %> ago</i> </small>
+                                  </div>
+                                  <div class="smart-timeline-content">
+                                    <p>
+                                      <strong>
+                                        <%- if review.status_show %>
+                                          <%= review.actor.email %> change status to <%= review.status_show %>
+                                        <% else %>
+                                          <%= review.actor.email %> left a comment
+                                        <% end %>
+                                        <strong>
+                                        </p>
+                                        <p>
+                                          <%= review.description.blank? ? "NA" : review.description %>
+                                        </p>
+                                      </div>
+                                    </li>
+                                  <% end %>
+                                <% end %>
+                              </ul>
+                            </div>
+                            <!-- END Timeline Content -->
+                          </div>
                         </div>
-                      </li>
-                        <% end %>
-                      <% end %>
-                    </ul>
+                      </div>
+                      <!-- end row -->
+                    </div>
+                    <!-- END MAIN CONTENT -->
                   </div>
-                  <!-- END Timeline Content -->
+                  <!-- END MAIN PANEL -->
                 </div>
               </div>
-            </div>
-            <!-- end row -->
+            <% end %>
           </div>
-          <!-- END MAIN CONTENT -->
-        </div>
-        <!-- END MAIN PANEL -->
-      </div>
-    </div>
-  <% end %>
-</div>

@@ -1,44 +1,40 @@
 <% content_for :page_title do %>
-<span>Panel Consideration Requests</span>
+  <span>Panel Consideration Requests</span>
 <% end %>
 <div class="col-lg-12">
-<div class=" jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
-  <div class="page-header-sp m-top">
-    <div class="page-title">Panel Consideration Requests</div>
-    <div>
-      <!-- <%= link_to 'Submit New Panel Consideration Request', new_lob_panel_request_path, html_options = {class: 'page-header-btn'}   %> -->
-      
+  <div class=" jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
+    <div class="page-header-sp m-top">
+      <div class="page-title">Panel Consideration Requests</div>
+      <div>
+        <!-- <%= link_to 'Submit New Panel Consideration Request', new_lob_panel_request_path, html_options = {class: 'page-header-btn'}   %> -->
+      </div>
     </div>
-  </div>
-  
-  <div class="">
-    <div class="widget-body">
-      <div id="myTabContent" class="tab-content">
-        <div class="tab-pane fade active in padding-10 no-padding-bottom" id="s1">
-          <div class="row no-space text-center">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-              <p><b><%= certification_status(current_law_firm) %></b></p>
+    <div class="">
+      <div class="widget-body">
+        <div id="myTabContent" class="tab-content">
+          <div class="tab-pane fade active in padding-10 no-padding-bottom" id="s1">
+            <div class="row no-space text-center">
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <p><b><%= certification_status(current_law_firm) %></b></p>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <!-- widget div-->
+      <!-- widget div-->
       <!-- widget content -->
       <div class="search-filter-sp">
         <div class="sp-filter">
           <div class="accordion" id="sp-filter">
             <div class="card z-depth-0">
               <div class="card-header" id="headingThree">
-              	
-                  <div class="action-buttons-alignment">
-                    <% if SystemSetting.fetch.panel_status === "Yes" %>
-                      <a class="export-icon right-action-btns add-button" href="<%= new_lob_panel_request_path %>">
-                        <%= image_tag "add.svg", alt:"Submit New Panel Consideration Request" %> <span>Add</span>
-                      </a>
-                    <% end %>
-                  </div>
-               
+                <div class="action-buttons-alignment">
+                  <% if SystemSetting.fetch.panel_status === "Yes" %>
+                    <a class="export-icon right-action-btns add-button" href="<%= new_lob_panel_request_path %>">
+                      <%= image_tag "add.svg", alt:"Submit New Panel Consideration Request" %> <span>Add</span>
+                    </a>
+                  <% end %>
+                </div>
                 <div class="collapsed filter-title" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                   <%= image_tag "filter-icon.svg", alt:"score" %>
                   <span>Filter</span>
@@ -49,12 +45,12 @@
                   <%= search_form_for [:lob, @q] do |f| %>
                     <div class="row">
                       <div class="col-xs-12 col-md-4">
-                          <%= f.label :requested_by_cont, label: false, :class => 'label' %>
-                          <%= f.search_field :requested_by_cont, :class => 'sp-form-control' %>
+                        <%= f.label :requested_by_cont, label: false, :class => 'label' %>
+                        <%= f.search_field :requested_by_cont, :class => 'sp-form-control' %>
                       </div>
                       <div class="col-xs-12 col-md-4">
-                          <%= f.label :submitted_by_email_cont, :class => 'label' %>
-                          <%= f.search_field :submitted_by_email_cont, :class => 'sp-form-control' %>
+                        <%= f.label :submitted_by_email_cont, :class => 'label' %>
+                        <%= f.search_field :submitted_by_email_cont, :class => 'sp-form-control' %>
                       </div>
                       <div class="col-xs-12 col-md-4">
                         <%= f.label :law_firm_id_eq, :class => 'label' %>
@@ -64,7 +60,7 @@
                         <%= f.submit "Search", class: "btn-type-primary input-btn m-right" %>
                         <%= f.submit "Reset", type: "reset", value: "Reset",  class: "btn-type-default input-btn" %>
                       </div>
-                    </div>        
+                    </div>
                   <% end %>
                 </div>
               </div>
@@ -80,20 +76,19 @@
               <th>Line of Business</th>
               <th>Law Firm Name</th>
               <th>Law Firm Email</th>
-              <!--th>LXP Status</th-->
+              <!--th>Internal Status</th-->
             </tr>
           </thead>
           <tbody>
             <% @panel_requests.each do |panel_request| %>
-            <tr onClick="window.location.href='/lob/panel_requests/<%= panel_request.id %>'">
-              <td data-order="<%= panel_request.created_at.strftime('%Y%m%d%H%M') %>">
-                <%= panel_request.created_at.strftime('%d %b %Y at %I:%M %p') %>
-              </td>
-              
-              <td><%= panel_request.line_of_business.present? ? panel_request&.line_of_business : "-" %></td>
-              <td><%= panel_request.law_frim_name.present? ? panel_request&.law_frim_name : "-" %></td>
-              <td><%= panel_request.law_frim_name.present? ? panel_request&.law_firm_mail : "-" %></td>
-              <!--td>
+              <tr onClick="window.location.href='/lob/panel_requests/<%= panel_request.id %>'">
+                <td data-order="<%= panel_request.created_at.strftime('%Y%m%d%H%M') %>">
+                  <%= panel_request.created_at.strftime('%d %b %Y at %I:%M %p') %>
+                </td>
+                <td><%= panel_request.line_of_business.present? ? panel_request&.line_of_business : "-" %></td>
+                <td><%= panel_request.law_frim_name.present? ? panel_request&.law_frim_name : "-" %></td>
+                <td><%= panel_request.law_frim_name.present? ? panel_request&.law_firm_mail : "-" %></td>
+                <!--td>
                 <div class="status">
                   <% if panel_request.lxp_status.present? %>
                     <span class="<%= panel_request.lxp_status === "APPROVED" ? 'label label-success' : 'label label-default' %>"> 
@@ -105,12 +100,12 @@
                 </div>
                 <% panel_request.lxp_status_show ? panel_request.lxp_status_show : "-" %>
               </td-->
-            </tr>
+              </tr>
             <% end %>
           </tbody>
         </table>
       </div>
-    <!-- end widget div -->
+      <!-- end widget div -->
+    </div>
+    <!-- end widget -->
   </div>
-  <!-- end widget -->
-</div>

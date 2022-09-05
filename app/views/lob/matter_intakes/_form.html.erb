@@ -1,7 +1,6 @@
 <style>
-	/* /input, textarea, select { padding: 0px !important; margin: 0px; background: transparent; } */
+  /* /input, textarea, select { padding: 0px !important; margin: 0px; background: transparent; } */
 </style>
-
 <div class="sp-form sp-form-bg">
   <%= simple_form_for [:lob, @matter_intake], html: { multipart: true } do |f| %>
     <div class="row form-flex-wrap">
@@ -21,7 +20,7 @@
       <div class="col-xs-12 col-md-6">
         <label  class="label">Type of Matter<span class="mandatory">*</span></label>
         <%= f.input :matter_type_id, label: false, collection: MatterType.all.reject{|mt| mt.matter_type === "Litigation / Litiges"}.map{|mt| [mt.matter_type, mt.id] } %>
-      </div>   
+      </div>
       <div class="col-xs-12 col-md-6">
         <label  class="label">Matter Description<span class="mandatory">*</span></label>
         <%= f.input :matter_description, as: :string, label: false %>
@@ -39,11 +38,11 @@
         <%= f.input :law_firm_id, label: false, collection: LawFirm.where(law_firm_category: "PANEL").map{|lf| [lf.name, lf.id] } %>
       </div>-->
       <div class="col-xs-12 col-md-6">
-        <label  class="label">BMO lawyer name<span class="mandatory">*</span></label>
-          <%= f.input :bmo_lawyer_name, label: false, collection: InternalLawyer.all.map {|il| [il.full_name, il.full_name, {'data-id'=>il.id}]} %>
-          <%= f.input :lawyer_id, as: :hidden, label: false %>
-      </div> 
-       <div class="col-xs-12 col-md-6">
+        <label  class="label">Internal lawyer name<span class="mandatory">*</span></label>
+        <%= f.input :bmo_lawyer_name, label: false, collection: InternalLawyer.all.map {|il| [il.full_name, il.full_name, {'data-id'=>il.id}]} %>
+        <%= f.input :lawyer_id, as: :hidden, label: false %>
+      </div>
+      <div class="col-xs-12 col-md-6">
         <label  class="label">Is outside counsel being engaged?<span class="mandatory">*</span></label>
         <%= f.input :outside_counsel_engaged, label: false, collection: MatterIntake::OutsideCounselEngaged %>
       </div>
@@ -58,11 +57,11 @@
       <div class="col-xs-12 col-md-6 non_panel_firm" style="display: none;">
         <label class="label">Name of Non-Panel Firm<span class="mandatory">*</span></label>
         <%= f.input :name_of_non_panel_firm, label: false, collection: LawFirm.where(law_firm_category: "NON_PANEL").map{ |lf| [lf.name, lf.name] } %>
-      </div>  
+      </div>
       <div class="col-xs-12 col-md-6">
         <label  class="label">Business/Group paying for this matter (level 1)<span class="mandatory">*</span></label>
         <%= f.input :business_paying_for_matter, label: false, collection: MatterIntake::Business %>
-      </div>    
+      </div>
       <div class="col-xs-12 col-md-6">
         <label  class="label">Business/Group paying for this matter (level 2)<span class="mandatory">*</span></label>
         <%= f.input :group_paying_for_matter, label: false, collection: [], input_html: { data: {value: "#{@matter_intake&.group_paying_for_matter}"} } %>
@@ -74,12 +73,12 @@
       <div class="col-xs-12 col-md-6">
         <label  class="label">Name of PO approver<span class="mandatory">*</span></label>
         <%= f.input :lob_contact_for_po, label: false %>
-      </div>    
+      </div>
       <div class="col-xs-12 col-md-6">
         <label  class="label">Cost Centre for legal fees<span class="mandatory">*</span></label>
         <%= f.input :cost_centre_for_legal_fees, label: false %>
       </div>
-       <div class="col-xs-12 col-md-6">
+      <div class="col-xs-12 col-md-6">
         <label  class="label">Deal Code (Capital Markets Only)</label>
         <%= f.input :deal_code, label: false %>
       </div>
@@ -92,19 +91,17 @@
         <%= f.input :jurisdiction, label: false, collection: MatterIntake::Jurisdiction %>
       </div>
       <div class="col-xs-12 col-md-6">
-        <label  class="label">Additional Comments for LRC Lawyer</label>
+        <label  class="label">Additional Comments for Internal Lawyer</label>
         <%= f.input :additional_comments_for_lrc_lawyer, label: false %>
       </div>
       <div class="col-xs-12 col-md-6">
         <label class="label">Is this a syndicate matter?<span class="mandatory">*</span></label>
-        <%= f.input :is_syndicate_matter, label: false, as: :select, collection: [['Yes, BMO is the lead bank', 'Yes, BMO is the lead bank'],["Yes, BMO is not the lead bank", "Yes, BMO is not the lead bank"], ["No", "No"]]  %>
+        <%= f.input :is_syndicate_matter, label: false, as: :select, collection: [['Yes, we are the lead organization', 'Yes, we are the lead organization'],["Yes, we are not the lead organization", "Yes, we are not the lead organization"], ["No", "No"]]  %>
       </div>
       <div class="col-xs-12 col-md-6 upload-file-control ">
         <label  class="label">Document</label>
         <%= f.input :asset, as: :file, label: false %>
       </div>
-
-
       <!--div class="outside_counsel_engaged" style="display:none;">
         <div class="col-xs-12 col-md-12">
           <div class="field-label"><h2>Information Security Classification:</h2>	</div>
@@ -144,14 +141,12 @@
           </div>
         </div>
       </div-->
-
       <% if !@matter_intake.new_record? %>
-          <%= f.input :submit_type, as: :hidden, label: false, :input_html => { :value => "update" } %>
+        <%= f.input :submit_type, as: :hidden, label: false, :input_html => { :value => "update" } %>
       <% end %>
-
       <div class="col-md-12">
         <%=link_to 'Cancel', @matter_intake.new_record? ? new_lob_matter_intake_path : new_lob_matter_intake_path, class: 'btn-type-default' %>
-        <%= f.button :submit, @matter_intake.new_record? ? "Submit" : "Submit", class: "btn-type-primary lob_matter_submit_btn" %>      
+        <%= f.button :submit, @matter_intake.new_record? ? "Submit" : "Submit", class: "btn-type-primary lob_matter_submit_btn" %>
       </div>
     </div>
   <% end %>

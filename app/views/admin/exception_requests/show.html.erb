@@ -1,51 +1,45 @@
 <style>
-    div#gauge * {
-      top: -25px;
-    }
-  </style>
-  <div class="col-lg-12 col-md-12 col-sm-12">
-    <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
-      <div class="page-header-sp m-top">
-				<div class="page-title">Non-Panel (one-off) Requests
-       
-          <% if @exception_request.lxp_status.present? %>
-            <span style=" color: #fff; "  class="<%= @exception_request.lxp_status === "APPROVED" ? 'label label-success' : 'label label-default' %>"> 
-              LXP Status: <%= @exception_request.lxp_status_show %>
-            </span>
-            <br>
-            <% if @exception_request.lxp_status === "REQUEST_TO_INPUT" && @exception_request.reviews.reverse.last.status === "REQUEST_TO_INPUT" %>
-              <span  style=" background: #e0e0e0; padding: 13px; margin-top: 10px; border-radius: 10px; width: 100%; "> 
-                LXP Comments :. <%= @exception_request.reviews.reverse.last.description %>
-              </span>
-            <% end %>  
-          <% end %>
-          <% if @exception_request.internal_lawyers_status.present? %>
-            <span style=" color: #fff; "  class="<%= @exception_request.internal_lawyers_status === "APPROVED" ? 'label label-success' : 'label label-default' %>"> 
-              Lawyers Status: <%= @exception_request.try(:internal_lawyers_status).try(:titleize) %>
+  div#gauge * {
+    top: -25px;
+  }
+</style>
+<div class="col-lg-12 col-md-12 col-sm-12">
+  <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+    <div class="page-header-sp m-top">
+      <div class="page-title">Non-Panel (one-off) Requests
+        <% if @exception_request.lxp_status.present? %>
+          <span style=" color: #fff; "  class="<%= @exception_request.lxp_status === "APPROVED" ? 'label label-success' : 'label label-default' %>">
+            Internal Status: <%= @exception_request.lxp_status_show %>
+          </span>
+          <br>
+          <% if @exception_request.lxp_status === "REQUEST_TO_INPUT" && @exception_request.reviews.reverse.last.status === "REQUEST_TO_INPUT" %>
+            <span  style=" background: #e0e0e0; padding: 13px; margin-top: 10px; border-radius: 10px; width: 100%; ">
+              LXP Comments :. <%= @exception_request.reviews.reverse.last.description %>
             </span>
           <% end %>
-        </div>
-				<div class="back-edit-actions">
-					<a class="btn-type-default" href="/admin/exception_requests">
-						<%= image_tag "chevron-back-icon.svg", alt:"Back" %>
-					</a>
-          <% if current_user.id == @exception_request.user_id %>
-            <%= link_to "Edit".html_safe, exception_request_update_engage_admin_exception_requests_path(@exception_request), class: "btn-type-primary" %>
-          <% end %>
-        </div>
-			</div>
-
-
+        <% end %>
+        <% if @exception_request.internal_lawyers_status.present? %>
+          <span style=" color: #fff; "  class="<%= @exception_request.internal_lawyers_status === "APPROVED" ? 'label label-success' : 'label label-default' %>">
+            Lawyers Status: <%= @exception_request.try(:internal_lawyers_status).try(:titleize) %>
+          </span>
+        <% end %>
+      </div>
+      <div class="back-edit-actions">
+        <a class="btn-type-default" href="/admin/exception_requests">
+          <%= image_tag "chevron-back-icon.svg", alt:"Back" %>
+        </a>
+        <% if current_user.id == @exception_request.user_id %>
+          <%= link_to "Edit".html_safe, exception_request_update_engage_admin_exception_requests_path(@exception_request), class: "btn-type-primary" %>
+        <% end %>
+      </div>
+    </div>
+    <div class="">
+      <!-- widget content -->
       <div class="">
-        <!-- widget content -->
-        <div class="">
-          <%= render "exception_request"  %>
-        </div>
+        <%= render "exception_request"  %>
       </div>
     </div>
   </div>
-  
-  <%#= render "comments" %>
-
- <%= render "#{current_user.role}_show" %>
-
+</div>
+<%#= render "comments" %>
+<%= render "#{current_user.role}_show" %>

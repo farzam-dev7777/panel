@@ -79,6 +79,9 @@
 						<a data-toggle="tab" href="#hr7">Panel Consideration Requests</a>
 					</li>
 				<% end %>
+				<li>
+					<a data-toggle="tab" href="#hr8">Matters</a>
+				</li>
 			</ul>	
 			</div>
 		</div>
@@ -141,23 +144,23 @@
 											<div class="field-data"><%= @law_firm.name %></div>
 										</div>
 										<div class="col-xs-12 col-md-6">
-											<label class="field-label">BMO Relationship Partner Name</label>
+											<label class="field-label">Internal Relationship Partner Name</label>
 											<div class="field-data"><%= @law_firm.bmo_relationship_partner_name  %> </div>
 										</div>
 										<div class="col-xs-12 col-md-6">
-											<label class="field-label">BMO Relationship Partner Email</label>
+											<label class="field-label">Internal Relationship Partner Email</label>
 											<div class="field-data"><%= @law_firm.bmo_relationship_partner_email  %> </div>
 										</div>
 										<div class="col-xs-12 col-md-6">
-											<label class="field-label">BMO Relationship Partner Phone No.</label>
+											<label class="field-label">Internal Relationship Partner Phone No.e No.e No.</label>
 											<div class="field-data"><%= @law_firm.bmo_relationship_partner_phone_number  %> </div>
 										</div>
 										<div class="col-xs-12 col-md-6">
-											<label class="field-label">Additional BMO Relationship Contact Name (optional)</label>
+											<label class="field-label">Additional Internal Relationship Contact Name (optional)</label>
 											<div class="field-data"><%= @law_firm.secondary_rm_contact %> </div>
 										</div>
 										<div class="col-xs-12 col-md-6">
-											<label class="field-label">Additional BMO Relationship Contact Email (optional)</label>
+											<label class="field-label">Additional Internal Relationship Contact Email (optional)</label>
 											<div class="field-data"><%= @law_firm.secondary_rm_contact_email %> </div>
 										</div>
 										<div class="col-xs-12 col-md-6">
@@ -176,7 +179,7 @@
 									</div>
 								</div>
 								<div class="col-md-12">
-									<div class="inner-label">SEMS Information</div>
+									<div class="inner-label">Information Security</div>
 									<div class="inner-form-field form-flex-wrap">
 										<div class="col-xs-12 col-md-6">
 											<label class="field-label">Engagement Number</label>
@@ -275,7 +278,7 @@
 									</div>
 								<% end %>
 								<!--div class="col-xs-12 col-md-6">
-									<div class="field-label">Initial Date of Engagement with BMO</div>		
+									<div class="field-label">Initial date of engagement with organization</div>		
 									<div class="field-data"><%= @law_firm.initial_date_of_engagement_with_the_bank && @law_firm.initial_date_of_engagement_with_the_bank.in_time_zone('Eastern Time (US & Canada)').strftime(LawFirm::DATE_FORMAT) %></div>
 								</div-->
 								<div class="col-xs-12 col-md-6">
@@ -511,7 +514,7 @@
 									<tr>
 										<th>Request By</th>
 										<th>Submitted By	</th>
-										<th>LXP Status</th>
+										<th>Internal Status</th>
 										<th>Internal Lawyer Status</th>
 										<th>Pay Type</th>
 										<th>Document Status</th>
@@ -565,8 +568,8 @@
 											<thead>
 											<tr>
 												<th>Contact details	</th>
-												<th>BMO contact	</th>
-												<th>LXP Status</th>
+												<th>Internal Contact	</th>
+												<th>Internal Status</th>
 												<th>Internal Lawyer Status</th>
 												<th width="8%">Action</th>
 											</tr>
@@ -674,6 +677,18 @@
 						</div>
 
 						<% end %>	
+				
+						<div class="tab-pane fade" id="hr8">
+
+							<div class="">
+	
+									<div class="sp-form sp-form-bg text-center">
+										<h4 class="text-center no-submissions">There are no Matters created</h4>
+									</div>
+									
+								</div>
+
+					</div>
 				</div>
 				<!-- end widget body text-->
 			</div>

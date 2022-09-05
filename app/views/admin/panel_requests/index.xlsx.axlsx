@@ -23,15 +23,15 @@ wb.styles do |style|
       "Law Firm Phone", 
       "Would You use this firm on a regular basis?", 
       "What type of matters would this firm work on?", 
-      "Does this firm have a specific niche expertise not available from a BMO LXP Panel law firm?", 
+      "Does this firm have a specific niche expertise not available from an existing panel law firm?", 
       "If yes, please describe niche expertise", 
-      "Does this firm practice in a location not already covered by a BMO LXP Panel law firm?", 
+      "Does this firm practice in a location not already covered by an existing panel law firm?", 
       "If yes, confirm location", 
       "Would engagements of this firm involve the following", 
       "Is this a certified minority/woman owned firm?", 
       "If yes, which organization certified the firm?", 
-      "Are there additional reasons to consider this firm for BMO's LXP Panel? Provide details", 
-      "LXP Status", 
+      "Are there additional reasons to consider this firm for our organization's panel? Provide details", 
+      "Internal Status", 
       "Panel Approved" 
       ], style: heading
     # Create entries for each item
