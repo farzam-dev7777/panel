@@ -90,6 +90,7 @@ class Lob::MatterIntakesController < Lob::BaseController
       :lawyer_reviewed_at, :other_party, :following_matter_involve, :deal_code, :outside_counsel_engaged,
       :receive_personal_information, :receive_general_business_data, :applicable_technical_specialty_data,
       applicable_technical_specialty_data_type: [], receive_personal_information_data_type: [], receive_general_business_data_type: [],
+      invoices_attributes: [:id, :matter_intake_id, :lawyer_name, :rate, :rate_type, :description, :hours, :amount]
     )
   end
 

@@ -10,6 +10,8 @@ class MatterIntake < ApplicationRecord
   serialize :applicable_technical_specialty_data_type, Array
   has_many :reviews, as: :reviewable
   has_many :invoices
+
+  accepts_nested_attributes_for :invoices, reject_if: :all_blank, allow_destroy: true
   
   mount_uploader :asset, DocUploader
 
