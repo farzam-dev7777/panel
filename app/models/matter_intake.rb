@@ -9,7 +9,7 @@ class MatterIntake < ApplicationRecord
   serialize :receive_general_business_data_type, Array
   serialize :applicable_technical_specialty_data_type, Array
   has_many :reviews, as: :reviewable
-  
+  has_many :invoices
   
   mount_uploader :asset, DocUploader
 

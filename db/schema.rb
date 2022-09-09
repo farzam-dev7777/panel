@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20220905050219) do
+ActiveRecord::Schema.define(version: 20220909123448) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -390,6 +390,19 @@ ActiveRecord::Schema.define(version: 20220905050219) do
     t.integer  "law_firm_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "invoices", force: :cascade do |t|
+    t.integer  "matter_intake_id"
+    t.string   "lawyer_name"
+    t.float    "rate",             default: 0.0
+    t.string   "rate_type"
+    t.string   "description"
+    t.float    "hours"
+    t.integer  "amount_cents",     default: 0,     null: false
+    t.string   "amount_currency",  default: "CAD", null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
   end
 
   create_table "issues", force: :cascade do |t|
