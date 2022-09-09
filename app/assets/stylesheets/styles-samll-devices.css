@@ -210,4 +210,7 @@
   #menu_toggle_container{
     display: initial;
   }
+  .formSection {
+    flex-direction: column;
+}
 }
