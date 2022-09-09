@@ -116,7 +116,7 @@
   .hide-profile{
     display: none !important;
   }
-  .formSection {
-    flex-direction: column;
+  .formSection .text-right{
+    text-align: left !important;
   }
 }

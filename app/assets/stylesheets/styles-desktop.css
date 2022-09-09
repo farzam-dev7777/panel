@@ -1345,6 +1345,9 @@ nav ul li a:active {
   display: flex;
   justify-content: flex-end;
 }
+.formSection{
+  margin-bottom: 20px;
+}
 .addButton {
   color: #00a0af;
   height: 30px !important;
@@ -1362,12 +1365,6 @@ nav ul li a:active {
 .addButton img {
   width: 16px;
   margin-right: 5px;
-}
-.formSection{
-  display: flex;
-}
-.formSection .formInnerCols{
-  flex: 1;
 }
 .uploadFile {
   position: relative;
@@ -1388,9 +1385,3 @@ nav ul li a:active {
   justify-content: center;
   align-items: center;
 }
-/* .uploadFile > label:hover {
-  background-color: red;
-}
-.uploadFile > label:active {
-  background-color: red;
-} */

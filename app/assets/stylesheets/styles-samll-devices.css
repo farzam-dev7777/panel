@@ -210,7 +210,7 @@
   #menu_toggle_container{
     display: initial;
   }
-  .formSection {
-    flex-direction: column;
-}
+  .formSection .text-right{
+    text-align: left !important;
+  }
 }
