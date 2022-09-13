@@ -1372,7 +1372,7 @@ nav ul li a:active {
   margin-bottom: 15px;
   margin-top: 10px;
 }
-.uploadFile > input[type="file"] {
+.uploadFile input[type="file"] {
   display: none;
 }
 .uploadFile > label {

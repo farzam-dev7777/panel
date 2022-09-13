@@ -18,11 +18,13 @@ class Lob::MatterIntakesController < Lob::BaseController
 
   def new
     @matter_intake = MatterIntake.new
+    @invoices = @matter_intake.invoices.build
+    @invoice_attachments = @invoices.invoice_attachments.build
     @current_lob_user = current_lob_user
   end
 
   def edit
-    @matter_intake = MatterIntake.find_by(id: params[:id])
+    @matter_intake = MatterIntake.includes(:invoices).find_by(id: params[:id])
     @current_lob_user = current_lob_user
 
     add_breadcrumb "#{@matter_intake.submitter_name}", :lob_matter_intake_path 
@@ -74,7 +76,7 @@ class Lob::MatterIntakesController < Lob::BaseController
   end
 
   def show
-    @matter_intake = MatterIntake.find_by(id: params[:id])
+    @matter_intake = MatterIntake.includes(:invoices).find_by(id: params[:id])
   end
 
   private
@@ -90,7 +92,7 @@ class Lob::MatterIntakesController < Lob::BaseController
       :lawyer_reviewed_at, :other_party, :following_matter_involve, :deal_code, :outside_counsel_engaged,
       :receive_personal_information, :receive_general_business_data, :applicable_technical_specialty_data,
       applicable_technical_specialty_data_type: [], receive_personal_information_data_type: [], receive_general_business_data_type: [],
-      invoices_attributes: [:id, :matter_intake_id, :lawyer_name, :rate, :rate_type, :description, :hours, :amount]
+      invoices_attributes: [:id, :matter_intake_id, :lawyer_name, :rate, :rate_type, :description, :hours, :amount, invoice_attachments_attributes: [:id, :file]]
     )
   end
 

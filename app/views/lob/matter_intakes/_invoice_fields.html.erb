@@ -1,0 +1,36 @@
+<div class="col-md-12 col-xs-12">
+  <div class="formSection row"> <!-- this main div will be functional -->
+    <div class="col-xs-12 col-md-2">
+			<label class="label">Lawyer Name</label>
+			<%= form.input :lawyer_name, label: false %>
+    </div>
+    <div class="col-xs-12 col-md-2">
+			<label class="label">Hours</label>
+			<%= form.input :hours, label: false %>
+    </div>
+    <div class="col-xs-12 col-md-3">
+			<label class="label">Description</label>
+			<%= form.input :description, label: false %>
+    </div>
+    <div class="col-xs-12 col-md-2">
+			<label class="label">Rate Type</label> <!-- (Hourly/AFA) -->
+			<%= form.input :rate_type, label: false, as: :select, collection: [['Hourly', 'Hourly'], ['AFA', 'AFA']] %>
+    </div>
+    <div class="col-xs-12 col-md-2">
+			<label class="label">Amt</label>
+			<%= form.input :amount, label: false %>
+    </div>
+    <%= form.simple_fields_for :invoice_attachments, InvoiceAttachment.new do |p| %>
+			<div class="col-xs-12 col-md-1">
+				<div><label class="label">Upload</label></div>
+				<div class="uploadFile">
+					<label for="file">
+						<%= image_tag "uploadIcon.svg", alt:"Upload file" %>
+					</label>
+					<%= p.input :file, label: false, as: :file, input_html: {id: "file", multiple: false} %>
+				</div>
+			</div>
+			<div class="col-xs-12 col-md-12 text-right"><label class="label">uploaded-file-name-comes-here.pdf</label></div>
+    <% end %>
+  </div>
+</div>

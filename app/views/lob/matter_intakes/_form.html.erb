@@ -107,43 +107,23 @@
       <div class="col-md-12 col-xs-12">
         <div class="formHeader">
           <div class="addButton">
-            <%= image_tag "add.svg", alt:"Submit New Matter Intake Form" %> <span>Add</span>
+            <%= image_tag "add.svg", alt:"Submit New Matter Intake Form" %> <span>Add Invoice</span>
           </div>
         </div>
-        <div class="formSection row"> <!-- this main div will be functional -->
-          <div class="col-xs-12 col-md-2">
-            <label class="label">Lawyer</label>
-            <input class="form-control" type="text">
-          </div>
-          <div class="col-xs-12 col-md-2">
-            <label class="label">Hours</label>
-            <input class="form-control" type="text">
-          </div>
-          <div class="col-xs-12 col-md-3">
-            <label class="label">Description</label>
-            <input class="form-control" type="text">
-          </div>
-          <div class="col-xs-12 col-md-2">
-            <label class="label">Rate Type (Hourly/AFA)</label>
-            <input class="form-control" type="text">
-          </div>
-          <div class="col-xs-12 col-md-2">
-            <label class="label">Amt</label>
-            <input class="form-control" type="text">
-          </div>
-          <div class="col-xs-12 col-md-1">
-            <div><label class="label">Upload</label></div>
-            <div class="uploadFile">
-              <label for="input-file">
-                <%= image_tag "uploadIcon.svg", alt:"Upload file" %>
-              </label>
-              <input id="input-file" type="file">
-            </div>
-          </div>
-          <div class="col-xs-12 col-md-12 text-right"><label class="label">uploaded-file-name-comes-here.pdf</label></div>
-        </div>
-        
       </div>
+      <% if new_form %>
+        <%= f.simple_fields_for :invoices, Invoice.new do |form| %>
+          <%= render 'invoice_fields', form: form, new_form: new_form %>
+        <% end %>
+      <% else %>
+        <% if @matter_intake.invoices.count > 0 %>
+          <% @matter_intake.invoices.each do |invoice| %>
+            <%= f.simple_fields_for :invoices, invoice do |form| %>
+              <%= render 'invoice_edit_fields', form: form, new_form: new_form, invoice: invoice %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
       <!-- New form End -->
 
       <!--div class="outside_counsel_engaged" style="display:none;">
