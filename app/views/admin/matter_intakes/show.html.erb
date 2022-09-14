@@ -525,6 +525,62 @@
 </div>
 <% end %>
 <% end %>
+<% if @matter_intake.invoices.count > 0 %>
+  <div class="col-md-12 col-xs-12">
+    <div class="formHeader">
+      <div class="headerTitle">Invoices</div>
+    </div>
+    <% @matter_intake.invoices.each do |invoice| %>
+      <div class="formSection row">
+        <div class="col-xs-12 col-md-2">
+          <div class="field-label">Lawyer Name</div>
+          <div class="field-data"><%= invoice.lawyer_name %></div>
+        </div>
+
+        <div class="col-xs-12 col-md-2">
+          <div class="field-label">Hours</div>
+          <div class="field-data"><%= invoice.hours %></div>
+        </div>
+
+        <div class="col-xs-12 col-md-2">
+          <div class="field-label">Description</div>
+          <div class="field-data"><%= invoice.description %></div>
+        </div>
+
+        <div class="col-xs-12 col-md-2">
+          <div class="field-label">Rate Type</div>
+          <div class="field-data"><%= invoice.rate_type %></div>
+        </div>
+
+        <div class="col-xs-12 col-md-2">
+          <div class="field-label">Amt.</div>
+          <div class="field-data"><%= invoice.amount.format %></div>
+        </div>
+
+        <div class="col-xs-12 col-md-2">
+          <div class="field-label">Attachments</div>
+          <div class="field-data">
+            <% if invoice.invoice_attachments.count > 0 %>
+              <% invoice.invoice_attachments.each do |attachment| %>
+                <a href="<%= attachment.file&.url %>" target="_blank"><%= attachment.file.identifier %></a>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="col-md-12 col-xs-12">
+    <div class="totalRow">
+      <div>
+        <span>Total Hours:</span> <%= @matter_intake.invoices.sum(&:hours) %>
+      </div>
+      <div>
+        <span>Total Amt:</span> <%= @matter_intake.invoices.sum(&:amount).try(:format) %>
+      </div>
+    </div>
+  <div>
+<% end %>
 </div>
 <div class="clearfix"></div>
 </div>
