@@ -54,7 +54,7 @@ class MatterIntake < ApplicationRecord
   #### Validation common in General & Litigation intake starts ####
 
   validates_presence_of :bmo_lawyer_name, :legal_group_of_bmo_lawyer, :work_area, :work_area_type, :is_syndicate_matter,
-    :is_conceal_imanage_workspace, :is_paper_file, :name_of_matter_client, :matter_description, :paying_entity,
+    :is_conceal_imanage_workspace, :name_of_matter_client, :matter_description, #:paying_entity, :is_paper_file,
     :business_paying_for_matter, :group_paying_for_matter, :jurisdiction, :outside_counsel_engaged,
     :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && FORM_TYPE.include?(matter_intake.form_type) }
 
