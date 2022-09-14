@@ -210,4 +210,10 @@
   #menu_toggle_container{
     display: initial;
   }
+  .formSection .text-right{
+    text-align: left !important;
+  }
+  .remove-matter-invoice {
+    margin-top: 5px;
+  }
 }

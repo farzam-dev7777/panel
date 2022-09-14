@@ -116,4 +116,10 @@
   .hide-profile{
     display: none !important;
   }
+  .formSection .text-right{
+    text-align: left !important;
+  }
+  .remove-matter-invoice {
+    margin-top: 15px;
+  }
 }
