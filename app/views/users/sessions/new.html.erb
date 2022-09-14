@@ -30,7 +30,7 @@
         </div>
         <div class="sp-signin-form">
           <div class="sp-signin-btn mb-1">
-            <%= link_to 'Sign in via Okta', user_okta_omniauth_authorize_path, method: :post, class: "btn-type-primary" %>
+            <%= link_to 'Sign in via SSO', user_okta_omniauth_authorize_path, method: :post, class: "btn-type-primary" %>
           </div>
           <div class="mb-1 text-center">Or</div>
           <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {id: 'login-form', class: 'smart-form client-form'}) do |f| %>
