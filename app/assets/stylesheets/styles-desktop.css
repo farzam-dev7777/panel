@@ -1339,11 +1339,15 @@ nav ul li a:active {
 }
 .formHeader {
   border-bottom: 1px solid #ccc;
-  padding-bottom: 15px;
+  padding-bottom: 5px;
   margin-top: 20px;
   margin-bottom: 20px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
+}
+.formHeader .headerTitle {
+  font-size: 18px;
+  font-weight: 700;
 }
 .formSection{
   margin-bottom: 20px;
@@ -1384,4 +1388,19 @@ nav ul li a:active {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.totalRow {
+  display: flex;
+  flex-direction: row;
+  align-content: space-around;
+  justify-content: space-around;
+}
+
+.totalRow span {
+  font-weight: 600;
+}
+
+.remove-matter-invoice {
+  margin-top: 35px;
 }

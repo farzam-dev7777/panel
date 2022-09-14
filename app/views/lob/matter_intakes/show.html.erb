@@ -182,7 +182,9 @@
 
             <% if @matter_intake.invoices.count > 0 %>
               <div class="col-md-12 col-xs-12">
-                <div class="formHeader"></div>
+                <div class="formHeader">
+                  <div class="headerTitle">Invoices</div>
+                </div>
                 <% @matter_intake.invoices.each do |invoice| %>
                   <div class="formSection row">
                     <div class="col-xs-12 col-md-2">
@@ -212,11 +214,27 @@
 
                     <div class="col-xs-12 col-md-2">
                       <div class="field-label">Attachments</div>
-                      <div class="field-data"></div>
+                      <div class="field-data">
+                        <% if invoice.invoice_attachments.count > 0 %>
+                          <% invoice.invoice_attachments.each do |attachment| %>
+                            <a href="<%= attachment.file&.url %>" target="_blank"><%= attachment.file.identifier %></a>
+                          <% end %>
+                        <% end %>
+                      </div>
                     </div>
                   </div>
                 <% end %>
               </div>
+              <div class="col-md-12 col-xs-12">
+                <div class="totalRow">
+                  <div>
+                    <span>Total Hours:</span> <%= @matter_intake.invoices.sum(&:hours) %>
+                  </div>
+                  <div>
+                    <span>Total Amt:</span> <%= @matter_intake.invoices.sum(&:amount).try(:format) %>
+                  </div>
+                </div>
+              <div>
             <% end %>
           </div>
         </div>

@@ -37,25 +37,31 @@ class Admin::MatterIntakesController < Admin::BaseController
   def new
     @form_type = params[:form_type]
     @matter_intake = MatterIntake.new
+    @invoices = @matter_intake.invoices.build
+    @invoice_attachments = @invoices.invoice_attachments.build
+    @new_form = true
     @current_user = current_user
   end
 
   def edit
-    @matter_intake = MatterIntake.find_by(id: params[:id])
+    @matter_intake = MatterIntake.includes(:invoices).find_by(id: params[:id])
+    @new_form = false
     @current_user = current_user
   end
 
   def show
-    @matter_intake = MatterIntake.find_by(id: params[:id])
+    @matter_intake = MatterIntake.includes(:invoices).find_by(id: params[:id])
   end
 
   def review
-    @matter_intake = MatterIntake.find_by(id: params[:id])
+    @matter_intake = MatterIntake.includes(:invoices).find_by(id: params[:id])
+    @new_form = false
     @current_user = current_user
   end
 
   def lxp_review
-    @matter_intake = MatterIntake.find_by(id: params[:id])
+    @matter_intake = MatterIntake.includes(:invoices).find_by(id: params[:id])
+    @new_form = false
   end
 
   def create
@@ -78,7 +84,7 @@ class Admin::MatterIntakesController < Admin::BaseController
   end
 
   def information_security_classification
-    @matter_intake = MatterIntake.find_by(id: params[:matter_intake_id])
+    @matter_intake = MatterIntake.includes(:invoices).find_by(id: params[:matter_intake_id])
   end
 
   def update
@@ -118,7 +124,7 @@ class Admin::MatterIntakesController < Admin::BaseController
   end
 
   def lxp_rejects
-    @matter_intake = MatterIntake.find_by(id: params[:id])
+    @matter_intake = MatterIntake.includes(:invoices).find_by(id: params[:id])
     if current_user.role === "lxp"
       if @matter_intake.update_attributes(lxp_reviewed_at: Time.now, status: 'awaiting_lawyer_update', lxp_id: current_user.id)
         #@matter_intake.add_log_for_lxp_rejects_and_returns_to_lawyer(current_user)
@@ -156,6 +162,7 @@ class Admin::MatterIntakesController < Admin::BaseController
       :branch, :outside_counsel_engaged, :following_matter_involve, :deal_code, :email_notification_to_litigation_specialist_team,
       :receive_personal_information, :receive_general_business_data, :applicable_technical_specialty_data,
       applicable_technical_specialty_data_type: [], receive_personal_information_data_type: [], receive_general_business_data_type: [],
+      invoices_attributes: [:id, :matter_intake_id, :lawyer_name, :rate_type, :description, :hours, :amount, :_destroy, invoice_attachments_attributes: [:id, :file]]
     )
   end
 

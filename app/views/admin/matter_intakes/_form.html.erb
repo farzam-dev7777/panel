@@ -384,6 +384,27 @@
           </div>
         </div>
       <% end %>
+      <!-- New form start -->
+      <div class="col-md-12 col-xs-12">
+        <div class="formHeader">
+          <div class="headerTitle">Invoices</div>
+        </div>
+      </div>
+      <div class="col-md-12 col-xs-12">
+        <% if !@new_form %>
+          <% if @matter_intake.invoices.count > 0 %>
+            <% @matter_intake.invoices.each do |invoice| %>
+              <%= f.simple_fields_for :invoices, invoice do |form| %>
+                <%= render 'invoice_fields', f: form, invoice: invoice %>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+        <div class="addButton links mb-4">
+          <%= link_to_add_association '<span href="javascript:void(0);"><i class="fa fa-plus-circle"></i> Add Invoice</span>'.html_safe, f, :invoices %> 
+        </div>
+      </div>
+      <!-- New form End -->
       <% if !@matter_intake.new_record? %>
         <%= f.input :submit_type, as: :hidden, label: false, :input_html => { :value => "update" } %>
       <% end %>
