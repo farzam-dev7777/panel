@@ -185,7 +185,7 @@ class User < ApplicationRecord
       # response = RestClient.get("#{Rails.application.secrets[:okta]['site']}/api/v1/users/#{auth['uid']}", headers=headers)
       result = JSON.parse(response&.body) if response&.body.present?
 
-      user_groups = result.select {|group| group['type'] === "OKTA_GROUP" } if result.present?
+      user_groups = result.select {|group| group['type'] === "OKTA_GROUP" && ["Panel - Internal Lawyers", "Panel - Master User", "Panel - Business User"].include?(group['profile']['name']) } if result.present?
       user_group = user_groups.first
       # If user_group present then we find or create user in our database
       if user_group.present?
