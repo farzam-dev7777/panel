@@ -68,6 +68,9 @@ gem 'money-rails'
 
 gem  'nokogiri'
 gem 'acts_as_commentable_with_threading'
+gem 'stripe'
+gem 'interactor', '~> 3.0'
+
 group :development, :test do
   gem 'byebug', platform: :mri
   gem 'pry'
