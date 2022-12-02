@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en-us" id="extr-page">
+  <head>
+    <title><%= params[:controller].humanize %> | Panel</title>
+    <%= csrf_meta_tags %>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+    # <script src="/assets/libs/jquery-2.1.1.min.js"></script>
+    <script src="/assets/pay.js"></script>
+  </head>
+
+  <body>
+    <div id="main" class="container main-page" role="main" style="">
+      <div class="">
+        <% if notice %>
+          <p class="alert alert-success"><%= notice %></p>
+        <% end %>
+        <% if alert %>
+          <p class="alert alert-warning"><%= alert %></p>
+        <% end %>
+      </div>
+      <%= yield %>
+    </div>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </body>
+</html>

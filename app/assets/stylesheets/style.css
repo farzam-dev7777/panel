@@ -1,5 +1,11 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto");
-
+.margin-top-10 {
+  margin-top: 10px !important;
+}
+.pay_card_error {
+  color: red;
+  font-size: 10px;
+}
 #header > :first-child,
 aside {
   max-width: 220px;
