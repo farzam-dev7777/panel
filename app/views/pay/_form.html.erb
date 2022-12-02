@@ -1,0 +1,40 @@
+<div class="sp-form sp-form-bg">
+	<form id="payment-form">
+		<div class="row form-flex-wrap">
+			<div class="col-xs-12 col-md-6">
+				<label class="label">Company Name<span class="mandatory">*</span></label>
+				<input type="text" name="company_name" id="company_name" class="form-control" required />
+			</div>
+
+			<div class="col-xs-12 col-md-6">
+				<label class="label">Email<span class="mandatory">*</span></label>
+				<input type="email" name="company_email" id="company_email" class="form-control" required />
+			</div>
+
+			<div class="col-xs-12 col-md-6">
+				<label class="label">Phone Number<span class="mandatory">*</span></label>
+				<input type="text" name="company_phone" id="company_phone" class="form-control" required />
+			</div>
+
+			<div class="col-xs-12 col-md-6">
+				<label class="label">Address<span class="mandatory">*</span></label>
+				<input type="text" name="address" id="address" class="form-control" required />
+			</div>
+			<div class="col-xs-12 col-md-6">
+				<label class="label">Card Details<span class="mandatory">*</span></label>
+				<div id="card-element" class="margin-top-10"></div> <!-- Here stripe inject card element -->
+				<p id="card-error" role="alert" class="pay_card_error"></p>
+			</div>
+		</div>
+		<div class="row mt-1">
+			<div class="col-xs-12 col-md-6">
+				<button id="submit" class="stripe_pay_btn btn-type-primary">
+					<div class="spinner hidden" id="spinner"></div>
+					<span id="button-text">Pay $200</span>
+				</button>
+			</div>
+			<div class="col-xs-12 col-md-6">
+			</div>
+		</div>
+	</form>
+</div>
