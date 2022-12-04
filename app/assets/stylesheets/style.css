@@ -1805,3 +1805,8 @@ p.email-error {
 #doorbell form input[type="email"] {
   color: #000;
 }
+
+#card-element{
+  border: 1px solid #d7dfe9;
+  padding: 10px;
+}
