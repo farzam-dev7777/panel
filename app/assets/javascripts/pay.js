@@ -9,12 +9,12 @@ $(document).ready(function() {
     method: "GET",
     success: function(response) {
       if(response){
-        initializeStripe(response?.stripe_publishable_key);
+        initializeStripe(response.stripe_publishable_key);
       }
     },
     error: function(error) {
-      if(error && error.responseJSON && error.responseJSON.error){
-        toastr.error(error?.responseJSON?.errors || 'Error in getting stripe pub key', 'Opps!');
+      if(error && error.responseJSON){
+        toastr.error(error.responseJSON.errors || 'Error in getting stripe pub key', 'Opps!');
       }
     },
   });
@@ -81,13 +81,13 @@ $(document).ready(function() {
         success: function(response) {
           // attach Payment Method & charge
           if(response){
-            attachPaymentMethodAndCharge(response?.stripe_customer_id);
+            attachPaymentMethodAndCharge(response.stripe_customer_id);
           }
         },
         error: function(error) {
           loading(false);
           if(error && error.responseJSON){
-            toastr.error(error?.responseJSON?.errors || 'Error in find/create stripe customer', 'Opps!');
+            toastr.error(error.responseJSON.errors || 'Error in find/create stripe customer', 'Opps!');
           }
         }
       });
@@ -109,7 +109,7 @@ $(document).ready(function() {
         if (response && response.paymentMethod) {
           var data = new FormData();
           data.append('stripe_customer_id', stripeCustomerId);
-          data.append('payment_method_id', response.paymentMethod?.id);
+          data.append('payment_method_id', response.paymentMethod.id);
           $.ajax({
             url: "pay/attach_payment_method_and_charge",
             method: "POST",
