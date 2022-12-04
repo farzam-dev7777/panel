@@ -110,6 +110,10 @@ $(document).ready(function() {
             contentType: false,
             success: function(response) {
               loading(false);
+              $('#company_name').val('');
+              $('#company_email').val('');
+              $('#company_phone').val('');
+              $('#company_address').val('');
               toastr.success('You are charge $200 successfully', 'Success');
             },
             error: function(error) {
