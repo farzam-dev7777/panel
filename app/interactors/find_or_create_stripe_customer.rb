@@ -43,7 +43,10 @@ class FindOrCreateStripeCustomer
 			params = {
 				name: context.params[:name],
 				email: context.params[:email],
-				phone: context.params[:phone]
+				phone: context.params[:phone],
+				metadata: {
+					address: context.params[:address],
+				}
 			}
 			context.stripe_customer = Stripe::Customer.create(params)
 		rescue Stripe::InvalidRequestError => e
