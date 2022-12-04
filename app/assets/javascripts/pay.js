@@ -8,10 +8,14 @@ $(document).ready(function() {
     url: "pay/stripe_publishable_key",
     method: "GET",
     success: function(response) {
-      initializeStripe(response.stripe_publishable_key);
+      if(response){
+        initializeStripe(response?.stripe_publishable_key);
+      }
     },
     error: function(error) {
-      toastr.error(error.responseJSON.errors || 'Error in getting stripe pub key', 'Opps!');
+      if(error && error.responseJSON && error.responseJSON.error){
+        toastr.error(error?.responseJSON?.errors || 'Error in getting stripe pub key', 'Opps!');
+      }
     },
   });
 
@@ -76,11 +80,15 @@ $(document).ready(function() {
         contentType: false,
         success: function(response) {
           // attach Payment Method & charge
-          attachPaymentMethodAndCharge(response.stripe_customer_id);
+          if(response){
+            attachPaymentMethodAndCharge(response?.stripe_customer_id);
+          }
         },
         error: function(error) {
           loading(false);
-          toastr.error(error.responseJSON.errors || 'Error in find/create stripe customer', 'Opps!');
+          if(error && error.responseJSON){
+            toastr.error(error?.responseJSON?.errors || 'Error in find/create stripe customer', 'Opps!');
+          }
         }
       });
       
@@ -98,10 +106,10 @@ $(document).ready(function() {
           loading(false);
           toastr.error('Something went wrong while creating payment method', 'Opps!');
         }
-        if (response.paymentMethod) {
+        if (response && response.paymentMethod) {
           var data = new FormData();
           data.append('stripe_customer_id', stripeCustomerId);
-          data.append('payment_method_id', response.paymentMethod.id);
+          data.append('payment_method_id', response.paymentMethod?.id);
           $.ajax({
             url: "pay/attach_payment_method_and_charge",
             method: "POST",
@@ -114,7 +122,9 @@ $(document).ready(function() {
             },
             error: function(error) {
               loading(false);
-              toastr.error(error.responseJSON.errors || 'Something went wrong while charging', 'Opps!');
+              if(error && error.responseJSON){
+                toastr.error(error.responseJSON.errors || 'Something went wrong while charging', 'Oops!');
+              }
             }
           })
         }
