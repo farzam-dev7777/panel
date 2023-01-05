@@ -8,10 +8,16 @@ $(document).ready(function() {
     url: "pay/stripe_publishable_key",
     method: "GET",
     success: function(response) {
-      initializeStripe(response?.stripe_publishable_key);
+      if(response && response.stripe_publishable_key){
+        initializeStripe(response.stripe_publishable_key);
+      }
     },
     error: function(error) {
-      toastr.error(error?.responseJSON?.errors || 'Error in getting stripe pub key', 'Opps!');
+      if(error && error.responseJSON){
+        toastr.error(error.responseJSON.errors, 'Opps!');
+      } else {
+        toastr.error('Error in getting stripe pub key', 'Opps!');
+      }
     },
   });
 
@@ -76,11 +82,17 @@ $(document).ready(function() {
         contentType: false,
         success: function(response) {
           // attach Payment Method & charge
-          attachPaymentMethodAndCharge(response?.stripe_customer_id);
+          if(response){
+            attachPaymentMethodAndCharge(response.stripe_customer_id);
+          }
         },
         error: function(error) {
           loading(false);
-          toastr.error(error?.responseJSON?.errors || 'Error in find/create stripe customer', 'Opps!');
+          if(error && error.responseJSON){
+            toastr.error(error.responseJSON.errors, 'Opps!');
+          } else {
+            toastr.error('Error in find/create stripe customer', 'Opps!');
+          }
         }
       });
       
@@ -98,10 +110,10 @@ $(document).ready(function() {
           loading(false);
           toastr.error('Something went wrong while creating payment method', 'Opps!');
         }
-        if (response?.paymentMethod) {
+        if (response && response.paymentMethod) {
           var data = new FormData();
           data.append('stripe_customer_id', stripeCustomerId);
-          data.append('payment_method_id', response?.paymentMethod?.id);
+          data.append('payment_method_id', response.paymentMethod.id);
           $.ajax({
             url: "pay/attach_payment_method_and_charge",
             method: "POST",
@@ -110,11 +122,19 @@ $(document).ready(function() {
             contentType: false,
             success: function(response) {
               loading(false);
+              $('#company_name').val('');
+              $('#company_email').val('');
+              $('#company_phone').val('');
+              $('#company_address').val('');
               toastr.success('You are charge $200 successfully', 'Success');
             },
             error: function(error) {
               loading(false);
-              toastr.error(error?.responseJSON?.errors || 'Something went wrong while charging', 'Opps!');
+              if(error && error.responseJSON){
+                toastr.error(error.responseJSON.errors, 'Oops!');
+              } else {
+                toastr.error('Something went wrong while charging', 'Oops!');
+              }
             }
           })
         }
