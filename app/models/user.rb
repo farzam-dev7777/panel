@@ -202,7 +202,7 @@ class User < ApplicationRecord
               role = ""
           end
           random_password = "#{SecureRandom.hex(18)}@A123"
-          user = User.find_or_create_by(email: auth['info']['email']) do |user|
+          user = User.find_or_create_by(email: auth['info']['email']&.downcase) do |user|
             user.first_name = auth['info']['first_name']
             user.last_name = auth['info']['last_name']
             user.provider = auth['provider']
