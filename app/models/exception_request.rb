@@ -13,9 +13,6 @@ class ExceptionRequest < ApplicationRecord
   serialize :receive_personal_information_data_type, Array
   serialize :receive_general_business_data_type, Array
   serialize :applicable_technical_specialty_data_type, Array
-
-  # dummy only for form display and demo
-  attr_accessor :allow_to_create_matters
   
   LOB_LIST = ["Retail/Commercial / Services bancaires Particuliers et entreprises - Canada","Capital Markets / Marché des capitaux","Corporate / Services d'entreprise","Technology & Operations / Technologie et opérations (T&O)","US P&C / Services bancaires Particuliers et entreprises - É.-U.","Wealth Management / Gestion de patrimonie"]
   REQUEST_TYPE = {
