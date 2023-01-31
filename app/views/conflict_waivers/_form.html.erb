@@ -65,9 +65,9 @@
         <%=link_to 'Next', "/", class: 'btn-type-primary cw-next-step-btn' %>
       </div>
       <div class="col-xs-12 col-md-6 cm-repesenting " style="display:none">
-        <label class="label">Are you representing BMO in this matter: </label>
+        <label class="label">Are you representing bank in this matter: </label>
         <div class="sp-checkbox">
-          <%= f.input :repesenting, as: :radio_buttons, label: false, collection: [["Yes", "BMO"], ["No", "Other Client"]]  %>
+          <%= f.input :repesenting, as: :radio_buttons, label: false, collection: [["Yes", "Bank"], ["No", "Other Client"]]  %>
         </div>
       </div>
       <div class="col-xs-12 col-md-12 cw-submit-btn" style="display:none">

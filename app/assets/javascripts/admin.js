@@ -1295,7 +1295,7 @@ function setMatterIntakeWorkAreaOptions(value) {
 			break;
 		case "Corporate Governance":
 		case "Corporate Governance / Gouvernance d'entreprise":
-			valueArray = ["BMO Board","Continuous Disclosure","Environment, Social/Governance","Funding Transactions","Reputation Risk Review","Subsidiary Matters"];
+			valueArray = ["Bank Board","Continuous Disclosure","Environment, Social/Governance","Funding Transactions","Reputation Risk Review","Subsidiary Matters"];
 			for (var i = 0; i < valueArray.length; i++) {
 				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
 			}
