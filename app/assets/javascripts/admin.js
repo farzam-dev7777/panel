@@ -1288,7 +1288,7 @@ function setMatterIntakeWorkAreaOptions(value) {
 	switch(value) {
 		case "Contractual Transactions (non-lending)":
 		case "Contractual Transactions (non-lending) / Traduction contractuelle (autre que des prêt":
-			valueArray = ["Card Services","Cash Management","Client and/or Account Documentation","Closed End Funds","Commercial Paper","DCN","Derivatives","Exchange Traded Funds","Inter-company (BMOFG) Agreements","Interest Rate Notes","IT Procurement (Non-Outsourcing)","Mutual Funds","Non-IT Procurement","NPPNs","Offerings","Outsourcing","PPNs","Professional Services (Consulting)","REPO/SLA","Trade/Finance"];
+			valueArray = ["Card Services","Cash Management","Client and/or Account Documentation","Closed End Funds","Commercial Paper","DCN","Derivatives","Exchange Traded Funds","Inter-company (Bank) Agreements","Interest Rate Notes","IT Procurement (Non-Outsourcing)","Mutual Funds","Non-IT Procurement","NPPNs","Offerings","Outsourcing","PPNs","Professional Services (Consulting)","REPO/SLA","Trade/Finance"];
 			for (var i = 0; i < valueArray.length; i++) {
 				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
 			}
@@ -1436,7 +1436,7 @@ function setMatterIntakeBusinessGroupOptions(value) {
 	var options = "<option value=''> Select option</option>";
 	switch(value) {
 		case "Retail/Commercial":
-			valueArray = ["Business Banking","Commercial Banking - ABL","Commercial Banking - Auto Finance","Commercial Banking - BMO Capital Partners & M&A","Commercial Banking - Corporate Finance","Commercial Banking - Diversified Industries","Commercial Banking - Equipment Leasing","Commercial Banking - Media","Commercial Banking - Other (Regions)","Commercial Banking - Overhead & Support","Commercial Banking - Real Estate Lending","Commercial Banking - Retail Dealer Finance","Commercial Banking - Sponsor Coverage","Commercial Banking - Tranportation Finance","Commercial Banking - Treasury & Payment Solutions","Electronic Banking Services","Other - Customer Contact Centres","Other - Distribution Services","Other - Headquarters","Other - Investment Plan","Personal Banking - Everyday Banking","Personal Banking - Home Financing & Retail Lending","Personal Banking - NA Retail Payments","Personal Banking - Office of the COO","Personal Banking - Sales & Distribution","Personal Banking - SVP Program","Personal Banking - Term Deposits"];
+			valueArray = ["Business Banking","Commercial Banking - ABL","Commercial Banking - Auto Finance","Commercial Banking - Bank Capital Partners & M&A","Commercial Banking - Corporate Finance","Commercial Banking - Diversified Industries","Commercial Banking - Equipment Leasing","Commercial Banking - Media","Commercial Banking - Other (Regions)","Commercial Banking - Overhead & Support","Commercial Banking - Real Estate Lending","Commercial Banking - Retail Dealer Finance","Commercial Banking - Sponsor Coverage","Commercial Banking - Tranportation Finance","Commercial Banking - Treasury & Payment Solutions","Electronic Banking Services","Other - Customer Contact Centres","Other - Distribution Services","Other - Headquarters","Other - Investment Plan","Personal Banking - Everyday Banking","Personal Banking - Home Financing & Retail Lending","Personal Banking - NA Retail Payments","Personal Banking - Office of the COO","Personal Banking - Sales & Distribution","Personal Banking - SVP Program","Personal Banking - Term Deposits"];
 			for (var i = 0; i < valueArray.length; i++) {
 				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
 			}
@@ -1448,7 +1448,7 @@ function setMatterIntakeBusinessGroupOptions(value) {
 			}
 			break;
 		case "Corporate":
-			valueArray = ["Audit","EI3 - CAO Office","EI3 - Insight Strategies","EI3 - Procurement","EI3 - Projects","EI3 - Real Estate","ERPM & AML","Finance","LRC","LRC Non-Legal","LRC TPP","Marketing & Strategy","Other (BMO Pools, Capital Account, Jupiter, Corp. Initiatives, U.S. Corp Office)","People & Culture - Corporate Communications","People & Culture - HR/ER","People & Culture - Office of the CEO","Senior Corporate Executive Operating","Technology & Operations"]
+			valueArray = ["Audit","EI3 - CAO Office","EI3 - Insight Strategies","EI3 - Procurement","EI3 - Projects","EI3 - Real Estate","ERPM & AML","Finance","LRC","LRC Non-Legal","LRC TPP","Marketing & Strategy","Other (Bank Pools, Capital Account, Jupiter, Corp. Initiatives, U.S. Corp Office)","People & Culture - Corporate Communications","People & Culture - HR/ER","People & Culture - Office of the CEO","Senior Corporate Executive Operating","Technology & Operations"]
 			for (var i = 0; i < valueArray.length; i++) {
 				options += `<option value='${valueArray[i]}'>${valueArray[i]}</option>`;
 			}

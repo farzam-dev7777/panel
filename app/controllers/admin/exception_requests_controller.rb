@@ -77,11 +77,11 @@ class Admin::ExceptionRequestsController < Admin::BaseController
       if params[:exception_request][:is_work] === "Yes"
         ExceptionRequestMailer.engage_non_panel_firm_notification_to_lxp(@exception_request).deliver_now
         if params[:commit] === "Confirm"
-          flash[:notice] = "Thank you for using a BMO LXP Panel law firm."
+          flash[:notice] = "Thank you for using a Panel law firm."
         end
         redirect_to :admin_exception_requests
       else
-        #flash[:notice] = "Thank you for using a BMO LXP Panel law firm."
+        #flash[:notice] = "Thank you for using a Panel law firm."
         redirect_to exception_request_new_engage_admin_exception_requests_path(@exception_request)
         # ExceptionRequestMailer.form_submission_notification_to_lob(@exception_request).deliver_now
         # ExceptionRequestMailer.form_submission_notification_to_lxp(@exception_request).deliver_now
