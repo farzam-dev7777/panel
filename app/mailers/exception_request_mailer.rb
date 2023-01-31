@@ -5,7 +5,7 @@ class ExceptionRequestMailer < ApplicationMailer
 	def form_submission_notification_to_lob(exception_request)
 		@exception_request = exception_request
 		@user = User.find_by_id(exception_request.user_id)
-		mail(to: @user.email, subject: "A request to engage non-panel request has been submitted.")
+		mail(to: @user.email, subject: "A request to engage exception request has been submitted.")
 	end
 
   def form_submission_notification_to_lxp(exception_request)
@@ -46,7 +46,7 @@ class ExceptionRequestMailer < ApplicationMailer
 	def form_status_notification_to_law_firm(exception_request)
 		@exception_request = exception_request
 		@user = User.with_deactivated.find_by_id(	@exception_request.user_id)
-		mail(to: @user.email, subject: "Request to engage a non-panel request's status has been updated.")
+		mail(to: @user.email, subject: "Request to engage a exception request's status has been updated.")
 	end
 
 	def engage_non_panel_firm_notification_to_lxp(exception_request)
@@ -54,7 +54,7 @@ class ExceptionRequestMailer < ApplicationMailer
 		@user = User.find_by_id(exception_request.user_id)
 		@lxpusers = User.where(role: 'lxp')
 		@lxpusers.each do |lxpuser| 
-			mail(to: lxpuser.email, subject: "A new request to engage a non-panel request tried to submit with below search criteria.")
+			mail(to: lxpuser.email, subject: "A new request to engage a exception request tried to submit with below search criteria.")
 		end
 	end
 
@@ -63,7 +63,7 @@ class ExceptionRequestMailer < ApplicationMailer
 		@user = User.find_by_id(exception_request.user_id)
 		@lxpusers = User.where(role: 'lxp')
 		@lxpusers.each do |lxpuser| 
-			mail(to: lxpuser.email, subject: "New request to engage a non-panel request has been submited ")
+			mail(to: lxpuser.email, subject: "New request to engage a exception request has been submited ")
 		end
 	end
 

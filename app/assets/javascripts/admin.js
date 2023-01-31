@@ -2159,7 +2159,7 @@ $('select#matter_intake_applicable_technical_specialty_data').on('change', funct
 	}
 })
 
-//New Non-Panel (one-off) Request
+//New Exception Request
 
 
 if($("select#exception_request_receive_personal_information").val() == "Yes" ) {
