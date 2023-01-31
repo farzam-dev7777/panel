@@ -65,7 +65,9 @@
 							</li>
 							<% if current_user && current_user.role == 'lob'  %>
 								<li class="<%= active_page?(:exception_requests) %> ">
-									<a href="/lob/exception_requests" title="Exception Requests"><i class="fa fa-flag" aria-hidden="true"></i> <span class="menu-item-parent">Exception Requesta>
+									<a href="/lob/exception_requests" title="Exception Requests">
+										<i class="fa fa-flag" aria-hidden="true"></i> <span class="menu-item-parent">Exception Request</span>
+									</a>
 								</li>
 								<li class="<%= active_page?(:panel_requests) %>">
 									<a href="/lob/panel_requests" title="Panel Consideration Requests"><i class="fa fa-file-text-o" aria-hidden="true"></i> <span class="menu-item-parent">Panel Consideration Requests</span></a>
