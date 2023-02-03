@@ -1,6 +1,7 @@
 class TenantAdminUser < ApplicationRecord
   devise :database_authenticatable, 
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable,
+         :authentication_keys => [:username]
 
   belongs_to :tenant
 
@@ -19,5 +20,14 @@ class TenantAdminUser < ApplicationRecord
 
   def need_password_validation?
     !self.new_record? && !self.password.blank? && !self.password_confirmation.blank?
+  end
+
+  def self.find_for_database_authentication(warden_conditions)
+    conditions = warden_conditions.dup
+    if login = conditions.delete(:login)
+      where(conditions.to_h).where(["lower(username) = :value", { :value => login.downcase }]).first
+    elsif conditions.has_key?(:username)
+      where(conditions.to_h).first
+    end
   end
 end
