@@ -1,6 +1,16 @@
 Rails.application.routes.draw do
 
   get '/auth/docusign/callback', to: 'dashboard#docusign_callback'
+
+  namespace :tenant_admin do
+    devise_for :tenant_admin_users, controllers: {
+      sessions: 'tenant_admin/internal_sessions'
+    }
+
+    resources :tenants, only: [:new, :create]
+    
+    root to: "tenant_dashboard#index"
+  end
   
   namespace :admin do
     devise_for :admin_users, controllers: {

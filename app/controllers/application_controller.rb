@@ -40,16 +40,20 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     Current.user = resource
-    if ( current_user.role == 'superadmin' || current_user.role == 'admin' || current_user.is_panel_admin_user? )
-      if current_user.role == "lob"
-        lob_root_url
-      else
-        admin_root_url
-      end
+    if Current.user&.class&.name === "TenantAdminUser" && Current.user&.role === "tenant_admin"
+      tenant_admin_root_url
     else
-      root_path
-      # current_user.send_two_fa
-    	# new_two_factor_authentication_url
+      if ( current_user.role == 'superadmin' || current_user.role == 'admin' || current_user.is_panel_admin_user? )
+        if current_user.role == "lob"
+          lob_root_url
+        else
+          admin_root_url
+        end
+      else
+        root_path
+        # current_user.send_two_fa
+        # new_two_factor_authentication_url
+      end
     end
   end
 
