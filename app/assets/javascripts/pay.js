@@ -65,7 +65,13 @@ $(document).ready(function() {
     var company_email = $('#company_email').val();
     var company_phone = $('#company_phone').val();
     var company_address = $('#company_address').val();
+    var payment_authorization = $('#payment_authorization').is(":checked");
 
+    if(!payment_authorization) {
+      toastr.error("Please Authorize PANEL payment of $2800 if qualify under CRA.", 'Opps!');
+      return;
+    }
+    
     var data = new FormData();
     data.append('customer[name]', company_name);
     data.append('customer[email]', company_email);
