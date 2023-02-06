@@ -66,7 +66,7 @@ $(document).ready(function() {
     var payment_authorization = $('#payment_authorization').is(":checked");
 
     if(!payment_authorization) {
-      toastr.error("Please Authorize PANEL payment of $2800 if qualify under CRA.", 'Opps!');
+      toastr.error("Please Authorize PANEL payment of CAD $2800 if qualify under CRA.", 'Oops!');
       return;
     }
     
