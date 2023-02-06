@@ -18,12 +18,21 @@
 
 			<div class="col-xs-12 col-md-6">
 				<label class="label">Address<span class="mandatory">*</span></label>
-				<input type="text" name="address" id="address" class="form-control" required />
+				<input type="text" name="company_address" id="company_address" class="form-control" required />
 			</div>
 			<div class="col-xs-12 col-md-6">
 				<label class="label">Card Details<span class="mandatory">*</span></label>
 				<div id="card-element" class="margin-top-10"></div> <!-- Here stripe inject card element -->
 				<p id="card-error" role="alert" class="pay_card_error"></p>
+			</div>
+		</div>
+		<div class="row mt-1">
+			<div class="col-xs-12 col-md-6">
+				<label class="checkbox-inline">
+					<input type="checkbox" checked id="payment_authorization">Authorize PANEL payment of $2800 if qualify under CRA
+				</label>
+			</div>
+			<div class="col-xs-12 col-md-6">
 			</div>
 		</div>
 		<div class="row mt-1">

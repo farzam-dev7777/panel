@@ -867,6 +867,10 @@ nav ul li a:active {
   padding: 87px 0px !important;
   background-color: transparent !important;
 }
+.main-page-pay {
+  padding-top: 30px !important;
+  height: 100% !important;
+}
 .user-form-sp {
   display: flex;
   justify-content: space-between;

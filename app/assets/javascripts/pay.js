@@ -8,13 +8,13 @@ $(document).ready(function() {
     url: "pay/stripe_publishable_key",
     method: "GET",
     success: function(response) {
-      if(response){
+      if(response && response.stripe_publishable_key){
         initializeStripe(response.stripe_publishable_key);
       }
     },
     error: function(error) {
       if(error && error.responseJSON){
-        toastr.error(error.responseJSON.errors || 'Error in getting stripe pub key', 'Opps!');
+        toastr.error(error.responseJSON.errors || 'Error in getting stripe pub key', 'Oops!');
       }
     },
   });
@@ -63,7 +63,13 @@ $(document).ready(function() {
     var company_email = $('#company_email').val();
     var company_phone = $('#company_phone').val();
     var company_address = $('#company_address').val();
+    var payment_authorization = $('#payment_authorization').is(":checked");
 
+    if(!payment_authorization) {
+      toastr.error("Please Authorize PANEL payment of $2800 if qualify under CRA.", 'Opps!');
+      return;
+    }
+    
     var data = new FormData();
     data.append('customer[name]', company_name);
     data.append('customer[email]', company_email);
@@ -87,7 +93,9 @@ $(document).ready(function() {
         error: function(error) {
           loading(false);
           if(error && error.responseJSON){
-            toastr.error(error.responseJSON.errors || 'Error in find/create stripe customer', 'Opps!');
+            toastr.error(error.responseJSON.errors, 'Oops!');
+          } else {
+            toastr.error('Error in find/create stripe customer', 'Oops!');
           }
         }
       });
@@ -118,12 +126,18 @@ $(document).ready(function() {
             contentType: false,
             success: function(response) {
               loading(false);
+              $('#company_name').val('');
+              $('#company_email').val('');
+              $('#company_phone').val('');
+              $('#company_address').val('');
               toastr.success('You are charge $200 successfully', 'Success');
             },
             error: function(error) {
               loading(false);
               if(error && error.responseJSON){
                 toastr.error(error.responseJSON.errors || 'Something went wrong while charging', 'Oops!');
+              } else {
+                toastr.error('Something went wrong while charging', 'Oops!');
               }
             }
           })
