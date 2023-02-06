@@ -112,7 +112,7 @@ $(document).ready(function() {
       .then((response) => {
         if (response.error) {
           loading(false);
-          toastr.error('Something went wrong while creating payment method', 'Opps!');
+          toastr.error(response.error.message || 'Something went wrong while creating payment method - please try again later. Contact help@secureengage.com if this persists.', 'Oops!');
         }
         if (response && response.paymentMethod) {
           var data = new FormData();
