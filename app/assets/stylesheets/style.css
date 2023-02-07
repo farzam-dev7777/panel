@@ -567,7 +567,7 @@ textarea[name="message"] {
 
 .select2-results .select2-highlighted,
 .select2-results__option--highlighted {
-  background: #00a0af;
+  background: #2b3344;
 }
 
 .select2-container--open .select2-dropdown,
@@ -680,7 +680,7 @@ hr.note-seperator {
 }
 
 .qtip-blue {
-  background-color: #00a0af !important;
+  background-color: #2b3344 !important;
 }
 
 .note-controls .note p {
@@ -760,7 +760,7 @@ hr.note-seperator {
 
 .fuelux .wizard ul li.active {
   color: #ffffff;
-  background: #00a0af;
+  background: #2b3344;
 }
 
 .fuelux .wizard ul li.active .chevron:before {
@@ -768,7 +768,7 @@ hr.note-seperator {
 }
 
 .fuelux .wizard ul li a {
-  border-right-color: #00a0af;
+  border-right-color: #2b3344;
   font-weight: bold;
 }
 i.btn-default {
@@ -779,7 +779,7 @@ i.btn-default {
 }
 
 .fuelux .wizard ul li.active .chevron:before {
-  border-left: 14px solid #00a0af;
+  border-left: 14px solid #2b3344;
 }
 
 .fuelux .wizard ul li .chevron {
@@ -1012,7 +1012,7 @@ ul.internal-notes li div p {
 }
 
 .current-stats {
-  background-color: #00a0af;
+  background-color: #2b3344;
   padding: 10px 0px;
 }
 
@@ -1046,7 +1046,7 @@ ul.internal-notes li div p {
 
 .form-field-header {
   margin-top: 0px;
-  background: #00a0af;
+  background: #2b3344;
   padding: 15px;
   color: #fff;
   font-weight: bold;
@@ -1142,7 +1142,7 @@ ul.internal-notes li div p {
   border-bottom: 1px solid #f1f1f1;
 }
 .form-control.control-label.active {
-  color: #00a0af;
+  color: #2b3344;
 }
 .form-control[disabled] {
   border-bottom: 1px solid #f1f1f1 !important;
@@ -1330,7 +1330,7 @@ table.all-forms tr td {
   color: #f39500;
 }
 .lawfirm-bank-color {
-  color: #00a0af;
+  color: #2b3344;
 }
 
 .select2-selection {
@@ -1339,13 +1339,13 @@ table.all-forms tr td {
 
 .multiselectcantfind {
   font-size: 12px;
-  color: #00a0af;
+  color: #2b3344;
   cursor: pointer;
 }
 
 .ui-accordion .ui-accordion-icons {
   padding-left: 2.2em;
-  background: #00a0af;
+  background: #2b3344;
   color: #fff;
 }
 
@@ -1377,7 +1377,7 @@ table.all-forms tr td {
 }
 
 .chosen-container-multi .chosen-choices li.search-choice {
-  background: #00a0af;
+  background: #2b3344;
   color: #fff;
   box-shadow: none !important;
 }
@@ -1449,7 +1449,7 @@ li.active {
 
 body.smart-style-6 .txt-color-magenta,
 body.smart-style-6 nav ul li.active > a:before {
-  color: #00a0af !important;
+  color: #2b3344 !important;
 }
 
 span.label-light-green {
@@ -1508,7 +1508,7 @@ li.create-option.highlighted a {
 
 .form-submit-btn {
   /* padding: 5px 20px !important;
-  background: #00a0af !important;
+  background: #2b3344 !important;
   color: #fff !important;
   border: none !important;
   font-weight: bold !important;
@@ -1518,13 +1518,13 @@ li.create-option.highlighted a {
 
 .form-submit-btn:hover {
   /* background: #f9f9f9;
-  color: #00a0af;
-  border: 1px solid #00a0af; */
+  color: #2b3344;
+  border: 1px solid #2b3344; */
 }
 
 .tab-next-btn {
   padding: 5px 20px !important;
-  background: #00a0af !important;
+  background: #2b3344 !important;
   color: #fff !important;
   border: none !important;
   font-weight: bold !important;
@@ -1534,8 +1534,8 @@ li.create-option.highlighted a {
 
 .tab-next-btn:hover {
   background: #f9f9f9;
-  color: #00a0af;
-  border: 1px solid #00a0af;
+  color: #2b3344;
+  border: 1px solid #2b3344;
 }
 
 @media (min-width: 768px) {
@@ -1831,7 +1831,7 @@ ol.conflict_waiver_categories_list {
 
 label.no-border.form-heading.control-label.parent-f-sized-label {
   font-size: 20px !important;
-  color: #00a0af;
+  color: #2b3344;
   font-weight: bold;
   margin-bottom: 30px;
 }
