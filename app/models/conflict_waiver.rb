@@ -45,7 +45,7 @@ class ConflictWaiver < ApplicationRecord
     "A borrower in a normal course borrowing/mortgage transaction when we are already represented by other counsel",
     "A customer in the ordinary course of our business",
     "A party to a transaction where we are a lender or advisor to another party to the transaction",
-    "A debtor in a bankruptcy, insolvency, restructuring or other similar proceeding that adjusts creditors’ rights where we are a creditor in such proceeding, provided that (i) you did not act directly or indirectly for us in the transaction or arrangement giving rise to our claim, and (ii) you notify us that you represent the debtor",
+    "A debtor in a bankruptcy, insolvency, restructuring, or other similar proceeding that adjusts creditors’ rights where we are a creditor in such proceeding, provided that (i) you did not act directly or indirectly for us in the transaction or arrangement giving rise to our claim, and (ii) you notify us that you represent the debtor",
     "A party in a transaction to which we are not a party but where you acted on our behalf in a previous lending transaction with that party, provided that (i) the current transaction is unrelated to the previous lending transaction and (ii) it will have no bearing and/impact on the previous lending transaction."
   ]
   
