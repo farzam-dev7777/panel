@@ -25,7 +25,7 @@
         <%= f.input :reason, as: :text, label: false, input_html: { rows: 1 } %>
       </div>
       <div class="col-xs-12 col-md-12">
-        <p><b>As part of your retainer agreement, the follwoing are conflicts are waived, please:</b></p>
+        <p><b>As part of your retainer agreement, following conflicts are waived, please:</b></p>
         <ol class="conflict_waiver_categories_list">
           <li>
             An issuer or selling security holder in an underwriting; 
@@ -40,7 +40,7 @@
             transaction;
           </li>
           <li>
-            A debtor in a bankruptcy, insolvency, restructuring or other similar proceeding that
+            A debtor in a bankruptcy, insolvency, restructuring, or other similar proceeding that
             adjusts creditors’ rights where we are a creditor in such proceeding, provided that (i)
             you did not act directly or indirectly for us in the transaction or arrangement giving
             rise to our claim, and (ii) you notify us that you represent the debtor; or
@@ -59,15 +59,15 @@
         <%= f.input :confirm_waiver, label: false, required: true, collection: [["Yes", true], ["No", false]]  %>
       </div>
       <div class="col-xs-12 col-md-12 confirm_waiver_notes" style="display:none;">
-        <p>It appears your request is covered by your retainer agreement with BMO and there is no need to submit this request. If you are unsure, please select "No" above to proceed with submitting the request</p>
+        <p>It appears your request is covered by your retainer agreement with Bank and there is no need to submit this request. If you are unsure, please select "No" above to proceed with submitting the request</p>
       </div>
       <div class="col-xs-12 col-md-12 cw-next-step">
         <%=link_to 'Next', "/", class: 'btn-type-primary cw-next-step-btn' %>
       </div>
       <div class="col-xs-12 col-md-6 cm-repesenting " style="display:none">
-        <label class="label">Are you representing BMO in this matter: </label>
+        <label class="label">Are you representing the bank in this matter: </label>
         <div class="sp-checkbox">
-          <%= f.input :repesenting, as: :radio_buttons, label: false, collection: [["Yes", "BMO"], ["No", "Other Client"]]  %>
+          <%= f.input :repesenting, as: :radio_buttons, label: false, collection: [["Yes", "Bank"], ["No", "Other Client"]]  %>
         </div>
       </div>
       <div class="col-xs-12 col-md-12 cw-submit-btn" style="display:none">

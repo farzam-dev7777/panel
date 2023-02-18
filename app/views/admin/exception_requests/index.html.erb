@@ -1,14 +1,14 @@
 <% content_for :page_title do %>
-  <span>Engage Non Panel Request</span>
+  <span>Engage Exception Request</span>
 <% end %>
 <div class="clearfix"></div>
 <div class="col-lg-12">
   <div class="jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
     <div class="page-header-sp m-top">
-      <div class="page-title">Non-Panel (one-off) Requests</div>
+      <div class="page-title">Exception Requests</div>
       <div>
         <!-- <% if current_user.role == "internal_lawyers" %>
-        <%= link_to 'Submit New Non-Panel (one-off) Request', engage_non_panel_firm_admin_exception_requests_path, html_options = {class: 'page-header-btn'}   %> 
+        <%= link_to 'Submit New Exception Request', engage_non_panel_firm_admin_exception_requests_path, html_options = {class: 'page-header-btn'}   %> 
       <% end %> -->
         <!-- <%= link_to 'Download as Excel', admin_exception_requests_path(format: :xlsx), html_options = {class: 'page-header-btn'}   %> -->
       </div>
@@ -40,7 +40,7 @@
                 <div class="action-buttons-alignment">
                   <% if current_user.role == "internal_lawyers" %>
                     <a class="export-icon right-action-btns add-button" href="<%= engage_non_panel_firm_admin_exception_requests_path %>">
-                      <%= image_tag "add.svg", alt:"Submit New Non-Panel (one-off) Request" %>  <span>Add</span>
+                      <%= image_tag "add.svg", alt:"Submit New Exception Request" %>  <span>Add</span>
                     </a>
                   <% end %>
                   <a class="export-icon right-action-btns" href="<%= admin_exception_requests_path(format: :xlsx) %>">

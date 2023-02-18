@@ -1,6 +1,6 @@
 <div class="">
   <p class="user-inner-content">
-  A New Engage Non Panel Request searched with below criteria and find out related law firm <%= @exception_request.law_firm.name %>. <br> 
+  A New Engage Exception Request searched with below criteria and find out related law firm <%= @exception_request.law_firm.name %>. <br> 
   <% if @exception_request.try(:matter_types_formated).present? %>
     Matter : <%= @exception_request.try(:matter_types_formated) %> <br>
   <% end %>  

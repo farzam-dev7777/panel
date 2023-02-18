@@ -24,6 +24,11 @@ class ExceptionRequest < ApplicationRecord
     "NON_PANEL": "Non Panel"
   }
 
+  LAW_FIRM_ALLOW_TO_CREATE_MATTERS = {
+    "YES": "Yes",
+    "NO": "No"
+  }
+
   MATTER_TYPES = [
     "Contractual Transactions (non-lending) / Traduction contractuelle (autre que des prêt",
     "Corporate Governance / Gouvernance d'entreprise",
@@ -43,7 +48,7 @@ class ExceptionRequest < ApplicationRecord
   WOMEN_OWNED_TYPE = ["Yes", "No"]
 
   EXCEPTION_REQUEST_REASON = ["Expertise", "Cost", "Designated Counsel", "Location", "Customer directed"]
-  EXCEPTION_REQUEST_PAYER =  [["Bank Pay", "Bank Pay"], ["Customer paying law firm directly", "Customer Pay"], ["Bank paying and customer reimbursing BMO", "Bank paying and customer reimbursing BMO"]]
+  EXCEPTION_REQUEST_PAYER =  [["Bank Pay", "Bank Pay"], ["Customer paying law firm directly", "Customer Pay"], ["Bank paying and customer reimbursing Bank", "Bank paying and customer reimbursing Bank"]]
   INVOLVED_ENGAGEMENT = [
     "Merger/Acquisition",
     "Litigation",

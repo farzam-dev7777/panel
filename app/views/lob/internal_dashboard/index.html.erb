@@ -18,11 +18,11 @@
       <li class="sparks-info color-border-01">
         <a href="/lob/exception_requests?filter=yes" class="card-content">
           <div class="card-icon bg-color-01">
-            <%= image_tag "exceptions-icon.svg", alt:"Non-Panel (one-off) Requests" %>
+            <%= image_tag "exceptions-icon.svg", alt:"Exception Requests" %>
           </div>
           <div class="card-details">
             <div class="total-record"><%= @exception_requests_count %></div>
-            <div class="card-name">Non-Panel (one-off) Requests</div>
+            <div class="card-name">Exception Requests</div>
             <div class="card-tag-line">Tag lines goes here</div>
           </div>
         </a>
@@ -58,7 +58,7 @@
   <!-- <div class="col-lg-12 col-md-12 col-sm-12" style="margin-top: 20px">
 		<div class="sp-form sp-form-bg text-center">
 		<p>	
-			<b> <%= link_to 'Submit New Non-Panel (one-off) Request', engage_non_panel_firm_lob_exception_requests_path, html_options = {class: 'btn-type-primary'}   %></b>
+			<b> <%= link_to 'Submit New Exception Requests', engage_non_panel_firm_lob_exception_requests_path, html_options = {class: 'btn-type-primary'}   %></b>
 			<b><%= link_to 'Submit New Matter Intake Form', new_lob_matter_intake_path, html_options = {class: 'btn-type-primary'}   %></b>
 		</p>
 		<br>
@@ -72,8 +72,8 @@
       <a class="action-btn export-icon" href="<%= new_lob_matter_intake_path %>" data-toggle="tooltip" data-placement="top" title="Submit New Matter Intake Form">
         <span class="blue-text">Matter Request</span> <%= image_tag "add.svg", alt:"Submit New Matter Intake Form" %>
       </a>
-      <a class="action-btn export-icon" href="<%= engage_non_panel_firm_lob_exception_requests_path %>" data-toggle="tooltip" data-placement="top" title="Submit New Non-Panel (one-off) Request">
-        <span class="blue-text">Non-Panel Request</span> <%= image_tag "add.svg", alt:"Submit New Non-Panel (one-off) Request" %>
+      <a class="action-btn export-icon" href="<%= engage_non_panel_firm_lob_exception_requests_path %>" data-toggle="tooltip" data-placement="top" title="Submit New Exception Request">
+        <span class="blue-text">Exception Request</span> <%= image_tag "add.svg", alt:"Submit New Exception Request" %>
       </a>
       <% if SystemSetting.fetch.panel_status === "Yes" %>
         <a class="action-btn export-icon" href="<%= new_lob_panel_request_path %>" data-toggle="tooltip" data-placement="top" title="Submit New Panel Consideration Request">
@@ -108,7 +108,7 @@
                 <!--th>Law Firm Suggested</th-->
                 <th>Internal lawyer name</th>
                 <th>Matter Name</th>
-                <th>T360 Matter Number</th>
+                <th>Matter Number(Corresponding)</th>
                 <!--<th>Budget amount</th>-->
                 <th>Status</th>
                 <!--<th>Action</th>-->
@@ -176,7 +176,7 @@
 <div class="col-lg-12 col-md-12 col-sm-12">
   <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
     <div class="page-header-sp mobile-dashboard-header">
-      <div class="page-title">Non-Panel (one-off) Requests</div>
+      <div class="page-title">Exception Requests</div>
       <div class="back-edit-actions">
         <a class="btn-show-more" href="/lob/exception_requests">
           Show more

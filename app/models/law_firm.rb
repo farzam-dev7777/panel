@@ -46,6 +46,9 @@ class LawFirm < ApplicationRecord
 
   accepts_nested_attributes_for :law_firms_matter_types, allow_destroy: true
 
+  # dummy only for form display and demo
+  attr_accessor :allow_to_create_matters
+
   #after_create :generate_a_new_user 
   # acts_as_messageable
 

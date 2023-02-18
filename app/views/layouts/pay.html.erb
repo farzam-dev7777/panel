@@ -8,8 +8,8 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <script src="https://js.stripe.com/v3/"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
-    <script src="/assets/libs/jquery-2.1.1.min.js"></script>
-    <script src="/assets/pay.js"></script>
+    <%= javascript_include_tag 'libs/jquery-2.1.1.min.js' %>
+    <%= javascript_include_tag 'pay.js' %>
   </head>
 
   <body>
