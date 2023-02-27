@@ -15,4 +15,8 @@ class Tenant < ApplicationRecord
 	def create_db_schema
 		Apartment::Tenant.create(subdomain)
 	end
+
+	def self.current
+		Tenant.find_by subdomain: Apartment::Tenant.current
+	end
 end

@@ -7,11 +7,11 @@ class InvoiceAttachment < ApplicationRecord
 
   attr_accessor :encrypted
 
-	before_create :encrypt
+	# before_create :encrypt
 
 	before_save :update_attachment_attributes
 
-	before_destroy :remove_physical_file
+	# before_destroy :remove_physical_file
 
   def remove_physical_file
     self.file.remove!
