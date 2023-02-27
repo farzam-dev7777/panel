@@ -6,9 +6,9 @@ class FileAttachment < ApplicationRecord
   belongs_to :form_value
   mount_uploader :file, FileUploader
 
-  before_create :encrypt
+  # before_create :encrypt
 
-  before_destroy :remove_physical_file
+  # before_destroy :remove_physical_file
 
   def remove_physical_file
     self.file.remove!
