@@ -39,7 +39,7 @@
       </div>-->
       <div class="col-xs-12 col-md-6">
         <label  class="label">Internal lawyer name<span class="mandatory">*</span></label>
-        <%= f.input :bmo_lawyer_name, label: false, collection: InternalLawyer.all.map {|il| [il.full_name, il.full_name, {'data-id'=>il.id}]} %>
+        <%= f.input :bmo_lawyer_name, label: false, collection: InternalLawyer.where(tenant_id: Tenant&.current&.id).map {|il| [il.full_name, il.full_name, {'data-id'=>il.id}]} %>
         <%= f.input :lawyer_id, as: :hidden, label: false %>
       </div>
       <div class="col-xs-12 col-md-6">
