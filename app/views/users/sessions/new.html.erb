@@ -26,13 +26,17 @@
     <div class="right-side">
       <div class="signin-form">
         <div class="page-logo">
-          <%= image_tag "CWB-logo.svg", alt:"CWB logo" %>
+          <% if Tenant.current.present? %>
+            <%= image_tag Tenant.current&.logo&.url , alt:"CWB logo" %>
+          <% end %>
         </div>
         <div class="sp-signin-form">
-          <div class="sp-signin-btn mb-1">
-            <%= link_to 'Sign in via SSO', user_okta_omniauth_authorize_path, method: :post, class: "btn-type-primary" %>
-          </div>
-          <div class="mb-1 text-center">Or</div>
+          <% if Tenant.current.present? && Tenant.current.subdomain === "cwb" %>
+            <div class="sp-signin-btn mb-1">
+              <%= link_to 'Sign in via SSO', user_okta_omniauth_authorize_path, method: :post, class: "btn-type-primary" %>
+            </div>
+            <div class="mb-1 text-center">Or</div>
+          <% end %>
           <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {id: 'login-form', class: 'smart-form client-form'}) do |f| %>
             <div class="alert alert-danger login-error"></div>
               <span class="signin-alert">
