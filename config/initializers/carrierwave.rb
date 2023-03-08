@@ -2,24 +2,24 @@ if Rails.env.production? || Rails.env.external?
   CarrierWave.configure do |config|
     config.fog_credentials = {
       provider:               'AWS',
-      aws_access_key_id:      Rails.application.secrets[:s3]["access_key"],
-      aws_secret_access_key:  Rails.application.secrets.s3['secret_key'],
-      region:                 Rails.application.secrets.s3['region'],
+      aws_access_key_id:      ENV['S3_ACCESS_KEY'],
+      aws_secret_access_key:  ENV['S3_SECRET_KEY'],
+      region:                 ENV['S3_REGION']
     }
 
-    config.fog_directory    = Rails.application.secrets.s3['bucket_name']
+    config.fog_directory    = ENV['S3_BUCKET_NAME']
     config.fog_public       = false
   end
 elsif Rails.env.staging? || Rails.env.internal? || Rails.env.development?
   CarrierWave.configure do |config|
     config.fog_credentials = {
       provider:               'AWS',
-      aws_access_key_id:      Rails.application.secrets[:s3]["access_key"],
-      aws_secret_access_key:  Rails.application.secrets.s3['secret_key'],
-      region:                 Rails.application.secrets.s3['region'],
+      aws_access_key_id:      ENV['S3_ACCESS_KEY'],
+      aws_secret_access_key:  ENV['S3_SECRET_KEY'],
+      region:                 ENV['S3_REGION']
     }
 
-    config.fog_directory    = Rails.application.secrets.s3['bucket_name']
+    config.fog_directory    = ENV['S3_BUCKET_NAME']
     config.fog_public       = false
   end
 else
