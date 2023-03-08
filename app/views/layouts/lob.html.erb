@@ -35,7 +35,7 @@
 			</div>
 
 			<div class="text-center portal-type">
-				<p>LOB Dashboard</p>
+				<p>Business Dashboard</p>
 			</div>
 			<div id="menu_toggle_container"><div id="menu_toggle"><%= image_tag "menu-icon.svg", alt:"Menu_icon" %></div></div>
 			<div class="project-context user-info hide-profile">
@@ -57,7 +57,7 @@
 		<div class="sp-main-page">
 			<div class="left-side">
 				<div class="sticky-left-side" id="dashboard_menu">
-					<div class="dashboard-title">LOB Dashboard</div>
+					<div class="dashboard-title">Business Dashboard</div>
 					<nav class="sp-sidebar">
 						<ul>
 							<li class="<%= active_menu_item('/lob') %> ">
@@ -65,7 +65,9 @@
 							</li>
 							<% if current_user && current_user.role == 'lob'  %>
 								<li class="<%= active_page?(:exception_requests) %> ">
-									<a href="/lob/exception_requests" title="Non-Panel (one-off) Requests"><i class="fa fa-flag" aria-hidden="true"></i> <span class="menu-item-parent">Non-Panel (one-off) Requests</span></a>
+									<a href="/lob/exception_requests" title="Exception Requests">
+										<i class="fa fa-flag" aria-hidden="true"></i> <span class="menu-item-parent">Exception Request</span>
+									</a>
 								</li>
 								<li class="<%= active_page?(:panel_requests) %>">
 									<a href="/lob/panel_requests" title="Panel Consideration Requests"><i class="fa fa-file-text-o" aria-hidden="true"></i> <span class="menu-item-parent">Panel Consideration Requests</span></a>
@@ -89,7 +91,7 @@
 						</ul>
 					</nav>
 					<div class="bmo-logo">
-						<%= image_tag "laurentianBankFooter.svg", alt:"Laurentian Bank", style: "width: 100px;" %>
+						<%= image_tag "CWB-logo-footer.svg", alt:"CWB logo", style: "width: 100px;" %>
 					</div>
 				</div>
 			</div>

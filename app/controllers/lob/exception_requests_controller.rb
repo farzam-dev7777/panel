@@ -41,11 +41,11 @@ class Lob::ExceptionRequestsController < Lob::BaseController
       if params[:exception_request][:is_work] === "Yes"
         ExceptionRequestMailer.engage_non_panel_firm_notification_to_lxp(@exception_request).deliver_now
         if params[:commit] === "Confirm"
-          flash[:notice] = "Thank you for using a BMO LXP Panel law firm."
+          flash[:notice] = "Thank you for using a Panel law firm."
         end
         redirect_to :lob_exception_requests
       else
-        #flash[:notice] = "Thank you for using a BMO LXP Panel law firm."
+        #flash[:notice] = "Thank you for using a Panel law firm."
         redirect_to exception_request_new_engage_lob_exception_requests_path(@exception_request)
         # ExceptionRequestMailer.form_submission_notification_to_lob(@exception_request).deliver_now
         # ExceptionRequestMailer.form_submission_notification_to_lxp(@exception_request).deliver_now
@@ -81,18 +81,18 @@ class Lob::ExceptionRequestsController < Lob::BaseController
       # if @exception_request.law_firm_id.present? 
       #   #@law_firm = LawFirm.find(@exception_request.law_firm_id)
       #   #@law_firm.update_attributes(exception_request_law_firms_params) 
-      #   flash[:notice] = "Thank you for submitting a Non-Panel (one-off) Request"
+      #   flash[:notice] = "Thank you for submitting a Exception Request"
       #   redirect_to lob_root_path
       #   #redirect_to lob_exception_request_path
       # else
       #   #@law_firm = LawFirm.new(exception_request_law_firms_params)
       #   #@law_firm.save
       #   @exception_request.update_attributes(law_firm_id: @law_firm.id)
-      #   flash[:notice] = "Thank you for submitting a Non-Panel (one-off) Request"
+      #   flash[:notice] = "Thank you for submitting a Exception Request"
       #   redirect_to lob_root_path
       #   #redirect_to lob_exception_request_path
       # end
-      flash[:notice] = "Thank you for submitting a Non-Panel (one-off) Request"
+      flash[:notice] = "Thank you for submitting a Exception Request"
       redirect_to :root
       ExceptionRequestMailer.engage_new_non_panel_firm_notification_to_lxp(@exception_request).deliver_now
     else

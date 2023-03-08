@@ -46,7 +46,7 @@
               <div class="field-data"><%= @conflict_waiver.reason %></div>
             </div>
             <div class="col-xs-12 col-md-6">
-              <div class="field-label">BMO Status</div>
+              <div class="field-label">Bank Status</div>
               <div class="field-data"><%= @conflict_waiver.lxp_status_show %></div>
             </div>
             <% if @conflict_waiver.lxp_status === "ALREADY_COVERED" %>
@@ -56,7 +56,7 @@
               </div>
             <% end%>
             <div class="col-xs-12 col-md-12">
-              <p><b>As part of your retainer agreement, the follwoing are conflicts are waived, please:</b></p>
+              <p><b>As part of your retainer agreement, following conflicts are waived, please:</b></p>
               <ol class="conflict_waiver_categories_list">
                 <li>
                   An issuer or selling security holder in an underwriting; 
@@ -71,7 +71,7 @@
                   transaction;
                 </li>
                 <li>
-                  A debtor in a bankruptcy, insolvency, restructuring or other similar proceeding that
+                  A debtor in a bankruptcy, insolvency, restructuring, or other similar proceeding that
                   adjusts creditors’ rights where we are a creditor in such proceeding, provided that (i)
                   you did not act directly or indirectly for us in the transaction or arrangement giving
                   rise to our claim, and (ii) you notify us that you represent the debtor; or
@@ -90,7 +90,7 @@
             </div>
             <% if @conflict_waiver.confirm_waiver === true %>
               <div class="col-xs-12 col-md-12 confirm_waiver_notes" >
-                <p>It appears your request is covered by your retainer agreement with BMO and there is no need to submit this request. If you are unsure, please select "No" above to proceed with submitting the request</p>
+                <p>It appears your request is covered by your retainer agreement with Bank and there is no need to submit this request. If you are unsure, please select "No" above to proceed with submitting the request</p>
               </div>
             <% end %>
             <div class="col-xs-12 col-md-6">
@@ -119,7 +119,7 @@
                 <div class="field-data"><%= @conflict_waiver.names_of_primary %></div>
               </div>
             <% end %>
-            <% if @conflict_waiver.repesenting === "BMO" %>
+            <% if @conflict_waiver.repesenting === "Bank" %>
               <div class="col-xs-12 col-md-6">
                 <div class="field-label">Name of other client(s)</div>
                 <div class="field-data"><%= @conflict_waiver.name_of_other_client %></div>

@@ -14,9 +14,7 @@ $(document).ready(function() {
     },
     error: function(error) {
       if(error && error.responseJSON){
-        toastr.error(error.responseJSON.errors, 'Opps!');
-      } else {
-        toastr.error('Error in getting stripe pub key', 'Opps!');
+        toastr.error(error.responseJSON.errors || 'Error in getting stripe pub key', 'Oops!');
       }
     },
   });
@@ -65,7 +63,13 @@ $(document).ready(function() {
     var company_email = $('#company_email').val();
     var company_phone = $('#company_phone').val();
     var company_address = $('#company_address').val();
+    var payment_authorization = $('#payment_authorization').is(":checked");
 
+    if(!payment_authorization) {
+      toastr.error("Please Authorize PANEL payment of CAD $2800 if qualify under CRA.", 'Oops!');
+      return;
+    }
+    
     var data = new FormData();
     data.append('customer[name]', company_name);
     data.append('customer[email]', company_email);
@@ -89,9 +93,9 @@ $(document).ready(function() {
         error: function(error) {
           loading(false);
           if(error && error.responseJSON){
-            toastr.error(error.responseJSON.errors, 'Opps!');
+            toastr.error(error.responseJSON.errors, 'Oops!');
           } else {
-            toastr.error('Error in find/create stripe customer', 'Opps!');
+            toastr.error('Error in find/create stripe customer', 'Oops!');
           }
         }
       });
@@ -108,7 +112,7 @@ $(document).ready(function() {
       .then((response) => {
         if (response.error) {
           loading(false);
-          toastr.error('Something went wrong while creating payment method', 'Opps!');
+          toastr.error(response.error.message || 'Something went wrong while creating payment method - please try again later. Contact help@secureengage.com if this persists.', 'Oops!');
         }
         if (response && response.paymentMethod) {
           var data = new FormData();
@@ -131,7 +135,7 @@ $(document).ready(function() {
             error: function(error) {
               loading(false);
               if(error && error.responseJSON){
-                toastr.error(error.responseJSON.errors, 'Oops!');
+                toastr.error(error.responseJSON.errors || 'Something went wrong while charging', 'Oops!');
               } else {
                 toastr.error('Something went wrong while charging', 'Oops!');
               }

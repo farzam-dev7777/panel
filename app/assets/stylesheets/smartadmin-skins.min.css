@@ -3552,11 +3552,11 @@ body.smart-style-6 .bg-color-blue,
 body.smart-style-6 .btn-primary,
 body.smart-style-6 .onoffswitch-inner:before,
 body.smart-style-6 .open>.dropdown-toggle.btn-primary {
-    background: #00a0af!important
+    background: #2b3344!important
 }
 
 body.smart-style-6 .txt-color-blue {
-    color: #00a0af!important
+    color: #2b3344!important
 }
 
 body.smart-style-6 .bg-color-blueLight,
@@ -3668,8 +3668,8 @@ body.smart-style-6 .ajax-notifications {
 }
 
 body.smart-style-6 .ajax-notifications .fa-4x.fa-border {
-    color: #00a0af;
-    border-color: #00a0af
+    color: #2b3344;
+    border-color: #2b3344
 }
 
 body.smart-style-6 aside,
@@ -3690,7 +3690,7 @@ body.smart-style-6 .dropdown-menu>.active>a:focus,
 body.smart-style-6 .dropdown-menu>.active>a:hover,
 body.smart-style-6 .dropdown-menu>li>a:focus,
 body.smart-style-6 .dropdown-menu>li>a:hover {
-    background: #00a0af
+    background: #2b3344
 }
 
 body.smart-style-6 #content {
@@ -3987,7 +3987,7 @@ body.smart-style-6 nav>ul>li>ul::before {
 }
 
 body.smart-style-6 .minifyme {
-    background: #00a0af;
+    background: #2b3344;
     color: #FFF;
     position: absolute;
     width: 29px;

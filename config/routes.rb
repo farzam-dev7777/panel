@@ -307,6 +307,16 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :cwb do
+    resources :pay, only: [:index] do
+      collection do
+        get :stripe_publishable_key
+        post :find_and_create_stripe_customer
+        post :attach_payment_method_and_charge
+      end
+    end
+  end
+
   get 'set_new_password' => 'law_firms#set_new_password'
   get 'pull_qr_code' => 'two_factor_authentication#pull'
   post 'delete_user' => 'law_firms#delete_user'
