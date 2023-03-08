@@ -27,13 +27,21 @@
           </thead>
           <tbody>
             <% @tenants.each do |tenant| %>
-              <tr>
+              <tr onClick="window.location.href='/tenant_admin/tenants/<%= tenant.id %>/edit'">
                 <td><%= tenant.name %></td>
                 <td><%= tenant.subdomain %></td>
-                <td></td>
+                <td>
+                  <% if tenant.logo.present? %>
+                    <%=image_tag tenant&.logo&.url, class: 'logo-table' %>
+                  <% end %>
+                </td>
                 <td><%= tenant.primary_color %></td>
                 <td><%= tenant.secondary_color %></td>
-                <td></td>
+                <td>
+                  <% if tenant.login_bg_image.present? %>
+                    <%=image_tag tenant&.login_bg_image&.url, class: 'logo-table' %>
+                  <% end %>
+                </td>
                 <td><%= tenant.created_at.strftime('%d %b %Y at %I:%M %p') %></td>
               </tr>
             <% end %>

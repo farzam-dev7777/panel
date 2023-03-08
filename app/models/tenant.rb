@@ -11,6 +11,9 @@ class Tenant < ApplicationRecord
 	
 	has_many :users
 	has_many :tenant_admin_users
+
+	mount_uploader :logo, TenantUploader
+	mount_uploader :login_bg_image, TenantUploader
 	
 	def create_db_schema
 		Apartment::Tenant.create(subdomain)

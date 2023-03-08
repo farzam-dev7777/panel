@@ -7,7 +7,7 @@ Rails.application.routes.draw do
       sessions: 'tenant_admin/internal_sessions'
     }
 
-    resources :tenants, only: [:new, :create]
+    resources :tenants, only: [:new, :create, :edit, :update]
     
     root to: "tenant_dashboard#index"
   end

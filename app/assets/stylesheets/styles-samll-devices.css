@@ -219,4 +219,27 @@
   .remove-matter-invoice {
     margin-top: 5px;
   }
+  .upload-file-control .form-group .file.optional {
+    border: 1px solid #d7dfe9;
+    border-radius: 2px !important;
+    margin-bottom: 15px;
+    margin-top: 10px !important;
+    padding: 8px 10px !important;
+    box-sizing: border-box;
+    height: 38px;
+    width: 100%;
+  }
+  .color-picker-control input[type="color"] {
+    border: 1px solid #d7dfe9;
+    border-radius: 2px !important;
+    margin-bottom: 15px;
+    margin-top: 10px !important;
+    padding: 8px 10px !important;
+    box-sizing: border-box;
+    height: 38px;
+    width: 100%;
+  }
+  .logo-table {
+    width: 60px;
+  }
 }

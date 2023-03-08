@@ -8,17 +8,27 @@
 
       <div class="col-xs-12 col-md-6">
         <label class="label">Subdomain<span class="mandatory">*</span></label>
-        <%= f.input :subdomain, label: false, required: true %>
+        <%= f.input :subdomain, label: false, required: true, input_html: {readonly: readonly} %>
       </div>
 
-      <div class="col-xs-12 col-md-6">
+      <div class="col-xs-12 col-md-6 color-picker-control">
         <label class="label">Primary Color</label>
         <%= f.color_field :primary_color, label: false, value: '#00a0af' %>
       </div>
 
-      <div class="col-xs-12 col-md-6">
+      <div class="col-xs-12 col-md-6 color-picker-control">
         <label class="label">Secondary Color</label>
         <%= f.color_field :secondary_color, label: false, value: '#FFFFFF' %>
+      </div>
+
+      <div class="col-xs-12 col-md-6 upload-file-control">
+        <label class="label">Logo</label>
+        <%= f.input :logo, label: false, as: :file %>
+      </div>
+
+      <div class="col-xs-12 col-md-6 upload-file-control">
+        <label class="label">Login Bg Image</label>
+        <%= f.input :login_bg_image, label: false, as: :file %>
       </div>
 
       <div class="col-xs-12 col-md-12 mt-3">

@@ -16,6 +16,21 @@ class TenantAdmin::TenantsController < TenantAdmin::BaseController
     end
   end
 
+  def edit
+    @tenant = Tenant.find_by(id: params[:id])
+  end
+
+  def update
+    @tenant = Tenant.find_by(id: params[:id])
+    if @tenant.update(tenant_params)
+      flash[:notice] = "Tenant updated successfully."
+      redirect_to tenant_admin_root_path
+    else
+      flash.now[:alert] = "There was an error updating the tenant, errors: #{@tenant&.errors&.full_messages&.join(', ')}"
+  		render :new
+    end
+  end
+
   private
 
   def tenant_params
