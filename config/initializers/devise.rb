@@ -250,15 +250,15 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
   config.omniauth(:okta,
-                  Rails.application.secrets[:okta]["client_id"],
-                  Rails.application.secrets[:okta]["client_secret"],
+                  Rails.application.secrets[:okta][:client_id],
+                  Rails.application.secrets[:okta][:client_secret],
                   scope: 'openid profile email',
                   client_options: {
-                    site:          Rails.application.secrets[:okta]['site'],
-                    authorize_url: "#{Rails.application.secrets[:okta]['site']}/oauth2/default/v1/authorize",
-                    token_url:     "#{Rails.application.secrets[:okta]['site']}/oauth2/default/v1/token",
-                    user_info_url: "#{Rails.application.secrets[:okta]['site']}/oauth2/default/v1/userinfo",
-                    issuer: "#{Rails.application.secrets[:okta]['site']}/oauth2/default",
+                    site:          Rails.application.secrets[:okta][:site],
+                    authorize_url: "#{Rails.application.secrets[:okta][:site]}/oauth2/default/v1/authorize",
+                    token_url:     "#{Rails.application.secrets[:okta][:site]}/oauth2/default/v1/token",
+                    user_info_url: "#{Rails.application.secrets[:okta][:site]}/oauth2/default/v1/userinfo",
+                    issuer: "#{Rails.application.secrets[:okta][:site]}/oauth2/default",
                   },
                   strategy_class: OmniAuth::Strategies::Okta)
   # ==> Warden configuration

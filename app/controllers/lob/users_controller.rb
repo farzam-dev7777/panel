@@ -8,7 +8,7 @@ class Lob::UsersController < Lob::BaseController
   
   def update
     @user = User.find(params[:id])
-    if @user.update_attributes(users_params)
+    if @user.update(s)
       flash[:notice] = "User updated"
       redirect_to admin_users_path(@exception_request)
     else
@@ -24,7 +24,7 @@ class Lob::UsersController < Lob::BaseController
 
   def update_profile
     @user = User.find(params[:id])
-    if @user.update_attributes(users_params)
+    if @user.update(s)
       flash[:notice] = "User updated"
       render :edit_profile, :id => @user.id
     else

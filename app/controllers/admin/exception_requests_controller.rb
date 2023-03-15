@@ -113,7 +113,7 @@ class Admin::ExceptionRequestsController < Admin::BaseController
 
   # def update
   # 	@exception_request = ExceptionRequest.find(params[:id])
-  #   if @exception_request.update_attributes(exception_requests_params)
+  #   if @exception_request.update(exception_requests_params)
   #     flash[:notice] = "Exception request updated"
   #     redirect_to admin_exception_request_path(@exception_request)
   #   else
@@ -128,17 +128,17 @@ class Admin::ExceptionRequestsController < Admin::BaseController
   def update
 
     @exception_request = ExceptionRequest.find(params[:id])
-    if @exception_request.update_attributes(exception_requests_params)
+    if @exception_request.update(exception_requests_params)
       # if @exception_request.law_firm_id.present? 
       #   @law_firm = LawFirm.find(@exception_request.law_firm_id)
-      #   @law_firm.update_attributes(exception_request_law_firms_params) 
+      #   @law_firm.update(exception_request_law_firms_params) 
       #   flash[:notice] = "Thank you for submitting a Exception Request"
       #   redirect_to admin_root_path
       #   #redirect_to admin_exception_request_path
       # else
       #   @law_firm = LawFirm.new(exception_request_law_firms_params)
       #   @law_firm.save
-      #   @exception_request.update_attributes(law_firm_id: @law_firm.id)
+      #   @exception_request.update(law_firm_id: @law_firm.id)
       #   flash[:notice] = "Thank you for submitting a Exception Request"
       #   redirect_to admin_root_path
       #   #redirect_to admin_exception_request_path

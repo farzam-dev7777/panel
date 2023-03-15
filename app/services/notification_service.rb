@@ -13,7 +13,7 @@ class NotificationService
       return unless @law_firm && @action_item.security_threat.severity_level.try(:name) == "critical"
       # @snf = queued_notification.severity_negative_factor || queued_notification.action_item.security_threat.severity_negative_factor
       
-      # @law_firm.update_attributes(total_score: (total_score * @snf/100) - total_score) if @snf > 0
+      # @law_firm.update(total_score: (total_score * @snf/100) - total_score) if @snf > 0
       
       if @law_firm.total_calculated_score < SystemSetting.score_threshold
         notify_admin

@@ -8,7 +8,7 @@ class Admin::SystemSettingsController < Admin::BaseController
   end
 
   def update
-    if @settings.update_attributes(settings_params)
+    if @settings.update(settings_params)
       if request.xhr?
         render json: :ok
       else

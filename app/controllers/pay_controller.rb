@@ -8,7 +8,7 @@ class PayController < BaseController
 
 	def stripe_publishable_key
 		render json: {
-			stripe_publishable_key: Rails.application.secrets['stripe']['publishable_key']
+			stripe_publishable_key: Rails.application.secrets[:stripe][:publishable_key]
 		}
 	end
 

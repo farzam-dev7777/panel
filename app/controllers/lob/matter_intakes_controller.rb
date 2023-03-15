@@ -37,10 +37,10 @@ class Lob::MatterIntakesController < Lob::BaseController
     @matter_intake = MatterIntake.new(matter_intake_params)
     if @matter_intake.save
       if params[:commit] === "Next"
-        @matter_intake.update_attributes(status: "draft", lob_submitted_at: Time.now)
+        @matter_intake.update(aft", lob_submitted_at: Time.now)
         redirect_to matter_intakes_information_security_classification_lob_matter_intakes_path(@matter_intake)
       else
-        @matter_intake.update_attributes(status: "awaiting_lawyer_review", lob_submitted_at: Time.now)
+        @matter_intake.update(aiting_lawyer_review", lob_submitted_at: Time.now)
         @matter_intake.send_notification_to_lawyer
         flash[:notice] = "Matter Intake Form submitted"
         redirect_to :lob_matter_intakes
@@ -60,11 +60,11 @@ class Lob::MatterIntakesController < Lob::BaseController
 
   def update
   	@matter_intake = MatterIntake.find_by(id: params[:id])
-    if @matter_intake.update_attributes(matter_intake_params)
+    if @matter_intake.update(ke_params)
       if params[:matter_intake] && params[:commit] === "Next" && params[:matter_intake][:submit_type] && params[:matter_intake][:submit_type] === "update"
         redirect_to matter_intakes_information_security_classification_lob_matter_intakes_path(@matter_intake)
       else
-        @matter_intake.update_attributes(status: "awaiting_lawyer_review", lob_submitted_at: Time.now)
+        @matter_intake.update(aiting_lawyer_review", lob_submitted_at: Time.now)
         flash[:notice] = "Matter intake request updated"
         redirect_to lob_matter_intake_path(@matter_intake)
       end
