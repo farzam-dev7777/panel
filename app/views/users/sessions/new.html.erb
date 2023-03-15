@@ -26,12 +26,14 @@
     <div class="right-side">
       <div class="signin-form">
         <div class="page-logo">
-          <% if Tenant.current.present? %>
+          <% if Tenant.current.present? && Tenant.current&.logo&.url.present? %>
             <%= image_tag Tenant.current&.logo&.url , alt:"CWB logo" %>
+          <% else %>
+            <%= image_tag "seal-logo-black.png", alt:"Seal Logo" %>
           <% end %>
         </div>
         <div class="sp-signin-form">
-          <% if Tenant.current.present? && Tenant.current.subdomain === "cwb" %>
+          <% if Tenant.current.present? && Tenant.current&.subdomain === "cwb" %>
             <div class="sp-signin-btn mb-1">
               <%= link_to 'Sign in via SSO', user_okta_omniauth_authorize_path, method: :post, class: "btn-type-primary" %>
             </div>
