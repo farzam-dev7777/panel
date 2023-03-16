@@ -5,7 +5,7 @@ class TenantAdminUser < ApplicationRecord
 
   belongs_to :tenant
 
-  validates_presence_of  :email, :role
+  validates_presence_of  :first_name, :email, :role
   validates_presence_of :password, if: :need_password_validation?
   validates_presence_of :password_confirmation, if: :need_password_validation?
   validates :username,

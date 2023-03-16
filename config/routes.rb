@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     }
 
     resources :tenants, only: [:new, :create, :edit, :update]
+    resources :tenant_admin_users
     
     root to: "tenant_dashboard#index"
   end
