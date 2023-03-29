@@ -60,7 +60,7 @@ class InvoiceAttachment < ApplicationRecord
     tempfile.write(self.file.file.read)
     tempfile.close
     params = {
-      file_path: invoice_attachement.path,
+      file_path: tempfile.path,
       auto_delete: true,
       boost_mode: false,
       async: false,
