@@ -71,7 +71,7 @@ class InvoiceAttachment < ApplicationRecord
     if response.present?
       self.update_columns(veryfi_response: response)
       if response['total'].present? && response['currency_code'].present?
-        self.invoice.update_columns(amount_currency: response['currency_code'], amount_cents: response['total'])
+        self.invoice.update_columns(amount_currency: response['currency_code'], amount_cents: response['total'] * 100)
       end
     end
     tempfile.delete
