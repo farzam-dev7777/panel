@@ -55,7 +55,7 @@ class InvoiceAttachment < ApplicationRecord
       api_key: Rails.application.secrets['veryfi']['api_key']
     )
     ## write to temp file
-    tempfile = Tempfile.new('veryfi')
+    tempfile = Tempfile.new("veryfi-#{self.id}")
     tempfile.binmode
     tempfile.write(self.file.file.read)
     tempfile.close
