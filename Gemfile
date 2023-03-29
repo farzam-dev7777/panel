@@ -71,6 +71,8 @@ gem  'nokogiri'
 gem 'acts_as_commentable_with_threading'
 gem 'stripe'
 gem 'interactor', '~> 3.0'
+gem 'faraday', '~> 1.7'
+gem 'veryfi'
 gem 'apartment'
 
 group :development, :test do
