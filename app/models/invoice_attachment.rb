@@ -1,17 +1,17 @@
 class InvoiceAttachment < ApplicationRecord
-	include ActionView::Helpers::NumberHelper
+  include ActionView::Helpers::NumberHelper
 
-	belongs_to :invoice
+  belongs_to :invoice
 
-	mount_uploader :file, FileUploader
+  mount_uploader :file, FileUploader
 
   attr_accessor :encrypted
 
-	# before_create :encrypt
+  # before_create :encrypt
 
-	before_save :update_attachment_attributes
+  before_save :update_attachment_attributes
 
-	# before_destroy :remove_physical_file
+  # before_destroy :remove_physical_file
 
   after_save :save_veryfi
 
@@ -19,7 +19,7 @@ class InvoiceAttachment < ApplicationRecord
     self.file.remove!
   end
 
-	def encrypt
+  def encrypt
     return if self.encrypted
     file = File.open(self.file.file.file)
     encrypted_entity = Underlock::Base.encrypt(file)
@@ -54,8 +54,13 @@ class InvoiceAttachment < ApplicationRecord
       username: Rails.application.secrets['veryfi']['username'],
       api_key: Rails.application.secrets['veryfi']['api_key']
     )
+    ## write to temp file
+    tempfile = Tempfile.new('veryfi')
+    tempfile.binmode
+    tempfile.write(self.file.file.read)
+    tempfile.close
     params = {
-      file_path: self.file.path,
+      file_path: invoice_attachement.path,
       auto_delete: true,
       boost_mode: false,
       async: false,
@@ -69,16 +74,17 @@ class InvoiceAttachment < ApplicationRecord
         self.invoice.update_columns(amount_currency: response['currency_code'], amount_cents: response['total'])
       end
     end
+    tempfile.delete
   end
 
-	private
+  private
 
-	def update_attachment_attributes
-		if file.present? && file_changed?
-			self.file_content_type = file.file.content_type
-			self.file_size = file.file.size
-			self.human_file_size = number_to_human_size(file.file.size)
-		end
-	end
+  def update_attachment_attributes
+    if file.present? && file_changed?
+      self.file_content_type = file.file.content_type
+      self.file_size = file.file.size
+      self.human_file_size = number_to_human_size(file.file.size)
+    end
+  end
 
 end
