@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en-us" id="extr-page">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<title>Seal Tenant Admin</title>
+	<%= csrf_meta_tags %>
+	<%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <style type="text/css">
+    .login-page{
+      background-image: url(<%= asset_path 'bg-photo.jpg' %>) !important;
+    }
+    .alert, .notice { display: none }
+  </style>
+</head>
+
+<body>
+  <div class="remove-padding" id="main" role="main"><!-- old class login-page -->
+    <!-- New SignIn page -->
+    <div class="sign-in-page">
+      <div class="left-side signin-img">
+      </div>
+      <div class="right-side">
+        <div class="signin-form">
+          <div class="page-logo">
+            <%#= image_tag "laurentianBank.svg", alt:"Laurentian Bank" %>
+          </div>
+          <div class="sp-signin-form">
+            <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {id: 'login-form', class: 'smart-form client-form'}) do |f| %>
+              <div class="alert alert-danger login-error"></div>
+                <span class="signin-alert">
+                <%- flash.each do |name, msg| -%>
+                  <%= content_tag :div, msg, :id => "<div class='alert alert-danger p-error'>flash_#{name}</div>".html_safe if msg.is_a?(String) && msg != 'You need to sign in or sign up before continuing.' %> 
+                <%- end -%> 
+                </span>
+                <div>
+                  <label class="sp-label">Username</label>
+                  <div class="sp-input">
+                    <%= f.text_field :username, autofocus: true %>
+                  </div>
+                </div>
+                <div>
+                  <label class="sp-label">Password</label>
+                  <div class="sp-input">
+                  <%= f.password_field :password, autocomplete: "off" %>
+                </div>
+              </div>
+              <div class="sp-signin-btn">
+                <%= f.submit "Login", class: 'btn-type-primary' %>  
+              </div>
+            <% end %>
+          </div>
+          <div class="sp-powered">
+            <div>Powered By</div>
+            <%= image_tag "seal-logo-light.png", alt:"Seal Logo" %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- New SignIn page END -->
+  </div>
+
+	<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</body>
+</html>

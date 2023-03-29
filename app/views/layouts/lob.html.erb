@@ -23,6 +23,11 @@
 		});
 		</script>
 		<!-- Mobile main menu Start End -->
+		<style>
+      :root {
+        --primary-color: <%= Tenant&.current&.primary_color || "#2b3344" %>;
+      }
+    </style>
 	</head>
 
   <body class="">
@@ -91,7 +96,9 @@
 						</ul>
 					</nav>
 					<div class="bmo-logo">
-						<%= image_tag "CWB-logo-footer.svg", alt:"CWB logo", style: "width: 100px;" %>
+						<% if Tenant.current.present? %>
+							<%= image_tag Tenant.current&.logo&.url, alt:"CWB logo", style: "width: 100px;" %>
+						<% end %>
 					</div>
 				</div>
 			</div>

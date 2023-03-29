@@ -50,6 +50,7 @@ gem 'jquery-ui-rails', '~> 5.0.5'
 gem 'rails-jquery-ui-sortable'
 
 gem 'carrierwave'
+gem 'fog-aws'
 gem 'amoeba'
 gem "cancan"
 gem 'jbuilder', '~> 2.5'
@@ -72,6 +73,7 @@ gem 'stripe'
 gem 'interactor', '~> 3.0'
 gem 'faraday', '~> 1.7'
 gem 'veryfi'
+gem 'apartment'
 
 group :development, :test do
   gem 'byebug', platform: :mri

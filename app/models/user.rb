@@ -14,6 +14,7 @@ class User < ApplicationRecord
   has_many :activity_logs, as: :loggable
 
   belongs_to :law_firm
+  belongs_to :tenant
   has_many   :matter_intakes
 
   default_scope { where(deactivated_at: nil) }

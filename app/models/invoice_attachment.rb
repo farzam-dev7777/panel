@@ -11,7 +11,7 @@ class InvoiceAttachment < ApplicationRecord
 
 	before_save :update_attachment_attributes
 
-	before_destroy :remove_physical_file
+	# before_destroy :remove_physical_file
 
   after_save :save_veryfi
 

@@ -89,6 +89,11 @@ GEM
       sshkit (>= 1.6.1, != 1.7.0)
     amoeba (3.1.0)
       activerecord (>= 3.2.6)
+    apartment (2.2.1)
+      activerecord (>= 3.1.2, < 6.0)
+      parallel (>= 0.7.1)
+      public_suffix (>= 2)
+      rack (>= 1.3.6)
     arel (7.1.4)
     awesome_nested_set (3.2.1)
       activerecord (>= 4.0.0, < 7.0)
@@ -172,6 +177,7 @@ GEM
     erubis (2.7.0)
     ethon (0.12.0)
       ffi (>= 1.3.0)
+    excon (0.99.0)
     execjs (2.7.0)
     faraday (1.10.3)
       faraday-em_http (~> 1.0)
@@ -197,8 +203,24 @@ GEM
     faraday-rack (1.0.0)
     faraday-retry (1.0.3)
     ffi (1.11.1)
+    fog-aws (3.18.0)
+      fog-core (~> 2.1)
+      fog-json (~> 1.1)
+      fog-xml (~> 0.1)
+    fog-core (2.2.4)
+      builder
+      excon (~> 0.71)
+      formatador (~> 0.2)
+      mime-types
+    fog-json (1.2.0)
+      fog-core
+      multi_json (~> 1.10)
+    fog-xml (0.1.4)
+      fog-core
+      nokogiri (>= 1.5.11, < 2.0.0)
     font-awesome-rails (4.7.0.5)
       railties (>= 3.2, < 6.1)
+    formatador (0.3.0)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     google-authenticator-rails (1.6.1)
@@ -303,6 +325,7 @@ GEM
     openssl (2.2.3)
       ipaddr
     orm_adapter (0.5.0)
+    parallel (1.22.1)
     paranoia (2.4.2)
       activerecord (>= 4.0, < 6.1)
     pg (0.21.0)
@@ -463,6 +486,7 @@ DEPENDENCIES
   activesupport-current_attributes
   acts_as_commentable_with_threading
   amoeba
+  apartment
   axlsx (~> 2.0)
   axlsx_rails
   breadcrumbs_on_rails
@@ -479,6 +503,7 @@ DEPENDENCIES
   docusign_esign (~> 3.4.0)
   draper (~> 3.0.0.pre1)
   faraday (~> 1.7)
+  fog-aws
   font-awesome-rails (~> 4.5)
   google-authenticator-rails (~> 1.6.1)
   interactor (~> 3.0)

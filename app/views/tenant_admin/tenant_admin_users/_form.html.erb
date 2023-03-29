@@ -1,0 +1,55 @@
+<div class="sp-form sp-form-bg">
+  <%= simple_form_for [:tenant_admin, @tenant_admin_user] do |f| %>
+    <div class="row form-flex-wrap">
+      <div class="col-xs-12 col-md-6">
+        <label class="label">First Name<span class="mandatory">*</span></label>
+        <%= f.input :first_name, label: false, required: true %>
+      </div>
+
+      <div class="col-xs-12 col-md-6">
+        <label class="label">Last Name</label>
+        <%= f.input :last_name, label: false, required: true %>
+      </div>
+
+      <% if @tenant_admin_user.new_record? %>
+        <div class="col-xs-12 col-md-6">
+          <label class="label">Email<span class="mandatory">*</span></label>
+          <%= f.input :email, label: false, required: true %>
+        </div>
+
+        <div class="col-xs-12 col-md-6">
+          <label class="label">Username<span class="mandatory">*</span></label>
+          <%= f.input :username, label: false, required: true %>
+        </div>
+
+        <div class="col-xs-12 col-md-6">
+          <label class="label">Password<span class="mandatory">*</span></label>
+          <%= f.input :password, label: false, autocomplete: "off", input_html: { class: 'set-password' } %>
+          <p style="color: #949494;" class="text-left"><em>Minimum 10 characters required</em></p>
+        </div>
+
+        <div class="col-xs-12 col-md-6">
+          <label class="label">Confirm Password<span class="mandatory">*</span></label>
+          <%= f.input :password_confirmation, label: false, autocomplete: "off", input_html: { class: 'set-password' } %>
+          <p style="color: #949494;" class="text-left"><em>Minimum 10 characters required</em></p>
+        </div>
+      <% else %>
+        <div class="col-xs-12 col-md-6">
+          <label class="label">Email<span class="mandatory">*</span></label>
+          <%= f.input :email, label: false, autocomplete: "off", input_html: { disabled: true } %>
+        </div>
+
+        <div class="col-xs-12 col-md-6">
+          <label class="label">Username<span class="mandatory">*</span></label>
+          <%= f.input :username, label: false, autocomplete: "off", input_html: { disabled: true } %>
+        </div>
+      <% end %>
+
+      <div class="col-xs-12 col-md-12 mt-3">
+        <%=link_to 'Cancel', tenant_admin_tenant_admin_users_path, class: 'btn-type-default' %>
+        <%= f.button :submit, @tenant_admin_user.new_record? ? "Create Admin User" : "Update Admin User", class: "btn-type-primary" %>
+      </div>
+      
+    </div>
+  <% end %>
+</div>
