@@ -35,7 +35,8 @@ class TenantAdmin::TenantsController < TenantAdmin::BaseController
 
   def tenant_params
     params.require(:tenant).permit(
-      :name, :subdomain, :primary_color, :secondary_color, :logo, :login_bg_image
+      :name, :subdomain, :primary_color, :secondary_color, :logo, :login_bg_image,
+      :okta_client_id, :okta_client_secret, :okta_site, :okta_api_token
     )
   end
 

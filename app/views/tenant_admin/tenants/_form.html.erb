@@ -31,6 +31,26 @@
         <%= f.input :login_bg_image, label: false, as: :file %>
       </div>
 
+      <div class="col-xs-12 col-md-6">
+        <label class="label">Okta Client Id</label>
+        <%= f.input :okta_client_id, label: false %>
+      </div>
+
+      <div class="col-xs-12 col-md-6">
+        <label class="label">Okta Client Secret</label>
+        <%= f.input :okta_client_secret, label: false %>
+      </div>
+
+      <div class="col-xs-12 col-md-6">
+        <label class="label">Okta Site Url</label>
+        <%= f.input :okta_site, label: false %>
+      </div>
+
+      <div class="col-xs-12 col-md-6">
+        <label class="label">Okta Api Token</label>
+        <%= f.input :okta_api_token, label: false %>
+      </div>
+
       <div class="col-xs-12 col-md-12 mt-3">
         <%=link_to 'Cancel', tenant_admin_root_path, class: 'btn-type-default' %>
         <%= f.button :submit, "Submit", class: "btn-type-primary" %>
