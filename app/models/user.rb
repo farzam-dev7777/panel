@@ -3,6 +3,7 @@ class User < ApplicationRecord
   acts_as_google_authenticated :column => :username, :method => :username, :issuer => 'SEAL'
 
   PANEL_ADMIN_USER_ROLES = ['lxp', 'lob', 'internal_lawyers']
+  TENANT_ADMIN_USER_ROLES = ['tenant_admin']
   USER_STATUS = ['Activate', 'Deactivate']
   devise :database_authenticatable,
          :recoverable, :trackable, 
@@ -169,6 +170,10 @@ class User < ApplicationRecord
 
   def is_a_master_user?
     role == 'master_user'
+  end
+
+  def is_a_tenant_admin?
+    self.role == 'tenant_admin'
   end
 
   def is_deactivated?

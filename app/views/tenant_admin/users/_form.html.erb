@@ -17,10 +17,10 @@
           <%= f.input :email, label: false, required: true %>
         </div>
 
-        <div class="col-xs-12 col-md-6">
+        <!-- <div class="col-xs-12 col-md-6">
           <label class="label">Username<span class="mandatory">*</span></label>
-          <%= f.input :username, label: false, required: true %>
-        </div>
+          <%#= f.input :username, label: false, required: true %>
+        </div> -->
 
         <div class="col-xs-12 col-md-6">
           <label class="label">Password<span class="mandatory">*</span></label>
@@ -46,7 +46,7 @@
       <% end %>
 
       <div class="col-xs-12 col-md-12 mt-3">
-        <%=link_to 'Cancel', tenant_admin_tenant_admin_users_path, class: 'btn-type-default' %>
+        <%=link_to 'Cancel', tenant_admin_users_path, class: 'btn-type-default' %>
         <%= f.button :submit, @tenant_admin_user.new_record? ? "Create Admin User" : "Update Admin User", class: "btn-type-primary" %>
       </div>
       

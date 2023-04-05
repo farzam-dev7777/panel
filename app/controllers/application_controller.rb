@@ -40,14 +40,17 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     Current.user = resource
-    if Current.user&.class&.name === "TenantAdminUser" && Current.user&.role === "tenant_admin"
+    if Current.user&.role === "tenant_admin"
+      Apartment::Tenant.switch!('public')
       tenant_admin_root_url
     else
+      tenant = Tenant.find_by(subdomain: request.subdomain)
+      Apartment::Tenant.switch!(tenant&.subdomain || 'public')
       if ( current_user.role == 'superadmin' || current_user.role == 'admin' || current_user.is_panel_admin_user? )
         if current_user.role == "lob"
-          lob_root_url
+          current_user.tenant.present? ? lob_root_url(subdomain: current_user.tenant&.subdomain) : lob_root_url
         else
-          admin_root_url
+          current_user.tenant.present? ? admin_root_url(subdomain: current_user.tenant&.subdomain) : admin_root_url
         end
       else
         root_path

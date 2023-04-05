@@ -20,7 +20,6 @@ Apartment.configure do |config|
   config.excluded_models = %w{ 
     Tenant
     User
-    TenantAdminUser
     Country
     State
   }

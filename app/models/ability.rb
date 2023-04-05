@@ -9,9 +9,11 @@ class Ability
       cannot :manage, SystemSetting
     elsif user.role == "lxp"  
       can :read, ConflictWaiver 
-      can :read, ExceptionRequest 
+      can :read, ExceptionRequest
+      cannot :manage, Tenant 
     elsif user.role == "internal_lawyers"  
-      cannot :edit, ConflictWaiver   
+      cannot :edit, ConflictWaiver
+      cannot :manage, Tenant 
     else
       can :manage, FormSubmission do |fs|
         user.law_firm.form_submissions.map(&:id).include? fs.id
@@ -28,7 +30,7 @@ class Ability
       end
       can :read, :SecurityThreat
       can :read, :SecurityAlert
-
+      can :read, Tenant
       
     end
     #

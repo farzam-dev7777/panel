@@ -10,7 +10,6 @@ class Tenant < ApplicationRecord
 	self.per_page = 10
 	
 	has_many :users
-	has_many :tenant_admin_users
 
 	mount_uploader :logo, TenantUploader
 	mount_uploader :login_bg_image, TenantUploader

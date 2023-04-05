@@ -4,7 +4,7 @@
       <div class="page-title">Users</div>
       <div class="back-edit-actions">
         <div class="action-buttons-alignment">
-          <a class="action-btn export-icon" href="<%= new_tenant_admin_tenant_admin_user_path %>" data-toggle="tooltip" data-placement="top" title="Add new Tanant Admin">
+          <a class="action-btn export-icon" href="<%= new_tenant_admin_user_path %>" data-toggle="tooltip" data-placement="top" title="Add new Tanant Admin">
             <span class="blue-text">Add new Tenant Admin</span> <%= image_tag "add.svg", alt:"Add new Tenant Admin" %>
           </a>
         </div>
@@ -24,7 +24,7 @@
           </thead>
           <tbody>
             <% @tenant_admins.each do |tenant_admin| %>
-              <tr onClick="window.location.href='/tenant_admin/tenant_admin_users/<%= tenant_admin.id %>/edit'">
+              <tr onClick="window.location.href='/tenant_admin/users/<%= tenant_admin.id %>/edit'">
                 <td><%= [tenant_admin&.first_name, tenant_admin&.last_name]&.compact&.join(' ') %></td>
                 <td><%= tenant_admin&.username %></td>
                 <td><%= tenant_admin&.email %></td>

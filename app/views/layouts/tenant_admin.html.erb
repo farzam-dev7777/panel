@@ -43,17 +43,17 @@
       </div>
       <div class="project-context user-info hide-profile">
         <span class="project-selector dropdown-toggle" data-toggle="dropdown">
-          <%= image_tag get_avatar_image(current_tenant_admin_tenant_admin_user&.full_name), alt:"User", class:"user-image" %>
+          <%= image_tag get_avatar_image(current_user&.full_name), alt:"User", class:"user-image" %>
           <span class="drop-down-icon">
             <%= image_tag "drop-down-icon.svg", alt:"Drop menu" %>
           </span>
         </span>
         <ul class="dropdown-menu">
 					<!-- # <li id="profile" class="">
-					# 	<a href="/tenant_admin/users/edit_profile/<%= current_tenant_admin_tenant_admin_user&.id %>" title="Edit Profile" data-action="userLogout" >Profile</a>
+					# 	<a href="/tenant_admin/users/edit_profile/<%= current_user&.id %>" title="Edit Profile" data-action="userLogout" >Profile</a>
 					# </li> 
           # <li role="separator" class="divider"></li> -->
-          <li><a href="/tenant_admin/tenant_admin_users/sign_out" title="Sign Out" data-action="userLogout" data-logout-msg="You can improve your security further after logging out by closing this opened browser">Logout</a></li>
+          <li><a href="/users/sign_out" title="Sign Out" data-action="userLogout" data-logout-msg="You can improve your security further after logging out by closing this opened browser">Logout</a></li>
         </ul>
         <!-- end dropdown-menu-->
       </div>
@@ -71,12 +71,12 @@
                 <a href="/tenant_admin" title="Dashboard"><i class="fa fa-home" aria-hidden="true"></i> <span class="menu-item-parent">Dashboard</span></a>
               </li>
 
-							<li class="<%= request.original_fullpath.include?('tenant_admin_users') ? active_menu_item(request.original_fullpath) : active_menu_item('/tenant_admin/tenant_admin_users/') %>">
-                <a href="/tenant_admin/tenant_admin_users" title="Users"><i class="fa fa-users" aria-hidden="true"></i> <span class="menu-item-parent">Users</span></a>
+							<li class="<%= request.original_fullpath.include?('users') ? active_menu_item(request.original_fullpath) : active_menu_item('/tenant_admin/users/') %>">
+                <a href="/tenant_admin/users" title="Users"><i class="fa fa-users" aria-hidden="true"></i> <span class="menu-item-parent">Users</span></a>
               </li>
               
               <li class="sp-menu-item-hidden">
-                <a href="/tenant_admin/tenant_admin_users/sign_out" title="Sign Out" data-action="userLogout" data-logout-msg="You can improve your security further after logging out by closing this opened browser">
+                <a href="/tenant_admin/users/sign_out" title="Sign Out" data-action="userLogout" data-logout-msg="You can improve your security further after logging out by closing this opened browser">
                   <i class="fa fa-power-off" aria-hidden="true"></i> Logout
                 </a>
               </li>

@@ -1,6 +1,6 @@
 class TenantAdmin::BaseController < ApplicationController
-  before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :authenticate_tenant_admin_tenant_admin_user!, raise: false
+  # before_action :authenticate_user!, raise: false
+  before_action :authenticate_tenant_admin!, raise: false
 
 	layout 'tenant_admin'
 
@@ -12,15 +12,14 @@ class TenantAdmin::BaseController < ApplicationController
     end
   end
 
-  protected
-
-  def configure_permitted_parameters
-    added_attrs = [:username, :email, :password, :password_confirmation, :remember_me]
-    devise_parameter_sanitizer.permit :sign_up, keys: added_attrs
-    devise_parameter_sanitizer.permit :account_update, keys: added_attrs
-
-    update_attrs = [:password, :password_confirmation, :current_password]
-    devise_parameter_sanitizer.permit :account_update, keys: update_attrs
+  def authenticate_tenant_admin!
+    if current_user.role === "lob"
+      redirect_to "/lob", :alert => "" if current_user.role == 'lob'
+    elsif current_user.role === "lxp" || current_user.role === "lxp"
+      redirect_to "/admin", :alert => "" if current_user.role == 'internal_lawyers'
+    else
+      redirect_to "/", :alert => "Access Denied!" if current_user.role != 'tenant_admin' 
+    end
   end
 
 end
