@@ -183,6 +183,8 @@ class Admin::ExceptionRequestsController < Admin::BaseController
  def get_law_firm_list
    if params[:matter_type].present? ||  params[:sub_matter_type].present? || params[:jurisdiction_type].present? || params[:country].present? || params[:state].present?
      where = Hash.new
+     law_firm_ids = LawFirmsTenant.where(tenant_id: Tenant.current&.id)&.pluck(:law_firm_id)
+     where['id'] = law_firm_ids
      where['law_firm_category'] = "PANEL"
      #where['status'] = "Active"
      if params[:matter_type].present?
@@ -225,11 +227,12 @@ class Admin::ExceptionRequestsController < Admin::BaseController
 
 
  def select_law_firm
-   @exception_request = ExceptionRequest.new
+    @exception_request = ExceptionRequest.new
   if params[:id]
-   @law_firm = LawFirm.find_by_id(params[:id])
+    @law_firm = LawFirm.find_by_id(params[:id])
   else
-   @law_firms = LawFirm.all
+    law_firm_ids = LawFirmsTenant.where(tenant_id: Tenant.current&.id)&.pluck(:law_firm_id)
+    @law_firms = LawFirm.where(id: law_firm_ids)
   end
  end
 
@@ -255,6 +258,14 @@ class Admin::ExceptionRequestsController < Admin::BaseController
       #     LawFirmsMatterType.create(law_firm_id: @law_firm.id, matter_type_id: mt)
       #   end
       # end
+
+      begin
+        LawFirmsTenant.create(
+          law_firm_id: @law_firm&.id,
+          tenant_id: Tenant.current&.id || current_user&.tenant_id
+        )
+      rescue => e
+      end
 
       flash[:notice] = "New Law firm created"
       redirect_to exception_request_new_admin_exception_requests_path(@law_firm)

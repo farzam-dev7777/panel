@@ -19,7 +19,8 @@ class Admin::LawFirmsController < Admin::BaseController
 
   def panel_law_firms
     @q = LawFirm.includes(:locations).ransack(params[:q])
-    @law_firms = @q.result(distinct: true).where(law_firm_category: "PANEL").order('created_at DESC')
+    law_firm_ids = LawFirmsTenant.where(tenant_id: Tenant.current&.id).pluck(:law_firm_id)
+    @law_firms = @q.result(distinct: true).where(law_firm_category: "PANEL", id: law_firm_ids).order('created_at DESC')
     # @law_firms =  LawFirm.where(law_firm_category: "PANEL")
 
     @params_string = false;
@@ -60,7 +61,13 @@ class Admin::LawFirmsController < Admin::BaseController
       # Pass true as a 2nd arg if admin wants to send the activity as notification as well
       @law_firm.log_activity('account_created', true, current_user)
       #@law_firm.user.send_reset_password_instructions
-
+      begin
+        LawFirmsTenant.create(
+          law_firm_id: @law_firm&.id,
+          tenant_id: Tenant.current&.id || current_user&.tenant_id
+        )
+      rescue => e
+      end
   		redirect_to :admin_law_firms
   	else
   		flash.now[:alert] = @law_firm.errors.full_messages.join(',')
@@ -242,7 +249,8 @@ class Admin::LawFirmsController < Admin::BaseController
 
   def get_law_firm_list
     if params[:matter_type].present? ||  params[:sub_matter_type].present? || params[:jurisdiction_type].present? || params[:country].present? || params[:state].present?
-      render json: { data: LawFirm.all }
+      law_firm_ids = LawFirmsTenant.where(tenant_id: Tenant.current&.id)&.pluck(:law_firm_id)
+      render json: { data: LawFirm.where(id: law_firm_ids) }
     else
       render json: { data: [] }
     end

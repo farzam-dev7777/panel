@@ -1,5 +1,6 @@
 class Admin::InternalSessionsController < Devise::SessionsController
-# before_action :configure_sign_in_params, only: [:create]
+  # before_action :configure_sign_in_params, only: [:create]
+  skip_before_action :set_tenant, only: [:destroy]
 
   layout 'login'
 

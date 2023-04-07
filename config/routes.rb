@@ -339,7 +339,7 @@ Rails.application.routes.draw do
   namespace :users do
   end
 
-
+  post 'tenants/switch', to: 'tenants#switch'
 
   root to: "dashboard#index"
 

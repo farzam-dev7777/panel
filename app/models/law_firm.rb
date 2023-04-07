@@ -1,7 +1,7 @@
 class LawFirm < ApplicationRecord
   generate_public_uid
   self.per_page = 10
-  belongs_to :user
+  belongs_to :user, optional: true
   has_many :users
   has_many :activity_logs
   has_many :requests
@@ -29,6 +29,8 @@ class LawFirm < ApplicationRecord
   has_many :states, :through => :law_firms_states
   has_many :matter_intakes
   has_one :panel_request
+  has_many :law_firms_tenants
+  has_many :tenants, through: :law_firms_tenants
 
   serialize :practice_area, Array
   serialize :type_of_matters_your_law_firm_handles_for_us, Array

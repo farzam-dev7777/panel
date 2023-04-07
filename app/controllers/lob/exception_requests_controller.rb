@@ -223,6 +223,14 @@ class Lob::ExceptionRequestsController < Lob::BaseController
       #   end
       # end
 
+      begin
+        LawFirmsTenant.create(
+          law_firm_id: @law_firm&.id,
+          tenant_id: Tenant.current&.id || current_user&.tenant_id
+        )
+      rescue => e
+      end
+
       flash[:notice] = "New Law firm created"
       redirect_to exception_request_new_lob_exception_requests_path(@law_firm)
 

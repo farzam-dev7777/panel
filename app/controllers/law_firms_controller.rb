@@ -35,6 +35,7 @@ class LawFirmsController < BaseController
                 password_confirmation: params[:temp_password_confirmation],
                 role: 'user',
                 law_firm_id: current_law_firm.id
+                tenant_id: Tenant.current&.id || nil
               )
       if user.save
         user.set_google_secret

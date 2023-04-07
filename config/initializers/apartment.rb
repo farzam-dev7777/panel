@@ -22,6 +22,8 @@ Apartment.configure do |config|
     User
     Country
     State
+    LawFirm
+    LawFirmsTenant
   }
 
   # In order to migrate all of your Tenants you need to provide a list of Tenant names to Apartment.
@@ -54,6 +56,7 @@ Apartment.configure do |config|
   #   end
   # end
   #
+  config.default_schema = "public"
   config.tenant_names = lambda { Tenant.pluck :subdomain }
 
   # PostgreSQL:

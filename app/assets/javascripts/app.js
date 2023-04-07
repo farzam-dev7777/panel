@@ -1983,7 +1983,22 @@ $('#extend-expiry-form').on('submit', function(e){
 
 })
 
-
+$(document).on('change', '#lawfirm_tenants', function(){
+  var subdomain = $(this).val();
+  $.ajax({
+    method: 'POST',
+    url: 'tenants/switch',
+    data: { subdomain: subdomain },
+    dataType: 'json',
+    context: $(this),
+    success: function(response) {
+      window.location.reload();
+    },
+    error: function() {
+      alert("An error occurred!")
+    }
+  })
+});
 
 
 // var _rollbarConfig = {

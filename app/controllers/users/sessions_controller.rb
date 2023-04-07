@@ -5,6 +5,7 @@ class Users::SessionsController < Devise::SessionsController
 
   layout 'login'
   skip_before_action :verify_authenticity_token
+  skip_before_action :set_tenant, only: [:destroy]
 
   def track_login
     begin

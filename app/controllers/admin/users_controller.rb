@@ -15,6 +15,7 @@ class Admin::UsersController < Admin::BaseController
 
   def create
     @user = User.new(users_params)
+    @user.tenant_id = Tenant.current&.id || nil
     if @user.save
       flash[:notice] = "New User Added"
       redirect_to :admin_users

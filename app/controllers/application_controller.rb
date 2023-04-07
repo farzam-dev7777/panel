@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   #before_filter :authenticate_2fa
 
   #before_filter :set_cache_headers
+  before_action :set_tenant
 
   def set_cache_headers
     response.headers["Cache-Control"] = "no-cache, no-store"
@@ -43,6 +44,15 @@ class ApplicationController < ActionController::Base
     if Current.user&.role === "tenant_admin"
       Apartment::Tenant.switch!('public')
       tenant_admin_root_url
+    elsif Current.user&.role === "master_user"
+      if Current.user&.tenant.present?
+        tenant = Current.user&.tenant
+      else
+        tenant = Current.user&.law_firm&.tenants&.first
+      end
+      Apartment::Tenant.switch!(tenant&.subdomain) if tenant.present?
+      Apartment::Tenant.switch!('public') if tenant.nil?
+      root_path
     else
       tenant = Tenant.find_by(subdomain: request.subdomain)
       Apartment::Tenant.switch!(tenant&.subdomain || 'public')
@@ -73,5 +83,30 @@ class ApplicationController < ActionController::Base
   def current_ability
     @current_ability ||= Ability.new(current_user)
   end
+
+  protected
+    def set_tenant
+      if !request.subdomain.blank?
+        tenant = Tenant.find_by(subdomain: request.subdomain)
+        if tenant.present?
+          Apartment::Tenant.switch!(tenant&.subdomain)
+        else
+          Apartment::Tenant.switch!('public')
+        end
+      else
+        if Current.user&.role === "master_user"
+          if Tenant.current.nil?
+            if Current.user&.tenant.present?
+              tenant = Current.user&.tenant
+            else
+              tenant = Current.user&.law_firm&.tenants&.first
+            end
+            Apartment::Tenant.switch!(tenant&.subdomain)
+          end
+        else
+          Apartment::Tenant.switch!('public')
+        end
+      end
+    end
 
 end

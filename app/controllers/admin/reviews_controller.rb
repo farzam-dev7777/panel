@@ -54,6 +54,7 @@ class Admin::ReviewsController < Admin::BaseController
             @user.email = @exception_request.law_firm_email
             @user.role = 'master_user'
             @user.empty_user = true
+            @user.tenant_id = Tenant.current&.id || current_user&.tenant&.id
             @user.status = nil
             if @user.save
               @law_firm = LawFirm.new
@@ -69,8 +70,14 @@ class Admin::ReviewsController < Admin::BaseController
               @exception_request.update_attributes(law_firm_id: @law_firm.id)
               @user.law_firm_id =  @law_firm.id
               @user.save
-             
               @exception_request.lxp_status = 'LAW_FIRM_CREATED'
+              begin
+                LawFirmsTenant.create(
+                  law_firm_id: @law_firm&.id,
+                  tenant_id: @user.tenant_id
+                )
+              rescue => e
+              end
               flash[:notice] = "Law Firm Created"
               @review.status = 'LAW_FIRM_CREATED'
               @review.save
@@ -87,6 +94,7 @@ class Admin::ReviewsController < Admin::BaseController
             @user.email = @exception_request.law_firm_email
             @user.role = 'master_user'
             @user.empty_user = true
+            @user.tenant_id = Tenant.current&.id || current_user&.tenant&.id
             @user.status = nil
             if @user.save
               @law_firm = LawFirm.new
@@ -102,6 +110,13 @@ class Admin::ReviewsController < Admin::BaseController
               @exception_request.update_attributes(law_firm_id: @law_firm.id)
               @user.law_firm_id =  @law_firm.id
               @user.save
+              begin
+                LawFirmsTenant.create(
+                  law_firm_id: @law_firm&.id,
+                  tenant_id: @user.tenant_id
+                )
+              rescue => e
+              end
               flash[:notice] = "Law Firm Created and lawyer assigned."
               @review.status = 'LAW_FIRM_CREATED_ASSIGN_LAWYER'
               @review.save
@@ -179,6 +194,7 @@ class Admin::ReviewsController < Admin::BaseController
             @user.email = @panel_request.law_firm_mail
             @user.role = 'master_user'
             @user.empty_user = true
+            @user.tenant_id = Tenant.current&.id || current_user&.tenant&.id
             @user.status = nil
             if @user.save
               @law_firm = LawFirm.new
@@ -195,6 +211,13 @@ class Admin::ReviewsController < Admin::BaseController
               @user.law_firm_id =  @law_firm.id
               @user.save
               @panel_request.status = 'LAW_FIRM_CREATED'
+              begin
+                LawFirmsTenant.create(
+                  law_firm_id: @law_firm&.id,
+                  tenant_id: @user.tenant_id
+                )
+              rescue => e
+              end
               flash[:notice] = "Law Firm Created"
               PanelRequestMailer.notification_for_status_to_user(@panel_request).deliver_now  
             else
