@@ -184,7 +184,7 @@ class User < ApplicationRecord
     headers = {
       "Accept": "application/json",
       "Content-Type": "application/json",
-      "Authorization": "SSWS #{Rails.application.secrets[:okta]['api_token']}"
+      "Authorization": "SSWS #{Tenant.current&.okta_api_token}"
     }
     begin
       response = RestClient.get("#{Rails.application.secrets[:okta]['site']}/api/v1/users/#{auth['uid']}/groups", headers=headers)
