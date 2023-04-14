@@ -1,6 +1,18 @@
 <div class="lxp_dashboard">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <ul id="sparks" class="top-status-card">
+      <li class="sparks-info color-border-01">
+        <a href="/admin/exception_requests?filter=yes" class="card-content">
+          <div class="card-icon bg-color-01">
+            <%= image_tag "exceptions-icon.svg", alt:"Panel Firms" %>
+          </div>
+          <div class="card-details">
+            <div class="total-record"><%= @panel_law_firm_count %></div>
+            <div class="card-name">Panel Firms</div>
+            <div class="card-tag-line">Tag lines goes here</div>
+          </div>
+        </a>
+      </li>
       <li class="sparks-info color-border-03">
         <a href="/admin/matter_intakes?filter=yes" class="card-content">
           <div class="card-icon bg-color-03">
@@ -13,6 +25,18 @@
           </div>
         </a>
       </li>
+      <li class="sparks-info color-border-02">
+        <a href="/admin/panel_requests?filter=yes" class="card-content" >
+          <div class="card-icon bg-color-02">
+            <%= image_tag "submitted-icon.svg", alt:"Panel Consideration Requests" %>
+          </div>
+          <div class="card-details">
+            <div class="total-record"><%= number_to_currency(@invoices_total, :unit => "$") %></div>
+            <div class="card-name">FY Invoices</div>
+            <div class="card-tag-line">Tag lines goes here</div>
+          </div>
+        </a>
+      </li>
       <li class="sparks-info color-border-04">
         <a href="/admin/conflict_waivers?filter=yes" class="card-content">
           <div class="card-icon bg-color-04">
@@ -21,30 +45,6 @@
           <div class="card-details">
             <div class="total-record"><%= @confilictc_requests_submitted %></div>
             <div class="card-name">Conflict Waiver Requests</div>
-            <div class="card-tag-line">Tag lines goes here</div>
-          </div>
-        </a>
-      </li>
-      <li class="sparks-info color-border-01">
-        <a href="/admin/exception_requests?filter=yes" class="card-content">
-          <div class="card-icon bg-color-01">
-            <%= image_tag "exceptions-icon.svg", alt:"Exception Requests" %>
-          </div>
-          <div class="card-details">
-            <div class="total-record"><%= @exception_requests_submitted %></div>
-            <div class="card-name">Exception Request</div>
-            <div class="card-tag-line">Tag lines goes here</div>
-          </div>
-        </a>
-      </li>
-      <li class="sparks-info color-border-02">
-        <a href="/admin/panel_requests?filter=yes" class="card-content" >
-          <div class="card-icon bg-color-02">
-            <%= image_tag "submitted-icon.svg", alt:"Panel Consideration Requests" %>
-          </div>
-          <div class="card-details">
-            <div class="total-record"><%= @panel_requests_submitted %></div>
-            <div class="card-name">Panel Consideration Requests</div>
             <div class="card-tag-line">Tag lines goes here</div>
           </div>
         </a>
@@ -101,14 +101,67 @@
 		</p>
 		</div>
 	</div>-->
-  <div class="col-lg-12 col-md-12 col-sm-12 dashboard-btn-group" style="margin-top: 50px;">
+  <!-- <div class="col-lg-12 col-md-12 col-sm-12 dashboard-btn-group" style="margin-top: 50px;">
     <div class="action-buttons-alignment">
       <a class="action-btn export-icon" href="<%= new_admin_panel_request_path %>" data-toggle="tooltip" data-placement="top" title="Submit New Panel Consideration Request">
         <span class="blue-text">Panel Consideration Request</span> <%= image_tag "add.svg", alt:"Submit New Panel Consideration Request" %>
       </a>
     </div>
-  </div>
+  </div> -->
 <% end %>
+<!-- Panel Firms Starts-->
+  <div class="col-lg-12 col-md-12 col-sm-12">
+    <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+      <div class="page-header-sp mobile-dashboard-header">
+        <div class="page-title">Panel Firms</div>
+        <div class="back-edit-actions">
+          <a class="btn-show-more" href="/admin/law_firms/panel_law_firms">
+            Show more
+          </a>
+        </div>
+      </div>
+      <div class="no-padding">
+        <div class="jarviswidget-editbox"></div>
+        <!-- widget content -->
+        <div class="widget-body">
+          <div class="table-responsive">
+            <table id="" class="table table-decoration table-bordered" width="100%">
+              <thead>
+                <tr>
+                  <th>Firm Name</th>
+                  <th>Number of Matters</th>
+                  <th>Relationship Partner (Firm)</th>
+                  <th>Email</th>
+                  <th>Responsible Contact (Internal)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @panel_law_firms.each do |law_firm| %>
+                  <tr onClick="window.location.href='admin/law_firms/<%= law_firm&.id %>'">
+                    <td>
+                      <% if law_firm&.name.present? %>
+                        <div class="firm-name">
+                          <div class="name-avatar"><img src="<%= get_avatar_image(law_firm&.name&.gsub(" ", "+")) %>"></div>
+                          <div><%= law_firm&.name %></div>
+                        </div>
+                      <% else %>
+                        -
+                      <% end %>	
+                    </td>
+                    <td><%= law_firm&.matter_intakes&.count %></td>
+                    <td><%= law_firm.bmo_relationship_partner_name.present? ? law_firm.try(:bmo_relationship_partner_name) : "-" %></td>
+                    <td><%= law_firm.bmo_relationship_partner_email.present? ? law_firm.try(:bmo_relationship_partner_email) : "-" %></td>
+                    <td>-</td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- Panel Firms Ends-->
 <!-- Matter Intakes Starts -->
 <div class="col-lg-12 col-md-12 col-sm-12">
   <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
@@ -185,249 +238,130 @@
         </div>
       </div>
     </div>
-    <!-- Matter Intakes Ends-->
-    <!-- Conflict Waiver Starts -->
-    <div class="col-lg-12 col-md-12 col-sm-12">
-      <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
-        <div class="page-header-sp mobile-dashboard-header">
-          <div class="page-title">Conflict Waiver Requests</div>
-          <div class="back-edit-actions">
-            <a class="btn-show-more" href="admin/conflict_waivers">
-              Show more
-            </a>
-          </div>
+<!-- Matter Intakes Ends-->
+<!-- Invoices Starts-->
+  <div class="col-lg-12 col-md-12 col-sm-12">
+    <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+      <div class="page-header-sp mobile-dashboard-header">
+        <div class="page-title">Invoices</div>
+        <div class="back-edit-actions">
+          <a class="btn-show-more" href="">
+            Show more
+          </a>
         </div>
-        <div class="no-padding">
-          <div class="jarviswidget-editbox"></div>
-          <!-- widget content -->
-          <div class="widget-body">
-            <div class="table-responsive">
-              <table id="" class="table table-decoration table-bordered" width="100%">
-                <thead>
+      </div>
+      <div class="no-padding">
+        <div class="jarviswidget-editbox"></div>
+        <!-- widget content -->
+        <div class="widget-body">
+          <div class="table-responsive">
+            <table id="" class="table table-decoration table-bordered" width="100%">
+              <thead>
+                <tr>
+                  <th>Last Updated</th>
+                  <th>Matter Number</th>
+                  <th>Matter Name</th>
+                  <th>Law Firm</th>
+                  <th>Total of Invoice</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @invoices.each do |invoice| %>
                   <tr>
-                    <th>Date Submitted</th>
-                    <th>Name of law firm</th>
-                    <th>Contact details</th>
-                    <th>Internal Contact</th>
-                    <th>Internal Status</th>
-                    <th>Internal Lawyer Status</th>
-                    <!--<th width="8%">Action</th>-->
+                    <td><%= invoice&.updated_at&.strftime('%d %b %Y') %></td>
+                    <td><%= invoice&.matter_intake&.matter_number %></td>
+                    <td><%= invoice&.matter_intake&.name_of_matter_client %></td>
+                    <td><%= invoice&.matter_intake&.law_firm&.name %></td>
+                    <td>-</td>
                   </tr>
-                </thead>
-                <tbody>
-                  <% @conflict_waivers.each do |conflict_waiver| %>
-                    <tr onClick="window.location.href='/admin/conflict_waivers/<%= conflict_waiver.id %>'">
-                      <td>
-                        <%= conflict_waiver.created_at.strftime('%d %b %Y') %>
-                      </td>
-                      <td>
-                        <% if conflict_waiver.name_of_law_firm.present? %>
-                          <div class="firm-name">
-                            <div class="name-avatar"><img src="<%= get_avatar_image(conflict_waiver&.name_of_law_firm&.gsub(" ", "+")) %>"></div>
-                            <div><%= conflict_waiver&.name_of_law_firm %></div>
-                          </div>
-                        <% end %>
-                      </td>
-                      <td><%= conflict_waiver&.contact_details %></td>
-                      <td><%= conflict_waiver&.bmo_business_contact %></td>
-                      <!--<td>
-										<div class="action-fields">
-											<a class="action-btn" href="/admin/conflict_waivers/<%= conflict_waiver.id %>">
-												<%= image_tag "view-icon.svg", alt:"View" %>
-											</a>
-										</div>
-									</td>-->
-                      <td>
-                        <% if conflict_waiver.lxp_status_show.present? %>
-                          <div class="status">
-                            <span class="<%= conflict_waiver.lxp_status_show === "Approved" ? 'label label-success' : 'label label-default' %>">
-                              <%= conflict_waiver.try(:lxp_status_show).try(:titleize) %>
-                            </span>
-                          </div>
-                        <% end %>
-                      </td>
-                      <td>
-                        <% if conflict_waiver.internal_lawyers_status_show.present? %>
-                          <div class="status">
-                            <span class="<%= conflict_waiver.internal_lawyers_status_show === "Approve" ? 'label label-success' : 'label label-default' %>">
-                              <%= conflict_waiver.try(:internal_lawyers_status_show).try(:titleize) %>
-                            </span>
-                          </div>
-                        <% else %>
-                          -
-                        <% end %>
-                        <% conflict_waiver.internal_lawyers_status_show %>
-                      </td>
-                    </tr>
-                  <% end %>
-                </tbody>
-              </table>
-            </div>
+                <% end %>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
     </div>
-    <!-- Conflict Waiver Ends-->
-    <!-- Engage Non Panel Firms Starts-->
-    <div class="col-lg-12 col-md-12 col-sm-12">
-      <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
-        <div class="page-header-sp mobile-dashboard-header">
-          <div class="page-title">Exception Requests</div>
-          <div class="back-edit-actions">
-            <a class="btn-show-more" href="/admin/exception_requests">
-              Show more
-            </a>
-          </div>
-        </div>
-        <div class="no-padding">
-          <div class="jarviswidget-editbox"></div>
-          <!-- widget content -->
-          <div class="widget-body">
-            <div class="table-responsive">
-              <table id="" class="table table-decoration table-bordered" width="100%">
-                <thead>
-                  <tr>
-                    <th>Date Submitted</th>
-                    <th>Requested By</th>
-                    <th>LOB Contact Name</th>
-                    <th>Line of Business</th>
-                    <th>Law Firm Name</th>
-                    <th>Matter Name</th>
-                    <% if current_user.role === "lxp" %>
-                      <th>Internal Status</th>
+  </div>
+<!-- Invoices Ends-->
+<!-- Conflict Waiver Starts -->
+<div class="col-lg-12 col-md-12 col-sm-12">
+  <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+    <div class="page-header-sp mobile-dashboard-header">
+      <div class="page-title">Conflict Waiver Requests</div>
+      <div class="back-edit-actions">
+        <a class="btn-show-more" href="admin/conflict_waivers">
+          Show more
+        </a>
+      </div>
+    </div>
+    <div class="no-padding">
+      <div class="jarviswidget-editbox"></div>
+      <!-- widget content -->
+      <div class="widget-body">
+        <div class="table-responsive">
+          <table id="" class="table table-decoration table-bordered" width="100%">
+            <thead>
+              <tr>
+                <th>Date Submitted</th>
+                <th>Name of law firm</th>
+                <th>Contact details</th>
+                <th>Internal Contact</th>
+                <th>Internal Status</th>
+                <th>Internal Lawyer Status</th>
+                <!--<th width="8%">Action</th>-->
+              </tr>
+            </thead>
+            <tbody>
+              <% @conflict_waivers.each do |conflict_waiver| %>
+                <tr onClick="window.location.href='/admin/conflict_waivers/<%= conflict_waiver.id %>'">
+                  <td>
+                    <%= conflict_waiver.created_at.strftime('%d %b %Y') %>
+                  </td>
+                  <td>
+                    <% if conflict_waiver.name_of_law_firm.present? %>
+                      <div class="firm-name">
+                        <div class="name-avatar"><img src="<%= get_avatar_image(conflict_waiver&.name_of_law_firm&.gsub(" ", "+")) %>"></div>
+                        <div><%= conflict_waiver&.name_of_law_firm %></div>
+                      </div>
                     <% end %>
-                    <th>Lawyer Status</th>
-                    <!--<th width="8%">Action</th>-->
-                  </tr>
-                </thead>
-                <tbody>
-                  <% @exception_requests.each do |exception_request| %>
-                    <% if exception_request.law_firm_name.present?  %>
-                      <tr onClick="window.location.href='/admin/exception_requests/<%= exception_request.id %>'">
-                        <td>
-                          <%= exception_request.created_at.strftime('%d %b %Y') %>
-                        </td>
-                        <td>
-                          <% if exception_request.user.present? %>
-                            <div class="firm-name">
-                              <div class="name-avatar"><img src="<%= get_avatar_image(exception_request&.user.username&.gsub(" ", "+")) %>"></div>
-                              <div><%= exception_request.user.username %></div>
-                            </div>
-                          <% end %>
-                        </td>
-                        <td><%= exception_request&.lob_contact_name %></td>
-                        <td><%= exception_request&.line_of_business %></td>
-                        <td><%= exception_request.law_firm.present? ? exception_request&.law_firm.try(:name) : "-"%></td>
-                        <td><%= exception_request&.try(:matter_name) %></td>
-                        <% if current_user.role === "lxp" %>
-                          <td>
-                            <div class="status">
-                              <% if exception_request.lxp_status.present? %>
-                                <span class="<%= exception_request.lxp_status === "APPROVED" ? 'label label-success' : 'label label-default' %>">
-                                  <%= exception_request.lxp_status_show %>
-                                </span>
-                              <% end %>
-                            </div>
-                          </td>
-                        <% end %>
-                        <td>
-                          <% if exception_request.internal_lawyers_status.present? %>
-                            <div class="status">
-                              <span class="<%= exception_request.internal_lawyers_status === "APPROVED" ? 'label label-success' : 'label label-default' %>">
-                                <%= exception_request.try(:internal_lawyers_status).try(:titleize) %>
-                              </span>
-                            </div>
-                          <% else %>
-                            -
-                          <% end %>
-                        </td>
-                        <!--<td>
-											<% if current_user.role == 'lob' &&  exception_request.try(:lxp_status) != 'APPROVED' %>
-												<%= link_to "Edit", edit_admin_exception_request_path(exception_request), class: "btn btn-xs btn-primary" %>
-											<% end %> 
-											<%= link_to "Review", admin_exception_request_path(exception_request), class: "btn btn-xs btn-secondary" %>	
-										</td>-->
-                      </tr>
+                  </td>
+                  <td><%= conflict_waiver&.contact_details %></td>
+                  <td><%= conflict_waiver&.bmo_business_contact %></td>
+                  <!--<td>
+                <div class="action-fields">
+                  <a class="action-btn" href="/admin/conflict_waivers/<%= conflict_waiver.id %>">
+                    <%= image_tag "view-icon.svg", alt:"View" %>
+                  </a>
+                </div>
+              </td>-->
+                  <td>
+                    <% if conflict_waiver.lxp_status_show.present? %>
+                      <div class="status">
+                        <span class="<%= conflict_waiver.lxp_status_show === "Approved" ? 'label label-success' : 'label label-default' %>">
+                          <%= conflict_waiver.try(:lxp_status_show).try(:titleize) %>
+                        </span>
+                      </div>
                     <% end %>
-                  <% end %>
-                </tbody>
-              </table>
-            </div>
-          </div>
+                  </td>
+                  <td>
+                    <% if conflict_waiver.internal_lawyers_status_show.present? %>
+                      <div class="status">
+                        <span class="<%= conflict_waiver.internal_lawyers_status_show === "Approve" ? 'label label-success' : 'label label-default' %>">
+                          <%= conflict_waiver.try(:internal_lawyers_status_show).try(:titleize) %>
+                        </span>
+                      </div>
+                    <% else %>
+                      -
+                    <% end %>
+                    <% conflict_waiver.internal_lawyers_status_show %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
-    <!-- Engage Non Panel Firms Ends-->
-    <div class="col-lg-12 col-md-12 col-sm-12">
-      <div class=" jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
-        <div class="page-header-sp mobile-dashboard-header">
-          <div class="page-title">Panel Consideration Requests</div>
-          <div class="back-edit-actions">
-            <a class="btn-show-more" href="admin/panel_requests/">
-              Show more
-            </a>
-          </div>
-        </div>
-        <div class="no-padding">
-          <!-- widget content -->
-          <div class="widget-body">
-            <div class="table-responsive">
-              <!-- db_lfs id for dynamic table -->
-              <table id="" class="table table-decoration table-bordered" width="100%">
-                <thead>
-                  <tr>
-                    <th>Date Submitted</th>
-                    <th>Submitted By</th>
-                    <th>Law Firm Name</th>
-                    <th>Panel Status</th>
-                    <% if current_user.role == 'lxp' %>
-                      <th>Internal Status</th>
-                    <% end %>
-                    <!--<th>Action</th>-->
-                  </tr>
-                </thead>
-                <tbody>
-                  <% @panel_requests.each do |panel_request| %>
-                    <tr onClick="window.location.href='/admin/panel_requests/<%= panel_request.id %>'">
-                      <td data-order="<%= panel_request.created_at.strftime('%Y%m%d%H%M') %>"><%= panel_request.created_at.strftime('%d %b %Y') %></td>
-                      <td><%= panel_request&.law_frim_name %></td>
-                      <td><%= panel_request&.law_firm_mail %></td>
-                      <td>
-                        <div class="status">
-                          <% if panel_request.status.present? %>
-                            <span class="<%= panel_request.status === "Active" ? 'label label-success' : 'label label-default' %>">
-                              <%= panel_request.try(:status).try(:titleize) %>
-                            </span>
-                          <% end %>
-                        </div>
-                        <% panel_request.status %>
-                      </td>
-                      <% if current_user.role == 'lxp' %>
-                        <td>
-                          <div class="status">
-                            <% if panel_request.lxp_status_show.present? %>
-                              <span class="<%= panel_request.lxp_status_show === "Approved" ? 'label label-success' : 'label label-default' %>">
-                                <%= panel_request.try(:lxp_status_show).try(:titleize) %>
-                              </span>
-                            <% else %>
-                              <div class="text-center">-</div>
-                            <% end %>
-                          </div>
-                          <% panel_request.lxp_status_show ? panel_request.lxp_status_show : "-" %>
-                        </td>
-                      <% end %>
-                      <!--<td>
-										<% if current_user.role == 'lxp' &&  panel_request.try(:lxp_status) != 'APPROVED' %>
-											<%= link_to "Edit", edit_admin_panel_request_path(panel_request), class: "btn btn-xs btn-primary" %>
-										<% end %> 
-										<% link_to "Review", admin_panel_request_path(panel_request), class: "btn btn-xs btn-secondary" %>	
-									</td>-->
-                    </tr>
-                  <% end %>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+  </div>
+</div>
+<!-- Conflict Waiver Ends-->

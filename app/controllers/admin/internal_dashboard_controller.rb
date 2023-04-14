@@ -24,6 +24,12 @@ class Admin::InternalDashboardController < Admin::BaseController
       @law_firms = LawFirm.distinct.joins(:form_submissions).order('law_firms.updated_at DESC').limit(5)
       @panel_requests = PanelRequest.order('created_at DESC').limit(5)
       
+      @panel_law_firm_count = LawFirm.distinct.where(law_firm_category: "PANEL").count
+
+      @panel_law_firms = LawFirm.distinct.where(law_firm_category: "PANEL").limit(5)
+
+      @invoices_total = Invoice.all.map {|i| i.amount.to_f}&.sum
+      @invoices = Invoice.order('updated_at DESC').limit(5)
       
       
 

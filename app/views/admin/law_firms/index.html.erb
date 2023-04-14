@@ -76,7 +76,7 @@
 							<% @law_firms.each do |firm| %>
 								
 								<tr class="law-firm-row" data-id="<%= firm.id %>">
-								<td data-order="<%= firm.created_at.strftime('%Y%m%d%H%M') %>"><%= firm.created_at.strftime('%d %b %Y at %I:%M %p') %></td>
+								<td data-order="<%= firm.created_at.strftime('%Y%m%d%H%M') %>"><%= firm.created_at.strftime('%d %b %Y') %></td>
 									<td>
 										<% if firm.name.present? %>
 											<div class="firm-name">
