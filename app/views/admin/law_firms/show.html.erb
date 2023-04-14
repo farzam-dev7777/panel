@@ -58,7 +58,7 @@
 				</li> -->
 				<% if @law_firm.law_firm_category === "PANEL" %>
 				<li>
-					<a data-toggle="tab" href="#hr3">RFI</a>
+					<a data-toggle="tab" href="#hr3">Assessment(s)</a>
 				</li>
 				<% end %>
 				<!-- 
@@ -68,9 +68,9 @@
 				<li>
 					<a data-toggle="tab" href="#hr4"> <i class="fa fa-lg fa-sticky-note-o"></i> <span class="hidden-mobile hidden-tablet"> Internal Notes </span></a>
 				</li> -->
-				<li>
+				<!-- <li>
 					<a data-toggle="tab" href="#hr5">Exception Requests</a>
-				</li>
+				</li> -->
 				<li>
 					<a data-toggle="tab" href="#hr6">Conflict Waiver</a>
 				</li>
@@ -342,11 +342,10 @@
 												<th>Approved At</th>
 												<th>Expiry Date</th>
 												<th>Submission</th>
-												<th width="8%">Action</th>
 											</tr>
 										</thead>
 										<% @law_firm.form_submissions.each do |submission| %>
-										<tr>
+										<tr onClick="window.location.href='/admin/form_submissions/<%= submission.id %>/pricing_step'">
 											<td><%= @law_firm.total_calculated_score(submission) || '-' %></td>
 											<td>
 												<span class="label label-<%= submission_status_class(submission) %>">
@@ -390,16 +389,6 @@
 												<% else %>
 													<%= link_to submission.try(:status).try(:humanize) || '-', "#", class: "btn btn-default btn-xs", disabled: true %>
 												<% end %>
-
-
-											</td>
-											<td>
-												<% link_to "View Submission", pricing_step_admin_form_submission_path(submission), class: "btn btn-outline-primary btn-xs" %>
-												<div class="action-fields">
-													<a class="action-btn" href="/admin/form_submissions/<%= submission.id %>/pricing_step">
-														<%= image_tag "view-icon.svg", alt:"View" %>
-													</a>
-												</div>	
 											</td>
 										</tr>
 										<% end %>

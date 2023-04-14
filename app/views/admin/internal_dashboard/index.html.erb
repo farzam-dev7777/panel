@@ -128,12 +128,12 @@
           <table id="" class="table table-decoration table-bordered" width="100%">
             <thead>
               <tr>
+                <th>Matter Number</th>
                 <th>Date Submitted</th>
-                <th>Submitter Name</th>
+                <th>Submitter By</th>
                 <!--<th>LOB Contact Name</th>-->
                 <th>Name of Matter/Client</th>
                 <!--th>Law Firm Suggested</th-->
-                <th>Matter Number</th>
                 <th>Status</th>
                 <!--<th>Action</th>-->
               </tr>
@@ -144,7 +144,8 @@
                     <% else %>
                       <tr onClick="window.location.href='/admin/matter_intakes/<%= matter_intake.id %>'">
                       <% end %>
-                      <td><%= matter_intake.created_at.strftime('%d %b %Y at %I:%M %p') %></td>
+                      <td><%= matter_intake.matter_number.present? ? matter_intake.matter_number : "-" %></td>
+                      <td><%= matter_intake.created_at.strftime('%d %b %Y') %></td>
                       <td>
                         <% if matter_intake.submitter_name.present? %>
                           <div class="firm-name">
@@ -158,7 +159,6 @@
                       <!--<td><%= matter_intake.lob_contact_name %></td>-->
                       <td><%= matter_intake.name_of_matter_client %></td>
                       <!--td><%= matter_intake.law_firm.try(:name) %></td-->
-                      <td><%= matter_intake.matter_number.present? ? matter_intake.matter_number : "-" %></td>
                       <td>
                         <div class="status">
                           <span class="<%= matter_intake.status === "matter_open" ? 'label label-success' : 'label label-default' %>">
@@ -218,7 +218,7 @@
                   <% @conflict_waivers.each do |conflict_waiver| %>
                     <tr onClick="window.location.href='/admin/conflict_waivers/<%= conflict_waiver.id %>'">
                       <td>
-                        <%= conflict_waiver.created_at.strftime('%d %b %Y at %I:%M %p') %>
+                        <%= conflict_waiver.created_at.strftime('%d %b %Y') %>
                       </td>
                       <td>
                         <% if conflict_waiver.name_of_law_firm.present? %>
@@ -305,7 +305,7 @@
                     <% if exception_request.law_firm_name.present?  %>
                       <tr onClick="window.location.href='/admin/exception_requests/<%= exception_request.id %>'">
                         <td>
-                          <%= exception_request.created_at.strftime('%d %b %Y at %I:%M %p') %>
+                          <%= exception_request.created_at.strftime('%d %b %Y') %>
                         </td>
                         <td>
                           <% if exception_request.user.present? %>
@@ -389,7 +389,7 @@
                 <tbody>
                   <% @panel_requests.each do |panel_request| %>
                     <tr onClick="window.location.href='/admin/panel_requests/<%= panel_request.id %>'">
-                      <td data-order="<%= panel_request.created_at.strftime('%Y%m%d%H%M') %>"><%= panel_request.created_at.strftime('%d %b %Y at %I:%M %p') %></td>
+                      <td data-order="<%= panel_request.created_at.strftime('%Y%m%d%H%M') %>"><%= panel_request.created_at.strftime('%d %b %Y') %></td>
                       <td><%= panel_request&.law_frim_name %></td>
                       <td><%= panel_request&.law_firm_mail %></td>
                       <td>

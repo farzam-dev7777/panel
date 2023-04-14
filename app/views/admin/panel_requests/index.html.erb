@@ -5,7 +5,7 @@
 <div class="col-lg-12">
   <div class="jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
     <div class="page-header-sp m-top">
-      <div class="page-title">Panel Consideration Requests</div>
+      <div class="page-title">Panel Requests Management</div>
       <div class="back-edit-actions">
         <!-- <%= link_to 'Submit New Panel Consideration Request', new_admin_panel_request_path, html_options = {class: 'btn-type-primary dashboard-certificate-button'}   %> -->
         <!-- <%= link_to 'Download as Excel', admin_panel_requests_path(format: :xlsx), html_options = {class: 'btn-type-primary dashboard-certificate-button dashboard-certificate-button-export '}   %> -->
@@ -26,7 +26,7 @@
                   <div class="action-buttons-alignment">
                     <% if current_user.role === "lxp"  || SystemSetting.fetch.panel_status === "Yes" %>
                       <a class="export-icon right-action-btns add-button" href="<%= new_admin_panel_request_path %>">
-                        <%= image_tag "add.svg", alt:"Submit New Panel Consideration Request" %> <span>Add</span>
+                        <%= image_tag "add.svg", alt:"Submit New Panel Consideration Request" %> <span>Create a New Request</span>
                       </a>
                     <% end %>
                     <a class="export-icon right-action-btns" href="<%= admin_panel_requests_path(format: :xlsx) %>">
@@ -89,7 +89,7 @@
             <tbody>
               <% @panel_requests.each do |panel_request| %>
                 <tr onClick="window.location.href='/admin/panel_requests/<%= panel_request.id %>'">
-                  <td data-order="<%= panel_request.created_at.strftime('%Y%m%d%H%M') %>"><%= panel_request.created_at.strftime('%d %b %Y at %I:%M %p') %></td>
+                  <td data-order="<%= panel_request.created_at.strftime('%Y%m%d%H%M') %>"><%= panel_request.created_at.strftime('%d %b %Y') %></td>
                   <td><%= panel_request&.line_of_business %></td>
                   <td><%= panel_request.law_frim_name.present? ?  panel_request&.law_frim_name : "-" %></td>
                   <td><%= panel_request.law_firm_mail? ? panel_request&.law_firm_mail : "-" %></td>

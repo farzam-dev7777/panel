@@ -32,7 +32,7 @@
       <div class="text-center portal-type">
         <p>
           <% if current_user.role == "lxp" %>
-            Dashboard
+            <!-- Dashboard -->
           <% elsif current_user.role == "lop" %>
             Business Dashboard
           <% elsif current_user.role == "internal_lawyers" %>
@@ -52,7 +52,13 @@
             <%= image_tag "drop-down-icon.svg", alt:"Drop menu" %>
           </span>
         </span>
-        <ul class="dropdown-menu">
+        <ul class="dropdown-menu topbar">
+					<% if current_user.role == "lxp" %>
+						<li id="profile" class="">
+							<a href="/admin/panel_requests" title="Panel Requests Management" data-action="userLogout">Panel Requests Management</a>
+						</li>
+						<li role="separator" class="divider"></li>
+					<% end %>
           <% if current_user.role == "superadmin" %>
             <li id="profile" class="">
               <a href="/users/edit/" title="Edit Profile" data-action="userLogout" >Profile</a>
@@ -74,7 +80,7 @@
         <div class="sticky-left-side" id="dashboard_menu">
           <div class="dashboard-title">
             <% if current_user.role == "lxp" %>
-              Dashboard
+              <!-- Dashboard -->
             <% elsif current_user.role == "lop" %>
               LOP Dashboard
             <% elsif current_user.role == "internal_lawyers" %>
@@ -88,9 +94,11 @@
               <li class="<%= active_menu_item('/admin') %>">
                 <a href="/admin" title="Dashboard"><i class="fa fa-home" aria-hidden="true"></i> <span class="menu-item-parent">Dashboard</span></a>
               </li>
-							<li class=" <%= active_page?(:form_submissions) %>">
-                <a href="/admin/form_submissions" title="RFI"><i class="fa fa-list" aria-hidden="true"></i> <span class="menu-item-parent">Panel Selection</span></a>
-              </li>
+							<% if current_user && ( current_user.role != 'lxp' ) %>
+								<li class=" <%= active_page?(:form_submissions) %>">
+									<a href="/admin/form_submissions" title="RFI"><i class="fa fa-list" aria-hidden="true"></i> <span class="menu-item-parent">Panel Selection</span></a>
+								</li>
+							<% end %>
               <li class=" <%= active_page?(:panel_law_firms) %>">
                 <a href="/admin/law_firms/panel_law_firms" title="Law Firms"><i class="fa fa-address-card" aria-hidden="true"></i> <span class="menu-item-parent">Panel Law firms</span></a>
               </li>
@@ -102,26 +110,31 @@
               <!-- <li class=" <%= active_page?(:panel_non_law_firms) %>">
                 <a href="/admin/law_firms/panel_non_law_firms" title="Law Firms"><i class="fa fa-address-card" aria-hidden="true"></i> <span class="menu-item-parent">Non Panel Law firms</span></a>
               </li>-->
+							<% if current_user && (  current_user.role == 'lxp' ) %>
+								<li class=" <%= active_page?(:panel_non_law_firms) %>">
+									<a href="" title="Invoices"><i class="fa fa-usd" aria-hidden="true"></i> <span class="menu-item-parent">Invoices</span></a>
+								</li>
+							<% end %>
+
               <% if current_user && (  current_user.role == 'lxp' || current_user.role == 'internal_lawyers' ) %>
                 <li class=" <%= active_page?(:conflict_waivers) %>">
                   <a href="/admin/conflict_waivers" title="Conflict Waiver"><i class="fa fa-question-circle" aria-hidden="true"></i> <span class="menu-item-parent">Conflict Waiver Requests</span></a>
                 </li>
               <% end %>
               
-              
               <!--<% if current_user && ( current_user.role == 'lob' || current_user.role == 'lxp' || current_user.role == 'internal_lawyers' ) %>
                 <li class=" <%= active_page?(:exception_requests) %>">
                   <a href="/admin/exception_requests" title="Exception Requests"><i class="fa fa-flag" aria-hidden="true"></i> <span class="menu-item-parent">Exception Requests</span></a>
                 </li>
               <% end %>-->
-              <% if current_user && ( current_user.role == 'internal_lawyers' || current_user.role == 'lxp') %>
+              <% if current_user && ( current_user.role == 'internal_lawyers') %>
                 <li class=" <%= active_page?(:panel_requests) %>">
                   <a href="/admin/panel_requests" title="Panel Consideration Requests"><i class="fa fa-file-text-o" aria-hidden="true"></i> <span class="menu-item-parent">Panel Consideration Requests</span></a>
                 </li>
               <% end %>
               <% if current_user && current_user.role == 'lxp' %>
                 <li class=" <%= active_page?(:security_alerts) %>">
-                  <a href="/admin/security_alerts" title="Security Alerts"><i class="fa fa-file-text-o" aria-hidden="true"></i> <span class="menu-item-parent">Alerts</span></a>
+                  <!-- <a href="/admin/security_alerts" title="Security Alerts"><i class="fa fa-file-text-o" aria-hidden="true"></i> <span class="menu-item-parent">Alerts</span></a> -->
                 </li>
               <% end %>
               <% if current_user && current_user.role == 'superadmin' %>
@@ -155,7 +168,7 @@
             </ul>
           </nav>
           <div class="bmo-logo">
-            <%= image_tag "CWB-logoFooter.svg", alt:"CWB logo", style: "width: 100px;" %>
+            <%= image_tag Tenant.current&.logo&.url, alt:"Logo", style: "width: 100px;" %>
           </div>
         </div>
       </div>
