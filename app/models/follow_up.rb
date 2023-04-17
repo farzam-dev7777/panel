@@ -7,6 +7,7 @@ class FollowUp < ApplicationRecord
 	scope :review,  		-> { where(status: 'review') }
 	scope :resolved,  	-> { where(status: 'resolved') }
 
+	scope :conflicts,  		-> { where(loggable_type: FormValue) }
 	scope :pricing,  		  -> { where(loggable_type: FormValue) }
 	scope :relationship,  -> { where(loggable_type: FormValue) }
 	scope :diversity,   	-> { where(loggable_type: FormValue) }

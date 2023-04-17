@@ -11,9 +11,11 @@ module Submittable
     belongs_to :form_innovation, class_name: Form, foreign_key: 'form_innovation_id'
     belongs_to :form_resourcing, class_name: Form, foreign_key: 'form_resourcing_id'
     belongs_to :form_lawfirm, class_name: Form, foreign_key: 'form_lawfirm_id'
+    belongs_to :form_conflicts, class_name: Form, foreign_key: 'form_conflicts_id'
   end
 
-  def build_values(form_fields, step = 'pricing')
+  #def build_values(form_fields, step = 'pricing')
+  def build_values(form_fields, step = 'conflicts')
     form_fields = form_fields || self.send("form_#{step}").form_fields.top_form_fields
     form_fields.map do |form_field|
       self.form_values.find_or_create_by(form_field_label: form_field.label, form_field: form_field, submittable_id: self.id)
