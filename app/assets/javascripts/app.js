@@ -307,6 +307,7 @@ $(document).ready(function(){
   })
 
   if (window.location.pathname.indexOf("/pricing_step") > -1 ||
+      window.location.pathname.indexOf("/conflicts_step") > -1 ||
       window.location.pathname.indexOf("/relationship_step") > -1 || 
       window.location.pathname.indexOf("/diversity_step") > -1 || 
       window.location.pathname.indexOf("/innovation_step") > -1 || 
@@ -836,7 +837,7 @@ $(document).ready(function(){
     toastr.success('Your progress has been saved successfully', 'Saved');
     link = window.link_to_redirect_to;
     if(link == window.location.pathname){
-      if ((window.location.href.indexOf("pricing_step") > -1)) {
+      if ((window.location.href.indexOf("conflicts_step") > -1)) {
         window.location.reload();
       }
     } else{ 
