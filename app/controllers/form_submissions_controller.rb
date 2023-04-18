@@ -285,7 +285,7 @@ private
 
   def steps
     # , :lawfirm
-    [:conflicts, :relationship, :innovation, :pricing, :diversity, :resourcing]
+    [:conflicts, :relationship, :innovation, :pricing, :diversity, :resourcing, :lawfirm]
   end
 
   def wizard_path(step)
