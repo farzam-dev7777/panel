@@ -25,12 +25,12 @@ class Admin::FormSubmissionsController < Admin::BaseController
     @form_submission = FormSubmission.find(params[:id])
   end
 
-  def conflicts_step
-    @form_submission = FormSubmission.find(params[:id])
-    log = ActivityLog.find_by(loggable_id: @form_submission.id, loggable_type: 'FormSubmission', law_firm_id: @form_submission.law_firm_id)
+  # def conflicts_step
+  #   # @form_submission = FormSubmission.find(params[:id])
+  #   # log = ActivityLog.find_by(loggable_id: @form_submission.id, loggable_type: 'FormSubmission', law_firm_id: @form_submission.law_firm_id)
     
-    FormSubmission.log_activity('information_security_policy_review_started', true, @form_submission, current_admin_user) if @form_submission && !log
-  end
+  #   # FormSubmission.log_activity('information_security_policy_review_started', true, @form_submission, current_admin_user) if @form_submission && !log
+  # end
 
   def pricing_step
     # @form_submission = FormSubmission.find(params[:id])
