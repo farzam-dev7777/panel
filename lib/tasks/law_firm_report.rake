@@ -1,18 +1,25 @@
-rows = []
-LawFirm.all.map do |lf|
-  cols = []
-  cols << lf.name
-  cols << lf.number_of_lawyers
-  cols << lf.type_of_matters_your_law_firm_handles_for_us.compact.join("|")
-  cols << lf.users.count;nil
-  cols << lf.users.where(role: "master_user").first&.username;nil
-  cols << lf.created_at
-  form_submission = lf.form_submissions.last
-  cols << form_submission&.submitted_on
-  cols << form_submission&.system_score
-  cols << form_submission&.assessor_score
-  cols << lf.responsiveness_rate
-  cols << form_submission&.total_score
-  rows << cols.join(", ")
-end;nil
-puts rows
+namespace :law_firm do
+  desc "Law Firm Report"
+  task report: :environment do
+    rows = []
+    LawFirm.all.map do |lf|
+      cols = []
+      cols << lf.name
+      cols << lf.number_of_lawyers
+      cols << lf.type_of_matters_your_law_firm_handles_for_us.compact.join("|")
+      cols << lf.users.count;nil
+      cols << lf.users.where(role: "master_user").first&.username;nil
+      cols << lf.created_at
+      form_submission = lf.form_submissions.last
+      cols << form_submission&.submitted_on
+      cols << form_submission&.system_score
+      cols << form_submission&.assessor_score
+      cols << lf.responsiveness_rate
+      cols << form_submission&.total_score
+      rows << cols.join(", ")
+    end;nil
+    puts rows
+
+  end
+
+end
