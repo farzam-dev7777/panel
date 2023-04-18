@@ -18,6 +18,7 @@ namespace :law_firms do
       cols << form_submission&.total_score
       rows << cols.join(", ")
     end;nil
+    puts "Name, Number of employees, Type of matter, User count, Master user ID, Date of invitation, Date of submission, System score, Assessor score, Responsive score, Total score"
     puts rows
 
   end
