@@ -71,13 +71,13 @@ class FormSubmissionsController < BaseController
   end
 
   def conflicts_step
-    @form_submission = FormSubmission.find(params[:id])
-    if(@form_submission.status == 'sent')
-      @form_submission.status = 'started'
-      @form_submission.save
-      log = ActivityLog.find_by(loggable_id: @form_submission.id, loggable_type: 'FormSubmission', law_firm_id: current_law_firm.id)
-      FormSubmission.log_activity('seal_certification_process_initiated', true, @form_submission, current_user) if @form_submission && !log
-    end
+    # @form_submission = FormSubmission.find(params[:id])
+    # if(@form_submission.status == 'sent')
+    #   @form_submission.status = 'started'
+    #   @form_submission.save
+    #   log = ActivityLog.find_by(loggable_id: @form_submission.id, loggable_type: 'FormSubmission', law_firm_id: current_law_firm.id)
+    #   FormSubmission.log_activity('seal_certification_process_initiated', true, @form_submission, current_user) if @form_submission && !log
+    # end
   end
 
   def pricing_step
