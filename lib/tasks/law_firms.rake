@@ -6,7 +6,7 @@ namespace :law_firms do
       cols = []
       cols << lf.name
       cols << lf.number_of_lawyers
-      cols << lf.type_of_matters_your_law_firm_handles_for_us.compact.join("|")
+      cols << lf.type_of_matters_your_law_firm_handles_for_us.reject(&:blank?).join("|")
       cols << lf.users.count;nil
       cols << lf.users.where(role: "master_user").first&.username;nil
       cols << lf.created_at
