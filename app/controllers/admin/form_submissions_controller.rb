@@ -18,11 +18,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
 
   def before_steps
     @form_submission = FormSubmission.find(params[:id])
-    begin
-      @form = @form_submission.send("form_#{current_step}")
-    rescue => exception
-      
-    end
+    @form = @form_submission.send("form_#{current_step}")
   end
 
   def before_non_dynamic_forms
