@@ -33,7 +33,7 @@
           <% end %>
         </div>
         <div class="sp-signin-form">
-          <% if Tenant.current.okta_client_secret.present? && Tenant.current.okta_site.present? && Tenant.current.okta_api_token.present? && Tenant.current.okta_client_id.present? %>
+          <% if Tenant.current.present? && Tenant.current.okta_client_secret.present? && Tenant.current.okta_site.present? && Tenant.current.okta_api_token.present? && Tenant.current.okta_client_id.present? %>
             <div class="sp-signin-btn mb-1">
               <%= link_to 'Sign in via SSO', user_okta_omniauth_authorize_path, method: :post, class: "btn-type-primary" %>
             </div>
