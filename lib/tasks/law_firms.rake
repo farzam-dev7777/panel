@@ -1,4 +1,4 @@
-namespace :law_firm do
+namespace :law_firms do
   desc "Law Firm Report"
   task report: :environment do
     rows = []
