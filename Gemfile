@@ -74,6 +74,7 @@ gem 'interactor', '~> 3.0'
 gem 'faraday', '~> 1.7'
 gem 'veryfi'
 gem 'apartment'
+gem 'omniauth-azure-activedirectory-v2'
 
 group :development, :test do
   gem 'byebug', platform: :mri
