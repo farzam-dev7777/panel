@@ -180,7 +180,7 @@ class User < ApplicationRecord
     self.deactivated_at.present?
   end
 
-  def self.from_omniauth(auth)
+  def self.from_omniauth_okta(auth)
     headers = {
       "Accept": "application/json",
       "Content-Type": "application/json",
@@ -228,5 +228,9 @@ class User < ApplicationRecord
       # e.response
       user = nil
     end
+  end
+
+  def self.from_omniauth_azure(auth)
+    puts auth
   end
 end

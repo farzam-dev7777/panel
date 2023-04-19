@@ -279,8 +279,7 @@ Devise.setup do |config|
   })
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
   
-  config.omniauth(:azure_activedirectory_v2, nil, nil, {
-    scope: 'openid profile email',
+  config.omniauth(:azure_activedirectory_v2, {
     setup: AZURE_SETUP,
     strategy_class: OmniAuth::Strategies::AzureActivedirectoryV2,
   })
