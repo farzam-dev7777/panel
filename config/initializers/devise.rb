@@ -16,6 +16,14 @@ OKTA_SETUP = lambda do |env|
   }
 end
 
+AZURE_SETUP = lambda do |env|
+  request = Rack::Request.new(env)
+  tenant = Tenant.find_by(subdomain: request.env["HTTP_HOST"].split(".").first)
+  env['omniauth.strategy'].options[:client_id] = tenant.azure_client_id          # if using azure-active-directory-2
+  env['omniauth.strategy'].options[:client_secret] = tenant.azure_client_secret   # if using azure-active-directory-2
+  env['omniauth.strategy'].options[:tenant_id] = tenant.azure_tenant_id   # if using azure-active-directory-2
+end
+
 Devise.setup do |config|
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
@@ -263,24 +271,18 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-  # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
-  # config.omniauth(:okta,
-  #                 Rails.application.secrets[:okta]["client_id"],
-  #                 Rails.application.secrets[:okta]["client_secret"],
-  #                 scope: 'openid profile email',
-  #                 client_options: {
-  #                   site:          Rails.application.secrets[:okta]['site'],
-  #                   authorize_url: "#{Rails.application.secrets[:okta]['site']}/oauth2/default/v1/authorize",
-  #                   token_url:     "#{Rails.application.secrets[:okta]['site']}/oauth2/default/v1/token",
-  #                   user_info_url: "#{Rails.application.secrets[:okta]['site']}/oauth2/default/v1/userinfo",
-  #                   issuer: "#{Rails.application.secrets[:okta]['site']}/oauth2/default",
-  #                 },
-  #                 strategy_class: OmniAuth::Strategies::Okta)
   config.omniauth(:okta, nil, nil, {
     scope: 'openid profile email',
     setup: OKTA_SETUP,
     strategy_class: OmniAuth::Strategies::Okta,
-    provider_ignores_state: true
+    provider_ignores_state: true # https://github.com/omniauth/omniauth-oauth2/issues/95
+  })
+  # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
+  
+  config.omniauth(:azure_activedirectory_v2, nil, nil, {
+    scope: 'openid profile email',
+    setup: AZURE_SETUP,
+    strategy_class: OmniAuth::Strategies::AzureActivedirectoryV2,
   })
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
