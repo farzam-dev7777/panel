@@ -32,23 +32,43 @@
       </div>
 
       <div class="col-xs-12 col-md-6">
+        <label class="label">SSO Type</label>
+        <%= f.input :sso_type, label: false, collection: [['Okta', 'okta'] ,['Azure active directory', 'azure_active_directory']] , prompt: "Select" %>
+      </div>
+
+      <div class="col-xs-12 col-md-6 okta_fields">
         <label class="label">Okta Client Id</label>
         <%= f.input :okta_client_id, label: false %>
       </div>
 
-      <div class="col-xs-12 col-md-6">
+      <div class="col-xs-12 col-md-6 okta_fields">
         <label class="label">Okta Client Secret</label>
         <%= f.input :okta_client_secret, label: false %>
       </div>
 
-      <div class="col-xs-12 col-md-6">
+      <div class="col-xs-12 col-md-6 okta_fields">
         <label class="label">Okta Site Url</label>
         <%= f.input :okta_site, label: false %>
       </div>
 
-      <div class="col-xs-12 col-md-6">
+      <div class="col-xs-12 col-md-6 okta_fields">
         <label class="label">Okta Api Token</label>
         <%= f.input :okta_api_token, label: false %>
+      </div>
+
+      <div class="col-xs-12 col-md-6 azure_fields">
+        <label class="label">Azure Tenant Id</label>
+        <%= f.input :azure_tenant_id, label: false %>
+      </div>
+
+      <div class="col-xs-12 col-md-6 azure_fields">
+        <label class="label">Azure Client Id</label>
+        <%= f.input :azure_client_id, label: false %>
+      </div>
+
+      <div class="col-xs-12 col-md-6 azure_fields">
+        <label class="label">Azure Client Secret</label>
+        <%= f.input :azure_client_secret, label: false %>
       </div>
 
       <div class="col-xs-12 col-md-12 mt-3">

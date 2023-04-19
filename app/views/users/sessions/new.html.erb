@@ -33,11 +33,19 @@
           <% end %>
         </div>
         <div class="sp-signin-form">
-          <% if Tenant.current.present? && Tenant.current.okta_client_secret.present? && Tenant.current.okta_site.present? && Tenant.current.okta_api_token.present? && Tenant.current.okta_client_id.present? %>
-            <div class="sp-signin-btn mb-1">
-              <%= link_to 'Sign in via SSO', user_okta_omniauth_authorize_path, method: :post, class: "btn-type-primary" %>
-            </div>
-            <div class="mb-1 text-center">Or</div>
+          <% if Tenant.current.present? %>
+            <% if Tenant.current&.sso_type === "okta" && Tenant.current.okta_client_secret.present? && Tenant.current.okta_site.present? && Tenant.current.okta_api_token.present? && Tenant.current.okta_client_id.present? %>
+              <div class="sp-signin-btn mb-1">
+                <%= link_to 'Sign in via SSO', user_okta_omniauth_authorize_path, method: :post, class: "btn-type-primary" %>
+              </div>
+              <div class="mb-1 text-center">Or</div>
+            <% end %>
+            <% if Tenant.current&.sso_type === "azure_active_directory" && Tenant.current.azure_tenant_id.present? && Tenant.current.azure_client_id.present? && Tenant.current.azure_client_secret.present? %>
+              <div class="sp-signin-btn mb-1">
+                <!-- <#%= link_to 'Sign in via SSO', user_okta_omniauth_authorize_path, method: :post, class: "btn-type-primary" %> -->
+              </div>
+              <!-- <div class="mb-1 text-center">Or</div> -->
+            <% end %>
           <% end %>
           <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {id: 'login-form', class: 'smart-form client-form'}) do |f| %>
             <div class="alert alert-danger login-error"></div>

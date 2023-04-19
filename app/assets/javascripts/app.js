@@ -16,6 +16,12 @@ $(document).ready(function(){
   //   }
   // }
 
+  setSsoType();
+
+  $("#tenant_sso_type").on('change', function() {
+    setSsoType();
+  })
+
   $(".show_technology_uploader").on('click', function(){
     $(".technology-uploader-container").removeClass('hidden');
     $(".technology-form-container").addClass('hidden');
@@ -1630,6 +1636,23 @@ $(document).ready(function(){
 });
 
 var ajaxReqestSent = false;
+
+function setSsoType() {
+  var sso_type = $('#tenant_sso_type').val();
+  switch(sso_type) {
+    case "okta":
+      $('.okta_fields').show();
+      $('.azure_fields').hide();
+      break;
+    case "azure_active_directory":
+      $('.okta_fields').hide();
+      $('.azure_fields').show();
+      break;
+    default:
+      $('.okta_fields').hide();
+      $('.azure_fields').hide()
+  }
+}
 
 function init_rating(handler){
   $(handler).rateYo({
