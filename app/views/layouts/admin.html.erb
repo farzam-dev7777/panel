@@ -168,7 +168,9 @@
             </ul>
           </nav>
           <div class="bmo-logo">
-            <%= image_tag Tenant.current&.logo&.url, alt:"Logo", style: "width: 100px;" %>
+            <% if Tenant.current&.logo&.url %>
+              <%= image_tag Tenant.current&.logo&.url, alt:"Logo", style: "width: 100px;" %>
+            <% end %>
           </div>
         </div>
       </div>
