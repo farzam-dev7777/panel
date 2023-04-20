@@ -3,7 +3,7 @@ class Admin::InternalDashboardController < Admin::BaseController
   layout 'admin'
 
   add_breadcrumb "Dashboard", :root_path
-  before_filter :set_search
+  before_action :set_search
 
   ACTIVITY_LOG_DAYS = 10
 
@@ -71,7 +71,7 @@ class Admin::InternalDashboardController < Admin::BaseController
   end
 
   def set_search
-    @q = ActivityLog.search(params[:q])
+    @q = ActivityLog.ransack(params[:q])
   end
 
   def search_activity_logs

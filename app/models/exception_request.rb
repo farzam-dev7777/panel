@@ -278,14 +278,14 @@ class ExceptionRequest < ApplicationRecord
   def send_retainer_for_esigning(signer_email, signer_name)
     args = {
       envelope_args: {
-        template_id: Rails.application.secrets[:docusign]["retainer_template_id"],
+        template_id: Rails.application.secrets[:docusign][:retainer_template_id],
         signer_email: signer_email,
         signer_name: signer_name
         # lxp_email: SystemSetting.fetch.lxp_email,
         # lxp_name: SystemSetting.fetch.lxp_name
       },
-      base_path: Rails.application.secrets[:docusign]["base_path"],
-      account_id: Rails.application.secrets[:docusign]["account_id"],
+      base_path: Rails.application.secrets[:docusign][:base_path],
+      account_id: Rails.application.secrets[:docusign][:account_id],
       access_token: SystemSetting.fetch.docusign_access_token,
       refresh_token: SystemSetting.fetch.docusign_refresh_token
     }
@@ -320,11 +320,11 @@ class ExceptionRequest < ApplicationRecord
   def docusign_retainer_envelope
     begin
       configuration = DocuSign_eSign::Configuration.new
-      configuration.host = Rails.application.secrets[:docusign]["base_path"]
+      configuration.host = Rails.application.secrets[:docusign][:base_path]
       api_client = DocuSign_eSign::ApiClient.new configuration
       api_client.default_headers["Authorization"] = "Bearer #{SystemSetting.fetch.docusign_access_token}"
       envelopesApi = DocuSign_eSign::EnvelopesApi.new api_client
-      envelopesApi.get_envelope Rails.application.secrets[:docusign]["account_id"], self.docusign_envelope_id
+      envelopesApi.get_envelope Rails.application.secrets[:docusign][:account_id], self.docusign_envelope_id
     rescue Exception => e
       puts e
       nil
@@ -333,11 +333,11 @@ class ExceptionRequest < ApplicationRecord
 
   def get_document_name
     configuration = DocuSign_eSign::Configuration.new
-    configuration.host = Rails.application.secrets[:docusign]["base_path"]
+    configuration.host = Rails.application.secrets[:docusign][:base_path]
     api_client = DocuSign_eSign::ApiClient.new configuration
     api_client.default_headers["Authorization"] = "Bearer #{SystemSetting.fetch.docusign_access_token}"
     envelopesApi = DocuSign_eSign::EnvelopesApi.new api_client
-    doc_item = envelopesApi.list_documents Rails.application.secrets[:docusign]["account_id"], self.docusign_envelope_id
+    doc_item = envelopesApi.list_documents Rails.application.secrets[:docusign][:account_id], self.docusign_envelope_id
 
     doc_item = doc_item.envelope_documents[0]
     document_id = doc_item.name
@@ -345,16 +345,16 @@ class ExceptionRequest < ApplicationRecord
   def get_document_list
     begin
       configuration = DocuSign_eSign::Configuration.new
-      configuration.host = Rails.application.secrets[:docusign]["base_path"]
+      configuration.host = Rails.application.secrets[:docusign][:base_path]
       api_client = DocuSign_eSign::ApiClient.new configuration
       api_client.default_headers["Authorization"] = "Bearer #{SystemSetting.fetch.docusign_access_token}"
       envelopesApi = DocuSign_eSign::EnvelopesApi.new api_client
-      doc_item = envelopesApi.list_documents Rails.application.secrets[:docusign]["account_id"], self.docusign_envelope_id
+      doc_item = envelopesApi.list_documents Rails.application.secrets[:docusign][:account_id], self.docusign_envelope_id
 
       doc_item = doc_item.envelope_documents[0]
       document_id = doc_item.document_id
       
-      temp_file = envelopesApi.get_document Rails.application.secrets[:docusign]["account_id"], document_id, self.docusign_envelope_id
+      temp_file = envelopesApi.get_document Rails.application.secrets[:docusign][:account_id], document_id, self.docusign_envelope_id
       # find the matching document information item
       # doc_item = doc_item.find { |item| item['document_id'] == document_id }
 

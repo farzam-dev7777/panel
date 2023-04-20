@@ -3,13 +3,13 @@ namespace :form_fields do
   task capitalize_form_field_labels: :environment do
   	form_fields = FormField.all
   	form_fields.each do |field|
-  		field.update_attributes(label: field.label.capitalize)
+  		field.update(label: field.label.capitalize)
   	end
   	puts "Form Fields capitalized"
   	
   	groupform_fields = GroupFormField.all
   	groupform_fields.each do |field|
-  		field.update_attributes(label: field.label.capitalize)
+  		field.update(label: field.label.capitalize)
   	end
   	puts "Group Form Fields capitalized"
   end

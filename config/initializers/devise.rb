@@ -278,11 +278,26 @@ Devise.setup do |config|
     provider_ignores_state: true # https://github.com/omniauth/omniauth-oauth2/issues/95
   })
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
+
   
   config.omniauth(:azure_activedirectory_v2, {
     setup: AZURE_SETUP,
     strategy_class: OmniAuth::Strategies::AzureActivedirectoryV2,
   })
+
+  config.omniauth(:okta,
+                  Rails.application.secrets[:okta][:client_id],
+                  Rails.application.secrets[:okta][:client_secret],
+                  scope: 'openid profile email',
+                  client_options: {
+                    site:          Rails.application.secrets[:okta][:site],
+                    authorize_url: "#{Rails.application.secrets[:okta][:site]}/oauth2/default/v1/authorize",
+                    token_url:     "#{Rails.application.secrets[:okta][:site]}/oauth2/default/v1/token",
+                    user_info_url: "#{Rails.application.secrets[:okta][:site]}/oauth2/default/v1/userinfo",
+                    issuer: "#{Rails.application.secrets[:okta][:site]}/oauth2/default",
+                  },
+                  strategy_class: OmniAuth::Strategies::Okta
+  )
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.

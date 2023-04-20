@@ -42,7 +42,7 @@ class Admin::FormsController < Admin::BaseController
 
   def update
     @form = Form.find(params[:id])
-    if @form.update_attributes(form_params)
+    if @form.update(form_params)
       redirect_to edit_admin_form_path(@form)
     else
       flash[:alert] = "error"

@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
-ruby "2.5.1"
-gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
-gem 'pg', '~> 0.19'
+ruby '2.7.2'
+gem 'rails', '~> 7.0.4.3'
+gem 'pg', '~> 1.1'
 gem 'puma', '~> 3.0'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
@@ -11,7 +11,7 @@ gem 'underlock', github: 'metaware/underlock', branch: 'encoding-issue'
 gem 'jquery-fileupload-rails'
 
 gem 'devise'
-gem 'draper', '~> 3.0.0.pre1'
+gem 'draper'
 gem 'ransack'
 gem 'activemodel-serializers-xml'
 gem 'simple-form-datepicker'
@@ -20,7 +20,7 @@ gem 'wkhtmltopdf-binary'
 gem 'google-authenticator-rails', '~> 1.6.1'
 gem 'rollbar'
 gem 'country_select'
-gem 'docusign_esign', '~> 3.4.0'
+gem 'docusign_esign', '~> 3.12.0'
 gem 'omniauth-oauth2', '~> 1.6.0'
 gem 'omniauth-docusign'
 
@@ -28,7 +28,7 @@ gem 'public_uid'
 gem 'mixpanel-ruby'
 
 gem 'axlsx', '~> 2.0'
-gem "axlsx_rails"
+gem 'axlsx_rails'
 
 gem 'rails-assets-qTip2', source: 'https://rails-assets.org'
 gem 'rails-assets-sweetalert', source: 'https://rails-assets.org'
@@ -52,29 +52,29 @@ gem 'rails-jquery-ui-sortable'
 gem 'carrierwave'
 gem 'fog-aws'
 gem 'amoeba'
-gem "cancan"
+gem 'cancan'
 gem 'jbuilder', '~> 2.5'
-gem "paranoia", "~> 2.2"
+gem 'paranoia', '~> 2.2'
 gem 'simple_form'
-gem "cocoon"
+gem 'cocoon'
 gem 'will_paginate-bootstrap'
 gem 'nested_form'
 gem 'mailjet'
 gem 'activesupport-current_attributes'
 
-gem 'rails-breadcrumbs'
 gem 'omniauth-okta'
 gem 'rest-client'
 gem 'money-rails'
 
-gem  'nokogiri'
+gem 'nokogiri'
 gem 'acts_as_commentable_with_threading'
 gem 'stripe'
 gem 'interactor', '~> 3.0'
+
 gem 'faraday', '~> 1.7'
 gem 'veryfi'
-gem 'apartment'
 gem 'omniauth-azure-activedirectory-v2'
+gem 'ros-apartment', require: 'apartment'
 
 group :development, :test do
   gem 'byebug', platform: :mri
@@ -87,7 +87,7 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'letter_opener'
-  gem "rails-erd"
+  gem 'rails-erd'
 end
 
 group :production, :staging do
@@ -95,7 +95,7 @@ group :production, :staging do
 end
 
 group :development, :test do
-  gem "capistrano-rails"
+  gem 'capistrano-rails'
   gem 'capistrano-rvm'
   gem 'capistrano3-unicorn'
 end

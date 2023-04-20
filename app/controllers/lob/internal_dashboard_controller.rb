@@ -3,7 +3,7 @@ class Lob::InternalDashboardController < Lob::BaseController
   layout 'lob'
 
   add_breadcrumb "Dashboard", :root_path
-  before_filter :set_search
+  before_action :set_search
 
   ACTIVITY_LOG_DAYS = 10
 
@@ -19,8 +19,6 @@ class Lob::InternalDashboardController < Lob::BaseController
     @exception_requests_rejected = ExceptionRequest.where(user_id: current_user.id, internal_lawyers_status: "REJECTED").count()
     @panel_requests = PanelRequest.where(user_id: current_user.id).order('created_at DESC').limit(5)
     @matter_intakes = MatterIntake.where(user_id: current_user.id).order('created_at DESC').limit(5)
-
-
     
   end
 
@@ -33,7 +31,7 @@ class Lob::InternalDashboardController < Lob::BaseController
   end
 
   def set_search
-    @q = ActivityLog.search(params[:q])
+    @q = ActivityLog.ransack(params[:q])
   end
 
   def search_activity_logs

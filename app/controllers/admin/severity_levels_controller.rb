@@ -1,6 +1,6 @@
 class Admin::SeverityLevelsController < Admin::BaseController
 
-	before_filter :find_severity_level, only: [:update]
+	before_action :find_severity_level, only: [:update]
 
   def new
   	@severity_levels = SeverityLevel.new
