@@ -14,6 +14,7 @@ OKTA_SETUP = lambda do |env|
     token_url:     "#{site}/oauth2/default/v1/token",
     user_info_url: "#{site}/oauth2/default/v1/userinfo",
     issuer: "#{site}/oauth2/default",
+    redirect_uri: "https://#{tenant_subdomain}.preseal.ca/users/auth/okta/callback"
   }
 end
 
