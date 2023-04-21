@@ -14,7 +14,6 @@ OKTA_SETUP = lambda do |env|
     token_url:     "#{site}/oauth2/default/v1/token",
     user_info_url: "#{site}/oauth2/default/v1/userinfo",
     issuer: "#{site}/oauth2/default",
-    redirect_uri: "https://#{tenant_subdomain}.preseal.ca/users/auth/okta/callback"
   }
 end
 
@@ -25,10 +24,6 @@ AZURE_SETUP = lambda do |env|
   env['omniauth.strategy'].options[:client_id] = tenant.azure_client_id          # if using azure-active-directory-2
   env['omniauth.strategy'].options[:client_secret] = tenant.azure_client_secret   # if using azure-active-directory-2
   env['omniauth.strategy'].options[:tenant_id] = tenant.azure_tenant_id   # if using azure-active-directory-2
-  env['omniauth.strategy'].options[:redirect_uri] = 'https://lb.preseal.ca/users/auth/azure_activedirectory_v2/callback'
-  env['omniauth.strategy'].options[:client_options] = {
-    redirect_uri: "https://#{tenant_subdomain}.preseal.ca/users/auth/azure_activedirectory_v2/callback"
-  }
 end
 
 Devise.setup do |config|
