@@ -1,0 +1,77 @@
+<!-- Matter Intakes Starts -->
+<div class="col-lg-12 col-md-12 col-sm-12">
+  <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+    <div class="page-header-sp mobile-dashboard-header">
+      <div class="page-title">Matters</div>
+      <div class="back-edit-actions">
+        <a class="btn-show-more" href="/matter_intakes/new">
+          New
+        </a>
+      </div>
+    </div>
+    <div class="no-padding">
+      <div class="jarviswidget-editbox"></div>
+      <!-- widget content -->
+      <div class="widget-body">
+        <div class="table-responsive">
+          <table id="" class="table table-decoration table-bordered" width="100%">
+            <thead>
+              <tr>
+                <th>Matter Number</th>
+                <th>Date Submitted</th>
+                <th>Submitter By</th>
+                <!--<th>LOB Contact Name</th>-->
+                <th>Name of Matter/Client</th>
+                <!--th>Law Firm Suggested</th-->
+                <th>Status</th>
+                <!--<th>Action</th>-->
+              </tr>
+              <tbody>
+                <% current_user.law_firm.matter_intakes.all.each do |matter_intake| %>
+                  <% if Current.user.role === "internal_lawyers" && matter_intake.status != "matter_open" && matter_intake.user_id.present? %>
+                    <tr onClick="window.location.href='/matter_intakes/<%= matter_intake.id %>/review'">
+                    <% else %>
+                      <tr onClick="window.location.href='/matter_intakes/<%= matter_intake.id %>'">
+                      <% end %>
+                      <td><%= matter_intake.matter_number.present? ? matter_intake.matter_number : "-" %></td>
+                      <td><%= matter_intake.created_at.strftime('%d %b %Y') %></td>
+                      <td>
+                        <% if matter_intake.submitter_name.present? %>
+                          <div class="firm-name">
+                            <div class="name-avatar"><img src="<%= get_avatar_image(matter_intake&.submitter_name&.gsub(" ", "+")) %>"></div>
+                            <div><%= matter_intake.submitter_name %></div>
+                          </div>
+                        <% else %>
+                          -
+                        <% end %>
+                      </td>
+                      <!--<td><%= matter_intake.lob_contact_name %></td>-->
+                      <td><%= matter_intake.name_of_matter_client %></td>
+                      <!--td><%= matter_intake.law_firm.try(:name) %></td-->
+                      <td>
+                        <div class="status">
+                          <span class="<%= matter_intake.status === "matter_open" ? 'label label-success' : 'label label-default' %>">
+                            <%= matter_intake.show_status %>
+                          </span>
+                        </div>
+                      </td>
+                      <!--<td>
+                    <% if @current_user.role === "internal_lawyers" && (matter_intake.status === "awaiting_lawyer_review" || matter_intake.status === "awaiting_lawyer_update") %>
+                      <%= link_to "review", review_admin_matter_intake_path(matter_intake), class: "btn btn-xs btn-secondary" %>  
+                    <% elsif @current_user.role === "lxp" %>
+                      <% if matter_intake.status === "awaiting_lxp_review" %>
+                        <%= link_to "review", lxp_review_admin_matter_intake_path(matter_intake), class: "btn btn-xs btn-secondary" %>
+                      <% end %>
+                    <% end %>
+                    <%= link_to "view", admin_matter_intake_path(matter_intake), class: "btn btn-xs btn-secondary" %>
+                  </td>-->
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+<!-- Matter Intakes Ends-->

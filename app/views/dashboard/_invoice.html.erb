@@ -1,0 +1,50 @@
+<!-- Invoices Starts-->
+  <div class="col-lg-12 col-md-12 col-sm-12">
+    <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+      <div class="page-header-sp mobile-dashboard-header">
+        <div class="page-title">Invoices</div>
+      </div>
+      <div class="no-padding">
+        <div class="jarviswidget-editbox"></div>
+        <!-- widget content -->
+        <div class="widget-body">
+          <div class="table-responsive">
+            <table id="" class="table table-decoration table-bordered" width="100%">
+              <thead>
+                <tr>
+                  <th>Last Updated</th>
+                  <th>Matter Number</th>
+                  <th>Matter Name</th>
+                  <th>Law Firm</th>
+                  <th>Status</th>
+                  <th>Total of Invoice</th>
+                  <% if current_user.is_panel_admin_user?%>
+                    <th>Action</th>
+                  <% end %>
+                </tr>
+              </thead>
+              <tbody>
+                <% current_user.law_firm.matter_intakes.map(&:invoices).flatten.each do |invoice| %>
+                  <tr>
+                    <td><%= invoice&.updated_at&.strftime('%d %b %Y') %></td>
+                    <td><%= invoice&.matter_intake&.matter_number %></td>
+                    <td><%= invoice&.matter_intake&.name_of_matter_client %></td>
+                    <td><%= invoice&.matter_intake&.law_firm&.name %></td>
+                    <td><%= invoice.status %></td>
+                    <td>-</td>
+                    <td>
+                      <% if current_user.is_panel_admin_user?%>
+                        <%= link_to "Approve", approve_invoice_path(invoice), class: "btn btn-xs btn-secondary" %> 
+                        <%= link_to "Reject", reject_invoice_path(invoice), class: "btn btn-xs btn-secondary" %>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- Invoices Ends-->

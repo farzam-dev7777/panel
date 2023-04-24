@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20230419155919) do
+ActiveRecord::Schema.define(version: 20230423164942) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -416,6 +416,7 @@ ActiveRecord::Schema.define(version: 20230419155919) do
     t.string   "amount_currency",  default: "CAD", null: false
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
+    t.string   "status"
   end
 
   create_table "issues", force: :cascade do |t|
@@ -710,6 +711,7 @@ ActiveRecord::Schema.define(version: 20230419155919) do
     t.text     "receive_personal_information_data_type"
     t.text     "receive_general_business_data_type"
     t.text     "applicable_technical_specialty_data_type"
+    t.string   "reviewer_email"
   end
 
   create_table "matter_types", force: :cascade do |t|
