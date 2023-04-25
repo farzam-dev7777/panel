@@ -47,6 +47,7 @@ class Admin::InternalDashboardController < Admin::BaseController
       @matter_intakes_count_lawyer = MatterIntake.distinct.where(status: ["awaiting_lawyer_review", "awaiting_lawyer_update"]).count()
       
       @panel_law_firms = LawFirm.distinct.where(law_firm_category: "PANEL").limit(5)
+      @invoices = Invoice.order('updated_at DESC').limit(5)
     else
       @exception_requests = ExceptionRequest.where(user_id: current_user.id).order('created_at DESC').limit(5)
       @conflict_waivers = []
