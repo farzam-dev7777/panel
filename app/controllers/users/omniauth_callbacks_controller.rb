@@ -13,6 +13,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def azure_activedirectory_v2
+    puts request.env["omniauth.auth"]
     @user = User.from_omniauth_azure(request.env["omniauth.auth"])
     if @user&.id.present?
       @user.reload
