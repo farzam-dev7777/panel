@@ -89,7 +89,15 @@ class ApplicationController < ActionController::Base
     if !fetch_subdomain.blank?
       tenant = Tenant.find_by(subdomain: fetch_subdomain)
       if tenant.present?
-        Apartment::Tenant.switch!(tenant&.subdomain)
+        if ["lob", "lxp", "internal_lawyers"].include?(Current.user&.role)
+          if Current.user.tenant.present? && Current.user.tenant&.subdomain != tenant&.subdomain
+            Apartment::Tenant.switch!(Current.user.tenant&.subdomain)
+          else
+            Apartment::Tenant.switch!(tenant&.subdomain)
+          end
+        else
+          Apartment::Tenant.switch!(tenant&.subdomain)
+        end
       else
         Apartment::Tenant.switch!('public')
       end
