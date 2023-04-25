@@ -17,6 +17,7 @@
                   <th>Matter Name</th>
                   <th>Law Firm</th>
                   <th>Status</th>
+                  <th>Date</th>
                   <th>Total of Invoice</th>
                   <% if current_user.is_panel_admin_user?%>
                     <th>Action</th>
@@ -31,6 +32,7 @@
                     <td><%= invoice&.matter_intake&.name_of_matter_client %></td>
                     <td><%= invoice&.matter_intake&.law_firm&.name %></td>
                     <td><%= invoice.status %></td>
+                    <td><%= invoice.date %></td>
                     <td>-</td>
                     <td>
                       <% if current_user.is_panel_admin_user?%>

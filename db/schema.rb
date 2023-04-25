@@ -417,6 +417,8 @@ ActiveRecord::Schema.define(version: 20230423164942) do
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
     t.string   "status"
+    t.date     "date"
+    t.integer  "taxes"
   end
 
   create_table "issues", force: :cascade do |t|

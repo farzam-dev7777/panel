@@ -784,9 +784,6 @@ $(document).ready(function(){
       dateFormat: "dd M yy",
       altField: $(this).next()
     })
-
-    // If you use i18n-js you can set the locale like that
-    // $(this).datepicker("option", $.datepicker.regional['en']);
   })
 
 
@@ -2035,9 +2032,13 @@ $(document.body).on('change', '.file.optional.ajax_file_upload', function(elemen
       return true;
     },
     success: response => {
-      message = "Total: "+response['resource']['total'] +'\nDate: '+response['resource']['date']
+      date = response['resource']['date'].split(' ')[0]
+      message = "Total: "+response['resource']['total'] +'\nDate: '+date
+
       if (confirm(message) == true) {
         $($(this).parents('.nested-fields')).find('.matter_intake_invoices_amount input').val(response['resource']['total']);
+        $($(this).parents('.nested-fields')).find('.invoice_datepicker').val(date);
+        $($(this).parents('.nested-fields')).find('.hidden.veryfi_response').val(response['resource']);
       }
       $($(this).parents('.uploadFile')).find('.loader').hide();
     },
@@ -2047,6 +2048,13 @@ $(document.body).on('change', '.file.optional.ajax_file_upload', function(elemen
   });
 });
 
+
+$('body').on('focus',".invoice_datepicker", function(){
+  $(this).datepicker({
+    dateFormat: "yy-mm-dd",
+    altField: $(this).next()
+  });
+});
 // var _rollbarConfig = {
 //     accessToken: "721164f0eda644f686c3e844ec50ab74",
 //     captureUncaught: true,

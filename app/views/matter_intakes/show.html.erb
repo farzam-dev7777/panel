@@ -578,7 +578,7 @@
   <div class="col-md-12 col-xs-12">
     <div class="totalRow">
       <div>
-        <span>Total Hours:</span> <%= @matter_intake.invoices.sum(&:hours) %>
+        <span>Total Hours:</span> <%= @matter_intake.invoices.where.not(hours:nil).sum(&:hours) %>
       </div>
       <div>
         <span>Total Amt:</span> <%= @matter_intake.invoices.sum(&:amount).try(:format) %>
