@@ -25,7 +25,7 @@
     <%= v.input :value, {
       label: false,
       collection: field.collection.sort,
-      input_html: { autocomplete: 'off', value: v.object.try(:value) },
+      input_html: { autocomplete: 'off', value: v.object.try(:value), placeholder: v.object.form_field.type === "TextField" ? "Type here" : nil },
       required: field.required,
       wrapper: false,
       # wrapper_html: field.wrapper_html,

@@ -4,7 +4,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
   layout 'admin', :except => :show
 
   before_action :follow_ups, except: :index
-  before_action :before_steps, only: [:pricing_step, :relationship_step, :diversity_step, :innovation_step, :resourcing_step, :lawfirm_step]
+  before_action :before_steps, only: [:conflicts_step, :pricing_step, :relationship_step, :diversity_step, :innovation_step, :resourcing_step, :lawfirm_step]
   #before_action :before_non_dynamic_forms, only: [:technology_step, :history_step]
 
   helper_method :next_step_path, :current_step_path, :steps, :previous_step_path, 
@@ -25,11 +25,18 @@ class Admin::FormSubmissionsController < Admin::BaseController
     @form_submission = FormSubmission.find(params[:id])
   end
 
-  def pricing_step
-    @form_submission = FormSubmission.find(params[:id])
-    log = ActivityLog.find_by(loggable_id: @form_submission.id, loggable_type: 'FormSubmission', law_firm_id: @form_submission.law_firm_id)
+  def conflicts_step
+  #   # @form_submission = FormSubmission.find(params[:id])
+  #   # log = ActivityLog.find_by(loggable_id: @form_submission.id, loggable_type: 'FormSubmission', law_firm_id: @form_submission.law_firm_id)
     
-    FormSubmission.log_activity('information_security_policy_review_started', true, @form_submission, current_admin_user) if @form_submission && !log
+  #   # FormSubmission.log_activity('information_security_policy_review_started', true, @form_submission, current_admin_user) if @form_submission && !log
+  end
+
+  def pricing_step
+    # @form_submission = FormSubmission.find(params[:id])
+    # log = ActivityLog.find_by(loggable_id: @form_submission.id, loggable_type: 'FormSubmission', law_firm_id: @form_submission.law_firm_id)
+    
+    # FormSubmission.log_activity('information_security_policy_review_started', true, @form_submission, current_admin_user) if @form_submission && !log
   end
 
   def relationship_step
@@ -265,6 +272,8 @@ class Admin::FormSubmissionsController < Admin::BaseController
     @form_submission = FormSubmission.find_by(id: params[:id])
 
     @follow_ups = case current_step
+                    when :conflicts
+                      @form_submission.follow_ups.conflicts.decorate
                     when :pricing
                       @form_submission.follow_ups.pricing.decorate
                     when :relationship
@@ -414,7 +423,8 @@ class Admin::FormSubmissionsController < Admin::BaseController
   end
 
   def steps
-    [:pricing, :relationship, :diversity, :innovation, :resourcing, :lawfirm]
+    # , :lawfirm
+    [:conflicts, :relationship, :innovation, :pricing, :diversity, :resourcing, :lawfirm]
   end
 
   def wizard_path(step)
