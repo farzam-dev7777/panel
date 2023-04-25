@@ -9,7 +9,7 @@ class User < ApplicationRecord
          :recoverable, :trackable, 
          :authentication_keys => [:username]
 
-  devise :omniauthable, omniauth_providers: [:okta]
+  devise :omniauthable, omniauth_providers: [:okta, :azure_activedirectory_v2]
 
   has_one :law_firm
   has_many :activity_logs, as: :loggable
@@ -235,6 +235,52 @@ class User < ApplicationRecord
   end
 
   def self.from_omniauth_azure(auth)
-    puts auth
+    headers = {
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+      "Authorization": "Bearer #{auth['credentials']['token']}"
+    }
+    begin
+      response = RestClient.get("https://graph.microsoft.com/v1.0/me/memberOf", headers = headers)
+      result = JSON.parse(response&.body)["value"] if response&.body.present?
+
+      user_groups = result.select {|group| group['@odata.type'] === "#microsoft.graph.group" && ["Panel - Internal Lawyers", "Panel - Master User", "Panel - Business User"].include?(group['displayName']) } if result.present?
+      user_group = user_groups.first
+      # If user_group present then we find or create user in our database
+      if user_group.present?
+        group_name = user_group.fetch('displayName', "")
+        if group_name.present?
+          case group_name
+            when "Panel - Internal Lawyers"
+              role = "internal_lawyers"
+            when "Panel - Master User"
+              role = "lxp"
+            when "Panel - Business User"
+              role = "lob"
+            else
+              role = ""
+          end
+          random_password = "#{SecureRandom.hex(18)}@A123"
+          decoded_token = JWT.decode(auth['credentials']['token'], nil, false).first
+          user = User.find_or_create_by(email: decoded_token['email']&.downcase) do |user|
+            user.first_name = auth['info']['first_name']
+            user.last_name = auth['info']['last_name']
+            user.provider = auth['provider']
+            user.provider_uid = auth['uid']
+            user.email = decoded_token['email']&.downcase
+            user.provider_group = group_name
+            user.password = random_password
+            user.password_confirmation = random_password
+            user.role = role
+            user.new_password_set = true
+          end
+          user.save
+          user
+        end
+      end
+    rescue RestClient::ExceptionWithResponse => e
+      # e.response
+      user = nil
+    end
   end
 end

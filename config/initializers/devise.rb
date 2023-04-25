@@ -3,7 +3,8 @@ require 'omniauth-okta'
 # Many of these configuration options can be set straight in your model.
 OKTA_SETUP = lambda do |env|
   request = Rack::Request.new(env)
-  tenant = Tenant.find_by(subdomain: request.env["HTTP_HOST"].split(".").first)
+  tenant_subdomain = request.env["HTTP_HOST"].split(".").first
+  tenant = Tenant.find_by(subdomain: tenant_subdomain)
   env['omniauth.strategy'].options[:client_id] = tenant.okta_client_id          # if using omniauth-oauth2
   env['omniauth.strategy'].options[:client_secret] = tenant.okta_client_secret   # if using omniauth-oauth2
   site = tenant.okta_site
@@ -18,7 +19,8 @@ end
 
 AZURE_SETUP = lambda do |env|
   request = Rack::Request.new(env)
-  tenant = Tenant.find_by(subdomain: request.env["HTTP_HOST"].split(".").first)
+  tenant_subdomain = request.env["HTTP_HOST"].split(".").first
+  tenant = Tenant.find_by(subdomain: tenant_subdomain)
   env['omniauth.strategy'].options[:client_id] = tenant.azure_client_id          # if using azure-active-directory-2
   env['omniauth.strategy'].options[:client_secret] = tenant.azure_client_secret   # if using azure-active-directory-2
   env['omniauth.strategy'].options[:tenant_id] = tenant.azure_tenant_id   # if using azure-active-directory-2
@@ -282,7 +284,9 @@ Devise.setup do |config|
   
   config.omniauth(:azure_activedirectory_v2, {
     setup: AZURE_SETUP,
+    scope: "openid profile email GroupMember.Read.All",
     strategy_class: OmniAuth::Strategies::AzureActivedirectoryV2,
+    provider_ignores_state: true
   })
 
   config.omniauth(:okta,
