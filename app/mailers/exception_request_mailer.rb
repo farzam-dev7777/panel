@@ -1,5 +1,5 @@
 class ExceptionRequestMailer < ApplicationMailer
-	default from: "info@panel.grcx.io"
+	default from: "support@secureengage.com"
 	layout 'mailer'
 
 	def form_submission_notification_to_lob(exception_request)

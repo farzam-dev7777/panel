@@ -1,5 +1,5 @@
 class ConflictWaiverMailer < ApplicationMailer
-	default from: "info@panel.grcx.io"
+	default from: "support@secureengage.com"
 	layout 'mailer'
 
   def form_submited_notification_to_lxp(conflict_waiver)
