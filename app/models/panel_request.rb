@@ -60,7 +60,7 @@ class PanelRequest < ApplicationRecord
     "None of the above"
   ]
 
-  validates_presence_of :submitted_by_email, :line_of_business
+  validates_presence_of :submitted_by_email, :line_of_business, :law_frim_name, :law_firm_contact_name, :law_firm_mail, :law_firm_role, :law_firm_phone, :firm_use_on_regular_basis
   #, :women_owned, :niche_preferred_external_counsel_panel_law_firms, :matter_types, :required_unique_geography, :involved_engagement, :women_owned, :law_frim_name, :law_firm_contact_name, :law_firm_mail, :law_firm_role, :law_firm_phone, :firm_use_on_regular_basis
 
 
