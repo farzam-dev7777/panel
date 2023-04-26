@@ -45,13 +45,7 @@ class ApplicationController < ActionController::Base
       Apartment::Tenant.switch!('public')
       tenant_admin_root_url
     elsif Current.user&.role === "master_user"
-      if Current.user&.tenant.present?
-        tenant = Current.user&.tenant
-      else
-        tenant = Current.user&.law_firm&.tenants&.first
-      end
-      Apartment::Tenant.switch!(tenant&.subdomain) if tenant.present?
-      Apartment::Tenant.switch!('public') if tenant.nil?
+      switch_to_master_user_tenant
       root_path
     else
       tenant = Tenant.find_by(subdomain: fetch_subdomain)
@@ -85,6 +79,22 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+
+  def switch_to_master_user_tenant
+    if Current.user&.role === "master_user"
+      if Tenant.current.nil?
+        if Current.user&.tenant.present?
+          tenant = Current.user&.tenant
+        else
+          tenant = Current.user&.law_firm&.tenants&.first
+        end
+        Apartment::Tenant.switch!(tenant&.subdomain)
+      end
+    else
+      Apartment::Tenant.switch!('public')
+    end
+  end
+
   def set_tenant
     if !fetch_subdomain.blank?
       tenant = Tenant.find_by(subdomain: fetch_subdomain)
@@ -99,21 +109,10 @@ class ApplicationController < ActionController::Base
           Apartment::Tenant.switch!(tenant&.subdomain)
         end
       else
-        Apartment::Tenant.switch!('public')
+        switch_to_master_user_tenant
       end
     else
-      if Current.user&.role === "master_user"
-        if Tenant.current.nil?
-          if Current.user&.tenant.present?
-            tenant = Current.user&.tenant
-          else
-            tenant = Current.user&.law_firm&.tenants&.first
-          end
-          Apartment::Tenant.switch!(tenant&.subdomain)
-        end
-      else
-        Apartment::Tenant.switch!('public')
-      end
+      switch_to_master_user_tenant
     end
   end
 
