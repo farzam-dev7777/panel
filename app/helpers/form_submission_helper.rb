@@ -51,7 +51,7 @@ module FormSubmissionHelper
   end
 
   def save_and_follow_up?(form_submission_id)
-    FollowUp.where(form_submission_id: form_submission_id).map(&:status).count('pending') > 0
+    FollowUp.where(form_submission_id: form_submission_id).pluck(:status).count('pending') > 0
   end
 
   def submission_status_class(submission)

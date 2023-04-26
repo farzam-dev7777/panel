@@ -31,6 +31,7 @@ class User < ApplicationRecord
 
 
   before_create :send_password_reset_link_email
+  before_save :lowercase_username
   
   validates_presence_of  :email, :role
   validates_presence_of :password, if: :need_password_validation?
@@ -40,6 +41,10 @@ class User < ApplicationRecord
     :uniqueness => {
       :case_sensitive => false
     }
+
+  def lowercase_username
+    self.username = self&.username&.downcase
+  end
 
   def full_name
     [self.first_name, self.last_name].compact.join(' ')
