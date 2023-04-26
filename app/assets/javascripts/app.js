@@ -2048,6 +2048,9 @@ $(document.body).on('change', '.file.optional.ajax_file_upload', function(elemen
   });
 });
 
+function trigger_file_input(obj){
+  $(obj).next().find('input').trigger('click');
+}
 
 $('body').on('focus',".invoice_datepicker", function(){
   $(this).datepicker({
