@@ -24,9 +24,10 @@ class Admin::InternalDashboardController < Admin::BaseController
       @law_firms = LawFirm.distinct.joins(:form_submissions).order('law_firms.updated_at DESC').limit(5)
       @panel_requests = PanelRequest.order('created_at DESC').limit(5)
       
-      @panel_law_firm_count = LawFirm.distinct.where(law_firm_category: "PANEL").count
+      law_firm_ids = LawFirmsTenant.joins(:law_firm).where(tenant_id: 1, law_firms: { law_firm_category: "PANEL" }).limit(5).pluck(:law_firm_id)
+      @panel_law_firm_count = law_firm_ids.count
 
-      @panel_law_firms = LawFirm.distinct.where(law_firm_category: "PANEL").limit(5)
+      @panel_law_firms = LawFirm.where(id: law_firm_ids).limit(5)
 
       @invoices_total = Invoice.all.map {|i| i.amount.to_f}&.sum
       @invoices = Invoice.order('updated_at DESC').limit(5)
@@ -45,6 +46,9 @@ class Admin::InternalDashboardController < Admin::BaseController
       @confilictc_requests_submitted = ConflictWaiver.where.not(lxp_status: ["ALREADY_COVERED", "APPROVED", "REJECTED"]).count()
       @panel_requests_submitted = PanelRequest.where.not(status: ["ARCHIVED", "LAW_FIRM_CREATED"]).count()
       @matter_intakes_count_lawyer = MatterIntake.distinct.where(status: ["awaiting_lawyer_review", "awaiting_lawyer_update"]).count()
+      
+      @panel_law_firms = LawFirm.distinct.where(law_firm_category: "PANEL").limit(5)
+      @invoices = Invoice.order('updated_at DESC').limit(5)
     else
       @exception_requests = ExceptionRequest.where(user_id: current_user.id).order('created_at DESC').limit(5)
       @conflict_waivers = []

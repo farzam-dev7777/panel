@@ -5,7 +5,7 @@ class FormSubmissionsController < BaseController
   load_and_authorize_resource
   
   before_action :follow_ups, except: :index
-  before_action :before_steps, only: [:pricing_step, :relationship_step, :diversity_step, :innovation_step, :resourcing_step, :lawfirm_step]
+  before_action :before_steps, only: [:conflicts_step, :pricing_step, :relationship_step, :diversity_step, :innovation_step, :resourcing_step, :lawfirm_step]
   before_action :before_non_dynamic_forms, only: [:technology_step, :history_step]
 
   before_action :prevent_resubmission, only: [:update, :submit_forms]
@@ -15,7 +15,7 @@ class FormSubmissionsController < BaseController
 
   def prevent_resubmission
     form_submission = FormSubmission.find_by(id: params[:id])
-    form_submission.decision_made? ? false : true
+    !form_submission.decision_made?
   end
 
   def show
@@ -70,14 +70,24 @@ class FormSubmissionsController < BaseController
     @form_submission = FormSubmission.new(form: @form)
   end
 
+  def conflicts_step
+    # @form_submission = FormSubmission.find(params[:id])
+    # if(@form_submission.status == 'sent')
+    #   @form_submission.status = 'started'
+    #   @form_submission.save
+    #   log = ActivityLog.find_by(loggable_id: @form_submission.id, loggable_type: 'FormSubmission', law_firm_id: current_law_firm.id)
+    #   FormSubmission.log_activity('seal_certification_process_initiated', true, @form_submission, current_user) if @form_submission && !log
+    # end
+  end
+
   def pricing_step
-    @form_submission = FormSubmission.find(params[:id])
-    if(@form_submission.status == 'sent')
-      @form_submission.status = 'started'
-      @form_submission.save
-      log = ActivityLog.find_by(loggable_id: @form_submission.id, loggable_type: 'FormSubmission', law_firm_id: current_law_firm.id)
-      FormSubmission.log_activity('seal_certification_process_initiated', true, @form_submission, current_user) if @form_submission && !log
-    end
+    # @form_submission = FormSubmission.find(params[:id])
+    # if(@form_submission.status == 'sent')
+    #   @form_submission.status = 'started'
+    #   @form_submission.save
+    #   log = ActivityLog.find_by(loggable_id: @form_submission.id, loggable_type: 'FormSubmission', law_firm_id: current_law_firm.id)
+    #   FormSubmission.log_activity('seal_certification_process_initiated', true, @form_submission, current_user) if @form_submission && !log
+    # end
   end
   
   def relationship_step
@@ -158,14 +168,16 @@ class FormSubmissionsController < BaseController
         FormSubmission.log_activity('history_updated', true, @form_submission, current_user)
       end
       redirect_to params[:redirect_value]
-    # elsif form_submissions_params["technology_values_attributes"]
-    #   @current_step = :technology
-    #   flash.now[:alert] = 'Please fill all the fields to save'
-    #   render :technology_step
     else
-      # current_step = params[:redirect_value].split("/")
-      # render current_step.last.to_sym
-      redirect_to params[:redirect_value]
+      current_step = params[:redirect_value].split("/").last.to_sym
+      current_step_without_step = params[:redirect_value].split("/").last.split("_").first.to_sym
+      @current_step = current_step_without_step
+      @form = @form_submission.form
+      follow_ups
+      @form_submission.attributes = form_submissions_params
+      @form_submission.save
+      flash.now[:alert] = @form_submission.errors.messages.values.join(", ")
+      render current_step
     end
   end
 
@@ -180,7 +192,6 @@ class FormSubmissionsController < BaseController
   end
 
   def submit_forms
-    
     @form_submission = FormSubmission.find(params[:id])
     @form_submission.submitted = true
     @form_submission.submitted_on = Time.now
@@ -216,6 +227,8 @@ class FormSubmissionsController < BaseController
     @form_submission = FormSubmission.find_by(id: params[:id])
 
     @follow_ups = case current_step
+                  when :conflicts
+                    @form_submission.follow_ups.conflicts.decorate
                   when :pricing
                     @form_submission.follow_ups.pricing.decorate
                   when :relationship
@@ -237,6 +250,8 @@ class FormSubmissionsController < BaseController
     @form_submission.follow_ups.review.map(&:loggable).each do |form_value|
       if form_value.try(:form_field).try(:formable)
         case form_value.form_field.formable.name
+        when 'Conflicts'
+          stats[:conflicts] = (stats[:conflicts] || 0) + 1
         when 'Pricing'
           stats[:pricing] = (stats[:pricing] || 0) + 1
         when 'Relationship'
@@ -270,7 +285,8 @@ private
   end
 
   def steps
-    [:pricing, :relationship, :diversity, :innovation, :resourcing, :lawfirm]
+    # , :lawfirm
+    [:conflicts, :relationship, :innovation, :pricing, :diversity, :resourcing, :lawfirm]
   end
 
   def wizard_path(step)
@@ -308,15 +324,17 @@ private
   end
 
   def last_step
-    current_step_path.include? "lawfirm_step"
+    #current_step_path.include? "lawfirm_step"
+    current_step_path.include? "resourcing_step"
   end
 
   def first_step
-    current_step_path.include? "pricing_step"
+    #current_step_path.include? "pricing_step"
+    current_step_path.include? "conflicts_step"
   end
   
   def form_submissions_params
-    form_submission_attributes = [:id, :form_id]
+    form_submission_attributes = [:id, :form_id, :form_relationship_id, :form_diversity_id, :form_innovation_id, :form_resourcing_id, :form_conflicts_id]
     params.require(:form_submission).permit(form_submission_attributes + form_values_attributes)
   end
 

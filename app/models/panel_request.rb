@@ -10,7 +10,7 @@ class PanelRequest < ApplicationRecord
   has_many :reviews, as: :reviewable
 
 
-  LOB_LIST = ["Retail/Commercial / Services bancaires Particuliers et entreprises - Canada","Capital Markets / Marché des capitaux","Corporate / Services d'entreprise","Technology & Operations / Technologie et opérations (T&O)","US P&C / Services bancaires Particuliers et entreprises - É.-U.","Wealth Management / Gestion de patrimonie"]
+  LOB_LIST = ["Not Selected / Non séléctionné", "Retail/Commercial / Services bancaires Particuliers et entreprises - Canada","Capital Markets / Marché des capitaux","Corporate / Services d'entreprise","Technology & Operations / Technologie et opérations (T&O)","US P&C / Services bancaires Particuliers et entreprises - É.-U.","Wealth Management / Gestion de patrimonie"]
   REQUEST_TYPE = {
     "EXCEPTION": "Exception",
     "ADD_TO_LAW_FIRM_PANEL": "Add to Law Firm Panel"
@@ -60,7 +60,8 @@ class PanelRequest < ApplicationRecord
     "None of the above"
   ]
 
-  validates_presence_of :submitted_by_email, :line_of_business, :women_owned, :niche_preferred_external_counsel_panel_law_firms, :matter_types, :required_unique_geography, :involved_engagement, :women_owned, :law_frim_name, :law_firm_contact_name, :law_firm_mail, :law_firm_role, :law_firm_phone, :firm_use_on_regular_basis
+  validates_presence_of :submitted_by_email, :line_of_business, :law_frim_name, :law_firm_contact_name, :law_firm_mail, :law_firm_role, :law_firm_phone, :firm_use_on_regular_basis
+  #, :women_owned, :niche_preferred_external_counsel_panel_law_firms, :matter_types, :required_unique_geography, :involved_engagement, :women_owned, :law_frim_name, :law_firm_contact_name, :law_firm_mail, :law_firm_role, :law_firm_phone, :firm_use_on_regular_basis
 
   def self.ransackable_attributes(auth_object = nil)
     ["archived_at", "business_manager_email", "business_manager_name", "business_manager_phone", "created_at", "docusign_envelope_id", "firm_use_on_regular_basis", "geographic_location", "id", "involved_engagement", "law_firm_category", "law_firm_contact_name", "law_firm_id", "law_firm_mail", "law_firm_name", "law_firm_phone", "law_firm_role", "law_frim_name", "line_of_business", "lob_contact_name", "lxp_id", "lxp_status", "matter_name", "matter_types", "minority_owned", "minority_owned_details", "niche_expertise", "niche_preferred_external_counsel_panel_law_firms", "notes", "reason_other", "request_type", "requested_by", "required_unique_geography", "status", "submitted_by_email", "updated_at", "user_id", "women_owned", "women_owned_details"]

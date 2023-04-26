@@ -108,6 +108,7 @@ Rails.application.routes.draw do
 
     resources :form_submissions do
       member do
+        get :conflicts_step
         get :pricing_step
         get :relationship_step
         get :diversity_step
@@ -254,6 +255,7 @@ Rails.application.routes.draw do
   resources :file_attachments
   resources :form_submissions do
     member do
+      get :conflicts_step
       get :pricing_step
       get :relationship_step
       get :diversity_step

@@ -1,10 +1,25 @@
 require 'omniauth-okta'
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
-OKTA_SETUP = lambda do |env|
+
+def fetch_subdomain(request)
+  tenant_subdomain = Rails.env.development? ? "cwb" : request.env["HTTP_HOST"].split(".").first
+end
+
+def fetch_tenant(env)
   request = Rack::Request.new(env)
-  tenant_subdomain = request.env["HTTP_HOST"].split(".").first
-  tenant = Tenant.find_by(subdomain: tenant_subdomain)
+  tenant_subdomain = fetch_subdomain(request)
+  tenant = Tenant.find_by(subdomain: fetch_subdomain(request))
+end
+
+OmniAuth.config.full_host = lambda do |env|
+  tenant = fetch_tenant(env)
+  return "http://localhost:3000" if Rails.env.development?
+  return "https://#{tenant.subdomain}.#{ENV['DOMAIN_NAME']}"
+end
+
+OKTA_SETUP = lambda do |env|
+  tenant = fetch_tenant(env)
   env['omniauth.strategy'].options[:client_id] = tenant.okta_client_id          # if using omniauth-oauth2
   env['omniauth.strategy'].options[:client_secret] = tenant.okta_client_secret   # if using omniauth-oauth2
   site = tenant.okta_site
@@ -19,7 +34,7 @@ end
 
 AZURE_SETUP = lambda do |env|
   request = Rack::Request.new(env)
-  tenant_subdomain = request.env["HTTP_HOST"].split(".").first
+  tenant_subdomain = fetch_subdomain(request)
   tenant = Tenant.find_by(subdomain: tenant_subdomain)
   env['omniauth.strategy'].options[:client_id] = tenant.azure_client_id          # if using azure-active-directory-2
   env['omniauth.strategy'].options[:client_secret] = tenant.azure_client_secret   # if using azure-active-directory-2
@@ -275,6 +290,7 @@ Devise.setup do |config|
   # up on your models and hooks.
   config.omniauth(:okta, nil, nil, {
     scope: 'openid profile email',
+    protocol: :https,
     setup: OKTA_SETUP,
     strategy_class: OmniAuth::Strategies::Okta,
     provider_ignores_state: true # https://github.com/omniauth/omniauth-oauth2/issues/95
@@ -284,6 +300,7 @@ Devise.setup do |config|
   
   config.omniauth(:azure_activedirectory_v2, {
     setup: AZURE_SETUP,
+    protocol: :https,
     scope: "openid profile email GroupMember.Read.All",
     strategy_class: OmniAuth::Strategies::AzureActivedirectoryV2,
     provider_ignores_state: true

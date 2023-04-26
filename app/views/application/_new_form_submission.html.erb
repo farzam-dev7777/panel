@@ -1,12 +1,3 @@
-<% if resource.errors.any? %>
-  There were some problems with your submission:
-  <ul>
-    <% resource.form_value_errors.each do |error| %>
-      <li><%= error %></li>
-    <% end %>
-  </ul>
-<% end %>
-
 <%= simple_fields_for @form_submission do |u| %>
   <%= u.input :form_id, as: :hidden %>
   <%= u.input :form_process_id, as: :hidden %>

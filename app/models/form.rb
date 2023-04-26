@@ -4,9 +4,13 @@ class Form < ApplicationRecord
     enable
   end
 
-  STEPS = ['pricing', 'relationship', 'diversity', 'innovation', 'resourcing', 'lawfirm']
-
+  STEPS = ['conflicts', 'relationship', 'innovation', 'pricing', 'diversity', 'resourcing']
+  # , 'lawfirm'
   has_many :logics
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["id", "name", "created_at", "updated_at", "group_form", "step"]
+  end
 
   def all_logics(reload = false)
     @all_logics = nil if reload

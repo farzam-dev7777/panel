@@ -385,10 +385,18 @@
 												<% elsif submission.try(:status) == 'started' %>
 													<%= link_to "Started", "#", class: "btn btn-default btn-xs", disabled: true %>
 												<% elsif submission.try(:status) == 'submitted' %>
-													<%= link_to "Review Submission", pricing_step_admin_form_submission_path(submission), class: "btn btn-primary btn-xs" %>	
+													<%= link_to "Review Submission", conflicts_step_admin_form_submission_path(submission), class: "btn btn-primary btn-xs" %>	
 												<% else %>
 													<%= link_to submission.try(:status).try(:humanize) || '-', "#", class: "btn btn-default btn-xs", disabled: true %>
 												<% end %>
+											</td>
+											<td>
+												<% link_to "View Submission", conflicts_step_admin_form_submission_path(submission), class: "btn btn-outline-primary btn-xs" %>
+												<div class="action-fields">
+													<a class="action-btn" href="/admin/form_submissions/<%= submission.id %>/conflicts_step">
+														<%= image_tag "view-icon.svg", alt:"View" %>
+													</a>
+												</div>	
 											</td>
 										</tr>
 										<% end %>

@@ -71,11 +71,11 @@
           <%= f.input :women_owned_details, label: false %>
         </div>-->
       <div class="col-xs-12 col-md-12 multiple-selector">
-        <label class="label">What type of matters would this firm work on?<span class="mandatory">*</span></label>
+        <label class="label">What type of matters would this firm work on?</label>
         <%= f.input :matter_types, label: false, collection: PanelRequest::MATTER_TYPES,  input_html: { multiple: true }%>
       </div>
       <div class="col-xs-12 col-md-12">
-        <label class="label">Does this firm have a specific niche expertise not available from an existing panel law firm?<span class="mandatory">*</span></label>
+        <label class="label">Does this firm have a specific niche expertise not available from an existing panel law firm?</label>
         <%= f.input :niche_preferred_external_counsel_panel_law_firms, label: false, required: true, collection: [["Yes", "Yes"], ["No", "No"]]  %>
       </div>
       <div class="col-xs-12 col-md-12 panel_request_niche_expertise" style="display:none;">
@@ -83,7 +83,7 @@
         <%= f.input :niche_expertise, label: false%>
       </div>
       <div class="col-xs-12 col-md-12">
-        <label class="label">Does this firm practice in a location not already covered by an existing panel law firm?<span class="mandatory">*</span></label>
+        <label class="label">Does this firm practice in a location not already covered by an existing panel law firm?</label>
         <%= f.input :required_unique_geography, label: false, required: true, collection: [["Yes", "Yes"], ["No", "No"]]  %>
       </div>
       <div class="col-xs-12 col-md-12 panel_request_geographic_location" style="display:none;">
@@ -91,11 +91,11 @@
         <%= f.input :geographic_location, label: false%>
       </div>
       <div class="col-xs-12 col-md-12">
-        <label class="label">Would engagements of this firm involve the following<span class="mandatory">*</span></label>
+        <label class="label">Would engagements of this firm involve the following</label>
         <%= f.input :involved_engagement, label: false, collection: PanelRequest::INVOLVED_ENGAGEMENT %>
       </div>
       <div class="col-xs-12 col-md-12">
-        <label class="label">Is this a certified minority/woman owned firm?<span class="mandatory">*</span></label>
+        <label class="label">Is this a certified minority/woman owned firm?</label>
         <%= f.input :women_owned, label: false, collection: PanelRequest::MINORITY_OWNED_TYPE  %>
       </div>
       <div class="col-xs-12 col-md-12 women_owned_details"  style="display:none;">
@@ -103,7 +103,7 @@
         <%= f.input :women_owned_details, label: false%>
       </div>
       <div class="col-xs-12 col-md-12">
-        <label class="label">Are there additional reasons to consider this firm for our organization's panel? Provide details<span class="mandatory">*</span></label>
+        <label class="label">Are there additional reasons to consider this firm for our organization's panel? Provide details</label>
         <%= f.input :reason_other, label: false, required: true %>
       </div>
       <div class="col-xs-12 col-md-12">

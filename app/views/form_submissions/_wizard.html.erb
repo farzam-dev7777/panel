@@ -1,10 +1,8 @@
 <div class="wizard form-wizard-steps">
   <ul class="steps">
+    <%- current_step ||= @current_step %>
     <%- steps.each_with_index do |step, index| %>
       <li data-target="#step1" class="text-center <%= (steps.find_index(step) <= steps.find_index(current_step)) ? 'active' : ''%>">
-        <%
-          
-        %>
         <%= link_to wizard_path(step) do %>
           <%=
             case index
@@ -15,7 +13,13 @@
             when 2
               "<i class='fa fa-globe'></i>".html_safe
             when 3
-              "<i class='fa fa-history'></i>".html_safe
+              "<i class='fa fa-dollar'></i>".html_safe
+            when 4
+              "<i class='fa fa-female'></i>".html_safe
+            when 5
+              "<i class='fa fa-handshake-o'></i>".html_safe
+            when 6
+              "<i class='fa fa-building'></i>".html_safe
             end
           %>
           <%= step.capitalize %> &nbsp;

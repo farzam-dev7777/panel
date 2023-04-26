@@ -280,6 +280,7 @@ class User < ApplicationRecord
       end
     rescue RestClient::ExceptionWithResponse => e
       # e.response
+      puts e.response
       user = nil
     end
   end

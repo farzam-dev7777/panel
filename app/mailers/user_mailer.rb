@@ -1,5 +1,5 @@
 class UserMailer < ApplicationMailer
-  default from: "info@panel.grcx.io"
+  default from: "support@secureengage.com"
   layout 'mailer'
 
   def send_password_reset_link(user)

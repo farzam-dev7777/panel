@@ -53,6 +53,7 @@ class FormSubmission < ApplicationRecord
   def self.generate_initial_submissions(law_firm, current_user)
     submission = FormSubmission.new
     submission.form_id = Form.where(step: 'pricing').last.try(:id)
+    submission.form_conflicts_id = Form.where(step: 'conflicts').last.try(:id)
     submission.form_relationship_id = Form.where(step: 'relationship').last.try(:id)
     submission.form_diversity_id = Form.where(step: 'diversity').last.try(:id)
     submission.form_innovation_id = Form.where(step: 'innovation').last.try(:id)

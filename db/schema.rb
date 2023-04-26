@@ -324,6 +324,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_155919) do
     t.integer "form_diversity_id"
     t.integer "form_innovation_id"
     t.integer "form_resourcing_id"
+    t.integer "form_conflicts_id"
   end
 
   create_table "form_values", id: :serial, force: :cascade do |t|
