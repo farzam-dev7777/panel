@@ -340,7 +340,24 @@ Rails.application.routes.draw do
   end
   namespace :users do
   end
-
+  resources :matter_intakes do 
+    member do 
+      get :review
+      get :lxp_review
+    end
+    collection do 
+      post :lxp_rejects
+      get ':matter_intake_id/information_security_classification' => 'matter_intakes#information_security_classification', :as => "matter_intakes_information_security_classification"
+      post ':matter_intake_id/information_security_classification' => 'matter_intakes#update_information_security_classification', :as => "matter_intakes_update_information_security_classification"
+      post 'verify_doc' => 'matter_intakes#verify_doc'
+    end
+  end
+  resources :invoices do 
+    member do 
+      get :approve
+      get :reject
+    end
+  end
   post 'tenants/switch', to: 'tenants#switch'
 
   root to: "dashboard#index"
