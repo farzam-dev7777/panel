@@ -323,8 +323,7 @@ private
   end
 
   def last_step
-    #current_step_path.include? "lawfirm_step"
-    current_step_path.include? "resourcing_step"
+    current_step_path.include? "lawfirm_step"
   end
 
   def first_step
