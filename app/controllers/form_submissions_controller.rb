@@ -284,7 +284,6 @@ private
   end
 
   def steps
-    # , :lawfirm
     [:conflicts, :relationship, :innovation, :pricing, :diversity, :resourcing, :lawfirm]
   end
 

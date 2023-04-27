@@ -4,8 +4,8 @@ class Form < ApplicationRecord
     enable
   end
 
-  STEPS = ['conflicts', 'relationship', 'innovation', 'pricing', 'diversity', 'resourcing']
-  # , 'lawfirm'
+  STEPS = ['conflicts', 'relationship', 'innovation', 'pricing', 'diversity', 'resourcing', 'lawfirm']
+
   has_many :logics
 
   def all_logics(reload = false)
