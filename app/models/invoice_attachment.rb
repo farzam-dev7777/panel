@@ -48,6 +48,7 @@ class InvoiceAttachment < ApplicationRecord
   end
 
   def save_veryfi
+    return if veryfi_response.present?
     veryfi_client = Veryfi::Client.new(
       client_id: Rails.application.secrets['veryfi']['client_id'],
       client_secret: Rails.application.secrets['veryfi']['client_secret'],
