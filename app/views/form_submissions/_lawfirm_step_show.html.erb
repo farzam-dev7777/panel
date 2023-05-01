@@ -7,10 +7,9 @@
       :url => url_for(:action => 'law_firm_update', :controller => 'form_submissions'),
       :method => 'post', html: { class: '' }) do |f| %>
       <div class="row">
+        <input id="redirect_value" type="hidden" name="redirect_value">
         <div class="col-xs-12 col-md-6">
           <label class="label">Internal Relationship Partner Name</label>
-          <%= f.input :id, :as => :hidden, :input_html => { :value => @form_submission&.law_firm&.id } %>
-          <%= f.input :form_submission_id, :as => :hidden, :input_html => { :value => @form_submission&.id } %>
           <%= f.input :bmo_relationship_partner_name, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
         </div>
         <div class="col-xs-12 col-md-6">

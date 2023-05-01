@@ -74,11 +74,7 @@
              
               <% if @form_submission.is_available_to_user %>
                 <% if !first_step %>
-                  <% if current_step&.to_s === "lawfirm" %>
-                    <%= link_to "Prev".html_safe, previous_step_path, class: 'btn-type-primary save-lawfirm-form' %>
-                  <% else %>
-                    <%= link_to "Prev".html_safe, previous_step_path, class: 'btn-type-primary submit-form' %>
-                  <% end %>
+                  <%= link_to "Prev".html_safe, previous_step_path, class: 'btn-type-primary submit-form' %>
                 <% end %>
                 <% if(!last_step) %>
                   <%= link_to "Save".html_safe, current_step_path, class: 'btn-type-primary submit-form save-btn' %>

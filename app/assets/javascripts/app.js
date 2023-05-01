@@ -822,6 +822,8 @@ $(document).ready(function(){
   $('.submit-form').click(function(e){
     e.preventDefault();
 
+    $("form").attr("action", $("form").attr("action") + "?previous=true");
+
     window.skipUnload = true;
     $(this).find('.loader').removeClass('hidden');
     window.link_to_redirect_to = $(this).attr('href');
@@ -832,35 +834,6 @@ $(document).ready(function(){
       $('.submit-form').attr("disabled", "disabled");
     }
   })
-
-  $('.save-lawfirm-form').click(function(e){
-    e.preventDefault();
-
-    window.skipUnload = true;
-    $(this).find('.loader').removeClass('hidden');
-    window.link_to_redirect_to = $(this).attr('href');
-    if(!ajaxRequestInProcess){
-      $('#redirect_value').val(window.link_to_redirect_to);
-      ajaxRequestInProcess = true;
-      $('.save-lawfirm-form').attr("disabled", "disabled");
-      var formData = $('form').serializeArray();
-      const data = {};
-      $.each(formData, function () {
-        data[this.name] = this.value || ""
-      });
-      data["redirect_value"] = window.link_to_redirect_to;
-      $.ajax({
-        method: 'PUT',
-        url: `/law_firms/${data['law_firm[id]']}/rfi_law_firm_update`,
-        data: data,
-        success: function(response) {
-          // need to redirect here to previous step
-         ajaxRequestInProcess = false;
-        }
-      })
-    }
-  })
-
 
   $("form").bind("ajax:success", function(e, response){
     $('.last-update-timestamp').html(response.last_updated);
