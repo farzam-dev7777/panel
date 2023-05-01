@@ -1,6 +1,8 @@
 class TenantAdmin::UsersController < TenantAdmin::BaseController
   layout 'tenant_admin'
 
+  load_and_authorize_resource, class: "User"
+
   def index
     @q = User.ransack(params[:q])
     @tenant_admins = @q.result.where(role: User::TENANT_ADMIN_USER_ROLES).order('created_at DESC')

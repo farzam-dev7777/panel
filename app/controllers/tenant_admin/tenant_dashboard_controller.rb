@@ -1,6 +1,8 @@
 class TenantAdmin::TenantDashboardController < TenantAdmin::BaseController
   layout 'tenant_admin'
 
+  load_and_authorize_resource, class: "Tenant"
+
   add_breadcrumb "Dashboard", :root_path
 
   def index
