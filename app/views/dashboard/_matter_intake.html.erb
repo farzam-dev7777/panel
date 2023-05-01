@@ -27,7 +27,7 @@
                 <!--<th>Action</th>-->
               </tr>
               <tbody>
-                <% current_user.law_firm.matter_intakes.all.each do |matter_intake| %>
+                <% current_user&.law_firm && current_user&.law_firm&.matter_intakes&.each do |matter_intake| %>
                   <% if Current.user.role === "internal_lawyers" && matter_intake.status != "matter_open" && matter_intake.user_id.present? %>
                     <tr onClick="window.location.href='/matter_intakes/<%= matter_intake.id %>/review'">
                     <% else %>
