@@ -134,26 +134,33 @@ class FormSubmissionsController < BaseController
 
   def law_firm_update
     @law_firm = LawFirm.find(@form_submission.law_firm.id)
-  	if @law_firm.update_attributes(law_firms_params)
-  		@law_firm.update_attributes(profile_completed: true)
-       
-      @form_submission = FormSubmission.find(params[:id])
-        @form_submission.submitted = true
-        @form_submission.submitted_on = Time.now
-        @form_submission.status = 'submitted'
-        if (@form_submission.save)
-
-          # Creates action items for the law firm that has just been approved
-          generate_security_threats
-
-          AdminMailer.forms_submitted(@form_submission).deliver_now
-          FormSubmission.log_activity('information_security_policy_submitted', true, @form_submission, current_user)
-        end
-       
-  		redirect_to root_url, notice: "RFI Submited"
-  	else
-  		redirect_to first_step_path
-  	end
+    if params[:previous] === "true"
+      @law_firm.update_attributes(law_firms_params)
+      redirect_to params[:redirect_value]
+    else
+      if @law_firm.update_attributes(law_firms_params)
+        @law_firm.update_attributes(profile_completed: true)
+         
+        @form_submission = FormSubmission.find(params[:id])
+          @form_submission.submitted = true
+          @form_submission.submitted_on = Time.now
+          @form_submission.status = 'submitted'
+          if (@form_submission.save)
+  
+            # Creates action items for the law firm that has just been approved
+            generate_security_threats
+  
+            AdminMailer.forms_submitted(@form_submission).deliver_now
+            FormSubmission.log_activity('information_security_policy_submitted', true, @form_submission, current_user)
+          end
+         
+        redirect_to root_url, notice: "RFI Submited"
+      else
+        redirect_to first_step_path
+      end
+    end
+    
+  	
   end
 
   def update

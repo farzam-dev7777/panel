@@ -73,7 +73,6 @@
             <div class="btn-group">
              
               <% if @form_submission.is_available_to_user %>
-
                 <% if !first_step %>
                   <%= link_to "Prev".html_safe, previous_step_path, class: 'btn-type-primary submit-form' %>
                 <% end %>

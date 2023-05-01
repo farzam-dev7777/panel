@@ -822,6 +822,8 @@ $(document).ready(function(){
   $('.submit-form').click(function(e){
     e.preventDefault();
 
+    $("form").attr("action", $("form").attr("action") + "?previous=true");
+
     window.skipUnload = true;
     $(this).find('.loader').removeClass('hidden');
     window.link_to_redirect_to = $(this).attr('href');
