@@ -277,6 +277,10 @@ Rails.application.routes.draw do
       get :add_users
       post :invite_users
     end
+
+    member do
+      put :rfi_law_firm_update
+    end
   end
 
   resources :conflict_waivers do 
