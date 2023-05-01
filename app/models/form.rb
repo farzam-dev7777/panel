@@ -8,6 +8,8 @@ class Form < ApplicationRecord
 
   has_many :logics
 
+  validates_uniqueness_of :name
+
   def all_logics(reload = false)
     @all_logics = nil if reload
     @all_logics ||= (
