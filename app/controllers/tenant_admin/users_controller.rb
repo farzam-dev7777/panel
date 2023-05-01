@@ -1,7 +1,7 @@
 class TenantAdmin::UsersController < TenantAdmin::BaseController
   layout 'tenant_admin'
 
-  load_and_authorize_resource, class: "User"
+  load_and_authorize_resource :class => "User"
 
   def index
     @q = User.ransack(params[:q])

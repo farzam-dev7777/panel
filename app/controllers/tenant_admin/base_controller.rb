@@ -6,7 +6,7 @@ class TenantAdmin::BaseController < ApplicationController
 
 	rescue_from CanCan::AccessDenied do |exception|
     if request.env["HTTP_REFERER"].blank?
-      redirect_to tenant_admin_root_url, :alert => exception.message
+      redirect_to root_url, :alert => exception.message
     else
       redirect_to :back, :alert => exception.message
     end
