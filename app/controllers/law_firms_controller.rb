@@ -24,11 +24,6 @@ class LawFirmsController < BaseController
   	end
 	end
 
-  def rfi_law_firm_update
-    @law_firm = LawFirm.find(params[:id])
-  	@law_firm.update_attributes(law_firms_params)
-  end
-
   def invite_users
     redirect_to root_path unless current_user.role == 'master_user'
     law_firm_user_count = current_law_firm.standard_users.count
