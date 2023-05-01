@@ -25,7 +25,7 @@
                 </tr>
               </thead>
               <tbody>
-                <% current_user.law_firm.matter_intakes.map(&:invoices).flatten.each do |invoice| %>
+                <% current_user.law_firm && current_user.law_firm.matter_intakes.map(&:invoices).flatten.each do |invoice| %>
                   <tr>
                     <td><%= invoice&.updated_at&.strftime('%d %b %Y') %></td>
                     <td><%= invoice&.matter_intake&.matter_number %></td>
