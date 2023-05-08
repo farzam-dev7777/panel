@@ -67,10 +67,14 @@ class Admin::FormSubmissionsController < Admin::BaseController
   end
 
   def lawfirm_step
-
+    update_scoring()
   end
 
   def resourcing_step
+    update_scoring()
+  end
+
+  def update_scoring
     total_score = 0
     score_counter = 0
     @form_submission = FormSubmission.find(params[:id])
