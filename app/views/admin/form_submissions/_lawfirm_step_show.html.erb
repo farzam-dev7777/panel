@@ -203,6 +203,9 @@
         <div class="col-xs-12 col-md-12" style="display:none">
           <%= f.button :submit, f.object.new_record? ? 'Create' : 'Update', class: "btn-type-primary rfi-lawfirm-btn" %>
         </div>
+        <pre>
+          <%= @scores_debug.to_yaml %>
+        </pre>
       </div>
     <% end %>
   </div>
