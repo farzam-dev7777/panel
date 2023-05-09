@@ -4,7 +4,7 @@
   <% end %>
   <label class="select-input control-label parent-f-sized-label">
     <% if current_user && current_user&.role === "lxp" && field&.type === "DropdownField" %>
-      <%= field.label %> <span class="badge badge-primary"><%= v.object.score %></span>
+      <%= field.label %> <span class="badge badge-primary"><%= v.object.score %> / 5.0</span>
     <% else %>
       <%= field.label %>
     <% end %>
