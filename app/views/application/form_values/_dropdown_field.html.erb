@@ -2,7 +2,13 @@
   <% if !v.object.try(:form_field).try(:help_description).blank? %>
     <i class="fa fa-question-circle-o help-text" data-help="<%= v.object.try(:form_field).try(:help_description) %>"></i>
   <% end %>
-  <label class="select-input control-label parent-f-sized-label"><%= field.label %></label>
+  <label class="select-input control-label parent-f-sized-label">
+    <% if current_user && current_user&.role === "lxp" && field&.type === "DropdownField" %>
+      <%= field.label %> <span class="badge badge-primary"><%= v.object.score %></span>
+    <% else %>
+      <%= field.label %>
+    <% end %>
+  </label>
   <%= v.input :value, {
     label: false,
     collection: field.collection.sort,
