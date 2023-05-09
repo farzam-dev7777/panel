@@ -19,6 +19,8 @@ class FormValue < ApplicationRecord
 
   validate :value_is_valid
 
+  before_save :find_and_save_score
+
   accepts_nested_attributes_for :file_attachments, allow_destroy: true
   accepts_nested_attributes_for :activity_time_log
   accepts_nested_attributes_for :vendors, allow_destroy: true
@@ -83,6 +85,12 @@ class FormValue < ApplicationRecord
 
   def form_value_id
     self.id
+  end
+
+  def find_and_save_score
+    if self.form_field && self.form_field&.type === "DropdownField"
+      self.score = self&.form_field&.dropdown_options&.find_by(value: self.value)&.score || 0.0
+    end
   end
 
   private

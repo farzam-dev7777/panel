@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20230423164942) do
+ActiveRecord::Schema.define(version: 20230509033146) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -341,6 +341,7 @@ ActiveRecord::Schema.define(version: 20230423164942) do
     t.string   "form_value_iv"
     t.string   "form_value_key"
     t.text     "multi_select_value"
+    t.float    "score",              default: 0.0
   end
 
   create_table "forms", force: :cascade do |t|
@@ -418,8 +419,6 @@ ActiveRecord::Schema.define(version: 20230423164942) do
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
     t.string   "status"
-    t.date     "date"
-    t.integer  "taxes"
   end
 
   create_table "issues", force: :cascade do |t|

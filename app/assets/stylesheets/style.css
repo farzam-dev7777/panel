@@ -1,4 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto");
+.form-question-score {
+  margin-top: -3px;
+}
 .margin-top-10 {
   margin-top: 10px !important;
 }
