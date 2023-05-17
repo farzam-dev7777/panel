@@ -1,0 +1,41 @@
+<div class="col-lg-12">
+  <div class="jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false"> 
+    <div class="page-header-sp m-top">
+      <div class="page-title">Link Lawfirm with Tenant</div>
+      <div class="back-edit-actions">
+        <div class="action-buttons-alignment">
+        </div>
+      </div>
+    </div>
+    <div class="">
+      <!-- widget content -->
+      <div class="sp-form sp-form-bg">
+        <%= simple_form_for @law_firm_tenant, url: create_law_firm_tenant_tenant_admin_tenants_url, method: :post do |f| %>
+          <div class="row form-flex-wrap">
+            <div class="col-xs-12 col-md-6">
+              <label class="label">Tenant <span class="mandatory">*</span></label>
+              <%= f.input :tenant_id, label: false, required: true, as: :select, collection: Tenant.all&.map {|t| [t.name, t.id]}, input_html: { class: "tenant_id_lawfirm" } %>
+            </div>
+
+            <div class="col-xs-12 col-md-6">
+              <label class="label">Law Firm <span class="mandatory">*</span></label>
+              <%= f.input :law_firm_id, label: false, required: true, as: :select, collection: [], input_html: { class: "law_firms_to_link_with_tenant" } %>
+            </div>
+
+            <div class="col-xs-12 col-md-6">
+              <label class="label">Initial date of Engagement <span class="mandatory">*</span></label>
+              <%= f.input :initial_date_of_engagement_with_the_bank, as: :datepicker, label: false, input_html: { autocomplete: 'off', class: 'text-left datepicker' } %>
+            </div>
+
+            <div class="col-xs-12 col-md-12 mt-2">
+              <%=link_to 'Cancel', tenant_admin_root_path, class: 'btn-type-default' %>
+              <%= f.button :submit, "Submit", class: "btn-type-primary" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      
+      <!-- end widget content -->
+    </div>
+  </div>
+</div>
