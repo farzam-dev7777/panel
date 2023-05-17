@@ -1,7 +1,7 @@
 class TwoFactorAuthenticationController < ApplicationController
 
 	layout false
-  skip_before_filter :verify_authenticity_token
+  skip_before_filter :verify_authenticity_token, :authenticate_2fa
 
   # after_action :track_google_auth
 
@@ -13,14 +13,14 @@ class TwoFactorAuthenticationController < ApplicationController
   end
 
   def create
-    # if current_user.authentic_email_two_factor?(params[:code])
+    if current_user.authentic_email_two_factor?(params[:code])
       session[:authorized] = true
-      # flash.now[:notice] = 'Authentication Successful.'
+      flash.now[:notice] = 'Authentication Successful.'
       navigate_user
-    # else
-    #   flash.now[:alert] = 'The code given does not match or expired, please try again'
-    #   render :new
-    # end
+    else
+      flash.now[:alert] = 'The code given does not match or expired, please try again'
+      render :new
+    end
   end
 
   def send_two_factor_auth_again

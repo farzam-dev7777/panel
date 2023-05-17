@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   helper_method :current_law_firm
   before_filter :set_current_user
-  #before_filter :authenticate_2fa
+  before_filter :authenticate_2fa
 
   #before_filter :set_cache_headers
   before_action :set_tenant
@@ -30,11 +30,10 @@ class ApplicationController < ActionController::Base
     end
 
     if current_user
-      return true
-      #return true if request.original_url.include?('sign_out') || current_user.is_an_admin? 
-      # unless session[:authorized]
-      #   redirect_to new_two_factor_authentication_url unless request.original_url.include? 'two_factor_authentication/new'
-      # end
+      return true if request.original_url.include?('sign_out') || current_user.is_an_admin? 
+      unless session[:authorized]
+        redirect_to new_two_factor_authentication_url unless request.original_url.include? 'two_factor_authentication/new'
+      end
     else
       false
     end
@@ -42,6 +41,7 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     Current.user = resource
+    current_user.send_two_fa if current_user.present?
     if Current.user&.role === "tenant_admin"
       Apartment::Tenant.switch!('public')
       tenant_admin_root_url(subdomain: 'panel')
