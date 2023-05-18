@@ -989,6 +989,12 @@ $(document).ready(function(){
     }
   }
 
+  if(window.location.pathname.indexOf("/form_submissions/") > -1 ){
+    if($('form.simple_form.edit_form_submission').attr('disabled') == 'disabled'){
+      disableFormSubmissionFields();
+    }
+  }
+
   if(window.location.href.indexOf("readonly=true") > -1){
     disableFormSubmissionFields();
   }
