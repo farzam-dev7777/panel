@@ -1,103 +1,573 @@
 <!DOCTYPE html>
 <html lang="en-us" id="extr-page">
 <head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	<title>Panel | 2 Factor Authentication</title>
 	<%= csrf_meta_tags %>
-
 	<%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-
-	<style type="text/css">
-		table.qrcode {
-			border-width: 0;
-			border-style: none;
-			border-color: #0000ff;
-			border-collapse: collapse;
-		}
-		table.qrcode td {
-			border-width: 0;
-			border-style: none;
-			border-color: #0000ff;
-			border-collapse: collapse;
-			padding: 0;
-			margin: 0;
-			width: 10px;
-			height: 10px;
-		}
-		table.qrcode td.black { background-color: #000; }
-		table.qrcode td.white { background-color: #fff; }
-		.login-page{
-			background-image: url(<%= asset_path 'bg-photo.jpg' %>) !important;
-		}
-		.qrcodeimage {
-			margin-bottom: 20px;
-		}
-		.qrcodeimage svg {
-			transform: scale(0.5);
-			background-color: #FFF;
-		}
-	</style>
-
+<style type="text/css">
+  .login-page{
+    background-image: url(<%= asset_path 'bg-photo.jpg' %>) !important;
+  }
+  .alert, .notice { display: none }
+</style>
 </head>
 
 <body>
 
-	<div class="login-page" id="main" role="main">
-
-		<!-- MAIN CONTENT -->
-		<div id="content" class="container">
-
-			<div class="row">
-
-				<div class="col-md-12">
-					<div class="col-md-6">
-						<%= image_tag("CWB-logo.png") %>
-					</div>
-					<div class="col-md-6 text-right">
-						<%= image_tag("panel-logo.png") %>
-					</div>
-				</div>
-
-				
-				<div class="col-lg-6 col-md-offset-3 no-padding tfa-wrapper">
-					<%- if notice %>
-						<div class="alert alert-success" role="alert">
-							<%= notice %>
-						</div>
-					<% end %>
-
-					<%- if alert %>
-						<div class="alert alert-info" role="alert">
-							<%= alert %>
-						</div>
-					<% end %>
-					<h2 class="text-center" style="color: #fff;">2 Factor Authentication</h2>
-
-						<p style="color: #fff;margin: 10px">Please check your email for authentication code.</p>	
-
-					<form method="POST" action="/two_factor_authentication">
-						<div class="col-md-12">
-							<div class="col-md-11 no-padding">
-								<input style="color: #fff" type="text" placeholder="XXXXXX" name="code" class="form-control">
-								<p style="color: #fff;"><i> Didn't get the code in the email? <a href="/two_factor_authentication/send_two_factor_auth_again" style="color: #ccc">Click here</a> to resend</i></p>
-							</div>
-							<div class="col-md-1 no-padding">
-								<input class="btn btn-primary" type="submit" value="Verify">
-							</div>
-						</div>
-					</form>
-
-				</div>
-
-				<div style="margin-top: 20px;" class="col-lg-6 col-md-offset-3 no-padding text-center">
-					<a href="/users/sign_out" title="Sign Out" data-action="userLogout" data-logout-msg="You can improve your security further after logging out by closing this opened browser" class="btn btn-danger">Logout</a>
-				</div>
-
-			</div>
-		</div>
-
-	</div>
 
 
+
+<div class="remove-padding" id="main" role="main"><!-- old class login-page -->
+  <!-- New SignIn page -->
+  <div class="sign-in-page">
+    <div class="left-side signin-img">
+    </div>
+    <div class="right-side">
+      <div class="signin-form">
+        <div class="page-logo">
+          <% if Tenant.current.present? && Tenant.current&.logo&.url.present? %>
+            <%= image_tag Tenant.current&.logo&.url , alt:"CWB logo" %>
+          <% else %>
+            <%= image_tag "seal-logo-black.png", alt:"Seal Logo" %>
+          <% end %>
+        </div>
+        <div class="sp-signin-form">
+          <% if Tenant.current.present? %>
+            <% if Tenant.current&.sso_type === "okta" && Tenant.current.okta_client_secret.present? && Tenant.current.okta_site.present? && Tenant.current.okta_api_token.present? && Tenant.current.okta_client_id.present? %>
+              <div class="sp-signin-btn mb-1">
+                <%= link_to 'Sign in via SSO', user_okta_omniauth_authorize_path, method: :post, class: "btn-type-primary" %>
+              </div>
+              <div class="mb-1 text-center">Or</div>
+            <% end %>
+            <% if Tenant.current&.sso_type === "azure_active_directory" && Tenant.current.azure_tenant_id.present? && Tenant.current.azure_client_id.present? && Tenant.current.azure_client_secret.present? %>
+              <div class="sp-signin-btn mb-1">
+                 <%= link_to 'Sign in via SSO', "/users/auth/azure_activedirectory_v2", method: :post, class: "btn-type-primary" %>
+              </div>
+              <div class="mb-1 text-center">Or</div>
+            <% end %>
+          <% end %>
+            <form method="POST" action="/two_factor_authentication">
+              <div class="col-md-12">
+                <div class="col-md-11 no-padding">
+                  <input type="text" placeholder="XXXXXX" name="code" class="form-control">
+                  <p><i> Didn't get the code in the email? <a href="/two_factor_authentication/send_two_factor_auth_again">Click here</a> to resend</i></p>
+                </div>
+                <div class="col-md-1 no-padding">
+                  <input class="btn btn-primary" type="submit" value="Verify">
+                </div>
+              </div>
+            </form>
+          </div>
+          <div style="margin-top: 20px; margin-left:inherit;" class="col-lg-6 col-md-offset-3 no-padding text-center">
+            <a href="/users/sign_out" title="Sign Out" data-action="userLogout" data-logout-msg="You can improve your security further after logging out by closing this opened browser" class="btn btn-danger">Logout</a>
+          </div>
+        <div class="sp-powered">
+          <div>Powered By</div>
+          <%= image_tag "seal-logo-light.png", alt:"Seal Logo" %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- New SignIn page END -->
+  <!-- MAIN CONTENT -->
+  <div id="content" class="container hidden">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="col-md-6">
+          <%= image_tag("CWB-logo.png") %>
+        </div>
+        <div class="col-md-6 text-right">
+          <%= image_tag("panel-logo.png") %>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4 col-lg-offset-4 login-form-wrapper">
+        <div class="well no-padding">
+          <form method="POST" action="/two_factor_authentication">
+            <div class="col-md-12">
+              <div class="col-md-11 no-padding">
+                <input style="color: #fff" type="text" placeholder="XXXXXX" name="code" class="form-control">
+                <p style="color: #fff;"><i> Didn't get the code in the email? <a href="/two_factor_authentication/send_two_factor_auth_again" style="color: #ccc">Click here</a> to resend</i></p>
+              </div>
+              <div class="col-md-1 no-padding">
+                <input class="btn btn-primary" type="submit" value="Verify">
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <!-- T & C Modal -->
+     <div class="modal fade" id="tandcModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+      <div class="modal-dialog t-and-c-modal" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+          <h1 class="modal-title" id="exampleModalLongTitle">Terms & Conditions</h1>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="popupContent">
+              
+                <html>
+
+                  <head>
+                  <meta http-equiv=Content-Type content="text/html; charset=utf-8">
+                  <meta name=Generator content="Microsoft Word 15 (filtered)">
+                  <style>
+                  <!--
+                  /* Font Definitions */
+                  @font-face
+                    {font-family:"Cambria Math";
+                    panose-1:2 4 5 3 5 4 6 3 2 4;}
+                  @font-face
+                    {font-family:Calibri;
+                    panose-1:2 15 5 2 2 2 4 3 2 4;}
+                  @font-face
+                    {font-family:"Calibri Light";
+                    panose-1:2 15 3 2 2 2 4 3 2 4;}
+                  @font-face
+                    {font-family:Roboto;}
+                  /* Style Definitions */
+                  p.MsoNormal, li.MsoNormal, div.MsoNormal
+                    {margin:0in;
+                    font-size:12.0pt;
+                    font-family:"Calibri",sans-serif;
+                    color:windowtext;}
+                  p
+                    {margin-top:1.4pt;
+                    margin-right:0in;
+                    margin-bottom:1.4pt;
+                    margin-left:0in;
+                    font-size:12.0pt;
+                    font-family:"Times New Roman",serif;
+                    color:#00000A;}
+                  p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
+                    {margin-top:0in;
+                    margin-right:0in;
+                    margin-bottom:0in;
+                    margin-left:.5in;
+                    font-size:12.0pt;
+                    font-family:"Calibri",sans-serif;
+                    color:windowtext;}
+                  p.MsoListParagraphCxSpFirst, li.MsoListParagraphCxSpFirst, div.MsoListParagraphCxSpFirst
+                    {margin-top:0in;
+                    margin-right:0in;
+                    margin-bottom:0in;
+                    margin-left:.5in;
+                    font-size:12.0pt;
+                    font-family:"Calibri",sans-serif;
+                    color:windowtext;}
+                  p.MsoListParagraphCxSpMiddle, li.MsoListParagraphCxSpMiddle, div.MsoListParagraphCxSpMiddle
+                    {margin-top:0in;
+                    margin-right:0in;
+                    margin-bottom:0in;
+                    margin-left:.5in;
+                    font-size:12.0pt;
+                    font-family:"Calibri",sans-serif;
+                    color:windowtext;}
+                  p.MsoListParagraphCxSpLast, li.MsoListParagraphCxSpLast, div.MsoListParagraphCxSpLast
+                    {margin-top:0in;
+                    margin-right:0in;
+                    margin-bottom:0in;
+                    margin-left:.5in;
+                    font-size:12.0pt;
+                    font-family:"Calibri",sans-serif;
+                    color:windowtext;}
+                  .MsoChpDefault
+                    {font-size:12.0pt;
+                    font-family:"Calibri",sans-serif;}
+                  @page WordSection1
+                    {size:8.5in 11.0in;
+                    margin:1.0in 1.0in 1.0in 1.0in;}
+                  div.WordSection1
+                    {page:WordSection1;}
+                  /* List Definitions */
+                  ol
+                    {margin-bottom:0in;}
+                  ul
+                    {margin-bottom:0in;}
+                  -->
+                  </style>
+
+                  </head>
+
+                  <body lang=EN-US link=blue vlink="#954F72" style='word-wrap:break-word'>
+
+                  <div class=WordSection1>
+
+                  <p class=MsoNormal style='text-align:center;mso-line-height-alt:15.6pt;mso-outline-level:1;
+              background:white'><span lang=EN-US style='font-size:25.5pt;font-family:"heebo-light","serif";
+              mso-fareast-font-family:"Times New Roman";mso-bidi-font-family:"Times New Roman";
+              color:#414141;mso-font-kerning:18.0pt;mso-no-proof:yes'>
+              <%= image_tag("seal-logo-black.png") %></span><span style='font-family:Arial;
+              mso-fareast-font-family:"Times New Roman";color:#414141;mso-font-kerning:18.0pt;
+              mso-ansi-language:EN-GB'><span style='mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><b
+              style='mso-bidi-font-weight:normal'>Secure Engage: Assessment for Law Firms <sup>TM<o:p></o:p></sup></b></span></p>
+
+                  <p class=MsoNormal style='border:none;padding:0in'><span lang=EN-CA
+                  style='font-size:8.0pt;font-family:"Arial",sans-serif;display:none'>Top of Form</span></p>
+
+                  </div>
+
+                  <p class=MsoNormal style='background:white;vertical-align:baseline'><span
+                  lang=EN-CA style='font-family:Roboto;color:black'>&nbsp;</span></p>
+
+                  <p class=MsoNormal style='background:white;vertical-align:baseline'><b><span
+                  lang=EN-CA style='font-family:Roboto;color:black;border:none windowtext 1.0pt;
+                  padding:0in'>Last Updated: March 2023</span></b></p>
+
+                  <p class=MsoNormal style='background:white'><span lang=EN-CA style='font-size:
+                  10.0pt;font-family:Roboto;color:#333333'><br>
+                  <br>
+                  </span></p>
+
+                  <p class=MsoNormal style='background:white;vertical-align:baseline'><span
+                  lang=EN-CA style='font-family:Roboto;color:black'>Welcome to Secure Engagement
+                  and Assessment of Law firms (<b>SEAL&nbsp;</b>or&nbsp;<b>Network</b>). These
+                  Terms of Use govern your (<b>You</b>&nbsp;or&nbsp;<b>Your</b>) use of SEAL
+                  which is maintained and operated by Secure Engage Inc. (including its
+                  subsidiaries and affiliates,&nbsp;<b>SEI, (Secure Engage Inc)</b>).</span></p>
+
+                  <p class=MsoNormal style='background:white;vertical-align:baseline'><span
+                  lang=EN-CA style='color:#333333'>&nbsp;</span></p>
+
+                  <ol style='margin-top:0in' start=1 type=1>
+                  <li class=MsoNormal style='color:#333333;background:white;vertical-align:baseline'><span
+                      lang=EN-CA style='font-family:Roboto;color:black'>SEI offers to its
+                      clients (<b><span style='border:none windowtext 1.0pt;padding:0in'>Clients</span></b>)
+                      online cybersecurity assessment, relationship management, invoicing, data
+                      analysis, and other services and associated content, developed, operated,
+                      and maintained by SEI, and made accessible via a custom weblink &nbsp;IP
+                      address designated by SEI from time to time, or ancillary online products,
+                      including those offered via email, or offline products and services
+                      provided by SEI to its Clients (<b><span style='border:none windowtext 1.0pt;
+                      padding:0in'>SEAL Service</span></b>). Additionally, SEI offers law firms
+                      certain services such as support and participation in the Network and
+                      Payment Transactions (defined below) as set out in the signup process or
+                      as agreed between You and SEI in writing from time to time (<b><span
+                      style='border:none windowtext 1.0pt;padding:0in'>Firm Services</span></b>,
+                      and together with SEAL Service, the&nbsp;<b><span style='border:none windowtext 1.0pt;
+                      padding:0in'>Service</span></b>). You wish to be listed in the Network as
+                      a potential or current law firm to Clients that use the SEAL Service. If
+                      You are using the Service on behalf of a business or entity, You represent
+                      to SEI that (a) You have authority to bind that business or entity to
+                      these Terms of Use and to act on behalf of that business or entity and (b)
+                      the business accepts these Terms of Use. YOU EXPRESSLY AGREE AND
+                      ACKNOWLEDGE THAT YOU ARE SUBJECT TO, BOUND BY, AND WILL COMPLY WITH THESE
+                      TERMS OF USE. BY USING THE SERVICE, YOU AGREE TO THESE TERMS OF USE; IF
+                      YOU DO NOT AGREE, DO NOT USE THE SERVICE. References to You or Your in
+                      these Terms of Use mean the user of the law firm or the law firm itself,
+                      as appropriate.</span></li>
+                  </ol>
+
+                  <p class=MsoNormal style='margin-left:.5in;background:white;vertical-align:
+                  baseline'><span lang=EN-CA style='font-family:Roboto;color:black'><br>
+                  <br>
+                  <br>
+                  </span></p>
+
+                  <ol style='margin-top:0in' start=2 type=1>
+                  <li class=MsoNormal style='color:#333333;background:white;vertical-align:baseline'><span
+                      lang=EN-CA style='font-family:Roboto;color:black'>By agreeing to use the
+                      Service, you agree that SEI may (i) contact you through digital marketing
+                      channels for the purpose of promoting, marketing and/or executing the
+                      Service; (ii) identify You as a potential participant in the Service; and
+                      (iii)&nbsp; store information as You provided , including invoice data and
+                      use this information to facilitate the Service.</span></li>
+                  </ol>
+
+                  <p class=MsoNormal style='margin-left:.5in;background:white;vertical-align:
+                  baseline'><span lang=EN-CA style='font-family:Roboto;color:black'><br>
+                  <br>
+                  </span></p>
+
+                  <ol style='margin-top:0in' start=3 type=1>
+                  <li class=MsoNormal style='color:#333333;background:white;vertical-align:baseline'><span
+                      lang=EN-CA style='font-family:Roboto;color:black'>SEI reserves the right,
+                      at its sole discretion, to change these Terms of Use, at any time. The
+                      revised version will be effective at the time SEI posts it. It is Your
+                      responsibility to check these Terms of Use periodically for changes. Your
+                      continued use of the Service following the posting of changes will mean
+                      that You accept and agree to the changes. SEI last amended these Terms of
+                      Use on the date stated above. However, if the revised version includes a
+                      material change, it will be effective 30 days after such material change
+                      is initially posted. SEI will make reasonable endeavors to notify You of
+                      any material change through the Service prior to the expiration of such
+                      30-day period. As long as You comply with these Terms of Use, SEI grants
+                      You a personal, non-exclusive, non-transferable, limited privilege to be a
+                      certified member of SEAL and use the Service. SEI RESERVES THE RIGHT TO
+                      IMMEDIATELY REMOVE YOU FROM SEAL AND TERMINATE YOUR USE OF THE SERVICE IN
+                      ITS SOLE REASONABLE DISCRETION UPON NOTICE TO YOU (EMAIL ACCEPTABLE).</span></li>
+                  </ol>
+
+                  <p class=MsoNormal style='margin-left:.5in;background:white;vertical-align:
+                  baseline'><span lang=EN-CA style='font-family:Roboto;color:black'><br>
+                  <br>
+                  <br>
+                  </span></p>
+
+                  <ol style='margin-top:0in' start=4 type=1>
+                  <li class=MsoNormal style='color:#333333;background:white;vertical-align:baseline'><span
+                      lang=EN-CA style='font-family:Roboto;color:black'>You represent and
+                      warrant the following: (i) You will comply with all laws and regulations
+                      that apply to Your membership in SEAL and use of the Service; (ii) You
+                      possess all right, power, and authority to enter into these Terms of Use;
+                      and (iii) information that You provide to SEI or upload to SEAL will be
+                      accurate and that You are responsible for the accuracy of Your
+                      Information. You acknowledge that SEI and Client are entitled to rely on
+                      the accuracy of Your information that You provide to SEI and/or upload to
+                      SEAL, including Your payment and banking information. Neither SEI nor
+                      Client are responsible for any erroneous, misapplied, or misrouted
+                      payments resulting from errors or unauthorized payment information changes
+                      within Your profile within SEAL.</span></li>
+                  </ol>
+
+                  <p class=MsoNormal style='margin-left:.5in;background:white;vertical-align:
+                  baseline'><span lang=EN-CA style='font-family:Roboto;color:black'><br>
+                  <br>
+                  <br>
+                  </span></p>
+
+                  <ol style='margin-top:0in' start=5 type=1>
+                  <li class=MsoNormal style='color:#333333;background:white;vertical-align:baseline'><span
+                      lang=EN-CA style='font-family:Roboto;color:black'>Each party shall
+                      continue to own all right, title, and interest in its intellectual
+                      property and materials associated with these Terms of Use. Additionally,
+                      no party is providing a license to its intellectual property or materials
+                      except as set forth in these Terms of Use. You grant to SEI a limited,
+                      personal, non-sublicensable, non-exclusive license to use your information
+                      and associated intellectual property necessary for SEI to include You in
+                      SEAL and to provide information on or about Your products and services as
+                      part of the Service. You agree that SEI may collect, use and disclose
+                      quantitative data derived from Your use of SEAL for industry analysis,
+                      benchmarking, analytics, marketing, and other business purposes. All data
+                      collected, used, and disclosed will be in aggregate form only and will not
+                      identify You.</span></li>
+                  </ol>
+
+                  <p class=MsoNormal style='margin-left:.5in;background:white;vertical-align:
+                  baseline'><span lang=EN-CA style='font-family:Roboto;color:black'><br>
+                  <br>
+                  </span></p>
+
+                  <ol style='margin-top:0in' start=6 type=1>
+                  <li class=MsoNormal style='color:#333333;background:white;vertical-align:baseline'><span
+                      lang=EN-CA style='font-family:Roboto;color:black'>You shall not submit,
+                      upload, email, post or transmit to, or distribute or otherwise publish
+                      through the Service any material which: (i) disrupts the normal flow of
+                      dialogue and/or exchange within the Service, including posting or otherwise
+                      transmitting material that is not related to the subject at issue or
+                      otherwise restricts or inhibits any other user from using and enjoying the
+                      Service; (ii) is unlawful, threatening, abusive, libelous, defamatory,
+                      obscene, vulgar, offensive, harassing, hateful, sexually explicit, or
+                      indecent; (iii) constitutes or encourages conduct that would constitute a
+                      criminal offense, potentially give rise to civil liability, or otherwise
+                      violate the local, state, or national laws of any country; (iv) violates,
+                      plagiarizes, or infringes the rights of third parties; (v) contains a
+                      virus, worm, Trojan horse, or other harmful component; (vi) contains
+                      solicitations or advertisements of any kind; (vii) constitutes or contains
+                      false or misleading indication of origin or statement of fact; or (viii)
+                      contains chain letters or pyramid schemes.</span></li>
+                  </ol>
+
+                  <p class=MsoNormal style='background:white;vertical-align:baseline'><span
+                  lang=EN-CA style='font-family:Roboto;color:black'>&nbsp;</span></p>
+
+                  <p style='margin-left:.5in;text-indent:-.25in'>7.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  </span><b><span style='font-family:"Calibri",sans-serif'>Confidential
+                  Information</span></b><span style='font-family:"Calibri",sans-serif'>:
+                  Confidential information means any information disclosed to by one party to the
+                  other, either directly or indirectly in writing, orally or by inspection of tangible
+                  or intangible objects, including without limitation documents, business plans,
+                  source code, software, documentation, financial analysis, marketing plans,
+                  customer names, customer list, customer data. Confidential Information may also
+                  include information disclosed to a party by third parties at the direction of a
+                  Disclosing Party. Confidential Information shall not, however, include any
+                  information which the Receiving party can establish (i) was publicly known and
+                  made generally available in the public domain prior to the time of disclosure;
+                  (ii) becomes publicly known and made generally available after disclosure
+                  through no action or inaction of Receiving Party; or (iii) is in the possession
+                  of Receiving Party, without confidentiality restrictions, at the time of
+                  disclosure by the Disclosing Party as shown by Receiving Party's files and
+                  records immediately prior to the time of disclosure. The party disclosing the
+                  Confidential Information shall be referred to as &quot;Disclosing Party&quot;
+                  in the Agreement and the party receiving the Confidential Information shall be
+                  referred to as &quot;Receiving Party&quot; in the Agreement.</span></p>
+
+                  <p style='margin-left:.5in'><b><span style='font-family:"Calibri",sans-serif'>&nbsp;</span></b></p>
+
+                  <p style='margin-left:.5in;text-indent:-.25in'><span style='font-family:"Calibri",sans-serif'>8.<span
+                  style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b><span
+                  style='font-family:"Calibri",sans-serif'>Non-use and Non-disclosure</span></b><span
+                  style='font-family:"Calibri",sans-serif'>: The Receiving Party agrees not to
+                  use any Confidential Information for any purpose except to provide SEAL CRA and
+                  PANEL services and activities directly related to it. Receiving Party agrees
+                  not to disclose any Confidential Information to third parties or to its
+                  employees, except to those employees who are required to have the information
+                  in order to participate in SEAL program. The Receiving Party shall not reverse
+                  engineer, disassemble or decompile any prototypes, software or other tangible
+                  objects which embody the Disclosing Party's Confidential Information, and which
+                  are provided to the Receiving Party hereunder.</span></p>
+
+                  <p style='margin-left:.5in'><span style='font-family:"Calibri Light",sans-serif'>&nbsp;</span></p>
+
+                  <p style='margin-left:.5in;text-indent:-.25in'><span style='font-family:"Calibri Light",sans-serif'>9.<span
+                  style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+                  style='font-family:"Calibri Light",sans-serif'> <b>Required Disclosure: </b>The
+                  Receiving Party may disclose Confidential Information, so long as it provides
+                  as much advance notice as possible to the Disclosing Party (where permitted by
+                  law), if it is required to be disclosed by: (i) law, judicial or arbitration
+                  process, (i) a government entity with authority over the Receiving Partyor its
+                  affiliates, or (ji) a Bank Regulator or a public stock exchange.</span></p>
+
+                  <p class=MsoListParagraph><span lang=EN-CA style='font-family:Roboto;
+                  color:black'>&nbsp;</span></p>
+
+                  <p style='margin-left:.5in;text-indent:-.25in'><span style='font-family:"Calibri Light",sans-serif'>10.<span
+                  style='font:7.0pt "Times New Roman"'>&nbsp; </span></span><span
+                  style='font-family:Roboto;color:black'>The Service contains information about
+                  SEI, the Clients, and other third parties. While this information was believed
+                  to be accurate as of the date prepared, SEI disclaims any liability arising
+                  from its accuracy and any duty or obligation to update this information or any
+                  other content.</span></p>
+
+                  <p class=MsoListParagraph><span lang=EN-CA style='font-family:Roboto;
+                  color:black'>&nbsp;</span></p>
+
+                  <p style='margin-left:.5in;text-indent:-.25in'><span style='font-family:"Calibri Light",sans-serif'>11.<span
+                  style='font:7.0pt "Times New Roman"'>&nbsp; </span></span><span
+                  style='font-family:Roboto;color:black'>SEI makes no warranty, express or
+                  implied, with respect to the content, information, or services provided
+                  through, or in conjunction with, the Service. SEI makes no guarantee of the
+                  accuracy, correctness or completeness of any information in the Service, and
+                  shall not be responsible for: (i) any errors of omission arising from the use
+                  of such information; (ii) any failures, delays or interruptions in the delivery
+                  of any content or service provided by the Service; and (iii) any defamatory,
+                  libelous or unlawful material provided by the Service, including resumes,
+                  emails, profiles, opinions, advice, statements, memoranda or discussion board
+                  postings, or materials related to users' use of the Service. You acknowledge
+                  that any reliance upon any such opinion, advice, statement, memorandum, or
+                  information shall be at Your sole risk. SEI has the right, but not the
+                  obligation, to correct any errors or omissions in any portion of the Service.</span></p>
+
+                  <p class=MsoListParagraph><span lang=EN-CA style='font-family:Roboto;
+                  color:black'>&nbsp;</span></p>
+
+                  <p style='margin-left:.5in;text-indent:-.25in'><span style='font-family:"Calibri Light",sans-serif'>12.<span
+                  style='font:7.0pt "Times New Roman"'>&nbsp; </span></span><span
+                  style='font-family:Roboto;color:black'>SEI is not involved in nor is it a party
+                  to any transaction between any parties who use the Service. The Service is a
+                  venue only and SEI’s principal role is to connect Clients with law firms in the
+                  Network using information provided by Clients, You and other law firms, and SEI
+                  does not control and has no responsibility for the information provided by
+                  Clients, You and other law firms or the behavior of Clients, You and other law
+                  firms. SEI cannot control whether the Clients complete the transactions they request
+                  in the Service. You agree and acknowledge that SEI has no control over its
+                  Clients’ decision to conduct a transaction with You through the Service.
+                  Accordingly, You shall defend, indemnify and hold SEI harmless against any
+                  expense, liability, loss, damage or costs (including reasonable attorneys’
+                  fees), each to the extent payable to a third party, incurred in connection with
+                  claims, demands, suits, or proceedings (<b><span style='border:none windowtext 1.0pt;
+                  padding:0in'>Claims</span></b>) made or brought against SEI by a third party
+                  arising from or relating to (i) a dispute between You and Your customers
+                  arising from Your use of the Service to exchange information or conduct
+                  business with such customer and (ii) Your use of any products available on the
+                  Payment Platform. Your indemnity obligations are subject to the following: (i)
+                  SEI shall promptly notify You of any Claims; (ii) You shall have sole control
+                  of the defense and all related settlement negotiations with respect to any
+                  Claims (provided that You may not settle any Claim that requires SEI to admit
+                  any civil or criminal liability or incur any financial obligation without SEI’s
+                  consent, which consent shall not be unreasonably withheld); and (iii) SEI shall
+                  cooperate fully to the extent necessary at Your cost in such defense and
+                  settlement.</span></p>
+
+                  <p style='margin-left:.5in'><span style='font-family:"Calibri Light",sans-serif'>&nbsp;</span></p>
+
+                  <p style='margin-left:.5in'><span style='font-family:"Calibri Light",sans-serif'>&nbsp;</span></p>
+
+                  <p style='margin-left:.5in;text-indent:-.25in'><span style='font-family:"Calibri Light",sans-serif'>13.<span
+                  style='font:7.0pt "Times New Roman"'>&nbsp; </span></span><span
+                  style='font-family:Roboto;color:black'>YOU AGREE THAT YOUR USE OF THE SERVICE
+                  AND PARTICIPATION IN THE NETWORK AND PAYMENT PLATFORM ARE AT YOUR OWN RISK. THE
+                  SERVICE IS PROVIDED “AS IS” WITHOUT WARRANTY OF ANY KIND. IN NO EVENT SHALL SEI
+                  BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL OR CONSEQUENTIAL DAMAGES
+                  ARISING OUT OF OR IN ANY WAY CONNECTED WITH THE SERVICE AND/OR AND PAYMENT
+                  PLATFORM, OR FOR ANY INFORMATION, PRODUCTS, AND SERVICES OBTAINED THROUGH THE
+                  SERVICE OR THE PAYMENT PLATFORM FUNCTIONALITY, OR OTHERWISE ARISING OUT OF THE
+                  USE OF SAME, WHETHER BASED ON CONTRACT, TORT, STRICT LIABILITY OR OTHERWISE,
+                  EVEN IF SEI HAS BEEN ADVISED OF THE POSSIBILITY OF DAMAGES. ANY ADDITIONAL
+                  DISCLAIMERS APPEARING WITHIN THE SERVICE AND/OR PAYMENT PLATFORM FUNCTIONALITY
+                  ARE INCORPORATED IN THESE TERMS BY REFERENCE.</span></p>
+
+                  <p class=MsoListParagraph><span lang=EN-CA style='font-family:Roboto;
+                  color:black'>&nbsp;</span></p>
+
+                  <p style='margin-left:.5in;text-indent:-.25in'><span style='font-family:"Calibri Light",sans-serif'>14.<span
+                  style='font:7.0pt "Times New Roman"'>&nbsp; </span></span><span
+                  style='font-family:Roboto;color:black'>These Terms of Use shall be governed by
+                  the laws of the province of Ontario and the federal laws of Canada applicable
+                  in Ontario, without regard to the choice or conflicts of law provisions of any
+                  jurisdiction and without regard to the United Nations Convention on the
+                  International Sale of Goods or the Uniform Computer Information Transactions
+                  Act, and any disputes, actions, claims or causes of action arising out of or in
+                  connection with the Network or Service (<b><span style='border:none windowtext 1.0pt;
+                  padding:0in'>Dispute</span></b>) shall be subject to the exclusive jurisdiction
+                  of the provincial and federal courts located in Toronto, Ontario (and the
+                  parties consent to jurisdiction and venue in Toronto, Ontario). Any Dispute
+                  shall be finally settled by arbitration in Ontario, by one or more commercial
+                  arbitrator(s) with substantial experience in the industry and in resolving
+                  complex commercial contract disputes. Judgment upon the award so rendered may
+                  be entered in a court having jurisdiction or application may be made to such
+                  court for judicial acceptance of any award and an order of enforcement, as the
+                  case may be.&nbsp;</span></p>
+
+                  <p class=MsoListParagraph><span lang=EN-CA style='font-family:Roboto;
+                  color:black'>&nbsp;</span></p>
+
+                  <p style='margin-left:.5in;text-indent:-.25in'><span style='font-family:"Calibri Light",sans-serif'>15.<span
+                  style='font:7.0pt "Times New Roman"'>&nbsp; </span></span><span
+                  style='font-family:Roboto;color:black'>Notices under these Terms of Use shall
+                  be sufficient only if in writing and transmitted via email , with Read Receipt
+                  requested , to Secure Engage Inc.&nbsp;</span><a
+                  href="mailto:info@SecureEngage.com"><span style='font-family:Roboto'>info@SecureEngage.com</span></a></p>
+
+                  <p class=MsoListParagraph><span lang=EN-CA style='font-family:Roboto;
+                  color:black'>&nbsp;</span></p>
+
+                  <p style='margin-left:.5in;text-indent:-.25in'><span style='font-family:"Calibri Light",sans-serif'>16.<span
+                  style='font:7.0pt "Times New Roman"'>&nbsp; </span></span><span
+                  style='font-family:Roboto;color:black'>These Terms of Use contain the entire
+                  agreement between You and SEI with respect to the Network and Service. These
+                  Terms of Use supersede all prior or contemporaneous communications and
+                  proposals, whether electronic, oral or written, between You and SEI with
+                  respect to the Network and Service. Any rights not expressly granted in these
+                  Terms of Use are reserved.</span></p>
+
+                  <p class=MsoNormal style='margin-left:.5in;background:white;vertical-align:
+                  baseline'><span lang=EN-CA style='font-family:Roboto;color:#333333'>&nbsp;</span></p>
+
+                  <p class=MsoNormal><span lang=EN-CA>&nbsp;</span></p>
+
+                  </div>
+
+                  </body>
+
+                  </html>
+
+
+              </div>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+    </div>
+  </div>
+</div>
 	<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 </body>
 </html>

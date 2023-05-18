@@ -1,6 +1,6 @@
 class TwoFactorAuthenticationController < ApplicationController
 
-	layout false
+	layout 'login'
   skip_before_filter :verify_authenticity_token, :authenticate_2fa
 
   # after_action :track_google_auth

@@ -41,7 +41,7 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     Current.user = resource
-    current_user.send_two_fa if current_user.present?
+    # resource&.send_two_fa
     if Current.user&.role === "tenant_admin"
       Apartment::Tenant.switch!('public')
       tenant_admin_root_url(subdomain: 'panel')
