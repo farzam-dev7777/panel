@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20230517031053) do
+ActiveRecord::Schema.define(version: 20230518155642) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -920,6 +920,9 @@ ActiveRecord::Schema.define(version: 20230517031053) do
     t.string   "azure_client_id"
     t.string   "azure_client_secret"
     t.string   "azure_tenant_id"
+    t.string   "internal_lawyer"
+    t.string   "master_user"
+    t.string   "business_user"
   end
 
   create_table "third_party_vendors", force: :cascade do |t|
