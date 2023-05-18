@@ -2015,7 +2015,9 @@ $(document).on('change', '#lawfirm_tenants', function(){
     dataType: 'json',
     context: $(this),
     success: function(response) {
-      window.location.reload();
+      if (response?.url) {
+        window.location.replace(response?.url);
+      }
     },
     error: function() {
       alert("An error occurred!")
