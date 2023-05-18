@@ -31,12 +31,13 @@ class MatterIntakesController < BaseController
   end
 
   def new
-    @form_type = params[:form_type]
-    @matter_intake = MatterIntake.new
-    @invoices = @matter_intake.invoices.build
-    @invoice_attachments = @invoices.invoice_attachments.build
-    @new_form = true
-    @current_user = current_user
+    redirect_to root_url, alert: 'Access Denied'
+    # @form_type = params[:form_type]
+    # @matter_intake = MatterIntake.new
+    # @invoices = @matter_intake.invoices.build
+    # @invoice_attachments = @invoices.invoice_attachments.build
+    # @new_form = true
+    # @current_user = current_user
   end
 
   def edit
