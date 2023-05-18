@@ -3,7 +3,8 @@ require 'omniauth-okta'
 # Many of these configuration options can be set straight in your model.
 
 def fetch_subdomain(request)
-  tenant_subdomain = Rails.env.development? ? "cwb" : request.env["HTTP_HOST"].split(".").first
+  tenant_subdomain = request.env["HTTP_HOST"].split(".").first
+  tenant_subdomain.present? && !["panel", "seal"].include?(tenant_subdomain) ? tenant_subdomain : nil
 end
 
 def fetch_tenant(env)
@@ -14,7 +15,7 @@ end
 
 OmniAuth.config.full_host = lambda do |env|
   tenant = fetch_tenant(env)
-  return "http://localhost:3000" if Rails.env.development?
+  return "http://#{tenant.subdomain}.lvh.me:3000" if Rails.env.development?
   return "https://#{tenant.subdomain}.#{ENV['DOMAIN_NAME']}"
 end
 
@@ -306,19 +307,6 @@ Devise.setup do |config|
     provider_ignores_state: true
   })
 
-  config.omniauth(:okta,
-                  Rails.application.secrets[:okta][:client_id],
-                  Rails.application.secrets[:okta][:client_secret],
-                  scope: 'openid profile email',
-                  client_options: {
-                    site:          Rails.application.secrets[:okta][:site],
-                    authorize_url: "#{Rails.application.secrets[:okta][:site]}/oauth2/default/v1/authorize",
-                    token_url:     "#{Rails.application.secrets[:okta][:site]}/oauth2/default/v1/token",
-                    user_info_url: "#{Rails.application.secrets[:okta][:site]}/oauth2/default/v1/userinfo",
-                    issuer: "#{Rails.application.secrets[:okta][:site]}/oauth2/default",
-                  },
-                  strategy_class: OmniAuth::Strategies::Okta
-  )
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.

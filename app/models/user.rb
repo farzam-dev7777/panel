@@ -192,7 +192,7 @@ class User < ApplicationRecord
       "Authorization": "SSWS #{Tenant.current&.okta_api_token}"
     }
     begin
-      response = RestClient.get("#{Rails.application.secrets[:okta]['site']}/api/v1/users/#{auth['uid']}/groups", headers=headers)
+      response = RestClient.get("#{Tenant.current&.okta_site}/api/v1/users/#{auth['uid']}/groups", headers=headers)
       # response = RestClient.get("#{Rails.application.secrets[:okta]['site']}/api/v1/users/#{auth['uid']}", headers=headers)
       result = JSON.parse(response&.body) if response&.body.present?
 
