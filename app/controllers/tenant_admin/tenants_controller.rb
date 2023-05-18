@@ -80,7 +80,8 @@ class TenantAdmin::TenantsController < TenantAdmin::BaseController
     params.require(:tenant).permit(
       :name, :subdomain, :primary_color, :secondary_color, :logo, :login_bg_image,
       :okta_client_id, :okta_client_secret, :okta_site, :okta_api_token, :sso_type,
-      :azure_client_id, :azure_client_secret, :azure_tenant_id
+      :azure_client_id, :azure_client_secret, :azure_tenant_id, :internal_lawyer,
+      :master_user, :business_user
     )
   end
 

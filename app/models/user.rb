@@ -202,16 +202,6 @@ class User < ApplicationRecord
       if user_group.present?
         group_name = user_group.fetch('profile', {}).fetch('name', "")
         if group_name.present?
-          case group_name
-            when "Panel - Internal Lawyers"
-              role = "internal_lawyers"
-            when "Panel - Master User"
-              role = "lxp"
-            when "Panel - Business User"
-              role = "lob"
-            else
-              role = ""
-          end
           random_password = "#{SecureRandom.hex(18)}@A123"
           user = User.find_or_create_by(email: auth['info']['email']&.downcase) do |user|
             user.first_name = auth['info']['first_name']
@@ -222,7 +212,7 @@ class User < ApplicationRecord
             user.provider_group = group_name
             user.password = random_password
             user.password_confirmation = random_password
-            user.role = role
+            user.role = Tenant.current&.fetch_role(group_name)
             user.new_password_set = true
           end
           user.save
@@ -251,16 +241,6 @@ class User < ApplicationRecord
       if user_group.present?
         group_name = user_group.fetch('displayName', "")
         if group_name.present?
-          case group_name
-            when "Panel - Internal Lawyers"
-              role = "internal_lawyers"
-            when "Panel - Master User"
-              role = "lxp"
-            when "Panel - Business User"
-              role = "lob"
-            else
-              role = ""
-          end
           random_password = "#{SecureRandom.hex(18)}@A123"
           decoded_token = JWT.decode(auth['credentials']['token'], nil, false).first
           user = User.find_or_create_by(email: decoded_token['email']&.downcase) do |user|
@@ -272,7 +252,7 @@ class User < ApplicationRecord
             user.provider_group = group_name
             user.password = random_password
             user.password_confirmation = random_password
-            user.role = role
+            user.role = Tenant.current&.fetch_role(group_name)
             user.new_password_set = true
           end
           user.save

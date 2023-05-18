@@ -70,6 +70,18 @@
         <label class="label">Azure Client Secret</label>
         <%= f.input :azure_client_secret, label: false %>
       </div>
+      <div class="col-xs-12 col-md-6 azure_fields">
+        <label class="label">Internal Lawyer</label>
+        <%= f.input :internal_lawyer, label: false %>
+      </div>
+      <div class="col-xs-12 col-md-6 azure_fields">
+        <label class="label">Master User</label>
+        <%= f.input :master_user, label: false %>
+      </div>
+      <div class="col-xs-12 col-md-6 azure_fields">
+        <label class="label">Business User</label>
+        <%= f.input :business_user, label: false %>
+      </div>
 
       <div class="col-xs-12 col-md-12 mt-3">
         <%=link_to 'Cancel', tenant_admin_root_path, class: 'btn-type-default' %>
