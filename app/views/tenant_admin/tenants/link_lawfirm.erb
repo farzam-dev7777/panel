@@ -19,7 +19,7 @@
 
             <div class="col-xs-12 col-md-6">
               <label class="label">Law Firm <span class="mandatory">*</span></label>
-              <%= f.input :law_firm_id, label: false, required: true, as: :select, collection: [], input_html: { class: "law_firms_to_link_with_tenant" } %>
+              <%= f.input :law_firm_id, label: false, required: true, as: :select, collection: LawFirm.all, input_html: { class: "law_firms_to_link_with_tenant" } %>
             </div>
 
             <div class="col-xs-12 col-md-6">
