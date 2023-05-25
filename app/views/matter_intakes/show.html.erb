@@ -72,7 +72,7 @@
               <% if !@matter_intake.outside_counsel_engaged.blank? && @matter_intake.outside_counsel_engaged != 'N/A Internal – no law firm will be engaged' %>
                 <div class="col-xs-12 col-md-6">
                   <div class="field-label">Will this matter involve the following?</div>
-                  <div class="field-data"><%= @matter_intake.following_matter_involve %></div>
+                  <div class="field-data"><%= @matter_intake.following_matter_involve_to_s %></div>
                 </div>
               <% end %>
               <!--div class="col-xs-12 col-md-6">

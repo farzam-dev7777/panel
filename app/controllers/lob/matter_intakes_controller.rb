@@ -91,8 +91,8 @@ class Lob::MatterIntakesController < Lob::BaseController
       :is_otherwise_reportable, :is_syndicate_matter, :is_conceal_imanage_workspace, :is_paper_file, :who_requires_access_to_imanage_workspace,
       :jurisdiction, :firm_type, :name_of_panel_firm, :name_of_non_panel_firm, :type_of_price, :additional_comments_for_lrc_lawyer,
       :is_alternative_fee_arrangement, :afa_details, :additional_matter_contact, :other_matter_issues, :firm_type,
-      :lawyer_reviewed_at, :other_party, :following_matter_involve, :deal_code, :outside_counsel_engaged,
-      :receive_personal_information, :receive_general_business_data, :applicable_technical_specialty_data,
+      :lawyer_reviewed_at, :other_party, :deal_code, :outside_counsel_engaged, :receive_personal_information,
+      :receive_general_business_data, :applicable_technical_specialty_data, following_matter_involve: [],
       applicable_technical_specialty_data_type: [], receive_personal_information_data_type: [], receive_general_business_data_type: [],
       invoices_attributes: [:id, :matter_intake_id, :lawyer_name, :rate_type, :description, :hours, :amount, :_destroy, invoice_attachments_attributes: [:id, :file]]
     )
