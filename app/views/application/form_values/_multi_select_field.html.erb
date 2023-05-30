@@ -1,8 +1,8 @@
 <label class="control-label">
   <% if(!v.object.try(:form_field).try(:help_description).blank?) %>
-    <i class="fa fa-question-circle-o help-text" data-help="<%= v.object.try(:form_field).try(:help_description) %>"></i>
+    <i class="fa fa-question-circle-o help-text" data-help="<%= v.object.try(:form_field).try(:help_description).try(:html_safe) %>"></i>
   <% end %>
-  <%= field.label %>
+  <%= field.label.try(:html_safe) %>
   <p class="info"><em>Click to select or just type to add your own</em></p>
 </label>
 

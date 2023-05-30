@@ -1,8 +1,8 @@
 <div>
   <% if(!v.object.try(:form_field).try(:help_description).blank?) %>
-    <i class="fa fa-question-circle-o help-text" data-help="<%= v.object.try(:form_field).try(:help_description) %>"></i>
+    <i class="fa fa-question-circle-o help-text" data-help="<%= v.object.try(:form_field).try(:help_description).try(:html_safe) %>"></i>
   <% end %> 
-  <label><%= field.try(:label) %></label>
+  <label><%= field.try(:label).try(:html_safe) %></label>
   <%= v.input :value, as: :hidden, input_html: { class: 'repeater-field-value' } %>
 
   <div class="clearfix"></div>

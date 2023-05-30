@@ -17,9 +17,9 @@
 
 <div class="form-group <%= form_class %>">
   <% if(!v.object.try(:form_field).try(:help_description).blank?) %>
-    <i class="fa fa-question-circle-o help-text" data-help="<%= v.object.try(:form_field).try(:help_description) %>"></i>
+    <i class="fa fa-question-circle-o help-text" data-help="<%= v.object.try(:form_field).try(:help_description).try(:html_safe) %>"></i>
   <% end %>
-  <label class="<%= label_class %> control-label parent-f-sized-label"><%= field.label %></label>
+  <label class="<%= label_class %> control-label parent-f-sized-label"><%= field.try(:label).try(:html_safe) %></label>
   <% if v.object && v.object.form_field && v.object.form_field.type == 'Heading' %>
   <% else %>
     <%= v.input :value, {
@@ -39,7 +39,7 @@
 <!-- <label class="control-label">
 	<%= field.label %>
 	<% if(!v.object.try(:form_field).try(:help_description).blank?) %>
-    <i class="fa fa-question-circle-o help-text" data-help="<%= v.object.try(:form_field).try(:help_description) %>"></i>
+    <i class="fa fa-question-circle-o help-text" data-help="<%= v.object.try(:form_field).try(:help_description).try(:html_safe) %>"></i>
   <% end %>	
 </label>
 <%= v.input :value, {
