@@ -8,6 +8,7 @@ class MatterIntake < ApplicationRecord
   serialize :receive_personal_information_data_type, Array
   serialize :receive_general_business_data_type, Array
   serialize :applicable_technical_specialty_data_type, Array
+  serialize :following_matter_involve, Array
   has_many :reviews, as: :reviewable
   has_many :invoices
 
@@ -605,6 +606,14 @@ class MatterIntake < ApplicationRecord
       "Awaiting LXP Review"
     else
       self.try(:status).try(:titleize)
+    end
+  end
+
+  def following_matter_involve_to_s
+    if following_matter_involve.class.name == 'Array'
+      following_matter_involve.join(', ')
+    else
+      following_matter_involve
     end
   end
 
