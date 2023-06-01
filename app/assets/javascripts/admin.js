@@ -1855,27 +1855,27 @@ $('.tenant_id_lawfirm').on('change', function() {
 	setAvailableLawfirmsForTenantOptions(this.value)
 })
 
-function setAvailableLawfirmsForTenantOptions(tenantId) {
-	$.ajax({
-		url: `/tenant_admin/tenants/${tenantId}/available_law_firms`,
-		method: "get",
-	})
-		.success(( response ) => {
-			$('.law_firms_to_link_with_tenant').empty();
-			var options = "<option value=''> Select option</option>";
-			if (response.law_firms && response.law_firms.length > 0) {
-				$.each(response.law_firms, function(index, law_firm) {
-					options += "<option value='" + law_firm.id + "'>" + law_firm.name + "</option>";
-				})
-				$('.law_firms_to_link_with_tenant').html(options);
-				$(".law_firms_to_link_with_tenant").trigger("chosen:updated")
-			}
-		})
-		.error((error) => {
-			$('.law_firms_to_link_with_tenant').empty();
-			var options = "<option value=''> Select option</option>";
-		})
-}
+// function setAvailableLawfirmsForTenantOptions(tenantId) {
+// 	$.ajax({
+// 		url: `/tenant_admin/tenants/${tenantId}/available_law_firms`,
+// 		method: "get",
+// 	})
+// 		.success(( response ) => {
+// 			$('.law_firms_to_link_with_tenant').empty();
+// 			var options = "<option value=''> Select option</option>";
+// 			if (response.law_firms && response.law_firms.length > 0) {
+// 				$.each(response.law_firms, function(index, law_firm) {
+// 					options += "<option value='" + law_firm.id + "'>" + law_firm.name + "</option>";
+// 				})
+// 				$('.law_firms_to_link_with_tenant').html(options);
+// 				$(".law_firms_to_link_with_tenant").trigger("chosen:updated")
+// 			}
+// 		})
+// 		.error((error) => {
+// 			$('.law_firms_to_link_with_tenant').empty();
+// 			var options = "<option value=''> Select option</option>";
+// 		})
+// }
 
 $(document).ready(function() {
 	// general intake
