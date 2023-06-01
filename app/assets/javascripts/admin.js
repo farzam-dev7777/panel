@@ -1857,7 +1857,7 @@ $('.tenant_id_lawfirm').on('change', function() {
 
 function setAvailableLawfirmsForTenantOptions(tenantId) {
 	$.ajax({
-		url: `/tenant_admin/tenants/${tenantId}/available_law_firms`,
+		url: "/tenant_admin/tenants/" + tenantId + "/available_law_firms",
 		method: "get",
 	})
 		.success(( response ) => {
