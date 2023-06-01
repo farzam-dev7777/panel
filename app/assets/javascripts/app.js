@@ -2021,8 +2021,8 @@ $(document).on('change', '#lawfirm_tenants', function(){
     dataType: 'json',
     context: $(this),
     success: function(response) {
-      if (response?.url) {
-        window.location.replace(response?.url);
+      if (response && response.url) {
+        window.location.replace(response.url);
       }
     },
     error: function() {
