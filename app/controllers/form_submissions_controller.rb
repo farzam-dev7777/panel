@@ -105,6 +105,8 @@ class FormSubmissionsController < BaseController
   end
 
   def lawfirm_step
+    @law_firm = @form_submission.law_firm
+    @law_firm_tenant = @law_firm.law_firms_tenants.find_or_create_by(tenant_id: Tenant&.current&.id)
   end
 
 
@@ -350,27 +352,22 @@ private
       :sister_firm, 
       :initial_date_of_engagement_with_the_bank,
       :number_of_lawyers,
-      :secondary_rm_contact,
-      :secondary_rm_contact_email,
-      :billing_contact_name,
-      :billing_contact_email,
-      :information_security_contact,
-      :information_security_contact_email,
       :diverse,
       :value_add_activities,
       :feedback,
       :issues,
       :merger_combination,
-      :engagement_number,
-      :relationship_number,
-      :information_security_class,
-      :information_security_assessment_outcome,
-      :action_plan_findings,
-      :action_plan_status,
-      :bmo_relationship_partner_email,
-      :bmo_relationship_partner_name,
-      :bmo_relationship_partner_phone_number,
       :confidentiality_level_of_matters_that_are_handled,
+      law_firms_tenants_attributes:[
+        :id, :bmo_relationship_partner_name,
+        :bmo_relationship_partner_email, :bmo_relationship_partner_phone_number,
+        :secondary_rm_contact, :secondary_rm_contact_email,
+        :billing_contact_name, :billing_contact_email,
+        :engagement_number, :relationship_number,
+        :information_security_class, :information_security_assessment_outcome,
+        :action_plan_findings, :action_plan_status,
+        :information_security_contact, :information_security_contact_email
+      ],
       locations_attributes: [
         :id, :address1, :address2, :city, 
         :province, :postal_code, :country, :_destroy
