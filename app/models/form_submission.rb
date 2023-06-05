@@ -58,7 +58,7 @@ class FormSubmission < ApplicationRecord
     submission.status = 'sent'
     submission.save
 
-    LawFirmMailer.initial_submissions_generated(law_firm).deliver_now
+    # LawFirmMailer.initial_submissions_generated(law_firm).deliver_now
     log_activity('information_security_policy_request_initiated', true, submission, current_user) if submission.save
   end
 
