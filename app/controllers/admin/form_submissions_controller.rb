@@ -68,6 +68,8 @@ class Admin::FormSubmissionsController < Admin::BaseController
 
   def lawfirm_step
     update_scoring()
+    @law_firm = @form_submission.law_firm
+    @law_firm_tenant = @law_firm.law_firms_tenants.find_or_create_by(tenant_id: Tenant&.current&.id)
   end
 
   def resourcing_step
@@ -248,7 +250,9 @@ class Admin::FormSubmissionsController < Admin::BaseController
 
   def law_firm_update
     @law_firm = LawFirm.find(@form_submission.law_firm.id)
+
   	if @law_firm.update_attributes(law_firms_params)
+
       @law_firm.user.update_attributes(password: params[:law_firm][:password]) if (params[:law_firm][:password] && !params[:law_firm][:password].blank?  && params[:law_firm][:password].length >= 10)
        
   		redirect_to first_step_path, notice: "RFI Updated"
@@ -503,25 +507,20 @@ class Admin::FormSubmissionsController < Admin::BaseController
       :law_firm_type, :principle_name, :principle_title,
       :principle_contact_info, :parent_company, :sister_firm,
       :initial_date_of_engagement_with_the_bank,
-      :secondary_rm_contact,
-      :secondary_rm_contact_email,
-      :billing_contact_name,
-      :billing_contact_email,
-      :information_security_contact,
-      :information_security_contact_email,
       :diverse,
       :merger_combination,
-      :engagement_number,
-      :relationship_number,
-      :information_security_class,
-      :information_security_assessment_outcome,
-      :action_plan_findings,
-      :action_plan_status,
       :confidentiality_level_of_matters_that_are_handled,
       :number_of_lawyers, :law_firm_category, 
-      :bmo_relationship_partner_email,
-      :bmo_relationship_partner_name,
-      :bmo_relationship_partner_phone_number,
+      law_firms_tenants_attributes:[
+        :id, :bmo_relationship_partner_name,
+        :bmo_relationship_partner_email, :bmo_relationship_partner_phone_number,
+        :secondary_rm_contact, :secondary_rm_contact_email,
+        :billing_contact_name, :billing_contact_email,
+        :engagement_number, :relationship_number,
+        :information_security_class, :information_security_assessment_outcome,
+        :action_plan_findings, :action_plan_status,
+        :information_security_contact, :information_security_contact_email
+      ],
       locations_attributes: [
         :id, :address1, :address2,
         :city, :province, :postal_code,

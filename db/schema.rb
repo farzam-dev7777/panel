@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20230518155642) do
+ActiveRecord::Schema.define(version: 20230530164841) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -538,6 +538,21 @@ ActiveRecord::Schema.define(version: 20230518155642) do
     t.datetime "created_at",                               null: false
     t.datetime "updated_at",                               null: false
     t.datetime "initial_date_of_engagement_with_the_bank"
+    t.string   "bmo_relationship_partner_name"
+    t.string   "bmo_relationship_partner_email"
+    t.string   "bmo_relationship_partner_phone_number"
+    t.string   "secondary_rm_contact"
+    t.string   "secondary_rm_contact_email"
+    t.string   "billing_contact_name"
+    t.string   "billing_contact_email"
+    t.string   "engagement_number"
+    t.string   "relationship_number"
+    t.string   "information_security_class"
+    t.string   "information_security_assessment_outcome"
+    t.string   "action_plan_findings"
+    t.string   "action_plan_status"
+    t.string   "information_security_contact"
+    t.string   "information_security_contact_email"
   end
 
   create_table "locations", force: :cascade do |t|

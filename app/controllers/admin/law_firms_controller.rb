@@ -62,10 +62,12 @@ class Admin::LawFirmsController < Admin::BaseController
       @law_firm.log_activity('account_created', true, current_user)
       #@law_firm.user.send_reset_password_instructions
       begin
-        LawFirmsTenant.create(
-          law_firm_id: @law_firm&.id,
-          tenant_id: Tenant.current&.id || current_user&.tenant_id
-        )
+        if @law_firm.law_firms_tenants.find_by(tenant_id: Tenant&.current&.id).blank?
+          LawFirmsTenant.create(
+            law_firm_id: @law_firm&.id,
+            tenant_id: Tenant.current&.id || current_user&.tenant_id
+          )
+        end
       rescue => e
       end
   		redirect_to :admin_law_firms
@@ -89,12 +91,13 @@ class Admin::LawFirmsController < Admin::BaseController
 
   def new
   	@law_firm = LawFirm.new
-
+    @law_firm_tenant = @law_firm.law_firms_tenants.build(tenant_id: Tenant&.current&.id) 
     add_breadcrumb "Create Law Firm", :new_admin_law_firm_path 
   end
 
   def edit
   	@law_firm = LawFirm.find(params[:id])
+    @law_firm_tenant = @law_firm.law_firms_tenants.find_or_create_by(tenant_id: Tenant&.current&.id) 
     add_breadcrumb "#{@law_firm.name}", :admin_law_firm_path 
   end
 
@@ -273,25 +276,20 @@ class Admin::LawFirmsController < Admin::BaseController
       :law_firm_type, :principle_name, :principle_title,
       :principle_contact_info, :parent_company, :sister_firm,
       :initial_date_of_engagement_with_the_bank,
-      :secondary_rm_contact,
-      :secondary_rm_contact_email,
-      :billing_contact_name,
-      :billing_contact_email,
-      :information_security_contact,
-      :information_security_contact_email,
       :diverse,
       :merger_combination,
-      :engagement_number,
-      :relationship_number,
-      :information_security_class,
-      :information_security_assessment_outcome,
-      :action_plan_findings,
-      :action_plan_status,
       :confidentiality_level_of_matters_that_are_handled,
       :number_of_lawyers, :law_firm_category, 
-      :bmo_relationship_partner_email,
-      :bmo_relationship_partner_name,
-      :bmo_relationship_partner_phone_number,
+      law_firms_tenants_attributes:[
+        :id, :tenant_id, :bmo_relationship_partner_name,
+        :bmo_relationship_partner_email, :bmo_relationship_partner_phone_number,
+        :secondary_rm_contact, :secondary_rm_contact_email,
+        :billing_contact_name, :billing_contact_email,
+        :engagement_number, :relationship_number,
+        :information_security_class, :information_security_assessment_outcome,
+        :action_plan_findings, :action_plan_status,
+        :information_security_contact, :information_security_contact_email
+      ],
       locations_attributes: [
         :id, :address1, :address2,
         :city, :province, :postal_code,
