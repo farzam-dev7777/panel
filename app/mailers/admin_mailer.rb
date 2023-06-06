@@ -1,6 +1,6 @@
 class AdminMailer < ApplicationMailer
 
-  default from: "support@secureengage.com"
+  default from: email_address_with_name("support@secureengage.com", 'SEAL Support')
   
   ADMIN_EMAIL = 'support@secureengage.com'
 
