@@ -82,13 +82,13 @@
                 
                 <% if(last_step) %>
                   <% if(current_user.role == 'master_user') %>
-                    <a href="#" class="btn-type-primary finalize-submission" data-form_id=<%= params[:id] %>>
+                    <a href="#" class="btn-type-primary finalize-submission-lawfirm" data-form_id=<%= params[:id] %>>
                       Submit
                     </a>
                   <% end %>
                 <% elsif @form_submission.status == 'follow_up' %>
                   <% if(current_user.role == 'master_user') %>
-                    <a href="#" class="btn-type-primary finalize-submission" data-form_id=<%= params[:id] %>>
+                    <a href="#" class="btn-type-primary finalize-submission-lawfirm" data-form_id=<%= params[:id] %>>
                       Submit
                     </a>
                   <% end %>
