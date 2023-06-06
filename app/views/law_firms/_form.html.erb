@@ -5,6 +5,10 @@
   <div class="sp-form sp-form-bg">
     <%= simple_form_for current_law_firm do |f| %>
       <div class="row">
+        <div class="col-xs-12 col-md-6">
+          <label class="label">Name</label>
+          <%= f.input :name, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
+        </div>
         <%= f.simple_fields_for :law_firms_tenants, @law_firm_tenant do |field| %>
           <div class="col-xs-12 col-md-6">
             <label class="label">Internal Relationship Partner Name</label>

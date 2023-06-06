@@ -31,13 +31,16 @@ class MatterIntakesController < BaseController
   end
 
   def new
-    redirect_to root_url, alert: 'Access Denied'
-    # @form_type = params[:form_type]
-    # @matter_intake = MatterIntake.new
-    # @invoices = @matter_intake.invoices.build
-    # @invoice_attachments = @invoices.invoice_attachments.build
-    # @new_form = true
-    # @current_user = current_user
+    if current_user&.law_firm.current_law_firm_tenant&.allow_to_create_matters.present?
+      @form_type = params[:form_type]
+      @matter_intake = MatterIntake.new
+      @invoices = @matter_intake.invoices.build
+      @invoice_attachments = @invoices.invoice_attachments.build
+      @new_form = true
+      @current_user = current_user
+    else
+      redirect_to root_url, alert: 'Access Denied'
+    end
   end
 
   def edit
@@ -181,8 +184,8 @@ class MatterIntakesController < BaseController
       :breakdown_of_claim_amount, :court_name, :case_caption, :court_type, :docket_number, :comset_issues, :comset_ref,
       :mi_matter, :nature_of_events, :process_type_level_1, :process_type_level_2, :product_type_level_1, :product_type_level_2,
       :event_type_level_1, :event_type_level_2, :business_activity_level_1, :business_activity_level_2, :can_reimbursed_matter,
-      :branch, :outside_counsel_engaged, :deal_code, :email_notification_to_litigation_specialist_team,
-      :receive_personal_information, :receive_general_business_data, :applicable_technical_specialty_data, following_matter_involve: [],
+      :branch, :outside_counsel_engaged, :following_matter_involve, :deal_code, :email_notification_to_litigation_specialist_team,
+      :receive_personal_information, :receive_general_business_data, :applicable_technical_specialty_data,
       applicable_technical_specialty_data_type: [], receive_personal_information_data_type: [], receive_general_business_data_type: [],
       invoices_attributes: [:id, :date, :taxes, :matter_intake_id, :lawyer_name, :rate_type, :description, :hours, :amount, :_destroy, invoice_attachments_attributes: [:id, :file, :veryfi_response]]
     )

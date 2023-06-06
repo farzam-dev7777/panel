@@ -25,8 +25,8 @@ class ExceptionRequest < ApplicationRecord
   }
 
   LAW_FIRM_ALLOW_TO_CREATE_MATTERS = {
-    "YES": "Yes",
-    "NO": "No"
+    true: 'Yes',
+    false: 'No'
   }
 
   MATTER_TYPES = [

@@ -519,7 +519,8 @@ class Admin::FormSubmissionsController < Admin::BaseController
         :engagement_number, :relationship_number,
         :information_security_class, :information_security_assessment_outcome,
         :action_plan_findings, :action_plan_status,
-        :information_security_contact, :information_security_contact_email
+        :information_security_contact, :information_security_contact_email,
+        :allow_to_create_matters
       ],
       locations_attributes: [
         :id, :address1, :address2,
