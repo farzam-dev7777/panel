@@ -1,5 +1,5 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: email_address_with_name("support@secureengage.com", 'SEAL Support')
+  default from: "SEAL Support <support@secureengage.com>"
   layout 'mailer'
 
 end

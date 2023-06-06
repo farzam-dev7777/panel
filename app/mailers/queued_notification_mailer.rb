@@ -1,5 +1,5 @@
 class QueuedNotificationMailer < ApplicationMailer
-	default from: email_address_with_name("support@secureengage.com", 'SEAL Support')
+	default from: "SEAL Support <support@secureengage.com>"
 	layout 'mailer'
 
 	def notify_law_firm(queued_notification)

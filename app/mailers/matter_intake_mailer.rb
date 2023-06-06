@@ -1,5 +1,5 @@
 class MatterIntakeMailer < ApplicationMailer
-  default from: email_address_with_name("support@secureengage.com", 'SEAL Support')
+  default from: "SEAL Support <support@secureengage.com>"
   layout 'mailer'
 
   def send_notification_to_lawyer_for_form_submission(matter_intake)

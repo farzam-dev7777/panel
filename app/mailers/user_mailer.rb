@@ -1,5 +1,5 @@
 class UserMailer < ApplicationMailer
-  default from: email_address_with_name("support@secureengage.com", 'SEAL Support')
+  default from: "SEAL Support <support@secureengage.com>"
   layout 'mailer'
 
   def send_password_reset_link(user)

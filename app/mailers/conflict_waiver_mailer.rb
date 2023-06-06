@@ -1,5 +1,5 @@
 class ConflictWaiverMailer < ApplicationMailer
-	default from: email_address_with_name("support@secureengage.com", 'SEAL Support')
+	default from: "SEAL Support <support@secureengage.com>"
 	layout 'mailer'
 
   def form_submited_notification_to_lxp(conflict_waiver)
