@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   get '/auth/docusign/callback', to: 'dashboard#docusign_callback'
 
   namespace :tenant_admin do
-    resources :tenants, only: [:new, :create, :edit, :update, :show] do
+    resources :tenants do
       member do
         get :available_law_firms
       end
@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       end
     end
     resources :users
+    resources :law_firms
     
     root to: "tenant_dashboard#index"
   end

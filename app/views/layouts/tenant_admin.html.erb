@@ -74,6 +74,10 @@
 							<li class="<%= request.original_fullpath.include?('users') ? active_menu_item(request.original_fullpath) : active_menu_item('/tenant_admin/users/') %>">
                 <a href="/tenant_admin/users" title="Users"><i class="fa fa-users" aria-hidden="true"></i> <span class="menu-item-parent">Users</span></a>
               </li>
+
+							<li class="<%= request.original_fullpath.include?('law_firms') ? active_menu_item(request.original_fullpath) : active_menu_item('/tenant_admin/law_firms/') %>">
+                <a href="/tenant_admin/law_firms" title="Law Firms"><i class="fa fa-building" aria-hidden="true"></i> <span class="menu-item-parent">Law Firms</span></a>
+              </li>
               
               <li class="sp-menu-item-hidden">
                 <a href="/tenant_admin/users/sign_out" title="Sign Out" data-action="userLogout" data-logout-msg="You can improve your security further after logging out by closing this opened browser">
