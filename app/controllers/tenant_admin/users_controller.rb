@@ -39,6 +39,17 @@ class TenantAdmin::UsersController < TenantAdmin::BaseController
     end
   end
 
+  def destroy
+    @user = User.find_by(id: params[:id])
+    if @user.destroy
+      flash[:notice] = "User deleted successfully."
+      redirect_to tenant_admin_users_path
+    else
+      flash.now[:alert] = "There was an error deleting the user, errors: #{@user&.errors&.full_messages&.join(', ')}"
+      redirect_to edit_tenant_admin_user_path(@user)
+    end
+  end
+
   private
 
   def tenant_admin_user_params
