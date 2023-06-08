@@ -9,6 +9,7 @@ class Ability
       can :manage, Tenant
       can :manage, User
       can :manage, LawFirm
+      can :manage, LawFirmsTenant
     elsif user.role == 'admin'
       cannot :manage, SystemSetting
     elsif user.role == "lxp"  

@@ -96,31 +96,37 @@
                 <th>Relationship Partner Email</th>
                 <th>Location</th>
                 <th>Score</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
               <% @tenant_law_firms.each do |firm| %>
                 <tr class="law-firm-row" data-id="<%= firm.id %>">
                   <td>
-                    <% if firm.name.present? %>
+                    <% if firm&.law_firm&.name.present? %>
                       <div class="firm-name">
-                        <div class="name-avatar"><img src="<%= get_avatar_image(firm&.name&.gsub(" ", "+")) %>"></div>
-                        <div><%= firm.name %></div>
+                        <div class="name-avatar"><img src="<%= get_avatar_image(firm&.law_firm&.name&.gsub(" ", "+")) %>"></div>
+                        <div><%= firm&.law_firm&.name %></div>
                       </div>
                     <% end %>	
                   </td>
-                  <td><%= firm.try(:bmo_relationship_partner_name) %></td>
-                  <td><%= firm.try(:bmo_relationship_partner_email) %></td>
-                  <td><%= firm.locations.map{|location| [location.city, location.province, firm.country_name(location.country)].reject(&:nil?).join(',') }.join(", ").html_safe %></td>
+                  <td><%= firm&.law_firm&.bmo_relationship_partner_name%></td>
+                  <td><%= firm&.law_firm&.bmo_relationship_partner_email %></td>
+                  <td><%= firm&.law_firm&.locations.map{|location| [location.city, location.province, firm&.law_firm&.country_name(location.country)].reject(&:nil?).join(',') }.join(", ").html_safe %></td>
                   <td>
                     <div> 
                       <span class="percent txt-color-blue bold">
-                        <% if firm.form_submissions.try(:latest).try(:status) == 'approved' %>
+                        <% if firm&.law_firm&.form_submissions.try(:latest).try(:status) == 'approved' %>
                           <% score = firm.total_calculated_score(firm.form_submissions.try(:latest)) %>
-                          <div class="total-score" data-color="<%= firm.form_submissions.try(:latest).try(:color, score, 'total_calculated_score') %>" data-score=<%= score %>></div>
+                          <div class="total-score" data-color="<%= firm&.law_firm&.form_submissions.try(:latest).try(:color, score, 'total_calculated_score') %>" data-score=<%= score %>></div>
                         <% end %>
                       </span> 
                     </div>
+                  </td>
+                  <td>
+                    <% if can? :destroy, firm %>
+                      <%= link_to 'Delink', tenant_admin_law_firms_tenant_path(firm), method: :delete, class: "btn btn-xs btn-primary" %>
+                    <% end %>
                   </td>
                 </tr>
               <% end %>

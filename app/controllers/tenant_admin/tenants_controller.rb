@@ -5,8 +5,7 @@ class TenantAdmin::TenantsController < TenantAdmin::BaseController
 
   def show
     @tenant = Tenant.find_by(id: params[:id])
-    law_firm_ids = LawFirmsTenant.where(tenant_id: @tenant&.id)&.pluck(:id)
-    @tenant_law_firms = LawFirm.where(id: law_firm_ids)
+    @tenant_law_firms = LawFirmsTenant.where(tenant_id: @tenant&.id)
   end
 
   def new
