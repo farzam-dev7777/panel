@@ -12,7 +12,11 @@ Rails.application.routes.draw do
         post :create_law_firm_tenant
       end
     end
-    resources :users
+    resources :users do
+      member do
+        post :reset_password_instructions
+      end
+    end
     resources :law_firms
     resources :law_firms_tenants, only: [:destroy]
     

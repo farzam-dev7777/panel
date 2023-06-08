@@ -2509,4 +2509,14 @@ $('#matter_intake_status').chosen().change(function() {
 		 }
 		});
 
+	$('.tenant_user_role').on('click', function() {
+		var role = $(this).val();
+		if(role == 'master_user' || role == 'user'){
+			$('.tenant_law_firm').show();
+		}else{
+			$('#user_law_firm_id').val('').trigger('chosen:updated');
+			$('.tenant_law_firm').hide();
+		}
+	});
+
 });
