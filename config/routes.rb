@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     end
     resources :users
     resources :law_firms
+    resources :law_firms_tenants, only: [:destroy]
     
     root to: "tenant_dashboard#index"
   end
