@@ -50,11 +50,18 @@ class TenantAdmin::UsersController < TenantAdmin::BaseController
     end
   end
 
+  def reset_password_instructions
+    user = User.find_by(id: params[:id])
+    user.send_reset_password_instructions
+    flash[:notice] = "User Password Reset email sent successfully."
+    redirect_to tenant_admin_users_path
+  end
+
   private
 
   def tenant_admin_user_params
     params.require(:user).permit(
-      :first_name, :last_name, :username, :email, :password, :password_confirmation
+      :first_name, :last_name, :username, :email, :password, :password_confirmation, :law_firm_id, :role
     )
   end
 

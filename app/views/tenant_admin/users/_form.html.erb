@@ -46,10 +46,17 @@
         
         <div class="col-xs-12 col-md-6">
           <label class="label">Role<span class="mandatory">*</span></label>
-          <%= f.input :role, label: false, as: :radio_buttons, collection: [['LOB', 'lob'], ['LXP', 'lxp'], ['Tenant Admin', 'tenant_admin'], ['Master User(Law Firm)', 'master_user'], ['Internal Lawyer', 'internal_lawyers'], ['User(Law Firm)', 'user']] %>
+          <%= f.input :role, label: false, as: :radio_buttons, collection: [['LOB', 'lob'], ['LXP', 'lxp'], ['Tenant Admin', 'tenant_admin'], ['Master User(Law Firm)', 'master_user'], ['Internal Lawyer', 'internal_lawyers'], ['User(Law Firm)', 'user']], input_html: { class: 'tenant_user_role' } %>
         </div>
       <% end %>
-
+      <% if ['master_user', 'user'].include?(@user.role)%>
+        <div class="col-xs-12 col-md-6 tenant_law_firm">
+      <% else %>
+        <div class="col-xs-12 col-md-6 tenant_law_firm" style="display:none;">
+      <% end %>
+        <label class="label">LawFirm</label>
+        <%= f.input :law_firm_id, label: false, collection: LawFirm.pluck(:name, :id), required: false%>
+      </div>
       <div class="col-xs-12 col-md-12 mt-3">
         <%=link_to 'Cancel', tenant_admin_users_path, class: 'btn-type-default' %>
         <%= f.button :submit, @user.new_record? ? "Create" : "Update", class: "btn-type-primary" %>
