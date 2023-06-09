@@ -31,7 +31,7 @@ class MatterIntakesController < BaseController
   end
 
   def new
-    if current_user&.law_firm.current_law_firm_tenant&.allow_to_create_matters.present?
+    if current_user&.law_firm&.current_law_firm_tenant&.allow_to_create_matters.present?
       @form_type = params[:form_type]
       @matter_intake = MatterIntake.new
       @invoices = @matter_intake.invoices.build
