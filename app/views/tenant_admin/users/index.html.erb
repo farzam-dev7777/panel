@@ -30,7 +30,7 @@
                 <td><%= user&.username %></td>
                 <td><%= user&.email %></td>
                 <td><%= user&.created_at&.strftime('%d %b %Y at %I:%M %p') %></td>
-                <td><%= link_to "Reset Password", reset_password_instructions_tenant_admin_user_path(user), class: 'btn-type-default'%></td>
+                <td><%= link_to "Reset Password", reset_password_instructions_tenant_admin_user_path(user), method: :post, class: 'btn-type-default'%></td>
               </tr>
             <% end %>
           </tbody>
