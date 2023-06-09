@@ -112,7 +112,7 @@
                   </td>
                   <td><%= firm&.law_firm&.bmo_relationship_partner_name%></td>
                   <td><%= firm&.law_firm&.bmo_relationship_partner_email %></td>
-                  <td><%= firm&.law_firm&.locations.map{|location| [location.city, location.province, firm&.law_firm&.country_name(location.country)].reject(&:nil?).join(',') }.join(", ").html_safe %></td>
+                  <td><%= firm&.law_firm&.locations.map{|location| [location.city, location.province, firm&.law_firm&.country_name(location.country)].reject(&:nil?).join(',') }.join(", ").html_safe if firm&.law_firm&.locations.present? %></td>
                   <td>
                     <div> 
                       <span class="percent txt-color-blue bold">
