@@ -12,7 +12,7 @@ class Ability
       can :manage, LawFirmsTenant
     elsif user.role == 'admin'
       cannot :manage, SystemSetting
-    elsif user.role == "lxp"  
+    elsif user.role == "lxp"
       can :read, ConflictWaiver 
       can :read, ExceptionRequest
       cannot :manage, Tenant

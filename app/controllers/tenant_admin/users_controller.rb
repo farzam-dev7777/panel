@@ -1,6 +1,8 @@
 class TenantAdmin::UsersController < TenantAdmin::BaseController
   layout 'tenant_admin'
 
+  load_and_authorize_resource :user
+
   def index
     @q = User.ransack(params[:q])
     @users = @q.result.order('created_at DESC')
@@ -17,6 +19,7 @@ class TenantAdmin::UsersController < TenantAdmin::BaseController
   def create
     @user = User.new(tenant_admin_user_params)
     @user.role = "tenant_admin"
+    authorize! :create, @user
     if @user.save
       flash[:notice] = "User created successfully"
       redirect_to tenant_admin_users_path

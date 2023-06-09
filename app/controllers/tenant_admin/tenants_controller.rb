@@ -1,6 +1,8 @@
 class TenantAdmin::TenantsController < TenantAdmin::BaseController
   layout 'tenant_admin'
 
+  load_and_authorize_resource :tenant, except: [:create]
+
   def show
     @tenant = Tenant.find_by(id: params[:id])
     @tenant_law_firms = LawFirmsTenant.where(tenant_id: @tenant&.id)
@@ -12,6 +14,7 @@ class TenantAdmin::TenantsController < TenantAdmin::BaseController
 
   def create
     @tenant = Tenant.new(tenant_params)
+    authorize! :create, @tenant
     if @tenant.save
       flash[:notice] = "Tenant created successfully"
       redirect_to tenant_admin_root_path
