@@ -1,4 +1,5 @@
 class TenantAdmin::BaseController < ApplicationController
+  before_action :authenticate_user!, raise: false
   before_action :authenticate_tenant_admin!, raise: false
 
 	layout 'tenant_admin'
