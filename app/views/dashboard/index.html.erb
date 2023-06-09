@@ -5,7 +5,7 @@
       <div class="lawfirm-tenants-container">
         <% if Current.user.role === "master_user" || Current.user.role === "user" %>
           <select class="form-control" id="lawfirm_tenants">
-            <% current_law_firm.tenants.each do |t| %>
+            <% current_law_firm&.tenants&.each do |t| %>
               <option value='<%= t&.subdomain %>' <%= t&.id === Tenant&.current&.id ? 'selected' : '' %>><%= t&.name %></option>
             <% end %>
           </select>
