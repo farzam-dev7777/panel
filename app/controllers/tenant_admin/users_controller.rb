@@ -18,7 +18,6 @@ class TenantAdmin::UsersController < TenantAdmin::BaseController
 
   def create
     @user = User.new(tenant_admin_user_params)
-    @user.role = "tenant_admin"
     authorize! :create, @user
     if @user.save
       flash[:notice] = "User created successfully"
