@@ -1,10 +1,9 @@
 class TenantAdmin::UsersController < TenantAdmin::BaseController
   layout 'tenant_admin'
 
-  load_and_authorize_resource :user, except: [:create]
 
   def index
-    @q = User.ransack(params[:q])
+    @q = User.with_deactivated.ransack(params[:q])
     @users = @q.result.order('created_at DESC')
   end
 
@@ -13,7 +12,7 @@ class TenantAdmin::UsersController < TenantAdmin::BaseController
   end
 
   def edit
-    @user = User.find_by(id: params[:id])
+    @user = User.with_deactivated.find_by(id: params[:id])
   end
 
   def create
@@ -29,7 +28,7 @@ class TenantAdmin::UsersController < TenantAdmin::BaseController
   end
 
   def update
-    @user = User.find_by(id: params[:id])
+    @user = User.with_deactivated.find_by(id: params[:id])
     if @user.update(tenant_admin_user_params)
       flash[:notice] = "User updated successfully."
       redirect_to tenant_admin_users_path
@@ -40,7 +39,7 @@ class TenantAdmin::UsersController < TenantAdmin::BaseController
   end
 
   def destroy
-    @user = User.find_by(id: params[:id])
+    @user = User.with_deactivated.find_by(id: params[:id])
     if @user.destroy
       flash[:notice] = "User deleted successfully."
       redirect_to tenant_admin_users_path
@@ -51,9 +50,23 @@ class TenantAdmin::UsersController < TenantAdmin::BaseController
   end
 
   def reset_password_instructions
-    @resource = User.find_by(id: params[:id])
+    @resource = User.with_deactivated.find_by(id: params[:id])
     @resource.send_user_info_with_password
     flash[:notice] = "User Password Reset email sent successfully."
+    redirect_to tenant_admin_users_path
+  end
+
+  def activate
+    @resource = User.with_deactivated.find_by(id: params[:id])
+    @resource.activate!
+    flash[:notice] = "User activated successfully."
+    redirect_to tenant_admin_users_path
+  end
+
+  def deactivate
+    @resource = User.with_deactivated.find_by(id: params[:id])
+    @resource.deactivate!
+    flash[:notice] = "User deactivated successfully."
     redirect_to tenant_admin_users_path
   end
 

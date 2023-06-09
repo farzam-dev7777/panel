@@ -78,6 +78,10 @@ class User < ApplicationRecord
     self.update_attributes(deactivated_at: nil)
   end
 
+  def deactivate!
+    self.update_attributes(deactivated_at: Time.now)
+  end
+
   def send_two_fa
     self.two_fa_key = SecureRandom.hex(3).upcase
     self.two_fa_key_expires_at = Time.now + 60.seconds

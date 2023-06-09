@@ -15,6 +15,8 @@ Rails.application.routes.draw do
     resources :users do
       member do
         post :reset_password_instructions
+        post :activate
+        post :deactivate
       end
     end
     resources :law_firms
