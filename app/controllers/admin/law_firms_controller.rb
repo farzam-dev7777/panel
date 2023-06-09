@@ -60,7 +60,7 @@ class Admin::LawFirmsController < Admin::BaseController
     if @law_firm.save
       # Pass true as a 2nd arg if admin wants to send the activity as notification as well
       @law_firm.log_activity('account_created', true, current_user)
-      #@law_firm.user.send_reset_password_instructions
+      # @law_firm.user.send_user_info_with_password
       begin
         if @law_firm.law_firms_tenants.find_by(tenant_id: Tenant&.current&.id).blank?
           LawFirmsTenant.create(

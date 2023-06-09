@@ -52,7 +52,7 @@ class TenantAdmin::UsersController < TenantAdmin::BaseController
 
   def reset_password_instructions
     @resource = User.find_by(id: params[:id])
-    @resource.send_reset_password_instructions
+    @resource.send_user_info_with_password
     flash[:notice] = "User Password Reset email sent successfully."
     redirect_to tenant_admin_users_path
   end

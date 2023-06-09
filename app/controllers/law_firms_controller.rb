@@ -41,7 +41,7 @@ class LawFirmsController < BaseController
         user.set_google_secret
         # LawFirmMailer.invite_user(user, params[:temp_password], current_law_firm).deliver_now!
         @resource = user
-        @resource.send_reset_password_instructions
+        @resource.send_user_info_with_password
         flash[:notice] = "We've added a new user with username #{user.username}"
       else
         flash[:alert] = user.errors.full_messages.join(", ")
