@@ -44,11 +44,11 @@
           <%= f.input :username, label: false, autocomplete: "off", input_html: { disabled: true } %>
         </div>
         
-        <div class="col-xs-12 col-md-6">
-          <label class="label">Role<span class="mandatory">*</span></label>
-          <%= f.input :role, label: false, as: :radio_buttons, collection: [['LOB', 'lob'], ['LXP', 'lxp'], ['Tenant Admin', 'tenant_admin'], ['Master User(Law Firm)', 'master_user'], ['Internal Lawyer', 'internal_lawyers'], ['User(Law Firm)', 'user']], input_html: { class: 'tenant_user_role' } %>
-        </div>
       <% end %>
+      <div class="col-xs-12 col-md-6">
+        <label class="label">Role<span class="mandatory">*</span></label>
+        <%= f.input :role, label: false, as: :radio_buttons, collection: [['LOB', 'lob'], ['LXP', 'lxp'], ['Tenant Admin', 'tenant_admin'], ['Master User(Law Firm)', 'master_user'], ['Internal Lawyer', 'internal_lawyers'], ['User(Law Firm)', 'user']], input_html: { class: 'tenant_user_role' } %>
+      </div>
       <% if ['master_user', 'user'].include?(@user.role)%>
         <div class="col-xs-12 col-md-6 tenant_law_firm">
       <% else %>
