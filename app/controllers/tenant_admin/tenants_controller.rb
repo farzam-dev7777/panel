@@ -1,8 +1,6 @@
 class TenantAdmin::TenantsController < TenantAdmin::BaseController
   layout 'tenant_admin'
 
-  load_and_authorize_resource :class => "User"
-
   def show
     @tenant = Tenant.find_by(id: params[:id])
     @tenant_law_firms = LawFirmsTenant.where(tenant_id: @tenant&.id)

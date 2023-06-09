@@ -1,19 +1,17 @@
 class TenantAdmin::UsersController < TenantAdmin::BaseController
   layout 'tenant_admin'
 
-  load_and_authorize_resource :class => "User"
-
   def index
     @q = User.ransack(params[:q])
     @users = @q.result.order('created_at DESC')
   end
 
   def new
-    @users = User.new
+    @user = User.new
   end
 
   def edit
-    @users = User.find_by(id: params[:id])
+    @user = User.find_by(id: params[:id])
   end
 
   def create
