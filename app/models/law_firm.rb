@@ -49,9 +49,6 @@ class LawFirm < ApplicationRecord
 
   accepts_nested_attributes_for :law_firms_matter_types, allow_destroy: true
 
-  # dummy only for form display and demo
-  attr_accessor :allow_to_create_matters
-
   #after_create :generate_a_new_user 
   # acts_as_messageable
 
@@ -243,9 +240,13 @@ class LawFirm < ApplicationRecord
     end
   end
 
+  def current_law_firm_tenant
+    law_firms_tenants.find_by(tenant_id: Tenant&.current&.id)
+  end
+
   TENANT_ATTRIBUTES.each do |key|
     define_method "#{key}" do 
-      law_firms_tenants.find_by(tenant_id: Tenant&.current&.id)&.send(key)||self.read_attribute(key)
+      current_law_firm_tenant&.send(key)||self.read_attribute(key)
     end
   end
 end

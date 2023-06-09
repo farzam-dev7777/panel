@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20230530164841) do
+ActiveRecord::Schema.define(version: 20230606170338) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -553,6 +553,7 @@ ActiveRecord::Schema.define(version: 20230530164841) do
     t.string   "action_plan_status"
     t.string   "information_security_contact"
     t.string   "information_security_contact_email"
+    t.boolean  "allow_to_create_matters"
   end
 
   create_table "locations", force: :cascade do |t|

@@ -71,7 +71,7 @@
             <div class="col-xs-12 col-md-6">
               <label class="label">Allow to create matters</label>
               <!-- Dummy -->
-              <%= f.input :allow_to_create_matters, label: false, collection: ExceptionRequest::LAW_FIRM_ALLOW_TO_CREATE_MATTERS.map{ |k,v| [v,k]}, input_html: { autocomplete: 'off', class: 'text-left' }, prompt: 'Please select an option' , required: true %>
+              <%= field.input :allow_to_create_matters, label: false, collection: ExceptionRequest::LAW_FIRM_ALLOW_TO_CREATE_MATTERS.map{ |k,v| [v,k]}, input_html: { autocomplete: 'off', class: 'text-left' }, prompt: 'Please select an option' , required: true %>
             </div>
           </div>
         </div>
