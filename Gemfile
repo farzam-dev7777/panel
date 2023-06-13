@@ -22,7 +22,6 @@ gem 'rollbar'
 gem 'country_select'
 gem 'docusign_esign', '~> 3.4.0'
 gem 'omniauth-oauth2', '~> 1.6.0'
-gem 'omniauth-docusign'
 
 gem 'public_uid'
 gem 'mixpanel-ruby'
