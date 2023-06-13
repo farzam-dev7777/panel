@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  get '/auth/docusign/callback', to: 'dashboard#docusign_callback'
+  get '/users/auth/docusign/callback', to: 'dashboard#docusign_callback'
 
   namespace :tenant_admin do
     resources :tenants do
