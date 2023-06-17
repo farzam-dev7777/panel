@@ -414,9 +414,9 @@ class ExceptionRequest < ApplicationRecord
 
     text = DocuSign_eSign::Text.new
     text.document_id = '1'
-    text.page_number = '1'
-    text.x_position = '86'
-    text.y_position = '183'
+    text.page_number = '4'
+    text.x_position = '136'
+    text.y_position = '178'
     text.font = 'arial'
     text.font_size = 'size9'
     text.tab_label = '*lawfirmname'
