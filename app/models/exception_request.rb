@@ -405,11 +405,13 @@ class ExceptionRequest < ApplicationRecord
   end
 
   def get_document_tabs
-    ::DocusignClient.new.template_api.get_document_tabs(
-      Rails.application.secrets[:docusign]["account_id"],
-      "1",
-      Tenant.current&.retainer_template_id
-    )
+    Rails.cache.fetch("docusign_retainer_tabs", expires_in: 30.minutes) do
+      ::DocusignClient.new.template_api.get_document_tabs(
+        Rails.application.secrets[:docusign]["account_id"],
+        "1",
+        Tenant.current&.retainer_template_id
+      )
+    end
   end
   
   def make_envelope(args)
