@@ -100,6 +100,18 @@ class PanelRequest < ApplicationRecord
       results = envelope_api.create_envelope args[:account_id], envelope_definition
       envelope_id = results.envelope_id
 
+      values = {
+        "lawfirmname": self&.law_firm&.name
+      }
+  
+      document_tab = self.get_document_tabs()
+  
+      document_tab.prefill_tabs.text_tabs.each do |text_tab|
+        text_tab.value = values[text_tab.tab_label.to_sym] ? values[text_tab.tab_label.to_sym] : text_tab.value
+      end
+
+      DocusignClient.new.envelope_api.create_document_tabs(args[:account_id], "1", results.envelope_id, document_tab)
+
       self.docusign_envelope_id = envelope_id
       self.save
     rescue DocuSign_eSign::ApiError => e
@@ -184,12 +196,12 @@ class PanelRequest < ApplicationRecord
     end
   end
 
-  def get_document_text_tabs
+  def get_document_tabs
     DocusignClient.new.template_api.get_document_tabs(
       Rails.application.secrets[:docusign]["account_id"],
       "1",
       Tenant.current&.panel_retainer_template_id
-    )&.text_tabs
+    )
   end
   
   def make_envelope(args)
@@ -206,11 +218,11 @@ class PanelRequest < ApplicationRecord
             :roleName => 'signer'
     })
     # Create a lxp template role.
-    lxp = DocuSign_eSign::TemplateRole.new({
-            :email => args[:lob_email],
-            :name => args[:lob_name],
-            :roleName => 'lob'
-    })
+    # lob = DocuSign_eSign::TemplateRole.new({
+    #         :email => args[:lob_email],
+    #         :name => args[:lob_name],
+    #         :roleName => 'lob'
+    # })
 
     # text = DocuSign_eSign::Text.new
     # text.document_id = '1'
@@ -235,25 +247,14 @@ class PanelRequest < ApplicationRecord
     # signer.tabs = tabs
    
     # Add the TemplateRole objects to the envelope object
-
-    values = {
-      "lawfirmname": self&.law_firm&.name
-    }
-
-    text_tabs = self.get_document_text_tabs()
-
-    text_tabs.each do |text_tab|
-      text_tab.value = values[text_tab.tab_label.to_sym] ? values[text_tab.tab_label.to_sym] : text_tab.value
-    end
-
-    prefill_tabs = DocuSign_eSign::PrefillTabs.new
-    prefill_tabs.text_tabs = text_tabs
-    # tabs.sign_here_tabs = [sign_here]
-    signer.prefill_tabs = prefill_tabs
-    # lxp.tabs = tabs
+    # prefill_tabs = DocuSign_eSign::PrefillTabs.new
+    # prefill_tabs.text_tabs = text_tabs
+    # # tabs.sign_here_tabs = [sign_here]
+    # signer.prefill_tabs = prefill_tabs
+    # # lxp.tabs = tabs
 
     # Add the TemplateRole objects to the envelope object
-    envelope_definition.template_roles = [signer, lxp]
+    envelope_definition.template_roles = [signer]
     envelope_definition
   end
 

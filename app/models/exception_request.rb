@@ -425,14 +425,15 @@ class ExceptionRequest < ApplicationRecord
             :roleName => 'signer'
     })
     # Create a lxp template role.
-    lxp = DocuSign_eSign::TemplateRole.new({
-            :email => args[:lxp_email],
-            :name => args[:lxp_name],
-            :roleName => 'lxp'
-    })
+    # lxp = DocuSign_eSign::TemplateRole.new({
+    #         :email => args[:lxp_email],
+    #         :name => args[:lxp_name],
+    #         :roleName => 'lxp'
+    # })
 
     # Add the TemplateRole objects to the envelope object
-    envelope_definition.template_roles = [signer, lxp]
+    # envelope_definition.template_roles = [signer, lxp]
+    envelope_definition.template_roles = [signer]
     envelope_definition
   end
 
