@@ -96,7 +96,7 @@ class PanelRequest < ApplicationRecord
       envelope_definition = make_envelope(envelope_args)
       # 2. call Envelopes::create API method
       # Exceptions will be caught by the calling function
-      envelope_api = DocusignClient.new.envelope_api
+      envelope_api = ::DocusignClient.new.envelope_api
       results = envelope_api.create_envelope args[:account_id], envelope_definition
       envelope_id = results.envelope_id
 
@@ -110,7 +110,7 @@ class PanelRequest < ApplicationRecord
         text_tab.value = values[text_tab.tab_label.to_sym] ? values[text_tab.tab_label.to_sym] : text_tab.value
       end
 
-      DocusignClient.new.envelope_api.create_document_tabs(args[:account_id], "1", results.envelope_id, document_tab)
+      ::DocusignClient.new.envelope_api.create_document_tabs(args[:account_id], "1", results.envelope_id, document_tab)
 
       self.docusign_envelope_id = envelope_id
       self.save
@@ -197,7 +197,7 @@ class PanelRequest < ApplicationRecord
   end
 
   def get_document_tabs
-    DocusignClient.new.template_api.get_document_tabs(
+    ::DocusignClient.new.template_api.get_document_tabs(
       Rails.application.secrets[:docusign]["account_id"],
       "1",
       Tenant.current&.panel_retainer_template_id

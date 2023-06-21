@@ -1,3 +1,4 @@
+require 'docusign_client'
 class ExceptionRequest < ApplicationRecord
 
   #serialize :matter_types, Array
@@ -313,7 +314,7 @@ class ExceptionRequest < ApplicationRecord
         text_tab.value = values[text_tab.tab_label.to_sym] ? values[text_tab.tab_label.to_sym] : text_tab.value
       end
 
-      DocusignClient.new.envelope_api.create_document_tabs(args[:account_id], "1", results.envelope_id, document_tab)
+      ::DocusignClient.new.envelope_api.create_document_tabs(args[:account_id], "1", results.envelope_id, document_tab)
       envelope_id = results.envelope_id
       
       self.docusign_envelope_id = envelope_id
@@ -404,7 +405,7 @@ class ExceptionRequest < ApplicationRecord
   end
 
   def get_document_tabs
-    DocusignClient.new.template_api.get_document_tabs(
+    ::DocusignClient.new.template_api.get_document_tabs(
       Rails.application.secrets[:docusign]["account_id"],
       "1",
       Tenant.current&.retainer_template_id
