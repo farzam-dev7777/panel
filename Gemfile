@@ -20,7 +20,7 @@ gem 'wkhtmltopdf-binary'
 gem 'google-authenticator-rails', '~> 1.6.1'
 gem 'rollbar'
 gem 'country_select'
-gem 'docusign_esign', '~> 3.4.0'
+gem 'docusign_esign', '~> 3.24'
 gem 'omniauth-oauth2', '~> 1.6.0'
 
 gem 'public_uid'

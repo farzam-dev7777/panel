@@ -278,7 +278,7 @@ class ExceptionRequest < ApplicationRecord
   def send_retainer_for_esigning(signer_email, signer_name)
     args = {
       envelope_args: {
-        template_id: Rails.application.secrets[:docusign]["retainer_template_id"],
+        template_id: Tenant.current&.retainer_template_id,
         signer_email: signer_email,
         signer_name: signer_name
         # lxp_email: SystemSetting.fetch.lxp_email,
@@ -302,12 +302,24 @@ class ExceptionRequest < ApplicationRecord
       api_client.default_headers["Authorization"] = "Bearer #{args[:access_token]}"
       envelope_api = DocuSign_eSign::EnvelopesApi.new(api_client)
       results = envelope_api.create_envelope args[:account_id], envelope_definition
+
+      values = {
+        "lawfirmname": self&.law_firm&.name
+      }
+  
+      document_tab = self.get_document_tabs()
+  
+      document_tab.prefill_tabs.text_tabs.each do |text_tab|
+        text_tab.value = values[text_tab.tab_label.to_sym] ? values[text_tab.tab_label.to_sym] : text_tab.value
+      end
+
+      DocusignClient.new.envelope_api.create_document_tabs(args[:account_id], "1", results.envelope_id, document_tab)
       envelope_id = results.envelope_id
       
       self.docusign_envelope_id = envelope_id
       self.save
       
-      ExceptionRequestMailer.form_status_notification_to_lob_for_sign(self).deliver_now
+      # ExceptionRequestMailer.form_status_notification_to_lob_for_sign(self).deliver_now
     rescue DocuSign_eSign::ApiError => e
       error = JSON.parse e.response_body
       puts "##### Docusign Error #####"
@@ -342,6 +354,7 @@ class ExceptionRequest < ApplicationRecord
     doc_item = doc_item.envelope_documents[0]
     document_id = doc_item.name
   end
+
   def get_document_list
     begin
       configuration = DocuSign_eSign::Configuration.new
@@ -390,13 +403,19 @@ class ExceptionRequest < ApplicationRecord
     end
   end
 
-
+  def get_document_tabs
+    DocusignClient.new.template_api.get_document_tabs(
+      Rails.application.secrets[:docusign]["account_id"],
+      "1",
+      Tenant.current&.retainer_template_id
+    )
+  end
   
   def make_envelope(args)
     # create the envelope definition with the template_id
     envelope_definition = DocuSign_eSign::EnvelopeDefinition.new({
-          :status => 'sent',
-          :templateId => args[:template_id]
+      :status => 'sent',
+      :templateId => args[:template_id]
     })
     # Create the template role elements to connect the signer and lxp recipients
     # to the template
@@ -411,35 +430,6 @@ class ExceptionRequest < ApplicationRecord
             :name => args[:lxp_name],
             :roleName => 'lxp'
     })
-
-    text = DocuSign_eSign::Text.new
-    text.document_id = '1'
-    text.page_number = '4'
-    text.x_position = '136'
-    text.y_position = '178'
-    text.font = 'arial'
-    text.font_size = 'size9'
-    text.tab_label = '*lawfirmname'
-    text.height = '70'
-    text.width = '250'
-    text.locked = 'true'
-    text.bold = 'true'
-    text.value = self&.law_firm&.name
-    text.tab_id = 'name'
-    text.required = 'true'
-
-    sign_here = DocuSign_eSign::SignHere.new
-    sign_here.document_id = '1'
-    sign_here.page_number = '3'
-    sign_here.x_position = '109'
-    sign_here.y_position = '649'
-    sign_here.tab_label = '*signersignature'
-
-    tabs = DocuSign_eSign::Tabs.new
-    tabs.text_tabs = [text]
-    tabs.sign_here_tabs = [sign_here]
-    signer.tabs = tabs
-    lxp.tabs = tabs
 
     # Add the TemplateRole objects to the envelope object
     envelope_definition.template_roles = [signer, lxp]

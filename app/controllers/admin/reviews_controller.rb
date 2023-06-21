@@ -35,12 +35,12 @@ class Admin::ReviewsController < Admin::BaseController
           
           @exception_request = ExceptionRequest.find_by_id(params[:review][:reviewable_id])
           if current_user.role === 'lxp' && review_params[:status] == 'APPROVED'
-            # pay tyep
+            # pay type
             @exception_request.update_attributes(lxp_status: review_params[:status])
-            # @user = User.find_by_id(@exception_request.user_id)
-            # signer_email = @user.email
-            # signer_name =  @user.username
-            # @exception_request.send_retainer_for_esigning(signer_email, signer_name)
+            @user = User.find_by_id(@exception_request.user_id)
+            signer_email = @user.email
+            signer_name =  @user.username
+            @exception_request.send_retainer_for_esigning(signer_email, signer_name)
             # ExceptionRequestMailer.form_status_notification_to_lob_for_sign(@exception_request).deliver_now
           # elsif current_user.role === 'lxp' &&  review_params[:assigned_to_id].present?
           #   ExceptionRequestMailer.form_status_notification_to_internal_lawyer(@exception_request,params[:review][:assigned_to_id]).deliver_now
@@ -154,7 +154,7 @@ class Admin::ReviewsController < Admin::BaseController
           @panel_request = PanelRequest.find_by_id(params[:review][:reviewable_id])
           @panel_request.lxp_status = review_params[:status]
 
-          if current_user.role === 'lxp' &&  review_params[:status] == 'PANEL_RETAINER'
+          if current_user.role === 'lxp' && review_params[:status] == 'PANEL_RETAINER'
             @lob = User.find_by_id(@panel_request.user_id)
             lob_email = @lob.email
             lob_name =  @lob.username
@@ -172,6 +172,7 @@ class Admin::ReviewsController < Admin::BaseController
             @panel_request.send_retainer_for_esigning(lob_email, lob_name, user_email, user_name)
             if review_params[:status] == 'PANEL_RETAINER'
               @panel_request.status = 'PANEL_RETAINER'
+
               PanelRequestMailer.notification_for_retainer_to_law_firm(@panel_request).deliver_now
             else
               PanelRequestMailer.notification_for_retainer_to_lob(@panel_request).deliver_now
@@ -187,7 +188,7 @@ class Admin::ReviewsController < Admin::BaseController
             @panel_request.status = 'UN_ARCHIVED'
             @panel_request.archived_at = nil 
             PanelRequestMailer.notification_for_status_to_user(@panel_request).deliver_now  
-          elsif current_user.role === 'lxp' &&  review_params[:status] == 'LAW_FIRM_CREATED'
+          elsif current_user.role === 'lxp' && review_params[:status] == 'LAW_FIRM_CREATED'
             
             @panel_request.archived_at = nil  
             @user = User.new 
