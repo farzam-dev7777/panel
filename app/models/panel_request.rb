@@ -124,16 +124,18 @@ class PanelRequest < ApplicationRecord
   end
 
   def docusign_retainer_envelope
-    begin
-      configuration = DocuSign_eSign::Configuration.new
-      configuration.host = Rails.application.secrets[:docusign]["base_path"]
-      api_client = DocuSign_eSign::ApiClient.new configuration
-      api_client.default_headers["Authorization"] = "Bearer #{SystemSetting.fetch.docusign_access_token}"
-      envelopesApi = DocuSign_eSign::EnvelopesApi.new api_client
-      envelopesApi.get_envelope Rails.application.secrets[:docusign]["account_id"], self.docusign_envelope_id
-    rescue Exception => e
-      puts e
-      nil
+    Rails.cache.fetch("docusign_panel_retainer_#{self.docusign_envelope_id}", expires_in: 30.minutes) do
+      begin
+        configuration = DocuSign_eSign::Configuration.new
+        configuration.host = Rails.application.secrets[:docusign]["base_path"]
+        api_client = DocuSign_eSign::ApiClient.new configuration
+        api_client.default_headers["Authorization"] = "Bearer #{SystemSetting.fetch.docusign_access_token}"
+        envelopesApi = DocuSign_eSign::EnvelopesApi.new api_client
+        envelopesApi.get_envelope Rails.application.secrets[:docusign]["account_id"], self.docusign_envelope_id
+      rescue Exception => e
+        puts e
+        nil
+      end
     end
   end
 
