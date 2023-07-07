@@ -5,19 +5,25 @@
 	<title>Panel | 2 Factor Authentication</title>
 	<%= csrf_meta_tags %>
 	<%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-<style type="text/css">
-  .login-page{
-    background-image: url(<%= asset_path 'bg-photo.jpg' %>) !important;
-  }
-  .alert, .notice { display: none }
-</style>
+
+  <script type="text/javascript">
+    var myCallback = function(action, response) {
+      $('.sp-signin-btn').show();
+    };
+  </script>
+  <style type="text/css">
+    .login-page{
+      background-image: url(<%= asset_path 'bg-photo.jpg' %>) !important;
+    }
+    .alert, .notice { display: none }
+  </style>
 </head>
 
 <body>
 
 
 
-
+<% show_captcha = (cookies[:failure_count].present? && cookies[:failure_count].to_i > 3) %>
 <div class="remove-padding" id="main" role="main"><!-- old class login-page -->
   <!-- New SignIn page -->
   <div class="sign-in-page">
@@ -48,6 +54,7 @@
             <% end %>
           <% end %>
           <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {id: 'login-form', class: 'smart-form client-form'}) do |f| %>
+            <input type="hidden" value="<%= (cookies[:failure_count]||0)%>" name="failure_count" id="failure_count">
             <div class="alert alert-danger login-error"></div>
               <span class="signin-alert">
               <%- flash.each do |name, msg| -%>
@@ -68,10 +75,17 @@
             </div>
             <div class="sp-tc">
               <label class="checkbox" style="padding-left: 0px">
+                <% if show_captcha.present?%>
+                  <%= recaptcha_tags(action: 'login', callback: 'myCallback' ) %>
+                <% end %>
                 I agree to the <a href="#" data-toggle="modal" data-target="#tandcModal">Terms &amp; Conditions</a>
               </label>
             </div>
-            <div class="sp-signin-btn">
+            <% if show_captcha.blank?%>
+              <div class="sp-signin-btn">
+            <% else %>
+              <div class="sp-signin-btn" style="display:none">
+            <% end %>
               <%= f.submit "Login", class: 'btn-type-primary' %>  
             </div>
           <% end %>

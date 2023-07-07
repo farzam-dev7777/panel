@@ -383,6 +383,8 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.10.0)
       ffi (~> 1.0)
+    recaptcha (5.9.0)
+      json
     request_store (1.4.1)
       rack (>= 1.4)
     responders (2.4.1)
@@ -538,6 +540,7 @@ DEPENDENCIES
   rails-erd
   rails-jquery-ui-sortable
   ransack
+  recaptcha
   rest-client
   rollbar
   sass-rails (~> 5.0)
