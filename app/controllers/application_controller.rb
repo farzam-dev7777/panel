@@ -43,7 +43,7 @@ class ApplicationController < ActionController::Base
     Current.user = resource
     if Current.user&.role === "tenant_admin"
       Apartment::Tenant.switch!('public')
-      tenant_admin_root_url
+      tenant_admin_root_url(subdomain: 'panel')
     elsif Current.user&.role === "master_user"
       switch_to_master_user_tenant
       root_path
