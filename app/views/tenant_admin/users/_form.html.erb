@@ -41,7 +41,7 @@
 
         <div class="col-xs-12 col-md-6">
           <label class="label">Username<span class="mandatory">*</span></label>
-          <%= f.input :username, label: false, autocomplete: "off", input_html: { disabled: true } %>
+          <%= f.input :username, label: false, autocomplete: "off"%>
         </div>
         
       <% end %>
@@ -56,6 +56,15 @@
       <% end %>
         <label class="label">LawFirm</label>
         <%= f.input :law_firm_id, label: false, collection: LawFirm.pluck(:name, :id), required: false%>
+      </div>
+
+      <% if ['lob', 'lxp'].include?(@user.role)%>
+        <div class="col-xs-12 col-md-6 user_tenant">
+      <% else %>
+        <div class="col-xs-12 col-md-6 user_tenant" style="display:none;">
+      <% end %>
+        <label class="label">Tenant</label>
+        <%= f.input :tenant_id, label: false, collection: Tenant.pluck(:name, :id), required: false%>
       </div>
       <div class="col-xs-12 col-md-12 mt-3">
         <%=link_to 'Cancel', tenant_admin_users_path, class: 'btn-type-default' %>

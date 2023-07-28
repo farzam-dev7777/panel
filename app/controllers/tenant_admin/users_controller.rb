@@ -74,7 +74,7 @@ class TenantAdmin::UsersController < TenantAdmin::BaseController
 
   def tenant_admin_user_params
     params.require(:user).permit(
-      :first_name, :last_name, :username, :email, :password, :password_confirmation, :law_firm_id, :role
+      :first_name, :last_name, :username, :email, :password, :password_confirmation, :law_firm_id, :role, :tenant_id
     )
   end
 
