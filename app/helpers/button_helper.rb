@@ -8,17 +8,16 @@ module ButtonHelper
       # return "" if submissions.latest.status == "approved"
       if (submissions.latest.submitted)
         if submissions.latest.total_score && submissions.latest.status == 'approved'
-          gauge(submissions.latest)
+          link_to 'Approved', conflicts_step_form_submission_path(submissions.latest), html_options = {class: 'btn-type-primary dashboard-certificate-button'}  
         elsif(submissions.latest.status == 'decline')
-          link_to 'Submission Reviewed', '#', html_options = {class: 'btn-type-primary dashboard-certificate-button text-center', disabled: true}  
+          link_to 'Submission Reviewed', conflicts_step_form_submission_path(submissions.latest), html_options = {class: 'btn-type-primary dashboard-certificate-button text-center', disabled: true}  
         elsif submissions.latest.submitted
-          link_to 'Your submission is being reviewed', '#', html_options = {class: 'btn-type-primary dashboard-certificate-button text-center', disabled: true}  
+          link_to 'Your submission is being reviewed', conflicts_step_form_submission_path(submissions.latest), html_options = {class: 'btn-type-primary dashboard-certificate-button text-center', disabled: true}  
         elsif submissions.latest.status == 'started'
-          link_to 'Continue RFI Process', conflicts_step_form_submission_path(submissions.latest), html_options = {class: 'btn-type-primary dashboard-certificate-button'}  
-        
+          link_to 'Continue RFI Process', conflicts_step_form_submission_path(submissions.latest), html_options = {class: 'btn-type-primary dashboard-certificate-button'}
         end
       elsif(submissions.latest.status == 'decline')
-        link_to 'Submission Reviewed', '#', html_options = {class: 'btn-type-primary dashboard-certificate-button text-center', disabled: true}  
+        link_to 'Submission Reviewed', conflicts_step_form_submission_path(submissions.latest), html_options = {class: 'btn-type-primary dashboard-certificate-button text-center', disabled: true}  
       elsif(submissions.latest.status == 'sent')
         link_to 'Begin RFI Process', conflicts_step_form_submission_path(submissions.latest), html_options = {class: 'btn-type-primary dashboard-certificate-button'}
       elsif(submissions.latest.status == 'started')
@@ -34,7 +33,7 @@ module ButtonHelper
   def gauge(submission)
     status = submission.status.try(:humanize)
     if status == "Approved"
-      "<div class='btn-primary btn-certified'>Certified</div>".html_safe
+      "<div class='btn-primary btn-certified'>Approved</div>".html_safe
     else
       "
         <h3 class='firm-score-#{submission.status}'>

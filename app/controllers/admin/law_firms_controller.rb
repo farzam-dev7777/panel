@@ -57,22 +57,24 @@ class Admin::LawFirmsController < Admin::BaseController
 
   def create
     @law_firm = LawFirm.new(law_firms_params)
-  	if @law_firm.save
+    if @law_firm.save
       # Pass true as a 2nd arg if admin wants to send the activity as notification as well
       @law_firm.log_activity('account_created', true, current_user)
-      #@law_firm.user.send_reset_password_instructions
+      # @law_firm.user.send_user_info_with_password
       begin
-        LawFirmsTenant.create(
-          law_firm_id: @law_firm&.id,
-          tenant_id: Tenant.current&.id || current_user&.tenant_id
-        )
+        if @law_firm.law_firms_tenants.find_by(tenant_id: Tenant&.current&.id).blank?
+          LawFirmsTenant.create(
+            law_firm_id: @law_firm&.id,
+            tenant_id: Tenant.current&.id || current_user&.tenant_id
+          )
+        end
       rescue => e
       end
-  		redirect_to :admin_law_firms
-  	else
-  		flash.now[:alert] = @law_firm.errors.full_messages.join(',')
-  		render :new
-  	end
+      redirect_to :admin_law_firms
+    else
+      flash.now[:alert] = @law_firm.errors.full_messages.join(',')
+      render :new
+    end
   end
 
   def update
@@ -81,20 +83,21 @@ class Admin::LawFirmsController < Admin::BaseController
       @law_firm.user.update(password: params[:law_firm][:password]) if (params[:law_firm][:password] && !params[:law_firm][:password].blank?  && params[:law_firm][:password].length >= 10)
       flash[:notice] = "Law firm information updated"
       redirect_to admin_law_firm_path(@law_firm)
-  	else
-  		flash.now[:alert] = "There was an error updating the law firm"
-  		render :new
-  	end
+    else
+      flash.now[:alert] = "There was an error updating the law firm"
+      render :new
+    end
   end
 
   def new
-  	@law_firm = LawFirm.new
-
+    @law_firm = LawFirm.new
+    @law_firm_tenant = @law_firm.law_firms_tenants.build(tenant_id: Tenant&.current&.id) 
     add_breadcrumb "Create Law Firm", :new_admin_law_firm_path 
   end
 
   def edit
-  	@law_firm = LawFirm.find(params[:id])
+    @law_firm = LawFirm.find(params[:id])
+    @law_firm_tenant = @law_firm.law_firms_tenants.find_or_create_by(tenant_id: Tenant&.current&.id) 
     add_breadcrumb "#{@law_firm.name}", :admin_law_firm_path 
   end
 
@@ -266,32 +269,28 @@ class Admin::LawFirmsController < Admin::BaseController
   private
 
   def law_firms_params
-  	params.require(:law_firm).permit(
+    params.require(:law_firm).permit(
       :name, :description, :email, :phone, :temp_password,
       :temp_password_confirmation, :relationship_manager_email,
       :relationship_manager_name, :relationship_manager_phone,
       :law_firm_type, :principle_name, :principle_title,
       :principle_contact_info, :parent_company, :sister_firm,
       :initial_date_of_engagement_with_the_bank,
-      :secondary_rm_contact,
-      :secondary_rm_contact_email,
-      :billing_contact_name,
-      :billing_contact_email,
-      :information_security_contact,
-      :information_security_contact_email,
       :diverse,
       :merger_combination,
-      :engagement_number,
-      :relationship_number,
-      :information_security_class,
-      :information_security_assessment_outcome,
-      :action_plan_findings,
-      :action_plan_status,
       :confidentiality_level_of_matters_that_are_handled,
-      :number_of_lawyers, :law_firm_category, 
-      :bmo_relationship_partner_email,
-      :bmo_relationship_partner_name,
-      :bmo_relationship_partner_phone_number,
+      :number_of_lawyers, :law_firm_category,
+      law_firms_tenants_attributes:[
+        :id, :tenant_id, :bmo_relationship_partner_name,
+        :bmo_relationship_partner_email, :bmo_relationship_partner_phone_number,
+        :secondary_rm_contact, :secondary_rm_contact_email,
+        :billing_contact_name, :billing_contact_email,
+        :engagement_number, :relationship_number,
+        :information_security_class, :information_security_assessment_outcome,
+        :action_plan_findings, :action_plan_status,
+        :information_security_contact, :information_security_contact_email,
+        :allow_to_create_matters
+      ],
       locations_attributes: [
         :id, :address1, :address2,
         :city, :province, :postal_code,

@@ -1,0 +1,17 @@
+<div class="sp-form sp-form-bg">
+  <%= simple_form_for [:tenant_admin, @law_firm] do |f| %>
+    <div class="row form-flex-wrap">
+      <div class="col-xs-12 col-md-6">
+        <label class="label">Name<span class="mandatory">*</span></label>
+        <%= f.input :name, label: false, required: true %>
+      </div>
+
+      <div class="col-xs-12 col-md-12 mt-3">
+        <%= link_to 'Cancel', tenant_admin_law_firms_path, class: 'btn-type-default' %>
+        <%= f.button :submit, @law_firm.new_record? ? "Create" : "Update", class: "btn-type-primary" %>
+        <%= link_to "Delete Law Firm", tenant_admin_law_firm_path(@law_firm), method: :delete, class: "btn-type-danger", data: { confirm: 'Are you certain you want to delete this?' } unless @law_firm.new_record? %>
+      </div>
+      
+    </div>
+  <% end %>
+</div>

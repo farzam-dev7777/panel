@@ -135,7 +135,7 @@
       </div>
       <div class="col-xs-12 col-md-6 internal-matter">
         <label  class="label">Will this matter involve the following?<span class="mandatory">*</span></label>
-        <%= f.input :following_matter_involve,  label: false, collection: MatterIntake::MatterInvolveFollowing %>
+        <%= f.input :following_matter_involve,  label: false, collection: MatterIntake::MatterInvolveFollowing, input_html: { multiple: true } %>
       </div>
       <!--div class="col-xs-12 col-md-6">
         <label  class="label">How will this matter be paid?<span class="mandatory">*</span></label>
@@ -159,11 +159,11 @@
       </div>
       <div class="col-xs-12 col-md-6 panel_firm internal-matter" style="display: none;">
         <label class="label">Name of Panel Firm<span class="mandatory">*</span></label>
-        <%= f.input :name_of_panel_firm, label: false, collection: LawFirm.where(law_firm_category: "PANEL").map{ |lf| [lf.name, lf.name] } %>
+        <%= f.input :name_of_panel_firm, label: false, collection: Tenant.current.law_firms.where(law_firm_category: "PANEL").map{ |lf| [lf.name, lf.name] } %>
       </div>
       <div class="col-xs-12 col-md-6 non_panel_firm internal-matter" style="display: none;">
         <label class="label">Name of Non-Panel Firm<span class="mandatory">*</span></label>
-        <%= f.input :name_of_non_panel_firm, label: false, collection: LawFirm.where(law_firm_category: "NON_PANEL").map{ |lf| [lf.name, lf.name] } %>
+        <%= f.input :name_of_non_panel_firm, label: false, collection: Tenant.current.law_firms.where(law_firm_category: "NON_PANEL").map{ |lf| [lf.name, lf.name] } %>
       </div>
       <div class="col-xs-12 col-md-6 internal-matter">
         <label class="label">Type of Pricing<span class="mandatory">*</span></label>

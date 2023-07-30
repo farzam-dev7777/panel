@@ -1,10 +1,12 @@
 class MatterIntakeMailer < ApplicationMailer
-  default from: "support@secureengage.com"
+  default from: "SEAL Support <support@secureengage.com>"
   layout 'mailer'
 
   def send_notification_to_lawyer_for_form_submission(matter_intake)
     @matter_intake = matter_intake
-    mail(to: @matter_intake.lawyer.email, subject: "New matter intake form has been submitted")
+    to_email = [@matter_intake.lawyer.email]
+    to_email << @matter_intake.reviewer_email if @matter_intake.reviewer_email.present?
+    mail(to: to_email, subject: "New matter intake form has been submitted")
   end
 
   def send_notification_to_lxp_for_form_submission(matter_intake)
@@ -43,5 +45,4 @@ class MatterIntakeMailer < ApplicationMailer
       mail(to: @matter_intake.lawyer.email, subject: "Matter intake form needs an update")
     end
   end
-
 end

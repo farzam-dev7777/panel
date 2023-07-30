@@ -63,9 +63,6 @@ class PanelRequest < ApplicationRecord
   validates_presence_of :submitted_by_email, :line_of_business, :law_frim_name, :law_firm_contact_name, :law_firm_mail, :law_firm_role, :law_firm_phone, :firm_use_on_regular_basis
   #, :women_owned, :niche_preferred_external_counsel_panel_law_firms, :matter_types, :required_unique_geography, :involved_engagement, :women_owned, :law_frim_name, :law_firm_contact_name, :law_firm_mail, :law_firm_role, :law_firm_phone, :firm_use_on_regular_basis
 
-  def self.ransackable_attributes(auth_object = nil)
-    ["archived_at", "business_manager_email", "business_manager_name", "business_manager_phone", "created_at", "docusign_envelope_id", "firm_use_on_regular_basis", "geographic_location", "id", "involved_engagement", "law_firm_category", "law_firm_contact_name", "law_firm_id", "law_firm_mail", "law_firm_name", "law_firm_phone", "law_firm_role", "law_frim_name", "line_of_business", "lob_contact_name", "lxp_id", "lxp_status", "matter_name", "matter_types", "minority_owned", "minority_owned_details", "niche_expertise", "niche_preferred_external_counsel_panel_law_firms", "notes", "reason_other", "request_type", "requested_by", "required_unique_geography", "status", "submitted_by_email", "updated_at", "user_id", "women_owned", "women_owned_details"]
-  end
 
   def matter_types
     JSON.parse(self.read_attribute(:matter_types) || '[]').reject(&:blank?)
@@ -83,14 +80,14 @@ class PanelRequest < ApplicationRecord
   def send_retainer_for_esigning(lob_email, lob_name, user_email, user_name)
     args = {
       envelope_args: {
-        template_id: Rails.application.secrets[:docusign][:retainer_template_id_panel],
+        template_id: Tenant.current&.panel_retainer_template_id,
         signer_email: user_email,
         signer_name: user_name,
         lob_email: lob_email,
         lob_name: lob_name
       },
-      base_path: Rails.application.secrets[:docusign][:base_path],
-      account_id: Rails.application.secrets[:docusign][:account_id],
+      base_path: Rails.application.secrets[:docusign]["base_path"],
+      account_id: Rails.application.secrets[:docusign]["account_id"],
       access_token: SystemSetting.fetch.docusign_access_token
     }
     begin
@@ -99,14 +96,22 @@ class PanelRequest < ApplicationRecord
       envelope_definition = make_envelope(envelope_args)
       # 2. call Envelopes::create API method
       # Exceptions will be caught by the calling function
-      configuration = DocuSign_eSign::Configuration.new
-      configuration.host = args[:base_path]
-      api_client = DocuSign_eSign::ApiClient.new configuration
-      api_client.default_headers["Authorization"] = "Bearer #{args[:access_token]}"
-      envelope_api = DocuSign_eSign::EnvelopesApi.new(api_client)
+      envelope_api = ::DocusignClient.new.envelope_api
       results = envelope_api.create_envelope args[:account_id], envelope_definition
       envelope_id = results.envelope_id
-      
+
+      values = {
+        "lawfirmname": self&.law_firm&.name
+      }
+  
+      document_tab = self.get_document_tabs()
+  
+      document_tab.prefill_tabs.text_tabs.each do |text_tab|
+        text_tab.value = values[text_tab.tab_label.to_sym] ? values[text_tab.tab_label.to_sym] : text_tab.value
+      end
+
+      ::DocusignClient.new.envelope_api.create_document_tabs(args[:account_id], "1", results.envelope_id, document_tab)
+
       self.docusign_envelope_id = envelope_id
       self.save
     rescue DocuSign_eSign::ApiError => e
@@ -119,26 +124,28 @@ class PanelRequest < ApplicationRecord
   end
 
   def docusign_retainer_envelope
-    begin
-      configuration = DocuSign_eSign::Configuration.new
-      configuration.host = Rails.application.secrets[:docusign][:base_path]
-      api_client = DocuSign_eSign::ApiClient.new configuration
-      api_client.default_headers["Authorization"] = "Bearer #{SystemSetting.fetch.docusign_access_token}"
-      envelopesApi = DocuSign_eSign::EnvelopesApi.new api_client
-      envelopesApi.get_envelope Rails.application.secrets[:docusign][:account_id], self.docusign_envelope_id
-    rescue Exception => e
-      puts e
-      nil
+    Rails.cache.fetch("docusign_panel_retainer_#{self.docusign_envelope_id}", expires_in: 30.minutes) do
+      begin
+        configuration = DocuSign_eSign::Configuration.new
+        configuration.host = Rails.application.secrets[:docusign]["base_path"]
+        api_client = DocuSign_eSign::ApiClient.new configuration
+        api_client.default_headers["Authorization"] = "Bearer #{SystemSetting.fetch.docusign_access_token}"
+        envelopesApi = DocuSign_eSign::EnvelopesApi.new api_client
+        envelopesApi.get_envelope Rails.application.secrets[:docusign]["account_id"], self.docusign_envelope_id
+      rescue Exception => e
+        puts e
+        nil
+      end
     end
   end
 
   def get_document_name
     configuration = DocuSign_eSign::Configuration.new
-    configuration.host = Rails.application.secrets[:docusign][:base_path]
+    configuration.host = Rails.application.secrets[:docusign]["base_path"]
     api_client = DocuSign_eSign::ApiClient.new configuration
     api_client.default_headers["Authorization"] = "Bearer #{SystemSetting.fetch.docusign_access_token}"
     envelopesApi = DocuSign_eSign::EnvelopesApi.new api_client
-    doc_item = envelopesApi.list_documents Rails.application.secrets[:docusign][:account_id], self.docusign_envelope_id
+    doc_item = envelopesApi.list_documents Rails.application.secrets[:docusign]["account_id"], self.docusign_envelope_id
 
     doc_item = doc_item.envelope_documents[0]
     document_id = doc_item.name
@@ -146,16 +153,16 @@ class PanelRequest < ApplicationRecord
   def get_document_list
     begin
       configuration = DocuSign_eSign::Configuration.new
-      configuration.host = Rails.application.secrets[:docusign][:base_path]
+      configuration.host = Rails.application.secrets[:docusign]["base_path"]
       api_client = DocuSign_eSign::ApiClient.new configuration
       api_client.default_headers["Authorization"] = "Bearer #{SystemSetting.fetch.docusign_access_token}"
       envelopesApi = DocuSign_eSign::EnvelopesApi.new api_client
-      doc_item = envelopesApi.list_documents Rails.application.secrets[:docusign][:account_id], self.docusign_envelope_id
+      doc_item = envelopesApi.list_documents Rails.application.secrets[:docusign]["account_id"], self.docusign_envelope_id
 
       doc_item = doc_item.envelope_documents[0]
       document_id = doc_item.document_id
       
-      temp_file = envelopesApi.get_document Rails.application.secrets[:docusign][:account_id], document_id, self.docusign_envelope_id
+      temp_file = envelopesApi.get_document Rails.application.secrets[:docusign]["account_id"], document_id, self.docusign_envelope_id
       # find the matching document information item
       # doc_item = doc_item.find { |item| item['document_id'] == document_id }
 
@@ -191,7 +198,15 @@ class PanelRequest < ApplicationRecord
     end
   end
 
-
+  def get_document_tabs
+    Rails.cache.fetch("docusign_panel_retainer_tabs", expires_in: 30.minutes) do
+      ::DocusignClient.new.template_api.get_document_tabs(
+        Rails.application.secrets[:docusign]["account_id"],
+        "1",
+        Tenant.current&.panel_retainer_template_id
+      )
+    end
+  end
   
   def make_envelope(args)
     # create the envelope definition with the template_id
@@ -207,11 +222,11 @@ class PanelRequest < ApplicationRecord
             :roleName => 'signer'
     })
     # Create a lxp template role.
-    lxp = DocuSign_eSign::TemplateRole.new({
-            :email => args[:lob_email],
-            :name => args[:lob_name],
-            :roleName => 'lob'
-    })
+    # lob = DocuSign_eSign::TemplateRole.new({
+    #         :email => args[:lob_email],
+    #         :name => args[:lob_name],
+    #         :roleName => 'lob'
+    # })
 
     # text = DocuSign_eSign::Text.new
     # text.document_id = '1'
@@ -236,9 +251,15 @@ class PanelRequest < ApplicationRecord
     # signer.tabs = tabs
    
     # Add the TemplateRole objects to the envelope object
-    envelope_definition.template_roles = [signer, lxp]
+    # prefill_tabs = DocuSign_eSign::PrefillTabs.new
+    # prefill_tabs.text_tabs = text_tabs
+    # # tabs.sign_here_tabs = [sign_here]
+    # signer.prefill_tabs = prefill_tabs
+    # # lxp.tabs = tabs
+
+    # Add the TemplateRole objects to the envelope object
+    envelope_definition.template_roles = [signer]
     envelope_definition
   end
 
 end
-

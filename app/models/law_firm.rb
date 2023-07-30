@@ -45,16 +45,14 @@ class LawFirm < ApplicationRecord
   accepts_nested_attributes_for :issues, allow_destroy: true
   accepts_nested_attributes_for :jurisdictions, allow_destroy: true
   accepts_nested_attributes_for :users, allow_destroy: true
+  accepts_nested_attributes_for :law_firms_tenants, allow_destroy: true
 
   accepts_nested_attributes_for :law_firms_matter_types, allow_destroy: true
-
-  # dummy only for form display and demo
-  attr_accessor :allow_to_create_matters
 
   #after_create :generate_a_new_user 
   # acts_as_messageable
 
-  validates_presence_of :name, :firm_use_on_regular_basis
+  # validates_presence_of :name, :firm_use_on_regular_basis
 
   before_create :set_law_firm_email_to_user_email
 
@@ -86,6 +84,11 @@ class LawFirm < ApplicationRecord
   SYSTEM_SCORE_WEIGHTAGE = 0.4
   RESPONSIVENESS_SCORE_WEIGHTAGE = 0.4
   ASSESSOR_SCORE_WEIGHTAGE = 0.2
+  TENANT_ATTRIBUTES = ['bmo_relationship_partner_name', 'bmo_relationship_partner_email','bmo_relationship_partner_phone_number','secondary_rm_contact',
+                        'secondary_rm_contact_email','billing_contact_name','billing_contact_email','engagement_number','relationship_number',
+                        'information_security_class','information_security_assessment_outcome','action_plan_findings','action_plan_status',
+                        'information_security_contact','information_security_contact_email'
+                      ]
 
   attr_accessor :temp_password, :temp_password_confirmation
 
@@ -242,6 +245,16 @@ class LawFirm < ApplicationRecord
       self.matter_types.map(&:matter_type).join(",")
     else
       "No Matter Selected"
+    end
+  end
+
+  def current_law_firm_tenant
+    law_firms_tenants.find_by(tenant_id: Tenant&.current&.id)
+  end
+
+  TENANT_ATTRIBUTES.each do |key|
+    define_method "#{key}" do 
+      current_law_firm_tenant&.send(key)||self.read_attribute(key)
     end
   end
 end

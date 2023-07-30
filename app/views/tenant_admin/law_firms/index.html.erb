@@ -1,0 +1,37 @@
+<div class="col-lg-12">
+  <div class="jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false"> 
+    <div class="page-header-sp m-top">
+      <div class="page-title">Users</div>
+      <div class="back-edit-actions">
+        <div class="action-buttons-alignment">
+          <!-- <a class="action-btn export-icon" href="<%= new_tenant_admin_user_path %>" data-toggle="tooltip" data-placement="top" title="Add new Tanant Admin">
+            <span class="blue-text">Add new Law Firm</span> <%= image_tag "add.svg", alt: "Add new Tenant Admin" %>
+          </a>-->
+        </div>
+      </div>
+    </div>
+    <div class="">
+      <!-- widget content -->
+      <div class="table-dyanmic-search table-responsive">
+        <table id="dt_basic" class="table table-decoration table-bordered" width="100%">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Created At</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @law_firms.each do |law_firm| %>
+              <tr onClick="window.location.href='/tenant_admin/law_firms/<%= law_firm.id %>/edit'">
+                <td><%= law_firm&.name %></td>
+                <td><%= law_firm.created_at.strftime('%d %b %Y at %I:%M %p') %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <!-- end widget content -->
+      
+    </div>
+  </div>
+</div>

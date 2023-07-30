@@ -5,7 +5,7 @@
       <div class="lawfirm-tenants-container">
         <% if Current.user.role === "master_user" || Current.user.role === "user" %>
           <select class="form-control" id="lawfirm_tenants">
-            <% current_law_firm.tenants.each do |t| %>
+            <% current_law_firm&.tenants&.each do |t| %>
               <option value='<%= t&.subdomain %>' <%= t&.id === Tenant&.current&.id ? 'selected' : '' %>><%= t&.name %></option>
             <% end %>
           </select>
@@ -19,6 +19,12 @@
       <!--<b><%= link_to 'Request a Conflict Waiver', new_conflict_waiver_path, html_options = {class: 'btn-type-primary'}   %></b></p>-->
     </div>
   </div>
+</div>
+<div class="row">
+  <%= render "matter_intake" %>
+</div>
+<div class="row">
+  <%= render "invoice" %>
 </div>
 <div class="row">
   <div class="col-xs-12 col-md-12">
@@ -417,6 +423,7 @@
     </div>
   </div>
 </div>
+
 <!-- END #MAIN PANEL -->
 <!-- Modal -->
 <div id="securityAlert" class="modal fade" role="dialog">

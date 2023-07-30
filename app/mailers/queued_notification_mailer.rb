@@ -1,4 +1,6 @@
 class QueuedNotificationMailer < ApplicationMailer
+	default from: "SEAL Support <support@secureengage.com>"
+	layout 'mailer'
 
 	def notify_law_firm(queued_notification)
 		@queued_notification = queued_notification

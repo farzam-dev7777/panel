@@ -35,19 +35,19 @@ class Admin::ReviewsController < Admin::BaseController
           
           @exception_request = ExceptionRequest.find_by_id(params[:review][:reviewable_id])
           if current_user.role === 'lxp' && review_params[:status] == 'APPROVED'
-            # pay tyep
-            @exception_request.update( review_params[:status])
-            # @user = User.find_by_id(@exception_request.user_id)
-            # signer_email = @user.email
-            # signer_name =  @user.username
-            # @exception_request.send_retainer_for_esigning(signer_email, signer_name)
+            # pay type
+            @exception_request.update_attributes(lxp_status: review_params[:status])
+            @user = User.find_by_id(@exception_request.user_id)
+            signer_email = @user.email
+            signer_name =  @user.username
+            @exception_request.send_retainer_for_esigning(signer_email, signer_name)
             # ExceptionRequestMailer.form_status_notification_to_lob_for_sign(@exception_request).deliver_now
           # elsif current_user.role === 'lxp' &&  review_params[:assigned_to_id].present?
           #   ExceptionRequestMailer.form_status_notification_to_internal_lawyer(@exception_request,params[:review][:assigned_to_id]).deliver_now
           elsif current_user.role === 'lxp' && review_params[:status] == 'SEND_RETAINER_AGREEMENT'
-            @exception_request.update( review_params[:status])
+            @exception_request.update_attributes(lxp_status: review_params[:status])
           elsif current_user.role === 'internal_lawyers' && review_params[:status] == 'APPROVED'
-            @exception_request.update( "REVIEWED_BY_LAWYER")
+            @exception_request.update_attributes(lxp_status: "REVIEWED_BY_LAWYER")
             ExceptionRequestMailer.form_status_notification_to_lxp(@exception_request).deliver_now
           elsif current_user.role === 'lxp' &&  review_params[:status] == 'LAW_FIRM_CREATED'  
             @user = User.new 
@@ -66,8 +66,8 @@ class Admin::ReviewsController < Admin::BaseController
               @law_firm.email = @exception_request.law_firm_email
               @law_firm.phone = @exception_request.law_firm_phone
               @law_firm.save
-              @exception_request.update( "APPROVED")
-              @exception_request.update(law_firm_id: @law_firm.id)
+              @exception_request.update_attributes(lxp_status: "APPROVED")
+              @exception_request.update_attributes(law_firm_id: @law_firm.id)
               @user.law_firm_id =  @law_firm.id
               @user.save
               @exception_request.lxp_status = 'LAW_FIRM_CREATED'
@@ -106,8 +106,8 @@ class Admin::ReviewsController < Admin::BaseController
               @law_firm.email = @exception_request.law_firm_email
               @law_firm.phone = @exception_request.law_firm_phone
               @law_firm.save
-              @exception_request.update(lxp_status: "APPROVED")
-              @exception_request.update(law_firm_id: @law_firm.id)
+              @exception_request.update_attributes(lxp_status: "APPROVED")
+              @exception_request.update_attributes(law_firm_id: @law_firm.id)
               @user.law_firm_id =  @law_firm.id
               @user.save
               begin
@@ -132,18 +132,18 @@ class Admin::ReviewsController < Admin::BaseController
           elsif current_user.role === 'lxp' &&  review_params[:status] == 'ASSIGN_LAW_FIRM'    
             @review.status = 'ASSIGN_LAW_FIRM'
             @review.save
-            @exception_request.update(lxp_status: "APPROVED")
-            @exception_request.update(law_firm_id: review_params[:law_firm_id])
+            @exception_request.update_attributes(lxp_status: "APPROVED")
+            @exception_request.update_attributes(law_firm_id: review_params[:law_firm_id])
             @exception_request.save
           elsif current_user.role === 'lxp' &&  review_params[:status] == 'ASSIGN_LAW_FIRM_ASSIGN_LAWYER'    
             @review.status = 'ASSIGN_LAW_FIRM_ASSIGN_LAWYER'
             @review.save
             ExceptionRequestMailer.form_status_notification_to_internal_lawyer(@exception_request,params[:review][:assigned_to_id]).deliver_now
-            @exception_request.update(law_firm_id: review_params[:law_firm_id])
+            @exception_request.update_attributes(law_firm_id: review_params[:law_firm_id])
             @exception_request.save
           else
             if current_user.role === 'internal_lawyers'
-              @exception_request.update(lxp_status: "REVIEWED_BY_LAWYER")
+              @exception_request.update_attributes(lxp_status: "REVIEWED_BY_LAWYER")
               ExceptionRequestMailer.form_status_notification_to_lxp(@exception_request).deliver_now
               ExceptionRequestMailer.form_status_notification_to_lob(@exception_request).deliver_now
             else
@@ -154,7 +154,7 @@ class Admin::ReviewsController < Admin::BaseController
           @panel_request = PanelRequest.find_by_id(params[:review][:reviewable_id])
           @panel_request.lxp_status = review_params[:status]
 
-          if current_user.role === 'lxp' &&  review_params[:status] == 'PANEL_RETAINER'
+          if current_user.role === 'lxp' && review_params[:status] == 'PANEL_RETAINER'
             @lob = User.find_by_id(@panel_request.user_id)
             lob_email = @lob.email
             lob_name =  @lob.username
@@ -172,6 +172,7 @@ class Admin::ReviewsController < Admin::BaseController
             @panel_request.send_retainer_for_esigning(lob_email, lob_name, user_email, user_name)
             if review_params[:status] == 'PANEL_RETAINER'
               @panel_request.status = 'PANEL_RETAINER'
+
               PanelRequestMailer.notification_for_retainer_to_law_firm(@panel_request).deliver_now
             else
               PanelRequestMailer.notification_for_retainer_to_lob(@panel_request).deliver_now
@@ -187,7 +188,7 @@ class Admin::ReviewsController < Admin::BaseController
             @panel_request.status = 'UN_ARCHIVED'
             @panel_request.archived_at = nil 
             PanelRequestMailer.notification_for_status_to_user(@panel_request).deliver_now  
-          elsif current_user.role === 'lxp' &&  review_params[:status] == 'LAW_FIRM_CREATED'
+          elsif current_user.role === 'lxp' && review_params[:status] == 'LAW_FIRM_CREATED'
             
             @panel_request.archived_at = nil  
             @user = User.new 
@@ -207,7 +208,7 @@ class Admin::ReviewsController < Admin::BaseController
               @law_firm.email = @panel_request.law_firm_mail
               @law_firm.phone = @panel_request.law_firm_phone
               @law_firm.save
-              @panel_request.update(law_firm_id: @law_firm.id)
+              @panel_request.update_attributes(law_firm_id: @law_firm.id)
               @user.law_firm_id =  @law_firm.id
               @user.save
               @panel_request.status = 'LAW_FIRM_CREATED'
@@ -246,34 +247,33 @@ class Admin::ReviewsController < Admin::BaseController
         elsif params[:review][:reviewable_type] == "MatterIntake"  
           @matter_intake = MatterIntake.find_by(id: params[:review][:reviewable_id])
           if current_user.role === "lxp"
-            if @matter_intake.update(lxp_reviewed_at: Time.now, status: 'awaiting_lawyer_update', lxp_id: current_user.id)
+            if @matter_intake.update_attributes(lxp_reviewed_at: Time.now, status: 'awaiting_lawyer_update', lxp_id: current_user.id)
              #@matter_intake.add_log_for_lxp_rejects_and_returns_to_lawyer(current_user)
               @matter_intake.send_notification_to_lawyer_form_needs_updation
             end
           end
         else
-          
           @conflict_waiver = ConflictWaiver.find_by_id(params[:review][:reviewable_id])
           if current_user.role === 'lxp' && ( review_params[:status] == 'ASSIGN_TO_LAWYER' && review_params[:assigned_to_id].present?)
-            @conflict_waiver.update(assigned_to_id: review_params[:assigned_to_id])
+            @conflict_waiver.update_attributes(assigned_to_id: review_params[:assigned_to_id])
             ConflictWaiverMailer.form_status_notification_to_internal_lawyer(@conflict_waiver,params[:review][:assigned_to_id]).deliver_now
             #ConflictWaiverMailer.form_status_approved_notification_to_law_firm_by_lxp(@conflict_waiver).deliver_now 
           elsif current_user.role === 'internal_lawyers' && review_params[:status] == 'APPROVED'
-            @conflict_waiver.update(lxp_status: review_params[:status])
+            @conflict_waiver.update_attributes(lxp_status: review_params[:status])
             ConflictWaiverMailer.form_status_notification_to_lxp_by_internal_lawyers(@conflict_waiver).deliver_now 
             ConflictWaiverMailer.form_status_notification_to_user(@conflict_waiver).deliver_now
           elsif current_user.role === 'internal_lawyers' && review_params[:status] == 'REQUEST_INFO'
-            @conflict_waiver.update(lxp_status: review_params[:status])
+            @conflict_waiver.update_attributes(lxp_status: review_params[:status])
             ConflictWaiverMailer.form_status_notification_to_lxp_for_info_internal_lawyers(@conflict_waiver).deliver_now 
           else
            if current_user.role === 'lxp' &&  review_params[:status] == 'ALREADY_COVERED'
-            @conflict_waiver.update(retainer_cover: params[:review][:retainer_cover])
+            @conflict_waiver.update_attributes(retainer_cover: params[:review][:retainer_cover])
             ConflictWaiverMailer.form_status_notification_to_user(@conflict_waiver).deliver_now
            elsif current_user.role === 'lxp' && (review_params[:status] === 'APPROVED' ||  review_params[:status] === 'REQUEST_INFO' || review_params[:status] === 'IN_REVIEW_LXP' || review_params[:status] === 'REJECTED')
               ConflictWaiverMailer.form_status_notification_to_user(@conflict_waiver).deliver_now 
-              @conflict_waiver.update(lxp_status: review_params[:status])
+              @conflict_waiver.update_attributes(lxp_status: review_params[:status])
            elsif current_user.role === 'internal_lawyers' &&  review_params[:status] == 'REJECTED'
-            @conflict_waiver.update(lxp_status: review_params[:status])
+            @conflict_waiver.update_attributes(lxp_status: review_params[:status])
             ConflictWaiverMailer.form_status_notification_to_user(@conflict_waiver).deliver_now
             ConflictWaiverMailer.form_status_notification_to_lxp_by_internal_lawyers(@conflict_waiver).deliver_now 
            else
@@ -283,16 +283,16 @@ class Admin::ReviewsController < Admin::BaseController
         end
 
         if params[:review][:reviewable_type] == "ExceptionRequest" && current_user.role === 'internal_lawyers'
-          @exception_request.update( "reviewed_by_lawyer")
+          @exception_request.update_attributes(lxp_status: "reviewed_by_lawyer")
           redirect_to admin_root_path
         elsif params[:review][:reviewable_type] == "ExceptionRequest" && current_user.role === 'lxp'
           redirect_to admin_root_path
         elsif params[:review][:reviewable_type] == "MatterIntake" && current_user.role === 'lxp'
           redirect_to admin_matter_intakes_path  
         elsif params[:review][:reviewable_type] == "PanelRequest" && current_user.role === 'lxp'
-          redirect_back_or_to(:admin_reviews_url)
+          redirect_to :back  
         else  
-          redirect_back_or_to(:admin_reviews_url, notice: "Review Added")
+          redirect_to :back, notice: "Review Added"
         end
 
 

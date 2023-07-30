@@ -31,6 +31,7 @@ class User < ApplicationRecord
 
 
   before_create :send_password_reset_link_email
+  before_save :lowercase_username
   
   validates_presence_of  :email, :role
   validates_presence_of :password, if: :need_password_validation?
@@ -41,8 +42,8 @@ class User < ApplicationRecord
       :case_sensitive => false
     }
 
-  def self.ransackable_attributes(auth_object = nil)
-    ["created_at", "current_sign_in_at", "current_sign_in_ip", "deactivated_at", "email", "encrypted_password", "first_name", "google_secret", "id", "last_name", "last_sign_in_at", "last_sign_in_ip", "law_firm_id", "line_of_business", "lob_contact_name", "new_password_set", "otp_secret_key", "provider", "provider_group", "provider_uid", "qr_code_confirmed_at", "remember_created_at", "reset_password_sent_at", "reset_password_token", "role", "sign_in_count", "status", "two_fa_key", "two_fa_key_expires_at", "updated_at", "username"]
+  def lowercase_username
+    self.username = self&.username&.downcase
   end
 
   def full_name
@@ -74,7 +75,11 @@ class User < ApplicationRecord
   end
 
   def activate!
-    self.update(deactivated_at: nil)
+    self.update_attributes(deactivated_at: nil)
+  end
+
+  def deactivate!
+    self.update_attributes(deactivated_at: Time.now)
   end
 
   def send_two_fa
@@ -191,7 +196,7 @@ class User < ApplicationRecord
       "Authorization": "SSWS #{Tenant.current&.okta_api_token}"
     }
     begin
-      response = RestClient.get("#{Rails.application.secrets[:okta][:site]}/api/v1/users/#{auth['uid']}/groups", headers=headers)
+      response = RestClient.get("#{Tenant.current&.okta_site}/api/v1/users/#{auth['uid']}/groups", headers=headers)
       # response = RestClient.get("#{Rails.application.secrets[:okta]['site']}/api/v1/users/#{auth['uid']}", headers=headers)
       result = JSON.parse(response&.body) if response&.body.present?
 
@@ -201,16 +206,6 @@ class User < ApplicationRecord
       if user_group.present?
         group_name = user_group.fetch('profile', {}).fetch('name', "")
         if group_name.present?
-          case group_name
-            when "Panel - Internal Lawyers"
-              role = "internal_lawyers"
-            when "Panel - Master User"
-              role = "lxp"
-            when "Panel - Business User"
-              role = "lob"
-            else
-              role = ""
-          end
           random_password = "#{SecureRandom.hex(18)}@A123"
           user = User.find_or_create_by(email: auth['info']['email']&.downcase) do |user|
             user.first_name = auth['info']['first_name']
@@ -221,7 +216,7 @@ class User < ApplicationRecord
             user.provider_group = group_name
             user.password = random_password
             user.password_confirmation = random_password
-            user.role = role
+            user.role = Tenant.current&.fetch_role(group_name)
             user.new_password_set = true
           end
           user.save
@@ -250,16 +245,6 @@ class User < ApplicationRecord
       if user_group.present?
         group_name = user_group.fetch('displayName', "")
         if group_name.present?
-          case group_name
-            when "Panel - Internal Lawyers"
-              role = "internal_lawyers"
-            when "Panel - Master User"
-              role = "lxp"
-            when "Panel - Business User"
-              role = "lob"
-            else
-              role = ""
-          end
           random_password = "#{SecureRandom.hex(18)}@A123"
           decoded_token = JWT.decode(auth['credentials']['token'], nil, false).first
           user = User.find_or_create_by(email: decoded_token['email']&.downcase) do |user|
@@ -271,7 +256,7 @@ class User < ApplicationRecord
             user.provider_group = group_name
             user.password = random_password
             user.password_confirmation = random_password
-            user.role = role
+            user.role = Tenant.current&.fetch_role(group_name)
             user.new_password_set = true
           end
           user.save

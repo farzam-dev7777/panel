@@ -1,6 +1,6 @@
 class Admin::FormSubmissionsController < Admin::BaseController
 
-	layout false
+  layout false
   layout 'admin', :except => :show
 
   before_action :follow_ups, except: :index
@@ -67,10 +67,16 @@ class Admin::FormSubmissionsController < Admin::BaseController
   end
 
   def lawfirm_step
-
+    update_scoring()
+    @law_firm = @form_submission.law_firm
+    @law_firm_tenant = @law_firm.law_firms_tenants.find_or_create_by(tenant_id: Tenant&.current&.id)
   end
 
   def resourcing_step
+    update_scoring()
+  end
+
+  def update_scoring
     total_score = 0
     score_counter = 0
     @form_submission = FormSubmission.find(params[:id])
@@ -138,7 +144,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
       score_counter = score_counter + 1
     end
     @system_score = score_counter > 0 ? (total_score/score_counter).round(2) : 0
-    @form_submission.update(system_score: @system_score)
+    @form_submission.update_attributes(system_score: @system_score)
   end
 
   def calculate_repeater_field_score(form_value)
@@ -244,13 +250,15 @@ class Admin::FormSubmissionsController < Admin::BaseController
 
   def law_firm_update
     @law_firm = LawFirm.find(@form_submission.law_firm.id)
-  	if @law_firm.update(law_firms_params)
-      @law_firm.user.update(password: params[:law_firm][:password]) if (params[:law_firm][:password] && !params[:law_firm][:password].blank?  && params[:law_firm][:password].length >= 10)
+
+    if @law_firm.update_attributes(law_firms_params)
+
+      @law_firm.user.update_attributes(password: params[:law_firm][:password]) if (params[:law_firm][:password] && !params[:law_firm][:password].blank?  && params[:law_firm][:password].length >= 10)
        
-  		redirect_to first_step_path, notice: "RFI Updated"
-  	else
-  		redirect_to first_step_path
-  	end
+      redirect_to first_step_path, notice: "RFI Updated"
+    else
+      redirect_to first_step_path
+    end
   end
 
 
@@ -318,7 +326,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
       @form_submission.submitted = false
       @form_submission.submitted_on = nil
       @form_submission.follow_ups.pending.update_all(status: 'review')
-      if (@form_submission.update(status: :follow_up))
+      if (@form_submission.update_attributes(status: :follow_up))
         # LawFirmMailer.decision_reached(@form_submission, 'Follow Up').deliver_now
         FormSubmission.log_activity('follow_up', true, @form_submission, current_admin_user)
         redirect_to :admin_law_firms
@@ -330,7 +338,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
 
   def mark_as_checked
     @field_value = params[:loggable_type].constantize.find_by(id: params[:loggable_id])
-    @field_value.update(checked: !@field_value.checked) if @field_value
+    @field_value.update_attributes(checked: !@field_value.checked) if @field_value
 
     render partial: 'check_mark', locals: {loggable: @field_value, form_type: params[:loggable_type]}, layout: false
   end
@@ -388,7 +396,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
 
   def calculate_total_score
     if (@form_submission.assessor_score && @form_submission.system_score)
-      @form_submission.update(total_score: (@form_submission.system_score + @form_submission.assessor_score)/2)
+      @form_submission.update_attributes(total_score: (@form_submission.system_score + @form_submission.assessor_score)/2)
     end
   end
 
@@ -398,7 +406,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
     current_expiry_date = @form_submission.expiry_date
 
     if @form_submission && params[:expiry_date]
-      @form_submission.update(expiry_date: Date.parse(params[:expiry_date]))
+      @form_submission.update_attributes(expiry_date: Date.parse(params[:expiry_date]))
       custom_activity_message = "Expiry date changed from #{DateField.stringify_date(current_expiry_date)} to #{params[:expiry_date]}"
       FormSubmission.log_activity('expiry_date_changed', false, @form_submission, current_admin_user, custom_activity_message)
     end
@@ -423,7 +431,6 @@ class Admin::FormSubmissionsController < Admin::BaseController
   end
 
   def steps
-    # , :lawfirm
     [:conflicts, :relationship, :innovation, :pricing, :diversity, :resourcing, :lawfirm]
   end
 
@@ -493,32 +500,28 @@ class Admin::FormSubmissionsController < Admin::BaseController
   end
 
   def law_firms_params
-  	params.require(:law_firm).permit(
+    params.require(:law_firm).permit(
       :name, :description, :email, :phone, :temp_password,
       :temp_password_confirmation, :relationship_manager_email,
       :relationship_manager_name, :relationship_manager_phone,
       :law_firm_type, :principle_name, :principle_title,
       :principle_contact_info, :parent_company, :sister_firm,
       :initial_date_of_engagement_with_the_bank,
-      :secondary_rm_contact,
-      :secondary_rm_contact_email,
-      :billing_contact_name,
-      :billing_contact_email,
-      :information_security_contact,
-      :information_security_contact_email,
       :diverse,
       :merger_combination,
-      :engagement_number,
-      :relationship_number,
-      :information_security_class,
-      :information_security_assessment_outcome,
-      :action_plan_findings,
-      :action_plan_status,
       :confidentiality_level_of_matters_that_are_handled,
       :number_of_lawyers, :law_firm_category, 
-      :bmo_relationship_partner_email,
-      :bmo_relationship_partner_name,
-      :bmo_relationship_partner_phone_number,
+      law_firms_tenants_attributes:[
+        :id, :bmo_relationship_partner_name,
+        :bmo_relationship_partner_email, :bmo_relationship_partner_phone_number,
+        :secondary_rm_contact, :secondary_rm_contact_email,
+        :billing_contact_name, :billing_contact_email,
+        :engagement_number, :relationship_number,
+        :information_security_class, :information_security_assessment_outcome,
+        :action_plan_findings, :action_plan_status,
+        :information_security_contact, :information_security_contact_email,
+        :allow_to_create_matters
+      ],
       locations_attributes: [
         :id, :address1, :address2,
         :city, :province, :postal_code,

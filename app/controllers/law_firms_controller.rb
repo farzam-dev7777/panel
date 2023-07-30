@@ -3,7 +3,7 @@ class LawFirmsController < BaseController
 	def edit
     redirect_to set_new_password_path unless current_user.new_password_set
     @law_firm = LawFirm.find(current_law_firm.id)
-
+    @law_firm_tenant = @law_firm.law_firms_tenants.find_or_create_by(tenant_id: Tenant&.current&.id) 
 	end
 
 	def update
@@ -39,7 +39,9 @@ class LawFirmsController < BaseController
               )
       if user.save
         user.set_google_secret
-        # LawFirmMailer.invite_user(user, temp_password, current_law_firm).deliver_now!
+        # LawFirmMailer.invite_user(user, params[:temp_password], current_law_firm).deliver_now!
+        @resource = user
+        @resource.send_user_info_with_password
         flash[:notice] = "We've added a new user with username #{user.username}"
       else
         flash[:alert] = user.errors.full_messages.join(", ")
@@ -118,27 +120,22 @@ class LawFirmsController < BaseController
       :sister_firm, 
       :initial_date_of_engagement_with_the_bank,
       :number_of_lawyers,
-      :secondary_rm_contact,
-      :secondary_rm_contact_email,
-      :billing_contact_name,
-      :billing_contact_email,
-      :information_security_contact,
-      :information_security_contact_email,
       :diverse,
       :value_add_activities,
       :feedback,
       :issues,
       :merger_combination,
-      :engagement_number,
-      :relationship_number,
-      :information_security_class,
-      :information_security_assessment_outcome,
-      :action_plan_findings,
-      :action_plan_status,
-      :bmo_relationship_partner_email,
-      :bmo_relationship_partner_name,
-      :bmo_relationship_partner_phone_number,
       :confidentiality_level_of_matters_that_are_handled,
+      law_firms_tenants_attributes:[
+        :id, :tenant_id, :bmo_relationship_partner_name,
+        :bmo_relationship_partner_email, :bmo_relationship_partner_phone_number,
+        :secondary_rm_contact, :secondary_rm_contact_email,
+        :billing_contact_name, :billing_contact_email,
+        :engagement_number, :relationship_number,
+        :information_security_class, :information_security_assessment_outcome,
+        :action_plan_findings, :action_plan_status,
+        :information_security_contact, :information_security_contact_email
+      ],
       locations_attributes: [
         :id, :address1, :address2, :city, 
         :province, :postal_code, :country, :_destroy

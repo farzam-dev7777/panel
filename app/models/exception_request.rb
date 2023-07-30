@@ -1,3 +1,4 @@
+require 'docusign_client'
 class ExceptionRequest < ApplicationRecord
 
   #serialize :matter_types, Array
@@ -25,8 +26,8 @@ class ExceptionRequest < ApplicationRecord
   }
 
   LAW_FIRM_ALLOW_TO_CREATE_MATTERS = {
-    "YES": "Yes",
-    "NO": "No"
+    true: 'Yes',
+    false: 'No'
   }
 
   MATTER_TYPES = [
@@ -278,14 +279,14 @@ class ExceptionRequest < ApplicationRecord
   def send_retainer_for_esigning(signer_email, signer_name)
     args = {
       envelope_args: {
-        template_id: Rails.application.secrets[:docusign][:retainer_template_id],
+        template_id: Tenant.current&.retainer_template_id,
         signer_email: signer_email,
         signer_name: signer_name
         # lxp_email: SystemSetting.fetch.lxp_email,
         # lxp_name: SystemSetting.fetch.lxp_name
       },
-      base_path: Rails.application.secrets[:docusign][:base_path],
-      account_id: Rails.application.secrets[:docusign][:account_id],
+      base_path: Rails.application.secrets[:docusign]["base_path"],
+      account_id: Rails.application.secrets[:docusign]["account_id"],
       access_token: SystemSetting.fetch.docusign_access_token,
       refresh_token: SystemSetting.fetch.docusign_refresh_token
     }
@@ -302,12 +303,24 @@ class ExceptionRequest < ApplicationRecord
       api_client.default_headers["Authorization"] = "Bearer #{args[:access_token]}"
       envelope_api = DocuSign_eSign::EnvelopesApi.new(api_client)
       results = envelope_api.create_envelope args[:account_id], envelope_definition
+
+      values = {
+        "lawfirmname": self&.law_firm&.name
+      }
+  
+      document_tab = self.get_document_tabs()
+  
+      document_tab.prefill_tabs.text_tabs.each do |text_tab|
+        text_tab.value = values[text_tab.tab_label.to_sym] ? values[text_tab.tab_label.to_sym] : text_tab.value
+      end
+
+      ::DocusignClient.new.envelope_api.create_document_tabs(args[:account_id], "1", results.envelope_id, document_tab)
       envelope_id = results.envelope_id
       
       self.docusign_envelope_id = envelope_id
       self.save
       
-      ExceptionRequestMailer.form_status_notification_to_lob_for_sign(self).deliver_now
+      # ExceptionRequestMailer.form_status_notification_to_lob_for_sign(self).deliver_now
     rescue DocuSign_eSign::ApiError => e
       error = JSON.parse e.response_body
       puts "##### Docusign Error #####"
@@ -318,85 +331,100 @@ class ExceptionRequest < ApplicationRecord
   end
 
   def docusign_retainer_envelope
-    begin
-      configuration = DocuSign_eSign::Configuration.new
-      configuration.host = Rails.application.secrets[:docusign][:base_path]
-      api_client = DocuSign_eSign::ApiClient.new configuration
-      api_client.default_headers["Authorization"] = "Bearer #{SystemSetting.fetch.docusign_access_token}"
-      envelopesApi = DocuSign_eSign::EnvelopesApi.new api_client
-      envelopesApi.get_envelope Rails.application.secrets[:docusign][:account_id], self.docusign_envelope_id
-    rescue Exception => e
-      puts e
-      nil
+    Rails.cache.fetch("docusign_retainer_envelope_#{self.docusign_envelope_id}", expires_in: 30.minutes) do
+      begin
+        configuration = DocuSign_eSign::Configuration.new
+        configuration.host = Rails.application.secrets[:docusign]["base_path"]
+        api_client = DocuSign_eSign::ApiClient.new configuration
+        api_client.default_headers["Authorization"] = "Bearer #{SystemSetting.fetch.docusign_access_token}"
+        envelopesApi = DocuSign_eSign::EnvelopesApi.new api_client
+        envelopesApi.get_envelope Rails.application.secrets[:docusign]["account_id"], self.docusign_envelope_id
+      rescue Exception => e
+        puts e
+        nil
+      end
     end
   end
 
   def get_document_name
-    configuration = DocuSign_eSign::Configuration.new
-    configuration.host = Rails.application.secrets[:docusign][:base_path]
-    api_client = DocuSign_eSign::ApiClient.new configuration
-    api_client.default_headers["Authorization"] = "Bearer #{SystemSetting.fetch.docusign_access_token}"
-    envelopesApi = DocuSign_eSign::EnvelopesApi.new api_client
-    doc_item = envelopesApi.list_documents Rails.application.secrets[:docusign][:account_id], self.docusign_envelope_id
-
-    doc_item = doc_item.envelope_documents[0]
-    document_id = doc_item.name
-  end
-  def get_document_list
-    begin
+    Rails.cache.fetch("docusign_retainer_get_document_name_#{self.docusign_envelope_id}", expires_in: 30.minutes) do
       configuration = DocuSign_eSign::Configuration.new
-      configuration.host = Rails.application.secrets[:docusign][:base_path]
+      configuration.host = Rails.application.secrets[:docusign]["base_path"]
       api_client = DocuSign_eSign::ApiClient.new configuration
       api_client.default_headers["Authorization"] = "Bearer #{SystemSetting.fetch.docusign_access_token}"
       envelopesApi = DocuSign_eSign::EnvelopesApi.new api_client
-      doc_item = envelopesApi.list_documents Rails.application.secrets[:docusign][:account_id], self.docusign_envelope_id
-
+      doc_item = envelopesApi.list_documents Rails.application.secrets[:docusign]["account_id"], self.docusign_envelope_id
+  
       doc_item = doc_item.envelope_documents[0]
-      document_id = doc_item.document_id
-      
-      temp_file = envelopesApi.get_document Rails.application.secrets[:docusign][:account_id], document_id, self.docusign_envelope_id
-      # find the matching document information item
-      # doc_item = doc_item.find { |item| item['document_id'] == document_id }
-
-      doc_name = doc_item.name
-      has_pdf_suffix = doc_name.upcase.end_with? '.PDF'
-      pdf_file = has_pdf_suffix
-
-      # Add ".pdf" if it's a content or summary doc and doesn't already end in .pdf
-      if doc_item.type == "content" || (doc_item.type == "summary" && !has_pdf_suffix)
-          doc_name += ".pdf"
-          pdf_file = true
-      end
-      # Add .zip as appropriate
-      if doc_item.type == "zip"
-          doc_name += ".zip"
-      end
-      # Return the file information
-      if pdf_file
-        mime_type = 'application/pdf'
-      elsif doc_item.type == 'zip'
-        mime_type = 'application/zip'
-      else
-        mime_type = 'application/octet-stream'
-      end
-
-      #{'mime_type' => mime_type, 'doc_name' => doc_name, 'data' => }
-      File.binread(temp_file.path)
-
-      
-    rescue Exception => e
-      puts e
-      nil
+      document_id = doc_item.name
     end
   end
 
+  def get_document_list
+    Rails.cache.fetch("docusign_retainer_get_document_list_#{self.docusign_envelope_id}", expires_in: 30.minutes) do
+      begin
+        configuration = DocuSign_eSign::Configuration.new
+        configuration.host = Rails.application.secrets[:docusign]["base_path"]
+        api_client = DocuSign_eSign::ApiClient.new configuration
+        api_client.default_headers["Authorization"] = "Bearer #{SystemSetting.fetch.docusign_access_token}"
+        envelopesApi = DocuSign_eSign::EnvelopesApi.new api_client
+        doc_item = envelopesApi.list_documents Rails.application.secrets[:docusign]["account_id"], self.docusign_envelope_id
+  
+        doc_item = doc_item.envelope_documents[0]
+        document_id = doc_item.document_id
+        
+        temp_file = envelopesApi.get_document Rails.application.secrets[:docusign]["account_id"], document_id, self.docusign_envelope_id
+        # find the matching document information item
+        # doc_item = doc_item.find { |item| item['document_id'] == document_id }
+  
+        doc_name = doc_item.name
+        has_pdf_suffix = doc_name.upcase.end_with? '.PDF'
+        pdf_file = has_pdf_suffix
+  
+        # Add ".pdf" if it's a content or summary doc and doesn't already end in .pdf
+        if doc_item.type == "content" || (doc_item.type == "summary" && !has_pdf_suffix)
+            doc_name += ".pdf"
+            pdf_file = true
+        end
+        # Add .zip as appropriate
+        if doc_item.type == "zip"
+            doc_name += ".zip"
+        end
+        # Return the file information
+        if pdf_file
+          mime_type = 'application/pdf'
+        elsif doc_item.type == 'zip'
+          mime_type = 'application/zip'
+        else
+          mime_type = 'application/octet-stream'
+        end
+  
+        #{'mime_type' => mime_type, 'doc_name' => doc_name, 'data' => }
+        File.binread(temp_file.path)
+  
+        
+      rescue Exception => e
+        puts e
+        nil
+      end
+    end
+  end
 
+  def get_document_tabs
+    Rails.cache.fetch("docusign_retainer_tabs_#{Tenant.current&.retainer_template_id}", expires_in: 30.minutes) do
+      ::DocusignClient.new.template_api.get_document_tabs(
+        Rails.application.secrets[:docusign]["account_id"],
+        "1",
+        Tenant.current&.retainer_template_id
+      )
+    end
+  end
   
   def make_envelope(args)
     # create the envelope definition with the template_id
     envelope_definition = DocuSign_eSign::EnvelopeDefinition.new({
-          :status => 'sent',
-          :templateId => args[:template_id]
+      :status => 'sent',
+      :templateId => args[:template_id]
     })
     # Create the template role elements to connect the signer and lxp recipients
     # to the template
@@ -406,43 +434,15 @@ class ExceptionRequest < ApplicationRecord
             :roleName => 'signer'
     })
     # Create a lxp template role.
-    lxp = DocuSign_eSign::TemplateRole.new({
-            :email => args[:lxp_email],
-            :name => args[:lxp_name],
-            :roleName => 'lxp'
-    })
-
-    text = DocuSign_eSign::Text.new
-    text.document_id = '1'
-    text.page_number = '1'
-    text.x_position = '86'
-    text.y_position = '183'
-    text.font = 'arial'
-    text.font_size = 'size9'
-    text.tab_label = '*lawfirmname'
-    text.height = '70'
-    text.width = '250'
-    text.locked = 'true'
-    text.bold = 'true'
-    text.value = self&.law_firm&.name
-    text.tab_id = 'name'
-    text.required = 'true'
-
-    sign_here = DocuSign_eSign::SignHere.new
-    sign_here.document_id = '1'
-    sign_here.page_number = '3'
-    sign_here.x_position = '109'
-    sign_here.y_position = '649'
-    sign_here.tab_label = '*signersignature'
-
-    tabs = DocuSign_eSign::Tabs.new
-    tabs.text_tabs = [text]
-    tabs.sign_here_tabs = [sign_here]
-    signer.tabs = tabs
-    lxp.tabs = tabs
+    # lxp = DocuSign_eSign::TemplateRole.new({
+    #         :email => args[:lxp_email],
+    #         :name => args[:lxp_name],
+    #         :roleName => 'lxp'
+    # })
 
     # Add the TemplateRole objects to the envelope object
-    envelope_definition.template_roles = [signer, lxp]
+    # envelope_definition.template_roles = [signer, lxp]
+    envelope_definition.template_roles = [signer]
     envelope_definition
   end
 

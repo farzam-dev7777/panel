@@ -1,9 +1,11 @@
 require 'omniauth-okta'
+require 'docusign'
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 
 def fetch_subdomain(request)
-  tenant_subdomain = Rails.env.development? ? "cwb" : request.env["HTTP_HOST"].split(".").first
+  tenant_subdomain = request.env["HTTP_HOST"].split(".").first
+  tenant_subdomain.present? && !["panel", "seal"].include?(tenant_subdomain) ? tenant_subdomain : nil
 end
 
 def fetch_tenant(env)
@@ -14,7 +16,7 @@ end
 
 OmniAuth.config.full_host = lambda do |env|
   tenant = fetch_tenant(env)
-  return "http://localhost:3000" if Rails.env.development?
+  return "http://#{tenant.subdomain}.lvh.me:3000" if Rails.env.development?
   return "https://#{tenant.subdomain}.#{ENV['DOMAIN_NAME']}"
 end
 
@@ -32,6 +34,25 @@ OKTA_SETUP = lambda do |env|
   }
 end
 
+
+DOCUSIGN_SETUP = lambda do |env|
+  tenant = fetch_tenant(env)
+  site = tenant.okta_site
+  strategy = env['omniauth.strategy']
+
+  strategy.options[:client_options].site = site
+  strategy.options[:prompt] = 'login'
+  strategy.options[:oauth_base_uri] = Rails.application.secrets[:docusign]["authorization_server"]
+  strategy.options[:target_account_id] = Rails.application.secrets[:docusign]["target_account_id"]
+  strategy.options[:allow_silent_authentication] = Rails.application.secrets[:docusign]["allow_silent_authentication"]
+  strategy.options[:client_options].authorize_url = "#{strategy.options[:oauth_base_uri]}/oauth/auth"
+  strategy.options[:client_options].user_info_url = "#{strategy.options[:oauth_base_uri]}/oauth/userinfo"
+  strategy.options[:client_options].token_url = "#{strategy.options[:oauth_base_uri]}/oauth/token"
+  strategy.options[:authorize_params].prompt = strategy.options.prompt unless strategy.options[:allow_silent_authentication]
+  session = strategy.session
+end
+
+
 AZURE_SETUP = lambda do |env|
   request = Rack::Request.new(env)
   tenant_subdomain = fetch_subdomain(request)
@@ -40,7 +61,7 @@ AZURE_SETUP = lambda do |env|
   env['omniauth.strategy'].options[:client_secret] = tenant.azure_client_secret   # if using azure-active-directory-2
   env['omniauth.strategy'].options[:tenant_id] = tenant.azure_tenant_id   # if using azure-active-directory-2
 end
-
+OmniAuth.config.allowed_request_methods = %i[post get]
 Devise.setup do |config|
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
@@ -306,19 +327,10 @@ Devise.setup do |config|
     provider_ignores_state: true
   })
 
-  config.omniauth(:okta,
-                  Rails.application.secrets[:okta][:client_id],
-                  Rails.application.secrets[:okta][:client_secret],
-                  scope: 'openid profile email',
-                  client_options: {
-                    site:          Rails.application.secrets[:okta][:site],
-                    authorize_url: "#{Rails.application.secrets[:okta][:site]}/oauth2/default/v1/authorize",
-                    token_url:     "#{Rails.application.secrets[:okta][:site]}/oauth2/default/v1/token",
-                    user_info_url: "#{Rails.application.secrets[:okta][:site]}/oauth2/default/v1/userinfo",
-                    issuer: "#{Rails.application.secrets[:okta][:site]}/oauth2/default",
-                  },
-                  strategy_class: OmniAuth::Strategies::Okta
-  )
+  config.omniauth(:docusign, Rails.application.secrets[:docusign]["integration_key"], Rails.application.secrets[:docusign]["integration_secret"], {
+    setup: DOCUSIGN_SETUP,
+  })
+
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.
@@ -362,6 +374,5 @@ Devise.setup do |config|
   # Change setting to bypass the Display QR page immediately after a user sign's up
   # To change the default, uncomment and change the below. Defaults to false:
   # config.ga_bypass_signup = true
-
 
 end

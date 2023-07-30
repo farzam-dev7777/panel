@@ -5,15 +5,26 @@ class Ability
     # Define abilities for the passed in user here. For example:
     if user.role == 'superadmin'
       can :manage, :all
+    elsif user.role == 'tenant_admin'
+      can :manage, Tenant
+      can :manage, User
+      can :manage, LawFirm
+      can :manage, LawFirmsTenant
     elsif user.role == 'admin'
       cannot :manage, SystemSetting
-    elsif user.role == "lxp"  
+    elsif user.role == "lxp"
       can :read, ConflictWaiver 
       can :read, ExceptionRequest
-      cannot :manage, Tenant 
+      cannot :manage, Tenant
+      cannot :manage, User
     elsif user.role == "internal_lawyers"  
       cannot :edit, ConflictWaiver
-      cannot :manage, Tenant 
+      cannot :manage, Tenant
+      cannot :manage, User
+    elsif user.role == "lob"  
+      cannot :edit, ConflictWaiver
+      cannot :manage, Tenant
+      cannot :manage, User
     else
       can :manage, FormSubmission do |fs|
         user.law_firm.form_submissions.map(&:id).include? fs.id
@@ -31,7 +42,6 @@ class Ability
       can :read, :SecurityThreat
       can :read, :SecurityAlert
       can :read, Tenant
-      
     end
     #
     # The first argument to `can` is the action you are giving the user 

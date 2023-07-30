@@ -3,46 +3,49 @@
 </style>
 <div class="rfi_lawfirm">
   <div class="sp-form sp-form-bg ">
-    <%= simple_form_for([@form_submission.law_firm], 
+    <%= simple_form_for(@law_firm, 
       :url => url_for(:action => 'law_firm_update', :controller => 'form_submissions'),
       :method => 'post', html: { class: '' }) do |f| %>
       <div class="row">
-        <div class="col-xs-12 col-md-6">
-          <label class="label">Internal Relationship Partner Name</label>
-          <%= f.input :bmo_relationship_partner_name, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
-        </div>
-        <div class="col-xs-12 col-md-6">
-          <label class="label">Internal Relationship Partner Email</label>
-          <%= f.input :bmo_relationship_partner_email, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
-        </div>
-        <div class="col-xs-12 col-md-6">
-          <label class="label">Internal Relationship Partner Phone No.</label>
-          <%= f.input :bmo_relationship_partner_phone_number, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
-        </div>
-        <div class="col-xs-12 col-md-6">
-          <label class="label">Additional Internal Relationship Contact Name (optional)</label>
-          <%= f.input :secondary_rm_contact, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
-        </div>
-        <div class="col-xs-12 col-md-6">
-          <label class="label">Additional Internal Relationship Contact Email (optional)</label>
-          <%= f.input :secondary_rm_contact_email, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
-        </div>
-        <div class="col-xs-12 col-md-6">
-          <label class="label">Billing Contact Name</label>
-          <%= f.input :billing_contact_name, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
-        </div>
-        <div class="col-xs-12 col-md-6">
-          <label class="label">Billing Contact Email</label>
-          <%= f.input :billing_contact_email,  label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
-        </div>
-        <div class="col-xs-12 col-md-6">
-          <label class="label">Information Security Contact Name</label>
-          <%= f.input :information_security_contact, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
-        </div>
-        <div class="col-xs-12 col-md-6">
-          <label class="label">Information Security Contact Email</label>
-          <%= f.input :information_security_contact_email, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
-        </div>
+        <%= f.simple_fields_for :law_firms_tenants, @law_firm_tenant do |field| %>
+          <input id="redirect_value" type="hidden" name="redirect_value">
+          <div class="col-xs-12 col-md-6">
+            <label class="label">Internal Relationship Partner Name</label>
+            <%= field.input :bmo_relationship_partner_name, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
+          </div>
+          <div class="col-xs-12 col-md-6">
+            <label class="label">Internal Relationship Partner Email</label>
+            <%= field.input :bmo_relationship_partner_email, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
+          </div>
+          <div class="col-xs-12 col-md-6">
+            <label class="label">Internal Relationship Partner Phone No.</label>
+            <%= field.input :bmo_relationship_partner_phone_number, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
+          </div>
+          <div class="col-xs-12 col-md-6">
+            <label class="label">Additional Internal Relationship Contact Name (optional)</label>
+            <%= field.input :secondary_rm_contact, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
+          </div>
+          <div class="col-xs-12 col-md-6">
+            <label class="label">Additional Internal Relationship Contact Email (optional)</label>
+            <%= field.input :secondary_rm_contact_email, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
+          </div>
+          <div class="col-xs-12 col-md-6">
+            <label class="label">Billing Contact Name</label>
+            <%= field.input :billing_contact_name, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
+          </div>
+          <div class="col-xs-12 col-md-6">
+            <label class="label">Billing Contact Email</label>
+            <%= field.input :billing_contact_email,  label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
+          </div>
+          <div class="col-xs-12 col-md-6">
+            <label class="label">Information Security Contact Name</label>
+            <%= field.input :information_security_contact, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
+          </div>
+          <div class="col-xs-12 col-md-6">
+            <label class="label">Information Security Contact Email</label>
+            <%= field.input :information_security_contact_email, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
+          </div>
+        <% end %>
         <div class="col-xs-12 col-md-6">
           <label class="label">Locations</label>
           <div class="col-md-12 no-padding">

@@ -1,5 +1,5 @@
 class PanelRequestMailer < ApplicationMailer
-	default from: "support@secureengage.com"
+	default from: "SEAL Support <support@secureengage.com>"
 	layout 'mailer'
 
 	def panel_request_notification_to_lxp(panel_request)

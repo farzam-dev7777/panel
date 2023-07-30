@@ -1,4 +1,6 @@
 class LawFirmMailer < ApplicationMailer
+	default from: "SEAL Support <support@secureengage.com>"
+	layout 'mailer'
 
   def account_creation_confirmation(law_firm)
   	@law_firm = law_firm

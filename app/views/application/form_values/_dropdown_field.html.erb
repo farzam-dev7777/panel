@@ -1,8 +1,13 @@
 <div class="form-group">
   <% if !v.object.try(:form_field).try(:help_description).blank? %>
-    <i class="fa fa-question-circle-o help-text" data-help="<%= v.object.try(:form_field).try(:help_description) %>"></i>
+    <i class="fa fa-question-circle-o help-text" data-help="<%= v.object.try(:form_field).try(:help_description).try(:html_safe) %>"></i>
   <% end %>
-  <label class="select-input control-label parent-f-sized-label"><%= field.label %></label>
+  <label class="select-input control-label parent-f-sized-label">
+    <%= field.label.try(:html_safe).try(:html_safe) %>
+  </label>
+  <% if current_user && current_user&.role === "lxp" && field&.type === "DropdownField" %>
+    <span class="badge badge-primary form-question-score"><%= v.object.score %> / 5.0</span>
+  <% end %>
   <%= v.input :value, {
     label: false,
     collection: field.collection.sort,
