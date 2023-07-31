@@ -8,7 +8,7 @@ class Admin::SeverityLevelsController < Admin::BaseController
 
   def update
   	@severity_level.update(build_params)
-    redirect_to :back
+    redirect_back fallback_location: admin_root_path
   end
 
   private

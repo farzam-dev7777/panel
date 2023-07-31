@@ -301,7 +301,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
   def create
     @form_submission = FormSubmission.new(form_submissions_params)
     if @form_submission.save
-      redirect_to :back, notice: 'Form submitted'
+      redirect_back fallback_location: admin_root_path, notice: 'Form submitted'
     else
       @form = Form.find(params[:form_id])
       render :new
@@ -315,7 +315,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
     if @form_submission.save
       redirect_to :admin_law_firms
     else
-      redirect_to :back
+      redirect_back fallback_location: admin_root_path
     end
   end
 
@@ -346,7 +346,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
   def approve
 
     if @form_submission.follow_ups.map(&:status).include?('pending')
-      redirect_to :back, alert: "Follow ups are pending!" 
+      redirect_back fallback_location: admin_root_path, alert: "Follow ups are pending!" 
     else
       # @form_submission = FormSubmission.find(params[:id])
 

@@ -9,10 +9,10 @@ class Admin::CommentsController < Admin::BaseController
       @commentable = params[:comment][:commentable_type].constantize.find_by(id: params[:comment][:commentable_id])
       @comment = @commentable.comments.build(comment_params)
       if @comment.save
-        redirect_to :back, notice: "comment Added"
+        redirect_back fallback_location: root_path, notice: "comment Added"
       else
         #flash.now[:alert] = @comment.errors.full_messages.join(', ')
-        redirect_to :back, alert: @comment.errors.full_messages.join(', ')
+        redirect_back fallback_location: root_path, alert: @comment.errors.full_messages.join(', ')
       end
     end
   end

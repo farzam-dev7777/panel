@@ -290,9 +290,9 @@ class Admin::ReviewsController < Admin::BaseController
         elsif params[:review][:reviewable_type] == "MatterIntake" && current_user.role === 'lxp'
           redirect_to admin_matter_intakes_path  
         elsif params[:review][:reviewable_type] == "PanelRequest" && current_user.role === 'lxp'
-          redirect_to :back  
+          redirect_back fallback_location: admin_root_path 
         else  
-          redirect_to :back, notice: "Review Added"
+          redirect_back fallback_location: admin_root_path, notice: "Review Added"
         end
 
 

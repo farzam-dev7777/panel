@@ -36,7 +36,7 @@ class Admin::FormsController < Admin::BaseController
       redirect_to edit_admin_form_path(@form)
     else
       flash[:alert] = "error"
-      redirect_to :back
+      redirect_back fallback_location: admin_root_path
     end
   end
 
