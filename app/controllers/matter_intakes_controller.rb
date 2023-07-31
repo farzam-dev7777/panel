@@ -68,7 +68,7 @@ class MatterIntakesController < BaseController
     @matter_intake = MatterIntake.new(matter_intake_params)
 
     if @matter_intake.save
-      @matter_intake.update_attributes(status: "draft", lawyer_reviewed_at: Time.now)
+      @matter_intake.update(status: "draft", lawyer_reviewed_at: Time.now)
       # @matter_intake.send_notification_to_lxp
       # @matter_intake.send_notification_litigation_specialist_team
       # flash[:notice] = "Matter intake form submitted"
@@ -92,12 +92,12 @@ class MatterIntakesController < BaseController
 
     @matter_intake = MatterIntake.find_by(id: params[:id])
 
-    if @matter_intake.present? && @matter_intake.update_attributes(matter_intake_params)
+    if @matter_intake.present? && @matter_intake.update(matter_intake_params)
       if current_user.role === "internal_lawyers"
         if params[:matter_intake] && params[:matter_intake][:submit_type] && params[:matter_intake][:submit_type] === "update"
           redirect_to matter_intakes_information_security_classification_matter_intakes_path(@matter_intake)
         else
-          @matter_intake.update_attributes(lawyer_reviewed_at: Time.now, status: 'awaiting_lxp_review')
+          @matter_intake.update(lawyer_reviewed_at: Time.now, status: 'awaiting_lxp_review')
           @matter_intake.send_notification_to_lxp
           @matter_intake.send_notification_litigation_specialist_team
           @matter_intake.add_log_for_lawyer_submission_to_lxp(current_user)
@@ -106,7 +106,7 @@ class MatterIntakesController < BaseController
         end
        
       elsif current_user.role === "lxp" && @matter_intake.status.present?
-        @matter_intake.update_attributes(lxp_reviewed_at: Time.now, status: @matter_intake.status.downcase, lxp_id: current_user.id)
+        @matter_intake.update(lxp_reviewed_at: Time.now, status: @matter_intake.status.downcase, lxp_id: current_user.id)
         @matter_intake.add_log_matter_open_by_lxp(current_user)
         @matter_intake.send_notification_to_lawyer_and_lxp
         flash[:notice] = "Matter status updated to #{MatterIntake::MATTER_STATUS[@matter_intake.status.upcase.to_sym]}."
@@ -129,7 +129,7 @@ class MatterIntakesController < BaseController
   def lxp_rejects
     @matter_intake = MatterIntake.includes(:invoices).find_by(id: params[:id])
     if current_user.role === "lxp"
-      if @matter_intake.update_attributes(lxp_reviewed_at: Time.now, status: 'awaiting_lawyer_update', lxp_id: current_user.id)
+      if @matter_intake.update(lxp_reviewed_at: Time.now, status: 'awaiting_lawyer_update', lxp_id: current_user.id)
         #@matter_intake.add_log_for_lxp_rejects_and_returns_to_lawyer(current_user)
         @matter_intake.send_notification_to_lawyer_form_needs_updation
         render json: {

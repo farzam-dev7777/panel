@@ -75,11 +75,11 @@ class User < ApplicationRecord
   end
 
   def activate!
-    self.update_attributes(deactivated_at: nil)
+    self.update(deactivated_at: nil)
   end
 
   def deactivate!
-    self.update_attributes(deactivated_at: Time.now)
+    self.update(deactivated_at: Time.now)
   end
 
   def send_two_fa
