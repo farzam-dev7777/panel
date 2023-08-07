@@ -101,6 +101,16 @@ class Admin::LawFirmsController < Admin::BaseController
     add_breadcrumb "#{@law_firm.name}", :admin_law_firm_path 
   end
 
+  def destroy
+    @law_firm = LawFirm.find(params[:id])
+    if @law_firm.destroy
+      flash[:notice] = "Law firm has been successfully deleted"
+      redirect_to :admin_law_firms
+    else
+      redirect_to :back
+    end
+  end
+
   def begin_certification_process
     @law_firm = LawFirm.find(params[:id])
     FormSubmission.generate_initial_submissions(@law_firm, current_user)
