@@ -36,7 +36,7 @@
 					</div>
 				<% else %>
 					<% if(@law_firm.form_submissions.any? && @law_firm.form_submissions.latest.status == 'approved') %>
-						<a class="btn-type-primary" data-id='<%= @law_firm.id %>' data-name='<%= @law_firm.name %>'>Remove from Panel</a>
+						<%= link_to "Remove from Panel", admin_law_firm_path(@law_firm), method: :delete, class: "btn btn-type-primary", data: { confirm: "Are you you want to delete?" } %>
 						<a class="btn-type-primary begin-recertification-btn" data-id="<%= @law_firm.id %>">Send RFI Questionnaire again</a>
 					<% end %>
 					<% if(!@law_firm.form_submissions.any?) %>
