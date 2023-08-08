@@ -68,11 +68,14 @@
             </div>
             <div class="sp-tc">
               <label class="checkbox" style="padding-left: 0px">
-                I agree to the <a href="#" data-toggle="modal" data-target="#tandcModal">Terms &amp; Conditions</a>
+                <input id="tmc_checkbox" type="checkbox" name="remember" style="left:auto;">
+                I agree to the <a href="#" data-toggle="modal" data-target="#tandcModal">Terms &amp; Conditions</a>     
               </label>
             </div>
             <div class="sp-signin-btn">
-              <%= f.submit "Login", class: 'btn-type-primary' %>  
+              <%= f.submit "Login", class: 'btn-type-primary' %>
+              </br>
+              <%= link_to "Forgot password?", new_password_path('user'), :class => "login-link" %> 
             </div>
           <% end %>
         </div>
