@@ -12,6 +12,8 @@ class MatterIntake < ApplicationRecord
   has_many :reviews, as: :reviewable
   has_many :invoices
 
+  after_save :auto_approve_matter
+
   accepts_nested_attributes_for :invoices, reject_if: :all_blank, allow_destroy: true
   
   mount_uploader :asset, DocUploader
@@ -617,4 +619,9 @@ class MatterIntake < ApplicationRecord
     end
   end
 
+  def auto_approve_matter
+    if(self.budget_amount.present? && self.budget_amount.to_i <= (Tenant.current&.auto_approve_amount_limit||500000) && (Tenant.current&.auto_approve_matter_type||[]).include?(self.matter_type&.matter_type))
+      self.update_columns(status: 'matter_open')
+    end
+  end
 end

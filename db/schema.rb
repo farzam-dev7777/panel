@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20230620035603) do
+ActiveRecord::Schema.define(version: 20230808151728) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -943,6 +943,11 @@ ActiveRecord::Schema.define(version: 20230620035603) do
     t.string   "business_user"
     t.string   "retainer_template_id"
     t.string   "panel_retainer_template_id"
+    t.integer  "auto_approve_amount_limit"
+    t.string   "auto_approve_matter_type"
+    t.string   "matter_first_approval"
+    t.string   "matter_second_approval"
+    t.string   "matter_third_approval"
   end
 
   create_table "third_party_vendors", force: :cascade do |t|

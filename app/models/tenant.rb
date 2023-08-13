@@ -16,6 +16,8 @@ class Tenant < ApplicationRecord
     mount_uploader :logo, TenantUploader
     mount_uploader :login_bg_image, TenantUploader
 
+    serialize :auto_approve_matter_type, Array
+
     def create_db_schema
         Apartment::Tenant.create(subdomain)
     end

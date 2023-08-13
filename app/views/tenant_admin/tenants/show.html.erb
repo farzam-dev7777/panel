@@ -76,6 +76,26 @@
                 <div class="field-label">Azure Client Secret</div>
                 <div class="field-data"><%= @tenant&.azure_client_secret %></div>
               </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Matter Auto Approve Amount Limit</div>
+                <div class="field-data"><%= @tenant&.auto_approve_amount_limit %></div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Auto Approval Matter Type</div>
+                <div class="field-data"><%= @tenant&.auto_approve_matter_type.join(', ') %></div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Matter First Approval</div>
+                <div class="field-data"><%= @tenant&.matter_first_approval %></div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Matter Second Approval</div>
+                <div class="field-data"><%= @tenant&.matter_second_approval %></div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Matter Third Approval</div>
+                <div class="field-data"><%= @tenant&.matter_third_approval %></div>
+              </div>
             </div>
           </div>
         </div>

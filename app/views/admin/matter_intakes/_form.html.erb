@@ -184,10 +184,10 @@
         </div>
       <% end %>
       <% if @form_type == "general" || @matter_intake&.form_type == "general"%>
-        <!--<div class="col-xs-12 col-md-6 internal-matter">
+        <div class="col-xs-12 col-md-6 internal-matter">
           <label class="label">PO amount</label>
           <%= f.input :budget_amount, label: false %>
-        </div>-->
+        </div>
       <% end %>
       <% if @form_type == "litigation" || @matter_intake&.form_type == "litigation" %>
         <div class="col-md-12">
