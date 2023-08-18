@@ -12,11 +12,14 @@ class Tenant < ApplicationRecord
     has_many :users
     has_many :law_firms_tenants
     has_many :law_firms, through: :law_firms_tenants
+    has_many :tenant_matter_approvals
 
     mount_uploader :logo, TenantUploader
     mount_uploader :login_bg_image, TenantUploader
 
     serialize :auto_approve_matter_type, Array
+
+    accepts_nested_attributes_for :tenant_matter_approvals
 
     def create_db_schema
         Apartment::Tenant.create(subdomain)
@@ -37,5 +40,15 @@ class Tenant < ApplicationRecord
         else
           ""
       end
+    end
+
+    def create_default_matter_approvals
+        data = {0 => 'First', 1 => 'Second', 2=> 'Third', 3=> 'Fourth'}
+        MatterApproval::MATTER_APPROVAL_ROLE.keys.each do |role, name|
+            MatterApproval::MATTER_APPROVAL_ROLE.select{|key, value| key != role}.each_with_index do |role1, index|
+                self.tenant_matter_approvals.create(approval_type: 'approval', owner_role: role, role: role1.first, approval:true, notification:true, title: "#{data[index]} Approval", sequence_number: 0)
+                self.tenant_matter_approvals.create(approval_type: 'consent', owner_role: role, role: role1.first, approval:true, notification:true, title: "#{data[index]} Consent", sequence_number: 0)
+            end
+        end
     end
 end

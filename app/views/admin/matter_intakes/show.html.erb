@@ -6,6 +6,68 @@
 <div class="col-lg-12 col-md-12 col-sm-12">
   <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
     <div class="page-header-sp m-top">
+      <div class="page-title">
+        <span class="<%= @matter_intake.status === "matter_open" ? 'label label-success' : 'label label-default' %>"> 
+          Status: <%= @matter_intake.show_status %>
+        </span>
+      </div>
+      <div class="back-edit-actions">
+        <a class="btn-type-default" href="/admin/matter_intakes">
+          <%= image_tag "chevron-back-icon.svg", alt:"Back" %>
+        </a>
+      </div>
+    </div>
+    
+      <div class="  ">
+        <!-- widget content -->
+        <div class="view-request">
+          <div class="tab-content view-request">
+                <div class="exceptationRequestProcesss">
+                  <div class="sp-form sp-form-bg">
+                    <% if @matter_approval.present?%>
+                      <%= simple_form_for [:admin, @matter_approval] do |f| %>
+                        <div class="row">
+                          <div class="col-xs-12 col-md-6">
+                            <label class="label">Comment</label>
+                              <%= f.text_area :description, label: false, size: '50x10'%>
+                          </div>    
+                          <div class="col-xs-12 col-md-6">
+                            <label class="label">Status</label>
+                            <%= f.input :status, label: false, collection: [["Approve","approved"], ["Reject","rejected"], ["Comment","comment"]]%>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-xs-12 col-md-12 text-right">
+                            <%= f.button :submit, 'Submit', class:  "btn-type-primary" %>
+                          </div>
+                        </div>
+                      <% end %>
+                    <% else %>
+                       <%= simple_form_for([:admin, @matter_intake], :url => url_for(:action => 'add_review', :controller => 'matter_intakes'), :method => 'put') do |f| %>
+                         <div class="row">
+                           <div class="col-xs-12 col-md-6">
+                             <label class="label">Comment</label>
+                              <textarea class="form-control" type="text" name="discription" id="discription" style="width: 572px; height: 97px;"></textarea>
+                           </div>
+                           <div class="col-xs-12 col-md-3" style="padding:25px; padding-top: 50px;">
+                             <%= f.button :submit, "Submit", class:  "btn-type-primary" %>
+                           </div>
+                         </div>
+                     <% end %>
+                   <% end %>
+                </div>
+
+              <div class="clearfix"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+  </div>
+</div>
+<div class="col-lg-12 col-md-12 col-sm-12">
+  <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+    <div class="page-header-sp m-top">
       <div class="page-title">Matters
         <span class="<%= @matter_intake.status === "matter_open" ? 'label label-success' : 'label label-default' %>"> 
          Status: <%= @matter_intake.show_status %>
@@ -568,7 +630,6 @@
           <div class="field-data">
             <% if invoice.invoice_attachments.count > 0 %>
               <% invoice.invoice_attachments.each do |attachment| %>
-                <a href="<%= attachment.file&.url %>" target="_blank"><%= attachment.file.identifier %></a>
               <% end %>
             <% end %>
           </div>
@@ -595,6 +656,8 @@
 </div>
 </div>
 </div>
+<%= render 'matter_approvals'%>
+<div class="clearfix"></div>
 <div class="col-md-12">
   <%- if @matter_intake.reviews.size > 0 %>
     <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">

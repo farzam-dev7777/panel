@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20230808151728) do
+ActiveRecord::Schema.define(version: 20230815075153) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -634,6 +634,17 @@ ActiveRecord::Schema.define(version: 20230808151728) do
     t.index ["receiver_id", "receiver_type"], name: "index_mailboxer_receipts_on_receiver_id_and_receiver_type", using: :btree
   end
 
+  create_table "matter_approvals", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "approve_by_role"
+    t.string   "status"
+    t.integer  "matter_intake_id"
+    t.integer  "approval_sequence"
+    t.string   "approval_type"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
   create_table "matter_intakes", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "submitter_name"
@@ -921,6 +932,19 @@ ActiveRecord::Schema.define(version: 20230808151728) do
     t.boolean  "checked",            default: false
   end
 
+  create_table "tenant_matter_approvals", force: :cascade do |t|
+    t.string   "approval_type"
+    t.string   "owner_role"
+    t.string   "role"
+    t.boolean  "approval"
+    t.boolean  "notification"
+    t.integer  "tenant_id"
+    t.string   "title"
+    t.integer  "sequence_number"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
   create_table "tenants", force: :cascade do |t|
     t.string   "name"
     t.string   "subdomain"
@@ -948,6 +972,7 @@ ActiveRecord::Schema.define(version: 20230808151728) do
     t.string   "matter_first_approval"
     t.string   "matter_second_approval"
     t.string   "matter_third_approval"
+    t.string   "approval_process"
   end
 
   create_table "third_party_vendors", force: :cascade do |t|

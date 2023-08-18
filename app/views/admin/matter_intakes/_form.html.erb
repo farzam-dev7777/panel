@@ -3,8 +3,9 @@
     <div class="row form-flex-wrap">
       <div class="col-xs-12 col-md-6">
         <label class="label">Internal lawyer name<span class="mandatory">*</span></label>
-        <%= f.input :bmo_lawyer_name, label: false, required: true, :input_html => { :value => @matter_intake&.bmo_lawyer_name || current_user.try(:full_name) } %>
-        <%= f.input :lawyer_id, as: :hidden, label: false, :input_html => { :value => current_user.try(:id) } %>
+        <%= f.input :bmo_lawyer_name, label: false, collection: InternalLawyer.where(tenant_id: Tenant&.current&.id).map {|il| [il.full_name, il.full_name, {'data-id'=>il.id}]} %>
+        <%= f.input :lawyer_id, as: :hidden, label: false %>
+        <%= f.input :user_id, :as => :hidden, label: false, :input_html => { :value => current_user.try(:id)  } %>
         <%= f.input :form_type, as: :hidden, label: false, :input_html => { :value => @form_type || @matter_intake&.form_type } %>
         <%= f.input :submitter_name, as: :hidden, label: false, :input_html => { :value => current_user.try(:username) } %>
       </div>

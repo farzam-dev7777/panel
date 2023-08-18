@@ -83,7 +83,8 @@ class TenantAdmin::TenantsController < TenantAdmin::BaseController
       :azure_client_id, :azure_client_secret, :azure_tenant_id, :internal_lawyer,
       :master_user, :business_user, :panel_retainer_template_id, :retainer_template_id,
       :auto_approve_amount_limit,:matter_first_approval, :matter_second_approval,
-      :matter_third_approval, auto_approve_matter_type: []
+      :matter_third_approval, :approval_process, auto_approve_matter_type: [],
+      tenant_matter_approvals_attributes: [:id, :role, :approval, :notification]
     )
   end
 

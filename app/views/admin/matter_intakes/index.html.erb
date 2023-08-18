@@ -111,6 +111,8 @@
             <% @matter_intakes.each do |matter_intake| %>
               <% if Current.user.role === "lxp"  && matter_intake.status === "matter_not_open" %>
                 <tr onClick="window.location.href='/admin/matter_intakes/<%= matter_intake.id %>/review'">
+              <% elsif matter_intake.approval_pending?(current_user) %>
+                <tr onClick="window.location.href='/admin/matter_intakes/<%= matter_intake.id %>/lxp_review'">
               <% elsif Current.user.role === "internal_lawyers"  && matter_intake.status != "matter_open" && matter_intake.user_id.present? %>
                 <tr onClick="window.location.href='/admin/matter_intakes/<%= matter_intake.id %>/review'">
               <% elsif Current.user.role === "lxp" && matter_intake.status === "awaiting_lxp_review" %>

@@ -5,5 +5,6 @@ class AddAutoApproveAmountLimitIntoTenant < ActiveRecord::Migration[5.0]
     add_column :tenants, :matter_first_approval, :string
     add_column :tenants, :matter_second_approval, :string
     add_column :tenants, :matter_third_approval, :string
+    add_column :tenants, :approval_process, :string
   end
 end

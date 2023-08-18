@@ -1,0 +1,43 @@
+<div class="col-md-12">
+  <%- if @matter_intake.matter_approvals.size > 0 %>
+    <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+      <div class="page-header-sp">
+        <div class="page-title">Approvals</div>
+        <div class="back-edit-actions">
+        </div>
+      </div>
+      <div>
+        <div class="clearfix"></div>
+        <!-- MAIN PANEL -->
+        <div role="main">
+          <!-- MAIN CONTENT -->
+          <div>
+            <!-- row -->
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="sp-form-bg">
+                  <!-- Timeline Content -->
+                  <div class="smart-timeline">
+                    <ul class="smart-timeline-list">
+                  <% @matter_intake.approval_listing.order("approval_sequence desc, created_at desc").each_with_index do |approval, index| %>
+                          <li>
+                            <div class="smart-timeline-content">
+                                  <strong> <%= approval.approval_sequence.blank? ? '' : index+1%> <%= approval.show_role%>: <%= approval.show_status%>
+                            </div>
+                          </li>
+                      <% end %>
+                            </ul>
+                          </div>
+                          <!-- END Timeline Content -->
+                        </div>
+                      </div>
+                    </div>
+                    <!-- end row -->
+                  </div>
+                  <!-- END MAIN CONTENT -->
+                </div>
+                <!-- END MAIN PANEL -->
+              </div>
+            </div>
+          <% end %>
+        </div>

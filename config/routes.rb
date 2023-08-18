@@ -39,6 +39,8 @@ Rails.application.routes.draw do
       end
     end
     
+    resources :matter_approvals
+
     resources :file_attachments do
       member do
         get :decrypt
@@ -70,6 +72,7 @@ Rails.application.routes.draw do
       member do 
         get :review
         get :lxp_review
+        put :add_review
       end
       collection do 
         post :lxp_rejects
@@ -210,6 +213,10 @@ Rails.application.routes.draw do
     resources :matter_intakes do
       collection do
         get ':matter_intake_id/information_security_classification' => 'matter_intakes#information_security_classification', :as => "matter_intakes_information_security_classification"
+      end
+
+      member do 
+        put :add_review
       end
     end
 
@@ -360,6 +367,7 @@ Rails.application.routes.draw do
     member do 
       get :review
       get :lxp_review
+      put :add_review
     end
     collection do 
       post :lxp_rejects
@@ -374,6 +382,8 @@ Rails.application.routes.draw do
       get :reject
     end
   end
+  resources :matter_approvals
+
   post 'tenants/switch', to: 'tenants#switch'
 
   root to: "dashboard#index"

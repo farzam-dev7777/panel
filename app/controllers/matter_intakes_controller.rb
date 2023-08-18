@@ -32,8 +32,8 @@ class MatterIntakesController < BaseController
 
   def new
     if current_user&.law_firm&.current_law_firm_tenant&.allow_to_create_matters.present?
-      @form_type = params[:form_type]
-      @matter_intake = MatterIntake.new
+      @form_type = 'general'
+      @matter_intake = MatterIntake.new(form_type: 'general')
       @invoices = @matter_intake.invoices.build
       @invoice_attachments = @invoices.invoice_attachments.build
       @new_form = true
@@ -51,6 +51,7 @@ class MatterIntakesController < BaseController
 
   def show
     @matter_intake = MatterIntake.includes(:invoices).find_by(id: params[:id])
+    @matter_approval = @matter_intake.current_user_pending_approval(current_user)
   end
 
   def review
@@ -61,6 +62,7 @@ class MatterIntakesController < BaseController
 
   def lxp_review
     @matter_intake = MatterIntake.includes(:invoices).find_by(id: params[:id])
+    @matter_approval = @matter_intake.current_user_pending_approval(current_user)
     @new_form = false
   end
 
@@ -68,7 +70,9 @@ class MatterIntakesController < BaseController
     @matter_intake = MatterIntake.new(matter_intake_params)
 
     if @matter_intake.save
-      @matter_intake.update_attributes(status: "draft", lawyer_reviewed_at: Time.now)
+      @matter_intake.update_attributes(status: "created", lawyer_reviewed_at: Time.now)
+      @matter_intake.set_default_approval_status
+      @matter_intake.auto_approve_matter(current_user)
       # @matter_intake.send_notification_to_lxp
       # @matter_intake.send_notification_litigation_specialist_team
       # flash[:notice] = "Matter intake form submitted"
@@ -93,22 +97,24 @@ class MatterIntakesController < BaseController
     @matter_intake = MatterIntake.find_by(id: params[:id])
 
     if @matter_intake.present? && @matter_intake.update_attributes(matter_intake_params)
+      @matter_intake.auto_approve_matter(current_user)
+      # @matter_intake.set_default_approval_status
       if current_user.role === "internal_lawyers"
         if params[:matter_intake] && params[:matter_intake][:submit_type] && params[:matter_intake][:submit_type] === "update"
           redirect_to matter_intakes_information_security_classification_matter_intakes_path(@matter_intake)
         else
-          @matter_intake.update_attributes(lawyer_reviewed_at: Time.now, status: 'awaiting_lxp_review')
-          @matter_intake.send_notification_to_lxp
-          @matter_intake.send_notification_litigation_specialist_team
-          @matter_intake.add_log_for_lawyer_submission_to_lxp(current_user)
+          # @matter_intake.update_attributes(lawyer_reviewed_at: Time.now, status: 'awaiting_lxp_review')
+          # @matter_intake.send_notification_to_lxp
+          # @matter_intake.send_notification_litigation_specialist_team
+          # @matter_intake.add_log_for_lawyer_submission_to_lxp(current_user)
           flash[:notice] = "Matter intake Form-B submitted."
           redirect_to matter_intakes_path
         end
        
       elsif current_user.role === "lxp" && @matter_intake.status.present?
-        @matter_intake.update_attributes(lxp_reviewed_at: Time.now, status: @matter_intake.status.downcase, lxp_id: current_user.id)
-        @matter_intake.add_log_matter_open_by_lxp(current_user)
-        @matter_intake.send_notification_to_lawyer_and_lxp
+        # @matter_intake.update_attributes(lxp_reviewed_at: Time.now, status: @matter_intake.status.downcase, lxp_id: current_user.id)
+        # @matter_intake.add_log_matter_open_by_lxp(current_user)
+        # @matter_intake.send_notification_to_lawyer_and_lxp
         flash[:notice] = "Matter status updated to #{MatterIntake::MATTER_STATUS[@matter_intake.status.upcase.to_sym]}."
         redirect_to matter_intakes_path
       else
@@ -164,6 +170,12 @@ class MatterIntakesController < BaseController
     render json: {
       resource: response
     }
+  end
+
+  def add_review
+    matter_intake = MatterIntake.find_by_id params[:id]
+    matter_intake.reviews.create(status: 'comment', description: params[:discription], actor_id: current_user.id)
+    redirect_to matter_intakes_path
   end
 
   private

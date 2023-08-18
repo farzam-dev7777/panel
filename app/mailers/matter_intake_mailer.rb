@@ -4,14 +4,14 @@ class MatterIntakeMailer < ApplicationMailer
 
   def send_notification_to_lawyer_for_form_submission(matter_intake)
     @matter_intake = matter_intake
-    to_email = [@matter_intake.lawyer.email]
+    to_email = @matter_intake.lawyer.present? ? [@matter_intake.lawyer.email] : []
     to_email << @matter_intake.reviewer_email if @matter_intake.reviewer_email.present?
     mail(to: to_email, subject: "New matter intake form has been submitted")
   end
 
   def send_notification_to_lxp_for_form_submission(matter_intake)
     @matter_intake = matter_intake
-    @lxp_users = User.where(role: 'lxp')
+    @lxp_users = User.where(role: 'lxp', tenant_id: Tenant.current.id)
     @lxp_users.each do |lxp|
       mail(to: lxp.email, subject: "Matter intake form has been submitted") if lxp.email.present?
     end
@@ -43,6 +43,13 @@ class MatterIntakeMailer < ApplicationMailer
 
     if @matter_intake.lawyer.present? && @matter_intake.lawyer.email.present?
       mail(to: @matter_intake.lawyer.email, subject: "Matter intake form needs an update")
+    end
+  end
+
+  def send_notification_to_law_firm_for_matter_open(matter_intake)
+    @matter_intake = matter_intake
+    if @matter_intake.law_firm.present? && @matter_intake.law_firm.email.present?
+      mail(to: @matter_intake.law_firm.email, subject: "Matter intake form has been submitted")
     end
   end
 end

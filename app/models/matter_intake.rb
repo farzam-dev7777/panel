@@ -11,8 +11,7 @@ class MatterIntake < ApplicationRecord
   serialize :following_matter_involve, Array
   has_many :reviews, as: :reviewable
   has_many :invoices
-
-  after_save :auto_approve_matter
+  has_many :matter_approvals
 
   accepts_nested_attributes_for :invoices, reject_if: :all_blank, allow_destroy: true
   
@@ -619,9 +618,93 @@ class MatterIntake < ApplicationRecord
     end
   end
 
-  def auto_approve_matter
-    if(self.budget_amount.present? && self.budget_amount.to_i <= (Tenant.current&.auto_approve_amount_limit||500000) && (Tenant.current&.auto_approve_matter_type||[]).include?(self.matter_type&.matter_type))
-      self.update_columns(status: 'matter_open')
+  def auto_approve_matter(current_user)
+    if can_auto_approve?
+      Review.create(
+        actor_id: current_user.id,
+        reviewable_type: self.class.to_s,
+        reviewable_id: self.id,
+        description: "Auto Approved by System" ,
+        status: self.status.downcase
+      )
+      self.update_columns(status: 'approved')
+      self.matter_approvals.where(status: ['pending', 'rejected']).delete_all
+    end
+  end
+
+  def can_auto_approve?
+    (self.status=='created' &&
+    self.budget_amount.present? &&
+    self.budget_amount.to_i <= (Tenant.current&.auto_approve_amount_limit||500000) &&
+    (Tenant.current&.auto_approve_matter_type||[]).include?(self.matter_type&.matter_type) &&
+    self.consent_pending? == false
+    )
+  end
+
+  def approval_pending?(current_user)
+    current_user_pending_approval(current_user).present?
+  end
+
+  def current_user_pending_approval(current_user)
+    return nil if (self.user_id == current_user.id) || (current_user.role == 'internal_lawyers' && self.lawyer_id != current_user.id)
+    if Tenant.current.approval_process == 'serial'
+      obj = self.approval_listing.where(status: ['pending', 'rejected']).order(:approval_sequence).last
+      obj.present? && obj.approve_by_role == current_user.role ? obj : nil
+    else
+      approval_listing.where(status: ['pending', 'rejected'], approve_by_role: current_user.role).last
+    end
+  end
+
+  def send_notification_for_matter_open(role)
+    if role == 'lxp'
+      MatterIntakeMailer.send_notification_to_lxp_for_matter_open(self).deliver_now
+    elsif role == 'master_user'
+      MatterIntakeMailer.send_notification_to_law_firm_for_matter_open(self).deliver_now
+    elsif role == 'internal_lawyers'
+      MatterIntakeMailer.send_notification_to_lawyer_for_matter_open(self).deliver_now
+    end
+  end
+
+  def approval_listing
+    if consent_pending?
+      matter_approvals.where(approval_type: 'consent')
+    else
+      matter_approvals
+    end
+  end
+
+  def consent_pending?
+    matter_approvals.where(approval_type: 'consent', status: ['pending', 'rejected']).present?
+  end
+
+  def set_default_approval_status
+    if Tenant.current.present? && status == 'created'
+      Review.create(
+        actor_id: user_id,
+        reviewable_type: self.class.to_s,
+        reviewable_id: self.id,
+        description: "Auto Approved by #{user.try(:full_name)}" ,
+        status: self.status.downcase
+      )
+      notfiy_roles = []
+      Tenant.current.tenant_matter_approvals.each do |matter_approval|
+        if matter_approval.role.present?
+          if matter_approval.approval.present?
+            if matter_approval.owner_role == self.user.role
+              puts "****"
+              puts matter_approval.inspect
+              approval_sequence = Tenant.current.approval_process == 'serial' ? matter_approval.sequence_number : 0
+              MatterApproval.create_matter_approval(self.id, matter_approval.role, matter_approval.approval_type, approval_sequence)
+            end
+          end
+          if matter_approval.notification.present?
+            notfiy_roles << matter_approval.role
+          end
+        end
+      end
+      notfiy_roles.uniq.each do |role|
+        send_notification_for_matter_open(role)
+      end
     end
   end
 end

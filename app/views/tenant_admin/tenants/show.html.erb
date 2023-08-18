@@ -77,6 +77,10 @@
                 <div class="field-data"><%= @tenant&.azure_client_secret %></div>
               </div>
               <div class="col-xs-12 col-md-6">
+                <div class="field-label">Matter Approval Sequence</div>
+                <div class="field-data"><%= @tenant&.approval_process %></div>
+              </div>
+              <div class="col-xs-12 col-md-6">
                 <div class="field-label">Matter Auto Approve Amount Limit</div>
                 <div class="field-data"><%= @tenant&.auto_approve_amount_limit %></div>
               </div>
@@ -84,18 +88,30 @@
                 <div class="field-label">Auto Approval Matter Type</div>
                 <div class="field-data"><%= @tenant&.auto_approve_matter_type.join(', ') %></div>
               </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="field-label">Matter First Approval</div>
-                <div class="field-data"><%= @tenant&.matter_first_approval %></div>
+              <div class="col-xs-12 col-md-12">
+                <label class="label">Matter Approvals</label>
               </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="field-label">Matter Second Approval</div>
-                <div class="field-data"><%= @tenant&.matter_second_approval %></div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="field-label">Matter Third Approval</div>
-                <div class="field-data"><%= @tenant&.matter_third_approval %></div>
-              </div>
+              <% @tenant.tenant_matter_approvals.each do |matter_approval| %>
+                 <hr style="width:100%;text-align:left;margin-left:0">
+                <div class="col-xs-12 col-md-12">
+                  <label class="label"><%= "Owner Of Matter -> #{MatterApproval::MATTER_APPROVAL_ROLE[matter_approval.owner_role.to_sym]}".upcase%></label>
+                </div>
+                <div class="col-xs-12 col-md-12">
+                  <label class="field-label"><%= matter_approval.title%></label>
+                </div>
+                <div class="col-xs-12 col-md-3">
+                  <div class="field-label">Role</div>
+                  <div class="field-data"><%= MatterApproval::MATTER_APPROVAL_ROLE[matter_approval.role.to_sym]%></div>
+                </div>
+                <div class="col-xs-12 col-md-3">
+                  <div class="field-label">Approval Required</div>
+                  <div class="field-data"><%= matter_approval.approval%></div>
+                </div>
+                <div class="col-xs-12 col-md-3">
+                  <div class="field-label">Notify</div>
+                  <div class="field-data"><%= matter_approval.notification%></div>
+                </div>
+              <% end %>
             </div>
           </div>
         </div>
@@ -145,7 +161,7 @@
                     <div> 
                       <span class="percent txt-color-blue bold">
                         <% if firm&.law_firm&.form_submissions.try(:latest).try(:status) == 'approved' %>
-                          <% score = firm.total_calculated_score(firm.form_submissions.try(:latest)) %>
+                          <% score = firm.law_firm.total_calculated_score(firm.law_firm.form_submissions.try(:latest)) %>
                           <div class="total-score" data-color="<%= firm&.law_firm&.form_submissions.try(:latest).try(:color, score, 'total_calculated_score') %>" data-score=<%= score %>></div>
                         <% end %>
                       </span> 

@@ -97,7 +97,7 @@
 					</nav>
 					<div class="bmo-logo">
 						<% if Tenant.current.present? %>
-							<%= image_tag Tenant.current&.logo&.url, alt:"CWB logo", style: "width: 100px;" %>
+							<%= image_tag Tenant.current&.logo&.url||'', alt:"CWB logo", style: "width: 100px;" %>
 						<% end %>
 					</div>
 				</div>

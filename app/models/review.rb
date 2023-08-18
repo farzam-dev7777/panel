@@ -3,7 +3,7 @@ class Review < ApplicationRecord
   belongs_to :actor, class_name: 'User'
   belongs_to :assigned_to, class_name: 'User'
 
-  after_save :update_reviewable_status
+  # after_save :update_reviewable_status
 
   attr_accessor :pay_type
   

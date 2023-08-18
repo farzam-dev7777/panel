@@ -93,25 +93,45 @@
         <%= f.input :business_user, label: false %>
       </div>
       <div class="col-xs-12 col-md-6">
+        <label class="label">Matter Approval Sequence</label>
+        <%= f.input :approval_process, label: false, collection: [['Serial','serial'], ['Parallel','parallel']]%>
+      </div>
+      <div class="col-xs-12 col-md-6">
         <label class="label">Matter Auto Approve Amount Limit</label>
         <%= f.input :auto_approve_amount_limit, label: false %>
       </div>
       <div class="col-xs-12 col-md-6">
         <label class="label">Auto Approval Matter Type</label>
-        <%= f.input :auto_approve_matter_type, label: false, collection: PanelRequest::MATTER_TYPES,  input_html: { multiple: true }%>
+        <%= f.input :auto_approve_matter_type, label: false, collection: MatterType.all.pluck(:matter_type),  input_html: { multiple: true }%>
       </div>
-      <div class="col-xs-12 col-md-6">
-        <label class="label">Matter First Approval</label>
-        <%= f.input :matter_first_approval, label: false, collection: [['Not Require','not_require'], ['Lxp','lxp'], ['Internal Lawyer', 'internal_lawyer'], ['Law Firm', 'law_firm']]%>
-      </div>
-      <div class="col-xs-12 col-md-6">
-        <label class="label">Matter Second Approval</label>
-        <%= f.input :matter_second_approval, label: false, collection: [['Not Require','not_require'], ['Lxp','lxp'], ['Internal Lawyer', 'internal_lawyer'], ['Law Firm', 'law_firm']]%>
-      </div>
-      <div class="col-xs-12 col-md-6">
-        <label class="label">Matter Third Approval</label>
-        <%= f.input :matter_third_approval, label: false, collection: [['Not Require','not_require'], ['Lxp','lxp'], ['Internal Lawyer', 'internal_lawyer'], ['Law Firm', 'law_firm']]%>
-      </div>
+      <% MatterApproval::MATTER_APPROVAL_ROLE.each do |key, value| %>
+        <div class="col-xs-12 col-md-12" style="text-align: center;background: lightgray;">
+          <hr style="width:100%;text-align:left;margin-left:0">
+          <label class="label"><%= "Owner Of Matter -> #{value}"%></label>
+          <hr style="width:100%;text-align:left;margin-left:0">
+        </div>
+        <% ['consent', 'approval'].each do |approval_type| %>
+          <div class="col-xs-12 col-md-12">
+            <hr style="width:100%;text-align:left;margin-left:0">
+            <label class="label"><%= "#{approval_type} Parties".upcase%></label>
+            <hr style="width:100%;text-align:left;margin-left:0">
+          </div>
+          <%= f.simple_fields_for :tenant_matter_approvals, @tenant.tenant_matter_approvals.where(approval_type: approval_type, owner_role: key).order('created_at') do |field| %>
+            <div class="col-xs-12 col-md-4">
+                <div class="field-label"><%= MatterApproval::MATTER_APPROVAL_ROLE[field.object.role.to_sym]%></div>
+            </div>
+            <div class="col-xs-12 col-md-4">
+              <label class="label">Approval Required</label>
+              <%= field.input :approval, label: false, as: :boolean%>
+            </div>
+            <div class="col-xs-12 col-md-4">
+              <label class="label">Notify</label>
+              <%= field.input :notification, label: false, as: :boolean%>
+            </div>
+          <% end %>
+          <hr style="width:100%;text-align:left;margin-left:0">
+        <% end %>
+      <% end %>
       <div class="col-xs-12 col-md-12 mt-3">
         <%=link_to 'Cancel', tenant_admin_root_path, class: 'btn-type-default' %>
         <%= f.button :submit, "Submit", class: "btn-type-primary" %>

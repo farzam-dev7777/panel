@@ -18,6 +18,7 @@
             <tr>
               <th>Name</th>
               <th>Username</th>
+              <th>Role</th>
               <th>Email</th>
               <th>Created At</th>
               <th>Deactived At</th>
@@ -28,6 +29,7 @@
               <tr onClick="window.location.href='/tenant_admin/users/<%= user.id %>/edit'">
                 <td><%= [user&.first_name, user&.last_name]&.compact&.join(' ') %></td>
                 <td><%= user&.username %></td>
+                <td><%= user&.role %></td>
                 <td><%= user&.email %></td>
                 <td><%= user&.created_at&.strftime('%d %b %Y at %I:%M %p') %></td>
                 <td><%= user&.deactivated_at&.strftime('%d %b %Y at %I:%M %p') %></td>
