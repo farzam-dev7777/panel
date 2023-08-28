@@ -77,6 +77,10 @@
                 <div class="field-data"><%= @tenant&.azure_client_secret %></div>
               </div>
               <div class="col-xs-12 col-md-6">
+                <div class="field-label">Matter Optional Fields</div>
+                <div class="field-data"><%= (@tenant&.matter_optional_fields||[]).select{|s| s.present?}.join(', ') %></div>
+              </div>
+              <div class="col-xs-12 col-md-6">
                 <div class="field-label">Matter Approval Sequence</div>
                 <div class="field-data"><%= @tenant&.approval_process %></div>
               </div>

@@ -68,10 +68,13 @@ class MatterIntakesController < BaseController
 
   def create
     @matter_intake = MatterIntake.new(matter_intake_params)
-
+    @matter_intake.law_firm_id = current_user.law_firm&.id if @matter_intake.law_firm_id.blank?
+    @matter_intake.requested_by_id = current_user&.id if @matter_intake.requested_by_id.blank?
+    @matter_intake.submitter_name = current_user.full_name if @matter_intake.submitter_name.blank?
+    @matter_intake.matter_number = "MT-#{Date.today.month}-#{Date.today.day}-#{(1..999).to_a.sample}" if @matter_intake.matter_number.blank?
     if @matter_intake.save
-      @matter_intake.update_attributes(status: "created", lawyer_reviewed_at: Time.now)
-      @matter_intake.set_default_approval_status
+      @matter_intake.update_attributes(status: "submitted", lawyer_reviewed_at: Time.now)
+      @matter_intake.set_default_approval_status(current_user)
       @matter_intake.auto_approve_matter(current_user)
       # @matter_intake.send_notification_to_lxp
       # @matter_intake.send_notification_litigation_specialist_team
@@ -98,7 +101,7 @@ class MatterIntakesController < BaseController
 
     if @matter_intake.present? && @matter_intake.update_attributes(matter_intake_params)
       @matter_intake.auto_approve_matter(current_user)
-      # @matter_intake.set_default_approval_status
+      @matter_intake.set_default_approval_status(current_user)
       if current_user.role === "internal_lawyers"
         if params[:matter_intake] && params[:matter_intake][:submit_type] && params[:matter_intake][:submit_type] === "update"
           redirect_to matter_intakes_information_security_classification_matter_intakes_path(@matter_intake)
@@ -175,7 +178,7 @@ class MatterIntakesController < BaseController
   def add_review
     matter_intake = MatterIntake.find_by_id params[:id]
     matter_intake.reviews.create(status: 'comment', description: params[:discription], actor_id: current_user.id)
-    redirect_to matter_intakes_path
+    redirect_to matter_intake_path(matter_intake), notice: 'Your comment has been added.'
   end
 
   private
@@ -197,6 +200,7 @@ class MatterIntakesController < BaseController
       :mi_matter, :nature_of_events, :process_type_level_1, :process_type_level_2, :product_type_level_1, :product_type_level_2,
       :event_type_level_1, :event_type_level_2, :business_activity_level_1, :business_activity_level_2, :can_reimbursed_matter,
       :branch, :outside_counsel_engaged, :deal_code, :email_notification_to_litigation_specialist_team,
+      :requested_by_id, :related_matter_number, :pii_involved, :internal_file_number, :business_department, :business_group, :matter_number,
       :receive_personal_information, :receive_general_business_data, :applicable_technical_specialty_data, following_matter_involve: [],
       applicable_technical_specialty_data_type: [], receive_personal_information_data_type: [], receive_general_business_data_type: [],
       invoices_attributes: [:id, :date, :taxes, :matter_intake_id, :lawyer_name, :rate_type, :description, :hours, :amount, :_destroy, invoice_attachments_attributes: [:id, :file, :veryfi_response]]

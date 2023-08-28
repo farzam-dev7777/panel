@@ -5,6 +5,7 @@ class MatterIntake < ApplicationRecord
   belongs_to :law_firm
   belongs_to :matter_type
   belongs_to :lawyer, class_name: 'InternalLawyer', foreign_key: 'lawyer_id'
+  belongs_to :requested_by, class_name: 'User', foreign_key: 'requested_by_id'
   serialize :receive_personal_information_data_type, Array
   serialize :receive_general_business_data_type, Array
   serialize :applicable_technical_specialty_data_type, Array
@@ -13,100 +14,101 @@ class MatterIntake < ApplicationRecord
   has_many :invoices
   has_many :matter_approvals
 
+
   accepts_nested_attributes_for :invoices, reject_if: :all_blank, allow_destroy: true
   
   mount_uploader :asset, DocUploader
 
   #### validation for lob initiated starts ####
-  validates_presence_of :submitter_name, :name_of_matter_client, :matter_type_id, :matter_description, :following_matter_involve,
-    :bmo_lawyer_name, :lob_contact_for_po, :cost_centre_for_legal_fees, :business_paying_for_matter, :jurisdiction,
-    :group_paying_for_matter, :paying_entity, :outside_counsel_engaged, :is_syndicate_matter,
-    :if => Proc.new { |matter_intake| matter_intake.user_id.present? && matter_intake.user.role == "lob" }
+  # validates_presence_of :submitter_name, :name_of_matter_client, :matter_type_id, :matter_description, :following_matter_involve,
+  #   :bmo_lawyer_name, :lob_contact_for_po, :cost_centre_for_legal_fees, :business_paying_for_matter, :jurisdiction,
+  #   :group_paying_for_matter, :paying_entity, :outside_counsel_engaged, :is_syndicate_matter,
+  #   :if => Proc.new { |matter_intake| matter_intake.user_id.present? && matter_intake.user.role == "lobb" }
 
-  validates_presence_of :firm_type,
-    :if => Proc.new { |matter_intake| matter_intake.user_id.present? && matter_intake.user.role == "lob" && matter_intake.outside_counsel_engaged === "Yes" }
+  # validates_presence_of :firm_type,
+  #   :if => Proc.new { |matter_intake| matter_intake.user_id.present? && matter_intake.user.role == "lobb" && matter_intake.outside_counsel_engaged === "Yes" }
 
-    validates_presence_of :name_of_non_panel_firm,
-    :if => Proc.new { |matter_intake| matter_intake.user_id.present? && matter_intake.user.role == "lob" && matter_intake.firm_type === "Non-Panel"  }
+  #   validates_presence_of :name_of_non_panel_firm,
+  #   :if => Proc.new { |matter_intake| matter_intake.user_id.present? && matter_intake.user.role == "lobb" && matter_intake.firm_type === "Non-Panel"  }
 
-  validates_presence_of :name_of_panel_firm,
-    :if => Proc.new { |matter_intake| matter_intake.user_id.present? && matter_intake.user.role == "lob" && matter_intake.firm_type === "Panel"  }
+  # validates_presence_of :name_of_panel_firm,
+  #   :if => Proc.new { |matter_intake| matter_intake.user_id.present? && matter_intake.user.role == "lobb" && matter_intake.firm_type === "Panel"  }
 
-  validates_presence_of :name_of_panel_firm, :name_of_non_panel_firm,
-    :if => Proc.new { |matter_intake| matter_intake.user_id.present? && matter_intake.user.role == "lob" && matter_intake.firm_type === "Panel & Non-Panel Firms"  }
+  # validates_presence_of :name_of_panel_firm, :name_of_non_panel_firm,
+  #   :if => Proc.new { |matter_intake| matter_intake.user_id.present? && matter_intake.user.role == "lobb" && matter_intake.firm_type === "Panel & Non-Panel Firms"  }
   
-  #### validation for lob initiated ends ####
+  # #### validation for lob initiated ends ####
 
-  #### validation for lob initiated but for lawyer for Form-B starts ####
+  # #### validation for lob initiated but for lawyer for Form-B starts ####
   
-  validates_presence_of :bmo_lawyer_name, :legal_group_of_bmo_lawyer, :work_area, :work_area_type, :is_conceal_imanage_workspace,
-    :is_paper_file, :name_of_matter_client, :matter_description, :paying_entity, :type_of_price,
-    :if => Proc.new { |matter_intake| matter_intake.user_id.present? && matter_intake.user.role == "lob" && Current.user && Current.user.role === "internal_lawyers" }
+  # validates_presence_of :bmo_lawyer_name, :legal_group_of_bmo_lawyer, :work_area, :work_area_type, :is_conceal_imanage_workspace,
+  #   :is_paper_file, :name_of_matter_client, :matter_description, :paying_entity, :type_of_price,
+  #   :if => Proc.new { |matter_intake| matter_intake.user_id.present? && matter_intake.user.role == "lobb" && Current.user && Current.user.role === "internal_lawyers" }
 
-  validates_presence_of :afa_details,
-    :if => Proc.new { |matter_intake| matter_intake.user_id.present? && matter_intake.user.role == "lob" && Current.user && Current.user.role === "internal_lawyers" && matter_intake.is_alternative_fee_arrangement === "Yes" }
+  # validates_presence_of :afa_details,
+  #   :if => Proc.new { |matter_intake| matter_intake.user_id.present? && matter_intake.user.role == "lobb" && Current.user && Current.user.role === "internal_lawyers" && matter_intake.is_alternative_fee_arrangement === "Yes" }
 
-  validates_presence_of :who_requires_access_to_imanage_workspace,
-    :if => Proc.new { |matter_intake| matter_intake.user_id.present? && matter_intake.user.role == "lob" && Current.user && Current.user.role === "internal_lawyers" && matter_intake.is_conceal_imanage_workspace === "Yes" }
+  # validates_presence_of :who_requires_access_to_imanage_workspace,
+  #   :if => Proc.new { |matter_intake| matter_intake.user_id.present? && matter_intake.user.role == "lobb" && Current.user && Current.user.role === "internal_lawyers" && matter_intake.is_conceal_imanage_workspace === "Yes" }
 
-    validates_presence_of :is_ore_reportable, :is_otherwise_reportable,
-    :if => Proc.new { |matter_intake| matter_intake.user_id.present? && matter_intake.user.role == "lob" && Current.user && Current.user.role === "internal_lawyers" && matter_intake.work_area === "Regulatory" }
-  #### validation for lob initiated but for lawyer for Form-B ends ####
+  #   validates_presence_of :is_ore_reportable, :is_otherwise_reportable,
+  #   :if => Proc.new { |matter_intake| matter_intake.user_id.present? && matter_intake.user.role == "lobb" && Current.user && Current.user.role === "internal_lawyers" && matter_intake.work_area === "Regulatory" }
+  # #### validation for lob initiated but for lawyer for Form-B ends ####
 
-  #### Validation common in General & Litigation intake starts ####
+  # #### Validation common in General & Litigation intake starts ####
 
-  validates_presence_of :bmo_lawyer_name, :legal_group_of_bmo_lawyer, :work_area, :work_area_type, :is_syndicate_matter,
-    :is_conceal_imanage_workspace, :name_of_matter_client, :matter_description, #:paying_entity, :is_paper_file,
-    :business_paying_for_matter, :group_paying_for_matter, :jurisdiction, :outside_counsel_engaged,
-    :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && FORM_TYPE.include?(matter_intake.form_type) }
+  # validates_presence_of :bmo_lawyer_name, :legal_group_of_bmo_lawyer, :work_area, :work_area_type, :is_syndicate_matter,
+  #   :is_conceal_imanage_workspace, :name_of_matter_client, :matter_description, #:paying_entity, :is_paper_file,
+  #   :business_paying_for_matter, :group_paying_for_matter, :jurisdiction, :outside_counsel_engaged,
+  #   :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && FORM_TYPE.include?(matter_intake.form_type) }
 
-  validates_presence_of :who_requires_access_to_imanage_workspace,
-    :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && FORM_TYPE.include?(matter_intake.form_type) && matter_intake.is_conceal_imanage_workspace === "Yes" }
+  # validates_presence_of :who_requires_access_to_imanage_workspace,
+  #   :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && FORM_TYPE.include?(matter_intake.form_type) && matter_intake.is_conceal_imanage_workspace === "Yes" }
 
-  validates_presence_of :following_matter_involve, :cost_centre_for_legal_fees, :lob_contact_for_po, :firm_type, :type_of_price,
-    :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && FORM_TYPE.include?(matter_intake.form_type) && matter_intake.outside_counsel_engaged != "N/A Internal – no law firm will be engaged" }
+  # validates_presence_of :following_matter_involve, :cost_centre_for_legal_fees, :lob_contact_for_po, :firm_type, :type_of_price,
+  #   :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && FORM_TYPE.include?(matter_intake.form_type) && matter_intake.outside_counsel_engaged != "N/A Internal – no law firm will be engaged" }
   
-  validates_presence_of :name_of_non_panel_firm,
-    :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && FORM_TYPE.include?(matter_intake.form_type) && matter_intake.firm_type === "Non-Panel"  }
+  # validates_presence_of :name_of_non_panel_firm,
+  #   :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && FORM_TYPE.include?(matter_intake.form_type) && matter_intake.firm_type === "Non-Panel"  }
 
-  validates_presence_of :name_of_panel_firm,
-    :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && FORM_TYPE.include?(matter_intake.form_type) && matter_intake.firm_type === "Panel"  }
+  # validates_presence_of :name_of_panel_firm,
+  #   :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && FORM_TYPE.include?(matter_intake.form_type) && matter_intake.firm_type === "Panel"  }
 
-  validates_presence_of :name_of_panel_firm, :name_of_non_panel_firm,
-    :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && FORM_TYPE.include?(matter_intake.form_type) && matter_intake.firm_type === "Panel & Non-Panel Firms"  }
+  # validates_presence_of :name_of_panel_firm, :name_of_non_panel_firm,
+  #   :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && FORM_TYPE.include?(matter_intake.form_type) && matter_intake.firm_type === "Panel & Non-Panel Firms"  }
 
-  #### Validation common in General & Litigation intake starts ####
+  # #### Validation common in General & Litigation intake starts ####
 
-  #### General Intake Lawyer Initiated validation starts ####
+  # #### General Intake Lawyer Initiated validation starts ####
 
-  validates_presence_of :is_alternative_fee_arrangement,
-    :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && matter_intake.form_type === "general" && !TYPE_OF_PRICE.include?(matter_intake.type_of_price) }
+  # validates_presence_of :is_alternative_fee_arrangement,
+  #   :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && matter_intake.form_type === "general" && !TYPE_OF_PRICE.include?(matter_intake.type_of_price) }
 
-  validates_presence_of :afa_details,
-    :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && matter_intake.form_type === "general" && matter_intake.is_alternative_fee_arrangement === "Yes" }
+  # validates_presence_of :afa_details,
+  #   :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && matter_intake.form_type === "general" && matter_intake.is_alternative_fee_arrangement === "Yes" }
 
-  #### General Intake Lawyer Initiated validation Ends ####
+  # #### General Intake Lawyer Initiated validation Ends ####
 
-  #### Litigation Intake Lawyer Initiated validation Starts ####
+  # #### Litigation Intake Lawyer Initiated validation Starts ####
 
-  validates_presence_of :can_reimbursed_matter, :primary_issue, :allegation_of_employee_misconduct,
-    :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && matter_intake.form_type === "litigation" && matter_intake.outside_counsel_engaged != "N/A Internal – no law firm will be engaged" }
+  # validates_presence_of :can_reimbursed_matter, :primary_issue, :allegation_of_employee_misconduct,
+  #   :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && matter_intake.form_type === "litigation" && matter_intake.outside_counsel_engaged != "N/A Internal – no law firm will be engaged" }
   
-  validates_presence_of :is_alternative_fee_arrangement,
-    :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && matter_intake.form_type === "litigation" && !TYPE_OF_PRICE.include?(matter_intake.type_of_price) }
+  # validates_presence_of :is_alternative_fee_arrangement,
+  #   :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && matter_intake.form_type === "litigation" && !TYPE_OF_PRICE.include?(matter_intake.type_of_price) }
 
-  validates_presence_of :afa_details,
-    :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && matter_intake.form_type === "litigation" && matter_intake.is_alternative_fee_arrangement === "Yes" }
+  # validates_presence_of :afa_details,
+  #   :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && matter_intake.form_type === "litigation" && matter_intake.is_alternative_fee_arrangement === "Yes" }
   
-  validates_presence_of :is_ore_reportable, :is_otherwise_reportable,
-    :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && FORM_TYPE.include?(matter_intake.form_type) && matter_intake.work_area === "Regulatory" }
+  # validates_presence_of :is_ore_reportable, :is_otherwise_reportable,
+  #   :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && FORM_TYPE.include?(matter_intake.form_type) && matter_intake.work_area === "Regulatory" }
 
-  validates_presence_of :is_ore_reportable,
-    :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && matter_intake.form_type === "litigation" }
+  # validates_presence_of :is_ore_reportable,
+  #   :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && matter_intake.form_type === "litigation" }
   
-  validates_presence_of :is_otherwise_reportable, :mi_matter, :nature_of_events, :process_type_level_1, :process_type_level_2, :product_type_level_1, :product_type_level_2,
-    :event_type_level_1, :event_type_level_2, :business_activity_level_1, :business_activity_level_2,
-    :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && matter_intake.is_ore_reportable === "Yes" }
+  # validates_presence_of :is_otherwise_reportable, :mi_matter, :nature_of_events, :process_type_level_1, :process_type_level_2, :product_type_level_1, :product_type_level_2,
+  #   :event_type_level_1, :event_type_level_2, :business_activity_level_1, :business_activity_level_2,
+  #   :if => Proc.new { |matter_intake| matter_intake.user_id.nil? && matter_intake.is_ore_reportable === "Yes" }
   
   #### Litigation Intake Lawyer Initiated validation Endss ####
 
@@ -115,8 +117,8 @@ class MatterIntake < ApplicationRecord
   FORM_TYPE = ["general", "litigation"]
 
   MATTER_STATUS = {
-    "MATTER_OPEN": "Matter Open",
-    "MATTER_NOT_OPEN": "Matter Not Open"
+    "open": "Matter Open",
+    "closed": "Matter Not Open"
   }
   
   HUMANIZED_ATTRIBUTES = {
@@ -150,6 +152,386 @@ class MatterIntake < ApplicationRecord
     "Jennie Montgomery",
     "Christina Harrison"
   ]
+
+  def generate_type(type)
+    case type
+    when "dropdown"
+      return "dropdown"
+    when "autofill"
+    when "text"
+      return "text"
+    end
+  end
+
+  def matter_form_role(current_user)
+    is_bank_user =  current_user.role != "master_user" && current_user.role != "user"
+    if current_user.role == "master_user" || current_user.role == "user" || current_user.role.blank?
+      :law_firm
+    else
+      :bank
+    end
+  end
+
+
+
+  def generate_fields(current_user, current_tenant) 
+    is_bank_user =  current_user.role != "master_user" && current_user.role != "user"
+    is_law_firm =  current_user.role == "master_user" && current_user.role == "user"
+    common_fields = [
+      {
+        name: "Submitter Name",
+        database_field: :submitter_name,
+        access: {
+          bank: "read",
+          law_firm: "read"
+        },
+        type: "autofill", # "dropdown" | "autofill" | "text" 
+        optional: false,
+        value: (self.submitter_name||current_user.full_name),
+        collection: [], # Static | From database | prefilled-value
+    
+      },
+      {
+        name: "Matter Name",
+        database_field: :name_of_matter_client,
+        access: {
+          bank: "write",
+          law_firm: "write"
+        },
+        type: "text", # "dropdown" | "autofill" | "text" | "autocomplete"
+        value: self.name_of_matter_client,
+        optional: false,
+      },
+      {
+        name: "Matter Number",
+        database_field: :matter_number,
+        access: {
+          bank: "read",
+          law_firm: "read"
+        },
+        type: "text", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: false,
+        value: (self.matter_number||"MT-#{Date.today.month}-#{Date.today.day}-#{(1..999).to_a.sample}")
+      },
+      {
+        name: "Requested by",
+        database_field: :requested_by_id,
+        access: {
+          bank: "write",
+          law_firm: "write"
+        },
+        type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: false,
+        value: self.requested_by_id,
+        collection: current_tenant.users.map{|u| [u.full_name, u.id]}
+      },
+      {
+        name: "Matter Type",
+        database_field: :matter_type_id,
+        access: {
+          bank: "write",
+          law_firm: "write"
+        },
+        type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: false,
+        value: self.matter_type_id,
+        collection: MatterType.all.reject{|mt| mt.matter_type === "Litigation / Litiges"}.map{|mt| [mt.matter_type, mt.id] }
+      },
+      {
+        name: "Matter Description",
+        database_field: :matter_description,
+        access: {
+          bank: "write",
+          law_firm: "write"
+        },
+        type: "text", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: true,
+        value: self.matter_description,
+        collection: []
+      },
+      {
+        name: "Entity",
+        database_field: :paying_entity,
+        access: {
+          bank: "write",
+          law_firm: "write"
+        },
+        type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: true,
+        value: self.paying_entity,
+        collection: MatterIntake::LegalEntity
+      },
+      {
+        name: "Other Party",
+        database_field: :other_party,
+        access: {
+          bank: "write",
+          law_firm: "write"
+        },
+        type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: true,
+        value: self.other_party,
+        collection: MatterIntake::OtherParty
+      },
+      {
+        name: "Litigation Stage",
+        database_field: :stage_of_litigation,
+        access: {
+          bank: "write",
+          law_firm: "write"
+        },
+        type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: true,
+        value: self.stage_of_litigation,
+        collection: MatterIntake::StageOfLitigation
+      },
+      {
+        name: "Issue",
+        database_field: :primary_issue,
+        access: {
+          bank: "write",
+          law_firm: "write"
+        },
+        type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: true,
+        value: self.primary_issue,
+        collection: MatterIntake::PrimaryIssue
+      },
+      {
+        name: "Will this matter involve the following",
+        database_field: :following_matter_involve,
+        access: {
+          bank: "write",
+          law_firm: "write"
+        },
+        type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: true,
+        value: self.following_matter_involve,
+        collection: MatterIntake::MatterInvolveFollowing,
+        multiple: true
+      },
+      {
+        name: "Internal (Bank) Responsible Lawyer",
+        database_field: :lawyer_id,
+        access: {
+          bank: "write",
+          law_firm: "read"
+        },
+        type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: true,
+        value: self.lawyer_id,
+        collection: InternalLawyer.where(tenant_id: current_tenant&.id).map {|il| [il.full_name, il.id]}
+      },
+      {
+        name: "Additional Comments for Internal Lawyer",
+        database_field: :additional_comments_for_lrc_lawyer,
+        access: {
+          bank: "write",
+          law_firm: "not_access"
+        },
+        type: "text", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: true,
+        value: self.additional_comments_for_lrc_lawyer,
+        collection: []
+      },
+      {
+        name: "External Law firm",
+        database_field: :law_firm_id,
+        access: {
+          bank: "write",
+          law_firm: "read"
+        },
+        type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: true,
+        value: self.law_firm_id,
+        collection: Tenant.current.law_firms.where(law_firm_category: "PANEL").map{ |lf| [lf.name, lf.id] }
+      },
+      {
+        name: "Invoice (add/upload)",
+        database_field: :invoices,
+        access: {
+          bank: "write",
+          law_firm: "write"
+        },
+        type: "autofill", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: true,
+        value: self.invoices,
+        collection: []
+      },
+      {
+        name: "Invoice - Approval",
+        database_field: :invoices,
+        access: {
+          bank: "write",
+          law_firm: "not_access"
+        },
+        type: "autofill", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: true,
+        value: self.invoices,
+        collection: []
+      },
+      {
+        name: "Jurisdiction",
+        database_field: :jurisdiction,
+        access: {
+          bank: "write",
+          law_firm: "not_access"
+        },
+        type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: true,
+        value: self.jurisdiction,
+        collection: MatterIntake::Jurisdiction
+      },
+      {
+        name: "Is this a syndicated matter?",
+        database_field: :is_syndicate_matter,
+        access: {
+          bank: "write",
+          law_firm: "not_access"
+        },
+        type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: true,
+        value: self.is_syndicate_matter,
+        collection: [['Yes, we are the lead organization', 'Yes, we are the lead organization'],["Yes, we are not the lead organization", "Yes, we are not the lead organization"], ["No", "No"]]
+      },
+      {
+        name: "AFA",
+        database_field: :afa_details,
+        access: {
+          bank: "write",
+          law_firm: "read"
+        },
+        type: "text", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: true,
+        value: self.afa_details,
+        collection: []
+      },
+      {
+        name: "Fee Estimate / Budget",
+        database_field: :budget_amount,
+        access: {
+          bank: "write",
+          law_firm: "write"
+        },
+        type: "text", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: true,
+        value: self.budget_amount,
+        collection: []
+      },
+      {
+        name: "Cost Centre (transit) for legal fees",
+        database_field: :cost_centre_for_legal_fees,
+        access: {
+          bank: "write",
+          law_firm: "read"
+        },
+        type: "text", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: true,
+        value: self.cost_centre_for_legal_fees,
+        collection: []
+      },
+      {
+        name: "Deal Code (Capital Markets Only)",
+        database_field: :deal_code,
+        access: {
+          bank: "write",
+          law_firm: "not_access"
+        },
+        type: "text", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: true,
+        value: self.deal_code,
+        collection: []
+      },
+      {
+        name: "Related Matter Number",
+        database_field: :related_matter_number,
+        access: {
+          bank: "write",
+          law_firm: "write"
+        },
+        type: "text", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: true,
+        value: self.related_matter_number,
+        collection: []
+      },
+      {
+        name: "Any PII involved in this matter?",
+        database_field: :pii_involved,
+        access: {
+          bank: "write",
+          law_firm: "write"
+        },
+        type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: true,
+        value: self.pii_involved,
+        collection: [['True', true], ['False', false]]
+      },
+      {
+        name: "Could law firm potentially receive sensitive information",
+        database_field: :can_reimbursed_matter,
+        access: {
+          bank: "write",
+          law_firm: "not_access"
+        },
+        type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: true,
+        value: self.can_reimbursed_matter,
+        collection: [['Yes', 'Yes'], ["No", "No"]]
+      },
+      {
+        name: "Reportable Risk",
+        database_field: :is_ore_reportable,
+        access: {
+          bank: "write",
+          law_firm: "not_access"
+        },
+        type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: true,
+        value: self.is_ore_reportable,
+        collection: [['Yes', 'Yes'], ["No", "No"]]
+      }
+    ]
+
+    optional_fields = [
+      {
+        name: "Internal File Number",
+        database_field: :internal_file_number,
+        access: {
+          bank: "write",
+          law_firm: "read"
+        },
+        type: "text", # "dropdown" | "autofill" | "text" 
+        optional: true,
+        value: self.internal_file_number,
+        collection: [], # Static | From database | prefilled-value
+    
+      },
+      {
+        name: "Business Department",
+        database_field: :business_department,
+        access: {
+          bank: "write",
+          law_firm: "write"
+        },
+        type: "text", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: false,
+        value: self.business_department
+      },
+      {
+        name: "Business Group Responsible for Invoice",
+        database_field: :business_group,
+        access: {
+          bank: "write",
+          law_firm: "not_access"
+        },
+        type: "text", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: false,
+        value: self.business_group
+      }
+    ]
+
+    common_fields + optional_fields.select{|s| current_tenant.matter_optional_fields.include?(s[:name])}
+  end
 
   LegalGroupBMOLawyer = [
     "Retail/Commercial",
@@ -627,13 +1009,13 @@ class MatterIntake < ApplicationRecord
         description: "Auto Approved by System" ,
         status: self.status.downcase
       )
-      self.update_columns(status: 'approved')
+      self.update_columns(status: 'opened')
       self.matter_approvals.where(status: ['pending', 'rejected']).delete_all
     end
   end
 
   def can_auto_approve?
-    (self.status=='created' &&
+    ((self.status=='submitted'||self.status=='opened') &&
     self.budget_amount.present? &&
     self.budget_amount.to_i <= (Tenant.current&.auto_approve_amount_limit||500000) &&
     (Tenant.current&.auto_approve_matter_type||[]).include?(self.matter_type&.matter_type) &&
@@ -677,20 +1059,20 @@ class MatterIntake < ApplicationRecord
     matter_approvals.where(approval_type: 'consent', status: ['pending', 'rejected']).present?
   end
 
-  def set_default_approval_status
-    if Tenant.current.present? && status == 'created'
+  def set_default_approval_status(current_user)
+    if Tenant.current.present? && status == 'submitted'
       Review.create(
-        actor_id: user_id,
+        actor_id: current_user&.id,
         reviewable_type: self.class.to_s,
         reviewable_id: self.id,
-        description: "Auto Approved by #{user.try(:full_name)}" ,
+        description: "Auto Approved by #{current_user.try(:full_name)}" ,
         status: self.status.downcase
       )
       notfiy_roles = []
       Tenant.current.tenant_matter_approvals.each do |matter_approval|
         if matter_approval.role.present?
           if matter_approval.approval.present?
-            if matter_approval.owner_role == self.user.role
+            if matter_approval.owner_role == self.current_user.role
               puts "****"
               puts matter_approval.inspect
               approval_sequence = Tenant.current.approval_process == 'serial' ? matter_approval.sequence_number : 0
