@@ -1,4 +1,12 @@
 module ApplicationHelper
+
+  def rescued_csrf_meta_tags
+    csrf_meta_tags
+  rescue ArgumentError
+    request.reset_session
+    csrf_meta_tags
+  end
+
   def get_form_value_class(sub_fields, group_form)
     if !group_form && !sub_fields
       'col-md-12 form_value_class'
@@ -152,6 +160,14 @@ module ApplicationHelper
     fields = f.simple_fields_for(association, association.to_s.singularize.capitalize.constantize.new, child_index: id) do |builder|
       render(association.to_s.singularize + "_fields", form: builder)
     end
+  end
+
+  def can_access_matter_field(field_name)
+    ['w','rw'].include?(MatterIntake::MATTER_FORM[current_user.role.to_sym][field_name.to_sym][:access])
+  end
+
+  def can_read_access_matter_field(field_name)
+    ['r','rw'].include?(MatterIntake::MATTER_FORM[current_user.role.to_sym][field_name.to_sym][:access])
   end
 
 end

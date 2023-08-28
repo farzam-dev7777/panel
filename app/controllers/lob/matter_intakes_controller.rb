@@ -10,7 +10,7 @@ class Lob::MatterIntakesController < Lob::BaseController
       @matter_intakes = @q.result(distinct: true).where(user_id: current_user.id).where(status: ["matter_open", "matter_not_open"]).order('created_at DESC')   
     else
       @q = MatterIntake.ransack(params[:q])
-     @matter_intakes = @q.result(distinct: true).where(user_id: current_user.id).order('created_at DESC')   
+     @matter_intakes = @q.result(distinct: true).order('created_at DESC')   
     end
     
     add_breadcrumb "Matter intake", :lob_matter_intakes_path
@@ -35,10 +35,17 @@ class Lob::MatterIntakesController < Lob::BaseController
 
   def create
     @matter_intake = MatterIntake.new(matter_intake_params)
-    @matter_intake.name_of_panel_firm = @matter_intake.law_firm&.name
+    if @matter_intake.law_firm_id.blank?
+      @matter_intake.name_of_panel_firm = @matter_intake.law_firm&.name
+      @matter_intake.law_firm_id = current_user.law_firm&.id
+    end
+    @matter_intake.requested_by_id = current_user&.id if @matter_intake.requested_by_id.blank?
+    @matter_intake.submitter_name = current_user.full_name if @matter_intake.submitter_name.blank?
+    @matter_intake.matter_number = "MT-#{Date.today.month}-#{Date.today.day}-#{(1..999).to_a.sample}" if @matter_intake.matter_number.blank?
+    @matter_intake.user_id = current_user.id if @matter_intake.user_id.blank?
     if @matter_intake.save
-      @matter_intake.update_attributes(status: "created", lob_submitted_at: Time.now)
-      @matter_intake.set_default_approval_status
+      @matter_intake.update_attributes(status: "submitted", lob_submitted_at: Time.now)
+      @matter_intake.set_default_approval_status(current_user)
       @matter_intake.auto_approve_matter(current_user)
       if params[:commit] === "Next"
         redirect_to matter_intakes_information_security_classification_lob_matter_intakes_path(@matter_intake)
@@ -86,7 +93,7 @@ class Lob::MatterIntakesController < Lob::BaseController
   def add_review
     matter_intake = MatterIntake.find_by_id params[:id]
     matter_intake.reviews.create(status: 'comment', description: params[:discription], actor_id: current_user.id)
-    redirect_to matter_intakes_path
+    redirect_to lob_matter_intake_path(matter_intake), notice: 'Your comment has been added.'
   end
 
   private
@@ -99,8 +106,9 @@ class Lob::MatterIntakesController < Lob::BaseController
       :is_otherwise_reportable, :is_syndicate_matter, :is_conceal_imanage_workspace, :is_paper_file, :who_requires_access_to_imanage_workspace,
       :jurisdiction, :firm_type, :name_of_panel_firm, :name_of_non_panel_firm, :type_of_price, :additional_comments_for_lrc_lawyer,
       :is_alternative_fee_arrangement, :afa_details, :additional_matter_contact, :other_matter_issues, :firm_type,
-      :lawyer_reviewed_at, :other_party, :deal_code, :outside_counsel_engaged, :receive_personal_information,
-      :receive_general_business_data, :applicable_technical_specialty_data, following_matter_involve: [],
+      :lawyer_reviewed_at, :other_party, :deal_code, :outside_counsel_engaged, :stage_of_litigation,
+      :requested_by_id, :related_matter_number, :pii_involved, :internal_file_number, :business_department, :business_group, :matter_number,
+      :receive_personal_information, :receive_general_business_data, :applicable_technical_specialty_data, following_matter_involve: [],
       applicable_technical_specialty_data_type: [], receive_personal_information_data_type: [], receive_general_business_data_type: [],
       invoices_attributes: [:id, :matter_intake_id, :lawyer_name, :rate_type, :description, :hours, :amount, :_destroy, invoice_attachments_attributes: [:id, :file]]
     )

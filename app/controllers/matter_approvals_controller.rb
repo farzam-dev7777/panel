@@ -7,14 +7,14 @@ class MatterApprovalsController < BaseController
     if matter_approval.update(status: matter_status)
       matter_intake.auto_approve_matter(current_user) if params[:matter_approval][:status] == 'approved'
       matter_approval.matter_intake.reviews.create(status:  params[:matter_approval][:status], description: params[:matter_approval][:description], actor_id: current_user.id)
-      if matter_intake.status != 'approved'
-        matter_approval.matter_intake.update(status: 'approved') if matter_intake.matter_approvals.pending.blank? && matter_intake.matter_approvals.rejected.blank?
-        matter_approval.matter_intake.update(status: 'rejected') if matter_intake.matter_approvals.rejected.present?
-        matter_approval.matter_intake.update(status: 'created') if matter_intake.matter_approvals.rejected.blank? && matter_intake.status == 'rejected'
+      if matter_intake.status != 'opened'
+        matter_approval.matter_intake.update(status: 'opened') if matter_intake.matter_approvals.pending.blank? && matter_intake.matter_approvals.rejected.blank?
+        matter_approval.matter_intake.update(status: 'closed') if matter_intake.matter_approvals.rejected.present?
+        # matter_approval.matter_intake.update(status: 'opened') if matter_intake.matter_approvals.rejected.blank? && matter_intake.status == 'closed'
       end
-      redirect_to matter_intakes_path
+      redirect_to matter_intake_path(matter_intake)
     else
-      redirect_to matter_intakes_path
+      redirect_to matter_intake_path(matter_intake)
     end
   end
 

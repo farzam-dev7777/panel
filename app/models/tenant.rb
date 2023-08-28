@@ -18,6 +18,7 @@ class Tenant < ApplicationRecord
     mount_uploader :login_bg_image, TenantUploader
 
     serialize :auto_approve_matter_type, Array
+    serialize :matter_optional_fields, Array
 
     accepts_nested_attributes_for :tenant_matter_approvals
 

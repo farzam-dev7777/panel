@@ -93,6 +93,10 @@
         <%= f.input :business_user, label: false %>
       </div>
       <div class="col-xs-12 col-md-6">
+        <label class="label">Matter Optional Fields</label>
+        <%= f.input :matter_optional_fields, label: false, collection: ['Internal File Number', 'Business Department', 'Business Group Responsible for Invoice'],  input_html: { multiple: true }%>
+      </div>
+      <div class="col-xs-12 col-md-6">
         <label class="label">Matter Approval Sequence</label>
         <%= f.input :approval_process, label: false, collection: [['Serial','serial'], ['Parallel','parallel']]%>
       </div>

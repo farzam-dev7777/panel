@@ -17,6 +17,10 @@
         </a>
       </div>
     </div>
-    <%= render "form" %> 
+    <%if @matter_intake&.form_type === 'general' || @matter_intake&.form_type.blank? %>
+      <%= render "form_v1" %>
+    <% else %>
+      <%= render "form" %> 
+    <% end %>
   </div>
 </div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20230815075153) do
+ActiveRecord::Schema.define(version: 20230826105144) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -744,6 +744,12 @@ ActiveRecord::Schema.define(version: 20230815075153) do
     t.text     "receive_general_business_data_type"
     t.text     "applicable_technical_specialty_data_type"
     t.string   "reviewer_email"
+    t.integer  "requested_by_id"
+    t.string   "related_matter_number"
+    t.boolean  "pii_involved"
+    t.string   "internal_file_number"
+    t.string   "business_department"
+    t.string   "business_group"
   end
 
   create_table "matter_types", force: :cascade do |t|
@@ -973,6 +979,7 @@ ActiveRecord::Schema.define(version: 20230815075153) do
     t.string   "matter_second_approval"
     t.string   "matter_third_approval"
     t.string   "approval_process"
+    t.string   "matter_optional_fields"
   end
 
   create_table "third_party_vendors", force: :cascade do |t|

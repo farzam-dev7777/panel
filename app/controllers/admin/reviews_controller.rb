@@ -14,7 +14,7 @@ class Admin::ReviewsController < Admin::BaseController
       status = ""
       if current_user.role === 'lxp'
         if params[:review][:reviewable_type] === "MatterIntake"
-          status = "REJECTED"
+          status = params[:review][:status]
         else  
           status = @reviewable.lxp_status  
         end 

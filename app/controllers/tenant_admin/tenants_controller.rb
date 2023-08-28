@@ -84,6 +84,7 @@ class TenantAdmin::TenantsController < TenantAdmin::BaseController
       :master_user, :business_user, :panel_retainer_template_id, :retainer_template_id,
       :auto_approve_amount_limit,:matter_first_approval, :matter_second_approval,
       :matter_third_approval, :approval_process, auto_approve_matter_type: [],
+      matter_optional_fields: [],
       tenant_matter_approvals_attributes: [:id, :role, :approval, :notification]
     )
   end
