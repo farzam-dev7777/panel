@@ -202,6 +202,7 @@ Rails.application.routes.draw do
       
       end
       collection do
+        get :panel_law_firms
         post :decertify
         post :add_internal_note
         post :remove_internal_note
