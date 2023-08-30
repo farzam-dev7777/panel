@@ -41,6 +41,11 @@
         <%= f.input :login_bg_image, label: false, as: :file %>
       </div>
 
+      <div class="col-xs-12 col-md-6 upload-file-control">
+        <label class="label">Enable exception requests</label>
+        <%= f.input :enable_exception_requests, label: false, as: :boolean %>
+      </div>
+
       <div class="col-xs-12 col-md-6">
         <label class="label">SSO Type</label>
         <%= f.input :sso_type, label: false, collection: [['Okta', 'okta'] ,['Azure active directory', 'azure_active_directory']] , prompt: "Select" %>

@@ -40,6 +40,11 @@
                 <div class="field-label">Primary Color</div>
                 <div class="field-data"><%= @tenant&.primary_color %></div>
               </div>
+
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">Enable Exception Requests</div>
+                <div class="field-data"><%= @tenant&.enable_exception_requests ? "YES" : "NO" %></div>
+              </div>
               <div class="col-xs-12 col-md-6">
                 <div class="field-label">Secondary Color</div>
                 <div class="field-data"><%= @tenant&.secondary_color %></div>

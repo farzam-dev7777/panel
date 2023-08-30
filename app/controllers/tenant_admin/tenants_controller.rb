@@ -79,7 +79,7 @@ class TenantAdmin::TenantsController < TenantAdmin::BaseController
   def tenant_params
     params.require(:tenant).permit(
       :name, :subdomain, :primary_color, :secondary_color, :logo, :login_bg_image,
-      :okta_client_id, :okta_client_secret, :okta_site, :okta_api_token, :sso_type,
+      :okta_client_id, :okta_client_secret, :okta_site, :okta_api_token, :sso_type, :enable_exception_requests,
       :azure_client_id, :azure_client_secret, :azure_tenant_id, :internal_lawyer,
       :master_user, :business_user, :panel_retainer_template_id, :retainer_template_id,
       :auto_approve_amount_limit,:matter_first_approval, :matter_second_approval,

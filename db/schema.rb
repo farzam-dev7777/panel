@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20230826105144) do
+ActiveRecord::Schema.define(version: 20230830132643) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -958,8 +958,8 @@ ActiveRecord::Schema.define(version: 20230826105144) do
     t.string   "primary_color"
     t.string   "secondary_color"
     t.string   "login_bg_image"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
     t.string   "okta_client_id"
     t.string   "okta_client_secret"
     t.string   "okta_site"
@@ -980,6 +980,7 @@ ActiveRecord::Schema.define(version: 20230826105144) do
     t.string   "matter_third_approval"
     t.string   "approval_process"
     t.string   "matter_optional_fields"
+    t.boolean  "enable_exception_requests",  default: true
   end
 
   create_table "third_party_vendors", force: :cascade do |t|
