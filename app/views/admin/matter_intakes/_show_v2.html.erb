@@ -135,7 +135,7 @@
                   </div>
                   <% @matter_intake.invoices.each do |invoice| %>
                     <div class="formSection row">
-                      <div class="col-xs-12 col-md-2">
+                      <!--<div class="col-xs-12 col-md-2">
                         <div class="field-label">Lawyer Name</div>
                         <div class="field-data"><%= invoice.lawyer_name %></div>
                       </div>
@@ -153,31 +153,37 @@
                       <div class="col-xs-12 col-md-2">
                         <div class="field-label">Rate Type</div>
                         <div class="field-data"><%= invoice.rate_type %></div>
-                      </div>
+                      </div>-->
 
-                      <div class="col-xs-12 col-md-2">
-                        <div class="field-label">Amt.</div>
+                      <div class="col-xs-12 col-md-6">
+                        <div class="field-label">Amount</div>
                         <div class="field-data"><%= invoice.amount.format %></div>
                       </div>
 
-                      <div class="col-xs-12 col-md-2">
+                      <div class="col-xs-12 col-md-6">
                         <div class="field-label">Attachments</div>
                         <div class="field-data">
                           <% if invoice.invoice_attachments.count > 0 %>
                             <% invoice.invoice_attachments.each do |attachment| %>
-                              <a href="<%= attachment.file&.url %>" target="_blank"><%= attachment.file.identifier %></a>
+                              <a href="<%= attachment.file&.url %>" target="_blank" title="<%= attachment.file.identifier %>">
+                                <i class="fa fa-money" aria-hidden="true"></i>
+                              </a>
                             <% end %>
                           <% end %>
                         </div>
+                      </div>
+                      <div class="col-xs-12 col-md-6"></div>
+                      <div class="col-xs-12 col-md-6 offset-md-6">
+                        <div class=""><span class="text-bold">Invoice date:</span> <%= invoice.created_at.strftime('%d %b %Y at %I:%M %p') %></div>
                       </div>
                     </div>
                   <% end %>
                 </div>
                 <div class="col-md-12 col-xs-12">
                   <div class="totalRow">
-                    <div>
+                    <!--<div>
                       <span>Total Hours:</span> <%= @matter_intake.invoices.sum(&:hours) %>
-                    </div>
+                    </div>-->
                     <div>
                       <span>Total Amt:</span> <%= @matter_intake.invoices.sum(&:amount).try(:format) %>
                     </div>

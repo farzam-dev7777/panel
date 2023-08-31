@@ -1887,3 +1887,7 @@ p.email-error {
 .lawfirm-tenants-container {
   width: 200px !important;
 }
+
+.text-bold{
+  font-weight: bold;
+}

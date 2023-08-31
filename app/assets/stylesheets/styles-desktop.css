@@ -1414,7 +1414,8 @@ nav ul li a:active {
   display: flex;
   flex-direction: row;
   align-content: space-around;
-  justify-content: space-around;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 
 .totalRow span {

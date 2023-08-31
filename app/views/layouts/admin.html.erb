@@ -36,7 +36,7 @@
           <% elsif current_user.role == "lop" %>
             Business Dashboard
           <% elsif current_user.role == "internal_lawyers" %>
-            Internal Lawyers Dashboard
+            <%= Tenant.current&.internal_lawyer_label || "Internal Lawyers Dashboard" %>
           <% else %>
             Organization Portal
           <% end %>
@@ -84,7 +84,7 @@
             <% elsif current_user.role == "lob" %>
               LOB Dashboard
             <% elsif current_user.role == "internal_lawyers" %>
-              Internal Lawyers Dashboard
+              <%= Tenant.current&.internal_lawyer_label || "Internal Lawyers Dashboard" %>
             <% else %>
               Bank Portal
             <% end %>

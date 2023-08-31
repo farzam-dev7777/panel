@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20230830132643) do
+ActiveRecord::Schema.define(version: 20230831161706) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -558,6 +558,13 @@ ActiveRecord::Schema.define(version: 20230830132643) do
     t.boolean  "allow_to_create_matters"
   end
 
+  create_table "lobs", force: :cascade do |t|
+    t.string   "name"
+    t.string   "id_on_sso_provider"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
   create_table "locations", force: :cascade do |t|
     t.string   "address1"
     t.string   "address2"
@@ -981,6 +988,7 @@ ActiveRecord::Schema.define(version: 20230830132643) do
     t.string   "approval_process"
     t.string   "matter_optional_fields"
     t.boolean  "enable_exception_requests",  default: true
+    t.string   "internal_lawyer_label"
   end
 
   create_table "third_party_vendors", force: :cascade do |t|
@@ -1042,6 +1050,7 @@ ActiveRecord::Schema.define(version: 20230830132643) do
     t.string   "provider_uid"
     t.string   "provider_group"
     t.integer  "tenant_id"
+    t.integer  "lob_id"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end

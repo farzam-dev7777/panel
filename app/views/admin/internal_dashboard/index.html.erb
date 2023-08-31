@@ -111,59 +111,6 @@
     </div>
   </div> -->
 <% end %>
-<!-- Panel Firms Starts-->
-  <div class="col-lg-12 col-md-12 col-sm-12">
-    <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
-      <div class="page-header-sp mobile-dashboard-header">
-        <div class="page-title">Panel Firms</div>
-        <div class="back-edit-actions">
-          <a class="btn-show-more" href="/admin/law_firms/panel_law_firms">
-            Show more
-          </a>
-        </div>
-      </div>
-      <div class="no-padding">
-        <div class="jarviswidget-editbox"></div>
-        <!-- widget content -->
-        <div class="widget-body">
-          <div class="table-responsive">
-            <table id="" class="table table-decoration table-bordered" width="100%">
-              <thead>
-                <tr>
-                  <th>Firm Name</th>
-                  <th>Number of Matters</th>
-                  <th>Relationship Partner (Firm)</th>
-                  <th>Email</th>
-                  <th>Responsible Contact (Internal)</th>
-                </tr>
-              </thead>
-              <tbody>
-                <% @panel_law_firms.each do |law_firm| %>
-                  <tr onClick="window.location.href='admin/law_firms/<%= law_firm&.id %>'">
-                    <td>
-                      <% if law_firm&.name.present? %>
-                        <div class="firm-name">
-                          <div class="name-avatar"><img src="<%= get_avatar_image(law_firm&.name&.gsub(" ", "+")) %>"></div>
-                          <div><%= law_firm&.name %></div>
-                        </div>
-                      <% else %>
-                        -
-                      <% end %>	
-                    </td>
-                    <td><%= law_firm&.matter_intakes&.count %></td>
-                    <td><%= law_firm.bmo_relationship_partner_name.present? ? law_firm.try(:bmo_relationship_partner_name) : "-" %></td>
-                    <td><%= law_firm.bmo_relationship_partner_email.present? ? law_firm.try(:bmo_relationship_partner_email) : "-" %></td>
-                    <td>-</td>
-                  </tr>
-                <% end %>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-<!-- Panel Firms Ends-->
 <!-- Matter Intakes Starts -->
 <div class="col-lg-12 col-md-12 col-sm-12">
   <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
@@ -241,6 +188,59 @@
       </div>
     </div>
 <!-- Matter Intakes Ends-->
+<!-- Panel Firms Starts-->
+  <div class="col-lg-12 col-md-12 col-sm-12">
+    <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+      <div class="page-header-sp mobile-dashboard-header">
+        <div class="page-title">Panel Firms</div>
+        <div class="back-edit-actions">
+          <a class="btn-show-more" href="/admin/law_firms/panel_law_firms">
+            Show more
+          </a>
+        </div>
+      </div>
+      <div class="no-padding">
+        <div class="jarviswidget-editbox"></div>
+        <!-- widget content -->
+        <div class="widget-body">
+          <div class="table-responsive">
+            <table id="" class="table table-decoration table-bordered" width="100%">
+              <thead>
+                <tr>
+                  <th>Firm Name</th>
+                  <th>Number of Matters</th>
+                  <th>Relationship Partner (Firm)</th>
+                  <th>Email</th>
+                  <th>Responsible Contact (Internal)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @panel_law_firms.each do |law_firm| %>
+                  <tr onClick="window.location.href='admin/law_firms/<%= law_firm&.id %>'">
+                    <td>
+                      <% if law_firm&.name.present? %>
+                        <div class="firm-name">
+                          <div class="name-avatar"><img src="<%= get_avatar_image(law_firm&.name&.gsub(" ", "+")) %>"></div>
+                          <div><%= law_firm&.name %></div>
+                        </div>
+                      <% else %>
+                        -
+                      <% end %>	
+                    </td>
+                    <td><%= law_firm&.matter_intakes&.count %></td>
+                    <td><%= law_firm.bmo_relationship_partner_name.present? ? law_firm.try(:bmo_relationship_partner_name) : "-" %></td>
+                    <td><%= law_firm.bmo_relationship_partner_email.present? ? law_firm.try(:bmo_relationship_partner_email) : "-" %></td>
+                    <td>-</td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- Panel Firms Ends-->
 <!-- Invoices Starts-->
   <div class="col-lg-12 col-md-12 col-sm-12">
     <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">

@@ -266,7 +266,7 @@
             <label class="label">Work Area Level 2<span class="mandatory">*</span></label>
             <%= f.input :work_area_type, label: false, as: :select, collection: [], input_html: { class: "lawyer_work_area_2", data: {value: "#{@matter_intake&.work_area_type}"} } %>
           </div>
-          <% if @matter_intake.matter_type.matter_type === "Regulatory / Réglementation" && @matter_intake.form_type != "litigation" %>
+          <% if @matter_intake.matter_type === "Regulatory / Réglementation" && @matter_intake.form_type != "litigation" %>
             <div class="col-xs-12 col-md-6">
               <label class="label">Should this matter be reported to Risk?<span class="mandatory">*</span></label>
               <%= f.input :is_ore_reportable, label: false, collection: [['Yes', 'Yes'], ["No", "No"]] %>
