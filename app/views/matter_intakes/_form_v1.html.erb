@@ -5,7 +5,7 @@
     <div class="row form-flex-wrap">
       <%@matter_intake.generate_fields(current_user, Tenant.current).each do |obj| %>
         <% if obj[:access][matter_role] == 'write'%>
-          <% if obj[:name].downcase.include?('invoice') == true && obj[:access][matter_role] == 'write' %>
+          <% if obj[:database_field] == :invoices && obj[:access][matter_role] == 'write' %>
             <% invoice_enable = true %>
           <% else %>
             <div class="col-xs-12 col-md-6">
