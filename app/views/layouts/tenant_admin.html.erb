@@ -79,6 +79,9 @@
                 <a href="/tenant_admin/law_firms" title="Law Firms"><i class="fa fa-building" aria-hidden="true"></i> <span class="menu-item-parent">Law Firms</span></a>
               </li>
               
+              <li class="<%= request.original_fullpath.include?('line_of_businesses') ? active_menu_item(request.original_fullpath) : active_menu_item('/tenant_admin/line_of_businesses/') %>">
+                <a href="/tenant_admin/line_of_businesses" title="LOB"><i class="fa fa-building" aria-hidden="true"></i> <span class="menu-item-parent">LOB</span></a>
+              </li>
               <li class="sp-menu-item-hidden">
                 <a href="/tenant_admin/users/sign_out" title="Sign Out" data-action="userLogout" data-logout-msg="You can improve your security further after logging out by closing this opened browser">
                   <i class="fa fa-power-off" aria-hidden="true"></i> Logout

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20230830132643) do
+ActiveRecord::Schema.define(version: 20230831174656) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -558,6 +558,28 @@ ActiveRecord::Schema.define(version: 20230830132643) do
     t.boolean  "allow_to_create_matters"
   end
 
+  create_table "line_of_business_users", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "line_of_business_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
+  create_table "line_of_businesses", force: :cascade do |t|
+    t.string   "sso_group"
+    t.string   "name"
+    t.integer  "tenant_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "lob_ssos", force: :cascade do |t|
+    t.string   "id_on_sso_provider"
+    t.string   "name"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
   create_table "locations", force: :cascade do |t|
     t.string   "address1"
     t.string   "address2"
@@ -750,6 +772,7 @@ ActiveRecord::Schema.define(version: 20230830132643) do
     t.string   "internal_file_number"
     t.string   "business_department"
     t.string   "business_group"
+    t.integer  "line_of_business_id"
   end
 
   create_table "matter_types", force: :cascade do |t|

@@ -1,0 +1,39 @@
+<div class="col-lg-12">
+  <div class="jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false"> 
+    <div class="page-header-sp m-top">
+      <div class="page-title">Line Of Business</div>
+      <div class="back-edit-actions">
+        <div class="action-buttons-alignment">
+          <a class="action-btn export-icon" href="<%= new_tenant_admin_line_of_business_path %>" data-toggle="tooltip" data-placement="top" title="Add new LOB">
+            <span class="blue-text">Add new Lob</span> <%= image_tag "add.svg", alt: "Add new lob" %>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="">
+      <!-- widget content -->
+      <div class="table-dyanmic-search table-responsive">
+        <table id="dt_basic" class="table table-decoration table-bordered" width="100%">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>SSO Group</th>
+              <th>Created At</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @line_of_business.each do |lob| %>
+              <tr onClick="window.location.href='/tenant_admin/line_of_businesses/<%= lob.id %>/edit'">
+                <td><%= lob&.name %></td>
+                <td><%= lob&.sso_group %></td>
+                <td><%= lob&.created_at&.strftime('%d %b %Y at %I:%M %p') %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <!-- end widget content -->
+      
+    </div>
+  </div>
+</div>

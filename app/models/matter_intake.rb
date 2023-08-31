@@ -6,6 +6,7 @@ class MatterIntake < ApplicationRecord
   belongs_to :matter_type
   belongs_to :lawyer, class_name: 'InternalLawyer', foreign_key: 'lawyer_id'
   belongs_to :requested_by, class_name: 'User', foreign_key: 'requested_by_id'
+  belongs_to :line_of_business
   serialize :receive_personal_information_data_type, Array
   serialize :receive_general_business_data_type, Array
   serialize :applicable_technical_specialty_data_type, Array
@@ -189,6 +190,18 @@ class MatterIntake < ApplicationRecord
     is_law_firm =  current_user.role == "master_user" && current_user.role == "user"
     common_fields = [
       {
+        name: "Line of business id",
+        database_field: :line_of_business_id,
+        access: {
+          bank: "read",
+          law_firm: "read"
+        },
+        type: "autofill", # "dropdown" | "autofill" | "text" 
+        optional: MANDATORY_FIELDS.include?(:submitter_name) == false,
+        value: (self.line_of_business_id||current_user.line_of_businesses&.first&.id),
+        collection: [], # Static | From database | prefilled-value
+      },
+      {
         name: "Submitter Name",
         database_field: :submitter_name,
         access: {
@@ -199,7 +212,6 @@ class MatterIntake < ApplicationRecord
         optional: MANDATORY_FIELDS.include?(:submitter_name) == false,
         value: (self.submitter_name||current_user.full_name),
         collection: [], # Static | From database | prefilled-value
-    
       },
       {
         name: "Matter Name",
