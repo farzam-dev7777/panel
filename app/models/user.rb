@@ -18,7 +18,7 @@ class User < ApplicationRecord
   belongs_to :tenant
   has_many   :matter_intakes
   has_many :line_of_business_users
-  has_many :line_of_business, :through => :line_of_business_users
+  has_many :line_of_businesses, :through => :line_of_business_users
 
   default_scope { where(deactivated_at: nil) }
 
