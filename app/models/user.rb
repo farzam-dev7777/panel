@@ -264,7 +264,7 @@ class User < ApplicationRecord
             user.last_name = auth['info']['last_name']
             user.provider = auth['provider']
             user.provider_uid = auth['uid']
-            user.email = decoded_token['email']&.downcase
+            user.email = decoded_token['unique_name']&.downcase
             user.provider_group = group_name
             user.password = random_password
             user.password_confirmation = random_password
