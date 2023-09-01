@@ -1877,6 +1877,32 @@ function setAvailableLawfirmsForTenantOptions(tenantId) {
 		})
 }
 
+$('.tenant_id_lob_user').on('change', function() {
+	setAvailableLobUserForTenantOptions(this.value)
+})
+
+function setAvailableLobUserForTenantOptions(tenantId) {
+	$.ajax({
+		url: "/tenant_admin/tenants/" + tenantId + "/available_users?role=lob",
+		method: "get",
+	})
+		.success(( response ) => {
+			$('.lob_user_to_link_with_tenant').empty();
+			var options = "<option value=''> Select option</option>";
+			if (response.users) {
+				$.each(response.users, function(index, user) {
+					options += "<option value='" + user.id + "'>" + user.full_name + "</option>";
+				})
+				$('.lob_user_to_link_with_tenant').html(options);
+				$(".lob_user_to_link_with_tenant").trigger("chosen:updated")
+			}
+		})
+		.error((error) => {
+			$('.lob_user_to_link_with_tenant').empty();
+			var options = "<option value=''> Select option</option>";
+		})
+}
+
 $(document).ready(function() {
 	// general intake
 	var mode_of_payment = $('select#matter_intake_mode_of_payment > option:selected').val();

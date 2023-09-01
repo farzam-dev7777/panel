@@ -17,6 +17,8 @@ class User < ApplicationRecord
   belongs_to :law_firm
   belongs_to :tenant
   has_many   :matter_intakes
+  has_many :line_of_business_users
+  has_many :line_of_business, :through => :line_of_business_users
 
   default_scope { where(deactivated_at: nil) }
 
@@ -25,7 +27,7 @@ class User < ApplicationRecord
   attr_accessor :login, :send_password_reset_link, :empty_user
 
   before_validation :create_empty_user, if: :empty_user
-  validate :password_complexity
+  # validate :password_complexity
 
   validates_uniqueness_of :email
 
@@ -218,6 +220,14 @@ class User < ApplicationRecord
             user.password_confirmation = random_password
             user.role = Tenant.current&.fetch_role(group_name)
             user.new_password_set = true
+            line_of_business_obj = []
+            result.select do |group|
+              objs = Tenant.current.line_of_businesses.where("LOWER(sso_group) =? ", group['profile']['name'].downcase)
+              if objs.present?
+                line_of_business_obj = line_of_business_obj + objs
+              end
+            end
+            user.line_of_businesses = line_of_business_obj if line_of_business_obj.present?
           end
           user.save
           user
@@ -258,6 +268,14 @@ class User < ApplicationRecord
             user.password_confirmation = random_password
             user.role = Tenant.current&.fetch_role(group_name)
             user.new_password_set = true
+            line_of_business_obj = []
+            result.select do |group|
+              objs = Tenant.current.line_of_businesses.where("LOWER(sso_group) =? ", group['displayName'].downcase)
+              if objs.present?
+                line_of_business_obj = line_of_business_obj + objs
+              end
+            end
+            user.line_of_businesses = line_of_business_obj if line_of_business_obj.present?
           end
           user.save
           user

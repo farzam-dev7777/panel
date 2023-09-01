@@ -112,6 +112,8 @@
                     <div class="field-label"><%= obj[:name]%></div>
                     <%  if obj[:database_field] == :law_firm_id %>
                       <div class="field-data"><%= @matter_intake.law_firm&.name %></div>
+                    <% elsif obj[:database_field] == :line_of_business_id%>
+                      <div class="field-data"><%= @matter_intake.line_of_business&.name %></div>
                     <% elsif obj[:database_field] == :lawyer_id%>
                       <div class="field-data"><%= @matter_intake.lawyer&.full_name %></div>
                     <% elsif obj[:database_field] == :requested_by_id%>

@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     resources :tenants do
       member do
         get :available_law_firms
+        get :available_users
       end
       collection do
         get :link_lawfirm
@@ -20,6 +21,7 @@ Rails.application.routes.draw do
       end
     end
     resources :law_firms
+    resources :line_of_businesses
     resources :law_firms_tenants, only: [:destroy]
     
     root to: "tenant_dashboard#index"
