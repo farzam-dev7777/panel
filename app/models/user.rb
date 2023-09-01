@@ -197,8 +197,8 @@ class User < ApplicationRecord
       "Content-Type": "application/json",
       "Authorization": "SSWS #{Tenant.current&.okta_api_token}"
     }
-    puts auth.inspect
     begin
+      puts JSON.stringify(auth)
       response = RestClient.get("#{Tenant.current&.okta_site}/api/v1/users/#{auth['uid']}/groups", headers=headers)
       # response = RestClient.get("#{Rails.application.secrets[:okta]['site']}/api/v1/users/#{auth['uid']}", headers=headers)
       result = JSON.parse(response&.body) if response&.body.present?
@@ -246,7 +246,7 @@ class User < ApplicationRecord
       "Content-Type": "application/json",
       "Authorization": "Bearer #{auth['credentials']['token']}"
     }
-    puts auth.inspect
+    puts JSON.stringify(auth)
     begin
       response = RestClient.get("https://graph.microsoft.com/v1.0/me/memberOf", headers = headers)
       result = JSON.parse(response&.body)["value"] if response&.body.present?
