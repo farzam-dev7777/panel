@@ -17,7 +17,7 @@ end
 
 OmniAuth.config.full_host = lambda do |env|
   tenant = fetch_tenant(env)
-  return "http://#{tenant.subdomain}.lvh.me:3000" if Rails.env.development?
+  return "https://#{tenant.subdomain}.serveo.net" if Rails.env.development?
   return "https://#{tenant.subdomain}.#{ENV['DOMAIN_NAME']}"
 end
 
@@ -323,7 +323,7 @@ Devise.setup do |config|
   config.omniauth(:azure_activedirectory_v2, {
     setup: AZURE_SETUP,
     protocol: :https,
-    scope: "openid profile email GroupMember.Read.All",
+    scope: "openid profile email User.Read",
     strategy_class: OmniAuth::Strategies::AzureActivedirectoryV2,
     provider_ignores_state: true
   })
