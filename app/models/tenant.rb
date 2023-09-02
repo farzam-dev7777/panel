@@ -13,6 +13,7 @@ class Tenant < ApplicationRecord
     has_many :law_firms_tenants
     has_many :law_firms, through: :law_firms_tenants
     has_many :tenant_matter_approvals
+    has_many :line_of_businesses
 
     mount_uploader :logo, TenantUploader
     mount_uploader :login_bg_image, TenantUploader

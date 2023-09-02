@@ -1,0 +1,30 @@
+<div class="sp-form sp-form-bg">
+  <%= simple_form_for [:tenant_admin, @line_of_business] do |f| %>
+    <div class="row form-flex-wrap">
+      <div class="col-xs-12 col-md-6">
+        <label class="label">Name<span class="mandatory">*</span></label>
+        <%= f.input :name, label: false, required: true %>
+      </div>
+
+      <div class="col-xs-12 col-md-6">
+        <label class="label">SSO Group<span class="mandatory">*</span></label>
+        <%= f.input :sso_group, label: false, required: true %>
+      </div>
+
+      <div class="col-xs-12 col-md-6">
+        <label class="label">Tenant<span class="mandatory">*</span></label>
+        <%= f.input :tenant_id, label: false, collection: Tenant.all.map{|s| [s.name, s.id]},  input_html: { multiple: false, class: 'tenant_id_lob_user' }%>
+      </div>
+
+      <div class="col-xs-12 col-md-6">
+        <label class="label">User<span class="mandatory">*</span></label>
+        <%= f.input :user_ids, label: false, collection: (@line_of_business.tenant&.users&.where(role: 'lob')||[]).map{|s| [s.full_name, s.id]},  input_html: { multiple: true, class: 'lob_user_to_link_with_tenant' }%>
+      </div>
+      <div class="col-xs-12 col-md-12 mt-3">
+        <%=link_to 'Cancel', tenant_admin_line_of_businesses_path, class: 'btn-type-default' %>
+        <%= f.button :submit, @line_of_business.new_record? ? "Create" : "Update", class: "btn-type-primary" %>
+      </div>
+      
+    </div>
+  <% end %>
+</div>
