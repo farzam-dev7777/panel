@@ -54,13 +54,13 @@
             <% if @matter_intake.invoices.count > 0 %>
               <% @matter_intake.invoices.each do |invoice| %>
                 <%= f.simple_fields_for :invoices, invoice do |form| %>
-                  <%= render 'invoice_fields', f: form, invoice: invoice %>
+                  <%= render '/shared/invoice_fields', f: form, invoice: invoice %>
                 <% end %>
               <% end %>
             <% end %>
           <% end %>
           <div class="addButton links mb-4">
-            <%= link_to_add_association '<span href="javascript:void(0);"><i class="fa fa-plus-circle"></i> Add Invoice</span>'.html_safe, f, :invoices %> 
+            <%= link_to_add_association '<span href="javascript:void(0);"><i class="fa fa-plus-circle"></i> Add Invoice</span>'.html_safe, f, :invoices, partial: '/shared/invoice_fields' %> 
           </div>
         </div>
       </div>
