@@ -185,7 +185,7 @@ class Admin::MatterIntakesController < Admin::BaseController
       :receive_personal_information, :receive_general_business_data, :applicable_technical_specialty_data,
       following_matter_involve: [], following_matter_involve:[],
       applicable_technical_specialty_data_type: [], receive_personal_information_data_type: [], receive_general_business_data_type: [],
-      invoices_attributes: [:id, :matter_intake_id, :lawyer_name, :rate_type, :description, :hours, :amount, :_destroy, invoice_attachments_attributes: [:id, :file]]
+      invoices_attributes: [:id, :matter_intake_id, :lawyer_name, :rate_type, :description, :hours, :amount, :date, :taxes, :_destroy, invoice_attachments_attributes: [:id, :file]]
     )
   end
 

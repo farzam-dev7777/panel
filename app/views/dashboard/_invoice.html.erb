@@ -35,7 +35,7 @@
                     <td><%= invoice.date %></td>
                     <td>-</td>
                     <td>
-                      <% if current_user.is_panel_admin_user?%>
+                      <% if current_user.is_panel_admin_user? %>
                         <%= link_to "Approve", approve_invoice_path(invoice), class: "btn btn-xs btn-secondary" %> 
                         <%= link_to "Reject", reject_invoice_path(invoice), class: "btn btn-xs btn-secondary" %>
                       <% end %>

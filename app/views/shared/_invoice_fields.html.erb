@@ -1,0 +1,40 @@
+<div id="invoices">
+	<div class="col-md-12 col-xs-12">
+		<div class="formSection row nested-fields"> <!-- this main div will be functional -->
+			<div class="col-xs-12 col-md-2">
+				<label class="label">Date</label>
+				<%= f.input :date, as: :string, input_html: { class: 'invoice_datepicker', value: DateField.stringify_date(f.object.date) }, label: false %>
+			</div>
+			<div class="col-xs-12 col-md-2">
+				<label class="label">Description</label>
+				<%= f.input :description, label: false %>
+			</div>
+			<div class="col-xs-12 col-md-2">
+				<label class="label">Amount</label>
+				<%= f.input :amount, label: false %>
+			</div>
+			<div class="col-xs-12 col-md-2">
+				<label class="label">Tax</label>
+				<%= f.input :taxes, label: false %>
+			</div>
+			<%= f.simple_fields_for :invoice_attachments, InvoiceAttachment.new do |p| %>
+				<%= p.input :veryfi_response, as: :hidden, label: false, input_html: { class: 'veryfi_response'}%>
+				<div class="col-xs-12 col-md-1">
+					<div><label class="label">Upload</label></div>
+					<div class="uploadFile">
+						<label for="file" onclick="trigger_file_input(this)">
+							<%= image_tag "uploadIcon.svg", alt:"Upload file" %>
+						</label>
+						<%= p.input :file, label: false, as: :file, input_html: {multiple: false, class: "ajax_file_upload"} %>
+						<span class="loader" style="display:none;">&nbsp;&nbsp;<i class="fa fa-refresh fa-spin fa-1x fa-fw"></i></span>
+					</div>
+				</div>
+			<% end %>
+			<div class="col-xs-12 col-md-1">
+				<div class="remove-matter-invoice">
+					<%= link_to_remove_association "<i class='fa fa-minus-circle'></i>".html_safe, f %>	
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
