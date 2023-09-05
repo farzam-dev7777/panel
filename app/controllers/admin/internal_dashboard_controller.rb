@@ -24,8 +24,8 @@ class Admin::InternalDashboardController < Admin::BaseController
       @law_firms = LawFirm.distinct.joins(:form_submissions).order('law_firms.updated_at DESC').limit(5)
       @panel_requests = PanelRequest.order('created_at DESC').limit(5)
       
-      law_firm_ids = LawFirmsTenant.joins(:law_firm).where(tenant_id: 1, law_firms: { law_firm_category: "PANEL" }).limit(5).pluck(:law_firm_id)
-      @panel_law_firm_count = law_firm_ids.count
+      law_firm_ids = LawFirmsTenant.joins(:law_firm).where(law_firms: { law_firm_category: "PANEL" }).limit(5).pluck(:law_firm_id)
+      @panel_law_firm_count = LawFirmsTenant.joins(:law_firm).where(law_firms: { law_firm_category: "PANEL" }).count
 
       @panel_law_firms = LawFirm.where(id: law_firm_ids).limit(5)
 
@@ -39,6 +39,8 @@ class Admin::InternalDashboardController < Admin::BaseController
       @conflict_waivers = ConflictWaiver.where(assigned_to_id: current_user.id).order('created_at DESC').limit(5)
       @matter_intakes = MatterIntake.where(lawyer_id: current_user.id).order('created_at DESC').limit(5)
       @matter_intakes_count = MatterIntake.distinct.where.not(status: ["matter_open", "matter_not_open"]).count()
+
+      @panel_law_firm_count = LawFirmsTenant.joins(:law_firm).where(law_firms: { law_firm_category: "PANEL" }).count
 
       @law_firms = LawFirm.distinct.joins(:form_submissions).order('law_firms.updated_at DESC').limit(5)
       @panel_requests = PanelRequest.where(user_id: current_user.id).limit(5)
