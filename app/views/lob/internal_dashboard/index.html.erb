@@ -117,24 +117,28 @@
           <table id="" class="table table-decoration table-bordered" width="100%">
             <thead>
               <tr>
-                <th>Date Submitted</th>
-                <th>Submitter Name</th>
-                <!--<th>LOB Contact Name</th>-->
-                <!--<th>Type of Matter</th>-->
-                <!--th>Law Firm Suggested</th-->
-                <th>Internal lawyer name</th>
+                <th>Matter #</th>
                 <th>Matter Name</th>
-                <th>Matter Number(Corresponding)</th>
-                <!--<th>Budget amount</th>-->
+                <th>Date Submitted</th>
+                <th>External Lawfirm</th>
+                <th>Requested By</th>
                 <th>Status</th>
-                <!--<th>Action</th>-->
               </tr>
             </thead>
             <tbody>
               <% @matter_intakes.each do |matter_intake| %>
                 <tr onClick="window.location.href='/lob/matter_intakes/<%= matter_intake.id %>'">
                   <td>
+                    <%= matter_intake.matter_number.present? ? matter_intake&.matter_number : "-" %>
+                  </td>
+                  <td>
+                    <%= matter_intake&.name_of_matter_client %>
+                  </td>
+                  <td>
                     <%= matter_intake.created_at.strftime('%d %b %Y at %I:%M %p') %>
+                  </td>
+                  <td>
+                    <%= matter_intake&.law_firm&.name %>
                   </td>
                   <td>
                     <% if matter_intake.submitter_name.present? %>
@@ -144,21 +148,7 @@
                       </div>
                     <% end %>
                   </td>
-                  <!--<td><%= matter_intake.lob_contact_name %></td>-->
-                  <!--<td>
-										<%= matter_intake&.matter_type&.matter_type %>
-									</td>-->
-                  <!--td><%= matter_intake&.law_firm&.name %></td-->
-                  <td>
-                    <%= matter_intake&.bmo_lawyer_name %>
-                  </td>
-                  <td>
-                    <%= matter_intake&.name_of_matter_client %>
-                  </td>
-                  <td>
-                    <%= matter_intake.matter_number.present? ? matter_intake&.matter_number : "-" %>
-                  </td>
-                  <!--<td><%= matter_intake.budget_amount %></td>-->
+                  
                   <td>
                     <div class="status">
                       <span class="<%= matter_intake&.status === "matter_open" ? 'label label-success' : 'label label-default' %>">
@@ -166,18 +156,6 @@
                       </span>
                     </div>
                   </td>
-                  <!--<td>
-										<div class="action-fields">
-											<% if matter_intake.status === "awaiting_lawyer_review" %>
-												<a class="action-btn" href="/lob/matter_intakes/<%= matter_intake.id %>/edit">
-													<%= image_tag "edit-icon.svg", alt:"Edit" %>
-												</a>
-											<% end %>
-											<a class="action-btn" href="/lob/matter_intakes/<%= matter_intake.id %>">
-												<%= image_tag "view-icon.svg", alt:"View" %>
-											</a>
-										</div>
-									</td>-->
                 </tr>
               <% end %>
             </tbody>

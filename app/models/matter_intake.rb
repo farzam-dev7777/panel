@@ -6,6 +6,7 @@ class MatterIntake < ApplicationRecord
   belongs_to :matter_type
   belongs_to :lawyer, class_name: 'InternalLawyer', foreign_key: 'lawyer_id'
   belongs_to :requested_by, class_name: 'User', foreign_key: 'requested_by_id'
+  belongs_to :line_of_business
   serialize :receive_personal_information_data_type, Array
   serialize :receive_general_business_data_type, Array
   serialize :applicable_technical_specialty_data_type, Array
@@ -18,6 +19,8 @@ class MatterIntake < ApplicationRecord
   accepts_nested_attributes_for :invoices, reject_if: :all_blank, allow_destroy: true
   
   mount_uploader :asset, DocUploader
+
+  validate :check_presence_of 
 
   #### validation for lob initiated starts ####
   # validates_presence_of :submitter_name, :name_of_matter_client, :matter_type_id, :matter_description, :following_matter_involve,
@@ -153,6 +156,8 @@ class MatterIntake < ApplicationRecord
     "Christina Harrison"
   ]
 
+  MANDATORY_FIELDS = [:submitter_name, :name_of_matter_client, :matter_number, :requested_by_id, :matter_type_id]
+
   def generate_type(type)
     case type
     when "dropdown"
@@ -172,12 +177,30 @@ class MatterIntake < ApplicationRecord
     end
   end
 
-
+  def check_presence_of
+    MANDATORY_FIELDS.each do |field|
+      if send(field).blank?
+        errors.add(field, "can't be blank")
+      end
+    end
+  end
 
   def generate_fields(current_user, current_tenant) 
     is_bank_user =  current_user.role != "master_user" && current_user.role != "user"
     is_law_firm =  current_user.role == "master_user" && current_user.role == "user"
     common_fields = [
+      {
+        name: "Line of business id",
+        database_field: :line_of_business_id,
+        access: {
+          bank: "read",
+          law_firm: "read"
+        },
+        type: "autofill", # "dropdown" | "autofill" | "text" 
+        optional: MANDATORY_FIELDS.include?(:submitter_name) == false,
+        value: (self.line_of_business_id||current_user.line_of_businesses&.first&.id),
+        collection: [], # Static | From database | prefilled-value
+      },
       {
         name: "Submitter Name",
         database_field: :submitter_name,
@@ -186,10 +209,9 @@ class MatterIntake < ApplicationRecord
           law_firm: "read"
         },
         type: "autofill", # "dropdown" | "autofill" | "text" 
-        optional: false,
+        optional: MANDATORY_FIELDS.include?(:submitter_name) == false,
         value: (self.submitter_name||current_user.full_name),
         collection: [], # Static | From database | prefilled-value
-    
       },
       {
         name: "Matter Name",
@@ -200,7 +222,7 @@ class MatterIntake < ApplicationRecord
         },
         type: "text", # "dropdown" | "autofill" | "text" | "autocomplete"
         value: self.name_of_matter_client,
-        optional: false,
+        optional: MANDATORY_FIELDS.include?(:name_of_matter_client) == false,
       },
       {
         name: "Matter Number",
@@ -210,7 +232,7 @@ class MatterIntake < ApplicationRecord
           law_firm: "read"
         },
         type: "text", # "dropdown" | "autofill" | "text" | "autocomplete"
-        optional: false,
+        optional: MANDATORY_FIELDS.include?(:matter_number) == false,
         value: (self.matter_number||"MT-#{Date.today.month}-#{Date.today.day}-#{(1..999).to_a.sample}")
       },
       {
@@ -221,7 +243,7 @@ class MatterIntake < ApplicationRecord
           law_firm: "write"
         },
         type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
-        optional: false,
+        optional: MANDATORY_FIELDS.include?(:requested_by_id) == false,
         value: self.requested_by_id,
         collection: current_tenant.users.map{|u| [u.full_name, u.id]}
       },
@@ -233,7 +255,7 @@ class MatterIntake < ApplicationRecord
           law_firm: "write"
         },
         type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
-        optional: false,
+        optional: MANDATORY_FIELDS.include?(:matter_type_id) == false,
         value: self.matter_type_id,
         collection: MatterType.all.reject{|mt| mt.matter_type === "Litigation / Litiges"}.map{|mt| [mt.matter_type, mt.id] }
       },
@@ -245,7 +267,7 @@ class MatterIntake < ApplicationRecord
           law_firm: "write"
         },
         type: "text", # "dropdown" | "autofill" | "text" | "autocomplete"
-        optional: true,
+        optional: MANDATORY_FIELDS.include?(:matter_description) == false,
         value: self.matter_description,
         collection: []
       },
@@ -257,7 +279,7 @@ class MatterIntake < ApplicationRecord
           law_firm: "write"
         },
         type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
-        optional: true,
+        optional: MANDATORY_FIELDS.include?(:paying_entity) == false,
         value: self.paying_entity,
         collection: MatterIntake::LegalEntity
       },
@@ -269,7 +291,7 @@ class MatterIntake < ApplicationRecord
           law_firm: "write"
         },
         type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
-        optional: true,
+        optional: MANDATORY_FIELDS.include?(:other_party) == false,
         value: self.other_party,
         collection: MatterIntake::OtherParty
       },
@@ -281,7 +303,7 @@ class MatterIntake < ApplicationRecord
           law_firm: "write"
         },
         type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
-        optional: true,
+        optional: MANDATORY_FIELDS.include?(:stage_of_litigation) == false,
         value: self.stage_of_litigation,
         collection: MatterIntake::StageOfLitigation
       },
@@ -293,7 +315,7 @@ class MatterIntake < ApplicationRecord
           law_firm: "write"
         },
         type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
-        optional: true,
+        optional: MANDATORY_FIELDS.include?(:primary_issue) == false,
         value: self.primary_issue,
         collection: MatterIntake::PrimaryIssue
       },
@@ -305,7 +327,7 @@ class MatterIntake < ApplicationRecord
           law_firm: "write"
         },
         type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
-        optional: true,
+        optional: MANDATORY_FIELDS.include?(:following_matter_involve) == false,
         value: self.following_matter_involve,
         collection: MatterIntake::MatterInvolveFollowing,
         multiple: true
@@ -318,7 +340,7 @@ class MatterIntake < ApplicationRecord
           law_firm: "read"
         },
         type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
-        optional: true,
+        optional: MANDATORY_FIELDS.include?(:lawyer_id) == false,
         value: self.lawyer_id,
         collection: InternalLawyer.where(tenant_id: current_tenant&.id).map {|il| [il.full_name, il.id]}
       },
@@ -330,7 +352,7 @@ class MatterIntake < ApplicationRecord
           law_firm: "not_access"
         },
         type: "text", # "dropdown" | "autofill" | "text" | "autocomplete"
-        optional: true,
+        optional: MANDATORY_FIELDS.include?(:additional_comments_for_lrc_lawyer) == false,
         value: self.additional_comments_for_lrc_lawyer,
         collection: []
       },
@@ -342,7 +364,7 @@ class MatterIntake < ApplicationRecord
           law_firm: "read"
         },
         type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
-        optional: true,
+        optional: MANDATORY_FIELDS.include?(:law_firm_id) == false,
         value: self.law_firm_id,
         collection: Tenant.current.law_firms.where(law_firm_category: "PANEL").map{ |lf| [lf.name, lf.id] }
       },
@@ -378,7 +400,7 @@ class MatterIntake < ApplicationRecord
           law_firm: "not_access"
         },
         type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
-        optional: true,
+        optional: MANDATORY_FIELDS.include?(:jurisdiction) == false,
         value: self.jurisdiction,
         collection: MatterIntake::Jurisdiction
       },
@@ -390,7 +412,7 @@ class MatterIntake < ApplicationRecord
           law_firm: "not_access"
         },
         type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
-        optional: true,
+        optional: MANDATORY_FIELDS.include?(:is_syndicate_matter) == false,
         value: self.is_syndicate_matter,
         collection: [['Yes, we are the lead organization', 'Yes, we are the lead organization'],["Yes, we are not the lead organization", "Yes, we are not the lead organization"], ["No", "No"]]
       },
@@ -402,7 +424,7 @@ class MatterIntake < ApplicationRecord
           law_firm: "read"
         },
         type: "text", # "dropdown" | "autofill" | "text" | "autocomplete"
-        optional: true,
+        optional: MANDATORY_FIELDS.include?(:afa_details) == false,
         value: self.afa_details,
         collection: []
       },
@@ -414,7 +436,7 @@ class MatterIntake < ApplicationRecord
           law_firm: "write"
         },
         type: "text", # "dropdown" | "autofill" | "text" | "autocomplete"
-        optional: true,
+        optional: MANDATORY_FIELDS.include?(:budget_amount) == false,
         value: self.budget_amount,
         collection: []
       },
@@ -426,7 +448,7 @@ class MatterIntake < ApplicationRecord
           law_firm: "read"
         },
         type: "text", # "dropdown" | "autofill" | "text" | "autocomplete"
-        optional: true,
+        optional: MANDATORY_FIELDS.include?(:cost_centre_for_legal_fees) == false,
         value: self.cost_centre_for_legal_fees,
         collection: []
       },
@@ -438,7 +460,7 @@ class MatterIntake < ApplicationRecord
           law_firm: "not_access"
         },
         type: "text", # "dropdown" | "autofill" | "text" | "autocomplete"
-        optional: true,
+        optional: MANDATORY_FIELDS.include?(:deal_code) == false,
         value: self.deal_code,
         collection: []
       },
@@ -450,7 +472,7 @@ class MatterIntake < ApplicationRecord
           law_firm: "write"
         },
         type: "text", # "dropdown" | "autofill" | "text" | "autocomplete"
-        optional: true,
+        optional: MANDATORY_FIELDS.include?(:related_matter_number) == false,
         value: self.related_matter_number,
         collection: []
       },
@@ -462,7 +484,7 @@ class MatterIntake < ApplicationRecord
           law_firm: "write"
         },
         type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
-        optional: true,
+        optional: MANDATORY_FIELDS.include?(:pii_involved) == false,
         value: self.pii_involved,
         collection: [['True', true], ['False', false]]
       },
@@ -474,7 +496,7 @@ class MatterIntake < ApplicationRecord
           law_firm: "not_access"
         },
         type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
-        optional: true,
+        optional: MANDATORY_FIELDS.include?(:can_reimbursed_matter) == false,
         value: self.can_reimbursed_matter,
         collection: [['Yes', 'Yes'], ["No", "No"]]
       },
@@ -486,7 +508,7 @@ class MatterIntake < ApplicationRecord
           law_firm: "not_access"
         },
         type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
-        optional: true,
+        optional: MANDATORY_FIELDS.include?(:is_ore_reportable) == false,
         value: self.is_ore_reportable,
         collection: [['Yes', 'Yes'], ["No", "No"]]
       }
@@ -501,7 +523,7 @@ class MatterIntake < ApplicationRecord
           law_firm: "read"
         },
         type: "text", # "dropdown" | "autofill" | "text" 
-        optional: true,
+        optional: MANDATORY_FIELDS.include?(:internal_file_number) == false,
         value: self.internal_file_number,
         collection: [], # Static | From database | prefilled-value
     
@@ -514,7 +536,7 @@ class MatterIntake < ApplicationRecord
           law_firm: "write"
         },
         type: "text", # "dropdown" | "autofill" | "text" | "autocomplete"
-        optional: false,
+        optional: MANDATORY_FIELDS.include?(:business_department) == false,
         value: self.business_department
       },
       {
@@ -525,7 +547,7 @@ class MatterIntake < ApplicationRecord
           law_firm: "not_access"
         },
         type: "text", # "dropdown" | "autofill" | "text" | "autocomplete"
-        optional: false,
+        optional: MANDATORY_FIELDS.include?(:business_group) == false,
         value: self.business_group
       }
     ]

@@ -9,7 +9,7 @@ class Lob::MatterIntakesController < Lob::BaseController
       @q = MatterIntake.ransack(params[:q])
       @matter_intakes = @q.result(distinct: true).where(user_id: current_user.id).where(status: ["matter_open", "matter_not_open"]).order('created_at DESC')   
     else
-      @q = MatterIntake.ransack(params[:q])
+      @q = MatterIntake.where("line_of_business_id = ? OR user_id = ?", current_user.line_of_businesses.pluck(:id), current_user.id).ransack(params[:q])
      @matter_intakes = @q.result(distinct: true).order('created_at DESC')   
     end
     
@@ -39,6 +39,7 @@ class Lob::MatterIntakesController < Lob::BaseController
       @matter_intake.name_of_panel_firm = @matter_intake.law_firm&.name
       @matter_intake.law_firm_id = current_user.law_firm&.id
     end
+    @matter_intake.line_of_business_id = current_user.line_of_businesses&.first&.id if @matter_intake.line_of_business_id.blank?
     @matter_intake.requested_by_id = current_user&.id if @matter_intake.requested_by_id.blank?
     @matter_intake.submitter_name = current_user.full_name if @matter_intake.submitter_name.blank?
     @matter_intake.matter_number = "MT-#{Date.today.month}-#{Date.today.day}-#{(1..999).to_a.sample}" if @matter_intake.matter_number.blank?
@@ -106,7 +107,7 @@ class Lob::MatterIntakesController < Lob::BaseController
       :is_otherwise_reportable, :is_syndicate_matter, :is_conceal_imanage_workspace, :is_paper_file, :who_requires_access_to_imanage_workspace,
       :jurisdiction, :firm_type, :name_of_panel_firm, :name_of_non_panel_firm, :type_of_price, :additional_comments_for_lrc_lawyer,
       :is_alternative_fee_arrangement, :afa_details, :additional_matter_contact, :other_matter_issues, :firm_type,
-      :lawyer_reviewed_at, :other_party, :deal_code, :outside_counsel_engaged, :stage_of_litigation,
+      :lawyer_reviewed_at, :other_party, :deal_code, :outside_counsel_engaged, :stage_of_litigation, :line_of_business_id,
       :requested_by_id, :related_matter_number, :pii_involved, :internal_file_number, :business_department, :business_group, :matter_number,
       :receive_personal_information, :receive_general_business_data, :applicable_technical_specialty_data, following_matter_involve: [],
       applicable_technical_specialty_data_type: [], receive_personal_information_data_type: [], receive_general_business_data_type: [],

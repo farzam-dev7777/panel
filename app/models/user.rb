@@ -17,6 +17,8 @@ class User < ApplicationRecord
   belongs_to :law_firm
   belongs_to :tenant
   has_many   :matter_intakes
+  has_many :line_of_business_users
+  has_many :line_of_businesses, :through => :line_of_business_users
 
   default_scope { where(deactivated_at: nil) }
 
@@ -25,7 +27,7 @@ class User < ApplicationRecord
   attr_accessor :login, :send_password_reset_link, :empty_user
 
   before_validation :create_empty_user, if: :empty_user
-  validate :password_complexity
+  # validate :password_complexity
 
   validates_uniqueness_of :email
 
@@ -196,11 +198,18 @@ class User < ApplicationRecord
       "Authorization": "SSWS #{Tenant.current&.okta_api_token}"
     }
     begin
+      puts auth.to_json
       response = RestClient.get("#{Tenant.current&.okta_site}/api/v1/users/#{auth['uid']}/groups", headers=headers)
       # response = RestClient.get("#{Rails.application.secrets[:okta]['site']}/api/v1/users/#{auth['uid']}", headers=headers)
       result = JSON.parse(response&.body) if response&.body.present?
 
-      user_groups = result.select {|group| group['type'] === "OKTA_GROUP" && ["Panel - Internal Lawyers", "Panel - Master User", "Panel - Business User"].include?(group['profile']['name']) } if result.present?
+      role_groups = [
+        Tenant.current&.internal_lawyer.present? ? Tenant.current&.internal_lawyer : 'Panel - Internal Lawyers',
+        Tenant.current&.master_user.present? ? Tenant.current&.master_user : "Panel - Master User",
+        Tenant.current&.business_user.present? ? Tenant.current&.business_user : "Panel - Business User"
+      ]
+
+      user_groups = result.select {|group| group['type'] === "OKTA_GROUP" && role_groups.include?(group['profile']['name']) } if result.present?
       user_group = user_groups.first
       # If user_group present then we find or create user in our database
       if user_group.present?
@@ -218,6 +227,14 @@ class User < ApplicationRecord
             user.password_confirmation = random_password
             user.role = Tenant.current&.fetch_role(group_name)
             user.new_password_set = true
+            line_of_business_obj = []
+            result.select do |group|
+              objs = Tenant.current.line_of_businesses.where("LOWER(sso_group) =? ", group['profile']['name'].downcase)
+              if objs.present?
+                line_of_business_obj = line_of_business_obj + objs
+              end
+            end
+            user.line_of_businesses = line_of_business_obj if line_of_business_obj.present?
           end
           user.save
           user
@@ -235,11 +252,17 @@ class User < ApplicationRecord
       "Content-Type": "application/json",
       "Authorization": "Bearer #{auth['credentials']['token']}"
     }
+    puts auth.to_json
     begin
       response = RestClient.get("https://graph.microsoft.com/v1.0/me/memberOf", headers = headers)
       result = JSON.parse(response&.body)["value"] if response&.body.present?
 
-      user_groups = result.select {|group| group['@odata.type'] === "#microsoft.graph.group" && ["Panel - Internal Lawyers", "Panel - Master User", "Panel - Business User"].include?(group['displayName']) } if result.present?
+      role_groups = [
+        Tenant.current&.internal_lawyer.present? ? Tenant.current&.internal_lawyer : 'Panel - Internal Lawyers',
+        Tenant.current&.master_user.present? ? Tenant.current&.master_user : "Panel - Master User",
+        Tenant.current&.business_user.present? ? Tenant.current&.business_user : "Panel - Business User"
+      ]
+      user_groups = result.select {|group| group['@odata.type'] === "#microsoft.graph.group" && role_groups.include?(group['displayName']) } if result.present?
       user_group = user_groups.first
       # If user_group present then we find or create user in our database
       if user_group.present?
@@ -247,17 +270,25 @@ class User < ApplicationRecord
         if group_name.present?
           random_password = "#{SecureRandom.hex(18)}@A123"
           decoded_token = JWT.decode(auth['credentials']['token'], nil, false).first
-          user = User.find_or_create_by(email: decoded_token['email']&.downcase) do |user|
+          user = User.find_or_create_by(email: decoded_token['upn']&.downcase) do |user|
             user.first_name = auth['info']['first_name']
             user.last_name = auth['info']['last_name']
             user.provider = auth['provider']
             user.provider_uid = auth['uid']
-            user.email = decoded_token['email']&.downcase
+            user.email = decoded_token['upn']&.downcase
             user.provider_group = group_name
             user.password = random_password
             user.password_confirmation = random_password
             user.role = Tenant.current&.fetch_role(group_name)
             user.new_password_set = true
+            line_of_business_obj = []
+            result.select do |group|
+              objs = Tenant.current.line_of_businesses.where("LOWER(sso_group) =? ", group['displayName'].downcase)
+              if objs.present?
+                line_of_business_obj = line_of_business_obj + objs
+              end
+            end
+            user.line_of_businesses = line_of_business_obj if line_of_business_obj.present?
           end
           user.save
           user

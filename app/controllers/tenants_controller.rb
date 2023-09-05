@@ -7,7 +7,7 @@ class TenantsController < BaseController
       begin
         Apartment::Tenant.switch!(params[:subdomain])
         if Rails.env.development?
-          url = "http://#{tenant&.subdomain}.lvh.me:3000"
+          url = "https://#{tenant&.subdomain}.serveo.net"
         else
           url = "https://#{tenant&.subdomain}.#{ENV['DOMAIN_NAME']}"
         end

@@ -105,13 +105,15 @@
             <% invoice_enable = false %>
             <%@matter_intake.generate_fields(current_user, Tenant.current).each do |obj| %>
               <% if obj[:access][matter_role] == 'write' || obj[:access][matter_role] == 'read'%>
-                <% if obj[:name].downcase.include?('invoice') == true%>
+                <% if obj[:database_field] == :invoices%>
                   <% invoice_enable = true %>
                 <% else %>
                   <div class="col-xs-12 col-md-6">
                     <div class="field-label"><%= obj[:name]%></div>
                     <%  if obj[:database_field] == :law_firm_id %>
                       <div class="field-data"><%= @matter_intake.law_firm&.name %></div>
+                    <% elsif obj[:database_field] == :line_of_business_id%>
+                      <div class="field-data"><%= @matter_intake.line_of_business&.name %></div>
                     <% elsif obj[:database_field] == :lawyer_id%>
                       <div class="field-data"><%= @matter_intake.lawyer&.full_name %></div>
                     <% elsif obj[:database_field] == :requested_by_id%>

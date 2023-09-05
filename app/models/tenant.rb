@@ -13,6 +13,7 @@ class Tenant < ApplicationRecord
     has_many :law_firms_tenants
     has_many :law_firms, through: :law_firms_tenants
     has_many :tenant_matter_approvals
+    has_many :line_of_businesses
 
     mount_uploader :logo, TenantUploader
     mount_uploader :login_bg_image, TenantUploader
@@ -32,11 +33,11 @@ class Tenant < ApplicationRecord
 
     def fetch_role(group_name)
       case group_name
-        when (self.internal_lawyer || 'Panel - Internal Lawyers')
+        when (self.internal_lawyer.present? ? self.internal_lawyer : 'Panel - Internal Lawyers')
           "internal_lawyers"
-        when (self.master_user || "Panel - Master User")
+        when (self.master_user.present? ? self.master_user : "Panel - Master User")
           "lxp"
-        when (self.business_user || "Panel - Business User")
+        when (self.business_user.present? ? self.business_user : "Panel - Business User")
           "lob"
         else
           ""

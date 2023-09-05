@@ -74,6 +74,16 @@ class TenantAdmin::TenantsController < TenantAdmin::BaseController
     end
   end
 
+  def available_users
+    tenant = Tenant.find_by(id: params[:id])
+    if tenant.present?
+      users = tenant.users.where(role: params[:role]).map{|s| {id:s.id, full_name: s.full_name}}
+      render json: {users: users}
+    else
+      render json: {users: []}
+    end
+  end
+
   private
 
   def tenant_params
