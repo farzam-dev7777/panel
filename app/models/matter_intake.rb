@@ -190,7 +190,7 @@ class MatterIntake < ApplicationRecord
     is_law_firm =  current_user.role == "master_user" && current_user.role == "user"
     common_fields = [
       {
-        name: "Line of business id",
+        name: "Line of Business",
         database_field: :line_of_business_id,
         access: {
           bank: "read",
@@ -198,7 +198,7 @@ class MatterIntake < ApplicationRecord
         },
         type: "autofill", # "dropdown" | "autofill" | "text" 
         optional: MANDATORY_FIELDS.include?(:submitter_name) == false,
-        value: (self.line_of_business_id||current_user.line_of_businesses&.first&.id),
+        value: (self.line_of_business_id || current_user.line_of_businesses&.first&.id),
         collection: [], # Static | From database | prefilled-value
       },
       {
