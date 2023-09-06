@@ -2547,7 +2547,7 @@ $('#matter_intake_status').chosen().change(function() {
 
 	$('.tenant_user_role').on('click', function() {
 		var role = $(this).val();
-		if(role == 'lob' || role == 'lxp'){
+		if(role == 'lob' || role == 'lxp' || role == 'internal_lawyers'){
 			$('.user_tenant').show();
 		}else{
 			$('#tenant_id').val('').trigger('chosen:updated');
