@@ -42,8 +42,8 @@
       </div>
 
       <div class="col-xs-12 col-md-6 upload-file-control">
-        <label class="label">Enable exception requests</label>
-        <%= f.input :enable_exception_requests, label: false, as: :boolean %>
+        <label class="label">Internal Lawyer Label</label>
+        <%= f.input :internal_lawyer_label, label: false, as: :text %>
       </div>
 
       <div class="col-xs-12 col-md-6">
@@ -86,15 +86,15 @@
         <%= f.input :azure_client_secret, label: false %>
       </div>
       <div class="col-xs-12 col-md-6 azure_fields">
-        <label class="label">Internal Lawyer</label>
+        <label class="label">Internal Lawyer (SSO Group Name - default: Panel - Internal Lawyers)</label>
         <%= f.input :internal_lawyer, label: false %>
       </div>
       <div class="col-xs-12 col-md-6 azure_fields">
-        <label class="label">Master User</label>
+        <label class="label">Master User (SSO Group Name - default: Panel - Master User)</label>
         <%= f.input :master_user, label: false %>
       </div>
       <div class="col-xs-12 col-md-6 azure_fields">
-        <label class="label">Business User</label>
+        <label class="label">Business User (SSO Group Name - default: Panel - Business User)</label>
         <%= f.input :business_user, label: false %>
       </div>
       <div class="col-xs-12 col-md-6">
