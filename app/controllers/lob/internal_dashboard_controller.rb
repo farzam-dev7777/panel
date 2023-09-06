@@ -20,6 +20,8 @@ class Lob::InternalDashboardController < Lob::BaseController
     @panel_requests = PanelRequest.where(user_id: current_user.id).order('created_at DESC').limit(5)
     @matter_intakes = MatterIntake.where(user_id: current_user.id).order('created_at DESC').limit(5)
 
+    @panel_law_firms = LawFirm.where(law_firm_category: "PANEL")
+
 
     
   end

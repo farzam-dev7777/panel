@@ -274,75 +274,25 @@
   <% end %>
 </div>
 <!-- Engage Non Panel Firms END -->
-<!-- Panel Requests -->
+
 <div class="col-lg-12 col-md-12 col-sm-12">
-  <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
-    <div class="page-header-sp mobile-dashboard-header">
-      <div class="page-title">Panel Consideration Requests</div>
-      <div class="back-edit-actions">
-        <a class="btn-show-more" href="/lob/panel_requests">
-          Show more
-        </a>
+    <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+      <div class="page-header-sp mobile-dashboard-header">
+        <div class="page-title">Panel Firms</div>
+        <div class="back-edit-actions">
+          <a class="btn-show-more" href="/lob/law_firms/panel_law_firms">
+            Show more
+          </a>
+        </div>
       </div>
-    </div>
-    <div class="no-padding">
-      <!-- widget content -->
-      <div class="widget-body">
-        <div class="table-dyanmic-search table-responsive">
-          <table id="" class="table table-decoration table-bordered" width="100%">
-            <thead>
-              <tr>
-                <th>Date Submitted</th>
-                <th>Law Firm Name</th>
-                <th>Law Firm Email</th>
-                <!--<th>Status</th>-->
-                <!--th>Internal Status</th-->
-                <!--<th width="8%">Action</th>-->
-              </tr>
-            </thead>
-            <tbody>
-              <% @panel_requests.each do |panel_request| %>
-                <tr onClick="window.location.href='/lob/panel_requests/<%= panel_request.id %>'">
-                  <td data-order="<%= panel_request.created_at.strftime('%Y%m%d%H%M') %>">
-                    <%= panel_request.created_at.strftime('%d %b %Y at %I:%M %p') %>
-                  </td>
-                  <td><%= panel_request&.law_frim_name %></td>
-                  <td><%= panel_request&.law_firm_mail %></td>
-                  <!--<td>
-										<div class="status">
-											<span class="<%= panel_request.status === "Active" ? 'label label-success' : 'label label-default' %>"> 
-												<%= panel_request.try(:status).try(:titleize) %>
-											</span>
-										</div>
-									</td>-->
-                  <!--td>
-										<div class="status">
-											<% if panel_request.lxp_status.present? %>
-												<span class="<%= panel_request.lxp_status === "APPROVED" ? 'label label-success' : 'label label-default' %>"> 
-													<%= panel_request.try(:lxp_status).try(:titleize) %>
-												</span>
-											<% end %>
-										</div>
-									</td-->
-                  <!--<td>
-										<div class="action-fields">
-											<% if current_user.role == 'lob' &&  panel_request.try(:lxp_status) != 'APPROVED' %>
-												<a class="action-btn" href="/lob/panel_requests/<%= panel_request.id %>/edit">
-													<%= image_tag "edit-icon.svg", alt:"Edit" %>
-												</a>
-											<% end %> 
-											<a class="action-btn" href="/lob/panel_requests/<%= panel_request.id %>">
-												<%= image_tag "view-icon.svg", alt:"View" %>
-											</a>
-										</div>
-									</td>-->
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
+      <div class="no-padding">
+        <div class="jarviswidget-editbox"></div>
+        <!-- widget content -->
+        <div class="widget-body">
+          <div class="table-responsive">
+            <%= render "shared/law_firms_list", law_firms: @panel_law_firms, link_base_url: nil %>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-<!-- Panel Requests END -->
