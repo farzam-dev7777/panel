@@ -54,7 +54,7 @@
             <% if @matter_intake.invoices.count > 0 %>
               <% @matter_intake.invoices.each do |invoice| %>
                 <%= f.simple_fields_for :invoices, invoice do |form| %>
-                  <%= render 'invoice_fields', f: form, invoice: invoice %>
+                  <%= render '/shared/invoice_fields', f: form, invoice: invoice %>
                 <% end %>
               <% end %>
             <% end %>
