@@ -1,5 +1,5 @@
 class MatterIntake < ApplicationRecord
-
+  acts_as_paranoid
   self.per_page = 10
   belongs_to :user
   belongs_to :law_firm

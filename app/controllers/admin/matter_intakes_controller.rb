@@ -99,6 +99,18 @@ class Admin::MatterIntakesController < Admin::BaseController
     @matter_intake = MatterIntake.includes(:invoices).find_by(id: params[:matter_intake_id])
   end
 
+  def destroy
+    @matter_intake = MatterIntake.find_by(id: params[:id])
+    if @matter_intake.destroy
+      flash[:notice] = "Matter deleted successfully."
+      redirect_to admin_matter_intakes_path
+    else
+      flash[:alert] = "Coudn't delete matter. Please try again."
+      redirect_to :back
+    end
+
+  end
+
   def update
 
     @matter_intake = MatterIntake.find_by(id: params[:id])

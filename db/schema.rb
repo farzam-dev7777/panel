@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20230831174656) do
+ActiveRecord::Schema.define(version: 20230906155839) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -773,6 +773,7 @@ ActiveRecord::Schema.define(version: 20230831174656) do
     t.string   "business_department"
     t.string   "business_group"
     t.integer  "line_of_business_id"
+    t.datetime "deleted_at"
   end
 
   create_table "matter_types", force: :cascade do |t|
