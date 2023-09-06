@@ -14,7 +14,7 @@ class Admin::MatterIntakesController < Admin::BaseController
 
       else
         if params[:attention] === "true"
-          @matter_intakes = @q.result(distinct: true).where(status: ["created", "awaiting_lawyer_review", "awaiting_lawyer_update"]).order('created_at DESC')
+          @matter_intakes = @q.result(distinct: true).order('created_at DESC')
         else
           @matter_intakes = @q.result(distinct: true).where(lawyer_id: current_user.id).order('created_at DESC')
         end
