@@ -686,10 +686,21 @@ class MatterIntake < ApplicationRecord
   ]
 
   LegalEntity = [
-    "Option 1",
-    "Option 2",
-    "Option 3",
-    "Option 4"
+    "Laurentian Bank of Canada",
+    "B2B Bank",
+    "B2B Bank Financial Services Inc.",
+    "B2B Bank Securities Services Inc.",
+    "B2B Bank Intermediary Services Inc.",
+    "B2B Trustco",
+    "LBC Financial Services",
+    "Laurentian Bank Securities Inc.",
+    "LBC Capital Inc.",
+    "Northpoint Commercial Finance",
+    "Laurentian Trust of Canada Inc.",
+    "LBC Trust",
+    "LBC Investment Management Inc.",
+    "Laurentian Bank Insurance Inc.",
+    "LBC Tech Inc.",
   ]
 
   TypeOfPrice = [
