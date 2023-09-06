@@ -111,37 +111,7 @@
         <!-- widget content -->
         <div class="widget-body">
           <div class="table-responsive">
-            <table id="" class="table table-decoration table-bordered" width="100%">
-              <thead>
-                <tr>
-                  <th>Firm Name</th>
-                  <th>Number of Matters</th>
-                  <th>Relationship Partner (Firm)</th>
-                  <th>Email</th>
-                  <th>Responsible Contact (Internal)</th>
-                </tr>
-              </thead>
-              <tbody>
-                <% @panel_law_firms.each do |law_firm| %>
-                  <tr onClick="window.location.href='admin/law_firms/<%= law_firm&.id %>'">
-                    <td>
-                      <% if law_firm&.name.present? %>
-                        <div class="firm-name">
-                          <div class="name-avatar"><img src="<%= get_avatar_image(law_firm&.name&.gsub(" ", "+")) %>"></div>
-                          <div><%= law_firm&.name %></div>
-                        </div>
-                      <% else %>
-                        -
-                      <% end %>	
-                    </td>
-                    <td><%= law_firm&.matter_intakes&.count %></td>
-                    <td><%= law_firm.bmo_relationship_partner_name.present? ? law_firm.try(:bmo_relationship_partner_name) : "-" %></td>
-                    <td><%= law_firm.bmo_relationship_partner_email.present? ? law_firm.try(:bmo_relationship_partner_email) : "-" %></td>
-                    <td>-</td>
-                  </tr>
-                <% end %>
-              </tbody>
-            </table>
+            <%= render "shared/law_firms_list", law_firms: @panel_law_firms, link_base_url: "/admin/law_firms" %>
           </div>
         </div>
       </div>

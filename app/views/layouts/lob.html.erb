@@ -40,7 +40,7 @@
 			</div>
 
 			<div class="text-center portal-type">
-				<p>Business Dashboard</p>
+				<p><%= current_user&.lob_dashboard_name || "Business Dashboard"%></p>
 			</div>
 			<div id="menu_toggle_container"><div id="menu_toggle"><%= image_tag "menu-icon.svg", alt:"Menu_icon" %></div></div>
 			<div class="project-context user-info hide-profile">
@@ -63,7 +63,7 @@
 		<div class="sp-main-page">
 			<div class="left-side">
 				<div class="sticky-left-side" id="dashboard_menu">
-					<div class="dashboard-title">Business Dashboard</div>
+					<div class="dashboard-title"><%= current_user&.lob_dashboard_name || "Business Dashboard" %></div>
 					<nav class="sp-sidebar">
 						<ul>
 							<li class="<%= active_menu_item('/lob') %> ">

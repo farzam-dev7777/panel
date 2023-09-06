@@ -48,6 +48,10 @@ class User < ApplicationRecord
     self.username = self&.username&.downcase
   end
 
+  def lob_dashboard_name
+    self.line_of_businesses&.first&.name
+  end
+
   def full_name
     [self.first_name, self.last_name].compact.join(' ')
   end
