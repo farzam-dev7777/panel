@@ -1105,7 +1105,7 @@ class MatterIntake < ApplicationRecord
       Tenant.current.tenant_matter_approvals.each do |matter_approval|
         if matter_approval.role.present?
           if matter_approval.approval.present?
-            if matter_approval.owner_role == self.current_user.role
+            if matter_approval.owner_role == current_user.role
               puts "****"
               puts matter_approval.inspect
               approval_sequence = Tenant.current.approval_process == 'serial' ? matter_approval.sequence_number : 0
