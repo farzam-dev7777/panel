@@ -9,7 +9,7 @@ class Admin::InternalDashboardController < Admin::BaseController
 
   def index
     if current_user.role === "lxp"
-      @matter_intakes_count = MatterIntake.distinct.where.not(status: ["matter_open", "matter_not_open"]).count()
+      @matter_intakes_count = MatterIntake.distinct.count()
       @confilictc_requests_submitted = ConflictWaiver.where.not(lxp_status: ["ALREADY_COVERED", "APPROVED", "REJECTED"]).count()
       @exception_requests_submitted = ExceptionRequest.where.not(law_firm_id:[nil]).where( lxp_status: [nil, "", "REQUEST_TO_INPUT", "SEND_RETAINER_AGREEMENT"]).count()
       @panel_requests_submitted = PanelRequest.where.not(status: ["ARCHIVED", "LAW_FIRM_CREATED"]).count()
@@ -17,7 +17,7 @@ class Admin::InternalDashboardController < Admin::BaseController
       @conflict_waivers = ConflictWaiver.distinct.order('created_at DESC').limit(5)
       @exception_requests = ExceptionRequest.distinct.order('created_at DESC').limit(5)
       
-      @matter_intakes = MatterIntake.where(status: ["awaiting_lawyer_review", "awaiting_lawyer_update"]).order('created_at DESC').limit(5)
+      @matter_intakes = MatterIntake.order('created_at DESC').limit(5)
       #@matter_open_intakes_count = MatterIntake.distinct.where(status: "matter_open").count()
      
 
@@ -38,7 +38,7 @@ class Admin::InternalDashboardController < Admin::BaseController
       @exception_requests = ExceptionRequest.where('internal_lawyers_id=? OR user_id=?', current_user.id, current_user.id).order('created_at DESC').limit(5)
       @conflict_waivers = ConflictWaiver.where(assigned_to_id: current_user.id).order('created_at DESC').limit(5)
       @matter_intakes = MatterIntake.where(lawyer_id: current_user.id).order('created_at DESC').limit(5)
-      @matter_intakes_count = MatterIntake.distinct.where.not(status: ["matter_open", "matter_not_open"]).count()
+      @matter_intakes_count = MatterIntake.where(lawyer_id: current_user.id).order('created_at DESC').count()
 
       @panel_law_firm_count = LawFirmsTenant.joins(:law_firm).where(law_firms: { law_firm_category: "PANEL" }).count
 
