@@ -31,6 +31,12 @@ class Tenant < ApplicationRecord
         Tenant.find_by subdomain: Apartment::Tenant.current
     end
 
+    def within_tenant(&block)
+      Apartment::Tenant.switch(self.subdomain) do
+        block.call
+      end
+    end
+
     def fetch_role(group_name)
       case group_name
         when (self.internal_lawyer.present? ? self.internal_lawyer : 'Panel - Internal Lawyers')
