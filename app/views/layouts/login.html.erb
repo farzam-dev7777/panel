@@ -5,6 +5,16 @@
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <style>
+      <% if Tenant.current&.login_bg_image.present? %>
+        body .sign-in-page .left-side.signin-img{
+          background-image: url(<%= Tenant.current&.login_bg_image&.url.html_safe %>) !important;
+          background-image: url(<%= Tenant.current&.login_bg_image&.url.html_safe %>), linear-gradient(#0079c1, #0079c1) !important;
+        }
+      <% end %>
+    </style>
+
+
   </head>
 
   <body>
