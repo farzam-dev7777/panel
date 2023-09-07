@@ -10,6 +10,12 @@ class Admin::MatterIntakesController < Admin::BaseController
     @current_user = current_user
     if current_user.role === "internal_lawyers"
       @matter_intakes = @q.result(distinct: true).order('created_at DESC')
+      if params[:attention] === "true"
+        @matter_intakes = @q.result(distinct: true).where(lawyer_id: [current_user.id, nil]).where(status: ['opened']).order('created_at DESC')
+      end
+      if params[:filter] === "yes"
+        @matter_intakes = @q.result(distinct: true).where(lawyer_id: [current_user.id, nil]).order('created_at DESC')
+      end
     elsif current_user.role === "lxp"
       @matter_intakes = @q.result(distinct: true).order('created_at DESC')
     else
