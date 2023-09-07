@@ -37,8 +37,8 @@ class Admin::InternalDashboardController < Admin::BaseController
     elsif current_user.role === "internal_lawyers"
       @exception_requests = ExceptionRequest.where('internal_lawyers_id=? OR user_id=?', current_user.id, current_user.id).order('created_at DESC').limit(5)
       @conflict_waivers = ConflictWaiver.where(assigned_to_id: current_user.id).order('created_at DESC').limit(5)
-      @matter_intakes = MatterIntake.where(lawyer_id: current_user.id).order('created_at DESC').limit(5)
-      @matter_intakes_count = MatterIntake.where(lawyer_id: current_user.id).order('created_at DESC').count()
+      @matter_intakes = MatterIntake.where(lawyer_id: [current_user.id, nil]).order('created_at DESC').limit(5)
+      @matter_intakes_count = MatterIntake.where(lawyer_id: [current_user.id, nil]).order('created_at DESC').count()
 
       @panel_law_firm_count = LawFirmsTenant.joins(:law_firm).where(law_firms: { law_firm_category: "PANEL" }).count
 

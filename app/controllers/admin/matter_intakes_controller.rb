@@ -9,25 +9,9 @@ class Admin::MatterIntakesController < Admin::BaseController
     @q = MatterIntake.ransack(params[:q])
     @current_user = current_user
     if current_user.role === "internal_lawyers"
-      if params[:filter] === "yes"
-        @matter_intakes = @q.result(distinct: true).where.not(status: ["created", "matter_open", "matter_not_open"]).order('created_at DESC')
-
-      else
-        if params[:attention] === "true"
-          @matter_intakes = @q.result(distinct: true).order('created_at DESC')
-        else
-          @matter_intakes = @q.result(distinct: true).where(lawyer_id: current_user.id).order('created_at DESC')
-        end
-      end 
-      
-     
+      @matter_intakes = @q.result(distinct: true).where(lawyer_id: [current_user.id, nil]).order('created_at DESC')
     elsif current_user.role === "lxp"
-      if params[:filter] === "yes"
-        @matter_intakes = @q.result(distinct: true).where.not(status: ["matter_open", "matter_not_open"]).  order('created_at DESC')
-        
-      else 
-        @matter_intakes = @q.result(distinct: true).order('created_at DESC')
-      end
+      @matter_intakes = @q.result(distinct: true).order('created_at DESC')
     else
       @matter_intakes = []
     end
