@@ -9,7 +9,7 @@ class Admin::MatterIntakesController < Admin::BaseController
     @q = MatterIntake.ransack(params[:q])
     @current_user = current_user
     if current_user.role === "internal_lawyers"
-      @matter_intakes = @q.result(distinct: true).where(lawyer_id: [current_user.id, nil]).order('created_at DESC')
+      @matter_intakes = @q.result(distinct: true).order('created_at DESC')
     elsif current_user.role === "lxp"
       @matter_intakes = @q.result(distinct: true).order('created_at DESC')
     else
