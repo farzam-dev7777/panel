@@ -55,7 +55,7 @@ class Admin::InternalDashboardController < Admin::BaseController
       @exception_requests = ExceptionRequest.where(user_id: current_user.id).order('created_at DESC').limit(5)
       @conflict_waivers = []
       @matter_intakes = []
-      @matter_intakes_count = 0
+      @matter_intakes_count = MatterIntake.distinct.where(status: ["opened"]).count()
 
       @law_firms = LawFirm.distinct.joins(:form_submissions).order('law_firms.updated_at DESC').limit(5)
       @panel_requests = PanelRequest.order('created_at DESC').limit(5)
