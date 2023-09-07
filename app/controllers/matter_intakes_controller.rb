@@ -71,7 +71,7 @@ class MatterIntakesController < BaseController
     @matter_intake.law_firm_id = current_user.law_firm&.id if @matter_intake.law_firm_id.blank?
     @matter_intake.requested_by_id = current_user&.id if @matter_intake.requested_by_id.blank?
     @matter_intake.submitter_name = current_user.full_name if @matter_intake.submitter_name.blank?
-    @matter_intake.matter_number = "MT-#{Date.today.month}-#{Date.today.day}-#{(1..999).to_a.sample}" if @matter_intake.matter_number.blank?
+    @matter_intake.matter_number = "MT-#{Date.today.month}-#{Date.today.day}-#{MatterIntake.count}" if @matter_intake.matter_number.blank?
     if @matter_intake.save
       @matter_intake.update_attributes(status: "submitted", lawyer_reviewed_at: Time.now)
       @matter_intake.set_default_approval_status(current_user)

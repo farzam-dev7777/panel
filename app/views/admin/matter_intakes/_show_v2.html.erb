@@ -11,6 +11,11 @@
          Status: <%= @matter_intake.show_status %>
         </span>
       </div>
+      <div class="action-buttons-alignment" style="padding-left: 850px;">
+        <a class="action-btn export-icon" href="/admin/matter_intakes/<%= @matter_intake.id%>/edit" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
+          <span class="blue-text">Edit</span>
+        </a>
+      </div>
       <div class="back-edit-actions">
         <a class="btn-type-default" href="/admin/matter_intakes">
           <%= image_tag "chevron-back-icon.svg", alt:"Back" %>

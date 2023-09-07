@@ -1020,6 +1020,8 @@ class MatterIntake < ApplicationRecord
   def show_status
     if self.status === "awaiting_lxp_review"
       "Awaiting LXP Review"
+    elsif self.status === "opened"
+      "Open"
     else
       self.try(:status).try(:titleize)
     end

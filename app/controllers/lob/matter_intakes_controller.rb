@@ -42,7 +42,7 @@ class Lob::MatterIntakesController < Lob::BaseController
     @matter_intake.line_of_business_id = current_user.line_of_businesses&.first&.id if @matter_intake.line_of_business_id.blank?
     @matter_intake.requested_by_id = current_user&.id if @matter_intake.requested_by_id.blank?
     @matter_intake.submitter_name = current_user.full_name if @matter_intake.submitter_name.blank?
-    @matter_intake.matter_number = "MT-#{Date.today.month}-#{Date.today.day}-#{(1..999).to_a.sample}" if @matter_intake.matter_number.blank?
+    @matter_intake.matter_number = "MT-#{Date.today.month}-#{Date.today.day}-#{MatterIntake.count}" if @matter_intake.matter_number.blank?
     @matter_intake.user_id = current_user.id if @matter_intake.user_id.blank?
     if @matter_intake.save
       @matter_intake.update_attributes(status: "submitted", lob_submitted_at: Time.now)

@@ -83,13 +83,12 @@
         <table id="dt_basic" class="table table-decoration table-bordered" width="100%">
           <thead>
             <tr>
-              <th>Matter Number(Corresponding)</th>
+              <th>Matter Number</th>
               <th>Date Submitted</th>
               <th>Submitter By</th>
               <!--<th>LOB Contact Name</th>-->
               <th>Name of Matter/Client</th>
               <!--th>Law Firm Suggested</th-->
-              <th>Form Type</th>
               <th>Status</th>
               <!--<th>Action</th>-->
             </tr>
@@ -124,7 +123,6 @@
                 <!--<td><%= matter_intake.lob_contact_name %></td>-->
                 <td><%= matter_intake.name_of_matter_client %></td>
                 <!--td><%= matter_intake.law_firm.try(:name) %></td-->
-                <td><%= matter_intake.form_type.present? ? matter_intake.form_type : "-" %></td>
                 <td>
                   <div class="status">
                     <span class="<%= matter_intake.status === "matter_open" ? 'label label-success' : 'label label-default' %>"> 

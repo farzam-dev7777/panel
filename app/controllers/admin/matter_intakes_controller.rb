@@ -74,7 +74,7 @@ class Admin::MatterIntakesController < Admin::BaseController
     end
     @matter_intake.requested_by_id = current_user&.id if @matter_intake.requested_by_id.blank?
     @matter_intake.submitter_name = current_user.full_name if @matter_intake.submitter_name.blank?
-    @matter_intake.matter_number = "MT-#{Date.today.month}-#{Date.today.day}-#{(1..999).to_a.sample}" if @matter_intake.matter_number.blank?
+    @matter_intake.matter_number = "MT-#{Date.today.month}-#{Date.today.day}-#{MatterIntake.count}" if @matter_intake.matter_number.blank?
     @matter_intake.user_id = current_user.id if @matter_intake.user_id.blank?
     @matter_intake.lawyer_id = current_user.id if current_user.role == 'internal_lawyers' && @matter_intake.lawyer_id.blank?
     if @matter_intake.save

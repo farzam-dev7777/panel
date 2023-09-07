@@ -111,7 +111,7 @@
       </div>
       <div class="col-xs-12 col-md-6">
         <label class="label">Auto Approval Matter Type</label>
-        <%= f.input :auto_approve_matter_type, label: false, collection: MatterType.all.pluck(:matter_type),  input_html: { multiple: true }%>
+        <%= f.input :auto_approve_matter_type, label: false, collection: MatterType.lb_records.pluck(:matter_type),  input_html: { multiple: true }%>
       </div>
       <% MatterApproval::MATTER_APPROVAL_ROLE.each do |key, value| %>
         <div class="col-xs-12 col-md-12" style="text-align: center;background: lightgray;">
