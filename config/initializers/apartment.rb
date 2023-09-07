@@ -24,6 +24,8 @@ Apartment.configure do |config|
     State
     LawFirm
     LawFirmsTenant
+    LineOfBusiness
+    LineOfBusinessUser
   }
 
   # In order to migrate all of your Tenants you need to provide a list of Tenant names to Apartment.
