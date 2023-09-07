@@ -11,7 +11,7 @@ class Lob::InternalDashboardController < Lob::BaseController
     
     @exception_requests = ExceptionRequest.where(user_id: current_user.id).order('created_at DESC').limit(5)
     @exception_requests_count = ExceptionRequest.where(user_id: current_user.id).where.not(law_firm_id:[nil]).where( lxp_status: [nil, "", "REQUEST_TO_INPUT", "SEND_RETAINER_AGREEMENT"]).count()
-    @matter_intakes_count = MatterIntake.where(user_id: current_user.id).where(status: ["matter_open", "matter_not_open"]).count()
+    @matter_intakes_count = MatterIntake.where(user_id: current_user.id).where(status: ["opened"]).count()
    
     @panel_requests_count = PanelRequest.where(user_id: current_user.id).count()
     @exception_requests_submitted = ExceptionRequest.where(user_id: current_user.id, internal_lawyers_status: [nil, ""]).count()
