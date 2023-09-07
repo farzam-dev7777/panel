@@ -1,5 +1,6 @@
 <%- 
   begin
+    law_firms = law_firms.limit(limit) if limit.present?
     table_id
   rescue
     table_id = ""
