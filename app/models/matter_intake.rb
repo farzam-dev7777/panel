@@ -190,7 +190,7 @@ class MatterIntake < ApplicationRecord
     is_law_firm =  current_user.role == "master_user" && current_user.role == "user"
     common_fields = [
       {
-        name: "Line of Business",
+        name: I18n.t(:line_of_business_id, default: "Line of Business"),
         database_field: :line_of_business_id,
         access: {
           bank: "read",
@@ -202,7 +202,7 @@ class MatterIntake < ApplicationRecord
         collection: [], # Static | From database | prefilled-value
       },
       {
-        name: "Submitter Name",
+        name: I18n.t(:submitter_name, default: "Submitter Name"),
         database_field: :submitter_name,
         access: {
           bank: "read",
@@ -214,7 +214,7 @@ class MatterIntake < ApplicationRecord
         collection: [], # Static | From database | prefilled-value
       },
       {
-        name: "Matter Name",
+        name: I18n.t(:name_of_matter_client, default: "Matter Name"),
         database_field: :name_of_matter_client,
         access: {
           bank: "write",
@@ -225,7 +225,7 @@ class MatterIntake < ApplicationRecord
         optional: MANDATORY_FIELDS.include?(:name_of_matter_client) == false,
       },
       {
-        name: "Matter Number",
+        name: I18n.t(:matter_number, default: "Matter Number"),
         database_field: :matter_number,
         access: {
           bank: "read",
@@ -236,7 +236,7 @@ class MatterIntake < ApplicationRecord
         value: (self.matter_number||"MT-#{Date.today.month}-#{Date.today.day}-#{(1..999).to_a.sample}")
       },
       {
-        name: "Requested by",
+        name: I18n.t(:requested_by_id, default: "Requested by"),
         database_field: :requested_by_id,
         access: {
           bank: "write",
@@ -248,7 +248,7 @@ class MatterIntake < ApplicationRecord
         collection: current_tenant.users.map{|u| [u.full_name, u.id]}
       },
       {
-        name: "Matter Type",
+        name: I18n.t(:matter_type_id, default: "Matter Type"),
         database_field: :matter_type_id,
         access: {
           bank: "write",
@@ -260,7 +260,7 @@ class MatterIntake < ApplicationRecord
         collection: MatterType.all.reject{|mt| mt.matter_type === "Litigation / Litiges"}.map{|mt| [mt.matter_type, mt.id] }
       },
       {
-        name: "Matter Description",
+        name: I18n.t(:matter_description, default: "Matter Description"),
         database_field: :matter_description,
         access: {
           bank: "write",
@@ -272,7 +272,7 @@ class MatterIntake < ApplicationRecord
         collection: []
       },
       {
-        name: "Entity",
+        name: I18n.t(:paying_entity, default: "Entity"),
         database_field: :paying_entity,
         access: {
           bank: "write",
@@ -284,7 +284,7 @@ class MatterIntake < ApplicationRecord
         collection: MatterIntake::LegalEntity
       },
       {
-        name: "Other Party",
+        name: I18n.t(:other_party, default: "Other Party"),
         database_field: :other_party,
         access: {
           bank: "write",
@@ -296,7 +296,7 @@ class MatterIntake < ApplicationRecord
         collection: MatterIntake::OtherParty
       },
       {
-        name: "Litigation Stage",
+        name: I18n.t(:stage_of_litigation, default: "Litigation Stage"),
         database_field: :stage_of_litigation,
         access: {
           bank: "write",
@@ -308,7 +308,7 @@ class MatterIntake < ApplicationRecord
         collection: MatterIntake::StageOfLitigation
       },
       {
-        name: "Issue",
+        name: I18n.t(:primary_issue, default: "Issue"),
         database_field: :primary_issue,
         access: {
           bank: "write",
@@ -320,7 +320,7 @@ class MatterIntake < ApplicationRecord
         collection: MatterIntake::PrimaryIssue
       },
       {
-        name: "Will this matter involve the following",
+        name: I18n.t(:following_matter_involve, default: "Will this matter involve the following"),
         database_field: :following_matter_involve,
         access: {
           bank: "write",
@@ -333,7 +333,7 @@ class MatterIntake < ApplicationRecord
         multiple: true
       },
       {
-        name: "Internal (Bank) Responsible Lawyer",
+        name: I18n.t(:lawyer_id, default: "Internal (Bank) Responsible Lawyer"),
         database_field: :lawyer_id,
         access: {
           bank: "write",
@@ -345,7 +345,7 @@ class MatterIntake < ApplicationRecord
         collection: InternalLawyer.where(tenant_id: current_tenant&.id).map {|il| [il.full_name, il.id]}
       },
       {
-        name: "Additional Comments for Internal Lawyer",
+        name: I18n.t(:additional_comments_for_lrc_lawyer, default: "Additional Comments for Internal Lawyer"),
         database_field: :additional_comments_for_lrc_lawyer,
         access: {
           bank: "write",
@@ -357,7 +357,7 @@ class MatterIntake < ApplicationRecord
         collection: []
       },
       {
-        name: "External Law firm",
+        name: I18n.t(:law_firm_id, default: "External Law firm"),
         database_field: :law_firm_id,
         access: {
           bank: "write",
@@ -369,7 +369,7 @@ class MatterIntake < ApplicationRecord
         collection: Tenant.current.law_firms.where(law_firm_category: "PANEL").map{ |lf| [lf.name, lf.id] }
       },
       {
-        name: "Invoice (add/upload)",
+        name: I18n.t(:invoices, default: "Invoice (add/upload)"),
         database_field: :invoices,
         access: {
           bank: "write",
@@ -381,7 +381,7 @@ class MatterIntake < ApplicationRecord
         collection: []
       },
       {
-        name: "Invoice - Approval",
+        name: I18n.t(:invoices, default: "Invoice - Approval"),
         database_field: :invoices,
         access: {
           bank: "write",
@@ -393,7 +393,7 @@ class MatterIntake < ApplicationRecord
         collection: []
       },
       {
-        name: "Jurisdiction",
+        name: I18n.t(:jurisdiction, default: "Jurisdiction"),
         database_field: :jurisdiction,
         access: {
           bank: "write",
@@ -405,7 +405,7 @@ class MatterIntake < ApplicationRecord
         collection: MatterIntake::Jurisdiction
       },
       {
-        name: "Is this a syndicated matter?",
+        name: I18n.t(:is_syndicate_matter, default: "Is this a syndicated matter?"),
         database_field: :is_syndicate_matter,
         access: {
           bank: "write",
@@ -417,7 +417,7 @@ class MatterIntake < ApplicationRecord
         collection: [['Yes, we are the lead organization', 'Yes, we are the lead organization'],["Yes, we are not the lead organization", "Yes, we are not the lead organization"], ["No", "No"]]
       },
       {
-        name: "AFA",
+        name: I18n.t(:afa_details, default: "AFA"),
         database_field: :afa_details,
         access: {
           bank: "write",
@@ -429,7 +429,7 @@ class MatterIntake < ApplicationRecord
         collection: []
       },
       {
-        name: "Fee Estimate / Budget",
+        name: I18n.t(:budget_amount, default: "Fee Estimate / Budget"),
         database_field: :budget_amount,
         access: {
           bank: "write",
@@ -441,7 +441,7 @@ class MatterIntake < ApplicationRecord
         collection: []
       },
       {
-        name: "Cost Centre (transit) for legal fees",
+        name: I18n.t(:cost_centre_for_legal_fees, default: "Cost Centre (transit) for legal fees"),
         database_field: :cost_centre_for_legal_fees,
         access: {
           bank: "write",
@@ -453,7 +453,7 @@ class MatterIntake < ApplicationRecord
         collection: []
       },
       {
-        name: "Deal Code (Capital Markets Only)",
+        name: I18n.t(:deal_code, default: "Deal Code (Capital Markets Only)"),
         database_field: :deal_code,
         access: {
           bank: "write",
@@ -465,7 +465,7 @@ class MatterIntake < ApplicationRecord
         collection: []
       },
       {
-        name: "Related Matter Number",
+        name: I18n.t(:related_matter_number, default: "Related Matter Number"),
         database_field: :related_matter_number,
         access: {
           bank: "write",
@@ -477,7 +477,7 @@ class MatterIntake < ApplicationRecord
         collection: []
       },
       {
-        name: "Any PII involved in this matter?",
+        name: I18n.t(:pii_involved, default: "Any PII involved in this matter?"),
         database_field: :pii_involved,
         access: {
           bank: "write",
@@ -489,7 +489,7 @@ class MatterIntake < ApplicationRecord
         collection: [['True', true], ['False', false]]
       },
       {
-        name: "Could law firm potentially receive sensitive information",
+        name: I18n.t(:can_reimbursed_matter, default: "Could law firm potentially receive sensitive information"),
         database_field: :can_reimbursed_matter,
         access: {
           bank: "write",
@@ -501,7 +501,7 @@ class MatterIntake < ApplicationRecord
         collection: [['Yes', 'Yes'], ["No", "No"]]
       },
       {
-        name: "Reportable Risk",
+        name: I18n.t(:is_ore_reportable, default: "Reportable Risk"),
         database_field: :is_ore_reportable,
         access: {
           bank: "write",
@@ -516,8 +516,9 @@ class MatterIntake < ApplicationRecord
 
     optional_fields = [
       {
-        name: "Internal File Number",
+        name: I18n.t(:internal_file_number, default: "Internal File Number"),
         database_field: :internal_file_number,
+        default_name: "Internal File Number",
         access: {
           bank: "write",
           law_firm: "read"
@@ -529,8 +530,9 @@ class MatterIntake < ApplicationRecord
     
       },
       {
-        name: "Business Department",
+        name: I18n.t(:business_department, default: "Business Department"),
         database_field: :business_department,
+        default_name: "Business Department",
         access: {
           bank: "write",
           law_firm: "write"
@@ -540,8 +542,9 @@ class MatterIntake < ApplicationRecord
         value: self.business_department
       },
       {
-        name: "Business Group Responsible for Invoice",
+        name: I18n.t(:business_group, default: "Business Group Responsible for Invoice"),
         database_field: :business_group,
+        default_name: "Business Group Responsible for Invoice",
         access: {
           bank: "write",
           law_firm: "not_access"
@@ -552,7 +555,7 @@ class MatterIntake < ApplicationRecord
       }
     ]
 
-    common_fields + optional_fields.select{|s| current_tenant.matter_optional_fields.include?(s[:name])}
+    common_fields + optional_fields.select{|s| current_tenant.matter_optional_fields.include?(s[:default_name])}
   end
 
   LegalGroupBMOLawyer = [

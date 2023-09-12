@@ -170,4 +170,14 @@ module ApplicationHelper
     ['r','rw'].include?(MatterIntake::MATTER_FORM[current_user.role.to_sym][field_name.to_sym][:access])
   end
 
+  def matter_url
+    if current_user.role == 'lob'
+      "/lob/matter_intakes"
+    elsif current_user.role == 'lxp' || current_user.role == 'internal_lawyers'
+      "/admin/matter_intakes"
+    else
+      "/matter_intakes"
+    end
+  end
+
 end
