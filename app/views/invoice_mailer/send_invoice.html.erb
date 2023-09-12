@@ -1,0 +1,12 @@
+<div class="">
+  <p class="user-inner-content">
+    <p>Matter Name: <%= @matter_intake.name_of_matter_client %></p>
+    <p>Matter Number: <%= @matter_intake.matter_number %></p>
+    <p>Invoice Amount: <%= @invoice.amount.format %></p>
+    <p>Invoice Date: <%= (@invoice.date||@invoice.created_at).strftime('%d %b %Y') %></p>
+    <p>Invoice Status: <%= @invoice.status&.capitalize||'Pending' %></p>
+    <% if @invoice.invoice_attachments.count > 0 %>
+      <p>Invoice Attachment: <%= @invoice.invoice_attachments.first.file&.url %></p>
+    <% end %>
+ </p> 
+</div> 

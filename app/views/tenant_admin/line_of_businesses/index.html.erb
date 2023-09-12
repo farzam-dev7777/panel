@@ -18,6 +18,7 @@
             <tr>
               <th>Name</th>
               <th>SSO Group</th>
+              <th>Email</th>
               <th>Created At</th>
             </tr>
           </thead>
@@ -26,6 +27,7 @@
               <tr onClick="window.location.href='/tenant_admin/line_of_businesses/<%= lob.id %>/edit'">
                 <td><%= lob&.name %></td>
                 <td><%= lob&.sso_group %></td>
+                <td><%= lob&.email %></td>
                 <td><%= lob&.created_at&.strftime('%d %b %Y at %I:%M %p') %></td>
               </tr>
             <% end %>
