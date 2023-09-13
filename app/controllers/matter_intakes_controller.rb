@@ -184,7 +184,7 @@ class MatterIntakesController < BaseController
   private
   def matter_intake_params
     params.require(:matter_intake).permit(
-      :user_id, :submitter_name, :lob_contact_name, :name_of_matter_client, :matter_type_id,
+      :user_id, :submitter_name, :lob_contact_name, :name_of_matter_client, :matter_type_id, :asset,
       :matter_description, :mode_of_payment, :law_firm_id, :bmo_lawyer_name, :lawyer_id, :budget_amount,
       :lob_id, :lob_contact_for_po, :cost_centre_for_legal_fees, :paying_entity, :business_paying_for_matter,
       :group_paying_for_matter, :status, :lob_submitted_at, :legal_group_of_bmo_lawyer, :work_area, :work_area_type, :is_ore_reportable,

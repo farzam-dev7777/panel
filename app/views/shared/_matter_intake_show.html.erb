@@ -11,10 +11,17 @@
          Status: <%= @matter_intake.show_status %>
         </span>
       </div>
-      <div class="action-buttons-alignment" style="padding-left: 850px;">
+      <div class="action-buttons-alignment" style="padding-left: 790px;">
         <a class="action-btn export-icon" href="<%=matter_url %>/<%= @matter_intake.id%>/edit" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
           <span class="blue-text">Edit</span>
         </a>
+        <% if current_user.role == 'lxp'%>
+          <% if @matter_intake.deleted_at.blank?%>
+            <%= link_to "Archive", admin_matter_intake_path(@matter_intake), method: :delete, class: "action-btn btn btn-xs btn-secondary btn-danger", data: { confirm: 'Are you sure you want to Archive this?' } %>
+          <% else %>
+            <%= link_to "UnArchive", unarchive_admin_matter_intake_path(@matter_intake), method: :put, class: "action-btn btn btn-xs btn-secondary", data: { confirm: 'Are you sure you want to UnArchive this?' } %>
+          <% end %>
+        <% end %>
       </div>
       <div class="back-edit-actions">
         <a class="btn-type-default" href="<%=matter_url %>">
@@ -96,6 +103,12 @@
                       <div class="field-data"><%= @matter_intake.requested_by&.full_name %></div>
                     <% elsif obj[:database_field] == :matter_type_id%>
                       <div class="field-data"><%= @matter_intake.matter_type&.matter_type %></div>
+                    <% elsif obj[:database_field] == :asset%>
+                      <div class="field-data">
+                        <a href="<%= @matter_intake.asset&.url %>" target="_blank" title="<%= @matter_intake.asset.identifier %>">
+                          <i class="fa fa-money" aria-hidden="true"></i>
+                        </a>
+                      </div>
                     <% elsif obj[:database_field] == :following_matter_involve%>
                       <div class="field-data"><%= (@matter_intake.following_matter_involve||[]).select{|s| s.present?}.join(', ') %></div>
                     <% else %>

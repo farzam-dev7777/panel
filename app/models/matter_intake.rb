@@ -511,6 +511,18 @@ class MatterIntake < ApplicationRecord
         optional: MANDATORY_FIELDS.include?(:is_ore_reportable) == false,
         value: self.is_ore_reportable,
         collection: [['Yes', 'Yes'], ["No", "No"]]
+      },
+      {
+        name: I18n.t(:asset, default: "Document"),
+        database_field: :asset,
+        access: {
+          bank: "write",
+          law_firm: "not_access"
+        },
+        type: "file", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: MANDATORY_FIELDS.include?(:is_ore_reportable) == false,
+        value: self.asset,
+        collection: []
       }
     ]
 
@@ -1021,7 +1033,9 @@ class MatterIntake < ApplicationRecord
   end
 
   def show_status
-    if self.status === "awaiting_lxp_review"
+    if deleted_at.present?
+      "Archived"
+    elsif self.status === "awaiting_lxp_review"
       "Awaiting LXP Review"
     elsif self.status === "opened"
       "Open"

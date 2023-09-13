@@ -5,8 +5,11 @@ class Admin::MatterIntakesController < Admin::BaseController
   add_breadcrumb "Dashboard", :root_path
 
   def index
-    
-    @q = MatterIntake.ransack(params[:q])
+    if (params[:q]||{})[:include_archive].present?
+      @q = MatterIntake.with_deleted.ransack(params[:q])
+    else
+      @q = MatterIntake.ransack(params[:q])
+    end
     @current_user = current_user
     if current_user.role === "internal_lawyers"
       @matter_intakes = @q.result(distinct: true).order('created_at DESC')
@@ -40,7 +43,7 @@ class Admin::MatterIntakesController < Admin::BaseController
   end
 
   def show
-    @matter_intake = MatterIntake.includes(:invoices).find_by(id: params[:id])
+    @matter_intake = MatterIntake.includes(:invoices).with_deleted.find_by(id: params[:id])
     @matter_approval = @matter_intake.current_user_pending_approval(current_user)
   end
 
@@ -159,10 +162,17 @@ class Admin::MatterIntakesController < Admin::BaseController
     redirect_to admin_matter_intake_path(matter_intake), notice: 'Your comment has been added.'
   end
 
+  def unarchive
+    matter_intake = MatterIntake.with_deleted.find_by_id params[:id]
+    matter_intake.update(deleted_at:nil)
+    redirect_to admin_matter_intake_path(matter_intake), notice: 'Matter unarchive successfully'
+  end
+
   private
+
   def matter_intake_params
     params.require(:matter_intake).permit(
-      :user_id, :submitter_name, :lob_contact_name, :name_of_matter_client, :matter_type_id,
+      :user_id, :submitter_name, :lob_contact_name, :name_of_matter_client, :matter_type_id, :asset,
       :matter_description, :mode_of_payment, :law_firm_id, :bmo_lawyer_name, :lawyer_id, :budget_amount,
       :lob_id, :lob_contact_for_po, :cost_centre_for_legal_fees, :paying_entity, :business_paying_for_matter,
       :group_paying_for_matter, :status, :lob_submitted_at, :legal_group_of_bmo_lawyer, :work_area, :work_area_type, :is_ore_reportable,

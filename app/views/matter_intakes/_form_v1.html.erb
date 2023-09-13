@@ -28,6 +28,8 @@
                   <%= f.input obj[:database_field], label: false, collection: obj[:collection], input_html: { multiple: obj[:multiple].present? } %>
                 <% else obj[:type] == 'text' %>
                   <%= f.input obj[:database_field], label: false, :input_html => { :value => obj[:value], multiple: obj[:multiple].present? } %>
+                <% else obj[:type] == 'file' %>
+                  <%= f.input obj[:database_field], as: :file, label: false  %>
                 <% end %>
               <% end %>
             </div>
