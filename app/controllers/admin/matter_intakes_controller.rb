@@ -95,10 +95,10 @@ class Admin::MatterIntakesController < Admin::BaseController
   def destroy
     @matter_intake = MatterIntake.find_by(id: params[:id])
     if @matter_intake.destroy
-      flash[:notice] = "Matter deleted successfully."
+      flash[:notice] = "Matter archived successfully."
       redirect_to admin_matter_intakes_path
     else
-      flash[:alert] = "Coudn't delete matter. Please try again."
+      flash[:alert] = "Coudn't archive matter. Please try again."
       redirect_to :back
     end
 
@@ -165,7 +165,7 @@ class Admin::MatterIntakesController < Admin::BaseController
   def unarchive
     matter_intake = MatterIntake.with_deleted.find_by_id params[:id]
     matter_intake.update(deleted_at:nil)
-    redirect_to admin_matter_intake_path(matter_intake), notice: 'Matter unarchive successfully'
+    redirect_to admin_matter_intake_path(matter_intake), notice: 'Matter unarchived successfully'
   end
 
   private
