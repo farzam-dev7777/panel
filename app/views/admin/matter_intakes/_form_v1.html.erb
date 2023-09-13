@@ -8,7 +8,7 @@
           <% if obj[:database_field] == :invoices && obj[:access][matter_role] == 'write' %>
             <% invoice_enable = true %>
           <% else %>
-            <div class="col-xs-12 col-md-6">
+            <div class="col-xs-12 col-md-6" title="<%= matter_lang_title(obj[:database_field], obj[:name]) %>">
               <label  class="label" style="white-space: unset;">
                 <% if obj[:optional] == true %>
                   <%= obj[:name] %>

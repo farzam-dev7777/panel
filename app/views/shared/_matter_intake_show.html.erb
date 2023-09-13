@@ -96,7 +96,7 @@
                   <% invoice_enable = true %>
                 <% else %>
                   <div class="col-xs-12 col-md-6">
-                    <div class="field-label"><%= obj[:name] %></div>
+                    <div class="field-label" title="<%= matter_lang_title(obj[:database_field], obj[:name]) %>"><%= obj[:name] %></div>
                     <%  if obj[:database_field] == :law_firm_id %>
                       <div class="field-data"><%= @matter_intake.law_firm&.name %></div>
                     <% elsif obj[:database_field] == :line_of_business_id%>

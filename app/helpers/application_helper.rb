@@ -180,4 +180,12 @@ module ApplicationHelper
     end
   end
 
+  def matter_lang_title(attr_id, default_label)
+    if I18n.locale == :en
+      I18n.backend.send(:translations)[:fr][attr_id]||default_label
+    else
+      I18n.backend.send(:translations)[:en][attr_id]||default_label
+    end
+  end
+
 end
