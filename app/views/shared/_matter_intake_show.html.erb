@@ -12,9 +12,11 @@
         </span>
       </div>
       <div class="action-buttons-alignment" style="padding-left: 790px;">
-        <a class="action-btn export-icon" href="<%=matter_url %>/<%= @matter_intake.id%>/edit" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
-          <span class="blue-text">Edit</span>
-        </a>
+        <%if @matter_intake.deleted_at.blank?%>
+          <a class="action-btn export-icon" href="<%=matter_url %>/<%= @matter_intake.id%>/edit" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
+            <span class="blue-text">Edit</span>
+          </a>
+        <% end %>
         <% if current_user.role == 'lxp'%>
           <% if @matter_intake.deleted_at.blank?%>
             <%= link_to "Archive", admin_matter_intake_path(@matter_intake), method: :delete, class: "action-btn btn btn-xs btn-secondary btn-danger", data: { confirm: 'Are you sure you want to Archive this?' } %>
@@ -29,49 +31,51 @@
         </a>
       </div>
     </div>
-    <div class="  ">
-      <!-- widget content -->
-      <div class="view-request">
-        <div class="tab-content view-request">
-              <div class="exceptationRequestProcesss">
-                <div class="sp-form sp-form-bg">
-                    <% if @matter_approval.present?%>
-                        <%= simple_form_for [@matter_approval] do |f| %>
-                          <div class="row">
-                            <div class="col-xs-12 col-md-6">
-                              <label class="label"><%= t('comment') %></label>
-                                <%= f.text_area :description, label: false, size: '50x10'%>
-                            </div>    
-                            <div class="col-xs-12 col-md-6">
-                              <label class="label">Status</label>
-                              <%= f.input :status, label: false, collection: [["Approve","approved"], ["Reject","rejected"], ["Comment","comment"]]%>
+    <%if @matter_intake.deleted_at.blank?%>
+      <div class="  ">
+        <!-- widget content -->
+        <div class="view-request">
+          <div class="tab-content view-request">
+                <div class="exceptationRequestProcesss">
+                  <div class="sp-form sp-form-bg">
+                      <% if @matter_approval.present?%>
+                          <%= simple_form_for [@matter_approval] do |f| %>
+                            <div class="row">
+                              <div class="col-xs-12 col-md-6">
+                                <label class="label"><%= t('comment') %></label>
+                                  <%= f.text_area :description, label: false, size: '50x10'%>
+                              </div>    
+                              <div class="col-xs-12 col-md-6">
+                                <label class="label">Status</label>
+                                <%= f.input :status, label: false, collection: [["Approve","approved"], ["Reject","rejected"], ["Comment","comment"]]%>
+                              </div>
                             </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-xs-12 col-md-12 text-right">
-                              <%= f.button :submit, 'Submit', class:  "btn-type-primary" %>
+                            <div class="row">
+                              <div class="col-xs-12 col-md-12 text-right">
+                                <%= f.button :submit, 'Submit', class:  "btn-type-primary" %>
+                              </div>
                             </div>
-                          </div>
-                        <% end %>
-                      <% else %>
-                       <%= simple_form_for([@matter_intake], :url => url_for(:action => 'add_review', :controller => 'matter_intakes'), :method => 'put') do |f| %>
-                         <div class="row">
-                           <div class="col-xs-12 col-md-6">
-                             <label class="label"><%= t('comment') %></label>
-                              <textarea class="form-control" type="text" name="discription" id="discription" style="width: 572px; height: 97px;"></textarea>
+                          <% end %>
+                        <% else %>
+                         <%= simple_form_for([@matter_intake], :url => url_for(:action => 'add_review', :controller => 'matter_intakes'), :method => 'put') do |f| %>
+                           <div class="row">
+                             <div class="col-xs-12 col-md-6">
+                               <label class="label"><%= t('comment') %></label>
+                                <textarea class="form-control" type="text" name="discription" id="discription" style="width: 572px; height: 97px;"></textarea>
+                             </div>
+                             <div class="col-xs-12 col-md-3" style="left:10%; padding-top: 50px;">
+                               <%= f.button :submit, "Submit", class:  "btn-type-primary" %>
+                             </div>
                            </div>
-                           <div class="col-xs-12 col-md-3" style="left:10%; padding-top: 50px;">
-                             <%= f.button :submit, "Submit", class:  "btn-type-primary" %>
-                           </div>
-                         </div>
-                     <% end %>
-                  <% end %>
-                </div>
-            <div class="clearfix"></div>
+                       <% end %>
+                    <% end %>
+                  </div>
+              <div class="clearfix"></div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    <% end %>
   </div>
 </div>
 <div class="clearfix"></div>

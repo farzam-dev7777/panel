@@ -37,7 +37,7 @@
             </div>
           </div>
         <% end %>
-        <% if current_user.is_panel_admin_user? %>
+        <% if current_user.is_panel_admin_user? && @matter_intake.deleted_at.blank? %>
           <div class="col-xs-12 col-md-3">
             <div class="field-label"></div>
             <div style="padding-top: 14px;">
