@@ -2065,7 +2065,6 @@ function trigger_file_input(obj){
 
 function show_file_name(e){
   var geekss = $(e).val().replace(/.*(\/|\\)/, '');
-  debugger
   $(e).parents('.uploadFile').find('.file_name').text(geekss);
 }
 

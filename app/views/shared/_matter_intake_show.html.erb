@@ -19,9 +19,6 @@
         <% end %>
         <% if current_user.role == 'lxp'%>
           <% if @matter_intake.deleted_at.blank?%>
-            <a class="action-btn export-icon" href="<%=matter_url %>/<%= @matter_intake.id%>/agreements" data-toggle="tooltip" data-placement="top" title="" data-original-title="Upload Agreements">
-              <span class="blue-text">Agreements</span>
-            </a>
             <%= link_to admin_matter_intake_path(@matter_intake), method: :delete, class: "action-btn btn btn-xs btn-secondary btn-danger", data: { confirm: 'Are you sure you want to Archive this?' }  do %>
               <span class="blue-text" style="color:white !important">Archive</span>
             <% end %>
@@ -125,7 +122,6 @@
             <% end %>
             <% if current_user.is_panel_admin_user?%>
               <%= render "/shared/matter_attachment_show", matter_intake: @matter_intake %>
-              <%= render "/shared/matter_agreement_show", matter_intake: @matter_intake %>
             <% end %>
             <% if invoice_enable == true%>
               <%= render "/shared/invoice_show" %> 

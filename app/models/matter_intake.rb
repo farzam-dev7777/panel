@@ -1027,8 +1027,6 @@ class MatterIntake < ApplicationRecord
   def show_status
     if deleted_at.present?
       "Archived"
-    elsif self.matter_intake_agreements.present?
-      "On Panel"
     elsif self.status === "awaiting_lxp_review"
       "Awaiting LXP Review"
     elsif self.status === "opened"

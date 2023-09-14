@@ -9,7 +9,7 @@
 						<%= image_tag "uploadIcon.svg", alt:"Upload file" %>
 						<span class="file_name" style="padding: 5px;"><%= f.object.file.identifier%></span>
 					</label>
-					<%= f.input :file, label: false, as: :file, input_html: {multiple: false, onchange:"show_file_name(this)"} %>
+					<%= f.input :file, label: false, as: :file, input_html: {multiple: false, onchange:"show_file_name(this)", accept: "application/pdf"} %>
 					<%= f.input :doc_type, as: :hidden, value: "attachment", label: false%>
 				</div>
 			</div>
