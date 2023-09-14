@@ -1,4 +1,60 @@
 <div class="row">
+  <div class="law_firm_dashboard">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <ul id="sparks" class="top-status-card">
+        <li class="sparks-info color-border-01">
+          <a href="/" class="card-content">
+            <div class="card-icon bg-color-01">
+              <%= image_tag "exceptions-icon.svg", alt:"Panel Firms" %>
+            </div>
+            <div class="card-details">
+              <div class="total-record"><%= current_law_firm&.tenants.count || 0 %></div>
+              <div class="card-name">Number of clients</div>
+              <div class="card-tag-line">Number of clients</div>
+            </div>
+          </a>
+        </li>
+        <li class="sparks-info color-border-03">
+          <a href="/admin/matter_intakes?filter=yes" class="card-content">
+            <div class="card-icon bg-color-03">
+              <%= image_tag "approved-icon.svg", alt:"Matters" %>
+            </div>
+            <div class="card-details">
+              <div class="total-record"><%= @matter_intakes_count %></div>
+              <div class="card-name">Matters</div>
+              <div class="card-tag-line">Tag lines goes here</div>
+            </div>
+          </a>
+        </li>
+        <li class="sparks-info color-border-02">
+          <a href="#" class="card-content" >
+            <div class="card-icon bg-color-02">
+              <%= image_tag "submitted-icon.svg", alt:"Panel Consideration Requests" %>
+            </div>
+            <div class="card-details">
+              <div class="total-record"><%= number_to_currency(@invoices_total || 0, unit: "$", strip_insignificant_zeros: true) %></div>
+              <div class="card-name">FY Invoices</div>
+              <div class="card-tag-line">Tag lines goes here</div>
+            </div>
+          </a>
+        </li>
+        <li class="sparks-info color-border-04">
+          <a href="/admin/conflict_waivers?filter=yes" class="card-content">
+            <div class="card-icon bg-color-04">
+              <%= image_tag "exceptions-icon.svg", alt:"Conflict Waiver Requests" %>
+            </div>
+            <div class="card-details">
+              <div class="total-record"><%= @confilictc_requests_submitted %></div>
+              <div class="card-name">Conflict Waiver Requests(Pending)</div>
+              <div class="card-tag-line">Tag lines goes here</div>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="row">
   <div class="col-xs-12 col-md-12">
     <div class="page-header-sp m-top">
       <div class="page-title">Panel  <%= Tenant&.current&.subdomain %></div>
@@ -105,70 +161,6 @@
     </div>
   </div>
 </div>
-<!--div class="row">
-	<div class="col-xs-12 col-md-12">
-		<div class="page-header-sp">
-			<div class="page-title">Submissions</div>
-			<div></div>
-		</div>
-	</div>
-	<div class="col-xs-12 col-md-12">
-		<div class="">
-			<% if current_law_firm && current_law_firm.form_submissions.any? %>
-			<div class="table-responsive">
-				<table class="table table-decoration table-bordered">
-					<thead>
-					<tr>
-							<th>Submission ID</th>
-							<th>Date of certification</th>
-							<th>Date of submission</th>
-							<th>Status</th>
-							<th>Evidence Status</th>
-							<th>Action</th>
-						</tr>
-					</thead>
-					<tbody>
-					<% current_law_firm.form_submissions.reverse.each do |submission| %>
-					<tr>
-						<td><%= submission.id %></td>
-						<td><%= submission.approved_at.try(:strftime, "%d/%m/%Y") || '-' %></td>
-						<td><%= submission.submitted_on.try(:strftime, "%d/%m/%Y") || '-' %></td>
-						<td>
-							<span class="label label-<%= submission_status_class(submission) %>">
-								<%= submission.try(:formatted_status) %>
-							</span>
-						</td>
-						<td>
-							<%= submission.try(:formatted_evidence_status) %>
-							<% if submission.try(:status) == 'decertified' %>	
-								<br><em><%= submission.try(:reason) %></em>
-							<% end %>
-						</td>
-						<td>
-							<div class="action-fields">
-								<% if submission.try(:status) != 'approved' %>
-									<a class="action-btn" href="/form_submissions/<%= submission.id %>/pricing_step?readonly=true">
-										<%= image_tag "view-icon.svg", alt:"View" %>
-									</a>
-								<% else %>
-									<%= link_to 'View', "", class: "btn btn-outline-primary btn-xs", onclick: "alert('Disabled')" %>	
-								<% end %>
-							</div>
-						</td>
-					</tr>											
-					<% end %>
-					</tbody>
-				</table>
-			</div>
-			<% else %>
-				<div class="sp-form sp-form-bg">
-					<h4 class="text-center">There are no submissions to review yet</h4>
-				</div>
-				<br/><br/>
-			<% end %>
-		</div>
-	</div>
-</div-->
 
 <div class="row">
   <div class="col-xs-12 col-md-12">
