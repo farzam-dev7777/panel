@@ -76,6 +76,7 @@ Rails.application.routes.draw do
         get :lxp_review
         put :add_review
         put :unarchive
+        get :agreements
       end
       collection do 
         post :lxp_rejects
@@ -221,6 +222,7 @@ Rails.application.routes.draw do
 
       member do 
         put :add_review
+        get :agreements
       end
     end
 
@@ -372,6 +374,7 @@ Rails.application.routes.draw do
       get :review
       get :lxp_review
       put :add_review
+      get :agreements
     end
     collection do 
       post :lxp_rejects

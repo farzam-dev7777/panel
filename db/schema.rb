@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20230912123315) do
+ActiveRecord::Schema.define(version: 20230913160159) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -659,6 +659,14 @@ ActiveRecord::Schema.define(version: 20230912123315) do
     t.string   "approval_type"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
+  end
+
+  create_table "matter_intake_attachments", force: :cascade do |t|
+    t.integer  "matter_intake_id"
+    t.string   "doc_type"
+    t.string   "file"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
   create_table "matter_intakes", force: :cascade do |t|

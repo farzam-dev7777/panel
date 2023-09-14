@@ -180,6 +180,16 @@ module ApplicationHelper
     end
   end
 
+  def matter_form_url(matter_intake)
+    if current_user.role == 'lob'
+      [:lob, matter_intake]
+    elsif current_user.role == 'lxp'
+      [:admin, matter_intake]
+    else
+      [matter_intake]
+    end
+  end
+
   def matter_lang_title(attr_id, default_label)
     if I18n.locale == :en
       I18n.backend.send(:translations)[:fr][attr_id]||default_label

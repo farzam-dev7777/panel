@@ -14,9 +14,13 @@ class MatterIntake < ApplicationRecord
   has_many :reviews, as: :reviewable
   has_many :invoices
   has_many :matter_approvals
+  has_many :matter_intake_attachments, -> { where doc_type: 'attachment' }
+  has_many :matter_intake_agreements, -> { where doc_type: 'agreement' }, class_name: 'MatterIntakeAttachment'
 
 
   accepts_nested_attributes_for :invoices, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :matter_intake_attachments, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :matter_intake_agreements, reject_if: :all_blank, allow_destroy: true
   
   mount_uploader :asset, DocUploader
 
@@ -511,18 +515,6 @@ class MatterIntake < ApplicationRecord
         optional: MANDATORY_FIELDS.include?(:is_ore_reportable) == false,
         value: self.is_ore_reportable,
         collection: [['Yes', 'Yes'], ["No", "No"]]
-      },
-      {
-        name: I18n.t(:asset, default: "Document"),
-        database_field: :asset,
-        access: {
-          bank: "write",
-          law_firm: "not_access"
-        },
-        type: "file", # "dropdown" | "autofill" | "text" | "autocomplete"
-        optional: MANDATORY_FIELDS.include?(:is_ore_reportable) == false,
-        value: self.asset,
-        collection: []
       }
     ]
 
@@ -1035,6 +1027,8 @@ class MatterIntake < ApplicationRecord
   def show_status
     if deleted_at.present?
       "Archived"
+    elsif self.matter_intake_agreements.present?
+      "On Panel"
     elsif self.status === "awaiting_lxp_review"
       "Awaiting LXP Review"
     elsif self.status === "opened"
@@ -1067,7 +1061,7 @@ class MatterIntake < ApplicationRecord
   end
 
   def can_auto_approve?
-    ((self.status=='submitted'||self.status=='opened') &&
+    ((self.show_status=='Submitted'||self.show_status=='Opened') &&
     self.budget_amount.present? &&
     self.budget_amount.to_i <= (Tenant.current&.auto_approve_amount_limit||500000) &&
     (Tenant.current&.auto_approve_matter_type||[]).include?(self.matter_type&.matter_type) &&

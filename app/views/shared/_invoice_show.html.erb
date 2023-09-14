@@ -9,14 +9,6 @@
           <div class="field-label">Amount</div>
           <div class="field-data"><%= invoice.amount.format %></div>
         </div>
-        <!--<div class="col-xs-12 col-md-1">
-          <div class="field-label">Tax</div>
-          <div class="field-data"><%= invoice.taxes %></div>
-        </div>
-        <div class="col-xs-12 col-md-2">
-          <div class="field-label">Description</div>
-          <div class="field-data"><%= invoice.description %></div>
-        </div> -->
         <div class="col-xs-12 col-md-3">
           <div class="field-label">Invoice date</div>
           <div class="field-data"><%= (invoice.date||invoice.created_at).strftime('%d %b %Y') %></div>
@@ -42,7 +34,7 @@
             <div class="field-label"></div>
             <div style="padding-top: 14px;">
               <%= link_to "Approve", approve_invoice_path(invoice), class: "btn-type-primary" %> 
-              <%= link_to "Reject", reject_invoice_path(invoice), class: "btn-type-primary" %>
+              <%= link_to "Reject", reject_invoice_path(invoice), class: "btn-type-primary", style: "background-color: #ad0000 !important;" %>
             </div>
           </div>
         <% end %>

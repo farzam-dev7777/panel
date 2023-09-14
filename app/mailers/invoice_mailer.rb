@@ -3,7 +3,7 @@ class InvoiceMailer < ApplicationMailer
   layout 'mailer'
 
   def send_invoice(invoice)
-    if invoice.matter_intake&.line_of_business.email.present?
+    if invoice.matter_intake&.line_of_business&.email.present?
       email = invoice.matter_intake&.line_of_business.email
       @invoice = invoice
       @matter_intake = @invoice.matter_intake

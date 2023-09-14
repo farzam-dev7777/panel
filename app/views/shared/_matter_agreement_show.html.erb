@@ -1,0 +1,16 @@
+  <% agreements = matter_intake.matter_intake_agreements%>
+  <% if agreements.count > 0 %>
+    <div class="col-xs-12 col-md-6">
+      <div class="field-label">Agreements</div>
+       <div class="field-data">
+          <% agreements.each_with_index do |attachment, index| %>
+            <a href="<%= attachment.file&.url %>" target="_blank" title="<%= attachment.file.identifier %>">
+              <%= attachment.file.identifier %>
+            </a>
+            <% if agreements.count > 1 && attachment != agreements.last %>
+              <%= ',' %>
+            <% end %>
+          <% end %>
+      </div>
+    </div>
+  <% end %>

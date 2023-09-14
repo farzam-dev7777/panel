@@ -37,11 +37,27 @@
       <% if !@matter_intake.new_record? %>
         <%= f.input :submit_type, as: :hidden, label: false, :input_html => { :value => "update" } %>
       <% end %>
-      <div class="col-xs-12 col-md-12 text-right">
-        <%=link_to 'Cancel', @matter_intake.new_record? ? matter_intakes_path : matter_intakes_path, class: 'btn-type-default' %>
-        <%= f.button :submit, @matter_intake.new_record? ? "Next" : "Next", class: "btn-type-primary" %>
+
+      <!-- New form start -->
+      <div class="col-md-12 col-xs-12">
+        <div class="formHeader">
+          <div class="headerTitle">Attachments</div>
+        </div>
       </div>
-    
+      <div class="col-md-12 col-xs-12">
+        <% if !@new_form %>
+          <% if @matter_intake.matter_intake_attachments.count > 0 %>
+            <% @matter_intake.matter_intake_attachments.each do |attachment| %>
+              <%= f.simple_fields_for :matter_intake_attachments, attachment do |form| %>
+                <%= render '/shared/matter_attachment_fields', f: form, attachment: attachment %>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+        <div class="addButton links mb-4">
+          <%= link_to_add_association '<span href="javascript:void(0);"><i class="fa fa-plus-circle"></i> Add Attachment</span>'.html_safe, f, :matter_intake_attachments, partial: '/shared/matter_attachment_fields' %> 
+        </div>
+      </div>
       <% if invoice_enable == true%>
         <!-- New form start -->
         <div class="col-md-12 col-xs-12">
@@ -65,5 +81,9 @@
         </div>
       </div>
     <% end %>
+    <div class="col-xs-12 col-md-12 text-right">
+      <%=link_to 'Cancel', @matter_intake.new_record? ? matter_intakes_path : matter_intakes_path, class: 'btn-type-default' %>
+      <%= f.button :submit, @matter_intake.new_record? ? "Next" : "Next", class: "btn-type-primary" %>
+    </div>
   <% end %>
 </div>

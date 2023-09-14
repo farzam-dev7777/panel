@@ -97,6 +97,10 @@ class Lob::MatterIntakesController < Lob::BaseController
     redirect_to lob_matter_intake_path(matter_intake), notice: 'Your comment has been added.'
   end
 
+  def agreements
+    @matter_intake = MatterIntake.find_by_id params[:id]
+  end
+
   private
   def matter_intake_params
     params.require(:matter_intake).permit(
@@ -111,7 +115,9 @@ class Lob::MatterIntakesController < Lob::BaseController
       :requested_by_id, :related_matter_number, :pii_involved, :internal_file_number, :business_department, :business_group, :matter_number,
       :receive_personal_information, :receive_general_business_data, :applicable_technical_specialty_data, following_matter_involve: [],
       applicable_technical_specialty_data_type: [], receive_personal_information_data_type: [], receive_general_business_data_type: [],
-      invoices_attributes: [:id, :matter_intake_id, :lawyer_name, :rate_type, :description, :hours, :amount, :date, :taxes, :_destroy, invoice_attachments_attributes: [:id, :file]]
+      invoices_attributes: [:id, :matter_intake_id, :lawyer_name, :rate_type, :description, :hours, :amount, :date, :taxes, :_destroy, invoice_attachments_attributes: [:id, :file]],
+      matter_intake_attachments_attributes: [:id, :doc_type, :file, :_destroy],
+      matter_intake_agreements_attributes: [:id, :doc_type, :file, :_destroy]
     )
   end
 

@@ -2063,6 +2063,13 @@ function trigger_file_input(obj){
   $(obj).next().find('input').trigger('click');
 }
 
+function show_file_name(e){
+  var geekss = $(e).val().replace(/.*(\/|\\)/, '');
+  debugger
+  $(e).parents('.uploadFile').find('.file_name').text(geekss);
+}
+
+
 $('body').on('focus',".invoice_datepicker", function(){
   $(this).datepicker({
     dateFormat: "yy-mm-dd",
