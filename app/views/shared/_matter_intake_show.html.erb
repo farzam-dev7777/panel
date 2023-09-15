@@ -1,0 +1,220 @@
+<style>
+  div#gauge * {
+    top: -25px;
+  }
+</style>
+<div class="col-lg-12 col-md-12 col-sm-12">
+  <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+    <div class="page-header-sp m-top">
+      <div class="page-title">Matters
+        <span class="<%= @matter_intake.status === "matter_open" ? 'label label-success' : 'label label-default' %>"> 
+         Status: <%= @matter_intake.show_status %>
+        </span>
+      </div>
+      <div class="action-buttons-alignment" style="padding-left: 600px;">
+        <%if @matter_intake.deleted_at.blank?%>
+          <a class="action-btn export-icon" href="<%=matter_url %>/<%= @matter_intake.id%>/edit" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
+            <span class="blue-text">Edit</span>
+          </a>
+        <% end %>
+        <% if current_user.role == 'lxp'%>
+          <% if @matter_intake.deleted_at.blank?%>
+            <%= link_to admin_matter_intake_path(@matter_intake), method: :delete, class: "action-btn btn btn-xs btn-secondary btn-danger", data: { confirm: 'Are you sure you want to Archive this?' }  do %>
+              <span class="blue-text" style="color:white !important">Archive</span>
+            <% end %>
+          <% else %>
+            <%= link_to unarchive_admin_matter_intake_path(@matter_intake), method: :put, class: "action-btn btn btn-xs btn-secondary", data: { confirm: 'Are you sure you want to Un-archive this?' } do %>
+              <span class="blue-text">UnArchive</span>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="back-edit-actions">
+        <a class="btn-type-default" href="<%=matter_url %>">
+          <%= image_tag "chevron-back-icon.svg", alt:"Back" %>
+        </a>
+      </div>
+    </div>
+    <%if @matter_intake.deleted_at.blank?%>
+      <div class="  ">
+        <!-- widget content -->
+        <div class="view-request">
+          <div class="tab-content view-request">
+                <div class="exceptationRequestProcesss">
+                  <div class="sp-form sp-form-bg">
+                      <% if @matter_approval.present?%>
+                          <%= simple_form_for [@matter_approval] do |f| %>
+                            <div class="row">
+                              <div class="col-xs-12 col-md-6">
+                                <label class="label"><%= t('comment') %></label>
+                                  <%= f.text_area :description, label: false, size: '50x10'%>
+                              </div>    
+                              <div class="col-xs-12 col-md-6">
+                                <label class="label">Status</label>
+                                <%= f.input :status, label: false, collection: [["Approve","approved"], ["Reject","rejected"], ["Comment","comment"]]%>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-xs-12 col-md-12 text-right">
+                                <%= f.button :submit, 'Submit', class:  "btn-type-primary" %>
+                              </div>
+                            </div>
+                          <% end %>
+                        <% else %>
+                         <%= simple_form_for([@matter_intake], :url => url_for(:action => 'add_review', :controller => 'matter_intakes'), :method => 'put') do |f| %>
+                           <div class="row">
+                             <div class="col-xs-12 col-md-6">
+                               <label class="label"><%= t('comment') %></label>
+                                <textarea class="form-control" type="text" name="discription" id="discription" style="width: 572px; height: 97px;"></textarea>
+                             </div>
+                             <div class="col-xs-12 col-md-3" style="left:10%; padding-top: 50px;">
+                               <%= f.button :submit, "Submit", class:  "btn-type-primary" %>
+                             </div>
+                           </div>
+                       <% end %>
+                    <% end %>
+                  </div>
+              <div class="clearfix"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+<div class="clearfix"></div>
+<div class="col-lg-12 col-md-12 col-sm-12">
+  <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+    <div class="page-header-sp m-top">
+    </div>
+    <div class="  ">
+      <!-- widget content -->
+      <div class="">
+        <div class="sp-form-bg show-data-fields">
+          <div class="row form-flex-wrap">
+            <% matter_role = @matter_intake.matter_form_role(current_user)%>
+            <% invoice_enable = false %>
+            <%@matter_intake.generate_fields(current_user, Tenant.current).each do |obj| %>
+              <% if obj[:access][matter_role] == 'write' || obj[:access][matter_role] == 'read'%>
+                <% if obj[:database_field] == :invoices%>
+                  <% invoice_enable = true %>
+                <% else %>
+                  <div class="col-xs-12 col-md-6">
+                    <div class="field-label" title="<%= matter_lang_title(obj[:database_field], obj[:name]) %>"><%= obj[:name] %></div>
+                    <%  if obj[:database_field] == :law_firm_id %>
+                      <div class="field-data"><%= @matter_intake.law_firm&.name %></div>
+                    <% elsif obj[:database_field] == :line_of_business_id%>
+                      <div class="field-data"><%= @matter_intake.line_of_business&.name %></div>
+                    <% elsif obj[:database_field] == :lawyer_id%>
+                      <div class="field-data"><%= @matter_intake.lawyer&.full_name %></div>
+                    <% elsif obj[:database_field] == :requested_by_id%>
+                      <div class="field-data"><%= @matter_intake.requested_by&.full_name %></div>
+                    <% elsif obj[:database_field] == :matter_type_id%>
+                      <div class="field-data"><%= @matter_intake.matter_type&.matter_type %></div>
+                    <% elsif obj[:database_field] == :following_matter_involve%>
+                      <div class="field-data"><%= (@matter_intake.following_matter_involve||[]).select{|s| s.present?}.join(', ') %></div>
+                    <% else %>
+                      <div class="field-data"><%= @matter_intake.send(obj[:database_field]) %></div>
+                    <% end %>
+                  </div>
+                <% end %>
+              <% end %>
+            <% end %>
+            <% if current_user.is_panel_admin_user?%>
+              <%= render "/shared/matter_attachment_show", matter_intake: @matter_intake %>
+            <% end %>
+            <% if invoice_enable == true%>
+              <%= render "/shared/invoice_show" %> 
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<%= render 'matter_approvals'%>
+<div class="col-md-12">
+  <%- if @matter_intake.reviews.size > 0 %>
+    <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+      <div class="page-header-sp">
+        <div class="page-title">Review Logs</div>
+        <div class="back-edit-actions">
+        </div>
+      </div>
+      <div>
+        <div class="clearfix"></div>
+        <!-- MAIN PANEL -->
+        <div role="main">
+          <!-- MAIN CONTENT -->
+          <div>
+            <!-- row -->
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="sp-form-bg">
+                  <!-- Timeline Content -->
+                  <div class="smart-timeline">
+                    <ul class="smart-timeline-list">
+                      <% @matter_intake.reviews.reverse.each do |review| %>
+                        <% if review.status_from.blank? && review.status.blank? && review.assigned_to_id.present? %>
+                          <li data-id="<%= review.id %>">
+                            <div class="smart-timeline-icon">
+                              R
+                            </div>
+                            <div class="smart-timeline-time">
+                              <small><%= review.created_at.strftime('%d %b %Y at %I:%M %p') %></small>
+                            </div>
+                            <div class="smart-timeline-content">
+                              <p>
+                                <strong>
+                                  <%= review.actor.email %> assigned exception request to internal lawyer for approval.
+                                  <strong>
+                                  </p>
+                                  <p>
+                                    <%= review.description %>
+                                  </p>
+                                </div>
+                              </li>
+                            <% else %>
+                              <li data-id="<%= review.id %>">
+                                <div class="smart-timeline-icon">
+                                  R
+                                </div>
+                                <div class="smart-timeline-time">
+                                  <small><%= review.created_at.strftime('%d %b %Y at %I:%M %p') %></small>
+                                  <small><i><%= time_ago_in_words(review.created_at) %> ago</i> </small>
+                                </div>
+                                <div class="smart-timeline-content">
+                                  <p>
+                                    <strong>
+                                      <%- if review.status === "requires_an_update"  %>
+                                        <%= review.actor.full_name %>  returned to lawyer for update
+                                      <% elsif review.status_show %>
+                                        <%= review.actor.email %> change status to <%= review.status_show %>
+                                      <% else %>
+                                        <%= review.actor.email %> left a comment
+                                      <% end %>
+                                      <strong>
+                                      </p>
+                                      <p>
+                                        <%= review.description.blank? ? "NA" : review.description %>
+                                      </p>
+                                    </div>
+                                  </li>
+                                <% end %>
+                              <% end %>
+                            </ul>
+                          </div>
+                          <!-- END Timeline Content -->
+                        </div>
+                      </div>
+                    </div>
+                    <!-- end row -->
+                  </div>
+                  <!-- END MAIN CONTENT -->
+                </div>
+                <!-- END MAIN PANEL -->
+              </div>
+            </div>
+          <% end %>
+        </div>

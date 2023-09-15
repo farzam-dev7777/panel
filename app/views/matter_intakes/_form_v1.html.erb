@@ -8,7 +8,7 @@
           <% if obj[:database_field] == :invoices && obj[:access][matter_role] == 'write' %>
             <% invoice_enable = true %>
           <% else %>
-            <div class="col-xs-12 col-md-6">
+            <div class="col-xs-12 col-md-6" title="<%= matter_lang_title(obj[:database_field], obj[:name]) %>">
               <label  class="label" style="white-space: unset;">
                 <% if obj[:optional] == true %>
                   <%= obj[:name] %>
@@ -26,7 +26,9 @@
               <% else %>
                 <% if obj[:type] == 'dropdown' %>
                   <%= f.input obj[:database_field], label: false, collection: obj[:collection], input_html: { multiple: obj[:multiple].present? } %>
-                <% else obj[:type] == 'text' %>
+                <% elsif obj[:type] == 'file' %>
+                  <%= f.input obj[:database_field], as: :file, label: false  %>
+                <% elsif obj[:type] == 'text' %>
                   <%= f.input obj[:database_field], label: false, :input_html => { :value => obj[:value], multiple: obj[:multiple].present? } %>
                 <% end %>
               <% end %>
@@ -34,13 +36,6 @@
           <% end %>
         <% end %>
       <% end %>
-      <% if !@matter_intake.new_record? %>
-        <%= f.input :submit_type, as: :hidden, label: false, :input_html => { :value => "update" } %>
-      <% end %>
-      <div class="col-xs-12 col-md-12 text-right">
-        <%=link_to 'Cancel', @matter_intake.new_record? ? matter_intakes_path : matter_intakes_path, class: 'btn-type-default' %>
-        <%= f.button :submit, @matter_intake.new_record? ? "Next" : "Next", class: "btn-type-primary" %>
-      </div>
     
       <% if invoice_enable == true%>
         <!-- New form start -->
@@ -63,7 +58,11 @@
             <%= link_to_add_association '<span href="javascript:void(0);"><i class="fa fa-plus-circle"></i> Add Invoice</span>'.html_safe, f, :invoices, partial: '/shared/invoice_fields' %> 
           </div>
         </div>
+      <% end %>
+      <div class="col-xs-12 col-md-12 text-right">
+        <%=link_to 'Cancel', @matter_intake.new_record? ? matter_intakes_path : matter_intakes_path, class: 'btn-type-default' %>
+        <%= f.button :submit, @matter_intake.new_record? ? "Next" : "Next", class: "btn-type-primary" %>
       </div>
-    <% end %>
+    </div>
   <% end %>
 </div>

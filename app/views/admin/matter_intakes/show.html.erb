@@ -3,6 +3,3 @@
 <% else %>
   <%= render "show_v1" %> 
 <% end %>
-<div class="col-md-12">
-  <%= link_to "Delete", admin_matter_intake_path(@matter_intake), method: :delete, class: "btn btn-xs btn-secondary btn-danger", data: { confirm: 'Are you sure you want to delete this?' } %>
-</div>

@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
 
   #before_filter :set_cache_headers
   before_action :set_tenant
+  before_action :set_locale
 
   def set_cache_headers
     response.headers["Cache-Control"] = "no-cache, no-store"
@@ -114,6 +115,15 @@ class ApplicationController < ActionController::Base
     else
       switch_to_master_user_tenant
     end
+  end
+
+  def set_locale
+    I18n.locale = extract_locale || I18n.default_locale
+  end
+
+  def extract_locale
+    parsed_locale = params[:locale]
+    I18n.available_locales.map(&:to_s).include?(parsed_locale) ? parsed_locale : nil
   end
 
   def fetch_subdomain

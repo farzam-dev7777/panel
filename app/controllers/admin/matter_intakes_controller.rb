@@ -5,8 +5,11 @@ class Admin::MatterIntakesController < Admin::BaseController
   add_breadcrumb "Dashboard", :root_path
 
   def index
-    
-    @q = MatterIntake.ransack(params[:q])
+    if (params[:q]||{})[:include_archive].present?
+      @q = MatterIntake.with_deleted.ransack(params[:q])
+    else
+      @q = MatterIntake.ransack(params[:q])
+    end
     @current_user = current_user
     if current_user.role === "internal_lawyers"
       @matter_intakes = @q.result(distinct: true).order('created_at DESC')
@@ -40,7 +43,7 @@ class Admin::MatterIntakesController < Admin::BaseController
   end
 
   def show
-    @matter_intake = MatterIntake.includes(:invoices).find_by(id: params[:id])
+    @matter_intake = MatterIntake.includes(:invoices).with_deleted.find_by(id: params[:id])
     @matter_approval = @matter_intake.current_user_pending_approval(current_user)
   end
 
@@ -92,10 +95,10 @@ class Admin::MatterIntakesController < Admin::BaseController
   def destroy
     @matter_intake = MatterIntake.find_by(id: params[:id])
     if @matter_intake.destroy
-      flash[:notice] = "Matter deleted successfully."
+      flash[:notice] = "Matter archived successfully."
       redirect_to admin_matter_intakes_path
     else
-      flash[:alert] = "Coudn't delete matter. Please try again."
+      flash[:alert] = "Coudn't archive matter. Please try again."
       redirect_to :back
     end
 
@@ -131,11 +134,7 @@ class Admin::MatterIntakesController < Admin::BaseController
       flash[:alert] = "There was an error updating matter intake request. #{@matter_intake.errors.full_messages.join(', ')}"
       # @matter_intake = MatterIntake.find_by(id: params[:id])
       @current_lxp_user = current_user
-      if @matter_intake.form_type.nil?
-        render :action => 'review', id: @matter_intake.id
-      else
-        render :edit,  id: @matter_intake.id
-      end
+      render :edit,  id: @matter_intake.id
     end
   end
 
@@ -163,10 +162,17 @@ class Admin::MatterIntakesController < Admin::BaseController
     redirect_to admin_matter_intake_path(matter_intake), notice: 'Your comment has been added.'
   end
 
+  def unarchive
+    matter_intake = MatterIntake.with_deleted.find_by_id params[:id]
+    matter_intake.update(deleted_at:nil)
+    redirect_to admin_matter_intake_path(matter_intake), notice: 'Matter unarchived successfully'
+  end
+
   private
+
   def matter_intake_params
     params.require(:matter_intake).permit(
-      :user_id, :submitter_name, :lob_contact_name, :name_of_matter_client, :matter_type_id,
+      :user_id, :submitter_name, :lob_contact_name, :name_of_matter_client, :matter_type_id, :asset,
       :matter_description, :mode_of_payment, :law_firm_id, :bmo_lawyer_name, :lawyer_id, :budget_amount,
       :lob_id, :lob_contact_for_po, :cost_centre_for_legal_fees, :paying_entity, :business_paying_for_matter,
       :group_paying_for_matter, :status, :lob_submitted_at, :legal_group_of_bmo_lawyer, :work_area, :work_area_type, :is_ore_reportable,
@@ -187,7 +193,8 @@ class Admin::MatterIntakesController < Admin::BaseController
       :receive_personal_information, :receive_general_business_data, :applicable_technical_specialty_data,
       following_matter_involve: [], following_matter_involve:[],
       applicable_technical_specialty_data_type: [], receive_personal_information_data_type: [], receive_general_business_data_type: [],
-      invoices_attributes: [:id, :matter_intake_id, :lawyer_name, :rate_type, :description, :hours, :amount, :date, :taxes, :_destroy, invoice_attachments_attributes: [:id, :file]]
+      invoices_attributes: [:id, :matter_intake_id, :lawyer_name, :rate_type, :description, :hours, :amount, :date, :taxes, :_destroy, invoice_attachments_attributes: [:id, :file]],
+      matter_intake_attachments_attributes: [:id, :doc_type, :file, :_destroy]
     )
   end
 

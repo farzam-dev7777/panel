@@ -1,0 +1,17 @@
+<% attachments = matter_intake.matter_intake_attachments%>
+<% if attachments.count > 0 %>
+  <div class="col-xs-12 col-md-6">
+    <div class="field-label">Attachments</div>
+     <div class="field-data">
+        <% attachments.each_with_index do |attachment, index| %>
+          <a href="<%= attachment.file&.url %>" target="_blank" title="<%= attachment.file.identifier %>">
+            <%= attachment.file.identifier %>
+          </a>
+          <% if attachments.count > 1 && attachment != attachments.last %>
+            <%= ',' %>
+          <% end %>
+        <% end %>
+    </div>
+  </div>
+<% end %>
+

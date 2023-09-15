@@ -8,19 +8,13 @@ class Admin::ConflictWaiversController < Admin::BaseController
     @q = ConflictWaiver.ransack(params[:q])
     if current_user.role === "internal_lawyers"
       if params[:filter] === "yes"
-        @conflict_waivers = @q.result(distinct: true).where.not(lxp_status: ["ALREADY_COVERED", "APPROVED", "REJECTED"]).order('created_at DESC')
-      else
         @conflict_waivers = @q.result(distinct: true).where(assigned_to_id: current_user.id).order('created_at DESC')
-      end
-    else
-      if params[:filter] === "yes"
-        @q = ConflictWaiver.ransack(params[:q])
-        @conflict_waivers = @q.result(distinct: true).where.not(lxp_status: ["ALREADY_COVERED", "APPROVED", "REJECTED"]).order('created_at DESC')
-       
       else
-        @q = ConflictWaiver.ransack(params[:q])
         @conflict_waivers = @q.result(distinct: true).order('created_at DESC')
       end
+    else
+      @q = ConflictWaiver.ransack(params[:q])
+      @conflict_waivers = @q.result(distinct: true).order('created_at DESC')
     end
     respond_to do |format|
       format.xlsx {

@@ -1,0 +1,52 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+fr:
+  comment: "Commentaire"
+  line_of_business_id: "Secteur d'activité"
+  name_of_matter_client: "Nom du sujet"
+  submitter_name: "Nom de l'auteur de la demande"
+  matter_number: "Numéro de dossier"
+  requested_by_id: "Demandé par"
+  matter_type_id: "Type de sujet"
+  matter_description: "Description du sujet"
+  paying_entity: "Entité"
+  other_party: "Autre fête"
+  stage_of_litigation: "Étape du litige"
+  primary_issue: "Problème"
+  following_matter_involve: "Cette affaire impliquera-t-elle les éléments suivants"
+  lawyer_id: "Avocat responsable interne (banque)"
+  additional_comments_for_lrc_lawyer: "Commentaires supplémentaires pour l’avocat interne"
+  law_firm_id: "Cabinet d'avocats externe"
+  jurisdiction: "Juridiction"
+  is_syndicate_matter: "Est-ce une affaire syndiquée ?"
+  afa_details: "AFA"
+  budget_amount: "Estimation des frais / Budget"
+  cost_centre_for_legal_fees: "Centre de coûts (transit) pour les frais juridiques"
+  deal_code: "Code de transaction (marchés des capitaux uniquement)"
+  related_matter_number: "Numéro de sujet connexe"
+  pii_involved: "Des informations personnelles impliquées dans cette affaire"
+  can_reimbursed_matter: "Un cabinet d’avocats pourrait-il potentiellement recevoir des informations sensibles"
+  is_ore_reportable: "Risque à signaler"
+  internal_file_number: "Numéro de dossier interne"
+  business_department: "Département des affaires"
+  business_group: "Groupe d'affaires responsable de la facture"
+

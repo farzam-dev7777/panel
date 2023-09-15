@@ -54,7 +54,7 @@ class TenantAdmin::LineOfBusinessesController < TenantAdmin::BaseController
 
   def line_of_business_params
     params.require(:line_of_business).permit(
-      :name, :sso_group, :tenant_id, user_ids: []
+      :name, :sso_group, :email, :tenant_id, user_ids: []
     )
   end
 

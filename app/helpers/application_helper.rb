@@ -170,4 +170,32 @@ module ApplicationHelper
     ['r','rw'].include?(MatterIntake::MATTER_FORM[current_user.role.to_sym][field_name.to_sym][:access])
   end
 
+  def matter_url
+    if current_user.role == 'lob'
+      "/lob/matter_intakes"
+    elsif current_user.role == 'lxp' || current_user.role == 'internal_lawyers'
+      "/admin/matter_intakes"
+    else
+      "/matter_intakes"
+    end
+  end
+
+  def matter_form_url(matter_intake)
+    if current_user.role == 'lob'
+      [:lob, matter_intake]
+    elsif current_user.role == 'lxp'
+      [:admin, matter_intake]
+    else
+      [matter_intake]
+    end
+  end
+
+  def matter_lang_title(attr_id, default_label)
+    if I18n.locale == :en
+      I18n.backend.send(:translations)[:fr][attr_id]||default_label
+    else
+      I18n.backend.send(:translations)[:en][attr_id]||default_label
+    end
+  end
+
 end

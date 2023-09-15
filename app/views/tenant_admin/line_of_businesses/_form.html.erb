@@ -12,6 +12,11 @@
       </div>
 
       <div class="col-xs-12 col-md-6">
+        <label class="label">Email<span class="mandatory">*</span></label>
+        <%= f.input :email, label: false, required: true %>
+      </div>
+
+      <div class="col-xs-12 col-md-6">
         <label class="label">Tenant<span class="mandatory">*</span></label>
         <%= f.input :tenant_id, label: false, collection: Tenant.all.map{|s| [s.name, s.id]},  input_html: { multiple: false, class: 'tenant_id_lob_user' }%>
       </div>

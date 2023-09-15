@@ -18,7 +18,9 @@ class DashboardController < BaseController
 		# else
 		# 	root_url
 		# end
-
+		@matter_intakes_count = (current_user&.law_firm && current_user&.law_firm&.matter_intakes).count
+		@invoices_total = (current_user.law_firm && current_user.law_firm.matter_intakes.map(&:invoices).flatten).map {|i| i.amount.to_f}&.sum
+		@confilictc_requests_submitted = current_law_firm.conflict_waivers.order(created_at: :desc).count
 		if current_user.is_panel_admin_user?
 			redirect_to admin_root_url
 		end
