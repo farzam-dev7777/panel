@@ -167,7 +167,7 @@
                             <div class="smart-timeline-content">
                               <p>
                                 <strong>
-                                  <%= review.actor.email %> assigned exception request to internal lawyer for approval.
+                                  <%= review.actor&.email %> assigned exception request to internal lawyer for approval.
                                   <strong>
                                   </p>
                                   <p>
@@ -190,9 +190,9 @@
                                       <%- if review.status === "requires_an_update"  %>
                                         <%= review.actor.full_name %>  returned to lawyer for update
                                       <% elsif review.status_show %>
-                                        <%= review.actor.email %> change status to <%= review.status_show %>
+                                        <%= review.actor&.email %> change status to <%= review.status_show %>
                                       <% else %>
-                                        <%= review.actor.email %> left a comment
+                                        <%= review.actor&.email %> left a comment
                                       <% end %>
                                       <strong>
                                       </p>
