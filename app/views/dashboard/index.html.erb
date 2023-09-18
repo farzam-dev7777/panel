@@ -8,7 +8,7 @@
               <%= image_tag "exceptions-icon.svg", alt:"Panel Firms" %>
             </div>
             <div class="card-details">
-              <div class="total-record"><%= current_law_firm&.tenants.count || 0 %></div>
+              <div class="total-record"><%= @client_count %></div>
               <div class="card-name">Number of clients</div>
               <div class="card-tag-line">Number of clients</div>
             </div>
