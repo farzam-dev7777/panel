@@ -7,7 +7,13 @@
 
 <div class="col-lg-12">
 	<div class="page-header-sp m-top">
-		<div class="page-title"><%= @law_firm.name %></div>
+		<div class="page-title"><%= @law_firm.name %>
+			<% if @law_firm.tenant_on_panel_status%>
+				 <span class='label label-success'> 
+	         		Status: <%= @law_firm.tenant_on_panel_status %>
+	        	 </span>
+        	<% end %>
+		</div>
 		<div class="back-edit-actions">
 			<a class="btn-type-default" href="/admin/law_firms">
 				<%= image_tag "chevron-back-icon.svg", alt:"Back" %>
@@ -99,6 +105,9 @@
 									<% if @law_firm.law_firm_category === "PANEL" && @law_firm.user.try(:id)%>
 										<a class="btn-type-primary send-user-info-btn" data-id="<%= @law_firm.user.id %>">Send new password link </a>
 									<% end %>
+									<% if current_user.role == 'lxp'%>
+										<%= link_to "Agreement", agreement_admin_law_firm_path(@law_firm), class: "btn-type-primary"%>
+									<% end %>
 									<% if(@law_firm.form_submissions.try(:latest).try(:status) == 'approved') %>
 										<% latest_form_submission = @law_firm.form_submissions.latest %>
 										<div class="score-form">
@@ -175,6 +184,18 @@
 											<div class="field-label">Locations</div>	
 										
 											<div class="field-data"><%= @law_firm.locations.map{|location| [location.city, location.province, @law_firm.country_name(location.country)].reject(&:nil?).join(',') }.join("<br />").html_safe %></div>
+										</div>
+										<div class="col-xs-12 col-md-6">
+											<div class="field-label">Agreement</div>	
+										
+											<div class="field-data">
+												<% document = @law_firm.law_firms_tenants.where(tenant_id: Tenant&.current&.id)&.first&.document %>
+												<% if document.present?%>
+									                 <a href="<%= document.file&.url %>" target="_blank" title="<%= document.identifier %>">
+	    												<%= document.identifier%>
+	  												</a>
+  												<% end %>	
+											</div>
 										</div>
 									</div>
 								</div>

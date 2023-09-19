@@ -53,6 +53,7 @@ Rails.application.routes.draw do
         
         get :begin_certification_process
         get :begin_recertification_process
+        get :agreement
       
       end
       collection do
@@ -66,7 +67,6 @@ Rails.application.routes.draw do
         post :remove_internal_note
         post :get_detail
         get :add_by_submission
-        
       end
     end
 
@@ -76,7 +76,6 @@ Rails.application.routes.draw do
         get :lxp_review
         put :add_review
         put :unarchive
-        get :agreements
       end
       collection do 
         post :lxp_rejects
@@ -302,6 +301,9 @@ Rails.application.routes.draw do
   end
 
   resources :law_firms, except: [:index, :create, :new, :show] do
+    member do 
+      get :agreement
+    end
     collection do
       get :add_users
       post :invite_users
@@ -348,6 +350,7 @@ Rails.application.routes.draw do
   get 'set_new_password' => 'law_firms#set_new_password'
   get 'pull_qr_code' => 'two_factor_authentication#pull'
   post 'delete_user' => 'law_firms#delete_user'
+  get 'agreement' => 'law_firms#agreement'
   post 'update_new_password' => 'law_firms#update_new_password'
 
   resources 'frequently_asked_questions', only: [:index]
@@ -374,7 +377,7 @@ Rails.application.routes.draw do
       get :review
       get :lxp_review
       put :add_review
-      get :agreements
+      
     end
     collection do 
       post :lxp_rejects

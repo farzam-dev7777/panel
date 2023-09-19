@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20230913160159) do
+ActiveRecord::Schema.define(version: 20230919160411) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -556,6 +556,8 @@ ActiveRecord::Schema.define(version: 20230913160159) do
     t.string   "information_security_contact"
     t.string   "information_security_contact_email"
     t.boolean  "allow_to_create_matters"
+    t.string   "document"
+    t.string   "status"
   end
 
   create_table "line_of_business_users", force: :cascade do |t|
@@ -572,6 +574,13 @@ ActiveRecord::Schema.define(version: 20230913160159) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "email"
+  end
+
+  create_table "lob_ssos", force: :cascade do |t|
+    t.string   "id_on_sso_provider"
+    t.string   "name"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
   end
 
   create_table "locations", force: :cascade do |t|
@@ -1069,7 +1078,6 @@ ActiveRecord::Schema.define(version: 20230913160159) do
     t.string   "provider_uid"
     t.string   "provider_group"
     t.integer  "tenant_id"
-    t.integer  "lob_id"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end

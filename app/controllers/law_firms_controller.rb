@@ -10,7 +10,11 @@ class LawFirmsController < BaseController
 		@law_firm = LawFirm.find(current_law_firm.id)
   	if @law_firm.update_attributes(law_firms_params)
   		@law_firm.update_attributes(profile_completed: true)
+      law_firm_tenant = @law_firm.law_firms_tenants.where(tenant_id: Tenant&.current&.id).first
 
+      if law_firm_tenant.document.present?
+          law_firm_tenant.update(status: 'On Panel')
+      end
       # generate submissions on initial update 
       if current_user.role == 'master_user' && @law_firm.form_submissions.empty?
         @law_firm.update_attributes(updated_by_lawfirm: true)
@@ -110,6 +114,11 @@ class LawFirmsController < BaseController
     end
   end
 
+  def agreement
+    @law_firm = LawFirm.find_by_id params[:id]
+    @law_firm_tenant = @law_firm.law_firms_tenants.where(tenant_id: Tenant&.current&.id).first
+  end
+
   private
 
   def law_firms_params
@@ -134,7 +143,7 @@ class LawFirmsController < BaseController
         :engagement_number, :relationship_number,
         :information_security_class, :information_security_assessment_outcome,
         :action_plan_findings, :action_plan_status,
-        :information_security_contact, :information_security_contact_email
+        :information_security_contact, :information_security_contact_email, :document
       ],
       locations_attributes: [
         :id, :address1, :address2, :city, 

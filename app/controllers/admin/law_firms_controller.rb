@@ -18,14 +18,19 @@ class Admin::LawFirmsController < Admin::BaseController
 
 
   def panel_law_firms
-    @q = LawFirm.includes(:locations).ransack(params[:q])
-    law_firm_ids = LawFirmsTenant.where(tenant_id: Tenant.current&.id).pluck(:law_firm_id)
+    query = params[:q]||{}
+    if query.present? && query[:panel_status_eq] == 'ON_PANEL'
+      query[:panel_status_eq]=""
+      law_firm_ids = LawFirmsTenant.where(tenant_id: Tenant.current&.id, status: 'On Panel').pluck(:law_firm_id)
+    else
+     law_firm_ids = LawFirmsTenant.where(tenant_id: Tenant.current&.id).pluck(:law_firm_id)
+    end
+    @q = LawFirm.includes(:locations).ransack(query)
     @law_firms = @q.result(distinct: true).where(law_firm_category: "PANEL", id: law_firm_ids).order('created_at DESC')
-    # @law_firms =  LawFirm.where(law_firm_category: "PANEL")
 
     @params_string = false;
-    if !params[:q].nil?
-      @params_string =  params[:q][:name_cont].empty? && params[:q][:locations_country_cont].empty? && params[:q][:panel_status_eq].empty? ? false : true
+    if !query.nil?
+      @params_string =  query[:name_cont].blank? && query[:locations_country_cont].blank? && query[:panel_status_eq].blank? ? false : true
     end 
     add_breadcrumb "Law Firms", :admin_law_firms_path
   end
@@ -44,7 +49,10 @@ class Admin::LawFirmsController < Admin::BaseController
   end
 
 
-
+  def agreement
+    @law_firm = LawFirm.find_by_id params[:id]
+    @law_firm_tenant = @law_firm.law_firms_tenants.where(tenant_id: Tenant&.current&.id).first
+  end
 
   def show
     @law_firm = LawFirm.find(params[:id])
@@ -81,6 +89,10 @@ class Admin::LawFirmsController < Admin::BaseController
     @law_firm = LawFirm.find(params[:id])
     if @law_firm.update_attributes(law_firms_params)
       @law_firm.user.update_attributes(password: params[:law_firm][:password]) if (params[:law_firm][:password] && !params[:law_firm][:password].blank?  && params[:law_firm][:password].length >= 10)
+      law_firm_tenant = @law_firm.law_firms_tenants.where(tenant_id: Tenant&.current&.id).first
+      if law_firm_tenant.document.present?
+          law_firm_tenant.update(status: 'On Panel')
+      end
       flash[:notice] = "Law firm information updated"
       redirect_to admin_law_firm_path(@law_firm)
     else
@@ -289,7 +301,7 @@ class Admin::LawFirmsController < Admin::BaseController
         :information_security_class, :information_security_assessment_outcome,
         :action_plan_findings, :action_plan_status,
         :information_security_contact, :information_security_contact_email,
-        :allow_to_create_matters
+        :allow_to_create_matters, :document
       ],
       locations_attributes: [
         :id, :address1, :address2,
