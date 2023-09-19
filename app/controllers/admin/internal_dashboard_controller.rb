@@ -45,7 +45,7 @@ class Admin::InternalDashboardController < Admin::BaseController
       @law_firms = LawFirm.distinct.joins(:form_submissions).order('law_firms.updated_at DESC').limit(5)
       @panel_requests = PanelRequest.where(user_id: current_user.id).limit(5)
       @exception_requests_submitted = ExceptionRequest.where.not(law_firm_id:[nil]).where( lxp_status: [nil, "", "REQUEST_TO_INPUT", "SEND_RETAINER_AGREEMENT"]).count()
-      @confilictc_requests_submitted = ConflictWaiver.where.not(lxp_status: ["ALREADY_COVERED", "APPROVED", "REJECTED"]).count()
+      @confilictc_requests_submitted = ConflictWaiver.where(assigned_to_id: user.id).count()
       @panel_requests_submitted = PanelRequest.where.not(status: ["ARCHIVED", "LAW_FIRM_CREATED"]).count()
       @matter_intakes_count_lawyer = MatterIntake.distinct.where(status: ["awaiting_lawyer_review", "awaiting_lawyer_update"]).count()
       
