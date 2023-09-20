@@ -7,7 +7,9 @@ class InvoiceMailer < ApplicationMailer
       email = invoice.matter_intake&.line_of_business.email
       @invoice = invoice
       @matter_intake = @invoice.matter_intake
-      mail(to: email, subject: "New Invoice Created")
+      if email.present?
+        mail(to: email, subject: "New Invoice Created")
+      end
     end
   end
   

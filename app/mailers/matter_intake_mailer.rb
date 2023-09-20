@@ -6,7 +6,9 @@ class MatterIntakeMailer < ApplicationMailer
     @matter_intake = matter_intake
     to_email = @matter_intake.lawyer.present? ? [@matter_intake.lawyer.email] : []
     to_email << @matter_intake.reviewer_email if @matter_intake.reviewer_email.present?
-    mail(to: to_email, subject: "New matter intake form has been submitted")
+    if to_email.present?
+      mail(to: to_email, subject: "New matter intake form has been submitted")
+    end
   end
 
   def send_notification_to_lxp_for_form_submission(matter_intake)
