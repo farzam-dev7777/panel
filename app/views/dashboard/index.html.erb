@@ -72,13 +72,15 @@
   <div class="col-xs-12 col-md-12">
     <div class="sp-form sp-form-bg text-center">
       <p><b><%= certification_status(current_law_firm) %></b>
-        <%= link_to "Agreement", agreement_law_firm_path(current_law_firm), class: "btn-type-primary"%>
-        <% document = current_law_firm.law_firms_tenants.where(tenant_id: Tenant&.current&.id)&.first&.document %>
-        <% if document.present?%>
-          <a href="<%= document.file&.url %>" target="_blank" title="<%= document.identifier %>">
-            <i class="fa fa-money" aria-hidden="true"></i>
-          </a>
-        <% end %> 
+        <% if current_law_firm_tenant.present? %>
+          <%= link_to "Agreement", agreement_law_firm_path(current_law_firm), class: "btn-type-primary"%>
+          <% document = current_law_firm.law_firms_tenants.where(tenant_id: Tenant&.current&.id)&.first&.document %>
+          <% if document.present?%>
+            <a href="<%= document.file&.url %>" target="_blank" title="<%= document.identifier %>">
+              <i class="fa fa-money" aria-hidden="true"></i>
+            </a>
+          <% end %> 
+        <% end %>
     </div>
   </div>
 </div>

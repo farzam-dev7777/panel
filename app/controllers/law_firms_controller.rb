@@ -116,7 +116,6 @@ class LawFirmsController < BaseController
 
   def agreement
     @law_firm = LawFirm.find_by_id params[:id]
-    @law_firm_tenant = @law_firm.law_firms_tenants.where(tenant_id: Tenant&.current&.id).first
   end
 
   private

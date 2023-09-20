@@ -5,52 +5,55 @@
 
   input, textarea, select { padding: 0px !important; margin: 0px; background: transparent; }
 </style>
-
-<div class="col-lg-12 col-md-12 col-sm-12">
-  <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
-    <div class="page-header-sp m-top">
-      <div class="page-title">Law Firm Agreement</div>
-      <div class="back-edit-actions">
-        <a class="btn-type-default" href="/matter_intakes">
-          <%= image_tag "chevron-back-icon.svg", alt:"Back" %>
-        </a>
+<% if @law_firm.current_law_firm_tenant.present? %>
+  <div class="col-lg-12 col-md-12 col-sm-12">
+    <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+      <div class="page-header-sp m-top">
+        <div class="page-title">Law Firm Agreement</div>
+        <div class="back-edit-actions">
+          <a class="btn-type-default" href="/matter_intakes">
+            <%= image_tag "chevron-back-icon.svg", alt:"Back" %>
+          </a>
+        </div>
       </div>
-    </div>
-    <div class="sp-form sp-form-bg">
-      <%= simple_form_for law_firm_form_url(@law_firm), html: { multipart: true } do |f| %>
-        <div class="row form-flex-wrap">
-          <!-- New form start -->
-          <div class="col-md-12 col-xs-12">
-            <div class="formHeader">
-              <div class="headerTitle">Agreement</div>
-            </div>
-          </div>
-          <%= f.simple_fields_for :law_firms_tenants, @law_firm_tenant do |form| %>
+      <div class="sp-form sp-form-bg">
+        <%= simple_form_for law_firm_form_url(@law_firm), html: { multipart: true } do |f| %>
+          <div class="row form-flex-wrap">
+            <!-- New form start -->
             <div class="col-md-12 col-xs-12">
-              <div id="matter_intake_agreement">
-                <div class="col-md-12 col-xs-12">
-                  <div class="formSection row nested-fields"> <!-- this main div will be functional -->
-                    <div class="col-xs-12 col-md-1">
-                      <div><label class="label">Upload</label></div>
-                      <div class="uploadFile">
-                        <label for="file" onclick="trigger_file_input(this)">
-                          <%= image_tag "uploadIcon.svg", alt:"Upload file" %>
-                          <span class="file_name" style="padding: 5px;"><%= form.object.document.identifier%></span>
-                        </label>
-                        <%= form.input :document, label: false, as: :file, input_html: {multiple: false, onchange:"show_file_name(this)"} %>
+              <div class="formHeader">
+                <div class="headerTitle">Agreement</div>
+              </div>
+            </div>
+            <%= f.simple_fields_for :law_firms_tenants, @law_firm.current_law_firm_tenant do |form| %>
+              <div class="col-md-12 col-xs-12">
+                <div id="matter_intake_agreement">
+                  <div class="col-md-12 col-xs-12">
+                    <div class="formSection row nested-fields"> <!-- this main div will be functional -->
+                      <div class="col-xs-12 col-md-1">
+                        <div><label class="label">Upload</label></div>
+                        <div class="uploadFile">
+                          <label for="file" onclick="trigger_file_input(this)">
+                            <%= image_tag "uploadIcon.svg", alt:"Upload file" %>
+                            <span class="file_name" style="padding: 5px;"><%= form.object.document.identifier%></span>
+                          </label>
+                          <%= form.input :document, label: false, as: :file, input_html: {multiple: false, onchange:"show_file_name(this)"} %>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
+            <% end %>
+            <div class="col-xs-12 col-md-12 text-right">
+              <%=link_to 'Cancel', root_path, class: 'btn-type-default' %>
+              <%= f.button :submit, "Save", class: "btn-type-primary" %>
             </div>
-          <% end %>
-          <div class="col-xs-12 col-md-12 text-right">
-            <%=link_to 'Cancel', root_path, class: 'btn-type-default' %>
-            <%= f.button :submit, "Save", class: "btn-type-primary" %>
           </div>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
     </div>
   </div>
-</div>
+<% else %>
+  Tenant is not found
+<% end %>
