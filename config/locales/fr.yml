@@ -21,7 +21,7 @@
 
 fr:
   comment: "Commentaire"
-  line_of_business_id: "Secteur d'activité"
+  line_of_business_id: "Secteur d'activité/Groupe d'affaires responsable de la facture"
   name_of_matter_client: "Nom du sujet"
   submitter_name: "Nom de l'auteur de la demande"
   matter_number: "Numéro de dossier"

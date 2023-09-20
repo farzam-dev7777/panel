@@ -199,7 +199,7 @@ class MatterIntakesController < BaseController
       :breakdown_of_claim_amount, :court_name, :case_caption, :court_type, :docket_number, :comset_issues, :comset_ref,
       :mi_matter, :nature_of_events, :process_type_level_1, :process_type_level_2, :product_type_level_1, :product_type_level_2,
       :event_type_level_1, :event_type_level_2, :business_activity_level_1, :business_activity_level_2, :can_reimbursed_matter,
-      :branch, :outside_counsel_engaged, :deal_code, :email_notification_to_litigation_specialist_team,
+      :branch, :outside_counsel_engaged, :deal_code, :email_notification_to_litigation_specialist_team, :line_of_business_id,
       :requested_by_id, :related_matter_number, :pii_involved, :internal_file_number, :business_department, :business_group, :matter_number,
       :receive_personal_information, :receive_general_business_data, :applicable_technical_specialty_data, following_matter_involve: [],
       applicable_technical_specialty_data_type: [], receive_personal_information_data_type: [], receive_general_business_data_type: [],

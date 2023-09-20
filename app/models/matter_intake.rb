@@ -160,7 +160,7 @@ class MatterIntake < ApplicationRecord
     "Christina Harrison"
   ]
 
-  MANDATORY_FIELDS = [:submitter_name, :name_of_matter_client, :matter_number, :requested_by_id, :matter_type_id]
+  MANDATORY_FIELDS = [:submitter_name, :name_of_matter_client, :matter_number, :requested_by_id, :matter_type_id, :line_of_business_id]
 
   def generate_type(type)
     case type
@@ -194,16 +194,16 @@ class MatterIntake < ApplicationRecord
     is_law_firm =  current_user.role == "master_user" && current_user.role == "user"
     common_fields = [
       {
-        name: I18n.t(:line_of_business_id, default: "Line of Business"),
+        name: I18n.t(:line_of_business_id, default: "Line of Business/Business group"),
         database_field: :line_of_business_id,
         access: {
           bank: "read",
-          law_firm: "read"
+          law_firm: "write"
         },
-        type: "autofill", # "dropdown" | "autofill" | "text" 
-        optional: MANDATORY_FIELDS.include?(:submitter_name) == false,
+        type: "dropdown", # "dropdown" | "autofill" | "text" 
+        optional: MANDATORY_FIELDS.include?(:line_of_business_id) == false,
         value: (self.line_of_business_id || current_user.line_of_businesses&.first&.id),
-        collection: [], # Static | From database | prefilled-value
+        collection: LineOfBusiness.where(tenant_id: current_tenant.id).map{|u| [u.name, u.id]}
       },
       {
         name: I18n.t(:submitter_name, default: "Submitter Name"),
@@ -538,8 +538,8 @@ class MatterIntake < ApplicationRecord
         database_field: :business_department,
         default_name: "Business Department",
         access: {
-          bank: "write",
-          law_firm: "write"
+          bank: "not_access",
+          law_firm: "not_access"
         },
         type: "text", # "dropdown" | "autofill" | "text" | "autocomplete"
         optional: MANDATORY_FIELDS.include?(:business_department) == false,
