@@ -150,8 +150,11 @@ class LawFirmsController < BaseController
       ], jurisdictions_attributes: [
         :id, :country, :_destroy, 
         city: []
-      ], 
-      practice_area: [], 
+      ],
+      users_attributes: [
+        :id, :first_name, :last_name, :username
+      ],
+      practice_area: [],
       type_of_matters_your_law_firm_handles_for_us: [],
       type_of_services_your_law_firm_provides_generally: []
     )

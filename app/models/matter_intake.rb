@@ -249,7 +249,7 @@ class MatterIntake < ApplicationRecord
         type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
         optional: MANDATORY_FIELDS.include?(:requested_by_id) == false,
         value: self.requested_by_id,
-        collection: current_tenant.users.map{|u| [u.full_name, u.id]}
+        collection: (current_tenant.users.where(role: ['lxp', 'lob', 'internal_lawyers'])+[current_user]).map{|u| [u.full_name, u.id]}
       },
       {
         name: I18n.t(:matter_type_id, default: "Matter Type"),

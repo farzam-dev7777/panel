@@ -47,54 +47,6 @@
             <%= field.input :information_security_contact_email, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
           </div>
         <% end %>
-        <!--div class="col-xs-12 col-md-6">
-					<label class="label">Diverse</label>
-					<%= f.input :diverse, label: false, collection: LawFirm::DIVESER, input_html: { autocomplete: 'off', class: 'text-left' } %>
-				</div>
-				<div class="col-xs-12 col-md-6">
-					<label class="label">Value-Add Activities</label>
-					<%= f.input :value_add_activities, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
-				</div>
-				<div class="col-xs-12 col-md-6">
-					<label class="label">Feedback</label>
-					<%= f.input :feedback, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
-				</div>
-				<div class="col-xs-12 col-md-6">
-					<label class="label">Issues</label>
-					<%= f.input :issues, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
-				</div>
-				<div class="col-xs-12 col-md-6">
-					<label class="label">Merger/Combination</label>
-					<%= f.input :merger_combination, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
-				</div>
-				<div class="col-xs-12 col-md-6">
-					<label class="label">Engagement Number</label>
-					<%= f.input :engagement_number, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
-				</div>
-				<div class="col-xs-12 col-md-6">
-					<label class="label">Relationship Number</label>
-					<%= f.input :relationship_number, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
-				</div>
-				<div class="col-xs-12 col-md-6">
-					<label class="label">Information Security Class</label>
-					<%= f.input :information_security_class, label: false, collection: LawFirm::INFORMATION_SECURITY_CLASS,  input_html: { autocomplete: 'off', class: 'text-left' } %>
-				</div>
-				<div class="col-xs-12 col-md-6">
-					<label class="label">Information Security Assessment Outcome</label>
-					<%= f.input :information_security_assessment_outcome, collection: LawFirm::INFORMATION_SECURITY_ASSESSMENT_OUTCOME, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
-				</div>
-				<div class="col-xs-12 col-md-6">
-					<label class="label">Action Plan Findings</label>
-					<%= f.input :action_plan_findings, as: :numeric, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
-				</div>
-				<div class="col-xs-12 col-md-6">
-					<label class="label">Action Plan Status</label>
-					<%= f.input :action_plan_status, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
-				</div-->
-        <!--<div class="col-xs-12 col-md-6">
-					<label class="label">Initial date of engagement with organization</label>
-					<%= f.input :initial_date_of_engagement_with_the_bank, as: :datepicker, label: false, input_html: { autocomplete: 'off', class: 'text-left datepicker' } %>
-				</div>-->
         <div class="col-xs-12 col-md-6">
           <label class="label">Locations</label>
           <div class="col-md-12 no-padding">
@@ -122,15 +74,6 @@
           </div>
         </div>
         <div class="row col-md-12 show-data-fields">
-          <!--div class="col-xs-12 col-md-6">
-				<div class="field-label">Internal Status</div>
-
-				<div class="field-data"><%=  @law_firm.panel_request && @law_firm.panel_request.try(:lxp_status_show) ? @law_firm.panel_request.try(:lxp_status_show) : "-" %></div>
-			</div>
-			<div class="col-xs-12 col-md-6">
-				<div class="field-label">Panel Approved</div>
-				<div class="field-data"><%= @law_firm.panel_request && @law_firm.panel_request.fully_approved? ? "Yes" : "No" %></div>
-			</div-->
           <% if @law_firm.panel_request && @law_firm.panel_request.docusign_envelope_id.present? %>
             <div class="col-md-12">
               <div class="field-label">Document Status</div>
@@ -144,6 +87,24 @@
                 </div>
               </div>
             <% end %>
+          <% end %>
+        </div>
+
+        <div class="col-xs-12 col-md-12">
+          <div class="inner-label">User Details</div>
+          <%= f.simple_fields_for :users do |field| %>
+            <div class="col-xs-12 col-md-6">
+              <label class="label">Username</label>
+              <%= field.input :username, label: false %>
+            </div>
+            <div class="col-xs-12 col-md-3">
+              <label class="label">First Name</label>
+              <%= field.input :first_name, label: false %>
+            </div>
+            <div class="col-xs-12 col-md-3">
+              <label class="label">Last Name</label>
+              <%= field.input :last_name, label: false %>
+            </div>
           <% end %>
         </div>
         <div class="col-xs-12 col-md-12 btn-decor-sp" style="margin-top: 30px;">
