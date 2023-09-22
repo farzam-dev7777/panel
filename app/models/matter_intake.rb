@@ -439,7 +439,7 @@ class MatterIntake < ApplicationRecord
           bank: "write",
           law_firm: "write"
         },
-        type: "text", # "dropdown" | "autofill" | "text" | "autocomplete"
+        type: "currency", # "dropdown" | "autofill" | "text" | "autocomplete"
         optional: MANDATORY_FIELDS.include?(:budget_amount) == false,
         value: self.budget_amount,
         collection: []
@@ -1058,10 +1058,14 @@ class MatterIntake < ApplicationRecord
     end
   end
 
+  def budget_amount_to_f
+    self.budget_amount.to_s.gsub(/[$,]/,'').to_f
+  end
+
   def can_auto_approve?
     ((self.show_status=='Submitted'||self.show_status=='Opened') &&
-    self.budget_amount.present? &&
-    self.budget_amount.to_i <= (Tenant.current&.auto_approve_amount_limit||500000) &&
+    self.budget_amount_to_f.present? &&
+    self.budget_amount_to_f.to_i <= (Tenant.current&.auto_approve_amount_limit||500000) &&
     (Tenant.current&.auto_approve_matter_type||[]).include?(self.matter_type&.matter_type) &&
     self.consent_pending? == false
     )

@@ -26,6 +26,7 @@
 // active_material
 // require turbolinks
 //= require app.config.seed
+//= require currency_box
 //= require bootstrap/bootstrap.min
 //= require mdb
 //= require app.seed
