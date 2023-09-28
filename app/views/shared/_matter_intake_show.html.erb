@@ -99,7 +99,11 @@
                 <% if obj[:database_field] == :invoices%>
                   <% invoice_enable = true %>
                 <% else %>
-                  <div class="col-xs-12 col-md-6">
+                  <% if obj[:database_field] == :matter_description %>
+                    <div class="col-xs-12 col-md-12">
+                  <% else %>
+                     <div class="col-xs-12 col-md-6">
+                  <% end %>
                     <div class="field-label" title="<%= matter_lang_title(obj[:database_field], obj[:name]) %>"><%= obj[:name] %></div>
                     <%  if obj[:database_field] == :law_firm_id %>
                       <div class="field-data"><%= @matter_intake.law_firm&.name %></div>
@@ -113,6 +117,8 @@
                       <div class="field-data"><%= @matter_intake.matter_type&.matter_type %></div>
                     <% elsif obj[:database_field] == :following_matter_involve%>
                       <div class="field-data"><%= @matter_intake.following_matter_involve_to_s %></div>
+                    <% elsif obj[:database_field] == :matter_description %>
+                      <div class="field-data" style="height: 85px;"><%= @matter_intake.matter_description %></div>
                     <% else %>
                       <div class="field-data"><%= @matter_intake.send(obj[:database_field]) %></div>
                     <% end %>

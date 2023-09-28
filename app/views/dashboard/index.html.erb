@@ -15,7 +15,7 @@
           </a>
         </li>
         <li class="sparks-info color-border-03">
-          <a href="/admin/matter_intakes?filter=yes" class="card-content">
+          <a href="/matter_intakes?filter=yes" class="card-content">
             <div class="card-icon bg-color-03">
               <%= image_tag "approved-icon.svg", alt:"Matters" %>
             </div>
@@ -39,7 +39,7 @@
           </a>
         </li>
         <li class="sparks-info color-border-04">
-          <a href="/admin/conflict_waivers?filter=yes" class="card-content">
+          <a href="/conflict_waivers?filter=yes" class="card-content">
             <div class="card-icon bg-color-04">
               <%= image_tag "exceptions-icon.svg", alt:"Conflict Waiver Requests" %>
             </div>
@@ -57,7 +57,10 @@
 <div class="row">
   <div class="col-xs-12 col-md-12">
     <div class="page-header-sp m-top">
-      <div class="page-title">Panel  <%= Tenant&.current&.subdomain %></div>
+      
+      <div class="page-title" style="background: lightgray;border-radius: 5px;padding: 5px; margin-top: 20px;">
+        <%= @law_firm_tenant&.status||'Pending'%>
+      </div>
       <div class="lawfirm-tenants-container">
         <% if Current.user.role === "master_user" || Current.user.role === "user" %>
           <select class="form-control" id="lawfirm_tenants">
@@ -73,12 +76,11 @@
     <div class="sp-form sp-form-bg text-center">
       <p><b><%= certification_status(current_law_firm) %></b>
         <% if current_law_firm&.current_law_firm_tenant.present? %>
-          <%= link_to "Agreement", agreement_law_firm_path(current_law_firm), class: "btn-type-primary"%>
           <% document = current_law_firm.law_firms_tenants.where(tenant_id: Tenant&.current&.id)&.first&.document %>
           <% if document.present?%>
-            <a href="<%= document.file&.url %>" target="_blank" title="<%= document.identifier %>">
-              <i class="fa fa-money" aria-hidden="true"></i>
-            </a>
+            <%= link_to "Agreement", document.file&.url, class: "btn-type-primary"%>
+          <% else %>
+            <%= link_to "Agreement", agreement_law_firm_path(current_law_firm), class: "btn-type-primary"%>
           <% end %> 
         <% end %>
     </div>

@@ -8,7 +8,11 @@
           <% if obj[:database_field] == :invoices && obj[:access][matter_role] == 'write' %>
             <% invoice_enable = true %>
           <% else %>
-            <div class="col-xs-12 col-md-6" title="<%= matter_lang_title(obj[:database_field], obj[:name]) %>">
+            <% if obj[:database_field] == :matter_description %>
+              <div class="col-xs-12 col-md-12" title="<%= matter_lang_title(obj[:database_field], obj[:name]) %>">
+            <% else %>
+               <div class="col-xs-12 col-md-6" title="<%= matter_lang_title(obj[:database_field], obj[:name]) %>">
+            <% end %>
               <label  class="label" style="white-space: unset;">
                 <% if obj[:optional] == true %>
                   <%= obj[:name] %>
@@ -51,7 +55,7 @@
             <% if @matter_intake.invoices.count > 0 %>
               <% @matter_intake.invoices.each do |invoice| %>
                 <%= f.simple_fields_for :invoices, invoice do |form| %>
-                  <%= render 'invoice_fields', f: form, invoice: invoice %>
+                  <%= render '/shared/invoice_fields', f: form, invoice: invoice %>
                 <% end %>
               <% end %>
             <% end %>

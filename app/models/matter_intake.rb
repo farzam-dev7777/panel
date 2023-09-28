@@ -184,7 +184,11 @@ class MatterIntake < ApplicationRecord
   def check_presence_of
     MANDATORY_FIELDS.each do |field|
       if send(field).blank?
-        errors.add(field, "can't be blank")
+        if field == :submitter_name
+          errors.add(field, "is missing from profile. Please update submitter profile before creating matter.")
+        else
+          errors.add(field, "can't be blank")
+        end
       end
     end
   end
@@ -197,7 +201,7 @@ class MatterIntake < ApplicationRecord
         name: I18n.t(:line_of_business_id, default: "Line of Business/Business group"),
         database_field: :line_of_business_id,
         access: {
-          bank: "read",
+          bank: "write",
           law_firm: "write"
         },
         type: "dropdown", # "dropdown" | "autofill" | "text" 
@@ -255,8 +259,8 @@ class MatterIntake < ApplicationRecord
         name: I18n.t(:matter_type_id, default: "Matter Type"),
         database_field: :matter_type_id,
         access: {
-          bank: "write",
-          law_firm: "write"
+          bank: "not_access",
+          law_firm: "not_access"
         },
         type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
         optional: MANDATORY_FIELDS.include?(:matter_type_id) == false,

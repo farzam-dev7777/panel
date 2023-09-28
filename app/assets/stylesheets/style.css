@@ -1891,3 +1891,7 @@ p.email-error {
 .text-bold{
   font-weight: bold;
 }
+
+.chosen-container{
+  height: auto !important;
+}

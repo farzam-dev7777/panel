@@ -34,7 +34,7 @@
                         <div><label class="label">Upload</label></div>
                         <div class="uploadFile">
                           <label for="file" onclick="trigger_file_input(this)">
-                            <%= image_tag "uploadIcon.svg", alt:"Upload file" %>
+                              <%= image_tag "paperclip.png", alt:"Upload file", style:"width: 30px;" %>
                             <span class="file_name" style="padding: 5px;"><%= form.object.document.identifier%></span>
                           </label>
                           <%= form.input :document, label: false, as: :file, input_html: {multiple: false, onchange:"show_file_name(this)"} %>
