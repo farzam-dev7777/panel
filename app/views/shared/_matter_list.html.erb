@@ -1,0 +1,51 @@
+<div>
+  <!-- widget content -->
+  <div class="table-dyanmic-search table-responsive">
+    <table id="dt_basic" class="table table-decoration table-bordered" width="100%">
+      <thead>
+        <tr>
+          <th>Matter Number</th>
+          <th>Date Submitted</th>
+          <th>Submitter By</th>
+          <th>Name of Matter/Client</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% matters.each do |matter_intake| %>
+          <% if Current.user.role === "internal_lawyers" ||  Current.user.role === "lxp" %>
+            <tr onClick="window.location.href='/admin/matter_intakes/<%= matter_intake.id %>'">
+          <% elsif Current.user.role === "lob" %>
+             <tr onClick="window.location.href='/lob/matter_intakes/<%= matter_intake.id %>'">
+          <% else %>
+            <tr onClick="window.location.href='/matter_intakes/<%= matter_intake.id %>'">
+          <% end %>
+            <td><%= matter_intake.matter_number.present? ? matter_intake.matter_number : "-" %></td>
+            <td data-order="<%= matter_intake.created_at.strftime('%Y%m%d%H%M') %>">
+              <%= matter_intake.created_at.strftime('%d %b %Y') %>
+            </td>
+            <td>
+              <% if matter_intake.submitter_name.present? %>
+              <div class="firm-name">
+                <div class="name-avatar"><img src="<%= get_avatar_image(matter_intake&.submitter_name&.gsub(" ", "+")) %>"></div>
+                <div><%= matter_intake.submitter_name %></div>
+              </div>
+              <% else %>
+								-
+							<% end %>
+            </td>
+            <td><%= matter_intake.name_of_matter_client %></td>
+            <td>
+              <div class="status">
+                <span class="<%= matter_intake.status === "matter_open" ? 'label label-success' : 'label label-default' %>"> 
+                  <%= matter_intake.show_status %>
+                </span>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <!-- end widget content -->
+</div>

@@ -259,8 +259,8 @@ class MatterIntake < ApplicationRecord
         name: I18n.t(:matter_type_id, default: "Matter Type"),
         database_field: :matter_type_id,
         access: {
-          bank: "not_access",
-          law_firm: "not_access"
+          bank: "write",
+          law_firm: "write"
         },
         type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
         optional: MANDATORY_FIELDS.include?(:matter_type_id) == false,
@@ -307,8 +307,8 @@ class MatterIntake < ApplicationRecord
         name: I18n.t(:stage_of_litigation, default: "Litigation Stage"),
         database_field: :stage_of_litigation,
         access: {
-          bank: "write",
-          law_firm: "write"
+          bank: "not_access",
+          law_firm: "not_access"
         },
         type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
         optional: MANDATORY_FIELDS.include?(:stage_of_litigation) == false,

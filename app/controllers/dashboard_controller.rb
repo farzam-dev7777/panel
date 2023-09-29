@@ -22,7 +22,7 @@ class DashboardController < BaseController
 		@invoices_total = (current_user.law_firm&.matter_intakes&.map(&:invoices)&.flatten || []).map { |i| i.amount.to_f }.sum rescue 0
 		@confilictc_requests_submitted = current_law_firm.conflict_waivers.order(created_at: :desc).count rescue 0
 		@client_count = (current_law_firm&.tenants||[]).count
-		@law_firm_tenant = current_law_firm.law_firms_tenants.where(tenant_id: Tenant&.current&.id).first
+		@law_firm_tenant = current_law_firm&.law_firms_tenants&.where(tenant_id: Tenant&.current&.id)&.first
 		if current_user.is_panel_admin_user?
 			redirect_to admin_root_url
 		end
