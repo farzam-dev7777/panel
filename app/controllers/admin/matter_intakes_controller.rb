@@ -28,7 +28,7 @@ class Admin::MatterIntakesController < Admin::BaseController
   end
 
   def new
-    @form_type = params[:form_type]
+    @form_type = params[:form_type]||'general'
     @matter_intake = MatterIntake.new
     @invoices = @matter_intake.invoices.build
     @invoice_attachments = @invoices.invoice_attachments.build
@@ -65,27 +65,30 @@ class Admin::MatterIntakesController < Admin::BaseController
       @matter_intake.name_of_panel_firm = @matter_intake.law_firm&.name
       @matter_intake.law_firm_id = current_user.law_firm&.id
     end
+    @matter_intake.line_of_business_id = current_user.line_of_businesses&.first&.id if @matter_intake.line_of_business_id.blank?
     @matter_intake.requested_by_id = current_user&.id if @matter_intake.requested_by_id.blank?
     @matter_intake.submitter_name = current_user.full_name if @matter_intake.submitter_name.blank?
     @matter_intake.matter_number = "MT-#{Date.today.month}-#{Date.today.day}-#{MatterIntake.count}" if @matter_intake.matter_number.blank?
     @matter_intake.user_id = current_user.id if @matter_intake.user_id.blank?
     @matter_intake.lawyer_id = current_user.id if current_user.role == 'internal_lawyers' && @matter_intake.lawyer_id.blank?
-    if @matter_intake.save
-      @matter_intake.update_attributes(status: "submitted", lawyer_reviewed_at: Time.now)
-      @matter_intake.auto_approve_matter(current_user)
-      @matter_intake.set_default_approval_status(current_user)
-      # @matter_intake.send_notification_to_lxp
-      # @matter_intake.send_notification_litigation_specialist_team
-      # flash[:notice] = "Matter intake form submitted"
-      # redirect_to :admin_matter_intakes
-      redirect_to matter_intakes_information_security_classification_admin_matter_intakes_path(@matter_intake)
+
+    if @matter_intake.valid?
+      if params[:commit] === "Next"
+        @show_information_security_form=true
+        render :new
+      else
+        @matter_intake.save
+        @matter_intake.update_attributes(status: "submitted", lawyer_reviewed_at: Time.now)
+        @matter_intake.set_default_approval_status(current_user)
+        @matter_intake.auto_approve_matter(current_user)
+        @matter_intake.send_notification_to_lawyer
+        flash[:notice] = "Matter Intake Form submitted"
+        redirect_to admin_matter_intake_path(@matter_intake)
+      end
     else
       flash[:alert] = "There was an error initiating matter intake request. #{@matter_intake.errors.full_messages.join(', ')}" 
-      @form_type = params[:matter_intake][:form_type]
-      @matter_intake = MatterIntake.new(matter_intake_params)
       render :new
     end
-
   end
 
   def information_security_classification
@@ -189,7 +192,7 @@ class Admin::MatterIntakesController < Admin::BaseController
       :event_type_level_1, :event_type_level_2, :business_activity_level_1, :business_activity_level_2, :can_reimbursed_matter,
       :branch, :outside_counsel_engaged, :deal_code, :email_notification_to_litigation_specialist_team,
       :requested_by_id, :related_matter_number, :pii_involved, :internal_file_number, :business_department, :business_group, :matter_number,
-      :receive_personal_information, :receive_general_business_data, :applicable_technical_specialty_data,
+      :receive_personal_information, :receive_general_business_data, :applicable_technical_specialty_data, :line_of_business_id,
       :receive_personal_information, :receive_general_business_data, :applicable_technical_specialty_data,
       following_matter_involve: [], following_matter_involve:[],
       applicable_technical_specialty_data_type: [], receive_personal_information_data_type: [], receive_general_business_data_type: [],

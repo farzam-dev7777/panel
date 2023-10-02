@@ -72,23 +72,23 @@ class MatterIntakesController < BaseController
     @matter_intake.requested_by_id = current_user&.id if @matter_intake.requested_by_id.blank?
     @matter_intake.submitter_name = current_user.full_name if @matter_intake.submitter_name.blank?
     @matter_intake.matter_number = "MT-#{Date.today.month}-#{Date.today.day}-#{MatterIntake.count}" if @matter_intake.matter_number.blank?
-    if @matter_intake.save
-      @matter_intake.update_attributes(status: "submitted", lawyer_reviewed_at: Time.now)
-      @matter_intake.set_default_approval_status(current_user)
-      @matter_intake.auto_approve_matter(current_user)
-      # @matter_intake.send_notification_to_lxp
-      # @matter_intake.send_notification_litigation_specialist_team
-      # flash[:notice] = "Matter intake form submitted"
-      # redirect_to :admin_matter_intakes
-      @matter_intake.send_notification_to_lawyer
-      redirect_to matter_intakes_information_security_classification_matter_intakes_path(@matter_intake)
+    if @matter_intake.valid?
+      if params[:commit] === "Next"
+        @show_information_security_form=true
+        render :new
+      else
+        @matter_intake.save
+        @matter_intake.update_attributes(status: "submitted", lawyer_reviewed_at: Time.now)
+        @matter_intake.set_default_approval_status(current_user)
+        @matter_intake.auto_approve_matter(current_user)
+        @matter_intake.send_notification_to_lawyer
+        flash[:notice] = "Matter Intake Form submitted"
+        redirect_to @matter_intake
+      end
     else
       flash[:alert] = "There was an error initiating matter intake request. #{@matter_intake.errors.full_messages.join(', ')}" 
-      @form_type = params[:matter_intake][:form_type]
-      @matter_intake = MatterIntake.new(matter_intake_params)
       render :new
     end
-
   end
 
   def information_security_classification

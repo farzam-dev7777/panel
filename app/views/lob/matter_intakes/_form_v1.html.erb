@@ -2,75 +2,76 @@
   <% invoice_enable = false%>
   <% matter_role = @matter_intake.matter_form_role(current_user)%>
   <%= simple_form_for [:lob, @matter_intake], html: { multipart: true } do |f| %>
+    <%= f.input :form_type, as: :hidden, :input_html => { :value => 'general'} %>
     <div class="row form-flex-wrap">
-      <%@matter_intake.generate_fields(current_user, Tenant.current).each do |obj| %>
-        <% if obj[:access][matter_role] == 'write'%>
-          <% if obj[:database_field] == :invoices && obj[:access][matter_role] == 'write' %>
-            <% invoice_enable = true %>
-          <% else %>
-            <% if obj[:database_field] == :matter_description %>
-              <div class="col-xs-12 col-md-12" title="<%= matter_lang_title(obj[:database_field], obj[:name]) %>">
+      <% m_form_hide = @show_information_security_form.present? ? 'none' : ''%>
+      <div style="display: <%=m_form_hide%>;">
+        <%@matter_intake.generate_fields(current_user, Tenant.current).each do |obj| %>
+          <% if obj[:access][matter_role] == 'write'%>
+            <% f_width = obj[:database_field] == :matter_description ? 12 : 6%>
+            <% if obj[:database_field] == :invoices && obj[:access][matter_role] == 'write' %>
+              <% invoice_enable = true %>
             <% else %>
-               <div class="col-xs-12 col-md-6" title="<%= matter_lang_title(obj[:database_field], obj[:name]) %>">
+              <div class="col-xs-12 col-md-<%= f_width%>" title="<%= matter_lang_title(obj[:database_field], obj[:name]) %>">
+                <label  class="label" style="white-space: unset;">
+                  <% if obj[:optional] == true %>
+                    <%= obj[:name] %>
+                  <% else %>
+                    <%= obj[:name] %><span class="mandatory">*</span>
+                  <% end %>
+                </label>
+                <% if obj[:access][matter_role] == 'read' %>
+                  <% if obj[:database_field] == :law_firm_id%>
+                    <%= f.input obj[:database_field], label: false, :input_html => { :value => @matter_intake.law_firm&.name, disabled:true} %>
+                  <% else %>
+                    <%= f.input obj[:database_field], label: false, :input_html => { :value => obj[:value], disabled:true} %>
+                  <% end %>
+                  <%= f.input obj[:database_field], as: :hidden, :input_html => { :value => obj[:value]} %>
+                <% else %>
+                  <% if obj[:type] == 'currency' %>
+                    <%= f.input obj[:database_field], label: false, :input_html => { :value => obj[:value], pattern:"^\$\d{1,3}(,\d{3})*(\.\d+)?$", data_type: "currency", placeholder: "$1,000,000.00"} %>
+                  <% elsif obj[:type] == 'dropdown' %>
+                    <%= f.input obj[:database_field], label: false, collection: obj[:collection], input_html: { multiple: obj[:multiple].present? } %>
+                  <% elsif obj[:type] == 'file' %>
+                    <%= f.input obj[:database_field], as: :file, label: false  %>
+                  <% elsif obj[:type] == 'text' %>
+                    <%= f.input obj[:database_field], label: false, :input_html => { :value => obj[:value], multiple: obj[:multiple].present? } %>
+                  <% end %>
+                <% end %>
+              </div>
             <% end %>
-              <label  class="label" style="white-space: unset;">
-                <% if obj[:optional] == true %>
-                  <%= obj[:name] %>
-                <% else %>
-                  <%= obj[:name] %><span class="mandatory">*</span>
-                <% end %>
-              </label>
-              <% if obj[:access][matter_role] == 'read' %>
-                <% if obj[:database_field] == :law_firm_id%>
-                  <%= f.input obj[:database_field], label: false, :input_html => { :value => @matter_intake.law_firm&.name, disabled:true} %>
-                <% else %>
-                  <%= f.input obj[:database_field], label: false, :input_html => { :value => obj[:value], disabled:true} %>
-                <% end %>
-                <%= f.input obj[:database_field], as: :hidden, :input_html => { :value => obj[:value]} %>
-              <% else %>
-                <% if obj[:type] == 'currency' %>
-                  <%= f.input obj[:database_field], label: false, :input_html => { :value => obj[:value], pattern:"^\$\d{1,3}(,\d{3})*(\.\d+)?$", data_type: "currency", placeholder: "$1,000,000.00"} %>
-                <% elsif obj[:type] == 'dropdown' %>
-                  <%= f.input obj[:database_field], label: false, collection: obj[:collection], input_html: { multiple: obj[:multiple].present? } %>
-                <% else obj[:type] == 'text' %>
-                  <%= f.input obj[:database_field], label: false, :input_html => { :value => obj[:value] } %>
-                <% end %>
-              <% end %>
-            </div>
           <% end %>
         <% end %>
-      <% end %>
-
-      <% if invoice_enable == true%>
+      
+        <% if invoice_enable == true%>
+          <!-- New form start -->
+          <div class="col-md-12 col-xs-12">
+            <div class="formHeader">
+              <div class="headerTitle">Invoices</div>
+            </div>
+          </div>
+          <div class="col-md-12 col-xs-12">
+            <% if !@new_form %>
+              <% if @matter_intake.invoices.count > 0 %>
+                <% @matter_intake.invoices.each do |invoice| %>
+                  <%= f.simple_fields_for :invoices, invoice do |form| %>
+                    <%= render '/shared/invoice_fields', f: form, invoice: invoice %>
+                  <% end %>
+                <% end %>
+              <% end %>
+            <% end %>
+            <div class="addButton links mb-4">
+              <%= link_to_add_association '<span href="javascript:void(0);"><i class="fa fa-plus-circle"></i> Add Invoice</span>'.html_safe, f, :invoices, partial: '/shared/invoice_fields' %> 
+            </div>
+          </div>
+        <% end %>
         <!-- New form start -->
         <div class="col-md-12 col-xs-12">
           <div class="formHeader">
-            <div class="headerTitle">Invoices</div>
+            <div class="headerTitle">Attachments</div>
           </div>
         </div>
         <div class="col-md-12 col-xs-12">
-          <% if !@new_form %>
-            <% if @matter_intake.invoices.count > 0 %>
-              <% @matter_intake.invoices.each do |invoice| %>
-                <%= f.simple_fields_for :invoices, invoice do |form| %>
-                  <%= render '/shared/invoice_fields', f: form, invoice: invoice %>
-                <% end %>
-              <% end %>
-            <% end %>
-          <% end %>
-          <div class="addButton links mb-4">
-            <%= link_to_add_association '<span href="javascript:void(0);"><i class="fa fa-plus-circle"></i> Add Invoice</span>'.html_safe, f, :invoices, partial: '/shared/invoice_fields' %> 
-          </div>
-        </div>
-      <% end %>
-      <!-- New form start -->
-      <div class="col-md-12 col-xs-12">
-        <div class="formHeader">
-          <div class="headerTitle">Attachments</div>
-        </div>
-      </div>
-      <div class="col-md-12 col-xs-12">
-        <% if !@new_form %>
           <% if @matter_intake.matter_intake_attachments.count > 0 %>
             <% @matter_intake.matter_intake_attachments.each do |attachment| %>
               <%= f.simple_fields_for :matter_intake_attachments, attachment do |form| %>
@@ -78,15 +79,23 @@
               <% end %>
             <% end %>
           <% end %>
-        <% end %>
-        <div class="addButton links mb-4">
-          <%= link_to_add_association '<span href="javascript:void(0);"><i class="fa fa-plus-circle"></i> Add Attachment</span>'.html_safe, f, :matter_intake_attachments, partial: '/shared/matter_attachment_fields' %> 
+          <div class="addButton links mb-4">
+            <%= link_to_add_association '<span href="javascript:void(0);"><i class="fa fa-plus-circle"></i> Add Attachment</span>'.html_safe, f, :matter_intake_attachments, partial: '/shared/matter_attachment_fields' %> 
+          </div>
         </div>
       </div>
-      <div class="col-xs-12 col-md-12 text-right">
-        <%=link_to 'Cancel', @matter_intake.new_record? ? matter_intakes_path : matter_intakes_path, class: 'btn-type-default' %>
-        <%= f.button :submit, @matter_intake.new_record? ? "Next" : "Next", class: "btn-type-primary" %>
-      </div>
+      <% if @show_information_security_form.present? %>
+        <%= render '/matter_intakes/form_information_security', f: f%>
+        <div class="col-xs-12 col-md-12 text-right">
+          <%=link_to 'Cancel', lob_matter_intakes_path, class: 'btn-type-default' %>
+          <%= f.button :submit, "Submit", class: "btn-type-primary simple_form_edit_matter_intakes" %>
+        </div>
+      <% else %>
+        <div class="col-xs-12 col-md-12 text-right">
+          <%=link_to 'Cancel', lob_matter_intakes_path, class: 'btn-type-default' %>
+          <%= f.button :submit, "Next", class: "btn-type-primary" %>
+        </div>
+      <% end %>
     </div>
   <% end %>
 </div>

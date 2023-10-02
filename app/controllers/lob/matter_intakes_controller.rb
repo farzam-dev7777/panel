@@ -44,23 +44,24 @@ class Lob::MatterIntakesController < Lob::BaseController
     @matter_intake.submitter_name = current_user.full_name if @matter_intake.submitter_name.blank?
     @matter_intake.matter_number = "MT-#{Date.today.month}-#{Date.today.day}-#{MatterIntake.count}" if @matter_intake.matter_number.blank?
     @matter_intake.user_id = current_user.id if @matter_intake.user_id.blank?
-    if @matter_intake.save
-      @matter_intake.update_attributes(status: "submitted", lob_submitted_at: Time.now)
-      @matter_intake.set_default_approval_status(current_user)
-      @matter_intake.auto_approve_matter(current_user)
+
+    if @matter_intake.valid?
       if params[:commit] === "Next"
-        redirect_to matter_intakes_information_security_classification_lob_matter_intakes_path(@matter_intake)
+        @show_information_security_form=true
+        render :new
       else
+        @matter_intake.save
+        @matter_intake.update_attributes(status: "submitted", lawyer_reviewed_at: Time.now)
+        @matter_intake.set_default_approval_status(current_user)
+        @matter_intake.auto_approve_matter(current_user)
+        @matter_intake.send_notification_to_lawyer
         flash[:notice] = "Matter Intake Form submitted"
-        redirect_to :lob_matter_intakes
+        redirect_to lob_matter_intake_path(@matter_intake)
       end
     else
       flash[:alert] = "There was an error initiating matter intake request. #{@matter_intake.errors.full_messages.join(', ')}" 
-      @matter_intake = MatterIntake.new(matter_intake_params)
-      @current_lob_user = current_lob_user
       render :new
     end
-
   end
 
   def information_security_classification
@@ -107,6 +108,7 @@ class Lob::MatterIntakesController < Lob::BaseController
       :is_otherwise_reportable, :is_syndicate_matter, :is_conceal_imanage_workspace, :is_paper_file, :who_requires_access_to_imanage_workspace,
       :jurisdiction, :firm_type, :name_of_panel_firm, :name_of_non_panel_firm, :type_of_price, :additional_comments_for_lrc_lawyer,
       :is_alternative_fee_arrangement, :afa_details, :additional_matter_contact, :other_matter_issues, :firm_type,
+      :primary_issue, :can_reimbursed_matter, :form_type,
       :lawyer_reviewed_at, :other_party, :deal_code, :outside_counsel_engaged, :stage_of_litigation, :line_of_business_id,
       :requested_by_id, :related_matter_number, :pii_involved, :internal_file_number, :business_department, :business_group, :matter_number,
       :receive_personal_information, :receive_general_business_data, :applicable_technical_specialty_data, following_matter_involve: [],
