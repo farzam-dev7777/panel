@@ -74,6 +74,7 @@ class Admin::MatterIntakesController < Admin::BaseController
 
     if @matter_intake.valid?
       if params[:commit] === "Next"
+        flash[:alert]=''
         @show_information_security_form=true
         render :new
       else

@@ -74,6 +74,7 @@ class MatterIntakesController < BaseController
     @matter_intake.matter_number = "MT-#{Date.today.month}-#{Date.today.day}-#{MatterIntake.count}" if @matter_intake.matter_number.blank?
     if @matter_intake.valid?
       if params[:commit] === "Next"
+        flash[:alert]=''
         @show_information_security_form=true
         render :new
       else
