@@ -38,9 +38,9 @@ class MatterApproval < ApplicationRecord
 
   def show_status
     if approval_type == 'consent'
-       MATTER_APPROVAL_STATUS[status.to_sym] + ' from Consent'
+      MATTER_APPROVAL_STATUS[status.to_sym]
     else
-      MATTER_APPROVAL_STATUS[status.to_sym] + ' from Approval'
+      MATTER_APPROVAL_STATUS[status.to_sym]
     end
   end
 

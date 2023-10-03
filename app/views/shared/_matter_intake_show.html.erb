@@ -137,11 +137,12 @@
       </div>
     </div>
   </div>
-</div>
-</div>
-<%= render 'matter_approvals'%>
-<div class="col-md-12">
-  <%- if @matter_intake.reviews.size > 0 %>
+  </div>
+
+  <%= render '/shared/matter_approval'%>
+
+  <div class="col-md-12">
+    <%- if @matter_intake.reviews.size > 0 %>
     <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
       <div class="page-header-sp">
         <div class="page-title">Review Logs</div>
@@ -224,3 +225,4 @@
             </div>
           <% end %>
         </div>
+</div>
