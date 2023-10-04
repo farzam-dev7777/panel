@@ -5,8 +5,15 @@ class Admin::MatterIntakesController < Admin::BaseController
   add_breadcrumb "Dashboard", :root_path
 
   def index
-    if (params[:q]||{})[:include_archive].present?
-      @q = MatterIntake.with_deleted.ransack(params[:q])
+    @query = params[:q]||{}
+    @invoice_status = @query['invoices_status_cont']
+    if @query.present? && @query['invoices_status_cont']&.strip =='pending'
+      @query['invoices_status_null']= true
+      @query.delete('invoices_status_cont')
+    end
+
+    if (@query||{})[:include_archive].present?
+      @q = MatterIntake.with_deleted.ransack(@query)
     else
       @q = MatterIntake.ransack(params[:q])
     end
@@ -73,6 +80,7 @@ class Admin::MatterIntakesController < Admin::BaseController
     @matter_intake.lawyer_id = current_user.id if current_user.role == 'internal_lawyers' && @matter_intake.lawyer_id.blank?
 
     if @matter_intake.valid?
+
       if params[:commit] === "Next"
         flash[:alert]=''
         @show_information_security_form=true

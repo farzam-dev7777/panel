@@ -26,6 +26,8 @@ class MatterIntake < ApplicationRecord
 
   validate :check_presence_of 
 
+  before_save :convert_budget_amount
+
   #### validation for lob initiated starts ####
   # validates_presence_of :submitter_name, :name_of_matter_client, :matter_type_id, :matter_description, :following_matter_involve,
   #   :bmo_lawyer_name, :lob_contact_for_po, :cost_centre_for_legal_fees, :business_paying_for_matter, :jurisdiction,
@@ -1109,6 +1111,12 @@ class MatterIntake < ApplicationRecord
 
   def consent_pending?
     matter_approvals.where(approval_type: 'consent', status: ['pending', 'rejected']).present?
+  end
+
+  def convert_budget_amount
+    if budget_amount.present?
+      self.budget_amount = budget_amount_to_f
+    end
   end
 
   def set_default_approval_status(current_user)

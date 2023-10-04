@@ -45,17 +45,17 @@
                   <%= search_form_for [:lob, @q] do |f| %>
                     <div class="row">
                       <div class="col-xs-12 col-sm-4">
-                        <%= f.label :submitter_name_cont, label: false, :class => 'label'  %>
-                        <%= f.search_field :submitter_name_cont, :class => 'sp-form-control' %>
+                        <%= f.label :matter_description_cont, label: false, :class => 'label' %>
+                        <%= f.search_field :matter_description_cont, :class => 'sp-form-control' %>
                       </div>
                       <div class="col-xs-12 col-sm-4">
-                        <%= f.label :lob_contact_name_cont, :class => 'label' %>
-                        <%= f.search_field :lob_contact_name_cont, :class => 'sp-form-control' %>
+                        <%= f.label :invoice_status_cont, label: false, :class => 'label' %>
+                        <%= f.search_field :invoices_status_cont, value: @invoice_status, :class => 'sp-form-control' %>
                       </div>
-                      <!--<div class="col-xs-12 col-sm-4">
-                        <%= f.label :law_firm_id_eq, :class => 'label' %>
-                        <%= f.select :law_firm_id_eq, options_from_collection_for_select(LawFirm.all, "id", "name", @q.law_firm_id_eq), {:include_blank => 'Select law firm'}, :class => 'sp-form-control' %>
-                      </div>-->
+                      <div class="col-xs-12 col-sm-4">
+                        <%= f.label :budget_amount_lt_any, 'Fee estimate(max amount)', :class => 'label' %>
+                        <%= f.search_field :budget_amount_lteq_any, :class => 'sp-form-control' %>
+                      </div>
                       <div class="col-xs-12 text-right" style="margin-top: 20px;">
                         <%= f.submit "Search", class: "btn-type-primary input-btn m-right" %>
                         <%= f.submit "Reset", type: "reset", value: "Reset",  class: "btn-type-default input-btn" %>

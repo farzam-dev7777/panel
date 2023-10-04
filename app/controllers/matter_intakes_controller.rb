@@ -1,32 +1,14 @@
 class MatterIntakesController < BaseController
 
   def index
-    
-    @q = MatterIntake.ransack(params[:q])
-    @current_user = current_user
-    if current_user.role === "internal_lawyers"
-      if params[:filter] === "yes"
-        @matter_intakes = @q.result(distinct: true).where.not(status: ["matter_open", "matter_not_open"]).order('updated_at DESC')
-
-      else
-        if params[:attention] === "true"
-          @matter_intakes = @q.result(distinct: true).where(status: ["awaiting_lawyer_review", "awaiting_lawyer_update"]).order('updated_at DESC')
-        else
-          @matter_intakes = @q.result(distinct: true).where(lawyer_id: current_user.id).order('updated_at DESC')
-        end
-      end 
-      
-     
-    elsif current_user.role === "lxp"
-      if params[:filter] === "yes"
-        @matter_intakes = @q.result(distinct: true).where.not(status: ["matter_open", "matter_not_open"]).  order('updated_at DESC')
-        
-      else 
-        @matter_intakes = @q.result(distinct: true).order('updated_at DESC')
-      end
-    else
-      @matter_intakes = []
+    @query = params[:q]||{}
+    @invoice_status = @query['invoices_status_cont']
+    if @query.present? && @query['invoices_status_cont']&.strip =='pending'
+      @query['invoices_status_null']= true
+      @query.delete('invoices_status_cont')
     end
+    @q = current_user.law_firm.matter_intakes.ransack(@query)
+    @matter_intakes = @q.result(distinct: true).order('updated_at DESC')
     add_breadcrumb "Matter Intakes", :admin_matter_intakes_path
   end
 
@@ -99,7 +81,6 @@ class MatterIntakesController < BaseController
   def update
 
     @matter_intake = MatterIntake.find_by(id: params[:id])
-
     if @matter_intake.present? && @matter_intake.update_attributes(matter_intake_params)
       @matter_intake.auto_approve_matter(current_user)
       @matter_intake.set_default_approval_status(current_user)

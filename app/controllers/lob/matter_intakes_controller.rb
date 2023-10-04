@@ -5,11 +5,18 @@ class Lob::MatterIntakesController < Lob::BaseController
   add_breadcrumb "Dashboard", :root_path
 
   def index
+    @query = params[:q]||{}
+    @invoice_status = @query['invoices_status_cont']
+    if @query.present? && @query['invoices_status_cont']&.strip =='pending'
+      @query['invoices_status_null']= true
+      @query.delete('invoices_status_cont')
+    end
+    
     if params[:filter] === "yes"
-      @q = MatterIntake.where(status: ["opened"]).where("line_of_business_id = ? OR user_id = ?", current_user.line_of_businesses.pluck(:id), current_user.id).ransack(params[:q])
+      @q = MatterIntake.where(status: ["opened"]).where("line_of_business_id = ? OR user_id = ?", current_user.line_of_businesses.pluck(:id), current_user.id).ransack(@query)
       @matter_intakes = @q.result(distinct: true).order('updated_at DESC')    
     else
-      @q = MatterIntake.where("line_of_business_id = ? OR user_id = ?", current_user.line_of_businesses.pluck(:id), current_user.id).ransack(params[:q])
+      @q = MatterIntake.where("line_of_business_id = ? OR user_id = ?", current_user.line_of_businesses.pluck(:id), current_user.id).ransack(@query)
       @matter_intakes = @q.result(distinct: true).order('updated_at DESC')
     end
     
@@ -71,6 +78,7 @@ class Lob::MatterIntakesController < Lob::BaseController
 
   def update
   	@matter_intake = MatterIntake.find_by(id: params[:id])
+
     if @matter_intake.update_attributes(matter_intake_params)
       @matter_intake.auto_approve_matter(current_user)
       if params[:matter_intake] && params[:commit] === "Next" && params[:matter_intake][:submit_type] && params[:matter_intake][:submit_type] === "update"

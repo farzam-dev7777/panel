@@ -65,16 +65,16 @@
                   <%= search_form_for [@q] do |f| %>
                     <div class="row">
                       <div class="col-xs-12 col-md-4">
-                        <%= f.label :submitter_name_cont, label: false, :class => 'label' %>
-                        <%= f.search_field :submitter_name_cont, :class => 'sp-form-control' %>
+                        <%= f.label :matter_description_cont, label: false, :class => 'label' %>
+                        <%= f.search_field :matter_description_cont, :class => 'sp-form-control' %>
                       </div>
                       <div class="col-xs-12 col-md-4">
-                        <%= f.label :name_of_matter_client_cont, label: false, :class => 'label' %>
-                        <%= f.search_field :name_of_matter_client_cont, :class => 'sp-form-control' %>
+                        <%= f.label :invoice_status_cont, label: false, :class => 'label' %>
+                        <%= f.search_field :invoices_status_cont, value: @invoice_status, :class => 'sp-form-control' %>
                       </div>
                       <div class="col-xs-12 col-md-4">
-                        <%= f.label :bmo_lawyer_name_cont, 'Internal Lawyer', :class => 'label' %>
-                        <%= f.search_field :bmo_lawyer_name_cont, :class => 'sp-form-control' %>
+                        <%= f.label :budget_amount_lt_any, 'Fee estimate(max amount)', :class => 'label' %>
+                        <%= f.search_field :budget_amount_lt_any, :class => 'sp-form-control' %>
                       </div>
                       <div class="col-xs-12 text-right">
                         <%= f.submit "Search", class: "btn-type-primary input-btn m-right" %>
@@ -107,7 +107,7 @@
             </tr>
           </thead>
           <tbody>
-            <% current_user.law_firm.matter_intakes.each do |matter_intake| %>
+            <% @matter_intakes.each do |matter_intake| %>
               <% if Current.user.role === "lxp"  && matter_intake.status === "matter_not_open" %>
                 <tr onClick="window.location.href='/matter_intakes/<%= matter_intake.id %>/review'">
               <% elsif Current.user.role === "internal_lawyers"  && matter_intake.status != "matter_open" && matter_intake.user_id.present? %>

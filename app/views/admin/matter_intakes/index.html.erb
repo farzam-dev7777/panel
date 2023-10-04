@@ -7,27 +7,6 @@
 <div class="jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false"> 
   <div class="page-header-sp m-top">
     <div class="page-title">Matters</div>
-    <!-- <div>
-      <% if @current_user.role === "internal_lawyers" %>
-        <div class="project-context sp-inner-dropdown">
-          <span class="dropdown-toggle sp-derpdwon" data-toggle="dropdown">
-            <div class="dropdown-text">Submit New Matter Intake Form</div>
-            <span class="drop-down-icon">
-              <%= image_tag "drop-down-icon.png", alt:"Drop menu" %>
-            </span>
-          </span>
-          <ul class="dropdown-menu">
-            <li id="" class="">
-              <%= link_to 'General Intake', new_admin_matter_intake_path(form_type: "general"), html_options = {class: ''}   %>
-            </li>
-            <li role="separator" class="divider"></li>
-            <li id="" class="">
-              <%= link_to 'Litigation Intake', new_admin_matter_intake_path(form_type: "litigation"), html_options = {class: ''}   %>
-            </li> 
-          </ul>
-        </div>
-      <% end %>
-    </div> -->
   </div>
   
   <div class="">
@@ -55,15 +34,19 @@
                 <div class="card-body sp-form">
                   <%= search_form_for [:admin, @q] do |f| %>
                     <div class="row">
-                      <div class="col-xs-12 col-md-4">
-                        <%= f.label :submitter_name_cont, label: false, :class => 'label' %>
-                        <%= f.search_field :submitter_name_cont, :class => 'sp-form-control' %>
+                      <div class="col-xs-12 col-md-3">
+                        <%= f.label :matter_description_cont, label: false, :class => 'label' %>
+                        <%= f.search_field :matter_description_cont, :class => 'sp-form-control' %>
                       </div>
-                      <div class="col-xs-12 col-md-4">
-                        <%= f.label :name_of_matter_client_cont, label: false, :class => 'label' %>
-                        <%= f.search_field :name_of_matter_client_cont, :class => 'sp-form-control' %>
+                      <div class="col-xs-12 col-md-3">
+                        <%= f.label :invoice_status_cont, label: false, :class => 'label' %>
+                        <%= f.search_field :invoices_status_cont, value: @invoice_status, :class => 'sp-form-control' %>
                       </div>
-                      <div class="col-xs-12 col-md-4">
+                      <div class="col-xs-12 col-md-3">
+                        <%= f.label :budget_amount_lt_any, 'Fee estimate(max amount)', :class => 'label' %>
+                        <%= f.search_field :budget_amount_lt_any, :class => 'sp-form-control' %>
+                      </div>
+                      <div class="col-xs-12 col-md-3">
                         <label label="false" class="label" for="q_name_of_matter_client_cont">Include Archive</label>
                         <br>
                         <%= check_box_tag('q[include_archive][]', ((params[:q]||{})[:include_archive]), ((params[:q]||{})[:include_archive]).present?, style: "margin-top: 18px;") %>
