@@ -30,17 +30,16 @@
 
 											<div class="row">
 												<div class="col-xs-12 col-md-4">
-													<%= f.label :name_cont, label: false, :class => 'label' %>
-													<%= f.search_field :name_cont, :class => 'sp-form-control' %>
+													<%= f.label :matter_intakes_matter_type_id_in, label: false, :class => 'label' %>
+													<%= f.input :matter_intakes_matter_type_id_in, label: false, collection: MatterType.all.reject{|mt| mt.matter_type === "Litigation / Litiges"}.map{|mt| [mt.matter_type, mt.id] }, input_html: { multiple: true } %>
 												</div>
 												<div class="col-xs-12 col-md-4">
-												<%= f.label :locations_country_cont %>
-  											<%= f.country_select :locations_country_cont, :class => 'sp-form-control', :include_blank => true %>
-													</div>
+													<%= f.label :countries_name_cont %>
+  													<%= f.country_select :countries_name_cont, :class => 'sp-form-control', :include_blank => true %>
+												</div>
 												<div class="col-xs-12 col-md-4">
-													<%= f.label :panel_status_cont, label: false, :class => 'label' %>
-													<%#= f.search_field :panel_status_eq, :class => 'sp-form-control' %>
-													<%= f.select :panel_status_eq, options_from_collection_for_select(LawFirm::PANEL_REQUEST_STATUS, "to_s", "to_s", @q.panel_status_eq), {:include_blank => true}, :class => 'sp-form-control' %>
+													<%= f.label :states_name_cont %>
+  													<%= f.select :states_name_cont, State.all.pluck(:name).uniq, :class => 'sp-form-control', :include_blank => true %>
 												</div>
 												<div class="col-xs-12 text-right">
 													<%= f.submit "Search", class: "btn-type-primary input-btn m-right" %>

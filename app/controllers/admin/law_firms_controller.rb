@@ -19,13 +19,9 @@ class Admin::LawFirmsController < Admin::BaseController
 
   def panel_law_firms
     query = params[:q]||{}
-    if query.present? && query[:panel_status_eq] == 'ON_PANEL'
-      query[:panel_status_eq]=""
-      law_firm_ids = LawFirmsTenant.where(tenant_id: Tenant.current&.id, status: 'On Panel').pluck(:law_firm_id)
-    else
-     law_firm_ids = LawFirmsTenant.where(tenant_id: Tenant.current&.id).pluck(:law_firm_id)
-    end
+    law_firm_ids = LawFirmsTenant.where(tenant_id: Tenant.current&.id).pluck(:law_firm_id)
     @q = LawFirm.includes(:locations).ransack(query)
+
     @law_firms = @q.result(distinct: true).where(law_firm_category: "PANEL", id: law_firm_ids).order('created_at DESC')
 
     @params_string = false;

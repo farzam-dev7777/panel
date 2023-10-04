@@ -200,35 +200,11 @@ class LawFirm < ApplicationRecord
   end
 
   def show_countries_names
-    name = []
-    if self && self.countries && self.countries.count > 0
-      countries_ids = self.countries.pluck(:country_id)
-      if countries_ids.count > 0
-        countries_ids.each do |country_id|
-          country = Country.find_by(id: country_id)
-          if country.present?
-            name << country.name
-          end
-        end
-      end
-    end
-    name&.join(", ")
+    self.countries.pluck(:name)&.join(", ")
   end
 
   def show_states_names
-    name = []
-    if self && self.states && self.states.count > 0
-      state_ids = self.states.pluck(:state_id)
-      if state_ids.count > 0
-        state_ids.each do |state_id|
-          state = State.find_by(id: state_id)
-          if state.present?
-            name << state.name
-          end
-        end
-      end
-    end
-    name&.join(", ")
+    self.states.pluck(:name)&.join(", ")
   end
   
   def show_matter_types
