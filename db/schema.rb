@@ -419,8 +419,6 @@ ActiveRecord::Schema.define(version: 20231003125023) do
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
     t.string   "status"
-    t.date     "date"
-    t.integer  "taxes"
   end
 
   create_table "issues", force: :cascade do |t|
@@ -574,13 +572,6 @@ ActiveRecord::Schema.define(version: 20231003125023) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "email"
-  end
-
-  create_table "lob_ssos", force: :cascade do |t|
-    t.string   "id_on_sso_provider"
-    t.string   "name"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
   end
 
   create_table "locations", force: :cascade do |t|
