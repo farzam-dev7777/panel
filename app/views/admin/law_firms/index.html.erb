@@ -28,16 +28,15 @@
 										<%= search_form_for [:admin, @q] do |f| %>
 											<div class="row">
 												<div class="col-xs-12 col-md-4">
-													<%= f.label :name_cont, label: false, :class => 'label' %>
-													<%= f.search_field :name_cont, :class => 'sp-form-control' %>
+													<%= f.label :matter_intakes_matter_type_id, label: false, :class => 'label' %>
+													<%= f.select :matter_intakes_matter_type_id, MatterType.all.reject{|mt| mt.matter_type === "Litigation / Litiges"}.map{|mt| [mt.matter_type, mt.id] }, {:include_blank => true}, :class => 'sp-form-control' %>
 												</div>
 												<div class="col-xs-12 col-md-4">
 												<%= f.label :locations_country_cont %>
-  											<%= f.country_select :locations_country_cont, :class => 'sp-form-control', :include_blank => true %>
-													</div>
+  												<%= f.country_select :locations_country_cont, :class => 'sp-form-control', :include_blank => true %>
+												</div>
 												<div class="col-xs-12 col-md-4">
 													<%= f.label :panel_status_cont, label: false, :class => 'label' %>
-													<%#= f.search_field :panel_status_eq, :class => 'sp-form-control' %>
 													<%= f.select :panel_status_eq, options_from_collection_for_select(LawFirm::PANEL_REQUEST_STATUS, "to_s", "to_s", @q.panel_status_eq), {:include_blank => true}, :class => 'sp-form-control' %>
 												</div>
 												<div class="col-xs-12 text-right">

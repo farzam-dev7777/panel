@@ -366,7 +366,8 @@ private
         :engagement_number, :relationship_number,
         :information_security_class, :information_security_assessment_outcome,
         :action_plan_findings, :action_plan_status,
-        :information_security_contact, :information_security_contact_email
+        :information_security_contact, :information_security_contact_email,
+        type_of_matters_your_law_firm_handles_for_us: []
       ],
       locations_attributes: [
         :id, :address1, :address2, :city, 
@@ -375,8 +376,7 @@ private
         :id, :country, :_destroy, 
         city: []
       ], 
-      practice_area: [], 
-      type_of_matters_your_law_firm_handles_for_us: [],
+      practice_area: [],
       type_of_services_your_law_firm_provides_generally: []
     )
   end

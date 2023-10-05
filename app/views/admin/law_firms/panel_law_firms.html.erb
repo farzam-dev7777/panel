@@ -34,6 +34,10 @@
 													<%= f.input :matter_intakes_matter_type_id_in, label: false, collection: MatterType.all.reject{|mt| mt.matter_type === "Litigation / Litiges"}.map{|mt| [mt.matter_type, mt.id] }, input_html: { multiple: true } %>
 												</div>
 												<div class="col-xs-12 col-md-4">
+													<%= f.label :law_firms_tenants_type_of_matters_your_law_firm_handles_for_us_in, 'Firms with Experience in matters', :class => 'label' %>
+													<%= f.input :law_firms_tenants_type_of_matters_your_law_firm_handles_for_us_in, label: false, collection: LawFirm::TYPES_OF_MATTERS_FOR_US, input_html: { multiple: true } %>
+												</div>
+												<div class="col-xs-12 col-md-4">
 													<%= f.label :countries_name_cont %>
   													<%= f.country_select :countries_name_cont, :class => 'sp-form-control', :include_blank => true %>
 												</div>

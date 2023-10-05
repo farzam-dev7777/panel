@@ -17,7 +17,7 @@ class Users::SessionsController < Devise::SessionsController
         '$email'                       => current_law_firm && current_law_firm.name,
         '$law_firm'                    => current_law_firm && current_law_firm.name,
         '$initial_date_of_engagement'  => current_law_firm && current_law_firm.initial_date_of_engagement_with_the_bank,
-        '$type_of_matters_your_law_firm_handles_for_us'  => current_law_firm && current_law_firm.type_of_matters_your_law_firm_handles_for_us.reject(&:empty?),
+        '$type_of_matters_your_law_firm_handles_for_us'  => current_law_firm && current_law_firm&.current_law_firm_tenant&.type_of_matters_your_law_firm_handles_for_us&.reject(&:empty?),
         '$number_of_lawyers'  => current_law_firm && current_law_firm.number_of_lawyers,
         '$locations'  => current_law_firm && current_law_firm.locations.map(&:country),
       }, ip = request.env.fetch("REMOTE_ADDR", nil), 

@@ -33,7 +33,7 @@ class LawFirm < ApplicationRecord
   has_many :tenants, through: :law_firms_tenants
 
   serialize :practice_area, Array
-  serialize :type_of_matters_your_law_firm_handles_for_us, Array
+  # serialize :type_of_matters_your_law_firm_handles_for_us, Array
   serialize :type_of_services_your_law_firm_provides_generally, Array
   
 

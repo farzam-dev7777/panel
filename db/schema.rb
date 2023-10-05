@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20231003125023) do
+ActiveRecord::Schema.define(version: 20231005162242) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -419,6 +419,8 @@ ActiveRecord::Schema.define(version: 20231003125023) do
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
     t.string   "status"
+    t.date     "date"
+    t.integer  "taxes"
   end
 
   create_table "issues", force: :cascade do |t|
@@ -464,7 +466,6 @@ ActiveRecord::Schema.define(version: 20231003125023) do
     t.string   "public_uid"
     t.boolean  "updated_by_lawfirm",                                default: false
     t.datetime "initial_date_of_engagement_with_the_bank"
-    t.text     "type_of_matters_your_law_firm_handles_for_us"
     t.text     "type_of_services_your_law_firm_provides_generally"
     t.text     "confidentiality_level_of_matters_that_are_handled"
     t.string   "number_of_lawyers"
@@ -535,8 +536,8 @@ ActiveRecord::Schema.define(version: 20231003125023) do
   create_table "law_firms_tenants", force: :cascade do |t|
     t.integer  "law_firm_id"
     t.integer  "tenant_id"
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
     t.datetime "initial_date_of_engagement_with_the_bank"
     t.string   "bmo_relationship_partner_name"
     t.string   "bmo_relationship_partner_email"
@@ -556,6 +557,7 @@ ActiveRecord::Schema.define(version: 20231003125023) do
     t.boolean  "allow_to_create_matters"
     t.string   "document"
     t.string   "status"
+    t.text     "type_of_matters_your_law_firm_handles_for_us"
   end
 
   create_table "line_of_business_users", force: :cascade do |t|

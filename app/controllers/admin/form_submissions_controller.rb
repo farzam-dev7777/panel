@@ -520,7 +520,8 @@ class Admin::FormSubmissionsController < Admin::BaseController
         :information_security_class, :information_security_assessment_outcome,
         :action_plan_findings, :action_plan_status,
         :information_security_contact, :information_security_contact_email,
-        :allow_to_create_matters
+        :allow_to_create_matters,
+        type_of_matters_your_law_firm_handles_for_us: []
       ],
       locations_attributes: [
         :id, :address1, :address2,
@@ -540,7 +541,6 @@ class Admin::FormSubmissionsController < Admin::BaseController
       ],
       practice_area: [],
       matter_type_ids:[], sub_matter_type_ids: [], jurisdiction_type_ids: [], state_ids: [], country_ids: [],
-      type_of_matters_your_law_firm_handles_for_us: [],
       type_of_services_your_law_firm_provides_generally: [],
       confidentiality_level_of_matters_that_are_handled: []
     )

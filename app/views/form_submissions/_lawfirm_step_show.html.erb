@@ -45,6 +45,9 @@
             <label class="label">Information Security Contact Email</label>
             <%= field.input :information_security_contact_email, label: false, input_html: { autocomplete: 'off', class: 'text-left' } %>
           </div>
+          <div class="col-xs-12 col-md-6">
+            <label class="label">Types of matters your law firm has handled for us to date</label>
+            <%= field.input :type_of_matters_your_law_firm_handles_for_us, label: false, collection: LawFirm::TYPES_OF_MATTERS_FOR_US, input_html: { autocomplete: 'off', class: 'text-left', multiple: true } %>          </div>
         <% end %>
         <div class="col-xs-12 col-md-6">
           <label class="label">Locations</label>
@@ -63,10 +66,6 @@
           </div>
         </div>
         <div class="row col-md-12">
-          <div class="col-xs-12 col-md-6 multiple-selector">
-            <label class="label">Types of matters your law firm has handled for us to date</label>
-            <%= f.input :type_of_matters_your_law_firm_handles_for_us, label: false, collection: LawFirm::TYPES_OF_MATTERS_FOR_US, input_html: { autocomplete: 'off', class: 'text-left', multiple: true } %>
-          </div>
           <div class="col-xs-12 col-md-6">
             <label class="label"><i class="fa fa-question-circle-o help-text" data-help="All users that have access to law firm files, electronic or physical"></i>No. of personnel</label>
             <%= f.input :number_of_lawyers, label: false, collection: LawFirm::NUMBER_OF_LAWYERS, input_html: { autocomplete: 'off', class: 'text-left' } %>
