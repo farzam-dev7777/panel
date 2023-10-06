@@ -200,6 +200,7 @@ class MatterIntake < ApplicationRecord
   def generate_fields(current_user, current_tenant) 
     is_bank_user =  current_user.role != "master_user" && current_user.role != "user"
     is_law_firm =  current_user.role == "master_user" && current_user.role == "user"
+    c_law_firm = (self.law_firm||current_user.law_firm)
     common_fields = [
       {
         name: I18n.t(:line_of_business_id, default: "Line of Business/Business group"),
@@ -381,6 +382,19 @@ class MatterIntake < ApplicationRecord
         collection: Tenant.current.law_firms.where(law_firm_category: "PANEL").map{ |lf| [lf.name, lf.id] }
       },
       {
+        name: I18n.t(:external_lawyer_ids, default: "Preferred Lawyer"),
+        database_field: :external_lawyer_ids,
+        access: {
+          bank: "write",
+          law_firm: "write"
+        },
+        type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: MANDATORY_FIELDS.include?(:external_lawyers) == false,
+        value: self.external_lawyers&.ids,
+        collection: c_law_firm.external_lawyers.pluck(:name, :id),
+        multiple: true
+      },
+      {
         name: I18n.t(:invoices, default: "Invoice (add/upload)"),
         database_field: :invoices,
         access: {
@@ -523,19 +537,6 @@ class MatterIntake < ApplicationRecord
         optional: MANDATORY_FIELDS.include?(:is_ore_reportable) == false,
         value: self.is_ore_reportable,
         collection: [['Yes', 'Yes'], ["No", "No"]]
-      },
-      {
-        name: I18n.t(:external_lawyer_ids, default: "Preferred Lawyer"),
-        database_field: :external_lawyer_ids,
-        access: {
-          bank: "write",
-          law_firm: "write"
-        },
-        type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
-        optional: MANDATORY_FIELDS.include?(:external_lawyers) == false,
-        value: self.external_lawyers&.ids,
-        collection: current_user.law_firm.external_lawyers.pluck(:name, :id),
-        multiple: true
       }
     ]
 
