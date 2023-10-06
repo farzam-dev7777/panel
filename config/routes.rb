@@ -303,11 +303,13 @@ Rails.application.routes.draw do
   resources :law_firms, except: [:index, :create, :new, :show] do
     member do 
       get :agreement
+      get :external_lawyers
     end
     collection do
       get :add_users
       post :invite_users
     end
+    resources :external_lawyers
   end
 
   resources :conflict_waivers do 

@@ -16,11 +16,13 @@ class MatterIntake < ApplicationRecord
   has_many :matter_approvals
   has_many :matter_intake_attachments, -> { where doc_type: 'attachment' }
   has_many :matter_intake_agreements, -> { where doc_type: 'agreement' }, class_name: 'MatterIntakeAttachment'
-
+  has_many :external_lawyer_matter_intakes
+  has_many :external_lawyers, :through => :external_lawyer_matter_intakes
 
   accepts_nested_attributes_for :invoices, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :matter_intake_attachments, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :matter_intake_agreements, reject_if: :all_blank, allow_destroy: true
+
   
   mount_uploader :asset, DocUploader
 
@@ -198,6 +200,7 @@ class MatterIntake < ApplicationRecord
   def generate_fields(current_user, current_tenant) 
     is_bank_user =  current_user.role != "master_user" && current_user.role != "user"
     is_law_firm =  current_user.role == "master_user" && current_user.role == "user"
+    c_law_firm = (self.law_firm||current_user.law_firm)
     common_fields = [
       {
         name: I18n.t(:line_of_business_id, default: "Line of Business/Business group"),
@@ -377,6 +380,19 @@ class MatterIntake < ApplicationRecord
         optional: MANDATORY_FIELDS.include?(:law_firm_id) == false,
         value: self.law_firm_id,
         collection: Tenant.current.law_firms.where(law_firm_category: "PANEL").map{ |lf| [lf.name, lf.id] }
+      },
+      {
+        name: I18n.t(:external_lawyer_ids, default: "Preferred Lawyer"),
+        database_field: :external_lawyer_ids,
+        access: {
+          bank: "write",
+          law_firm: "write"
+        },
+        type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: MANDATORY_FIELDS.include?(:external_lawyers) == false,
+        value: self.external_lawyers&.ids,
+        collection: c_law_firm.external_lawyers.pluck(:name, :id),
+        multiple: true
       },
       {
         name: I18n.t(:invoices, default: "Invoice (add/upload)"),

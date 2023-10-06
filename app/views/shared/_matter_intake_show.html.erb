@@ -119,6 +119,8 @@
                       <div class="field-data"><%= @matter_intake.following_matter_involve_to_s %></div>
                     <% elsif obj[:database_field] == :matter_description %>
                       <div class="field-data" style="height: 85px;"><%= @matter_intake.matter_description %></div>
+                    <% elsif obj[:database_field] == :external_lawyer_ids %>
+                      <div class="field-data" style="height: 85px;"><%= @matter_intake.external_lawyers&.pluck(:name)&.join(', ') %></div>
                     <% else %>
                       <div class="field-data"><%= @matter_intake.send(obj[:database_field]) %></div>
                     <% end %>

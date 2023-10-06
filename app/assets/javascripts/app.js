@@ -2075,6 +2075,32 @@ $('body').on('focus',".invoice_datepicker", function(){
     altField: $(this).next()
   });
 });
+
+$('#matter_intake_law_firm_id').on('change', function() {
+  setAvailableLawyerOptions(this.value)
+})
+
+function setAvailableLawyerOptions(law_firm_id) {
+  $.ajax({
+    url: "/law_firms/" + law_firm_id + "/external_lawyers",
+    method: "get",
+  })
+    .success(( response ) => {
+      $('#matter_intake_external_lawyer_ids').empty();
+      var options = "<option value=''> Select option</option>";
+      if (response.users) {
+        $.each(response.users, function(index, user) {
+          options += "<option value='" + user.id + "'>" + user.name + "</option>";
+        })
+        $('#matter_intake_external_lawyer_ids').html(options);
+        $("#matter_intake_external_lawyer_ids").trigger("chosen:updated")
+      }
+    })
+    .error((error) => {
+      $('#matter_intake_external_lawyer_ids').empty();
+      var options = "<option value=''> Select option</option>";
+    })
+}
 // var _rollbarConfig = {
 //     accessToken: "721164f0eda644f686c3e844ec50ab74",
 //     captureUncaught: true,

@@ -1,0 +1,17 @@
+<div class="sp-form sp-form-bg">
+  <%= simple_form_for [@law_firm, @external_lawyer] do |f| %>
+    <%= f.input :law_firm_id, as: :hidden %>
+    <div class="row form-flex-wrap">
+      <div class="col-xs-12 col-md-6">
+        <label class="label">Name<span class="mandatory">*</span></label>
+        <%= f.input :name, label: false, required: true %>
+      </div>
+
+      <div class="col-xs-12 col-md-12 mt-3">
+        <%= link_to 'Cancel', root_path, class: 'btn-type-default' %>
+        <%= f.button :submit, @external_lawyer.new_record? ? "Create" : "Update", class: "btn-type-primary" %>
+      </div>
+      
+    </div>
+  <% end %>
+</div>
