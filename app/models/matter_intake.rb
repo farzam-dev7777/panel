@@ -16,11 +16,13 @@ class MatterIntake < ApplicationRecord
   has_many :matter_approvals
   has_many :matter_intake_attachments, -> { where doc_type: 'attachment' }
   has_many :matter_intake_agreements, -> { where doc_type: 'agreement' }, class_name: 'MatterIntakeAttachment'
-
+  has_many :external_lawyer_matter_intakes
+  has_many :external_lawyers, :through => :external_lawyer_matter_intakes
 
   accepts_nested_attributes_for :invoices, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :matter_intake_attachments, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :matter_intake_agreements, reject_if: :all_blank, allow_destroy: true
+
   
   mount_uploader :asset, DocUploader
 
@@ -521,6 +523,19 @@ class MatterIntake < ApplicationRecord
         optional: MANDATORY_FIELDS.include?(:is_ore_reportable) == false,
         value: self.is_ore_reportable,
         collection: [['Yes', 'Yes'], ["No", "No"]]
+      },
+      {
+        name: I18n.t(:external_lawyer_ids, default: "Preferred Lawyer"),
+        database_field: :external_lawyer_ids,
+        access: {
+          bank: "write",
+          law_firm: "write"
+        },
+        type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: MANDATORY_FIELDS.include?(:external_lawyers) == false,
+        value: self.external_lawyers&.ids,
+        collection: current_user.law_firm.external_lawyers.pluck(:name, :id),
+        multiple: true
       }
     ]
 

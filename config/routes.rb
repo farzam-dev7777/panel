@@ -308,6 +308,7 @@ Rails.application.routes.draw do
       get :add_users
       post :invite_users
     end
+    resources :external_lawyers
   end
 
   resources :conflict_waivers do 

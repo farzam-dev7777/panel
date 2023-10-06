@@ -31,6 +31,7 @@ class LawFirm < ApplicationRecord
   has_one :panel_request
   has_many :law_firms_tenants
   has_many :tenants, through: :law_firms_tenants
+  has_many :external_lawyers
 
   serialize :practice_area, Array
   # serialize :type_of_matters_your_law_firm_handles_for_us, Array
