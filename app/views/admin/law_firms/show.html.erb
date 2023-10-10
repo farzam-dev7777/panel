@@ -8,9 +8,14 @@
 <div class="col-lg-12">
 	<div class="page-header-sp m-top">
 		<div class="page-title"><%= @law_firm.name %>
-			<% if @law_firm.tenant_on_panel_status%>
+
+			<% if @law_firm.status_show == 'Off Panel'%>
+				 <span class='label label-success' style="background:red;"> 
+	         		Status: <%= @law_firm.status_show %>
+	        	 </span>
+	       	<% else %>
 				 <span class='label label-success'> 
-	         		Status: <%= @law_firm.tenant_on_panel_status %>
+	         		Status: <%= @law_firm.status_show %>
 	        	 </span>
         	<% end %>
 		</div>

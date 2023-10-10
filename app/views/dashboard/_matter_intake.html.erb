@@ -4,7 +4,7 @@
   <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
     <div class="page-header-sp mobile-dashboard-header">
       <div class="page-title">Matters</div>
-      <% if current_user&.law_firm&.current_law_firm_tenant&.allow_to_create_matters.present? %>
+      <% if current_user&.law_firm&.current_law_firm_tenant&.allow_to_create_matters.present? && current_law_firm&.status_show != 'Off Panel'%>
         <div class="back-edit-actions">
           <a class="btn-show-more" href="/matter_intakes/new"> New</a>
         </div>

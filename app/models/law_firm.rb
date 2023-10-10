@@ -231,4 +231,17 @@ class LawFirm < ApplicationRecord
       current_law_firm_tenant&.status
     end
   end
+
+  def status_show
+    law_firm_tenant = self.law_firms_tenants&.where(tenant_id: Tenant&.current&.id)&.first
+    if law_firm_tenant.present? && law_firm_tenant.status == 'Off Panel'
+      'On Panel'
+    elsif self.status == 'Deactivate'
+      'Off Panel'
+    elsif self.form_submissions.blank?
+      'Invited'
+    else
+      'Pending'
+    end
+  end
 end
