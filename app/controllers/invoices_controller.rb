@@ -1,5 +1,9 @@
 class InvoicesController < BaseController
 
+  def index
+
+  end
+
   def approve
     if current_user.is_panel_admin_user?
       invoice = Invoice.find_by_id params[:id]
