@@ -1,9 +1,9 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
+
   helper_method :current_law_firm
   before_filter :set_current_user
   before_filter :authenticate_2fa
-
   #before_filter :set_cache_headers
   before_action :set_tenant
   before_action :set_locale
@@ -32,6 +32,7 @@ class ApplicationController < ActionController::Base
     if current_user
       return true if request.original_url.include?('sign_out') || current_user.is_an_admin? 
       unless session[:authorized]
+        current_user.send_two_fa
         redirect_to new_two_factor_authentication_url unless request.original_url.include? 'two_factor_authentication/new'
       end
     else
