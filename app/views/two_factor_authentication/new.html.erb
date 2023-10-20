@@ -42,9 +42,9 @@
           <form method="POST" action="/two_factor_authentication">
             <div class="alert alert-danger login-error"></div>
               <span class="signin-alert">
-                <%- flash.each do |name, msg| -%>
-                  <%= content_tag :div, msg, :id => "<div class='alert alert-danger p-error'>flash_#{name}</div>".html_safe if msg.is_a?(String) && msg != 'You need to sign in or sign up before continuing.' %> 
-                <%- end -%> 
+                <% if alert %>
+                  <%= content_tag :div, alert, :id => "<div class='alert alert-danger p-error'>flash_alert</div>".html_safe if msg.is_a?(String) && msg != 'You need to sign in or sign up before continuing.' %> 
+                <% end %> 
               </span>
               <div>
                 <div class="sp-input">

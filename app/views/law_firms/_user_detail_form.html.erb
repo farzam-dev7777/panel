@@ -1,0 +1,31 @@
+<style>
+  input, textarea, select { padding: 0px !important; margin: 0px; background: transparent; }
+</style>
+<div class="">
+  <div class="sp-form sp-form-bg">
+    <%= simple_form_for current_law_firm do |f| %>
+      <div class="row">
+        <div class="col-xs-12 col-md-12">
+          <div class="inner-label">User Details</div>
+          <%= f.simple_fields_for :users do |field| %>
+            <div class="col-xs-12 col-md-6">
+              <label class="label">Username</label>
+              <%= field.input :username, label: false %>
+            </div>
+            <div class="col-xs-12 col-md-3">
+              <label class="label">First Name</label>
+              <%= field.input :first_name, label: false %>
+            </div>
+            <div class="col-xs-12 col-md-3">
+              <label class="label">Last Name</label>
+              <%= field.input :last_name, label: false %>
+            </div>
+          <% end %>
+        </div>
+        <div class="col-xs-12 col-md-12 btn-decor-sp" style="margin-top: 30px;">
+          <%= f.button :submit, 'Update & Continue', class: "btn-type-primary" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

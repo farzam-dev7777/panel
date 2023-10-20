@@ -1,0 +1,50 @@
+<style>
+  div#gauge * {
+    top: -25px;
+  }
+
+  input, textarea, select { padding: 0px !important; margin: 0px; background: transparent; }
+</style>
+<% if @law_firm.current_law_firm_tenant.present? %>
+<div class="">
+  <div class="sp-form sp-form-bg">
+      <div class="sp-form sp-form-bg">
+        <%= simple_form_for law_firm_form_url(@law_firm), html: { multipart: true } do |f| %>
+          <div class="row form-flex-wrap">
+            <!-- New form start -->
+            <div class="col-md-12 col-xs-12">
+              <div class="formHeader">
+                <div class="headerTitle">Agreement</div>
+              </div>
+            </div>
+            <%= f.simple_fields_for :law_firms_tenants, @law_firm.current_law_firm_tenant do |form| %>
+              <div class="col-md-12 col-xs-12">
+                <div id="matter_intake_agreement">
+                  <div class="col-md-12 col-xs-12">
+                    <div class="formSection row nested-fields"> <!-- this main div will be functional -->
+                      <div class="col-xs-12 col-md-1">
+                        <div><label class="label">Upload</label></div>
+                        <div class="uploadFile">
+                          <label for="file" onclick="trigger_file_input(this)">
+                              <%= image_tag "paperclip.png", alt:"Upload file", style:"width: 30px;" %>
+                            <span class="file_name" style="padding: 5px;"><%= form.object.document.identifier%></span>
+                          </label>
+                          <%= form.input :document, label: false, as: :file, input_html: {multiple: false, onchange:"show_file_name(this)"} %>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+            <div class="col-xs-12 col-md-12 text-right">
+              <%= f.button :submit, "Update & Continue", class: "btn-type-primary" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% else %>
+  Tenant is not found
+<% end %>
