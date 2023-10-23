@@ -391,7 +391,7 @@ class MatterIntake < ApplicationRecord
         type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
         optional: MANDATORY_FIELDS.include?(:external_lawyers) == false,
         value: self.external_lawyers&.ids,
-        collection: c_law_firm.external_lawyers.pluck(:name, :id),
+        collection: c_law_firm&.external_lawyers.pluck(:name, :id),
         multiple: true
       },
       {
