@@ -1,4 +1,6 @@
 class MatterIntake < ApplicationRecord
+
+  has_paper_trail  
   acts_as_paranoid
   self.per_page = 10
   belongs_to :user

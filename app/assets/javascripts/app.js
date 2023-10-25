@@ -2043,13 +2043,15 @@ $(document.body).on('change', '.file.optional.ajax_file_upload', function(elemen
       return true;
     },
     success: response => {
-      date = response['resource']['date'].split(' ')[0]
-      message = "Total: "+response['resource']['total'] +'\nDate: '+date
+      if(date = response['resource']['date'] != null && response['resource']['total'] != null){
+        date = response['resource']['date'].split(' ')[0]
+        message = "Total: "+response['resource']['total'] +'\nDate: '+date
 
-      if (confirm(message) == true) {
-        $($(this).parents('.nested-fields')).find('.matter_intake_invoices_amount input').val(response['resource']['total']);
-        $($(this).parents('.nested-fields')).find('.invoice_datepicker').val(date);
-        $($(this).parents('.nested-fields')).find('.hidden.veryfi_response').val(response['resource']);
+        if (confirm(message) == true) {
+          $($(this).parents('.nested-fields')).find('.matter_intake_invoices_amount input').val(response['resource']['total']);
+          $($(this).parents('.nested-fields')).find('.invoice_datepicker').val(date);
+          $($(this).parents('.nested-fields')).find('.hidden.veryfi_response').val(response['resource']);
+        }
       }
       $($(this).parents('.uploadFile')).find('.loader').hide();
     },
@@ -2082,12 +2084,12 @@ $('#matter_intake_law_firm_id').on('change', function() {
 
 function setAvailableLawyerOptions(law_firm_id) {
   $.ajax({
-    url: "/law_firms/" + law_firm_id + "/external_lawyers",
+    url: "/law_firms/" + law_firm_id + "/get_external_lawyers",
     method: "get",
   })
     .success(( response ) => {
       $('#matter_intake_external_lawyer_ids').empty();
-      var options = "<option value=''> Select option</option>";
+      var options = "";
       if (response.users) {
         $.each(response.users, function(index, user) {
           options += "<option value='" + user.id + "'>" + user.name + "</option>";

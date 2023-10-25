@@ -75,6 +75,7 @@ gem 'veryfi'
 gem 'apartment'
 gem 'omniauth-azure-activedirectory-v2'
 gem "recaptcha"
+gem 'paper_trail'
 
 
 group :development, :test do

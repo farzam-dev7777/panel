@@ -1,0 +1,30 @@
+<div>
+  <ul class="smart-timeline-list">
+    <% @matter_intake.versions.each do |version| %>
+      <% version.changeset.each do |key, value|%>
+        <% if key != 'updated_at' && value.first.present? && value.last.present?%>
+          <li data-id="log_<%= version.id %>">
+            <div class="smart-timeline-icon"> R </div>
+          <div class="smart-timeline-time">
+            <small><%= version.created_at.strftime('%d %b %Y at %I:%M %p') %></small>
+            <small><i><%= time_ago_in_words(version.created_at) %> ago</i> </small>
+          </div>
+          <div class="smart-timeline-content">
+            <p>
+              <strong>
+                <%= version.whodunnit||'System' %> update <%= key %>
+              </strong>
+            </p>
+            <p>
+              <%= "Old: #{value.first}"%>
+            </p>
+            <p>
+              <%= "New: #{value.last}" %>
+            </p>
+          </div>
+        </li>
+        <% end %>
+      <% end %>
+    <% end %>
+  </ul>
+</div>

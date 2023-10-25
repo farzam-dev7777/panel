@@ -118,7 +118,7 @@ class LawFirmsController < BaseController
     @law_firm = LawFirm.find_by_id params[:id]
   end
 
-  def external_lawyers
+  def get_external_lawyers
     law_firm = LawFirm.find_by_id params[:id]
     if law_firm.present?
       lawyers = law_firm.external_lawyers.map{|s| {id:s.id, name: s.name}}

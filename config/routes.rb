@@ -300,10 +300,10 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :law_firms, except: [:index, :create, :new, :show] do
+  resources :law_firms do
     member do 
       get :agreement
-      get :external_lawyers
+      get :get_external_lawyers
     end
     collection do
       get :add_users
