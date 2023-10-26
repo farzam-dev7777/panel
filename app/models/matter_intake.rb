@@ -1,6 +1,6 @@
 class MatterIntake < ApplicationRecord
 
-  has_paper_trail  
+  has_paper_trail
   acts_as_paranoid
   self.per_page = 10
   belongs_to :user
@@ -196,6 +196,71 @@ class MatterIntake < ApplicationRecord
           errors.add(field, "can't be blank")
         end
       end
+    end
+  end
+
+  def db_key_mapping(key, value)
+    case key
+    when 'line_of_business_id'
+      [I18n.t(:line_of_business_id, default: "Line of Business/Business group"), LineOfBusiness.find_by_id(value)&.name]
+    when 'submitter_name'
+      [I18n.t(:submitter_name, default: "Submitter Name"), value]
+    when "name_of_matter_client"
+      [I18n.t(:name_of_matter_client, default: "Matter Name"), value]
+    when 'matter_number'
+      [I18n.t(:matter_number, default: "Matter Number"), value]
+    when 'requested_by_id'
+      [I18n.t(:requested_by_id, default: "Requested by"), User.find_by_id(value)&.full_name]
+    when 'matter_type_id'
+      [I18n.t(:matter_type_id, default: "Matter Type"), MatterType.find_by_id(value)&.matter_type]
+    when 'matter_description'
+      [I18n.t(:matter_description, default: "Matter Description"), value]
+    when 'paying_entity'
+      [I18n.t(:paying_entity, default: "Entity"), value]
+    when 'other_party'
+      [I18n.t(:other_party, default: "Other Party"), value]
+    when 'other_party'
+      [I18n.t(:stage_of_litigation, default: "Litigation Stage"), value]
+    when 'primary_issue'
+      [I18n.t(:primary_issue, default: "Issue"), value]
+    when 'following_matter_involve'
+      [I18n.t(:following_matter_involve, default: "Will this matter involve the following"), value]
+    when 'lawyer_id'
+      [I18n.t(:lawyer_id, default: "Internal (Bank) Responsible Lawyer"), InternalLawyer.find_by(id: value)&.full_name]
+    when 'additional_comments_for_lrc_lawyer'
+      [I18n.t(:additional_comments_for_lrc_lawyer, default: "Additional Comments for Internal Lawyer"), value]
+    when 'law_firm_id'
+      [I18n.t(:law_firm_id, default: "External Law firm"), LawFirm.find_by_id(value)&.name]
+    when 'external_lawyer_ids'
+      [I18n.t(:external_lawyer_ids, default: "External Law firm"), value]
+    when 'jurisdiction'
+      [I18n.t(:jurisdiction, default: "Jurisdiction"), value]
+    when 'is_syndicate_matter'
+      [I18n.t(:is_syndicate_matter, default: "Is this a syndicated matter?"), value]
+    when 'afa_details'
+      [I18n.t(:afa_details, default: "AFA"), value]
+    when 'budget_amount'
+      [I18n.t(:budget_amount, default: "Fee Estimate / Budget"), value]
+    when 'cost_centre_for_legal_fees'
+      [I18n.t(:cost_centre_for_legal_fees, default: "Cost Centre (transit) for legal fees"), value]
+    when 'deal_code'
+      [I18n.t(:deal_code, default: "Deal Code (Capital Markets Only)"), value]
+    when 'related_matter_number'
+      [I18n.t(:related_matter_number, default: "Related Matter Number"), value]
+    when 'pii_involved'
+      [I18n.t(:pii_involved, default: "Any PII involved in this matter?"), value]
+    when 'can_reimbursed_matter'
+      [I18n.t(:can_reimbursed_matter, default: "Could law firm potentially receive sensitive information"), value]
+    when 'is_ore_reportable'
+      [I18n.t(:is_ore_reportable, default: "Reportable Risk"), value]
+    when 'internal_file_number'
+      [I18n.t(:internal_file_number, default: "Internal File Number"), value]
+    when 'business_department'
+      [I18n.t(:business_department, default: "Business Department"), value]
+    when 'business_group'
+      [I18n.t(:business_group, default: "Business Group Responsible for Invoice"), value]
+    else
+      [key, value]
     end
   end
 

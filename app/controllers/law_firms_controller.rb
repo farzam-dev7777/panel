@@ -118,6 +118,10 @@ class LawFirmsController < BaseController
     @law_firm = LawFirm.find_by_id params[:id]
   end
 
+  def additional_document
+    @law_firm = LawFirm.find_by_id params[:id]
+  end
+
   def get_external_lawyers
     law_firm = LawFirm.find_by_id params[:id]
     if law_firm.present?
@@ -166,7 +170,8 @@ class LawFirmsController < BaseController
         :id, :first_name, :last_name, :username
       ],
       practice_area: [],
-      type_of_services_your_law_firm_provides_generally: []
+      type_of_services_your_law_firm_provides_generally: [],
+      law_firm_attachments_attributes:[:id, :file, :tenant_id, :_destroy]
     )
   end
 

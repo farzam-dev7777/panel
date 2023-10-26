@@ -10,16 +10,18 @@
             <small><i><%= time_ago_in_words(version.created_at) %> ago</i> </small>
           </div>
           <div class="smart-timeline-content">
+            <% old_obj = @matter_intake.db_key_mapping(key, value.first)%>
+            <% new_obj = @matter_intake.db_key_mapping(key, value.last)%>
             <p>
               <strong>
-                <%= version.whodunnit||'System' %> update <%= key %>
+                <%= version.whodunnit||'System' %> update <%= old_obj.first %>
               </strong>
             </p>
             <p>
-              <%= "Old: #{value.first}"%>
+              <%= "Old: #{old_obj.last}"%>
             </p>
             <p>
-              <%= "New: #{value.last}" %>
+              <%= "New: #{new_obj.last}" %>
             </p>
           </div>
         </li>

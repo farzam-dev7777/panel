@@ -1,0 +1,48 @@
+<div class="no-padding">
+  <div style="margin:10px;">
+    <% if current_law_firm&.current_law_firm_tenant.present? %>
+      <% document = current_law_firm.law_firms_tenants.where(tenant_id: Tenant&.current&.id)&.first&.document %>
+      <% if document.present?%>
+        <%= link_to "Edit Agreement", agreement_law_firm_path(current_law_firm), class: "btn-type-primary"%>
+      <% else %>
+        <%= link_to "Add Agreement", agreement_law_firm_path(current_law_firm), class: "btn-type-primary"%>
+      <% end %> 
+    <% end %>
+    <%= link_to "Add Addtional Document", additional_document_law_firm_path(current_law_firm), class: "btn-type-primary"%>
+  </br>
+  </div>
+  <!-- widget content -->
+
+  <div class="widget-body">
+    <div class="table-responsive">
+      <table id="" class="table table-decoration table-bordered" width="100%">
+        <thead>
+          <tr>
+            <th>Document Name</th>
+            <th>Document Type</th>
+            <th>Created At</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%if @law_firm.current_law_firm_tenant&.document.present? %>
+              <% doc_aggremnt = @law_firm.current_law_firm_tenant%>
+              <td>
+                <%= link_to doc_aggremnt.attributes['document'], doc_aggremnt.document&.url, class: "btn-type-link"%>
+              </td>
+              <td>Ageement</td>
+              <td><%= doc_aggremnt.updated_at&.strftime('%d %b %Y')  %></td>
+          <% end %>
+          <% @law_firm.law_firm_attachments.where(tenant_id: Tenant.current.id).each do |attachment| %>
+            <tr>
+              <td>
+                <%= link_to attachment.attributes['file'], attachment.file&.url, class: "btn-type-link"%>
+              </td>
+              <td>Additional Document</td>
+              <td><%= attachment&.updated_at&.strftime('%d %b %Y') %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

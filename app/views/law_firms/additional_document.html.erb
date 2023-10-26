@@ -1,0 +1,37 @@
+<% if @law_firm.current_law_firm_tenant.present? %>
+  <div class="">
+    <div class="sp-form sp-form-bg">
+      <div class="sp-form sp-form-bg">
+        <%= simple_form_for law_firm_form_url(@law_firm), html: { multipart: true } do |f| %>
+          <div class="row form-flex-wrap">
+            <!-- New form start -->
+            <div class="col-md-12 col-xs-12">
+              <div class="formHeader">
+                <div class="headerTitle">Additional Document</div>
+              </div>
+            </div>
+
+            <div class="col-md-12 col-xs-12">
+              <% documents = @law_firm.law_firm_attachments.where(tenant_id: Tenant.current&.id)%>
+              <% if documents.count > 0 %>
+                <% documents.each do |attachment| %>
+                  <%= f.simple_fields_for :law_firm_attachments, attachment do |form| %>
+                    <%= render 'law_firm_attachment_fields', f: form, attachment: attachment %>
+                  <% end %>
+                <% end %>
+              <% end %>
+              <div class="addButton links mb-4">
+                <%= link_to_add_association '<span href="javascript:void(0);"><i class="fa fa-plus-circle"></i> Add Attachment</span>'.html_safe, f, :law_firm_attachments, partial: 'law_firm_attachment_fields' %> 
+              </div>
+            </div>
+            <div class="col-xs-12 col-md-12 text-right">
+              <%= f.button :submit, "Update & Continue", class: "btn-type-primary" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% else %>
+  Tenant is not found
+<% end %>

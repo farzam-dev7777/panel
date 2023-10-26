@@ -303,6 +303,7 @@ Rails.application.routes.draw do
   resources :law_firms do
     member do 
       get :agreement
+      get :additional_document
       get :get_external_lawyers
     end
     collection do
