@@ -2016,7 +2016,7 @@ $(document).on('change', '#lawfirm_tenants', function(){
   var subdomain = $(this).val();
   $.ajax({
     method: 'POST',
-    url: 'tenants/switch',
+    url: '/tenants/switch',
     data: { subdomain: subdomain },
     dataType: 'json',
     context: $(this),
@@ -2080,6 +2080,10 @@ $('body').on('focus',".invoice_datepicker", function(){
 
 $('#matter_intake_law_firm_id').on('change', function() {
   setAvailableLawyerOptions(this.value)
+})
+
+$('#matter-security-form').on('click', function() {
+  $('#matter-back-button').trigger('click');
 })
 
 function setAvailableLawyerOptions(law_firm_id) {

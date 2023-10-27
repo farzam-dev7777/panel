@@ -11,9 +11,15 @@
     <div class="page-header-sp m-top">
       <div class="page-title">Matter Intake Form - <%= @form_type === 'general' || @matter_intake&.form_type === 'general' ? "General" : "Litigation" %></div>
       <div class="back-edit-actions">
-        <a class="btn-type-default" href="/matter_intakes">
-          <%= image_tag "chevron-back-icon.svg", alt:"Back" %>
-        </a>
+        <% if @show_information_security_form.present? %>
+          <a class="btn-type-default" href="#" id="matter-security-form">
+            <%= image_tag "chevron-back-icon.svg", alt:"Back" %>
+          </a>
+        <% else %>
+          <a class="btn-type-default" href="/matter_intakes">
+            <%= image_tag "chevron-back-icon.svg", alt:"Back" %>
+          </a>
+        <% end %>
       </div>
     </div>
     <%= render "form_v1" %> 

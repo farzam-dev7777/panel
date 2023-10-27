@@ -5,7 +5,7 @@
     <%= f.input :form_type, as: :hidden, :input_html => { :value => 'general'} %>
     <div class="row form-flex-wrap">
       <% m_form_hide = @show_information_security_form.present? ? 'none' : ''%>
-      <div style="display: <%=m_form_hide%>;">
+      <div id="main-matter-form" style="display: <%=m_form_hide%>;">
         <%@matter_intake.generate_fields(current_user, Tenant.current).each do |obj| %>
           <% if obj[:access][matter_role] == 'write'%>
             <% f_width = obj[:database_field] == :matter_description ? 12 : 6%>
@@ -66,6 +66,7 @@
           </div>
         <% end %>
       </div>
+      <%= f.button :submit, "back", class: "btn-type-primary hide", id: "matter-back-button" %>
       <% if @show_information_security_form.present? %>
         <%= render 'form_information_security', f: f%>
         <div class="col-xs-12 col-md-12 text-right">

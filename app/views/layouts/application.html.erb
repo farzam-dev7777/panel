@@ -29,52 +29,68 @@
       <div class="text-center portal-type">
         <p>Firm Portal</p>
       </div>
-      <div class="project-context user-info sp-user-dropdown-menu">
-        <span class="project-selector dropdown-toggle sp-user-profile" data-toggle="dropdown">
-          <%= image_tag get_avatar_image(current_user.full_name), alt:"User", class:"user-image" %> 
-          <div class="user-welcome">
-            <span class="welcome">Welcome</span>
-            <span class="sp-user-name"><%= current_user.username %> </span>
+      <div class="col-lg-4">
+        <div class="col-lg-4">
+          <div class="">
+            <% if Current.user.role === "master_user" || Current.user.role === "user" %>
+              <select class="form-control" id="lawfirm_tenants">
+                <% current_law_firm&.tenants&.each do |t| %>
+                  <option value='<%= t&.subdomain %>' <%= t&.id === Tenant&.current&.id ? 'selected' : '' %>><%= t&.name %></option>
+                <% end %>
+              </select>
+            <% end %>
           </div>
-          <span class="drop-down-icon">
-            <%= image_tag "drop-down-icon.svg", alt:"Drop menu" %>
-          </span>
-        </span>
-        <ul class="dropdown-menu">
-            <% if current_law_firm && current_law_firm.form_submissions.any? && ( !['sent', 'started'].include? current_law_firm.form_submissions.latest.status ) %>
-              <!--li>
-                <%= link_to "Technologies", technology_profile_form_submission_path(current_law_firm.form_submissions.latest) %>
+        </div>
+        <div class="col-lg-2">
+          <div class="project-context user-info sp-user-dropdown-menu">
+
+          <div class="project-selector dropdown-toggle sp-user-profile" data-toggle="dropdown">
+            <%= image_tag get_avatar_image(current_user.full_name), alt:"User", class:"user-image" %> 
+            <div class="user-welcome">
+              <span class="welcome">Welcome </span>
+              <em><%= current_user&.law_firm&.name%></em>
+              <span class="sp-user-name"><%= current_user.username %> </span>
+            </div>
+            <span class="drop-down-icon">
+              <%= image_tag "drop-down-icon.svg", alt:"Drop menu" %>
+            </span>
+          </div>
+          <ul class="dropdown-menu">
+              <% if current_law_firm && current_law_firm.form_submissions.any? && ( !['sent', 'started'].include? current_law_firm.form_submissions.latest.status ) %>
+                <!--li>
+                  <%= link_to "Technologies", technology_profile_form_submission_path(current_law_firm.form_submissions.latest) %>
+                </li>
+                <li class="divider"></li>
+                <li>
+                  <%= link_to "History", history_profile_form_submission_path(current_law_firm.form_submissions.latest) %>
+                </li>
+                <li class="divider"></li-->
+              <% end %>
+              <% if current_user.role == 'master_user' && current_law_firm %>
+                <li>
+                  <%= link_to "Add User", add_users_law_firms_path %>
+                </li>
+                <li class="divider"></li>
+                <li>
+                  <%= link_to "Add Lawyer", law_firm_external_lawyers_path(current_law_firm) %>
+                </li>
+                <li class="divider"></li>
+                <li>
+                  <%= link_to "Edit Profile", edit_law_firm_path(current_law_firm) %>
+                </li>
+                <li class="divider"></li>
+              <% end %>
+              <li>
+                <%= link_to "Change password", "/set_new_password" %>
               </li>
               <li class="divider"></li>
               <li>
-                <%= link_to "History", history_profile_form_submission_path(current_law_firm.form_submissions.latest) %>
+                <a href="/users/sign_out">Logout</a>
               </li>
-              <li class="divider"></li-->
-            <% end %>
-            <% if current_user.role == 'master_user' && current_law_firm %>
-              <li>
-                <%= link_to "Add User", add_users_law_firms_path %>
-              </li>
-              <li class="divider"></li>
-              <li>
-                <%= link_to "Add Lawyer", law_firm_external_lawyers_path(current_law_firm) %>
-              </li>
-              <li class="divider"></li>
-              <li>
-                <%= link_to "Edit Profile", edit_law_firm_path(current_law_firm) %>
-              </li>
-              <li class="divider"></li>
-            <% end %>
-            <li>
-              <%= link_to "Change password", "/set_new_password" %>
-            </li>
-            <li class="divider"></li>
-            <li>
-              <a href="/users/sign_out">Logout</a>
-            </li>
-          </ul>
-        <!-- end dropdown-menu-->
-      </div>
+            </ul>
+          <!-- end dropdown-menu-->
+        </div>
+       </div>
     </header>
     <div class="small-device-page-title">
       <p>Firm Portal</p>

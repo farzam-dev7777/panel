@@ -55,9 +55,9 @@ class MatterIntakesController < BaseController
     @matter_intake.submitter_name = current_user.full_name if @matter_intake.submitter_name.blank?
     @matter_intake.matter_number = "MT-#{Date.today.month}-#{Date.today.day}-#{MatterIntake.count}" if @matter_intake.matter_number.blank?
     if @matter_intake.valid?
-      if params[:commit] === "Next"
+      if params[:commit] == "Next" || params[:commit] == "back"
         flash[:alert]=''
-        @show_information_security_form=true
+        @show_information_security_form = params[:commit] == "Next"
         render :new
       else
         @matter_intake.save
