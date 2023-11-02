@@ -403,8 +403,8 @@ class MatterIntake < ApplicationRecord
         name: I18n.t(:following_matter_involve, default: "Will this matter involve the following"),
         database_field: :following_matter_involve,
         access: {
-          bank: "write",
-          law_firm: "write"
+          bank: "not_access",
+          law_firm: "not_access"
         },
         type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
         optional: MANDATORY_FIELDS.include?(:following_matter_involve) == false,
@@ -428,7 +428,7 @@ class MatterIntake < ApplicationRecord
         name: I18n.t(:additional_comments_for_lrc_lawyer, default: "Additional Comments for Internal Lawyer"),
         database_field: :additional_comments_for_lrc_lawyer,
         access: {
-          bank: "write",
+          bank: "not_access",
           law_firm: "not_access"
         },
         type: "text", # "dropdown" | "autofill" | "text" | "autocomplete"
@@ -549,7 +549,7 @@ class MatterIntake < ApplicationRecord
         name: I18n.t(:deal_code, default: "Deal Code (Capital Markets Only)"),
         database_field: :deal_code,
         access: {
-          bank: "write",
+          bank: "not_access",
           law_firm: "not_access"
         },
         type: "text", # "dropdown" | "autofill" | "text" | "autocomplete"
@@ -613,8 +613,8 @@ class MatterIntake < ApplicationRecord
         database_field: :internal_file_number,
         default_name: "Internal File Number",
         access: {
-          bank: "write",
-          law_firm: "read"
+          bank: "not_access",
+          law_firm: "not_access"
         },
         type: "text", # "dropdown" | "autofill" | "text" 
         optional: MANDATORY_FIELDS.include?(:internal_file_number) == false,
