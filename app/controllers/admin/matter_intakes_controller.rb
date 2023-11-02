@@ -88,8 +88,8 @@ class Admin::MatterIntakesController < Admin::BaseController
       else
         @matter_intake.save
         @matter_intake.update_attributes(status: "submitted", lawyer_reviewed_at: Time.now)
-        @matter_intake.set_default_approval_status(current_user)
         @matter_intake.auto_approve_matter(current_user)
+        @matter_intake.set_default_approval_status(current_user)
         @matter_intake.send_notification_to_lawyer
         flash[:notice] = "Matter Intake Form submitted"
         redirect_to admin_matter_intake_path(@matter_intake)
@@ -122,6 +122,7 @@ class Admin::MatterIntakesController < Admin::BaseController
 
     if @matter_intake.present? && @matter_intake.update_attributes(matter_intake_params)
       @matter_intake.auto_approve_matter(current_user)
+      
       # @matter_intake.set_default_approval_status
       if current_user.role === "internal_lawyers"
         if params[:matter_intake] && params[:matter_intake][:submit_type] && params[:matter_intake][:submit_type] === "update"

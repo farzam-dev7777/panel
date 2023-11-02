@@ -1139,7 +1139,7 @@ class MatterIntake < ApplicationRecord
         actor_id: current_user.id,
         reviewable_type: self.class.to_s,
         reviewable_id: self.id,
-        description: "Auto Approved by System" ,
+        description: "#{current_user.try(:full_name)} submitted a new matter and was auto approved." ,
         status: self.status.downcase
       )
       self.update_columns(status: 'opened')
@@ -1208,7 +1208,7 @@ class MatterIntake < ApplicationRecord
         actor_id: current_user&.id,
         reviewable_type: self.class.to_s,
         reviewable_id: self.id,
-        description: "Auto Approved by #{current_user.try(:full_name)}" ,
+        description: "#{current_user.try(:full_name)} submitted a new matter for approval." ,
         status: self.status.downcase
       )
       notfiy_roles = []
