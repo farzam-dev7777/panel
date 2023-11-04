@@ -17,7 +17,8 @@
 						<label for="file" onclick="trigger_file_input(this)">
 							<%= image_tag "paperclip.png", alt:"Upload file", style:"width: 30px;" %>
 						</label>
-						<%= p.input :file, label: false, as: :file, input_html: {multiple: false, class: "ajax_file_upload"} %>
+						<%= p.input :file, label: false, as: :file, input_html: {multiple: false, class: "ajax_file_upload", onchange:"show_file_name(this)"} %>
+						<span class="file_name" style="padding: 5px;"></span>
 						<span class="loader" style="display:none;">&nbsp;&nbsp;<i class="fa fa-refresh fa-spin fa-1x fa-fw"></i></span>
 					</div>
 				</div>
