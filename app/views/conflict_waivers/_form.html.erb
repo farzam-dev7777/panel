@@ -42,7 +42,7 @@
       </div>
       <div class="col-xs-12 col-md-6">
         <label  class="label">Contact details (Email or Phone Number)</label>
-        <%= f.input :contact_details, label: false %>
+        <%= f.input :contact_details, label: false, :input_html => { value: @conflict_waiver.contact_details||@current_user.email }%>
         <%= f.input :user_id, :as => :hidden, :input_html => { value: @current_user.id } %>
       </div>
       <div class="col-xs-12 col-md-6">
