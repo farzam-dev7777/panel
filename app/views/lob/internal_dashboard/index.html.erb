@@ -84,7 +84,7 @@
   <div class="col-lg-12 col-md-12 col-sm-12 dashboard-btn-group" style="margin-top: 50px;">
     <div class="action-buttons-alignment">
       <a class="action-btn export-icon" href="<%= new_lob_matter_intake_path %>" data-toggle="tooltip" data-placement="top" title="Submit New Matter Intake Form">
-        <span class="blue-text">Matter Request</span> <%= image_tag "add.svg", alt:"Submit New Matter Intake Form" %>
+        <span class="blue-text">New Matter Request</span> <%= image_tag "add.svg", alt:"Submit New Matter Intake Form" %>
       </a>
       <%- if Tenant.current.enable_exception_requests %>
         <a class="action-btn export-icon" href="<%= engage_non_panel_firm_lob_exception_requests_path %>" data-toggle="tooltip" data-placement="top" title="Submit New Exception Request">

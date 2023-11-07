@@ -22,11 +22,11 @@ class ConflictWaiver < ApplicationRecord
   }
 
   CONFLICT_WAIVER_STATUS_LXP = {
+    "IN_REVIEW": "In Review",
     "ALREADY_COVERED": "Covered under retainer",
-    "APPROVED": "Approve",
     "REQUEST_INFO": "More info required",
     "ASSIGN_TO_LAWYER": "Assigned to lawyer",
-    "IN_REVIEW": "In Review",
+    "APPROVED": "Approve",
     "REJECTED": "Reject"
   }
 
