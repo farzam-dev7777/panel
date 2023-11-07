@@ -20,7 +20,6 @@ wb.styles do |style|
       "Reason for Request",
       "Internal Status",
       "Internal Lawyer Status",
-      "Waiver Completely Approved"
       ], style: heading
     # Create entries for each item
      @conflict_waivers.each do |conflict_waiver|
