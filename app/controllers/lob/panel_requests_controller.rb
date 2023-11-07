@@ -56,7 +56,7 @@ class Lob::PanelRequestsController < Lob::BaseController
   end
 
   def new
-    if SystemSetting.fetch.panel_status === "Yes"
+    if Tenant&.current&.allow_panel_consideration_lob_Lawyers.present?
       @panel_request = PanelRequest.new
       @law_firm = @panel_request.build_law_firm
       @user = @law_firm.users.build       
@@ -69,7 +69,7 @@ class Lob::PanelRequestsController < Lob::BaseController
   end
 
   def edit
-    if SystemSetting.fetch.panel_status === "Yes"
+    if Tenant&.current&.allow_panel_consideration_lob_Lawyers.present?
       @panel_request = PanelRequest.find(params[:id])
       @law_firm = @panel_request.law_firm
       @current_lob_user_email = @panel_request.submitted_by_email
@@ -83,13 +83,13 @@ class Lob::PanelRequestsController < Lob::BaseController
  
 
   def download_pdf
-    
     @panel_request = PanelRequest.find(params[:panel_request_id])
     document_name = @panel_request.get_document_name.gsub(".pdf","-signed.pdf")
     send_data @panel_request.get_document_list, filename: document_name
   end
 
   private
+
   def panel_requests_params_update
     params.require(:panel_request).permit(
       :requested_by, :submitted_by_email, :user_id, :line_of_business,

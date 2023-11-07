@@ -86,6 +86,14 @@
         <%= f.input :azure_client_secret, label: false %>
       </div>
       <div class="col-xs-12 col-md-6 azure_fields">
+        <label class="label">Panel Consideration Request Open for LOB/Lawyers</label>
+        <%= f.input :allow_panel_consideration_lob_Lawyers, label: false %>
+      </div>
+      <div class="col-xs-12 col-md-6 azure_fields">
+        <label class="label">System Score Threshold</label>
+        <%= f.number_field :system_score_threshold, label: false %>
+      </div>
+      <div class="col-xs-12 col-md-6 azure_fields">
         <label class="label">Internal Lawyer (SSO Group Name - default: Panel - Internal Lawyers)</label>
         <%= f.input :internal_lawyer, label: false %>
       </div>
