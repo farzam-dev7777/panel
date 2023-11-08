@@ -13,7 +13,7 @@ class MatterApproval < ApplicationRecord
     lxp: "LXP",
     lob: "LOB",
     master_user: "Law Firm",
-    internal_lawyers: 'Internal Layer'
+    internal_lawyers: 'Internal Lawyer'
   }
 
   attr_accessor :description
