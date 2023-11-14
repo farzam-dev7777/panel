@@ -202,7 +202,7 @@ class MatterIntake < ApplicationRecord
   def db_key_mapping(key, value)
     case key
     when 'line_of_business_id'
-      [I18n.t(:line_of_business_id, default: "Line of Business/Business group"), LineOfBusiness.find_by_id(value)&.name]
+      [I18n.t(:line_of_business_id, default: "Line of Business/Corporate Group"), LineOfBusiness.find_by_id(value)&.name]
     when 'submitter_name'
       [I18n.t(:submitter_name, default: "Submitter Name"), value]
     when "name_of_matter_client"
@@ -232,7 +232,7 @@ class MatterIntake < ApplicationRecord
     when 'law_firm_id'
       [I18n.t(:law_firm_id, default: "External Law firm"), LawFirm.find_by_id(value)&.name]
     when 'external_lawyer_ids'
-      [I18n.t(:external_lawyer_ids, default: "External Law firm"), value]
+      [I18n.t(:external_lawyer_ids, default: "Assigned Lawyer"), value]
     when 'jurisdiction'
       [I18n.t(:jurisdiction, default: "Jurisdiction"), value]
     when 'is_syndicate_matter'
@@ -258,7 +258,7 @@ class MatterIntake < ApplicationRecord
     when 'business_department'
       [I18n.t(:business_department, default: "Business Department"), value]
     when 'business_group'
-      [I18n.t(:business_group, default: "Business Group Responsible for Invoice"), value]
+      [I18n.t(:business_group, default: "Line of Business/Corporate Group Responsible for Invoice"), value]
     else
       [key, value]
     end
@@ -270,7 +270,7 @@ class MatterIntake < ApplicationRecord
     c_law_firm = (self.law_firm||current_user.law_firm)
     common_fields = [
       {
-        name: I18n.t(:line_of_business_id, default: "Line of Business/Business group"),
+        name: I18n.t(:line_of_business_id, default: "Line of Business/Corporate Group"),
         database_field: :line_of_business_id,
         access: {
           bank: "write",
@@ -449,7 +449,7 @@ class MatterIntake < ApplicationRecord
         collection: Tenant.current.law_firms.where(law_firm_category: "PANEL").map{ |lf| [lf.name, lf.id] }
       },
       {
-        name: I18n.t(:external_lawyer_ids, default: "Preferred Lawyer"),
+        name: I18n.t(:external_lawyer_ids, default: "Assigned Lawyer"),
         database_field: :external_lawyer_ids,
         access: {
           bank: "write",
@@ -579,7 +579,7 @@ class MatterIntake < ApplicationRecord
         type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
         optional: MANDATORY_FIELDS.include?(:pii_involved) == false,
         value: self.pii_involved,
-        collection: [['True', true], ['False', false]]
+        collection: [['Yes', true], ['No', false]]
       },
       {
         name: I18n.t(:can_reimbursed_matter, default: "Could law firm potentially receive sensitive information"),
@@ -635,9 +635,9 @@ class MatterIntake < ApplicationRecord
         value: self.business_department
       },
       {
-        name: I18n.t(:business_group, default: "Business Group Responsible for Invoice"),
+        name: I18n.t(:business_group, default: "Line of Business/Corporate Group Responsible for Invoice"),
         database_field: :business_group,
-        default_name: "Business Group Responsible for Invoice",
+        default_name: "Line of Business/Corporate Group Responsible for Invoice",
         access: {
           bank: "write",
           law_firm: "not_access"

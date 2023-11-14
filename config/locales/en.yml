@@ -22,7 +22,7 @@
 en:
   hello: "Hello world"
   comment: "Comment"
-  line_of_business_id: "Line of Business/Business group"
+  line_of_business_id: "Line of Business/Corporate Group"
   name_of_matter_client: "Matter Name"
   submitter_name: "Submitter Name"
   matter_number: "Matter Number"
@@ -49,4 +49,4 @@ en:
   is_ore_reportable: "Reportable Risk"
   internal_file_number: "Internal File Number"
   business_department: "Business Department"
-  business_group: "Business Group Responsible for Invoice"
+  business_group: "Line of Business/Corporate Group Responsible for Invoice"
