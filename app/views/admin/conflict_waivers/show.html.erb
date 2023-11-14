@@ -145,18 +145,19 @@
           <%- if @conflict_waiver.can_user_change_status?(current_user) %>
             <div class="sp-form">
               <%= simple_form_for [:admin, Review.new()] do |f| %>
-                <div class="col-xs-12 col-md-12">
-                  <label class="label">Description</label>
-                  <%= f.input :description, label: false %>
-                  <%= f.input :reviewable_type, label: false, as: :hidden, input_html: { value: @conflict_waiver.class.to_s } %>
-                  <%= f.input :reviewable_id, label: false, as: :hidden, input_html: { value: @conflict_waiver.id } %>
-                </div>
+
                 <%- if @current_user.role === "lxp" %>
                   <div class="col-xs-12 col-md-6">
                     <label class="label">Internal Status</label>
                     <%= f.input :status, label: false, collection: ConflictWaiver::CONFLICT_WAIVER_STATUS_LXP.map{|value,key| [key, value]}%>
                   </div>
                 <% end %>
+                <div class="col-xs-12 col-md-12">
+                  <label class="label">Description</label>
+                  <%= f.input :description, label: false %>
+                  <%= f.input :reviewable_type, label: false, as: :hidden, input_html: { value: @conflict_waiver.class.to_s } %>
+                  <%= f.input :reviewable_id, label: false, as: :hidden, input_html: { value: @conflict_waiver.id } %>
+                </div>
                 <%- if @current_user.role === "internal_lawyers" %>
                   <div class="col-xs-12 col-md-6">
                     <label class="label">Internal Lawyer Status</label>
