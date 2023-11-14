@@ -24,7 +24,7 @@
             <% @law_firms.each do |law_firm| %>
               <tr onClick="window.location.href='/tenant_admin/law_firms/<%= law_firm.id %>/edit'">
                 <td><%= law_firm&.name %></td>
-                <td><%= law_firm.created_at.strftime('%d %b %Y at %I:%M %p') %></td>
+                <td><%= law_firm.created_at&.strftime('%Y/%m/%d') %></td>
               </tr>
             <% end %>
           </tbody>

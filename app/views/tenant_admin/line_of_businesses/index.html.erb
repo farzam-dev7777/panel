@@ -28,7 +28,7 @@
                 <td><%= lob&.name %></td>
                 <td><%= lob&.sso_group %></td>
                 <td><%= lob&.email %></td>
-                <td><%= lob&.created_at&.strftime('%d %b %Y at %I:%M %p') %></td>
+                <td><%= lob&.created_at&.strftime('%Y/%m/%d') %></td>
               </tr>
             <% end %>
           </tbody>
