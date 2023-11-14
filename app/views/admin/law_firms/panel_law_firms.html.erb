@@ -38,11 +38,11 @@
 													<%= f.input :law_firms_tenants_type_of_matters_your_law_firm_handles_for_us_in, label: false, collection: LawFirm::TYPES_OF_MATTERS_FOR_US, input_html: { multiple: true } %>
 												</div>
 												<div class="col-xs-12 col-md-4">
-													<%= f.label :countries_name_cont %>
+													<%= f.label :countries_name_cont, 'Country Name', :class => 'label' %>
   													<%= f.country_select :countries_name_cont, :class => 'sp-form-control', :include_blank => true %>
 												</div>
 												<div class="col-xs-12 col-md-4">
-													<%= f.label :states_name_cont %>
+													<%= f.label :states_name_cont, 'State Name', :class => 'label' %>
   													<%= f.select :states_name_cont, State.all.pluck(:name).uniq, :class => 'sp-form-control', :include_blank => true %>
 												</div>
 												<div class="col-xs-12 text-right">
