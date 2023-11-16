@@ -14,7 +14,7 @@ class ConflictWaiversController < BaseController
     @current_user = current_user
     if @conflict_waiver.save
    
-      @conflict_waiver.update_attributes(lxp_status: "IN_REVIEW")
+      # @conflict_waiver.update_attributes(lxp_status: "IN_REVIEW")
       redirect_to conflict_waivers_client_info_conflict_waivers_path(@conflict_waiver)
 
       # @conflict_waiver.log_activity('conflict_waiver_submited', true, current_user)
