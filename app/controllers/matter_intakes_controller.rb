@@ -13,7 +13,7 @@ class MatterIntakesController < BaseController
   end
 
   def new
-    if current_user&.law_firm&.current_law_firm_tenant&.allow_to_create_matters.present?
+    if current_user&.law_firm&.current_law_firm_tenant&.allow_to_create_matters.present? && current_user&.law_firm.status_show != 'Off Panel'
       @form_type = 'general'
       @matter_intake = MatterIntake.new(form_type: 'general')
       @invoices = @matter_intake.invoices.build

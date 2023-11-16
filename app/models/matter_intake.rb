@@ -1167,7 +1167,7 @@ class MatterIntake < ApplicationRecord
   end
 
   def current_user_pending_approval(current_user)
-    return nil if (self.user_id == current_user.id) || (current_user.role == 'internal_lawyers' && m.lawyer_id != current_user.id)
+    return nil if (self.user_id == current_user.id) || (current_user.role == 'internal_lawyers' && self.lawyer_id != current_user.id)
     if Tenant.current.approval_process == 'serial'
       obj = self.approval_listing.where(status: ['pending', 'rejected']).order(:approval_sequence).last
       obj.present? && obj.approve_by_role == current_user.role ? obj : nil
