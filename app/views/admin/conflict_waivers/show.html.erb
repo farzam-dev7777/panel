@@ -12,7 +12,7 @@
             Internal Status: <%= @conflict_waiver.try(:lxp_status_show).try(:titleize) %>
           </span>
         <% end %>
-        <% if @conflict_waiver.internal_lawyers_status_show.present? %>
+        <% if @conflict_waiver.internal_lawyers_status_show.present? && @conflict_waiver.assigned_to_id.present? %>
           <span style=" color: #fff; "  class="<%= @conflict_waiver.internal_lawyers_status_show === "Approve" ? 'label label-success' : 'label label-default' %>">
             Lawyer Status: <%= @conflict_waiver.try(:internal_lawyers_status_show).try(:titleize) %>
           </span>
@@ -132,7 +132,7 @@
               Internal Status: <%= @conflict_waiver.try(:lxp_status_show).try(:titleize) %>
             </span>
           <% end %>
-          <% if @conflict_waiver.internal_lawyers_status_show.present? %>
+          <% if @conflict_waiver.internal_lawyers_status_show.present? && @conflict_waiver.assigned_to_id.present? %>
             <span style=" color: #fff; "  class="<%= @conflict_waiver.internal_lawyers_status_show === "Approve" ? 'label label-success' : 'label label-default' %>">
               Lawyer Status: <%= @conflict_waiver.try(:internal_lawyers_status_show).try(:titleize) %>
             </span>
