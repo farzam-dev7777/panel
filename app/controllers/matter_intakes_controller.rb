@@ -92,7 +92,7 @@ class MatterIntakesController < BaseController
           # @matter_intake.send_notification_to_lxp
           # @matter_intake.send_notification_litigation_specialist_team
           # @matter_intake.add_log_for_lawyer_submission_to_lxp(current_user)
-          flash[:notice] = "Matter intake Form-B submitted."
+          flash[:notice] = "Matter intake request updated"
           redirect_to matter_intakes_path
         end
        
@@ -100,9 +100,10 @@ class MatterIntakesController < BaseController
         # @matter_intake.update_attributes(lxp_reviewed_at: Time.now, status: @matter_intake.status.downcase, lxp_id: current_user.id)
         # @matter_intake.add_log_matter_open_by_lxp(current_user)
         # @matter_intake.send_notification_to_lawyer_and_lxp
-        flash[:notice] = "Matter status updated to #{MatterIntake::MATTER_STATUS[@matter_intake.status.upcase.to_sym]}."
+        flash[:notice] = "Matter intake request updated"
         redirect_to matter_intakes_path
       else
+        flash[:notice] = "Matter intake request updated"
         redirect_to matter_intakes_path
       end
     else
