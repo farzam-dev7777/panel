@@ -93,7 +93,7 @@
                     <%= matter_intake&.name_of_matter_client %>
                   </td>
                   <td>
-                    <%= matter_intake.created_at.strftime('%d %b %Y at %I:%M %p') %>
+                    <%= matter_intake.created_at&.strftime('%Y/%m/%d') %>
                   </td>
                   <td>
                     <%= matter_intake&.law_firm&.name %>

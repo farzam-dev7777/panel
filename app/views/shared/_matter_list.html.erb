@@ -22,7 +22,7 @@
           <% end %>
             <td><%= matter_intake.matter_number.present? ? matter_intake.matter_number : "-" %></td>
             <td data-order="<%= matter_intake.created_at.strftime('%Y%m%d%H%M') %>">
-              <%= matter_intake.created_at.strftime('%d %b %Y') %>
+              <%= matter_intake.created_at.strftime('%Y/%m/%d') %>
             </td>
             <td>
               <% if matter_intake.submitter_name.present? %>
