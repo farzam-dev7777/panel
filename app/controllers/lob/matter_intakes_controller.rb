@@ -13,7 +13,7 @@ class Lob::MatterIntakesController < Lob::BaseController
     end
     
     if params[:filter] === "yes"
-      @q = MatterIntake.where(status: ["opened"]).where("line_of_business_id = ? OR user_id = ?", current_user.line_of_businesses.pluck(:id), current_user.id).ransack(@query)
+      @q = MatterIntake.where(status: ["opened"]).where("line_of_business_id in (?) OR user_id = ?", current_user.line_of_businesses.pluck(:id), current_user.id).ransack(@query)
       @matter_intakes = @q.result(distinct: true).order('updated_at DESC')    
     else
       @q = MatterIntake.where("line_of_business_id = ? OR user_id = ?", current_user.line_of_businesses.pluck(:id), current_user.id).ransack(@query)
