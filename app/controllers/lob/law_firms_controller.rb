@@ -12,7 +12,7 @@ class Lob::LawFirmsController < Lob::BaseController
 
     @params_string = false;
     if !params[:q].nil?
-      @params_string =  params[:q][:name_cont].empty? && params[:q][:locations_country_cont].empty? && params[:q][:panel_status_eq].empty? ? false : true
+      @params_string =  params[:q][:name_cont]&.empty? && params[:q][:locations_country_cont]&.empty? && params[:q][:panel_status_eq]&.empty? ? false : true
     end 
     add_breadcrumb "Law Firms", :admin_law_firms_path
     render "admin/law_firms/panel_law_firms"

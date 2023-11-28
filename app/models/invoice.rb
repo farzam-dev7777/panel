@@ -9,6 +9,9 @@ class Invoice < ApplicationRecord
 
     after_create_commit :send_invoice_email
 
+    def self.ransackable_attributes(auth_object = nil)
+        ["amount_cents", "amount_currency", "created_at", "date", "description", "hours", "id", "lawyer_name", "matter_intake_id", "rate", "rate_type", "status", "taxes", "updated_at"]
+    end
 
     def send_invoice_email
         InvoiceMailer.send_invoice(self).deliver!
