@@ -77,9 +77,6 @@ Rails.application.configure do
     :authentication => :cram_md5
   }
 
-  config.hosts << "lvh.me"
-  config.hosts << "localhost"
-
 
 
   # Raises error for missing translations

@@ -60,7 +60,7 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def failed_login?
-    (options = env["warden.options"]) && options[:action] == "unauthenticated"
+    (options = ENV["warden.options"]) && options[:action] == "unauthenticated"
   end
 
   # If you have extra params to permit, append them to the sanitizer.
