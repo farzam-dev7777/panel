@@ -8,14 +8,14 @@ class Admin::SystemSettingsController < Admin::BaseController
   end
 
   def update
-    if @settings.update_attributes(settings_params)
+    if @settings.update(settings_params)
       if request.xhr?
         render json: :ok
       else
-        redirect_to :back, notice: "Settings saved"
+        redirect_back fallback_location: admin_root_path, notice: "Settings saved"
       end
     else
-      redirect_to :back, alert: "Settings NOT saved"
+      redirect_back fallback_location: admin_root_path, alert: "Settings NOT saved"
     end
   end
 

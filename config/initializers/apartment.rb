@@ -59,7 +59,7 @@ Apartment.configure do |config|
   #   end
   # end
   #
-  config.default_schema = "public"
+  config.default_tenant = "public"
   config.tenant_names = lambda { Tenant.pluck :subdomain }
 
   # PostgreSQL:

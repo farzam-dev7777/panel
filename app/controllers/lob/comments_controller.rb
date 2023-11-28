@@ -9,10 +9,10 @@ class Admin::CommentsController < Admin::BaseController
       @commentable = params[:comment][:commentable_type].constantize.find_by(id: params[:comment][:commentable_id])
       @comment = @commentable.comments.build(comment_params)
       if @comment.save
-        redirect_to :back, notice: "comment Added"
+        redirect_back fallback_location: root_path, notice: "comment Added"
       else
         #flash.now[:alert] = @comment.errors.full_messages.join(', ')
-        redirect_to :back, alert: @comment.errors.full_messages.join(', ')
+        redirect_back fallback_location: root_path, alert: @comment.errors.full_messages.join(', ')
       end
     end
   end
@@ -27,7 +27,7 @@ end
 # @exception_request = ExceptionRequest.find_by_id(params[:comment][:commentable_id])
 # if current_user.role === 'lxp' && comment_params[:status] == 'APPROVED'
 #   # pay tyep
-#   @exception_request.update_attributes(lxp_status: comment_params[:status])
+#   @exception_request.update(rams[:status])
 #   # @user = User.find_by_id(@exception_request.user_id)
 #   # signer_email = @user.email
 #   # signer_name =  @user.username
@@ -36,13 +36,13 @@ end
 # elsif current_user.role === 'lxp' && comment_params[:assigned_to_id].present?
 #   ExceptionRequestMailer.form_status_notification_to_internal_lawyer(@exception_request,params[:comment][:assigned_to_id]).deliver_now
 # elsif current_user.role === 'lxp' && comment_params[:status] == 'RETAINER_AGREEMENT_SENT'
-#   @exception_request.update_attributes(lxp_status: comment_params[:status])
+#   @exception_request.update(rams[:status])
 # elsif current_user.role === 'internal_lawyers' && comment_params[:status] == 'APPROVED'
-#   @exception_request.update_attributes(lxp_status: "commentED_BY_LAWYER")
+#   @exception_request.update(_BY_LAWYER")
 #   ExceptionRequestMailer.form_status_notification_to_lxp(@exception_request).deliver_now
 # else
 #   if current_user.role === 'internal_lawyers'
-#     @exception_request.update_attributes(lxp_status: "commentED_BY_LAWYER")
+#     @exception_request.update(_BY_LAWYER")
 #     ExceptionRequestMailer.form_status_notification_to_lxp(@exception_request).deliver_now
 #     ExceptionRequestMailer.form_status_notification_to_lob(@exception_request).deliver_now
 #   else

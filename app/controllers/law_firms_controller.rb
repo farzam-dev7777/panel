@@ -8,8 +8,8 @@ class LawFirmsController < BaseController
 
 	def update
 		@law_firm = LawFirm.find(current_law_firm.id)
-  	if @law_firm.update_attributes(law_firms_params)
-  		@law_firm.update_attributes(profile_completed: true)
+  	if @law_firm.update(law_firms_params)
+  		@law_firm.update(profile_completed: true)
       law_firm_tenant = @law_firm.law_firms_tenants.where(tenant_id: Tenant&.current&.id).first
 
       if law_firm_tenant.document.present?
@@ -17,7 +17,7 @@ class LawFirmsController < BaseController
       end
       # generate submissions on initial update 
       if current_user.role == 'master_user' && @law_firm.form_submissions.empty?
-        @law_firm.update_attributes(updated_by_lawfirm: true)
+        @law_firm.update(updated_by_lawfirm: true)
         FormSubmission.generate_initial_submissions(@law_firm, current_user)
       end
 
@@ -77,7 +77,7 @@ class LawFirmsController < BaseController
     end
 
     if params[:new_password] == params[:new_password_confirmation]
-      if user.update_attributes(password: params[:new_password], password_confirmation: params[:new_password_confirmation], new_password_set: true)
+      if user.update(password: params[:new_password], password_confirmation: params[:new_password_confirmation], new_password_set: true)
         sign_in(current_user, :bypass => true)
         flash[:notice] = "Password changed successfully"
       else

@@ -10,7 +10,7 @@ class FollowUpsController < BaseController
 			# CASE: If a follow up has been resolve and the assessor adds another note,
 			# should the follow up be updated to pending/review again?
 
-			# @follow_up.update_attributes(status: 'pending')
+			# @follow_up.update(status: 'pending')
 		else
 			@follow_up = FollowUp.new
 			@follow_up.form_submission_id = params[:form_submission_id]
@@ -28,14 +28,14 @@ class FollowUpsController < BaseController
 	def resolve
 		@follow_up = FollowUp.find(params[:follow_up_id])
 		if @follow_up
-			@follow_up.update_attributes(status: 'resolved')
+			@follow_up.update(status: 'resolved')
 			head :ok
 		end
 	end
 
 	def review
 		if @follow_up
-			@follow_up.update_attributes(status: 'review')
+			@follow_up.update(status: 'review')
 		end
 	end
 

@@ -83,8 +83,8 @@ class Admin::LawFirmsController < Admin::BaseController
 
   def update
     @law_firm = LawFirm.find(params[:id])
-    if @law_firm.update_attributes(law_firms_params)
-      @law_firm.user.update_attributes(password: params[:law_firm][:password]) if (params[:law_firm][:password] && !params[:law_firm][:password].blank?  && params[:law_firm][:password].length >= 10)
+    if @law_firm.update(law_firms_params)
+      @law_firm.user.update(password: params[:law_firm][:password]) if (params[:law_firm][:password] && !params[:law_firm][:password].blank?  && params[:law_firm][:password].length >= 10)
       law_firm_tenant = @law_firm.law_firms_tenants.where(tenant_id: Tenant&.current&.id).first
       if law_firm_tenant.document.present?
           law_firm_tenant.update(status: 'On Panel')
@@ -131,7 +131,7 @@ class Admin::LawFirmsController < Admin::BaseController
 
     if last_form_submission.status == 'decertified'
       law_firm_user = User.unscoped.find_by(id: @law_firm.user_id)
-      law_firm_user.update_attributes(deactivated_at: nil) if law_firm_user
+      law_firm_user.update(deactivated_at: nil) if law_firm_user
     end
 
     # Merge the new form (in case there are new questions)
@@ -195,7 +195,7 @@ class Admin::LawFirmsController < Admin::BaseController
      
 
     if new_form_submission.save
-      last_form_submission.update_attributes(expiry_date: nil)
+      last_form_submission.update(expiry_date: nil)
       @law_firm.log_activity('recertification_process_initiated', true, current_user)
       # redirect_to :admin_law_firms
     end
@@ -204,7 +204,7 @@ class Admin::LawFirmsController < Admin::BaseController
 
   def decertify
     @law_firm = LawFirm.find_by(id: params[:id])
-    @law_firm.user.update_attributes(deactivated_at: Time.now)
+    @law_firm.user.update(deactivated_at: Time.now)
 
     form_submission = @law_firm.form_submissions.latest
     form_submission.status = 'decertified'

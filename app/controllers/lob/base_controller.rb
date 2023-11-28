@@ -5,7 +5,7 @@ class Lob::BaseController < ApplicationController
 	layout 'lob'
 
 	rescue_from CanCan::AccessDenied do |exception|
-    redirect_to :back, :alert => exception.message
+    redirect_back fallback_location: root_path, :alert => exception.message
   end
 
   def current_lob_user

@@ -1,6 +1,6 @@
 class Admin::FormSubmissionsController < Admin::BaseController
 
-	layout false
+  layout false
   layout 'admin', :except => :show
 
   before_action :follow_ups, except: :index
@@ -144,7 +144,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
       score_counter = score_counter + 1
     end
     @system_score = score_counter > 0 ? (total_score/score_counter).round(2) : 0
-    @form_submission.update_attributes(system_score: @system_score)
+    @form_submission.update(system_score: @system_score)
   end
 
   def calculate_repeater_field_score(form_value)
@@ -251,14 +251,14 @@ class Admin::FormSubmissionsController < Admin::BaseController
   def law_firm_update
     @law_firm = LawFirm.find(@form_submission.law_firm.id)
 
-  	if @law_firm.update_attributes(law_firms_params)
+    if @law_firm.update(law_firms_params)
 
-      @law_firm.user.update_attributes(password: params[:law_firm][:password]) if (params[:law_firm][:password] && !params[:law_firm][:password].blank?  && params[:law_firm][:password].length >= 10)
+      @law_firm.user.update(password: params[:law_firm][:password]) if (params[:law_firm][:password] && !params[:law_firm][:password].blank?  && params[:law_firm][:password].length >= 10)
        
-  		redirect_to first_step_path, notice: "RFI Updated"
-  	else
-  		redirect_to first_step_path
-  	end
+      redirect_to first_step_path, notice: "RFI Updated"
+    else
+      redirect_to first_step_path
+    end
   end
 
 
@@ -301,7 +301,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
   def create
     @form_submission = FormSubmission.new(form_submissions_params)
     if @form_submission.save
-      redirect_to :back, notice: 'Form submitted'
+      redirect_back fallback_location: admin_root_path, notice: 'Form submitted'
     else
       @form = Form.find(params[:form_id])
       render :new
@@ -315,7 +315,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
     if @form_submission.save
       redirect_to :admin_law_firms
     else
-      redirect_to :back
+      redirect_back fallback_location: admin_root_path
     end
   end
 
@@ -326,7 +326,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
       @form_submission.submitted = false
       @form_submission.submitted_on = nil
       @form_submission.follow_ups.pending.update_all(status: 'review')
-      if (@form_submission.update_attributes(status: :follow_up))
+      if (@form_submission.update(status: :follow_up))
         # LawFirmMailer.decision_reached(@form_submission, 'Follow Up').deliver_now
         FormSubmission.log_activity('follow_up', true, @form_submission, current_admin_user)
         redirect_to :admin_law_firms
@@ -338,7 +338,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
 
   def mark_as_checked
     @field_value = params[:loggable_type].constantize.find_by(id: params[:loggable_id])
-    @field_value.update_attributes(checked: !@field_value.checked) if @field_value
+    @field_value.update(checked: !@field_value.checked) if @field_value
 
     render partial: 'check_mark', locals: {loggable: @field_value, form_type: params[:loggable_type]}, layout: false
   end
@@ -346,7 +346,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
   def approve
 
     if @form_submission.follow_ups.map(&:status).include?('pending')
-      redirect_to :back, alert: "Follow ups are pending!" 
+      redirect_back fallback_location: admin_root_path, alert: "Follow ups are pending!" 
     else
       # @form_submission = FormSubmission.find(params[:id])
 
@@ -396,7 +396,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
 
   def calculate_total_score
     if (@form_submission.assessor_score && @form_submission.system_score)
-      @form_submission.update_attributes(total_score: (@form_submission.system_score + @form_submission.assessor_score)/2)
+      @form_submission.update(total_score: (@form_submission.system_score + @form_submission.assessor_score)/2)
     end
   end
 
@@ -406,7 +406,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
     current_expiry_date = @form_submission.expiry_date
 
     if @form_submission && params[:expiry_date]
-      @form_submission.update_attributes(expiry_date: Date.parse(params[:expiry_date]))
+      @form_submission.update(expiry_date: Date.parse(params[:expiry_date]))
       custom_activity_message = "Expiry date changed from #{DateField.stringify_date(current_expiry_date)} to #{params[:expiry_date]}"
       FormSubmission.log_activity('expiry_date_changed', false, @form_submission, current_admin_user, custom_activity_message)
     end
@@ -500,7 +500,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
   end
 
   def law_firms_params
-  	params.require(:law_firm).permit(
+    params.require(:law_firm).permit(
       :name, :description, :email, :phone, :temp_password,
       :temp_password_confirmation, :relationship_manager_email,
       :relationship_manager_name, :relationship_manager_phone,

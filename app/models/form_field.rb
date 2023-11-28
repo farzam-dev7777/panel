@@ -7,8 +7,8 @@ class FormField < ApplicationRecord
   belongs_to :formable, polymorphic: true, touch: true
   belongs_to :form, touch: true
 
-  has_many :logics, foreign_key: 'change_field_id', class_name: Logic
-  has_many :listen_fields, foreign_key: 'listen_field_id', class_name: Logic
+  has_many :logics, foreign_key: 'change_field_id', class_name: "Logic"
+  has_many :listen_fields, foreign_key: 'listen_field_id', class_name: "Logic"
   accepts_nested_attributes_for :logics, allow_destroy: true
 
   belongs_to :parent, :class_name => 'FormField', touch: true
@@ -27,8 +27,7 @@ class FormField < ApplicationRecord
   accepts_nested_attributes_for :children
 
   def validate_value(form_value)
-    #form_value.errors.add :value, "can't be blank" if required? && form_value.value.blank?
-    form_value.errors.add :value, "" if required? && form_value.value.blank?
+    form_value.errors.add :value, "\"#{form_value.form_field_label}\" is a required field" if required? && form_value.value.blank?
 
     add_validation_errors(form_value)
     form_value

@@ -2,7 +2,7 @@ class FormSubmission < ApplicationRecord
   include Submittable
   include HasAttachedFiles
   belongs_to :law_firm
-  belongs_to :last_submitted_by, class_name: User
+  belongs_to :last_submitted_by, class_name: "User"
   has_many :technology_values
   has_many :history_submissions
   has_many :notes
@@ -21,6 +21,10 @@ class FormSubmission < ApplicationRecord
     include_association :form_values
     include_association :technology_values
     include_association :history_submissions
+  end
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["approved_at", "assessor_score", "created_at", "evidence_status", "expiry_date", "form_diversity_id", "form_id", "form_innovation_id", "form_process_id", "form_relationship_id", "form_resourcing_id", "id", "last_submitted_by_id", "law_firm_id", "locked_at", "locked_by_id", "name", "reason", "status", "submitted", "submitted_on", "system_score", "total_score", "updated_at"]
   end
 
 	def self.log_activity(event_type, notify, submission, current_user, custom_message=nil)

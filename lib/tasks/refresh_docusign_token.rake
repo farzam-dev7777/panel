@@ -14,7 +14,7 @@ namespace :docusign do
       "grant_type" => "refresh_token", 
       "refresh_token" => refresh_token
     }
-    code = Base64.strict_encode64("#{Rails.application.secrets[:docusign]['integration_key']}:#{Rails.application.secrets[:docusign]['integration_secret']}")
+    code = Base64.strict_encode64("#{Rails.application.secrets[:docusign][:integration_key]}:#{Rails.application.secrets[:docusign][:integration_secret]}")
     headers = {
       'Authorization'=>"Basic #{code}",
       'Content-Type' =>'application/json',
@@ -33,7 +33,7 @@ namespace :docusign do
       result = JSON.parse(response.body)
       @settings = SystemSetting.fetch
 
-      @settings.update_attributes(
+      @settings.update(
         docusign_access_token: result['access_token'], 
         docusign_refresh_token: result['refresh_token'], 
         docusign_token_expires_at: Time.now + result['expires_in'].to_i.seconds

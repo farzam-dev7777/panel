@@ -40,10 +40,10 @@ class ConflictWaiversController < BaseController
 
     if params[:conflict_waiver] && params[:conflict_waiver][:conflict_waiver_id] 
       @conflict_waiver = ConflictWaiver.find(params[:conflict_waiver][:conflict_waiver_id])
-      if @conflict_waiver.update_attributes(conflict_waivers_params)
+      if @conflict_waiver.update(conflict_waivers_params)
         @conflict_waiver.log_activity('conflict_waiver_submited', true, current_user)
         if current_law_firm.present? && @conflict_waiver.internal_lawyers_status != "APPROVED"
-          @conflict_waiver.update_attributes(internal_lawyers_status: "IN_REVIEW", lxp_status: "IN_REVIEW")
+          @conflict_waiver.update(internal_lawyers_status: "IN_REVIEW", lxp_status: "IN_REVIEW")
         end 
         ConflictWaiverMailer.form_submited_notification_to_lxp(@conflict_waiver).deliver_now
         ConflictWaiverMailer.form_submited_notification_to_user(@conflict_waiver).deliver_now
@@ -66,7 +66,7 @@ class ConflictWaiversController < BaseController
   def update
     @conflict_waiver = ConflictWaiver.find(params[:id])
    
-    if @conflict_waiver.update_attributes(conflict_waivers_params)
+    if @conflict_waiver.update(conflict_waivers_params)
       
       # ConflictWaiverMailer.form_update_notification_to_user(@conflict_waiver).deliver_now
       # ConflictWaiverMailer.form_updated_notification_to_lxp(@conflict_waiver).deliver_now

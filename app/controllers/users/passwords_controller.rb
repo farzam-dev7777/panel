@@ -14,10 +14,10 @@ class Users::PasswordsController < Devise::PasswordsController
       if user && user.save
         redirect_to :root, notice: "Password updated, please login"
       else
-        redirect_to :back, alert: "Password couldn't update, invalid password"
+        redirect_back fallback_location: root_path, alert: "Password couldn't update, invalid password"
       end
     else
-      redirect_to :back, alert: "Password couldn't update, invalid token"
+      redirect_back fallback_location: root_path, alert: "Password couldn't update, invalid token"
     end
   end
 end

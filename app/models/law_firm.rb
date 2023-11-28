@@ -100,6 +100,14 @@ class LawFirm < ApplicationRecord
     self.email ||= self.users.try(:first).try(:email)
   end
 
+  def self.ransackable_attributes(auth_object = nil)
+    ["action_plan_findings", "action_plan_status", "billing_contact_email", "billing_contact_name", "bmo_relationship_partner_email", "bmo_relationship_partner_name", "bmo_relationship_partner_phone_number", "confidentiality_level_of_matters_that_are_handled", "contact_name", "created_at", "description", "diverse", "email", "engagement_number", "feedback", "firm_use_on_regular_basis", "id", "information_security_assessment_outcome", "information_security_class", "information_security_contact", "information_security_contact_email", "initial_date_of_engagement_with_the_bank", "issues", "law_firm_category", "law_firm_type", "max_users", "merger_combination", "name", "number_of_lawyers", "panel_status", "parent_company", "phone", "practice_area", "principle_contact_info", "principle_name", "principle_title", "profile_completed", "public_uid", "relationship_manager_email", "relationship_manager_name", "relationship_manager_phone", "relationship_number", "secondary_rm_contact", "secondary_rm_contact_email", "sister_firm", "status", "type_of_matters_your_law_firm_handles_for_us", "type_of_services_your_law_firm_provides_generally", "updated_at", "updated_by_lawfirm", "user_id", "value_add_activities"]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    ["action_items", "activity_logs", "conflict_waivers", "countries", "exception_requests", "feedbacks", "form_submissions", "history_submissions", "internal_notes", "issues", "jurisdiction_types", "jurisdictions", "law_firms_countries", "law_firms_jurisdiction_types", "law_firms_matter_types", "law_firms_states", "law_firms_sub_matter_types", "locations", "matter_intakes", "matter_types", "panel_request", "requests", "states", "sub_matter_types", "todo_tasks", "user", "users", "values"]
+  end
+
   def password_complexity
     
     return true if self.user_id?

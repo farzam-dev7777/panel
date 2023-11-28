@@ -48,6 +48,10 @@ class ConflictWaiver < ApplicationRecord
     "A debtor in a bankruptcy, insolvency, restructuring, or other similar proceeding that adjusts creditors’ rights where we are a creditor in such proceeding, provided that (i) you did not act directly or indirectly for us in the transaction or arrangement giving rise to our claim, and (ii) you notify us that you represent the debtor",
     "A party in a transaction to which we are not a party but where you acted on our behalf in a previous lending transaction with that party, provided that (i) the current transaction is unrelated to the previous lending transaction and (ii) it will have no bearing and/impact on the previous lending transaction."
   ]
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["assigned_to_id", "bmo_business_contact", "confirm_waiver", "contact_details", "created_at", "description_of_transaction", "id", "internal_lawyers_status", "law_firm_id", "lxp_status", "name_of_law_firm", "name_of_other_client", "names_of_primary", "nature_of_mandate", "office_locattion", "reason", "repesenting", "retainer_cover", "retainer_language", "types_of_matters", "updated_at", "user_id"]
+  end
   
   
   # def confirm_waiver_must_be_true

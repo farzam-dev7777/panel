@@ -59,7 +59,7 @@ class Lob::MatterIntakesController < Lob::BaseController
         render :new
       else
         @matter_intake.save
-        @matter_intake.update_attributes(status: "submitted", lawyer_reviewed_at: Time.now)
+        @matter_intake.update(status: "submitted", lawyer_reviewed_at: Time.now)
         @matter_intake.auto_approve_matter(current_user)
         @matter_intake.set_default_approval_status(current_user)
         @matter_intake.send_notification_to_lawyer
@@ -79,7 +79,7 @@ class Lob::MatterIntakesController < Lob::BaseController
   def update
   	@matter_intake = MatterIntake.find_by(id: params[:id])
 
-    if @matter_intake.update_attributes(matter_intake_params)
+    if @matter_intake.update(matter_intake_params)
       @matter_intake.auto_approve_matter(current_user)
       if params[:matter_intake] && params[:commit] === "Next" && params[:matter_intake][:submit_type] && params[:matter_intake][:submit_type] === "update"
         redirect_to matter_intakes_information_security_classification_lob_matter_intakes_path(@matter_intake)

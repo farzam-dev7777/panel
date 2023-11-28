@@ -3,7 +3,7 @@ class Lob::InternalDashboardController < Lob::BaseController
   layout 'lob'
 
   add_breadcrumb "Dashboard", :root_path
-  before_filter :set_search
+  before_action :set_search
 
   ACTIVITY_LOG_DAYS = 10
 
@@ -21,9 +21,6 @@ class Lob::InternalDashboardController < Lob::BaseController
     @matter_intakes = MatterIntake.where("line_of_business_id in (?) OR user_id = ?", current_user.line_of_businesses.pluck(:id), current_user.id).order('updated_at DESC').limit(5)
 
     @panel_law_firms = LawFirm.where(law_firm_category: "PANEL")
-
-
-    
   end
 
   def show
@@ -35,7 +32,7 @@ class Lob::InternalDashboardController < Lob::BaseController
   end
 
   def set_search
-    @q = ActivityLog.search(params[:q])
+    @q = ActivityLog.ransack(params[:q])
   end
 
   def search_activity_logs

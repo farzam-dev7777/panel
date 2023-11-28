@@ -51,7 +51,7 @@ class Admin::ConflictWaiversController < Admin::BaseController
   def update
 
   	@conflict_waiver = ConflictWaiver.find(params[:id])
-    if @conflict_waiver.update_attributes(conflict_waivers_params)
+    if @conflict_waiver.update(conflict_waivers_params)
       
        if params[:conflict_waiver][:lxp_status].present?
         @current_user =  User.find_by_id(@conflict_waiver.user_id)

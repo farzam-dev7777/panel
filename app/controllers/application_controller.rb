@@ -2,11 +2,14 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   helper_method :current_law_firm
-  before_filter :set_current_user
-  before_filter :authenticate_2fa
+  before_action :set_current_user
+  before_action :authenticate_2fa
+
   #before_filter :set_cache_headers
   before_action :set_tenant
   before_action :set_locale
+
+  #before_action :set_cache_headers
 
   def set_cache_headers
     response.headers["Cache-Control"] = "no-cache, no-store"

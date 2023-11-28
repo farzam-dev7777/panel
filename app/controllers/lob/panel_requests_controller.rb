@@ -42,7 +42,7 @@ class Lob::PanelRequestsController < Lob::BaseController
 
   def update
     @panel_request = PanelRequest.find(params[:id])
-    if @panel_request.update_attributes(update_panel_requests_params)
+    if @panel_request.update(update_panel_requests_params)
       flash[:notice] = "Panel request updated"
       PanelRequestMailer.panel_request_update_notification_to_lxp(@panel_request).deliver_now
       redirect_to lob_panel_request_path(@panel_request)

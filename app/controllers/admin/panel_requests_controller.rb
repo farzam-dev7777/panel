@@ -65,7 +65,7 @@ class Admin::PanelRequestsController < Admin::BaseController
 
   def update
   	@panel_request = PanelRequest.find(params[:id])
-    if @panel_request.update_attributes(update_panel_requests_params)
+    if @panel_request.update(update_panel_requests_params)
       flash[:notice] = "Panel request updated"
       redirect_to admin_panel_request_path(@panel_request)
     else

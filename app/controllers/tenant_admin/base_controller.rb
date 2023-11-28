@@ -8,7 +8,7 @@ class TenantAdmin::BaseController < ApplicationController
     if request.env["HTTP_REFERER"].blank?
       redirect_to root_url, :alert => exception.message
     else
-      redirect_to :back, :alert => exception.message
+      redirect_back fallback_location: root_path, :alert => exception.message
     end
   end
 

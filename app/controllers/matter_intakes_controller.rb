@@ -61,7 +61,7 @@ class MatterIntakesController < BaseController
         render :new
       else
         @matter_intake.save
-        @matter_intake.update_attributes(status: "submitted", lawyer_reviewed_at: Time.now)
+        @matter_intake.update(status: "submitted", lawyer_reviewed_at: Time.now)
         @matter_intake.auto_approve_matter(current_user)
         @matter_intake.set_default_approval_status(current_user)
         @matter_intake.send_notification_to_lawyer
@@ -81,7 +81,7 @@ class MatterIntakesController < BaseController
   def update
 
     @matter_intake = MatterIntake.find_by(id: params[:id])
-    if @matter_intake.present? && @matter_intake.update_attributes(matter_intake_params)
+    if @matter_intake.present? && @matter_intake.update(matter_intake_params)
       @matter_intake.auto_approve_matter(current_user)
       @matter_intake.set_default_approval_status(current_user)
       if current_user.role === "internal_lawyers"
@@ -117,7 +117,7 @@ class MatterIntakesController < BaseController
   def lxp_rejects
     @matter_intake = MatterIntake.includes(:invoices).find_by(id: params[:id])
     if current_user.role === "lxp"
-      if @matter_intake.update_attributes(lxp_reviewed_at: Time.now, status: 'awaiting_lawyer_update', lxp_id: current_user.id)
+      if @matter_intake.update(lxp_reviewed_at: Time.now, status: 'awaiting_lawyer_update', lxp_id: current_user.id)
         #@matter_intake.add_log_for_lxp_rejects_and_returns_to_lawyer(current_user)
         @matter_intake.send_notification_to_lawyer_form_needs_updation
         render json: {

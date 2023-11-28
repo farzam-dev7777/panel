@@ -60,4 +60,3 @@
 #     # strategy.options[:authorize_params].scope = 'signature dtr.rooms.read dtr.rooms.write dtr.documents.read dtr.documents.write dtr.profile.read dtr.profile.write dtr.company.read dtr.company.write room_forms'
 #   }
 # end
-
