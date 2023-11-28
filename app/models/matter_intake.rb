@@ -32,6 +32,9 @@ class MatterIntake < ApplicationRecord
 
   before_save :convert_budget_amount
 
+  def self.ransackable_associations(auth_object = nil)
+    ["external_lawyer_matter_intakes", "external_lawyers", "invoices", "law_firm", "lawyer", "line_of_business", "matter_approvals", "matter_intake_agreements", "matter_intake_attachments", "matter_type", "requested_by", "reviews", "user", "versions"]
+  end
   #### validation for lob initiated starts ####
   # validates_presence_of :submitter_name, :name_of_matter_client, :matter_type_id, :matter_description, :following_matter_involve,
   #   :bmo_lawyer_name, :lob_contact_for_po, :cost_centre_for_legal_fees, :business_paying_for_matter, :jurisdiction,
