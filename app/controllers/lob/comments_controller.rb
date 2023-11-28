@@ -1,6 +1,6 @@
-class Admin::CommentsController < Admin::BaseController
+class Lob::CommentsController < Lob::BaseController
 
-  layout 'admin'
+  layout 'lob'
   skip_before_action :authenticate_user!, only: [:show]
 
   def create
