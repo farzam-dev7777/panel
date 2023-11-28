@@ -74,7 +74,7 @@ gem 'faraday', '~> 1.7'
 gem 'veryfi'
 gem 'omniauth-azure-activedirectory-v2'
 gem "recaptcha"
-gem 'paper_trail'
+gem 'paper_trail', '~> 14'
 
 gem 'ros-apartment', require: 'apartment'
 
