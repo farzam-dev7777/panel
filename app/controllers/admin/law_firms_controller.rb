@@ -19,11 +19,17 @@ class Admin::LawFirmsController < Admin::BaseController
 
   def panel_law_firms
     query = params[:q]||{}
+    if query['status_eq'].present?
+      @status_query = query['status_eq']
+      query.delete('status_eq')
+    end
     law_firm_ids = LawFirmsTenant.where(tenant_id: Tenant.current&.id).pluck(:law_firm_id)
     @q = LawFirm.includes(:locations).ransack(query)
 
     @law_firms = @q.result(distinct: true).where(law_firm_category: "PANEL", id: law_firm_ids).order('created_at DESC')
-
+    if @status_query.present?
+      @law_firms = @law_firms.select{|s| s.status_show == @status_query}
+    end
     @params_string = false;
     if !query.nil?
       @params_string =  query[:name_cont].blank? && query[:locations_country_cont].blank? && query[:panel_status_eq].blank? ? false : true

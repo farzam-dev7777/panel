@@ -19,7 +19,7 @@
     </tr>
   </thead>
   <tbody>
-    <% law_firms.each do |law_firm| %>
+    <% (law_firms||[]).each do |law_firm| %>
       <tr onClick="window.location.href='<%= link_base_url ? "#{link_base_url}/#{law_firm&.id}" : "#" %>'">
         <td>
           <% if law_firm&.name.present? %>

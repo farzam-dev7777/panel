@@ -43,7 +43,12 @@
 												</div>
 												<div class="col-xs-12 col-md-4">
 													<%= f.label :states_name_cont, 'State Name', :class => 'label' %>
+
   													<%= f.select :states_name_cont, State.all.pluck(:name).uniq, :class => 'sp-form-control', :include_blank => true %>
+												</div>
+												<div class="col-xs-12 col-md-4">
+													<%= f.label :status_eq, 'Status', :class => 'label' %>
+  													<%= f.select :status_eq, ['On Panel', 'Off Panel', 'Pending', 'Invited'], selected: @status_query, :class => 'sp-form-control', label:false, :include_blank => true%>
 												</div>
 												<div class="col-xs-12 text-right">
 													<%= f.submit "Search", class: "btn-type-primary input-btn m-right" %>
