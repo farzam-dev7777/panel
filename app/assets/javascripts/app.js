@@ -22,6 +22,8 @@ $(document).ready(function(){
     setSsoType();
   })
 
+
+
   $(".show_technology_uploader").on('click', function(){
     $(".technology-uploader-container").removeClass('hidden');
     $(".technology-form-container").addClass('hidden');
@@ -2107,6 +2109,18 @@ function setAvailableLawyerOptions(law_firm_id) {
       var options = "<option value=''> Select option</option>";
     })
 }
+
+$("#login-form").submit(function(e){
+  if($('#accept').is(':checked') == false){
+    $("#login-form .btn-type-primary").prop("disabled", false);
+    window.alert("Please accept Terms & Conditions");
+    e.preventDefault(e);
+  }
+});
+$("#login-form #accept").on('click', function(e){
+  $("#login-form .btn-type-primary").prop("disabled", false);
+});
+
 // var _rollbarConfig = {
 //     accessToken: "721164f0eda644f686c3e844ec50ab74",
 //     captureUncaught: true,

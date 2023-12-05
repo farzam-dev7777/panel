@@ -60,6 +60,9 @@
               </div>
             </div>
             <div class="sp-tc">
+              <div style="margin: 5px;margin-top:1px;">
+                <%= check_box_tag 'accept'%> 
+              </div>
               <label class="checkbox" style="padding-left: 0px">
                 <% if show_captcha.present?%>
                   <%= recaptcha_tags(action: 'login', callback: 'myCallback' ) %>
