@@ -64,6 +64,10 @@ class PanelRequest < ApplicationRecord
   #, :women_owned, :niche_preferred_external_counsel_panel_law_firms, :matter_types, :required_unique_geography, :involved_engagement, :women_owned, :law_frim_name, :law_firm_contact_name, :law_firm_mail, :law_firm_role, :law_firm_phone, :firm_use_on_regular_basis
 
 
+  def self.ransackable_attributes(auth_object = nil)
+    ["archived_at", "business_manager_email", "business_manager_name", "business_manager_phone", "created_at", "docusign_envelope_id", "firm_use_on_regular_basis", "geographic_location", "id", "involved_engagement", "law_firm_category", "law_firm_contact_name", "law_firm_id", "law_firm_mail", "law_firm_name", "law_firm_phone", "law_firm_role", "law_frim_name", "line_of_business", "lob_contact_name", "lxp_id", "lxp_status", "matter_name", "matter_types", "minority_owned", "minority_owned_details", "niche_expertise", "niche_preferred_external_counsel_panel_law_firms", "notes", "reason_other", "request_type", "requested_by", "required_unique_geography", "status", "submitted_by_email", "updated_at", "user_id", "women_owned", "women_owned_details"]
+  end
+
   def matter_types
     JSON.parse(self.read_attribute(:matter_types) || '[]').reject(&:blank?)
   end
@@ -114,12 +118,9 @@ class PanelRequest < ApplicationRecord
 
       self.docusign_envelope_id = envelope_id
       self.save
-    rescue DocuSign_eSign::ApiError => e
-      error = JSON.parse e.response_body
+    rescue Exception => e
       puts "##### Docusign Error Panel #####"
-      @error_code = error['errorCode']
-      @error_message = error['message']
-      puts "Error code: #{@error_code} & Error msg: #{@error_message}"
+       puts e.inspect
     end
   end
 

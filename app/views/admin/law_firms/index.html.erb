@@ -25,19 +25,29 @@
 	
 								<div id="collapseThree" class="col-md-12 collapse <%= @params_string ? "in" : "" %> sp-filter-fields" aria-labelledby="headingThree" data-parent="#sp-filter">
 									<div class="card-body sp-form">
-										<%= search_form_for [:admin, @q] do |f| %>
+										<%= search_form_for([:admin, @q], url: url_for(controller: 'law_firms', action: 'panel_law_firms') ) do |f| %>
+
 											<div class="row">
 												<div class="col-xs-12 col-md-4">
-													<%= f.label :matter_intakes_matter_type_id, label: false, :class => 'label' %>
-													<%= f.select :matter_intakes_matter_type_id, MatterType.all.reject{|mt| mt.matter_type === "Litigation / Litiges"}.map{|mt| [mt.matter_type, mt.id] }, {:include_blank => true}, :class => 'sp-form-control' %>
+													<%= f.label :matter_intakes_matter_type_id_in, label: false, :class => 'label' %>
+													<%= f.input :matter_intakes_matter_type_id_in, label: false, collection: MatterType.all.reject{|mt| mt.matter_type === "Litigation / Litiges"}.map{|mt| [mt.matter_type, mt.id] }, input_html: { multiple: true } %>
 												</div>
 												<div class="col-xs-12 col-md-4">
-												<%= f.label :locations_country_cont, 'Country Name' %>
-  												<%= f.country_select :locations_country_cont, :class => 'sp-form-control', :include_blank => true %>
+													<%= f.label :law_firms_tenants_type_of_matters_your_law_firm_handles_for_us_in, 'Firms with Experience in matters', :class => 'label' %>
+													<%= f.input :law_firms_tenants_type_of_matters_your_law_firm_handles_for_us_in, label: false, collection: LawFirm::TYPES_OF_MATTERS_FOR_US, input_html: { multiple: true } %>
 												</div>
 												<div class="col-xs-12 col-md-4">
-													<%= f.label :panel_status_cont, 'Stage Name', :class => 'label' %>
-													<%= f.select :panel_status_eq, options_from_collection_for_select(LawFirm::PANEL_REQUEST_STATUS, "to_s", "to_s", @q.panel_status_eq), {:include_blank => true}, :class => 'sp-form-control' %>
+													<%= f.label :countries_name_cont, 'Country Name', :class => 'label' %>
+  													<%= f.country_select :countries_name_cont, :class => 'sp-form-control', :include_blank => true %>
+												</div>
+												<div class="col-xs-12 col-md-4">
+													<%= f.label :states_name_cont, 'State Name', :class => 'label' %>
+
+  													<%= f.select :states_name_cont, State.all.pluck(:name).uniq, :class => 'sp-form-control', :include_blank => true %>
+												</div>
+												<div class="col-xs-12 col-md-4">
+													<%= f.label :status_eq, 'Status', :class => 'label' %>
+  													<%= f.select :status_eq, ['On Panel', 'Off Panel', 'Pending', 'Invited'], selected: @status_query, :class => 'sp-form-control', label:false, :include_blank => true%>
 												</div>
 												<div class="col-xs-12 text-right">
 													<%= f.submit "Search", class: "btn-type-primary input-btn m-right" %>

@@ -156,6 +156,10 @@ class ExceptionRequest < ApplicationRecord
 
   belongs_to :law_firm
 
+  def self.ransackable_attributes(auth_object = nil)
+    ["applicable_technical_specialty_data", "applicable_technical_specialty_data_type", "business_manager_email", "business_manager_name", "business_manager_phone", "countries_search", "created_at", "docusign_envelope_id", "firm_use_on_regular_basis", "geographic_location", "id", "internal_lawyers_id", "internal_lawyers_status", "involved_engagement", "is_work", "jurisdiction", "jurisdiction_types_search", "law_firm_category", "law_firm_email", "law_firm_id", "law_firm_name", "law_firm_phone", "line_of_business", "lob_contact_name", "lxp_id", "lxp_status", "matter_description", "matter_involve_following", "matter_name", "matter_types", "matter_types_search", "minority_owned", "minority_owned_details", "mode_of_payment", "niche_expertise", "niche_preferred_external_counsel_panel_law_firms", "notes", "pay_type", "payer", "reason", "reason_details", "receive_general_business_data", "receive_general_business_data_type", "receive_personal_information", "receive_personal_information_data_type", "request_type", "requested_by", "required_unique_geography", "reson_other", "states_search", "sub_matter_types_search", "submitted_by_email", "updated_at", "user_id", "women_owned", "women_owned_details"]
+  end
+
   def status_for_lob
     status = ""
     if self.lxp_status === 'APPROVED'
