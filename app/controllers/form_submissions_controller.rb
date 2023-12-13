@@ -137,11 +137,11 @@ class FormSubmissionsController < BaseController
   def law_firm_update
     @law_firm = LawFirm.find(@form_submission.law_firm.id)
     if params[:previous] === "true"
-      @law_firm.update_attributes(law_firms_params)
+      @law_firm.update(law_firms_params)
       redirect_to params[:redirect_value]
     else
-      if @law_firm.update_attributes(law_firms_params)
-        @law_firm.update_attributes(profile_completed: true)
+      if @law_firm.update(law_firms_params)
+        @law_firm.update(profile_completed: true)
          
         @form_submission = FormSubmission.find(params[:id])
           @form_submission.submitted = true

@@ -28,7 +28,7 @@ class ExternalLawyersController < BaseController
 
   def update
     @external_lawyer = ExternalLawyer.find(params[:id])
-    if @external_lawyer.update_attributes(build_params)
+    if @external_lawyer.update(build_params)
       flash[:notice] = "External Lawyer updated"
       redirect_to law_firm_external_lawyers_path(@external_lawyer.law_firm)
     else
