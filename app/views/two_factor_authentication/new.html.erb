@@ -43,7 +43,7 @@
             <div class="alert alert-danger login-error"></div>
               <span class="signin-alert">
                 <% if alert %>
-                  <%= content_tag :div, alert, :id => "<div class='alert alert-danger p-error'>flash_alert</div>".html_safe if msg.is_a?(String) && msg != 'You need to sign in or sign up before continuing.' %> 
+                  <%= content_tag :div, alert, :id => "<div class='alert alert-danger p-error'>flash_alert</div>".html_safe if alert.is_a?(String) && alert != 'You need to sign in or sign up before continuing.' %> 
                 <% end %> 
               </span>
               <div>
