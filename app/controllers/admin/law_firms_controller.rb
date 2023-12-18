@@ -117,7 +117,7 @@ class Admin::LawFirmsController < Admin::BaseController
 
   def destroy
     @law_firm = LawFirm.find(params[:id])
-    if @law_firm.update(deleted_at: Date.now, status: 'Deactivate')
+    if @law_firm.update(deleted_at: DateTime.now, status: 'Deactivate')
       flash[:notice] = "Law firm has been successfully deleted"
       redirect_to :admin_law_firms
     else
