@@ -244,10 +244,10 @@ class LawFirm < ApplicationRecord
 
   def status_show
     law_firm_tenant = self.law_firms_tenants&.where(tenant_id: Tenant&.current&.id)&.first
-    if law_firm_tenant.present? && law_firm_tenant.status == 'On Panel' && form_submissions&.latest.present? && form_submissions&.latest&.status == 'approved'
-      'On Panel'
-    elsif self.status == 'Deactivate'
+    if self.deleted_at.present? || self.status == 'Deactivate'
       'Off Panel'
+    elsif law_firm_tenant.present? && law_firm_tenant.status == 'On Panel' && form_submissions&.latest.present? && form_submissions&.latest&.status == 'approved'
+      'On Panel'
     elsif self.form_submissions.blank?
       'Invited'
     else

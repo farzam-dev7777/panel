@@ -518,6 +518,7 @@ ActiveRecord::Schema.define(version: 20231107094755) do
     t.string   "bmo_relationship_partner_email"
     t.string   "bmo_relationship_partner_phone_number"
     t.string   "panel_status"
+    t.datetime "deleted_at"
   end
 
   create_table "law_firms_countries", force: :cascade do |t|
