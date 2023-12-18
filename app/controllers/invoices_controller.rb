@@ -8,14 +8,14 @@ class InvoicesController < BaseController
     if current_user.is_panel_admin_user?
       invoice = Invoice.find_by_id params[:id]
       if invoice.update(status:'approved')
-        redirect_to :back, notice: "Invoice updated"
+        redirect_back fallback_location: admin_root_path, notice: "Invoice updated"
       else
         flash[:alert] = "Invoice not updated"
-        redirect_to :back
+        redirect_back fallback_location: admin_root_path
       end
     else
       flash[:alert] = "Access Denied"
-      redirect_to :back
+      redirect_back fallback_location: admin_root_path
     end
   end
 
@@ -23,14 +23,14 @@ class InvoicesController < BaseController
     if current_user.is_panel_admin_user?
       invoice = Invoice.find_by_id params[:id]
       if invoice.update(status:'rejected')
-        redirect_to :back, notice: "Invoice updated"
+        redirect_back fallback_location: admin_root_path, notice: "Invoice updated"
       else
         flash[:alert] = "Invoice not updated"
-        redirect_to :back
+        redirect_back fallback_location: admin_root_path
       end
     else
       flash[:alert] = "Access Denied"
-      redirect_to :back
+      redirect_back fallback_location: admin_root_path
     end
   end
 

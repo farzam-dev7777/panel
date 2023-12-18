@@ -121,7 +121,7 @@ class Admin::LawFirmsController < Admin::BaseController
       flash[:notice] = "Law firm has been successfully deleted"
       redirect_to :admin_law_firms
     else
-      redirect_to :back
+      redirect_back fallback_location: admin_root_path
     end
   end
 

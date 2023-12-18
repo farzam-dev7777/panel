@@ -191,7 +191,7 @@ class FormSubmissionsController < BaseController
   def create
     @form_submission = FormSubmission.new(form_submissions_params)
     if @form_submission.save
-      redirect_to :back, notice: 'Form submitted'
+      redirect_back fallback_location: admin_root_path, notice: 'Form submitted'
     else
       @form = Form.find(params[:form_id])
       render :new

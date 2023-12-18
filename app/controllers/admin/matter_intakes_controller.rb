@@ -111,7 +111,7 @@ class Admin::MatterIntakesController < Admin::BaseController
       redirect_to admin_matter_intakes_path
     else
       flash[:alert] = "Coudn't archive matter. Please try again."
-      redirect_to :back
+      redirect_back fallback_location: admin_root_path
     end
 
   end
