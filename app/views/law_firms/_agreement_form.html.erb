@@ -31,7 +31,7 @@
                           <%= form.input :document, label: false, as: :file, input_html: {multiple: false, onchange:"show_file_name(this)"} %>
                         </div>
                         <%- if form.object.document %>
-                          <a target="_blank" href="<%= form.object.url %>">
+                          <a target="_blank" href="<%= form.object.document.url %>">
                             <span class="file_name" style="padding: 5px;">Download <%= form.object.document.identifier %></span>
                           </a>
                         <% end %>
