@@ -87,7 +87,7 @@ class TenantAdmin::TenantsController < TenantAdmin::BaseController
   private
 
   def tenant_params
-    params[:tenant][:subdomain] = params[:tenant][:subdomain]&.downcase&.parameterize("_") if params[:tenant][:subdomain].present?
+    params[:tenant][:subdomain] = params[:tenant][:subdomain]&.downcase&.parameterize(separator: "_") if params[:tenant][:subdomain].present?
     params.require(:tenant).permit(
       :name, :subdomain, :primary_color, :secondary_color, :logo, :login_bg_image,
       :okta_client_id, :okta_client_secret, :okta_site, :okta_api_token, :sso_type, :enable_exception_requests,
