@@ -10,6 +10,10 @@ class Form < ApplicationRecord
 
   validates_uniqueness_of :step
 
+  def self.ransackable_attributes(auth_object = nil)
+    ["created_at", "group_form", "id", "name", "step", "updated_at"]
+  end
+
   def all_logics(reload = false)
     @all_logics = nil if reload
     @all_logics ||= (
