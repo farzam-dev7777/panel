@@ -35,7 +35,7 @@ class Admin::FormsController < Admin::BaseController
     if @form.save
       redirect_to edit_admin_form_path(@form)
     else
-      flash[:alert] = "error"
+      flash[:alert] = @form.errors.full_messages.join(', ')
       redirect_back fallback_location: admin_root_path
     end
   end
@@ -45,7 +45,7 @@ class Admin::FormsController < Admin::BaseController
     if @form.update(form_params)
       redirect_to edit_admin_form_path(@form)
     else
-      flash[:alert] = "error"
+      flash[:alert] = @form.errors.full_messages.join(', ')
       redirect_back fallback_location: admin_forms_path
     end
   end
