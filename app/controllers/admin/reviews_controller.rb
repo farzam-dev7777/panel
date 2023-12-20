@@ -153,82 +153,82 @@ class Admin::ReviewsController < Admin::BaseController
         elsif params[:review][:reviewable_type] == "PanelRequest"
           @panel_request = PanelRequest.find_by_id(params[:review][:reviewable_id])
           @panel_request.lxp_status = review_params[:status]
+          if @panel_request.present?
+            if current_user.role === 'lxp' && review_params[:status] == 'PANEL_RETAINER'
+              @lob = User.find_by_id(@panel_request.user_id)
+              lob_email = @lob.email
+              lob_name =  @lob.username
 
-          if current_user.role === 'lxp' && review_params[:status] == 'PANEL_RETAINER'
-            @lob = User.find_by_id(@panel_request.user_id)
-            lob_email = @lob.email
-            lob_name =  @lob.username
-
-            #user_id = @panel_request.law_firm.user.user_id
-            #@user = User.with_deactivated.find_by(id: user_id)
-            @user = @panel_request.try(:law_firm).try(:user)
-            if @user.present?
-              user_email = @user.email
-              user_name =  @user.username
-            else
-              user_email = @panel_request.law_firm_mail
-              user_name =  @panel_request.law_frim_name
-            end
-            @panel_request.send_retainer_for_esigning(lob_email, lob_name, user_email, user_name)
-            if review_params[:status] == 'PANEL_RETAINER'
-              @panel_request.status = 'PANEL_RETAINER'
-
-              PanelRequestMailer.notification_for_retainer_to_law_firm(@panel_request).deliver_now
-            else
-              PanelRequestMailer.notification_for_retainer_to_lob(@panel_request).deliver_now
-            end
-            PanelRequestMailer.notification_for_retainer_to_user(@panel_request).deliver_now
-          elsif current_user.role === 'lxp' &&  review_params[:status] == 'REJECTED'
-            PanelRequestMailer.notification_for_rejected_to_user(@panel_request).deliver_now
-          elsif current_user.role === 'lxp' &&  review_params[:status] == 'ARCHIVED'
-            @panel_request.status = 'ARCHIVED'
-            @panel_request.archived_at = Time.now 
-            PanelRequestMailer.notification_for_status_to_user(@panel_request).deliver_now
-          elsif current_user.role === 'lxp' &&  review_params[:status] == 'UN_ARCHIVED'
-            @panel_request.status = 'UN_ARCHIVED'
-            @panel_request.archived_at = nil 
-            PanelRequestMailer.notification_for_status_to_user(@panel_request).deliver_now  
-          elsif current_user.role === 'lxp' && review_params[:status] == 'LAW_FIRM_CREATED'
-            
-            @panel_request.archived_at = nil  
-            @user = User.new 
-            @user.email = @panel_request.law_firm_mail
-            @user.role = 'master_user'
-            @user.empty_user = true
-            @user.tenant_id = Tenant.current&.id || current_user&.tenant&.id
-            @user.status = nil
-            if @user.save
-              @law_firm = LawFirm.new
-              @law_firm.user_id = @user.id
-              @law_firm.law_firm_category = "PANEL"
-              @law_firm.name = @panel_request.law_frim_name
-              @law_firm.law_firm_category = @panel_request.law_firm_category
-              @law_firm.contact_name = @panel_request.law_firm_contact_name
-              @law_firm.firm_use_on_regular_basis = @panel_request.firm_use_on_regular_basis
-              @law_firm.email = @panel_request.law_firm_mail
-              @law_firm.phone = @panel_request.law_firm_phone
-              @law_firm.save
-              @panel_request.update(law_firm_id: @law_firm.id)
-              @user.law_firm_id =  @law_firm.id
-              @user.save
-              @panel_request.status = 'LAW_FIRM_CREATED'
-              begin
-                LawFirmsTenant.create(
-                  law_firm_id: @law_firm&.id,
-                  tenant_id: @user.tenant_id
-                )
-              rescue => e
+              #user_id = @panel_request.law_firm.user.user_id
+              #@user = User.with_deactivated.find_by(id: user_id)
+              @user = @panel_request.try(:law_firm).try(:user)
+              if @user.present?
+                user_email = @user.email
+                user_name =  @user.username
+              else
+                user_email = @panel_request.law_firm_mail
+                user_name =  @panel_request.law_frim_name
               end
-              flash[:notice] = "Law Firm Created"
+              @panel_request.send_retainer_for_esigning(lob_email, lob_name, user_email, user_name)
+              if review_params[:status] == 'PANEL_RETAINER'
+                @panel_request.status = 'PANEL_RETAINER'
+
+                PanelRequestMailer.notification_for_retainer_to_law_firm(@panel_request).deliver_now
+              else
+                PanelRequestMailer.notification_for_retainer_to_lob(@panel_request).deliver_now
+              end
+              PanelRequestMailer.notification_for_retainer_to_user(@panel_request).deliver_now
+            elsif current_user.role === 'lxp' &&  review_params[:status] == 'REJECTED'
+              PanelRequestMailer.notification_for_rejected_to_user(@panel_request).deliver_now
+            elsif current_user.role === 'lxp' &&  review_params[:status] == 'ARCHIVED'
+              @panel_request.status = 'ARCHIVED'
+              @panel_request.archived_at = Time.now 
+              PanelRequestMailer.notification_for_status_to_user(@panel_request).deliver_now
+            elsif current_user.role === 'lxp' &&  review_params[:status] == 'UN_ARCHIVED'
+              @panel_request.status = 'UN_ARCHIVED'
+              @panel_request.archived_at = nil 
               PanelRequestMailer.notification_for_status_to_user(@panel_request).deliver_now  
-            else
-              @panel_request.status = 'LAW_FIRM_EXIST'
-              @review.status = 'LAW_FIRM_EXIST'
-              @review.save
-              @panel_request.lxp_status = 'LAW_FIRM_EXIST'
-              flash[:alert] = "Law Firm Already Exists"
+            elsif current_user.role === 'lxp' && review_params[:status] == 'LAW_FIRM_CREATED'
+              
+              @panel_request.archived_at = nil  
+              @user = User.new 
+              @user.email = @panel_request.law_firm_mail
+              @user.role = 'master_user'
+              @user.empty_user = true
+              @user.tenant_id = Tenant.current&.id || current_user&.tenant&.id
+              @user.status = nil
+              if @user.save
+                @law_firm = LawFirm.new
+                @law_firm.user_id = @user.id
+                @law_firm.law_firm_category = "PANEL"
+                @law_firm.name = @panel_request.law_frim_name
+                @law_firm.law_firm_category = @panel_request.law_firm_category
+                @law_firm.contact_name = @panel_request.law_firm_contact_name
+                @law_firm.firm_use_on_regular_basis = @panel_request.firm_use_on_regular_basis
+                @law_firm.email = @panel_request.law_firm_mail
+                @law_firm.phone = @panel_request.law_firm_phone
+                @law_firm.save
+                @panel_request.update(law_firm_id: @law_firm.id)
+                @user.law_firm_id =  @law_firm.id
+                @user.save
+                @panel_request.status = 'LAW_FIRM_CREATED'
+                begin
+                  LawFirmsTenant.create(
+                    law_firm_id: @law_firm&.id,
+                    tenant_id: @user.tenant_id
+                  )
+                rescue => e
+                end
+                flash[:notice] = "Law Firm Created"
+                PanelRequestMailer.notification_for_status_to_user(@panel_request).deliver_now  
+              else
+                @panel_request.status = 'LAW_FIRM_EXIST'
+                @review.status = 'LAW_FIRM_EXIST'
+                @review.save
+                @panel_request.lxp_status = 'LAW_FIRM_EXIST'
+                flash[:alert] = "Law Firm Already Exists"
+              end
             end
-            
           elsif current_user.role === 'lxp' &&  review_params[:status] == 'APPROVED'
             @panel_request.status = 'Active'
             @panel_request.law_firm.status = 'Active'
