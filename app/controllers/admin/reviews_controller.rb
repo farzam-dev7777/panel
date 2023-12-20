@@ -156,8 +156,8 @@ class Admin::ReviewsController < Admin::BaseController
           if @panel_request.present?
             if current_user.role === 'lxp' && review_params[:status] == 'PANEL_RETAINER'
               @lob = User.find_by_id(@panel_request.user_id)
-              lob_email = @lob.email
-              lob_name =  @lob.username
+              lob_email = @lob&.email
+              lob_name =  @lob&.username
 
               #user_id = @panel_request.law_firm.user.user_id
               #@user = User.with_deactivated.find_by(id: user_id)
