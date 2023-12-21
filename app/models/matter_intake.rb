@@ -449,7 +449,7 @@ class MatterIntake < ApplicationRecord
         type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
         optional: MANDATORY_FIELDS.include?(:law_firm_id) == false,
         value: self.law_firm_id,
-        collection: Tenant.current.law_firms.select{|s| s.show_status=='On Panel'}.map{ |lf| [lf.name, lf.id] }
+        collection: Tenant.current.law_firms.select{|s| s.status_show=='On Panel'}.map{ |lf| [lf.name, lf.id] }
       },
       {
         name: I18n.t(:external_lawyer_ids, default: "Assigned Lawyer"),
