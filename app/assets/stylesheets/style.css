@@ -1,4 +1,5 @@
-@import url("https://fonts.googleapis.com/css?family=Roboto");
+/* @import url("https://fonts.googleapis.com/css?family=Roboto"); */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 .form-question-score {
   margin-top: -3px;
 }
@@ -1003,7 +1004,8 @@ ul.internal-notes li div p {
   color: #fff;
   text-transform: uppercase;
   letter-spacing: 30px;
-  font-weight: bold;
+  font-weight: 600;
+  font-size: 18px;
 }
 
 .severity-level-wrapper {
