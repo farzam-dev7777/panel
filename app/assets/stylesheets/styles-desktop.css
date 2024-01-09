@@ -1,9 +1,17 @@
 /* Top Navbar start */
-@import url("https://fonts.googleapis.com/css2?family=Heebo:wght@100;300;400;500;700&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Heebo:wght@100;300;400;500;700&display=swap"); */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@100;200;300;400;500;600;700;800;900&display=swap');
 /* font-family: 'Heebo', sans-serif; */
+/* 
+font-family: 'Open Sans', sans-serif;
+font-family: 'Poppins', sans-serif;
+font-family: 'Be Vietnam Pro', sans-serif;
+ */
+
 body {
   background-color: #f5f7fa;
-  font-family: "Heebo", sans-serif !important;
+  font-family: 'Poppins', sans-serif !important;
 }
 .m-top-zero {
   /* margin-top: 0px; */
@@ -153,23 +161,23 @@ body {
 }
 .sp-sidebar ul li.active {
   background-color: var(--primary-color, #2b3344) !important;
-  border-radius: 4px !important;
+  border-radius: 40px !important;
 }
 .sp-sidebar ul li.active a {
   color: #ffffff !important;
-  font-weight: bold !important;
+  font-weight: 600 !important;
 }
 .sp-sidebar ul li a {
-  font-weight: normal !important;
+  font-weight: 500 !important;
 }
 .sp-sidebar ul li a {
   display: flex;
   text-transform: uppercase;
   padding: 14px 10px 14px 11px;
-  font-size: 13px;
-  color: #484848;
-  border-radius: 4px !important;
+  color: #000000;
+  border-radius: 40px !important;
   align-items: baseline;
+  font-family: 'Be Vietnam Pro', sans-serif;
 }
 .sp-sidebar ul li a:hover {
   background-color: rgba(69, 69, 69, 0.05);
@@ -243,6 +251,9 @@ nav ul li a:active {
   margin-left: 5px;
   justify-content: center;
 }
+.top-status-card .card-content .card-icon img {
+  object-fit: scale-down;
+}
 .top-status-card .card-content .bg-color-01 {
   background-color: var(--primary-color, #2b3344);
 }
@@ -264,7 +275,7 @@ nav ul li a:active {
   line-height: 42px;
 }
 .top-status-card .card-content .card-details .card-name {
-  font-size: 12px;
+  font-size: 16px;
   color: #171f46;
   font-weight: 500;
   text-transform: uppercase;
@@ -284,8 +295,9 @@ nav ul li a:active {
   margin-top: 50px;
 }
 .page-title {
-  color: #171f46;
-  font-size: 24px;
+  color: #000000;
+  font-weight: 300;
+  font-size: 32px;
   margin-bottom: 0px !important;
   margin-top: 0px;
 }
