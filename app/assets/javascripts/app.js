@@ -188,9 +188,10 @@ $(document).ready(function(){
 
   $('.cloned-form').hide()
   $('#view-only-follow-ups').on('click', function(){
-    var element = jQuery('.need-follow-up').clone();
-    element.appendTo('.cloned-form > div');
-
+    if($('.cloned-form > div > .need-follow-up').size() == 0 ){
+      var element = jQuery('.need-follow-up').clone();
+      element.appendTo('.cloned-form > div');
+    }
     $('.real-form').fadeOut();
     $('.cloned-form').fadeIn();
   })
