@@ -53,12 +53,12 @@
                   <%= f.text_field :username, autofocus: true %>
                 </div>
               </div>
-              <div>
+              <div style="margin-bottom: 25px;margin-top:1px;">
                 <label class="sp-label">Password</label>
-                <div class="sp-input">
-                <%= f.password_field :password, autocomplete: "off" %>
+                <label class="input"> <i class="toggle-password icon-append fa fa-eye-slash"></i>
+                  <%= f.password_field :password, autocomplete: "off" %>
+                </label>
               </div>
-            </div>
             <div class="sp-tc">
               <div style="margin: 5px;margin-top:1px;">
                 <%= check_box_tag 'accept'%> 
@@ -119,6 +119,8 @@
                 <label class="label">Password</label>
                 <label class="input"> <i class="icon-append fa fa-lock"></i>
                 <%= f.password_field :password, autocomplete: "off" %>
+                 <a data-action="click->password-toggle#password" class="password-field-icon-1 far fa-eye-slash"></a>
+
                 <b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i> Enter your password</b> </label>
                 <!-- <div class="note">
                   <%= link_to "Forgot password?", new_password_path('user'), :class => "login-link" %>
