@@ -1,0 +1,90 @@
+<style>
+  div#gauge * {
+    top: -25px;
+  }
+</style>
+<div class="col-lg-12 col-md-12 col-sm-12">
+  <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+    <div class="page-header-sp m-top">
+      <div class="page-title">RFP
+        <span class="<%= @matter_intake.status === "matter_open" ? 'label label-success' : 'label label-default' %>"> 
+         Status: <%= @rfp.status %>
+        </span>
+      </div>
+
+      <div class="back-edit-actions">
+		<div>
+			<div class="action-buttons-alignment">
+				<a class="export-icon right-action-btns add-button" href="<%= edit_admin_rfp_path(@rfp) %>">
+					<%= image_tag "add.svg", alt:"General Intake" %> <span>Edit</span>
+				</a>
+			</div>
+		</div>
+        <a class="btn-type-default" href="<%=matter_url %>">
+          <%= image_tag "chevron-back-icon.svg", alt:"Back" %>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="clearfix"></div>
+<div class="col-lg-12 col-md-12 col-sm-12">
+  <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+    <div class="page-header-sp m-top">
+    </div>
+    <div class="  ">
+      <!-- widget content -->
+      <div class="">
+        <div class="sp-form-bg show-data-fields">
+          <div class="row form-flex-wrap">
+            <% matter_role = @matter_intake.matter_form_role(current_user)%>
+            <% invoice_enable = false %>
+            <%@matter_intake.generate_fields(current_user, Tenant.current).each do |obj| %>
+              <% if obj[:access][matter_role] == 'write' || obj[:access][matter_role] == 'read'%>
+                <% if obj[:database_field] == :invoices%>
+                  <% invoice_enable = true %>
+                <% else %>
+                  <% if obj[:database_field] == :matter_description %>
+                    <div class="col-xs-12 col-md-12">
+                  <% else %>
+                     <div class="col-xs-12 col-md-6">
+                  <% end %>
+                    <div class="field-label" title="<%= matter_lang_title(obj[:database_field], obj[:name]) %>"><%= obj[:name] %></div>
+                    <%  if obj[:database_field] == :law_firm_id %>
+                      <div class="field-data"><%= @matter_intake.law_firm&.name %></div>
+                    <% elsif obj[:database_field] == :line_of_business_id%>
+                      <div class="field-data"><%= @matter_intake.line_of_business&.name %></div>
+                    <% elsif obj[:database_field] == :lawyer_id%>
+                      <div class="field-data"><%= @matter_intake.lawyer&.full_name %></div>
+                    <% elsif obj[:database_field] == :requested_by_id%>
+                      <div class="field-data"><%= @matter_intake.requested_by&.full_name %></div>
+                    <% elsif obj[:database_field] == :matter_type_id%>
+                      <div class="field-data"><%= @matter_intake.matter_type&.matter_type %></div>
+                    <% elsif obj[:database_field] == :following_matter_involve%>
+                      <div class="field-data"><%= @matter_intake.following_matter_involve_to_s %></div>
+                    <% elsif obj[:database_field] == :matter_description %>
+                      <div class="field-data" style="height: 85px;"><%= @matter_intake.matter_description %></div>
+                    <% elsif obj[:database_field] == :external_lawyer_ids %>
+                      <div class="field-data" style="height: 85px;"><%= @matter_intake.external_lawyers&.pluck(:name)&.join(', ') %></div>
+                    <% else %>
+                      <div class="field-data"><%= @matter_intake.send(obj[:database_field]) %></div>
+                    <% end %>
+                  </div>
+                <% end %>
+              <% end %>
+            <% end %>
+            <% if current_user.is_panel_admin_user?%>
+              <%= render "/shared/matter_attachment_show", matter_intake: @matter_intake %>
+            <% end %>
+
+          </div>
+          <% if @rfp.rfp_invites.present?%>
+          	<%= render "rfp_invite" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+</div>

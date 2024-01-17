@@ -187,6 +187,7 @@ Rails.application.routes.draw do
         get :load_more_activities
       end
     end
+    resources :rfps
     root to: "internal_dashboard#index"
   end
 

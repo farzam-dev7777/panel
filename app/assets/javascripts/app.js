@@ -1925,6 +1925,10 @@ $('.law-firm-row').on('click', function(){
   window.location.href = "/admin/law_firms/" + $(this).data().id;
 })
 
+$('.rfp-row').on('click', function(){
+  window.location.href = "/admin/rfps/" + $(this).data().id;
+})
+
 $(document).on('click', '#load-more-activities', function(){
   var data = $(this).data();
   context = $(this).parent();

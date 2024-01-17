@@ -26,7 +26,7 @@
     <header id="header" class="sp-navbar">
       <div id="logo-group">
         <!-- PLACE YOUR LOGO HERE -->
-        <span id="logo"> <a href="/admin"><%= image_tag "seal-logo.png", alt:"PANEL" %></a> </span>
+        <span id="logo"> <a href="/admin"><%= image_tag "seal_logo.png", alt:"PANEL" %></a> </span>
         <!-- END LOGO PLACEHOLDER -->
       </div>
       <div class="text-center portal-type">
@@ -116,7 +116,11 @@
                   <a href="/admin/conflict_waivers" title="Conflict Waiver"><i class="fa fa-question-circle" aria-hidden="true"></i> <span class="menu-item-parent">Conflict Waiver Requests</span></a>
                 </li>
               <% end %>
-              
+              <% if current_user && current_user.role == 'lxp'%>
+                <li class=" <%= active_page?(:rfp) %>">
+                  <a href="/admin/rfps" title="Conflict Waiver"><i class="fa fa-question-circle" aria-hidden="true"></i> <span class="menu-item-parent">RFP</span></a>
+                </li>
+              <% end %>
               <!--<% if current_user && ( current_user.role == 'lob' || current_user.role == 'lxp' || current_user.role == 'internal_lawyers' ) %>
                 <li class=" <%= active_page?(:exception_requests) %>">
                   <a href="/admin/exception_requests" title="Exception Requests"><i class="fa fa-flag" aria-hidden="true"></i> <span class="menu-item-parent">Exception Requests</span></a>

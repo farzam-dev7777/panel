@@ -1,0 +1,29 @@
+    
+    <div class="no-padding">
+      <div class="jarviswidget-editbox"></div>
+        <!-- widget content -->
+        <div class="field-label">Law Firm Invites </div>
+        <div class="widget-body">
+        <div class="table-responsive">
+          <table id="" class="table table-decoration table-bordered" width="100%">
+            <thead>
+              <tr>
+                <th>Law Firm</th>
+                <th>Date Submitted</th>
+                <th>Status</th>
+              </tr>
+              <tbody>
+                <% @rfp.rfp_invites.each do |invite| %>
+                  <tr>
+                      <td><%= invite.law_firm.name%></td>
+                      <td><%= invite.created_at.strftime('%d %b %Y') %></td>
+                      <td><%= invite.status %></td>
+                  </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

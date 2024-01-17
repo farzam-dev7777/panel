@@ -1,0 +1,2 @@
+class ProposalComment < ApplicationRecord
+end
