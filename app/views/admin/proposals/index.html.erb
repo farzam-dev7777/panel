@@ -1,19 +1,12 @@
 <% content_for :page_title do %>
-	<span>RFP</span>
+	<span>Proposals</span>
 <% end %>
 
 
 <div class="col-lg-12">
 	<div class="jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
 			<div class="page-header-sp m-top">
-				<div class="page-title">RFP</div>
-				<div>
-	                <div class="action-buttons-alignment">
-	                  <a class="export-icon right-action-btns add-button" href="<%= new_admin_rfp_path() %>">
-	                    <%= image_tag "add.svg", alt:"General Intake" %> <span>New RFP Request</span>
-	                  </a>
-	                </div>
-				</div>
+				<div class="page-title">Proposals</div>
   		</div>
 			<!-- widget div-->
 			<div>
@@ -23,18 +16,22 @@
 					<table id="dt_basic" class="table table-decoration table-bordered"  width="100%">
 						<thead>			                
 							<tr>
+							<th>Law Firm</th>
 							<th>Date Submitted</th>
 							<th>Status</th>
 							<th>Action</th>
 							</tr>
 						</thead>
 						<tbody>
-							<% @rfps.each do |rfp| %>
-								<tr class="rfp-row" data-id="<%= rfp.id %>">
-									<td data-order="<%= rfp.created_at.strftime('%Y%m%d%H%M') %>">
-										<%= rfp.created_at.strftime('%d %b %Y') %></td>
-									<td><%= rfp.status %></td>
-									<td><%= link_to "Proposals",admin_rfp_proposals_path(rfp), class: "btn btn-xs btn-secondary" %></td>
+							<% @rfp.proposals.each do |proposal| %>
+								<tr class="proposal-row" data-url="<%= admin_rfp_proposal_path(proposal.rfp, proposal) %>">
+									<td><%= proposal.law_firm&.name %></td>
+									<td data-order="<%= proposal.created_at.strftime('%Y%m%d%H%M') %>">
+										<%= proposal.created_at.strftime('%d %b %Y') %></td>
+									<td><%= proposal.status %></td>
+									<td>
+										<%= link_to "Approve", accept_admin_rfp_proposal_path(proposal.rfp, proposal), class: "btn btn-xs btn-secondary" %>
+									</td>
 								</tr>
 							<% end %>
 						</tbody>

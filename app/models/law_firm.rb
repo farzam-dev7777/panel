@@ -33,6 +33,8 @@ class LawFirm < ApplicationRecord
   has_many :tenants, through: :law_firms_tenants
   has_many :external_lawyers
   has_many :law_firm_attachments
+  has_many :rfp_invites
+  has_many :proposals
 
   serialize :practice_area, Array
   # serialize :type_of_matters_your_law_firm_handles_for_us, Array

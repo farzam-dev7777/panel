@@ -14,15 +14,8 @@
 
       <div class="back-edit-actions">
 		<div>
-      <% if @rfp.status == 'pending '%>
-  			<div class="action-buttons-alignment">
-  				<a class="export-icon right-action-btns add-button" href="<%= edit_admin_rfp_path(@rfp) %>">
-  					<%= image_tag "add.svg", alt:"General Intake" %> <span>Edit</span>
-  				</a>
-  			</div>
-      <% end %>
 		</div>
-        <a class="btn-type-default" href="<%=matter_url %>">
+        <a class="btn-type-default" href="/">
           <%= image_tag "chevron-back-icon.svg", alt:"Back" %>
         </a>
       </div>
@@ -78,10 +71,8 @@
             <% if current_user.is_panel_admin_user?%>
               <%= render "/shared/matter_attachment_show", matter_intake: @matter_intake %>
             <% end %>
+
           </div>
-          <% if @rfp.rfp_invites.present?%>
-          	<%= render "rfp_invite" %>
-          <% end %>
         </div>
       </div>
     </div>

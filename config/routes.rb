@@ -187,7 +187,14 @@ Rails.application.routes.draw do
         get :load_more_activities
       end
     end
-    resources :rfps
+    resources :rfps do 
+      resources :proposals do 
+        member do 
+          post :add_comment
+          get :accept
+        end
+      end
+    end
     root to: "internal_dashboard#index"
   end
 
@@ -397,6 +404,16 @@ Rails.application.routes.draw do
     end
   end
   resources :matter_approvals
+  resources :rfps do 
+    collection do 
+      get :accpect_invite
+    end
+    resources :proposals do 
+      member do 
+        post :add_comment
+      end
+    end
+  end
 
   post 'tenants/switch', to: 'tenants#switch'
 

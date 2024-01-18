@@ -1929,6 +1929,10 @@ $('.rfp-row').on('click', function(){
   window.location.href = "/admin/rfps/" + $(this).data().id;
 })
 
+$('.proposal-row').on('click', function(){
+  window.location.href = $(this).data().url;
+})
+
 $(document).on('click', '#load-more-activities', function(){
   var data = $(this).data();
   context = $(this).parent();

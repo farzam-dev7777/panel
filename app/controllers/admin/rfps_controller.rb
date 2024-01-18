@@ -68,6 +68,10 @@ class Admin::RfpsController< Admin::BaseController
     end
   end
 
+  def proposal
+    @rfp = Rfp.find_by_id params[:id]
+  end
+
   def rfp_params
     params.require(:rfp).permit(
       :id, :user_id, :expiry_date, :status, :invites,

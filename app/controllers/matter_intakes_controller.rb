@@ -7,7 +7,7 @@ class MatterIntakesController < BaseController
       @query['invoices_status_null']= true
       @query.delete('invoices_status_cont')
     end
-    @q = current_user.law_firm.matter_intakes.ransack(@query)
+    @q = current_user.law_firm.matter_intakes.not_rfp.ransack(@query)
     @matter_intakes = @q.result(distinct: true).order('updated_at DESC')
     add_breadcrumb "Matter Intakes", :admin_matter_intakes_path
   end

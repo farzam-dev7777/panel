@@ -13,9 +13,9 @@ class Admin::MatterIntakesController < Admin::BaseController
     end
 
     if (@query||{})[:include_archive].present?
-      @q = MatterIntake.with_deleted.ransack(@query)
+      @q = MatterIntake.not_rfp.with_deleted.ransack(@query)
     else
-      @q = MatterIntake.ransack(params[:q])
+      @q = MatterIntake.not_rfp.ransack(params[:q])
     end
     @current_user = current_user
     if current_user.role === "internal_lawyers"

@@ -37,7 +37,7 @@ class User < ApplicationRecord
   
   validates_presence_of  :email, :role
   validates_presence_of :password, if: :need_password_validation?
-  validates_presence_of :password_confirmation, if: :need_password_validation?
+  # validates_presence_of :password_confirmation, if: :need_password_validation?
   validates :username,
     :presence => true,
     :uniqueness => {
