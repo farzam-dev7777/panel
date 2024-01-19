@@ -1952,18 +1952,22 @@ $(document).on('click', '#load-more-activities', function(){
   })
 })
 
-$(document).on('mouseup', '.toggle-password', function() {
+$(document).on('click', '.fa-eye-slash', function() {
     var input = $("#user_password");
     if (input.attr("type") === "password") {
-      $(this).addClass("fa-eye");
-      $(this).removeClass("fa-eye-slash");
+      $(".fa-eye").show();
+      $(".fa-eye-slash").hide();
       input.attr("type", "text");
-    } else {
-      $(this).addClass("fa-eye-slash");
-      $(this).removeClass("fa-eye");
+    }
+  });
+
+$(document).on('click', '.fa-eye', function() {
+    var input = $("#user_password");
+    if (input.attr("type") === "text") {
+      $(".fa-eye").hide();
+      $(".fa-eye-slash").show();
       input.attr("type", "password");
     }
-  
   });
 
 // $('#search-activity-log-btn').on('click', function(e){
