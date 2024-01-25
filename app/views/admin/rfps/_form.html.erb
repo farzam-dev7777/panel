@@ -45,7 +45,7 @@
         <% end %>
         <div class="col-xs-12 col-md-3">
           <label class="label">Law Firm Invites</label>
-          <%= rfp.input :invites, label: false, collection: Tenant.current.law_firms.select{|s| s.status_show=='On Panel'}.map{ |lf| [lf.name, lf.id] }, selected: @rfp.rfp_invites.map(&:law_firm_id), input_html: { multiple: true } %>
+          <%= rfp.input :invites, label: false, collection: [['Select All', 'select_all']]+Tenant.current.law_firms.select{|s| s.status_show=='On Panel'}.map{ |lf| [lf.name, lf.id] }, selected: @rfp.rfp_invites.map(&:law_firm_id), input_html: { multiple: true } %>
         </div>
         <div class="col-xs-12 col-md-3">
           <label class="label">Expriy Date</label>

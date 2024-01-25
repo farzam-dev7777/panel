@@ -16,26 +16,37 @@ class ProposalsController < BaseController
 
 	def create
 		@rfp = Rfp.find_by_id params[:rfp_id]
-	  	@proposal = @rfp.proposals.new(proprosal_params)
-	  	@proposal.law_firm_id = current_user.law_firm.id
-	  	@proposal.status = 'pending'
-	  	if @proposal.save
-	      flash[:notice] = "Proposal submitted"
-	      redirect_to root_path()
-	  	else
-	      flash[:alert] = "There was an error initiating proposal request. #{@proposal.errors.full_messages.join(', ')}" 
-	      render :new
-	  	end
+		if @rfp.expiry_date.present? && @rfp.expiry_date < Date.today
+			flash[:alert] = "Proposal can't submit after expiry date" 
+			redirect_to root_path()
+		else
+		  	@proposal = @rfp.proposals.new(proprosal_params)
+		  	@proposal.law_firm_id = current_user.law_firm.id
+		  	@proposal.status = 'pending'
+		  	if @proposal.save
+		      flash[:notice] = "Proposal submitted"
+		      redirect_to root_path()
+		  	else
+		      flash[:alert] = "There was an error initiating proposal request. #{@proposal.errors.full_messages.join(', ')}" 
+		      render :new
+		  	end
+		end
 	end
 
 	def update
 		@proposal = Proposal.find_by_id(params[:id])
-	  	if @proposal.update(proprosal_params)
-	      flash[:notice] = "Proposal updated"
-	      redirect_to root_path()
-	  	else
-	      flash[:alert] = "There was an error initiating proposal request. #{@proposal.errors.full_messages.join(', ')}" 
-	      render :edit
+		@rfp = @proposal.rfp
+		if @rfp.expiry_date.present? && @rfp.expiry_date < Date.today
+			flash[:alert] = "Proposal can't update after expiry date" 
+			redirect_to root_path()
+		else
+		  	if @proposal.update(proprosal_params)
+		      flash[:notice] = "Proposal updated"
+		      redirect_to root_path()
+		  	else
+		      flash[:alert] = "There was an error initiating proposal request. #{@proposal.errors.full_messages.join(', ')}" 
+		      render :edit
+		  	end
 	  	end
 	end
 

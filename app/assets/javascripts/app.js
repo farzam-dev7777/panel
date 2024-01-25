@@ -1969,7 +1969,16 @@ $(document).on('click', '.fa-eye', function() {
       input.attr("type", "password");
     }
   });
+$(document).on('change', '#rfp_invites', function() {
+    values = $('#rfp_invites').val();
+    if(values != null){
+      if(values.includes('select_all') == true){
+        $('#rfp_invites option').prop('selected', true)
+        $("#rfp_invites option[value='select_all']").prop('selected', false).trigger("chosen:updated");
+      }
+    }
 
+  });
 // $('#search-activity-log-btn').on('click', function(e){
 //   e.preventDefault();
 //   $("#search_activity_log").submit();
