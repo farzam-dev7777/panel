@@ -49,7 +49,11 @@
         </div>
         <div class="col-xs-12 col-md-3">
           <label class="label">Expriy Date</label>
-          <%= rfp.input :expiry_date, as: :string, input_html: { class: 'invoice_datepicker', value: DateField.stringify_date(rfp.object.expiry_date) }, label: false %>
+          <%= rfp.input :expiry_date, as: :string, input_html: { class: 'rfp_datepicker', value: rfp.object&.expiry_date&.strftime("%d %b %Y %H:%m") }, label: false %>
+        </div>
+        <div class="col-xs-12 col-md-3">
+          <label class="label">Notify Lawyers</label>
+          <%= rfp.input :notify_lawyers, as: :check_boxes, label: false, collection: [['Yes', 'Yes']] %>  
         </div>
         <!-- New form start -->
         <div class="col-md-12 col-xs-12">

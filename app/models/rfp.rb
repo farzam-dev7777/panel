@@ -4,5 +4,5 @@ class Rfp < ApplicationRecord
 	has_many :proposals
 	accepts_nested_attributes_for :matter_intake, reject_if: :all_blank, allow_destroy: true
 
-	attr_accessor :invites
+	attr_accessor :invites, :notify_lawyers
 end

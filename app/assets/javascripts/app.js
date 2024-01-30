@@ -2116,6 +2116,12 @@ $('body').on('focus',".invoice_datepicker", function(){
   });
 });
 
+$('body').on('focus',".rfp_datepicker", function(){
+  $(this).datetimepicker({
+    format:'d M Y H:m'
+  });
+});
+
 $('#matter_intake_law_firm_id').on('change', function() {
   setAvailableLawyerOptions(this.value)
 })
