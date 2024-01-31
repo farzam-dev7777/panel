@@ -32,7 +32,7 @@ class MatterIntake < ApplicationRecord
 
   before_save :convert_budget_amount
 
-  scope :not_rfp,  -> { where.not(form_type: 'rfp') }
+  scope :not_rfp,  -> { where.not(form_type: 'rfp', status: 'pending') }
 
   def self.ransackable_associations(auth_object = nil)
     ["external_lawyer_matter_intakes", "external_lawyers", "invoices", "law_firm", "lawyer", "line_of_business", "matter_approvals", "matter_intake_agreements", "matter_intake_attachments", "matter_type", "requested_by", "reviews", "user", "versions"]

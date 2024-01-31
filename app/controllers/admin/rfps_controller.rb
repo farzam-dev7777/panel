@@ -28,6 +28,7 @@ class Admin::RfpsController< Admin::BaseController
     @rfp.matter_intake.submitter_name = current_user.full_name
     @rfp.matter_intake.matter_number = "MT-#{Date.today.month}-#{Date.today.day}-#{MatterIntake.count}"
     @rfp.matter_intake.user_id = current_user.id
+    @rfp.matter_intake.status = 'pending'
 
     if @rfp.save
       (params[:rfp][:invites]||[]).each do |law_firm_id|
