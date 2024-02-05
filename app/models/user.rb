@@ -287,7 +287,7 @@ class User < ApplicationRecord
             user.new_password_set = true
             line_of_business_obj = []
             result.select do |group|
-              objs = Tenant.current.line_of_businesses.where("LOWER(sso_group) =? ", group['displayName'].downcase)
+              objs = Tenant.current.line_of_businesses.where("LOWER(sso_group) =? ", group['displayName']&.downcase)
               if objs.present?
                 line_of_business_obj = line_of_business_obj + objs
               end
