@@ -76,6 +76,7 @@ class Admin::RfpsController< Admin::BaseController
   def rfp_params
     params.require(:rfp).permit(
       :id, :user_id, :expiry_date, :status, :invites,
+      questions_attributes: [:id, :kind, :message, :_destroy],
       matter_intake_attributes: [
         :id, :user_id, :submitter_name, :lob_contact_name, :name_of_matter_client, :matter_type_id, :asset,
         :matter_description, :mode_of_payment, :law_firm_id, :bmo_lawyer_name, :lawyer_id, :budget_amount,

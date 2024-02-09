@@ -55,6 +55,25 @@
           <label class="label">Notify Lawyers</label>
           <%= rfp.input :notify_lawyers, as: :check_boxes, label: false, collection: [['Yes', 'Yes']] %>  
         </div>
+        <!-- New Question start -->
+        <div class="col-md-12 col-xs-12">
+          <div class="formHeader">
+            <div class="headerTitle">Questions</div>
+          </div>
+        </div>
+        <div class="col-md-12 col-xs-12">
+          <% if @rfp.questions.count > 0 %>
+            <% @rfp.questions.each do |question| %>
+              <%= rfp.simple_fields_for :questions, question do |form| %>
+                <%= render 'rfp_question_fields', f: form, question: question %>
+              <% end %>
+            <% end %>
+          <% end %>
+          <div class="addButton links mb-4">
+            <%= link_to_add_association '<span href="javascript:void(0);"><i class="fa fa-plus-circle"></i> Add Question</span>'.html_safe, rfp, :questions, partial: 'rfp_question_fields' %> 
+          </div>
+        </div>
+
         <!-- New form start -->
         <div class="col-md-12 col-xs-12">
           <div class="formHeader">

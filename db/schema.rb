@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_15_142916) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_08_161324) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pgcrypto"
@@ -108,6 +108,18 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_15_142916) do
     t.string "role"
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+  end
+
+  create_table "answers", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "proposal_id"
+    t.integer "question_id"
+    t.integer "rfp_id"
+    t.text "response"
+    t.datetime "date"
+    t.string "file"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "cloud_providers", id: :serial, force: :cascade do |t|
@@ -908,6 +920,14 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_15_142916) do
     t.float "amount"
     t.text "description"
     t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.integer "rfp_id"
+    t.text "message"
+    t.string "kind"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

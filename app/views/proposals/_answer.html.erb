@@ -1,0 +1,24 @@
+<div class="col-xs-12 col-md-6">
+  <%= af.input :rfp_id, as: :hidden, label: false%>
+  <%= af.input :question_id, as: :hidden, label: false%>
+  <label class="label"><%= question.message%></label>
+  <% if question.kind == 'Text'%>
+    <%= af.input :response, as: :string, label: false, size: '50x10'%>
+  <% elsif question.kind == 'File'%>
+    </br>
+    <div class="uploadFile">
+      <label for="file" onclick="trigger_file_input(this)">
+        <%= image_tag "paperclip.png", alt:"Upload file", style:"width: 30px;" %>
+        <span class="file_name" style="padding: 5px;"><%= af.object.file.identifier%></span>
+      </label>
+      <div style="display: none;">
+        <%= af.input :file, label: false, as: :file, input_html: {multiple: false, onchange:"show_file_name(this)", accept: "application/pdf"} %>
+      </div>
+    </div>
+
+  <% elsif question.kind == 'Date'%>
+    <%= af.input :date, as: :string, input_html: { class: 'invoice_datepicker', value: DateField.stringify_date(af.object.date) }, label: false %>
+  <% elsif question.kind == 'True/False'%>
+      <%= af.input :response, label: false, collection: ['Yes', 'No']%>
+  <% end %>
+</div>

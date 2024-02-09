@@ -7,6 +7,9 @@ class ProposalsController < BaseController
 	def new
 		@rfp = Rfp.find_by_id params[:rfp_id]
 		@proposal = @rfp.proposals.new
+		@rfp.questions.each do |question|
+			@proposal.answers.build(rfp_id: @rfp.id, question_id: question.id)
+		end
 	end
 
 	def edit
@@ -61,6 +64,9 @@ class ProposalsController < BaseController
 	end
 
 	def proprosal_params
-		params.require(:proposal).permit(:amount, :description, :rfp_id)
+		params.require(:proposal).permit(
+			:amount, :description, :rfp_id,
+			answers_attributes: [:id, :response, :date, :file, :rfp_id, :question_id],
+		)
 	end
 end

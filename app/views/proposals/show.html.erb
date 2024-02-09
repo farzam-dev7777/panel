@@ -25,6 +25,22 @@
                     <div class="field-label">Amount</div>
                      <div class="field-data"><%= @proposal.amount %></div>
                   </div>
+                  <% @proposal.answers.each do |answer|%>
+                    <div class="col-xs-12 col-md-6">
+                      <div class="field-label"><%= answer.question.message %></div>
+                      <% if answer.question.kind == 'File'%>
+                        <div class="field-data">
+                          <a href="<%= answer.file&.url %>" target="_blank" title="<%= answer.file.identifier %>">
+                              <%= answer.file.identifier %>
+                          </a>
+                        </div>
+                      <% elsif answer.question.kind == 'Date' %>
+                       <div class="field-data"><%= answer.date&.strftime('%d %b %Y')%></div>
+                      <% else %>
+                        <div class="field-data"><%= answer.response %></div>
+                      <% end %>
+                    </div>
+                  <% end %>
                 </div>
               </div>
         </div>

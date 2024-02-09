@@ -1,0 +1,19 @@
+<div id="invoices">
+	<div class="col-md-12 col-xs-12">
+		<div class="formSection row nested-fields"> <!-- this main div will be functional -->
+			<div class="col-xs-12 col-md-3">
+				<label class="label">Type</label>
+				<%= f.input :kind, label: false, collection: ['Date', 'File', 'Text', 'True/False']%>
+			</div>
+			<div class="col-xs-12 col-md-3">
+				<label class="label">Title</label>
+				<%= f.input :message, as: :text, number: 1 , label: false %>
+			</div>
+			<div class="col-xs-12 col-md-1">
+				<div class="remove-matter-invoice">
+					<%= link_to_remove_association "<i class='fa fa-minus-circle'></i>".html_safe, f %>	
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

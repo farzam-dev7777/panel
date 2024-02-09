@@ -80,7 +80,10 @@
             <% end %>
           </div>
           <% if @rfp.rfp_invites.present?%>
-          	<%= render "rfp_invite" %>
+            <%= render "rfp_invite" %>
+          <% end %>
+          <% if @rfp.questions.present?%>
+            <%= render "rfp_question" %>
           <% end %>
         </div>
       </div>
