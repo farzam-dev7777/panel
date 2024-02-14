@@ -97,7 +97,8 @@ class TenantAdmin::TenantsController < TenantAdmin::BaseController
       :system_score_threshold, :allow_panel_consideration_lob_Lawyers,
       :matter_third_approval, :approval_process, auto_approve_matter_type: [],
       matter_optional_fields: [],
-      tenant_matter_approvals_attributes: [:id, :role, :approval, :notification]
+      tenant_matter_approvals_attributes: [:id, :role, :approval, :notification],
+      tenant_questions_attributes: [:id, :kind, :title, :_destroy],
     )
   end
 

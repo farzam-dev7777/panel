@@ -24,7 +24,13 @@ class Admin::RfpsController< Admin::BaseController
   end
 
   def create
-    @rfp = Rfp.new(rfp_params)
+    rfp_param_obj = rfp_params
+    rfp_param_obj[:questions_attributes].each do |k,v|
+      d = v
+      d['message'] = v['message'].last
+      rfp_param_obj[:questions_attributes][k]= d
+    end
+    @rfp = Rfp.new(rfp_param_obj)
     @rfp.matter_intake.submitter_name = current_user.full_name
     @rfp.matter_intake.matter_number = "MT-#{Date.today.month}-#{Date.today.day}-#{MatterIntake.count}"
     @rfp.matter_intake.user_id = current_user.id
@@ -50,8 +56,13 @@ class Admin::RfpsController< Admin::BaseController
 
   def update
     @rfp = Rfp.find_by_id(params[:id])
-
-    if @rfp.update(rfp_params)
+    rfp_param_obj = rfp_params
+    rfp_param_obj[:questions_attributes].each do |k,v|
+      d = v
+      d['message'] = v['message'].last
+      rfp_param_obj[:questions_attributes][k]= d
+    end
+    if @rfp.update(rfp_param_obj)
       (params[:rfp][:invites]||[]).each do |law_firm_id|
         if law_firm_id.present?
           obj = @rfp.rfp_invites.find_or_create_by(law_firm_id: law_firm_id)
@@ -76,7 +87,7 @@ class Admin::RfpsController< Admin::BaseController
   def rfp_params
     params.require(:rfp).permit(
       :id, :user_id, :expiry_date, :status, :invites,
-      questions_attributes: [:id, :kind, :message, :_destroy],
+      questions_attributes: [:id, :kind, :_destroy, message: []],
       matter_intake_attributes: [
         :id, :user_id, :submitter_name, :lob_contact_name, :name_of_matter_client, :matter_type_id, :asset,
         :matter_description, :mode_of_payment, :law_firm_id, :bmo_lawyer_name, :lawyer_id, :budget_amount,

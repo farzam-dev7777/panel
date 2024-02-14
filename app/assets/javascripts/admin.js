@@ -2561,5 +2561,4 @@ $('#matter_intake_status').chosen().change(function() {
 			return false;
 		}
 	});
-
 });

@@ -750,6 +750,7 @@ $(document).ready(function(){
   // $('*[data-role=activerecord_sortable]').activerecord_sortable();
 
   // $('select').select2();
+  $("select.message_question").chosen({create_option: true, max_selected_options: 1})
   $('select').chosen({
     disable_search_threshold: 5,
     no_results_text: "Oops, nothing found!"
@@ -1485,6 +1486,7 @@ $(document).ready(function(){
     score_rating();
   })
   $(document).on('click', 'a.add_fields', function(){
+    $("select.message_question").chosen({create_option: true, max_selected_options: 1})
     $('select[multiple]').chosen({
       create_option: true,
       persistent_create_option: true,
@@ -1979,6 +1981,7 @@ $(document).on('change', '#rfp_invites', function() {
     }
 
   });
+
 // $('#search-activity-log-btn').on('click', function(e){
 //   e.preventDefault();
 //   $("#search_activity_log").submit();

@@ -1,0 +1,25 @@
+<div class="no-padding">
+  <div class="jarviswidget-editbox"></div>
+    <!-- widget content -->
+    </br>
+    <div class="field-label">RFP Questions </div>
+    <div class="widget-body">
+    <div class="table-responsive">
+      <table id="" class="table table-decoration table-bordered" width="100%">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Type</th>
+          </tr>
+          <tbody>
+            <% @tenant.tenant_questions.each do |question| %>
+              <tr>
+                  <td><%= question.title%></td>
+                  <td><%= question.kind %></td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>

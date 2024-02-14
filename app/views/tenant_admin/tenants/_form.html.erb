@@ -149,6 +149,24 @@
           <hr style="width:100%;text-align:left;margin-left:0">
         <% end %>
       <% end %>
+      <!-- New Question start -->
+      <div class="col-md-12 col-xs-12">
+        <div class="formHeader">
+          <div class="headerTitle">RFP Questions</div>
+        </div>
+      </div>
+      <div class="col-md-12 col-xs-12">
+        <% if @tenant.tenant_questions.count > 0 %>
+          <% @tenant.tenant_questions.each do |question| %>
+            <%= f.simple_fields_for :tenant_questions, question do |form| %>
+              <%= render 'question_fields', f: form, question: question %>
+            <% end %>
+          <% end %>
+        <% end %>
+        <div class="addButton links mb-4">
+          <%= link_to_add_association '<span href="javascript:void(0);"><i class="fa fa-plus-circle"></i> Add Question</span>'.html_safe, f, :tenant_questions, partial: 'question_fields' %> 
+        </div>
+      </div>
       <div class="col-xs-12 col-md-12 mt-3">
         <%=link_to 'Cancel', tenant_admin_root_path, class: 'btn-type-default' %>
         <%= f.button :submit, "Submit", class: "btn-type-primary" %>

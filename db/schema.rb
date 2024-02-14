@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_08_161324) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_14_165431) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pgcrypto"
@@ -1086,6 +1086,14 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_08_161324) do
     t.integer "sequence_number"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+  end
+
+  create_table "tenant_questions", force: :cascade do |t|
+    t.integer "tenant_id"
+    t.text "title"
+    t.string "kind"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "tenants", id: :serial, force: :cascade do |t|

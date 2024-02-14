@@ -1,15 +1,13 @@
-<%messages = (Tenant&.current.tenant_questions.pluck(:title)+[f.object.message]).select{|s| s.present?}.uniq%>
 <div id="invoices">
 	<div class="col-md-12 col-xs-12">
 		<div class="formSection row nested-fields"> <!-- this main div will be functional -->
-
-			<div class="col-xs-12 col-md-3">
-				<label class="label">Title</label>
-				<%= f.input :message, label: false, collection: messages, input_html: { class: 'message_question', multiple: true}%>
-			</div>
 			<div class="col-xs-12 col-md-3">
 				<label class="label">Type</label>
 				<%= f.input :kind, label: false, collection: ['Date', 'File', 'Text', 'True/False'], input_html: { class: 'kind_question'}%>
+			</div>
+			<div class="col-xs-12 col-md-3">
+				<label class="label">Title</label>
+				<%= f.input :title, as: :text, label: false%>
 			</div>
 			<div class="col-xs-12 col-md-1">
 				<div class="remove-matter-invoice">

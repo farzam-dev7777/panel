@@ -14,6 +14,7 @@ class Tenant < ApplicationRecord
     has_many :law_firms, through: :law_firms_tenants
     has_many :tenant_matter_approvals
     has_many :line_of_businesses
+    has_many :tenant_questions
 
     mount_uploader :logo, TenantUploader
     mount_uploader :login_bg_image, TenantUploader
@@ -22,6 +23,8 @@ class Tenant < ApplicationRecord
     serialize :matter_optional_fields, Array
 
     accepts_nested_attributes_for :tenant_matter_approvals
+    accepts_nested_attributes_for :tenant_questions, reject_if: :all_blank, allow_destroy: true
+
 
     def create_db_schema
         Apartment::Tenant.create(subdomain)
