@@ -470,6 +470,7 @@ div.link-to-add > * {
 }
 .fuelux .wizard ul li {
   width: 14%;
+  padding: 0 5px 0 5px;
 }
 
 .form-wizard-wrapper {

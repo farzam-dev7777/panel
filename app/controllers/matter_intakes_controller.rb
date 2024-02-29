@@ -58,7 +58,8 @@ class MatterIntakesController < BaseController
       if params[:commit] == "Next" || params[:commit] == "back"
         flash[:alert]=''
         @show_information_security_form = params[:commit] == "Next"
-        render :new
+        @matter_intake.save
+        matter_intakes_information_security_classification_matter_intakes_path(@matter_intake)
       else
         @matter_intake.save
         @matter_intake.update(status: "submitted", lawyer_reviewed_at: Time.now)

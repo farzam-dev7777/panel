@@ -375,7 +375,7 @@
 											</tr>
 										</thead>
 										<% @law_firm.form_submissions.each do |submission| %>
-										<tr onClick="window.location.href='/admin/form_submissions/<%= submission.id %>/pricing_step'">
+										<tr onClick="window.location.href='/admin/form_submissions/<%= submission.id %>/conflicts_step'">
 											<td><%= @law_firm.total_calculated_score(submission) || '-' %></td>
 											<td>
 												<span class="label label-<%= submission_status_class(submission) %>">

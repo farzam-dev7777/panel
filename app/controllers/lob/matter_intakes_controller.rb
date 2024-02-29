@@ -56,7 +56,9 @@ class Lob::MatterIntakesController < Lob::BaseController
       if params[:commit] === "Next"
         flash[:alert]=''
         @show_information_security_form=true
-        render :new
+        @matter_intake.save
+        @show_information_security_form = true
+        redirect_to matter_intakes_information_security_classification_lob_matter_intakes_path(@matter_intake)
       else
         @matter_intake.save
         @matter_intake.update(status: "submitted", lawyer_reviewed_at: Time.now)
@@ -81,7 +83,7 @@ class Lob::MatterIntakesController < Lob::BaseController
 
     if @matter_intake.update(matter_intake_params)
       @matter_intake.auto_approve_matter(current_user)
-      if params[:matter_intake] && params[:commit] === "Next" && params[:matter_intake][:submit_type] && params[:matter_intake][:submit_type] === "update"
+      if params[:matter_intake] && params[:commit] === "Next1" && params[:matter_intake][:submit_type] && params[:matter_intake][:submit_type] === "update"
         redirect_to matter_intakes_information_security_classification_lob_matter_intakes_path(@matter_intake)
       else
         flash[:notice] = "Matter intake request updated"

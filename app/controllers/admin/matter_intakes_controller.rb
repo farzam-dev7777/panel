@@ -83,8 +83,9 @@ class Admin::MatterIntakesController < Admin::BaseController
 
       if params[:commit] === "Next"
         flash[:alert]=''
-        @show_information_security_form=true
-        render :new
+        @matter_intake.save
+        @show_information_security_form = true
+        redirect_to matter_intakes_update_information_security_classification_admin_matter_intakes_path(@matter_intake)
       else
         @matter_intake.save
         @matter_intake.update(status: "submitted", lawyer_reviewed_at: Time.now)
@@ -126,7 +127,8 @@ class Admin::MatterIntakesController < Admin::BaseController
       # @matter_intake.set_default_approval_status
       if current_user.role === "internal_lawyers"
         if params[:matter_intake] && params[:matter_intake][:submit_type] && params[:matter_intake][:submit_type] === "update"
-          redirect_to matter_intakes_information_security_classification_admin_matter_intakes_path(@matter_intake)
+          flash[:notice] = "Matter intake request updated"
+          redirect_to admin_matter_intakes_path
         else
           # @matter_intake.update_attributes(lawyer_reviewed_at: Time.now, status: 'awaiting_lxp_review')
           # @matter_intake.send_notification_to_lxp
@@ -140,6 +142,9 @@ class Admin::MatterIntakesController < Admin::BaseController
         # @matter_intake.update_attributes(lxp_reviewed_at: Time.now, status: @matter_intake.status.downcase, lxp_id: current_user.id)
         # @matter_intake.add_log_matter_open_by_lxp(current_user)
         # @matter_intake.send_notification_to_lawyer_and_lxp
+        flash[:notice] = "Matter intake request updated"
+        redirect_to admin_matter_intakes_path
+      else
         flash[:notice] = "Matter intake request updated"
         redirect_to admin_matter_intakes_path
       end
