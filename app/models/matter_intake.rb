@@ -20,6 +20,8 @@ class MatterIntake < ApplicationRecord
   has_many :matter_intake_agreements, -> { where doc_type: 'agreement' }, class_name: 'MatterIntakeAttachment'
   has_many :external_lawyer_matter_intakes
   has_many :external_lawyers, :through => :external_lawyer_matter_intakes
+  has_many :lawyer_matter_intakes
+  has_many :lawyers, :through => :lawyer_matter_intakes
 
   accepts_nested_attributes_for :invoices, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :matter_intake_attachments, reject_if: :all_blank, allow_destroy: true
@@ -35,7 +37,7 @@ class MatterIntake < ApplicationRecord
   scope :not_rfp,  -> { where.not(form_type: 'rfp', status: 'pending') }
 
   def self.ransackable_associations(auth_object = nil)
-    ["external_lawyer_matter_intakes", "external_lawyers", "invoices", "law_firm", "lawyer", "line_of_business", "matter_approvals", "matter_intake_agreements", "matter_intake_attachments", "matter_type", "requested_by", "reviews", "user", "versions"]
+    ["lawyer_matter_intakes", "lawyers", "external_lawyer_matter_intakes", "external_lawyers", "invoices", "law_firm", "lawyer", "line_of_business", "matter_approvals", "matter_intake_agreements", "matter_intake_attachments", "matter_type", "requested_by", "reviews", "user", "versions"]
   end
   #### validation for lob initiated starts ####
   # validates_presence_of :submitter_name, :name_of_matter_client, :matter_type_id, :matter_description, :following_matter_involve,
@@ -454,16 +456,16 @@ class MatterIntake < ApplicationRecord
         collection: Tenant.current.law_firms.select{|s| s.status_show=='On Panel'}.map{ |lf| [lf.name, lf.id] }
       },
       {
-        name: I18n.t(:external_lawyer_ids, default: "Assigned Lawyer"),
-        database_field: :external_lawyer_ids,
+        name: I18n.t(:lawyer_ids, default: "Assigned Lawyer"),
+        database_field: :lawyer_ids,
         access: {
           bank: "write",
           law_firm: "write"
         },
         type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
-        optional: MANDATORY_FIELDS.include?(:external_lawyers) == false,
-        value: self.external_lawyers&.ids,
-        collection: (c_law_firm&.external_lawyers&.pluck(:name, :id)||[]),
+        optional: MANDATORY_FIELDS.include?(:lawyers) == false,
+        value: self.lawyers&.ids,
+        collection: (c_law_firm&.users.where(role:'user')&.pluck(:username, :id)||[]),
         multiple: true
       },
       {
@@ -1069,8 +1071,8 @@ class MatterIntake < ApplicationRecord
     HUMANIZED_ATTRIBUTES[attribute.to_sym] || super
   end
 
-  def send_notification_to_lawyer
-    MatterIntakeMailer.send_notification_to_lawyer_for_form_submission(self).deliver_now
+  def send_notification_to_lawyer(emails = [])
+    MatterIntakeMailer.send_notification_to_lawyer_for_form_submission(self, emails).deliver_now
   end
 
   def send_notification_to_lxp

@@ -32,26 +32,22 @@ class LawFirmsController < BaseController
     redirect_to root_path unless current_user.role == 'master_user'
     law_firm_user_count = current_law_firm.standard_users.count
     username = params[:email]
-    if(law_firm_user_count < current_law_firm.law_firm_user_limit)
-      user = User.new(email: params[:email], 
-                username: params[:email],
-                password: params[:temp_password],
-                password_confirmation: params[:temp_password_confirmation],
-                role: 'user',
-                law_firm_id: current_law_firm.id,
-                tenant_id: Tenant.current&.id || nil
-              )
-      if user.save
-        user.set_google_secret
-        # LawFirmMailer.invite_user(user, params[:temp_password], current_law_firm).deliver_now!
-        @resource = user
-        @resource.send_user_info_with_password
-        flash[:notice] = "We've added a new user with username #{user.username}"
-      else
-        flash[:alert] = user.errors.full_messages.join(", ")
-      end
+    user = User.new(email: params[:email], 
+              username: params[:email],
+              password: params[:temp_password],
+              password_confirmation: params[:temp_password_confirmation],
+              role: 'user',
+              law_firm_id: current_law_firm.id,
+              tenant_id: Tenant.current&.id || nil
+            )
+    if user.save
+      user.set_google_secret
+      # LawFirmMailer.invite_user(user, params[:temp_password], current_law_firm).deliver_now!
+      @resource = user
+      @resource.send_user_info_with_password
+      flash[:notice] = "We've added a new lawyer with username #{user.username}"
     else
-      flash[:alert] = "You're only allowed to add #{current_law_firm.law_firm_user_limit} user"
+      flash[:alert] = user.errors.full_messages.join(", ")
     end
     redirect_to add_users_law_firms_path
   end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_14_165431) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_23_180210) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pgcrypto"
@@ -614,6 +614,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_14_165431) do
     t.string "document"
     t.string "status"
     t.text "type_of_matters_your_law_firm_handles_for_us"
+  end
+
+  create_table "lawyer_matter_intakes", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "matter_intake_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "line_of_business_users", id: :serial, force: :cascade do |t|

@@ -2,10 +2,14 @@ class MatterIntakeMailer < ApplicationMailer
   default from: "SEAL Support <support@secureengage.com>"
   layout 'mailer'
 
-  def send_notification_to_lawyer_for_form_submission(matter_intake)
+  def send_notification_to_lawyer_for_form_submission(matter_intake, emails = [])
     @matter_intake = matter_intake
-    to_email = @matter_intake.lawyer.present? ? [@matter_intake.lawyer.email] : []
-    to_email << @matter_intake.reviewer_email if @matter_intake.reviewer_email.present?
+    if emails.blank?
+      to_email = @matter_intake.lawyer.present? ? [@matter_intake.lawyer.email] : []
+      to_email << @matter_intake.reviewer_email if @matter_intake.reviewer_email.present?
+    else
+      to_email = emails
+    end
     if to_email.present?
       mail(to: to_email, subject: "New matter intake form has been submitted")
     end
