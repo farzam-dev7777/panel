@@ -8,6 +8,7 @@ class MatterIntakeMailer < ApplicationMailer
       to_email = @matter_intake.lawyer.present? ? [@matter_intake.lawyer.email] : []
       to_email << @matter_intake.reviewer_email if @matter_intake.reviewer_email.present?
     else
+      @law_firm = true
       to_email = emails
     end
     if to_email.present?
