@@ -4,7 +4,7 @@
     <% if @law_firm.present? %>
       <%= link_to "Click here", matter_intake_url(@matter_intake), class: "btn btn-xs btn-secondary" %> to review submission.
     <% else %>
-      <%= link_to "Click here", review_admin_matter_intake_url(@matter_intake), class: "btn btn-xs btn-secondary" %> to review submission.
+      <%= link_to "Click here", admin_matter_intake_url(@matter_intake), class: "btn btn-xs btn-secondary" %> to review submission.
     <% end %>
   </p>
 </div>
