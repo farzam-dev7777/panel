@@ -40,6 +40,10 @@ class Tenant < ApplicationRecord
       end
     end
 
+    def domain
+      "#{self.subdomain}.#{ENV['DOMAIN_NAME']}"
+    end
+
     def fetch_role(group_name)
       case group_name
         when (self.internal_lawyer.present? ? self.internal_lawyer : 'Panel - Internal Lawyers')
