@@ -465,7 +465,7 @@ class MatterIntake < ApplicationRecord
         type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
         optional: MANDATORY_FIELDS.include?(:lawyers) == false,
         value: self.lawyers&.ids,
-        collection: (c_law_firm&.users.where(role:'user')&.pluck(:username, :id)||[]),
+        collection: (c_law_firm&.users&.where(role:'user')&.map{|s| [(s.name), s.id]}||[]),
         multiple: true
       },
       {

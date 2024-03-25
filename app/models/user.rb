@@ -56,6 +56,11 @@ class User < ApplicationRecord
     [self.first_name, self.last_name].compact.join(' ')
   end
 
+  def name
+    obj = [self.first_name, self.last_name].compact.join(' ')
+    obj.blank? ? self.username : obj
+  end
+
   def email=(email)
     self.username = email
     super
@@ -77,7 +82,7 @@ class User < ApplicationRecord
       self.send(:set_reset_password_token)
     end
     self.save(validate: false)
-    Rails.application.routes.url_helpers.edit_user_password_url(reset_password_token: self.reset_password_token)
+    # Rails.application.routes.url_helpers.edit_user_password_url(reset_password_token: self.reset_password_token)
   end
 
   def activate!

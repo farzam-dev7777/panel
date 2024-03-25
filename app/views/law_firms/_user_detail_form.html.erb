@@ -9,6 +9,14 @@
           <div class="inner-label">User Details</div>
           <%= f.simple_fields_for :users do |field| %>
             <div class="col-xs-12 col-md-6">
+              <label class="label">First Name</label>
+              <%= field.input :first_name, label: false %>
+            </div>
+            <div class="col-xs-12 col-md-6">
+              <label class="label">Last Name</label>
+              <%= field.input :last_name, label: false %>
+            </div>
+            <div class="col-xs-12 col-md-6">
               <label class="label">Username</label>
               <%= field.input :username, label: false %>
             </div>

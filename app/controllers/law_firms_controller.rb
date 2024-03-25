@@ -38,9 +38,12 @@ class LawFirmsController < BaseController
               password_confirmation: params[:temp_password_confirmation],
               role: 'user',
               law_firm_id: current_law_firm.id,
-              tenant_id: Tenant.current&.id || nil
+              tenant_id: (Tenant.current&.id || nil),
+              first_name: params[:first_name],
+              last_name: params[:last_name],
             )
     if user.save
+
       user.set_google_secret
       # LawFirmMailer.invite_user(user, params[:temp_password], current_law_firm).deliver_now!
       @resource = user

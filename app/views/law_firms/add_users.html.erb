@@ -14,14 +14,20 @@
         <div class="sp-form sp-form-bg">
           <form class="" method="post" action="/law_firms/invite_users">
             <div class="user-form-sp">
-            <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
-              <div class="form-group col-md-12">
+              <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+              <div class="form-group col-md-6">
+                <%= text_field_tag :first_name, nil, placeholder: "First Name" -%>
+              </div>
+              <div class="form-group col-md-6">
+                <%= text_field_tag :last_name, nil, placeholder: "Last name" -%>
+              </div>
+              <div class="form-group col-md-6">
                 <%= email_field_tag :email, nil, placeholder: "Email" -%>
               </div>
-               <div class="form-group col-md-12">
+               <div class="form-group col-md-6">
                 <%= password_field_tag :temp_password, nil, placeholder: "Temporary password" -%>
               </div>
-              <div class="form-group col-md-12">
+              <div class="form-group col-md-6">
                 <%= password_field_tag :temp_password_confirmation, nil, placeholder: "Temporary password confirmation" -%>
               </div>
             </div>
@@ -47,6 +53,7 @@
           <table id="" class="table table-decoration table-bordered" width="100%">
             <thead>
               <tr>
+                <th>Name</th>
                 <th>Username</th>
                 <th>Invited On</th>
                 <th>Action</th>
@@ -55,6 +62,7 @@
             <tbody>
             <% current_law_firm.users.where(role: 'user').each do |user| %>
             <tr>
+              <td><%= user.full_name %></td>
               <td><%= user.username %></td>
               <td><%= user.created_at.strftime("%e %b %Y") %></td>
               <td>
