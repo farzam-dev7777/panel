@@ -3,9 +3,9 @@
     A new matter intake form has been submitted by <%= @matter_intake.submitter_name %> <br>
     <% domain = Tenant.current.domain %>
     <% if @law_firm.present? %>
-      <%= link_to "Click here", domain+matter_intake_path(@matter_intake), class: "btn btn-xs btn-secondary" %> to review submission.
+      <%= link_to "Click here", domain+"/matter_intakes/#{@matter_intake.id}", class: "btn btn-xs btn-secondary" %> to review submission.
     <% else %>
-      <%= link_to "Click here", domain+admin_matter_intake_path(@matter_intake), class: "btn btn-xs btn-secondary" %> to review submission.
+      <%= link_to "Click here", domain+"/admin/matter_intakes/#{@matter_intake.id}", class: "btn btn-xs btn-secondary" %> to review submission.
     <% end %>
   </p>
 </div>
