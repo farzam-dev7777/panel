@@ -55,17 +55,18 @@ class MatterIntakesController < BaseController
     @matter_intake.submitter_name = current_user.full_name if @matter_intake.submitter_name.blank?
     @matter_intake.matter_number = "MT-#{Date.today.month}-#{Date.today.day}-#{MatterIntake.count}" if @matter_intake.matter_number.blank?
     if @matter_intake.valid?
+      @matter_intake.status = 'submitted'
+      @matter_intake.lawyer_reviewed_at = Time.now
+      @matter_intake.save
+      @matter_intake.auto_approve_matter(current_user)
+      @matter_intake.set_default_approval_status(current_user)
+      @matter_intake.send_notification_to_lawyer
       if params[:commit] == "Next" || params[:commit] == "back"
         flash[:alert]=''
+        @show_information_security_form = true
         @show_information_security_form = params[:commit] == "Next"
-        @matter_intake.save
         matter_intakes_information_security_classification_matter_intakes_path(@matter_intake)
       else
-        @matter_intake.save
-        @matter_intake.update(status: "submitted", lawyer_reviewed_at: Time.now)
-        @matter_intake.auto_approve_matter(current_user)
-        @matter_intake.set_default_approval_status(current_user)
-        @matter_intake.send_notification_to_lawyer
         flash[:notice] = "Matter Intake Form submitted"
         redirect_to @matter_intake
       end

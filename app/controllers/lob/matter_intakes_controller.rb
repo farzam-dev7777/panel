@@ -53,18 +53,17 @@ class Lob::MatterIntakesController < Lob::BaseController
     @matter_intake.user_id = current_user.id if @matter_intake.user_id.blank?
 
     if @matter_intake.valid?
+      @matter_intake.status = 'submitted'
+      @matter_intake.lawyer_reviewed_at = Time.now
+      @matter_intake.save
+      @matter_intake.auto_approve_matter(current_user)
+      @matter_intake.set_default_approval_status(current_user)
+      @matter_intake.send_notification_to_lawyer
       if params[:commit] === "Next"
         flash[:alert]=''
-        @show_information_security_form=true
-        @matter_intake.save
         @show_information_security_form = true
         redirect_to matter_intakes_information_security_classification_lob_matter_intakes_path(@matter_intake)
       else
-        @matter_intake.save
-        @matter_intake.update(status: "submitted", lawyer_reviewed_at: Time.now)
-        @matter_intake.auto_approve_matter(current_user)
-        @matter_intake.set_default_approval_status(current_user)
-        @matter_intake.send_notification_to_lawyer
         flash[:notice] = "Matter Intake Form submitted"
         redirect_to lob_matter_intake_path(@matter_intake)
       end
