@@ -2139,18 +2139,18 @@ function setAvailableLawyerOptions(law_firm_id) {
     method: "get",
   })
     .success(( response ) => {
-      $('#matter_intake_external_lawyer_ids').empty();
+      $('#matter_intake_lawyer_ids').empty();
       var options = "";
       if (response.users) {
         $.each(response.users, function(index, user) {
           options += "<option value='" + user.id + "'>" + user.name + "</option>";
         })
-        $('#matter_intake_external_lawyer_ids').html(options);
-        $("#matter_intake_external_lawyer_ids").trigger("chosen:updated")
+        $('#matter_intake_lawyer_ids').html(options);
+        $("#matter_intake_lawyer_ids").trigger("chosen:updated")
       }
     })
     .error((error) => {
-      $('#matter_intake_external_lawyer_ids').empty();
+      $('#matter_intake_lawyer_ids').empty();
       var options = "<option value=''> Select option</option>";
     })
 }

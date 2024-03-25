@@ -74,11 +74,15 @@ class LawFirmsController < BaseController
     else
       user = current_user
     end
-
+    user.first_name = params[:first_name] if params[:first_name].present?
+    user.last_name = params[:last_name] if params[:last_name].present?
     if params[:new_password] == params[:new_password_confirmation]
-      if user.update(password: params[:new_password], password_confirmation: params[:new_password_confirmation], new_password_set: true)
+      user.password = params[:new_password] if params[:new_password].present?
+      user.password_confirmation = params[:new_password_confirmation] if params[:new_password_confirmation].present?
+      user.new_password_set = true if params[:new_password].present? && params[:new_password_confirmation].present?
+      if user.save
         sign_in(current_user, :bypass => true)
-        flash[:notice] = "Password changed successfully"
+        flash[:notice] = "User saved successfully"
       else
         flash[:alert] = user.errors.full_messages.join(',')
       end
