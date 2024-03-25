@@ -124,7 +124,7 @@ class LawFirmsController < BaseController
   def get_external_lawyers
     law_firm = LawFirm.find_by_id params[:id]
     if law_firm.present?
-      lawyers = law_firm.external_lawyers.map{|s| {id:s.id, name: s.name}}
+      lawyers = law_firm.users.where(role:'user').map{|s| {id:s.id, name: s.name}}
       render json: {users: lawyers}
     else
       render json: {users: []}
