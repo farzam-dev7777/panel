@@ -41,7 +41,7 @@ class Tenant < ApplicationRecord
     end
 
     def domain
-      "#{self.subdomain}.#{ENV['DOMAIN_NAME']}"
+      "https://#{self.subdomain}.#{ENV['DOMAIN_NAME']}"
     end
 
     def fetch_role(group_name)
