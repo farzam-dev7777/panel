@@ -76,6 +76,7 @@ Rails.application.routes.draw do
         get :lxp_review
         put :add_review
         put :unarchive
+        put :approve
       end
       collection do 
         post :lxp_rejects

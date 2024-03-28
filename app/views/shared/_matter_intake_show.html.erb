@@ -27,6 +27,11 @@
               <span class="blue-text">UnArchive</span>
             <% end %>
           <% end %>
+          <% if @matter_intake.matter_approvals.blank? && @matter_intake.status != "opened" %>
+            <%= link_to approve_admin_matter_intake_path(@matter_intake), method: :put, class: "action-btn btn btn-xs btn-secondary", data: { confirm: 'Are you sure you want to Approve this?' }, style:"background-color:#2b3344 !important;" do %>
+              <span class="blue-text" style="color: white !important;">Approve</span>
+            <% end %>
+          <% end %>
         <% end %>
       </div>
       <div class="back-edit-actions">

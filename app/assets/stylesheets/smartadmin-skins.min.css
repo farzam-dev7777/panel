@@ -4299,3 +4299,20 @@ body.smart-style-6 .superbox-imageinfo span {
 body.smart-style-6 #sparks {
     /*display: none*/
 }
+
+.smart-timeline-time {
+    float: left;
+    width: 100px;
+    text-align: right
+}
+.smart-timeline-icon{
+    margin-left: 35px;
+    margin-right: 35px;
+}
+.smart-timeline-content{
+    margin-left: 165px;
+}
+
+.smart-timeline-list:after{
+    background-color: rgba(255,255,255,0.5) !important;
+}

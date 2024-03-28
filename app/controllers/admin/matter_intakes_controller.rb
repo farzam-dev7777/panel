@@ -185,6 +185,19 @@ class Admin::MatterIntakesController < Admin::BaseController
     redirect_to admin_matter_intake_path(matter_intake), notice: 'Matter unarchived successfully'
   end
 
+  def approve
+    matter_intake = MatterIntake.with_deleted.find_by_id params[:id]
+    matter_intake.update(status:'opened')
+    Review.create(
+      actor_id: current_user.id,
+      reviewable_type: matter_intake.class.to_s,
+      reviewable_id: matter_intake.id,
+      description: "#{current_user.try(:full_name)} was approved." ,
+      status: matter_intake.status.downcase
+    )
+    redirect_to admin_matter_intake_path(matter_intake), notice: 'Matter approved successfully'
+  end
+
   private
 
   def matter_intake_params
