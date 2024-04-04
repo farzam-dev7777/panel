@@ -327,7 +327,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
       @form_submission.submitted_on = nil
       @form_submission.follow_ups.pending.update_all(status: 'review')
       if (@form_submission.update(status: :follow_up))
-        # LawFirmMailer.decision_reached(@form_submission, 'Follow Up').deliver_now
+        LawFirmMailer.decision_reached(@form_submission, 'Follow Up').deliver_now
         FormSubmission.log_activity('follow_up', true, @form_submission, current_admin_user)
         redirect_to :admin_law_firms
       end

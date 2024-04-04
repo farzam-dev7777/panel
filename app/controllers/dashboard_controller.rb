@@ -12,7 +12,14 @@ class DashboardController < BaseController
 	  	# if current_user.is_a_standard_user?
 		  	# if current_law_firm.profile_completed
 		  	# redirect_to new_two_factor_authentication_path unless session[:authorized]
-		  	#@security_alerts = SecurityAlert.all.paginate(page: params[:page]).order('created_at DESC')
+		  	# @security_alerts = SecurityAlert.all.paginate(page: params[:page]).order('created_at DESC')
+		  	@security_alerts = []
+		  	(Date.today-5..Date.today).reverse_each do |date|
+		  		matter_intakes = current_user.law_firm&.matter_intakes.where("DATE(created_at) =?", date).count
+		  		if matter_intakes.present? && matter_intakes > 0
+		  			@security_alerts << SecurityAlert.new(title: 'Matter Created', description:"You have #{matter_intakes} new matters", severity:"test", alert_date: date)
+		  		end
+		  	end
 				#@action_items = current_law_firm.action_items.decorate if current_law_firm.present?
 				#@panel_request = PanelRequest.find_by_law_firm_id(current_law_firm.id)
 			  # else

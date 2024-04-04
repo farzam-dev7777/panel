@@ -1,0 +1,292 @@
+<div class="row">
+  <div class="col-xs-12 col-md-12">
+    <div class="page-header-sp">
+      <div class="page-title">News</div>
+      <div></div>
+    </div>
+  </div>
+  <div class="col-xs-12 col-md-12">
+    <div class="sp-form sp-form-bg">
+      <div class="jarviswidget-color-blue" id="wid-id-4" data-widget-editbutton="false" data-widget-colorbutton="false">
+        <!-- widget div-->
+        <div class="security-alerts">
+          <!-- widget edit box -->
+          <div class="jarviswidget-editbox">
+            <div>
+              <label>Title:</label>
+              <input type="text" />
+            </div>
+          </div>
+          <!-- end widget edit box -->
+          <div class="widget-body no-padding smart-form">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+              <div style="padding: 0px 20px !important;">
+                <div class="">
+                  <div class="col-sm-12">
+                    <div class="padding-10">
+                      <div class="tab-content padding-top-10">
+                        <div class="tab-pane fade in active" id="a1">
+                          <div class="row">
+                            <% if @security_alerts && @security_alerts.any? %>
+                              <% @security_alerts.each do |alert| %>
+                                <div class="col-xs-2 col-sm-1">
+                                  <time datetime="2014-09-20" class="icon">
+                                    <strong><%= (alert.alert_date ? alert.alert_date : alert.created_at).strftime("%b") %></strong>
+                                    <span><%= (alert.alert_date ? alert.alert_date : alert.created_at).strftime("%d") %></span>
+                                  </time>
+                                </div>
+                                <div class="col-xs-10 col-sm-11">
+                                  <h6 class="no-margin"><%= link_to alert.title, "#", :class => "", :remote => true, "data-toggle" => "modal", "data-target" => "securityAlert" %></h6>
+                                  <p>
+                                    <%= truncate(alert.description, length: 150) %>
+                                  </p>
+                                </div>
+                                <div class="col-sm-12 padding-10">
+                                  <hr>
+                                </div>
+                              <% end %>
+                            <% else %>
+                              <em class="text-center"> There are no news </em>
+                            <% end %>
+                            <div class="col-sm-12">
+                              <br>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="tab-pane fade" id="a2">
+                          <div class="alert alert-info fade in">
+                            <button class="close" data-dismiss="alert">
+                              ×
+                            </button>
+                            <i class="fa-fw fa fa-info"></i>
+                            <strong>51 new members </strong>joined today!
+                          </div>
+                          <div class="user" title="email@company.com">
+                            <!-- <img src="img/avatars/female.png" alt="demo user"><a href="javascript:void(0);">Jenn Wilson</a> -->
+                            <div class="email">
+                              travis@company.com
+                            </div>
+                          </div>
+                          <div class="user" title="email@company.com">
+                            <!-- <img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Marshall Hitt</a> -->
+                            <div class="email">
+                              marshall@company.com
+                            </div>
+                          </div>
+                          <div class="user" title="email@company.com">
+                            <!-- <img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Joe Cadena</a> -->
+                            <div class="email">
+                              joe@company.com
+                            </div>
+                          </div>
+                          <div class="user" title="email@company.com">
+                            <!-- <img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Mike McBride</a> -->
+                            <div class="email">
+                              mike@company.com
+                            </div>
+                          </div>
+                          <div class="user" title="email@company.com">
+                            <!-- <img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Travis Wilson</a> -->
+                            <div class="email">
+                              travis@company.com
+                            </div>
+                          </div>
+                          <div class="user" title="email@company.com">
+                            <!-- <img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Marshall Hitt</a> -->
+                            <div class="email">
+                              marshall@company.com
+                            </div>
+                          </div>
+                          <div class="user" title="Joe Cadena joe@company.com">
+                            <!-- <img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Joe Cadena</a> -->
+                            <div class="email">
+                              joe@company.com
+                            </div>
+                          </div>
+                          <div class="user" title="email@company.com">
+                            <!-- <img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Mike McBride</a> -->
+                            <div class="email">
+                              mike@company.com
+                            </div>
+                          </div>
+                          <div class="user" title="email@company.com">
+                            <!-- <img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Marshall Hitt</a> -->
+                            <div class="email">
+                              marshall@company.com
+                            </div>
+                          </div>
+                          <div class="user" title="email@company.com">
+                            <!-- <img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);">Joe Cadena</a> -->
+                            <div class="email">
+                              joe@company.com
+                            </div>
+                          </div>
+                          <div class="user" title="email@company.com">
+                            <!-- <img src="img/avatars/male.png" alt="demo user"><a href="javascript:void(0);"> Mike McBride</a> -->
+                            <div class="email">
+                              mike@company.com
+                            </div>
+                          </div>
+                          <div class="text-center">
+                            <ul class="pagination pagination-sm">
+                              <li class="disabled">
+                                <a href="javascript:void(0);">Prev</a>
+                              </li>
+                              <li class="active">
+                                <a href="javascript:void(0);">1</a>
+                              </li>
+                              <li>
+                                <a href="javascript:void(0);">2</a>
+                              </li>
+                              <li>
+                                <a href="javascript:void(0);">3</a>
+                              </li>
+                              <li>
+                                <a href="javascript:void(0);">...</a>
+                              </li>
+                              <li>
+                                <a href="javascript:void(0);">99</a>
+                              </li>
+                              <li>
+                                <a href="javascript:void(0);">Next</a>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                        <!-- end tab -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- end row -->
+              </div>
+            </div>
+            <!-- end content -->
+          </div>
+        </div>
+        <!-- end widget div -->
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<div class="col-md-12 hidden">
+  <div class="jarviswidget jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+    <header>
+      <span class="widget-icon"> <i class="fa fa-arrows-v"></i> </span>
+      <h2 class="font-md"><strong>Activity Log </strong></h2>
+    </header>
+    <div>
+      <!-- MAIN PANEL -->
+      <div role="main">
+        <!-- MAIN CONTENT -->
+        <div style="height: 500px; overflow-y: scroll; overflow-x: hidden;">
+          <!-- row -->
+          <div class="row">
+            <section id="cd-timeline" class="cd-container">
+              <!-- <div class="cd-timeline-block">
+						<div class="cd-timeline-img cd-movie">
+							<i class="fa fa-edit fa-2x timeline-icon"></i>
+						</div>
+
+						<div class="cd-timeline-content">
+							<h2>History Title</h2>
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde?</p>
+							<span class="cd-date">Jan 18</span>
+						</div>
+					</div>
+
+					<div class="cd-timeline-block">
+						<div class="cd-timeline-img cd-picture">
+							<i class="fa fa-edit fa-2x timeline-icon"></i>
+						</div>
+
+						<div class="cd-timeline-content">
+							<h2>History Title</h2>
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi, obcaecati, quisquam id molestias eaque asperiores voluptatibus cupiditate error assumenda delectus odit similique earum voluptatem doloremque dolorem ipsam quae rerum quis. Odit, itaque, deserunt corporis vero ipsum nisi eius odio natus ullam provident pariatur temporibus quia eos repellat consequuntur perferendis enim amet quae quasi repudiandae sed quod veniam dolore possimus rem voluptatum eveniet eligendi quis fugiat aliquam sunt similique aut adipisci.</p>
+							<span class="cd-date">Jan 24</span>
+						</div>
+					</div>
+
+					<div class="cd-timeline-block">
+						<div class="cd-timeline-img cd-location">
+							<i class="fa fa-edit fa-2x timeline-icon"></i>
+						</div>
+
+						<div class="cd-timeline-content">
+							<h2>History Title</h2>
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde? Iste voluptatibus minus veritatis qui ut.</p>
+							<span class="cd-date">Feb 14</span>
+						</div>
+					</div>
+
+					<div class="cd-timeline-block">
+						<div class="cd-timeline-img cd-location">
+							<i class="fa fa-edit fa-2x timeline-icon"></i>
+						</div>
+
+						<div class="cd-timeline-content">
+							<h2>History Title</h2>
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum.</p>
+							<span class="cd-date">Feb 18</span>
+						</div>
+					</div>
+
+					<div class="cd-timeline-block">
+						<div class="cd-timeline-img cd-movie">
+							<i class="fa fa-edit fa-2x timeline-icon"></i>
+						</div>
+
+						<div class="cd-timeline-content">
+							<h2>Final Section</h2>
+							<p>This is the content of the last section</p>
+							<span class="cd-date">Feb 26</span>
+						</div>
+					</div> -->
+            </section>
+          </div>
+          <!-- end row -->
+        </div>
+        <!-- END MAIN CONTENT -->
+      </div>
+      <!-- END MAIN PANEL -->
+    </div>
+  </div>
+</div>
+
+<!-- END #MAIN PANEL -->
+<!-- Modal -->
+<div id="securityAlert" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title"></h4>
+      </div>
+      <div class="modal-body news">
+        <p></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="securityThreat" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title"></h4>
+      </div>
+      <div class="modal-body news">
+        <p></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

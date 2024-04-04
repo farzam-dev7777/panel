@@ -2166,6 +2166,24 @@ $("#login-form #accept").on('click', function(e){
   $("#login-form .btn-type-primary").prop("disabled", false);
 });
 
+$(document).ready(function(){
+  law_firm = $("#matter_intake_law_firm_id option:selected").text();
+  if(law_firm != ''){
+    existing_text = 'Assigned Lawyer'
+    $("label.matter_intake_lawyer_ids").text(existing_text+" ("+law_firm+")")
+  }
+})
+
+$('#matter_intake_law_firm_id').on('change', function(){
+  existing_text = 'Assigned Lawyer'
+  if($(this).val() == ''){
+    $("label.matter_intake_lawyer_ids").text(existing_text)
+  } else {
+    law_firm = $("#matter_intake_law_firm_id option:selected").text();
+    $("label.matter_intake_lawyer_ids").text(existing_text+" ("+law_firm+")")
+  }
+})
+
 // var _rollbarConfig = {
 //     accessToken: "721164f0eda644f686c3e844ec50ab74",
 //     captureUncaught: true,

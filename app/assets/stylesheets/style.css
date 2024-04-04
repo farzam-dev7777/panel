@@ -748,7 +748,7 @@ hr.note-seperator {
 }
 
 .security-alerts {
-  height: 367px;
+  height: auto;
   overflow: scroll !important;
 }
 
