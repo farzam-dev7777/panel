@@ -1,6 +1,6 @@
 <div class="">
   <p class="user-inner-content">
-    A new matter intake form has been submitted by <%= @matter_intake.submitter_name %> <br>
+    A new matter created by <%= @matter_intake.submitter_name %> requires your attention.<br>
     <% domain = Tenant.current.domain %>
     <% if @law_firm.present? %>
       <%= link_to "Click here", domain+"/matter_intakes/#{@matter_intake.id}", class: "btn btn-xs btn-secondary" %> to review submission.
