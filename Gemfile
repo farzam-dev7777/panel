@@ -29,6 +29,7 @@ gem 'mixpanel-ruby'
 gem 'caxlsx'
 gem 'caxlsx_rails'
 
+gem 'rails-assets-jquery.ui', source: 'https://rails-assets.org'
 gem 'rails-assets-qTip2', source: 'https://rails-assets.org'
 gem 'rails-assets-sweetalert', source: 'https://rails-assets.org'
 gem 'rails-assets-toastr', source: 'https://rails-assets.org'
@@ -36,17 +37,17 @@ gem 'rails-assets-rateyo', source: 'https://rails-assets.org'
 gem 'rails-assets-underscore', source: 'https://rails-assets.org'
 gem 'rails-assets-jquery-cookie', source: 'https://rails-assets.org'
 gem 'rails-assets-datetimepicker', source: 'https://rails-assets.org'
+gem 'rails-assets-jquery2', source: 'https://rails-assets.org'
+
+
 
 gem 'activerecord-sortable'
 gem 'breadcrumbs_on_rails'
+gem 'jquery-rails'
 
 gem 'whenever', :require => false
 
 gem 'font-awesome-rails', '~> 4.5'
-gem 'jquery-rails'
-
-gem 'jquery-ui-rails', '~> 5.0.5'
-gem 'rails-jquery-ui-sortable'
 
 gem 'carrierwave'
 gem 'fog-aws'
