@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require jquery2
+//= require jquery
 //= require jquery_ujs
 //= require html5shiv
 //= require chosen.jquery.min

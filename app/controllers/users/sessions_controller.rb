@@ -2,7 +2,7 @@ class Users::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
 
   after_action :track_login, only: [:create]
-  before_action :log_failed_login, only: [:new]
+  after_action :log_failed_login, only: [:new]
 
   layout 'login'
   skip_before_action :verify_authenticity_token
@@ -53,14 +53,14 @@ class Users::SessionsController < Devise::SessionsController
 
   def log_failed_login
     if failed_login?
-      cookies[:failure_count] = (params[:failure_count]||0).to_i + 1
+      cookies[:failure_count] = {value: (params[:failure_count]||0).to_i + 1, httponly: true, secure: true}
     else
-      cookies[:failure_count] = 0
+      cookies[:failure_count] = {value: 0, httponly: true, secure: true}
     end
   end
 
   def failed_login?
-    (options = ENV["warden.options"]) && options[:action] == "unauthenticated"
+    alert.present? && alert == "Invalid Username or password."
   end
 
   # If you have extra params to permit, append them to the sanitizer.
