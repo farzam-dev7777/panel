@@ -1860,7 +1860,7 @@ function setAvailableLawfirmsForTenantOptions(tenantId) {
 		url: "/tenant_admin/tenants/" + tenantId + "/available_law_firms",
 		method: "get",
 	})
-		.success(( response ) => {
+		.done(( response ) => {
 			$('.law_firms_to_link_with_tenant').empty();
 			var options = "<option value=''> Select option</option>";
 			if (response.law_firms && response.law_firms.length > 0) {
@@ -1871,7 +1871,7 @@ function setAvailableLawfirmsForTenantOptions(tenantId) {
 				$(".law_firms_to_link_with_tenant").trigger("chosen:updated")
 			}
 		})
-		.error((error) => {
+		.fail((error) => {
 			$('.law_firms_to_link_with_tenant').empty();
 			var options = "<option value=''> Select option</option>";
 		})
@@ -1886,7 +1886,7 @@ function setAvailableLobUserForTenantOptions(tenantId) {
 		url: "/tenant_admin/tenants/" + tenantId + "/available_users?role=lob",
 		method: "get",
 	})
-		.success(( response ) => {
+		.done(( response ) => {
 			$('.lob_user_to_link_with_tenant').empty();
 			var options = "<option value=''> Select option</option>";
 			if (response.users) {
@@ -1897,7 +1897,7 @@ function setAvailableLobUserForTenantOptions(tenantId) {
 				$(".lob_user_to_link_with_tenant").trigger("chosen:updated")
 			}
 		})
-		.error((error) => {
+		.fail((error) => {
 			$('.lob_user_to_link_with_tenant').empty();
 			var options = "<option value=''> Select option</option>";
 		})

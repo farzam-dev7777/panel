@@ -2138,7 +2138,7 @@ function setAvailableLawyerOptions(law_firm_id) {
     url: "/law_firms/" + law_firm_id + "/get_external_lawyers",
     method: "get",
   })
-    .success(( response ) => {
+    .done(( response ) => {
       $('#matter_intake_lawyer_ids').empty();
       var options = "";
       if (response.users) {
@@ -2149,7 +2149,7 @@ function setAvailableLawyerOptions(law_firm_id) {
         $("#matter_intake_lawyer_ids").trigger("chosen:updated")
       }
     })
-    .error((error) => {
+    .fail((error) => {
       $('#matter_intake_lawyer_ids').empty();
       var options = "<option value=''> Select option</option>";
     })
@@ -2184,6 +2184,11 @@ $('#matter_intake_law_firm_id').on('change', function(){
   }
 })
 
+$(function() {
+    $.fn.size = function() {
+        return this.length;
+    }
+});
 // var _rollbarConfig = {
 //     accessToken: "721164f0eda644f686c3e844ec50ab74",
 //     captureUncaught: true,
