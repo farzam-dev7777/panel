@@ -29,6 +29,7 @@ gem 'mixpanel-ruby'
 gem 'caxlsx'
 gem 'caxlsx_rails'
 
+gem 'rails-assets-jquery', source: 'https://rails-assets.org'
 gem 'rails-assets-jquery.ui', source: 'https://rails-assets.org'
 gem 'rails-assets-qTip2', source: 'https://rails-assets.org'
 gem 'rails-assets-sweetalert', source: 'https://rails-assets.org'
