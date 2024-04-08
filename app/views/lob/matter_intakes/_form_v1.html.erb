@@ -13,7 +13,7 @@
               <% invoice_enable = true %>
             <% else %>
               <div class="col-xs-12 col-md-<%= f_width%>" title="<%= matter_lang_title(obj[:database_field], obj[:name]) %>">
-                <label  class="label" style="white-space: unset;">
+                <label  class="label matter_intake_<%= obj[:database_field]%>" style="white-space: unset;">
                   <% if obj[:optional] == true %>
                     <%= obj[:name] %>
                   <% else %>
