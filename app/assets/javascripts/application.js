@@ -12,7 +12,6 @@
 //
 //= require jquery3
 //= require jquery_ujs
-//= require jquery-ui
 //= require html5shiv
 //= require chosen.jquery.min
 //= require chosen.proto.min
