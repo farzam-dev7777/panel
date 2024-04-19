@@ -31,6 +31,7 @@ Rails.application.routes.draw do
     devise_for :admin_users, controllers: {
       sessions: 'admin/internal_sessions'
     }
+    resources :invoices
     resources :users do
       collection do
         get :edit_profile 
@@ -200,6 +201,7 @@ Rails.application.routes.draw do
   end
 
   namespace :lob do
+    resources :invoices
     resources :users do
       collection do
         get :edit_profile 

@@ -51,12 +51,12 @@ class PanelRequestMailer < ApplicationMailer
 	def notification_for_approved_to_lob(panel_request)
 		@panel_request = panel_request
 		@user = User.find_by_id(@panel_request.user_id)
-		mail(to: @user.email, subject: "Your Panel Request status has been approved.")
+		mail(to: @user.email, subject: "Congratulations, your firm has received On Panel status")
 	end
 	def notification_for_approved_to_user(panel_request)
 		@panel_request = panel_request
 		@user = @panel_request.law_firm.user
-		mail(to: @user.email, subject: "Your Panel Request status has been approved.")
+		mail(to: @user.email, subject: "Congratulations, your firm has received On Panel status")
 	end
 
 	def notification_for_status_to_user(panel_request)
