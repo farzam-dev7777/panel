@@ -20,5 +20,6 @@ module Platform
     config.action_view.embed_authenticity_token_in_remote_forms = true
     config.autoload_paths += Dir["#{config.root}/lib/**/"]
     config.autoloader = :classic
+    config.active_record.yaml_column_permitted_classes = [Symbol, Date, Time, ActiveSupport::TimeWithZone, ActiveSupport::TimeZone]
   end
 end
