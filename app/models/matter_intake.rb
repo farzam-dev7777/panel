@@ -266,8 +266,6 @@ class MatterIntake < ApplicationRecord
       [I18n.t(:business_department, default: "Business Department"), value]
     when 'business_group'
       [I18n.t(:business_group, default: "Line of Business/Corporate Group Responsible for Invoice"), value]
-    else
-      [key, value]
     end
   end
 
