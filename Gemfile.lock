@@ -97,6 +97,8 @@ GEM
     base64 (0.1.1)
     bcrypt (3.1.18)
     bindex (0.8.1)
+    bootstrap-datepicker-rails (1.10.0.1)
+      railties (>= 3.0)
     breadcrumbs_on_rails (4.1.0)
       railties (>= 5.0)
     builder (3.2.4)
@@ -523,6 +525,7 @@ DEPENDENCIES
   activesupport-current_attributes
   acts_as_commentable_with_threading
   amoeba
+  bootstrap-datepicker-rails
   breadcrumbs_on_rails
   byebug
   cancancan

@@ -10,7 +10,7 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery3
+//= require bootstrap-datepicker
 //= require jquery_ujs
 //= require html5shiv
 //= require chosen.jquery.min

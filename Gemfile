@@ -28,6 +28,7 @@ gem 'mixpanel-ruby'
 
 gem 'caxlsx'
 gem 'caxlsx_rails'
+gem 'bootstrap-datepicker-rails'
 
 gem 'rails-assets-jquery.ui', source: 'https://rails-assets.org'
 gem 'rails-assets-qTip2', source: 'https://rails-assets.org'

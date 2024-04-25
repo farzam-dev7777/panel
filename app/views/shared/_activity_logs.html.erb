@@ -1,6 +1,6 @@
 <div>
   <ul class="smart-timeline-list">
-    <% @matter_intake.versions.each do |version| %>
+    <% @matter_intake.versions.reverse.each do |version| %>
       <% version.changeset.each do |key, value|%>
         <% if key != 'created_at' && (value.first.present? && value.last.present?)%>
           <% if @matter_intake.db_key_mapping(key, value.first).present? %>
