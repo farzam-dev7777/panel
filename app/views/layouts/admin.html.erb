@@ -538,17 +538,21 @@
       	phone : 480
       };
       var sorting_order = 0;
+      var sorting_type = 'desc';
       if($('#dt_basic').attr('data-ordering')) {
       	sorting_order = parseInt($('#dt_basic').attr('data-ordering'))
       } else {
       	sorting_order = 0
+      }
+      if($('#dt_basic').attr('data-ordering-type')) {
+        sorting_type = $('#dt_basic').attr('data-ordering-type')
       }
       $('#dt_basic').dataTable({
       	aLengthMenu: [
       	        [10, 25, 50, -1],
       	        [10, 25, 50, "All"]
       		    ],
-      	"order": [[ sorting_order, "desc" ]],
+      	"order": [[ sorting_order, sorting_type ]],
       	"sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-12 hidden-xs'l>r>"+
       		"t"+
       		"<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-xs-12 col-sm-6'p>>",
