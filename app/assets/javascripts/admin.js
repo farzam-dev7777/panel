@@ -1030,10 +1030,10 @@ $(".prev-btn-exception").click(function () {
 	$( "#tabs-exception" ).tabs( "option", "active", $("#tabs-exception").tabs('option', 'active')-1 );
 });
 
-$("#tabs-exception").tabs({
-	active: 0,
-	disabled: [1, 2, 3]
-});
+// $("#tabs-exception").tabs({
+// 	active: 0,
+// 	disabled: [1, 2, 3]
+// });
 // check validation on tabs click
 // $( ".tabs2, .tabs3" ).on( "click", function( event, ui ) {
 // 	$( "#tabs-exception" ).tabs( "option", "active", "tabs-reason" );
@@ -2020,7 +2020,6 @@ $('select#matter_intake_outside_counsel_engaged').on('change', function() {
 })
 
 $('.lxp_review_status').on('click', function() {
-	
 	var status = $(this).attr("data-status");
 	if(status) {
 		$('#review_status').removeAttr('disabled');
