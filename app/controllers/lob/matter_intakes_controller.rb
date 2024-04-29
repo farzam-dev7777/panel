@@ -99,6 +99,7 @@ class Lob::MatterIntakesController < Lob::BaseController
 
   def show
     @matter_intake = MatterIntake.includes(:invoices).find_by(id: params[:id])
+    @matter_intake.versions.new(message: 'Matter viewed', event: 'view', whodunnit: current_user.full_name).save
     @matter_approval = @matter_intake.current_user_pending_approval(current_user)
   end
 

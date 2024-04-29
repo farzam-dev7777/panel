@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_23_180210) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_29_163435) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pgcrypto"
@@ -1226,6 +1226,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_23_180210) do
     t.text "object"
     t.datetime "created_at", precision: nil
     t.text "object_changes"
+    t.string "message"
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 

@@ -1,31 +1,48 @@
 <div>
   <ul class="smart-timeline-list">
     <% @matter_intake.versions.reverse.each do |version| %>
-      <% version.changeset.each do |key, value|%>
-        <% if key != 'created_at' && (value.first.present? && value.last.present?)%>
-          <% if @matter_intake.db_key_mapping(key, value.first).present? %>
-            <li data-id="log_<%= version.id %>">
-              <div class="smart-timeline-icon"> R </div>
-            <div class="smart-timeline-time">
-              <small><%= version.created_at.strftime('%d %b %Y at %I:%M %p') %></small>
-              <small><i><%= time_ago_in_words(version.created_at) %> ago</i> </small>
-            </div>
-            <div class="smart-timeline-content">
-              <% old_obj = @matter_intake.db_key_mapping(key, value.first)%>
-              <% new_obj = @matter_intake.db_key_mapping(key, value.last)%>
-              <p>
-                <strong>
-                  <%= version.whodunnit||'System' %> update <%= old_obj.first %>
-                </strong>
-              </p>
-              <p>
-                <%= "Old: #{old_obj.last}"%>
-              </p>
-              <p>
-                <%= "New: #{new_obj.last}" %>
-              </p>
-            </div>
-          </li>
+      <% if version.event == 'view' && version.whodunnit.present?%>
+        <li data-id="log_<%= version.id %>">
+            <div class="smart-timeline-icon"> R </div>
+          <div class="smart-timeline-time">
+            <small><%= version.created_at.strftime('%d %b %Y at %I:%M %p') %></small>
+            <small><i><%= time_ago_in_words(version.created_at) %> ago</i> </small>
+          </div>
+          <div class="smart-timeline-content">
+            <p>
+              <strong>
+                <%= version.message%> by <%= version.whodunnit||'System' %>
+              </strong>
+            </p>
+          </div>
+        </li>
+      <% else %>
+        <% version.changeset.each do |key, value|%>
+          <% if key != 'created_at' && (value.first.present? && value.last.present?)%>
+            <% if @matter_intake.db_key_mapping(key, value.first).present? %>
+              <li data-id="log_<%= version.id %>">
+                <div class="smart-timeline-icon"> R </div>
+              <div class="smart-timeline-time">
+                <small><%= version.created_at.strftime('%d %b %Y at %I:%M %p') %></small>
+                <small><i><%= time_ago_in_words(version.created_at) %> ago</i> </small>
+              </div>
+              <div class="smart-timeline-content">
+                <% old_obj = @matter_intake.db_key_mapping(key, value.first)%>
+                <% new_obj = @matter_intake.db_key_mapping(key, value.last)%>
+                <p>
+                  <strong>
+                    <%= version.whodunnit||'System' %> update <%= old_obj.first %>
+                  </strong>
+                </p>
+                <p>
+                  <%= "Old: #{old_obj.last}"%>
+                </p>
+                <p>
+                  <%= "New: #{new_obj.last}" %>
+                </p>
+              </div>
+            </li>
+            <% end %>
           <% end %>
         <% end %>
       <% end %>

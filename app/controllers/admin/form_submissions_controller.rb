@@ -365,7 +365,7 @@ class Admin::FormSubmissionsController < Admin::BaseController
         if (@form_submission.save)
           # LawFirmMailer.decision_reached(@form_submission, 'Approved').deliver_now
           # FormSubmission.log_activity('approved', true, @form_submission, current_admin_user)
-          PanelRequestMailer.notification_for_approved_to_user(@form_submission.lawfirm.panel_request).deliver_now
+          PanelRequestMailer.notification_for_approved_to_user(@form_submission.law_firm.panel_request).deliver_now
           redirect_to :admin_law_firms
         end
       else
