@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   #before_filter :set_cache_headers
   before_action :set_tenant
   before_action :set_locale
+  before_action :matter_tracking
 
   #before_action :set_cache_headers
 
@@ -82,6 +83,20 @@ class ApplicationController < ActionController::Base
 
   def current_ability
     @current_ability ||= Ability.new(current_user)
+  end
+
+  def matter_tracking
+    unless(params[:action] == 'show' && (["lob/matter_intakes", "admin/matter_intakes", "matter_intakes"].include?(params[:controller])) && cookies[:matter_open].present?)
+      if cookies[:matter_open].present?
+        matter_data = JSON.parse cookies[:matter_open]||{}
+        matter_intake = MatterIntake.find_by_id matter_data['matter_intake_id']
+        if matter_intake.present?
+          time_difference = TimeDifference.between(matter_data['time'].to_datetime, Time.now).humanize
+          matter_intake.versions.new(message: "Matter viewed for #{time_difference}", event: 'view', whodunnit: current_user.full_name).save        
+        end
+        cookies[:matter_open] = nil
+      end
+    end
   end
 
   protected

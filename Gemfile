@@ -42,6 +42,8 @@ gem 'rails-assets-datetimepicker', source: 'https://rails-assets.org'
 gem 'activerecord-sortable'
 gem 'breadcrumbs_on_rails'
 gem 'jquery-rails'
+gem 'time_difference'
+
 
 gem 'whenever', :require => false
 
