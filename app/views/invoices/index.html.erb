@@ -29,7 +29,7 @@
                     <%= invoice.id %>
                   </td>
                   <td>
-                    <%= invoice.amount %>
+                    <%= invoice.amount.try(:format) %>
                   </td>
                   <td>
                     <%= invoice&.matter_intake&.law_firm&.name %>
