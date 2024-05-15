@@ -33,6 +33,7 @@
                     <td><%= invoice&.matter_intake&.law_firm&.name %></td>
                     <td><%= invoice.status %></td>
                     <td><%= invoice.date %></td>
+                    <td><%= invoice.amount.try(:format) %></td>
                     <td>-</td>
                     <td>
                       <% if current_user.is_panel_admin_user? %>
