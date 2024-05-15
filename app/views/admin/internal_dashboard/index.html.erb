@@ -220,6 +220,7 @@
                     <td><%= invoice&.matter_intake&.matter_number %></td>
                     <td><%= invoice&.matter_intake&.name_of_matter_client %></td>
                     <td><%= invoice&.matter_intake&.law_firm&.name %></td>
+                    <td><%= invoice.amount.try(:format) %></td>
                     <td>-</td>
                   </tr>
                 <% end %>
