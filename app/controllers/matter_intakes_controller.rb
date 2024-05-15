@@ -67,7 +67,7 @@ class MatterIntakesController < BaseController
         flash[:alert]=''
         @show_information_security_form = true
         @show_information_security_form = params[:commit] == "Next"
-        matter_intakes_information_security_classification_matter_intakes_path(@matter_intake)
+        redirect_to matter_intakes_information_security_classification_matter_intakes_path(@matter_intake)
       else
         flash[:notice] = "Matter Intake Form submitted"
         redirect_to @matter_intake
