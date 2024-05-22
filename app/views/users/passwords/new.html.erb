@@ -1,92 +1,31 @@
-<!DOCTYPE html>
-<html lang="en-us" id="extr-page">
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Panel | 2 Factor Authentication</title>
-    <%= csrf_meta_tags %>
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <style type="text/css">
-      .login-page{
-        background-image: url(<%= asset_path 'bg-photo.jpg' %>) !important;
-      }
-			.sign-in-page .right-side .signin-form .sp-signin-form .sp-signin-btn {
-				margin-bottom: 25px;
-			}
-      .alert, .notice { display: none }
-    </style>
-  </head>
-  <body>
-    <div class="remove-padding" id="main" role="main"><!-- old class login-page -->
-      <!-- New SignIn page -->
-      <div class="sign-in-page">
-        <div class="left-side signin-img">
+
+<div class="remove-padding" id="main" role="main"><!-- old class login-page -->
+  <!-- New SignIn page -->
+  <div class="sign-in-page">
+    <div class="left-side signin-img">
+    </div>
+    <div class="right-side">
+      <div class="signin-form">
+        <div class="page-logo">
+          <%= image_tag "seal-logo-black.png", alt:"Seal Logo" %>
         </div>
-        <div class="right-side">
-          <div class="signin-form">
-            <div class="page-logo">
-              <%= image_tag "seal-logo-black.png", alt:"Seal Logo" %>
-            </div>
-            <div class="sp-signin-form">
-              <% if notice.present? %>
-                <p style="color:red;"><%= notice %></p>
-              <% end %>
-              <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-                <section>
-                  <%= f.label :email %><br />
-                  <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-                </section>
-                <br>
-                <div class="sp-signin-btn">
-                  <%= f.submit "Change my password", class: 'btn-type-primary' %>
-                </div>
-                <%- if controller_name != 'sessions' %>
-                  <%= link_to "Log in", new_session_path(resource_name) %><br />
-                <% end -%>
-              <% end %>
-            </div>
-          </div>
-        </div>
-      </div>
-      <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    </body>
-  </html>
-  <style type="text/css">
-    .login-page{
-      background-image: url(<%= asset_path 'bg-photo.jpg' %>) !important;
-    }
-  </style>
-  <div class="login-page" id="main" role="main">
-    <!-- MAIN CONTENT -->
-    <div id="content" class="container">
-      <div class="row">
-        <div class="col-xs-12 col-lg-8 col-lg-offset-2 login-form-wrapper">
-          <div class="well">
-            <% if notice || alert %>
-              <p class="notice"><%= notice %></p>
-              <p class="alert"><%= alert %></p>
-            <% end %>
-            <header>
-              Forgot Your Password
-            </header>
+        <div class="sp-signin-form">
+          <% if notice.present? %>
+            <p style="color:red;"><%= notice %></p>
+          <% end %>
+          <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+            <section>
+              <%= f.label :email %><br />
+              <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+            </section>
             <br>
-            <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-              <section>
-                <%= f.label :email %><br />
-                <%= f.email_field :email, autofocus: true,  style: 'width: 100%; padding: 8px 0px;' %>
-              </section>
-              <br>
-              <footer class="row">
-                <div class="col-md-9">
-                  <%= f.submit "Send me reset password instructions", class: 'btn btn-primary' %>
-                </div>
-                <div class="col-md-3 text-right" style="line-height: 30px;">
-                  <%- if controller_name != 'sessions' %>
-                    <%= link_to "Log in", new_session_path(resource_name) %><br />
-                  <% end -%>
-                </div>
-              </footer>
-            <% end %>
-          </div>
+            <div class="sp-signin-btn">
+              <%= f.submit "Change my password", class: 'btn-type-primary' %>
+            </div>
+            <%- if controller_name != 'sessions' %>
+              <%= link_to "Log in", new_session_path(resource_name) %><br />
+            <% end -%>
+          <% end %>
         </div>
       </div>
     </div>
