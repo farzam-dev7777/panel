@@ -4,6 +4,20 @@ class Users::PasswordsController < Devise::PasswordsController
   before_action :verify_format, only: [:new]
   skip_before_action :verify_authenticity_token
 
+  def create
+    self.resource = User.find_by_email resource_params['email']
+    if self.resource.blank?
+      redirect_back fallback_location: root_path, alert: "Email not found"
+    else
+      self.resource.send_reset_password_instructions
+      if successfully_sent?(resource)
+        respond_with({}, location: after_sending_reset_password_instructions_path_for(resource_name))
+      else
+        respond_with(resource)
+      end
+    end
+  end
+
   def update
     user = resource_class.with_deactivated.find_by(reset_password_token: params["user"]["reset_password_token"])
     
