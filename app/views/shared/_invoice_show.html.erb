@@ -30,13 +30,15 @@
           </div>
         <% end %>
         <% if current_user.is_panel_admin_user? && @matter_intake.deleted_at.blank? %>
-          <div class="col-xs-12 col-md-3">
-            <div class="field-label"></div>
-            <div style="padding-top: 14px;">
-              <%= link_to "Approve", approve_invoice_path(invoice), class: "btn-type-primary" %> 
-              <%= link_to "Reject", reject_invoice_path(invoice), class: "btn-type-primary", style: "background-color: #ad0000 !important;" %>
+          <% if ['approved', 'rejected'].include?(invoice.status) == false %>
+            <div class="col-xs-12 col-md-3">
+              <div class="field-label"></div>
+              <div style="padding-top: 14px;">
+                <%= link_to "Approve", approve_invoice_path(invoice), class: "btn-type-primary" %> 
+                <%= link_to "Reject", reject_invoice_path(invoice), class: "btn-type-primary", style: "background-color: #ad0000 !important;" %>
+              </div>
             </div>
-          </div>
+          <% end %>
         <% end %>
       </div>
     <% end %>
