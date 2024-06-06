@@ -30,7 +30,11 @@
 										<%= proposal.created_at.strftime('%d %b %Y') %></td>
 									<td><%= proposal.status %></td>
 									<td>
-										<%= link_to "Approve", accept_admin_rfp_proposal_path(proposal.rfp, proposal), class: "btn btn-xs btn-secondary" %>
+										<% if proposal.status == 'approved'%>
+											<button type="button" class="btn btn-xs btn-secondary" data-dismiss="modal" disabled='disabled'>Approve</button>
+										<% else %>
+											<%= link_to "Approve", accept_admin_rfp_proposal_path(proposal.rfp, proposal), class: "btn btn-xs btn-secondary" %>
+										<% end %>
 									</td>
 								</tr>
 							<% end %>
