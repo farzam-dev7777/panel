@@ -62,7 +62,7 @@
           </div>
         </div>
         <div class="col-md-12 col-xs-12">
-          <% if @rfp.questions.count > 0 %>
+          <% if @rfp.questions.size > 0 %>
             <% @rfp.questions.each do |question| %>
               <%= rfp.simple_fields_for :questions, question do |form| %>
                 <%= render 'rfp_question_fields', f: form, question: question %>

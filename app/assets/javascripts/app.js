@@ -1979,7 +1979,7 @@ $(document).on('change', '#rfp_invites', function() {
         $("#rfp_invites option[value='select_all']").prop('selected', false).trigger("chosen:updated");
       }
     }
-
+    setRfpAvailableLawyerOptions($('#rfp_invites').val())
   });
 
 // $('#search-activity-log-btn').on('click', function(e){
@@ -2129,13 +2129,17 @@ $('#matter_intake_law_firm_id').on('change', function() {
   setAvailableLawyerOptions(this.value)
 })
 
+$('#matter_intake_law_firm_id').on('change', function() {
+  setAvailableLawyerOptions(this.value)
+})
+
 $('#matter-security-form').on('click', function() {
   $('#matter-back-button').trigger('click');
 })
 
 function setAvailableLawyerOptions(law_firm_id) {
   $.ajax({
-    url: "/law_firms/" + law_firm_id + "/get_external_lawyers",
+    url: "/law_firms/get_external_lawyers?id=" + law_firm_id,
     method: "get",
   })
     .done(( response ) => {
@@ -2153,6 +2157,28 @@ function setAvailableLawyerOptions(law_firm_id) {
       $('#matter_intake_lawyer_ids').empty();
       var options = "<option value=''> Select option</option>";
     })
+}
+
+function setRfpAvailableLawyerOptions(law_firm_ids) {
+  $.ajax({
+    url: "/law_firms/get_external_lawyers?id=" + law_firm_ids,
+    method: "get",
+  })
+  .done(( response ) => {
+    $('#rfp_matter_intake_attributes_lawyer_ids').empty();
+    var options = "";
+    if (response.users) {
+      $.each(response.users, function(index, user) {
+        options += "<option value='" + user.id + "'>" + user.name + "</option>";
+      })
+      $('#rfp_matter_intake_attributes_lawyer_ids').html(options);
+      $("#rfp_matter_intake_attributes_lawyer_ids").trigger("chosen:updated")
+    }
+  })
+  .fail((error) => {
+    $('#rfp_matter_intake_attributes_lawyer_ids').empty();
+    var options = "<option value=''> Select option</option>";
+  })
 }
 
 $("#login-form").submit(function(e){
@@ -2189,6 +2215,7 @@ $(function() {
         return this.length;
     }
 });
+
 // var _rollbarConfig = {
 //     accessToken: "721164f0eda644f686c3e844ec50ab74",
 //     captureUncaught: true,

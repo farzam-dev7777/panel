@@ -23,6 +23,7 @@
 					<table id="dt_basic" class="table table-decoration table-bordered"  width="100%">
 						<thead>			                
 							<tr>
+							<th>Title</th>
 							<th>Date Submitted</th>
 							<th>Status</th>
 							<th>Action</th>
@@ -31,6 +32,7 @@
 						<tbody>
 							<% @rfps.each do |rfp| %>
 								<tr class="rfp-row" data-id="<%= rfp.id %>">
+									<td><%= rfp.matter_intake.matter_number %></td>
 									<td data-order="<%= rfp.created_at.strftime('%Y%m%d%H%M') %>">
 										<%= rfp.created_at.strftime('%d %b %Y') %></td>
 									<td><%= rfp.status %></td>

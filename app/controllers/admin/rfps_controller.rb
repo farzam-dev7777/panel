@@ -21,6 +21,9 @@ class Admin::RfpsController< Admin::BaseController
     @rfp = Rfp.new
     @rfp.matter_intake = MatterIntake.new
     @matter_intake = @rfp.matter_intake
+    Tenant&.current.tenant_questions.each do |tq|
+      @rfp.questions << Question.new(message: tq.title, kind: tq.kind)
+    end
   end
 
   def create

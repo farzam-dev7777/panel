@@ -315,11 +315,11 @@ Rails.application.routes.draw do
     member do 
       get :agreement
       get :additional_document
-      get :get_external_lawyers
     end
     collection do
       get :add_users
       post :invite_users
+      get :get_external_lawyers
     end
     resources :external_lawyers
   end
