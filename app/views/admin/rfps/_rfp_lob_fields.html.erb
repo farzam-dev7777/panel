@@ -1,0 +1,25 @@
+<%users = Tenant&.current.users.where(role:'lob')%>
+<div id="invoices">
+	<div class="col-md-12 col-xs-12">
+		<div class="formSection row nested-fields"> <!-- this main div will be functional -->
+
+			<div class="col-xs-12 col-md-3">
+				<label class="label">User</label>
+				<%= f.input :user_id, label: false, collection: users.map{|s| [s.full_name, s.id]}, input_html: { class: 'rfp_lob', multiple: false}%>
+			</div>
+			<div class="col-xs-12 col-md-3">
+				<label class="label">Role</label>
+				<%= f.input :role, label: false, collection: ['Contributor', 'Vote only', 'Read only'], input_html: { class: 'rfp_lob_role'}%>
+			</div>
+			<div class="col-xs-12 col-md-3">
+				<label class="label">Notify</label>
+				<%= f.input :notify, as: :boolean, label: false %>
+			</div>
+			<div class="col-xs-12 col-md-1">
+				<div class="remove-matter-invoice">
+					<%= link_to_remove_association "<i class='fa fa-minus-circle'></i>".html_safe, f %>	
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

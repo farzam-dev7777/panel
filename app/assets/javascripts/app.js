@@ -1931,6 +1931,10 @@ $('.rfp-row').on('click', function(){
   window.location.href = "/admin/rfps/" + $(this).data().id;
 })
 
+$('.lob-rfp-row').on('click', function(){
+  window.location.href = "/lob/rfps/" + $(this).data().id;
+})
+
 $('.proposal-row').on('click', function(){
   window.location.href = $(this).data().url;
 })

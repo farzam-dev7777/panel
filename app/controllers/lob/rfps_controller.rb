@@ -1,60 +1,20 @@
-class Admin::RfpsController< Admin::BaseController
-  layout 'admin'
+class Lob::RfpsController< Lob::BaseController
+  layout 'lob'
 
-  add_breadcrumb "Admin", :admin_root_path
+  add_breadcrumb "Dashboard", :root_path
 
   def index
-    @rfps = Rfp.all
+    @rfps = current_user.rfps
   end
 
   def show
-    @rfp = Rfp.find_by_id params[:id]
+    @rfp = current_user.rfps.find_by_id params[:id]
     @matter_intake = @rfp.matter_intake
   end
 
   def edit
-    @rfp = Rfp.find_by_id params[:id]
+    @rfp = current_user.rfps.find_by_id.find_by_id params[:id]
     @matter_intake = @rfp.matter_intake
-  end
-
-  def new
-    @rfp = Rfp.new
-    @rfp.matter_intake = MatterIntake.new
-    @matter_intake = @rfp.matter_intake
-    Tenant&.current.tenant_questions.each do |tq|
-      @rfp.questions << Question.new(message: tq.title, kind: tq.kind)
-    end
-  end
-
-  def create
-    rfp_param_obj = rfp_params
-    rfp_param_obj[:questions_attributes].each do |k,v|
-      d = v
-      d['message'] = v['message'].last
-      rfp_param_obj[:questions_attributes][k]= d
-    end
-    @rfp = Rfp.new(rfp_param_obj)
-    @rfp.matter_intake.submitter_name = current_user.full_name
-    @rfp.matter_intake.matter_number = "MT-#{Date.today.month}-#{Date.today.day}-#{MatterIntake.count}"
-    @rfp.matter_intake.user_id = current_user.id
-    @rfp.matter_intake.status = 'pending'
-
-    if @rfp.save
-      (params[:rfp][:invites]||[]).each do |law_firm_id|
-        if law_firm_id.present?
-          obj = @rfp.rfp_invites.find_or_create_by(law_firm_id: law_firm_id)
-          law_firm = LawFirm.find_by_id(law_firm_id)
-          obj.user_id = law_firm.user&.id if obj.user_id.blank?
-          obj.status = 'pending' if obj.status.blank?
-          obj.save
-        end
-      end
-      flash[:notice] = "RFP Form submitted"
-      redirect_to admin_rfps_path()
-    else
-      flash[:alert] = "There was an error initiating rfp request. #{@rfp.errors.full_messages.join(', ')}" 
-      render :new
-    end
   end
 
   def update
@@ -76,7 +36,7 @@ class Admin::RfpsController< Admin::BaseController
         end
       end
       flash[:notice] = "RFP Form submitted"
-      redirect_to admin_rfps_path()
+      redirect_to lob_rfps_path()
     else
       flash[:alert] = "There was an error initiating rfp request. #{@rfp.errors.full_messages.join(', ')}" 
       render :edit
@@ -84,7 +44,7 @@ class Admin::RfpsController< Admin::BaseController
   end
 
   def proposal
-    @rfp = Rfp.find_by_id params[:id]
+    @rfp = current_user.rfps.find_by_id params[:id]
   end
 
   def rfp_params

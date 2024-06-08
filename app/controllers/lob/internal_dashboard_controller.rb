@@ -21,6 +21,8 @@ class Lob::InternalDashboardController < Lob::BaseController
     @matter_intakes = MatterIntake.where("line_of_business_id in (?) OR user_id = ?", current_user.line_of_businesses.pluck(:id), current_user.id).order('updated_at DESC').limit(5)
 
     @panel_law_firms = LawFirm.where(law_firm_category: "PANEL")
+    @rfps = current_user.rfps
+
   end
 
   def show

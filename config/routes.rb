@@ -202,6 +202,14 @@ Rails.application.routes.draw do
 
   namespace :lob do
     resources :invoices
+    resources :rfps do 
+      resources :proposals do 
+        member do 
+          post :add_comment
+          get :accept
+        end
+      end
+    end
     resources :users do
       collection do
         get :edit_profile 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_29_163435) do
+ActiveRecord::Schema[7.0].define(version: 2024_06_08_095225) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pgcrypto"
@@ -971,6 +971,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_29_163435) do
     t.integer "user_id"
     t.integer "law_firm_id"
     t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "rfp_lobs", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "rfp_id"
+    t.string "role"
+    t.boolean "notify"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

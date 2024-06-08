@@ -1,0 +1,27 @@
+<div class="no-padding">
+  <div class="jarviswidget-editbox"></div>
+    <!-- widget content -->
+    </br>
+    <div class="field-label">Internal Stakeholders </div>
+    <div class="widget-body">
+    <div class="table-responsive">
+      <table id="" class="table table-decoration table-bordered" width="100%">
+        <thead>
+          <tr>
+            <th>User</th>
+            <th>Role</th>
+            <th>Notify</th>
+          </tr>
+          <tbody>
+            <% @rfp.rfp_lobs.each do |rfp_lob| %>
+              <tr>
+                  <td><%= rfp_lob.user.name%></td>
+                  <td><%= rfp_lob.role %></td>
+                  <td><%= rfp_lob.notify %></td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>

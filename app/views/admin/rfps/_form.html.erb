@@ -55,6 +55,25 @@
           <label class="label">Notify Lawyers</label>
           <%= rfp.input :notify_lawyers, as: :check_boxes, label: false, collection: [['Yes', 'Yes']] %>  
         </div>
+
+        <!-- New Lobs start -->
+        <div class="col-md-12 col-xs-12">
+          <div class="formHeader">
+            <div class="headerTitle">Invite internal stakeholders</div>
+          </div>
+        </div>
+        <div class="col-md-12 col-xs-12">
+          <% if @rfp.rfp_lobs.size > 0 %>
+            <% @rfp.rfp_lobs.each do |rfp_lob| %>
+              <%= rfp.simple_fields_for :rfp_lobs, rfp_lob do |form| %>
+                <%= render 'rfp_lob_fields', f: form, rfp_lob: rfp_lob %>
+              <% end %>
+            <% end %>
+          <% end %>
+          <div class="addButton links mb-4">
+            <%= link_to_add_association '<span href="javascript:void(0);"><i class="fa fa-plus-circle"></i> Invite stakeholder</span>'.html_safe, rfp, :rfp_lobs, partial: 'rfp_lob_fields' %> 
+          </div>
+        </div>
         <!-- New Question start -->
         <div class="col-md-12 col-xs-12">
           <div class="formHeader">

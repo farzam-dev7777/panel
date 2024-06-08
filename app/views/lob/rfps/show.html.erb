@@ -16,13 +16,15 @@
 		<div>
       <% if @rfp.status == 'pending'%>
   			<div class="action-buttons-alignment">
-  				<a class="export-icon right-action-btns add-button" href="<%= edit_admin_rfp_path(@rfp) %>">
-  					<%= image_tag "add.svg", alt:"General Intake" %> <span>Edit</span>
-  				</a>
+          <% if @rfp.can_edit?(current_user)%>
+    				<a class="export-icon right-action-btns add-button" href="<%= edit_lob_rfp_path(@rfp) %>">
+    					<%= image_tag "add.svg", alt:"General Intake" %> <span>Edit</span>
+    				</a>
+          <% end %>
   			</div>
       <% end %>
 		</div>
-        <a class="btn-type-default" href="<%=matter_url %>">
+        <a class="btn-type-default" href="<%=root_url %>">
           <%= image_tag "chevron-back-icon.svg", alt:"Back" %>
         </a>
       </div>
@@ -80,13 +82,10 @@
             <% end %>
           </div>
           <% if @rfp.rfp_invites.present?%>
-            <%= render "rfp_invite" %>
+            <%= render "/admin/rfps/rfp_invite" %>
           <% end %>
           <% if @rfp.questions.present?%>
-            <%= render "rfp_question" %>
-          <% end %>
-          <% if @rfp.rfp_lobs.present?%>
-            <%= render "rfp_lob" %>
+            <%= render "/admin/rfps/rfp_question" %>
           <% end %>
         </div>
       </div>
