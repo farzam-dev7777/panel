@@ -49,7 +49,7 @@
                         <td><%= rfp.status %></td>
                         <td>
                           <% if rfp_invite.status == 'pending'%>
-                            <%= link_to "Accpet Invite", accpect_invite_rfps_path(rfp_invite_id:rfp_invite.id), class: "btn btn-xs btn-secondary" %>  
+                            <%= link_to "Accept Invite", accept_invite_rfps_path(rfp_invite_id:rfp_invite.id), class: "btn btn-xs btn-secondary" %>  
                           <% else %>
                             <% proposal = rfp.proposals.where(law_firm_id: current_user&.law_firm.id ).first%>
                             <% if rfp.proposals.where(law_firm_id:current_user&.law_firm.id ).blank? %>

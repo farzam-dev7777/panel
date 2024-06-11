@@ -417,7 +417,7 @@ Rails.application.routes.draw do
   resources :matter_approvals
   resources :rfps do 
     collection do 
-      get :accpect_invite
+      get :accept_invite
     end
     resources :proposals do 
       member do 
