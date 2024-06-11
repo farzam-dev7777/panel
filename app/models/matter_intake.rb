@@ -656,6 +656,393 @@ class MatterIntake < ApplicationRecord
     common_fields + optional_fields.select{|s| current_tenant.matter_optional_fields.include?(s[:default_name])}
   end
 
+  def rfp_generate_fields(current_user, current_tenant) 
+    is_bank_user =  current_user.role != "master_user" && current_user.role != "user"
+    is_law_firm =  current_user.role == "master_user" && current_user.role == "user"
+    c_law_firm = (self.law_firm||current_user.law_firm)
+    common_fields = [
+      {
+        name: I18n.t(:requested_by_id, default: "Requested by"),
+        database_field: :requested_by_id,
+        access: {
+          bank: "write",
+          law_firm: "write"
+        },
+        type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: MANDATORY_FIELDS.include?(:requested_by_id) == false,
+        value: self.requested_by_id,
+        collection: (current_tenant.users.where(role: ['lxp', 'lob', 'internal_lawyers'])+[current_user]).map{|u| [u.full_name, u.id]}
+      },
+      {
+        name: I18n.t(:name_of_matter_client, default: "Matter Name"),
+        database_field: :name_of_matter_client,
+        access: {
+          bank: "write",
+          law_firm: "write"
+        },
+        type: "text", # "dropdown" | "autofill" | "text" | "autocomplete"
+        value: self.name_of_matter_client,
+        optional: MANDATORY_FIELDS.include?(:name_of_matter_client) == false,
+      },
+      {
+        name: I18n.t(:line_of_business_id, default: "Line of Business/Corporate Group"),
+        database_field: :line_of_business_id,
+        access: {
+          bank: "write",
+          law_firm: "write"
+        },
+        type: "dropdown", # "dropdown" | "autofill" | "text" 
+        optional: MANDATORY_FIELDS.include?(:line_of_business_id) == false,
+        value: (self.line_of_business_id || current_user.line_of_businesses&.first&.id),
+        collection: LineOfBusiness.where(tenant_id: current_tenant.id).map{|u| [u.name, u.id]}
+      },
+      {
+        name: I18n.t(:submitter_name, default: "Submitter Name"),
+        database_field: :submitter_name,
+        access: {
+          bank: "read",
+          law_firm: "read"
+        },
+        type: "autofill", # "dropdown" | "autofill" | "text" 
+        optional: MANDATORY_FIELDS.include?(:submitter_name) == false,
+        value: (self.submitter_name||current_user.full_name),
+        collection: [], # Static | From database | prefilled-value
+      },
+      {
+        name: I18n.t(:matter_number, default: "Matter Number"),
+        database_field: :matter_number,
+        access: {
+          bank: "read",
+          law_firm: "read"
+        },
+        type: "text", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: MANDATORY_FIELDS.include?(:matter_number) == false,
+        value: (self.matter_number||"MT-#{Date.today.month}-#{Date.today.day}-#{(1..999).to_a.sample}")
+      },
+      {
+        name: I18n.t(:matter_type_id, default: "Matter Type"),
+        database_field: :matter_type_id,
+        access: {
+          bank: "write",
+          law_firm: "write"
+        },
+        type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: MANDATORY_FIELDS.include?(:matter_type_id) == false,
+        value: self.matter_type_id,
+        collection: MatterType.all.reject{|mt| mt.matter_type === "Litigation / Litiges"}.map{|mt| [mt.matter_type, mt.id] }
+      },
+      {
+        name: I18n.t(:matter_description, default: "Matter Description"),
+        database_field: :matter_description,
+        access: {
+          bank: "write",
+          law_firm: "write"
+        },
+        type: "text", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: MANDATORY_FIELDS.include?(:matter_description) == false,
+        value: self.matter_description,
+        collection: []
+      },
+      {
+        name: I18n.t(:paying_entity, default: "Entity"),
+        database_field: :paying_entity,
+        access: {
+          bank: "write",
+          law_firm: "write"
+        },
+        type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: MANDATORY_FIELDS.include?(:paying_entity) == false,
+        value: self.paying_entity,
+        collection: MatterIntake::LegalEntity
+      },
+      {
+        name: I18n.t(:other_party, default: "Other Party"),
+        database_field: :other_party,
+        access: {
+          bank: "write",
+          law_firm: "write"
+        },
+        type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: MANDATORY_FIELDS.include?(:other_party) == false,
+        value: self.other_party,
+        collection: MatterIntake::OtherParty
+      },
+      {
+        name: I18n.t(:stage_of_litigation, default: "Litigation Stage"),
+        database_field: :stage_of_litigation,
+        access: {
+          bank: "not_access",
+          law_firm: "not_access"
+        },
+        type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: MANDATORY_FIELDS.include?(:stage_of_litigation) == false,
+        value: self.stage_of_litigation,
+        collection: MatterIntake::StageOfLitigation
+      },
+      {
+        name: I18n.t(:primary_issue, default: "Issue"),
+        database_field: :primary_issue,
+        access: {
+          bank: "write",
+          law_firm: "write"
+        },
+        type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: MANDATORY_FIELDS.include?(:primary_issue) == false,
+        value: self.primary_issue,
+        collection: MatterIntake::PrimaryIssue
+      },
+      {
+        name: I18n.t(:following_matter_involve, default: "Will this matter involve the following"),
+        database_field: :following_matter_involve,
+        access: {
+          bank: "not_access",
+          law_firm: "not_access"
+        },
+        type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: MANDATORY_FIELDS.include?(:following_matter_involve) == false,
+        value: self.following_matter_involve,
+        collection: MatterIntake::MatterInvolveFollowing,
+        multiple: true
+      },
+      {
+        name: I18n.t(:lawyer_id, default: "Internal (Bank) Responsible Lawyer"),
+        database_field: :lawyer_id,
+        access: {
+          bank: "write",
+          law_firm: "read"
+        },
+        type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: MANDATORY_FIELDS.include?(:lawyer_id) == false,
+        value: self.lawyer_id,
+        collection: InternalLawyer.where(tenant_id: current_tenant&.id).map {|il| [il.full_name, il.id]}
+      },
+      {
+        name: I18n.t(:additional_comments_for_lrc_lawyer, default: "Additional Comments for Internal Lawyer"),
+        database_field: :additional_comments_for_lrc_lawyer,
+        access: {
+          bank: "not_access",
+          law_firm: "not_access"
+        },
+        type: "text", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: MANDATORY_FIELDS.include?(:additional_comments_for_lrc_lawyer) == false,
+        value: self.additional_comments_for_lrc_lawyer,
+        collection: []
+      },
+      {
+        name: I18n.t(:law_firm_id, default: "External Law firm"),
+        database_field: :law_firm_id,
+        access: {
+          bank: "write",
+          law_firm: "read"
+        },
+        type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: MANDATORY_FIELDS.include?(:law_firm_id) == false,
+        value: self.law_firm_id,
+        collection: Tenant.current.law_firms.select{|s| s.status_show=='On Panel'}.map{ |lf| [lf.name, lf.id] }
+      },
+      {
+        name: I18n.t(:lawyer_ids, default: "Assigned Lawyer"),
+        database_field: :lawyer_ids,
+        access: {
+          bank: "write",
+          law_firm: "write"
+        },
+        type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: MANDATORY_FIELDS.include?(:lawyers) == false,
+        value: self.lawyers&.ids,
+        collection: (c_law_firm&.users&.where(role:'user')&.map{|s| [(s.name), s.id]}||[]),
+        multiple: true
+      },
+      {
+        name: I18n.t(:invoices, default: "Invoice (add/upload)"),
+        database_field: :invoices,
+        access: {
+          bank: "write",
+          law_firm: "write"
+        },
+        type: "autofill", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: true,
+        value: self.invoices,
+        collection: []
+      },
+      {
+        name: I18n.t(:invoices, default: "Invoice - Approval"),
+        database_field: :invoices,
+        access: {
+          bank: "write",
+          law_firm: "not_access"
+        },
+        type: "autofill", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: true,
+        value: self.invoices,
+        collection: []
+      },
+      {
+        name: I18n.t(:jurisdiction, default: "Jurisdiction"),
+        database_field: :jurisdiction,
+        access: {
+          bank: "write",
+          law_firm: "not_access"
+        },
+        type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: MANDATORY_FIELDS.include?(:jurisdiction) == false,
+        value: self.jurisdiction,
+        collection: MatterIntake::Jurisdiction
+      },
+      {
+        name: I18n.t(:is_syndicate_matter, default: "Is this a syndicated matter?"),
+        database_field: :is_syndicate_matter,
+        access: {
+          bank: "write",
+          law_firm: "not_access"
+        },
+        type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: MANDATORY_FIELDS.include?(:is_syndicate_matter) == false,
+        value: self.is_syndicate_matter,
+        collection: [['Yes, we are the lead organization', 'Yes, we are the lead organization'],["Yes, we are not the lead organization", "Yes, we are not the lead organization"], ["No", "No"]]
+      },
+      {
+        name: I18n.t(:afa_details, default: "AFA"),
+        database_field: :afa_details,
+        access: {
+          bank: "write",
+          law_firm: "read"
+        },
+        type: "text", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: MANDATORY_FIELDS.include?(:afa_details) == false,
+        value: self.afa_details,
+        collection: []
+      },
+      {
+        name: I18n.t(:budget_amount, default: "Fee Estimate / Budget"),
+        database_field: :budget_amount,
+        access: {
+          bank: "write",
+          law_firm: "write"
+        },
+        type: "currency", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: MANDATORY_FIELDS.include?(:budget_amount) == false,
+        value: self.budget_amount,
+        collection: []
+      },
+      {
+        name: I18n.t(:cost_centre_for_legal_fees, default: "Cost Centre (transit) for legal fees"),
+        database_field: :cost_centre_for_legal_fees,
+        access: {
+          bank: "write",
+          law_firm: "read"
+        },
+        type: "text", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: MANDATORY_FIELDS.include?(:cost_centre_for_legal_fees) == false,
+        value: self.cost_centre_for_legal_fees,
+        collection: []
+      },
+      {
+        name: I18n.t(:deal_code, default: "Deal Code (Capital Markets Only)"),
+        database_field: :deal_code,
+        access: {
+          bank: "not_access",
+          law_firm: "not_access"
+        },
+        type: "text", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: MANDATORY_FIELDS.include?(:deal_code) == false,
+        value: self.deal_code,
+        collection: []
+      },
+      {
+        name: I18n.t(:related_matter_number, default: "Related Matter Number"),
+        database_field: :related_matter_number,
+        access: {
+          bank: "write",
+          law_firm: "write"
+        },
+        type: "text", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: MANDATORY_FIELDS.include?(:related_matter_number) == false,
+        value: self.related_matter_number,
+        collection: []
+      },
+      {
+        name: I18n.t(:pii_involved, default: "Any PII involved in this matter?"),
+        database_field: :pii_involved,
+        access: {
+          bank: "write",
+          law_firm: "write"
+        },
+        type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: MANDATORY_FIELDS.include?(:pii_involved) == false,
+        value: self.pii_involved,
+        collection: [['Yes', true], ['No', false]]
+      },
+      {
+        name: I18n.t(:can_reimbursed_matter, default: "Could law firm potentially receive sensitive information"),
+        database_field: :can_reimbursed_matter,
+        access: {
+          bank: "write",
+          law_firm: "not_access"
+        },
+        type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: MANDATORY_FIELDS.include?(:can_reimbursed_matter) == false,
+        value: self.can_reimbursed_matter,
+        collection: [['Yes', 'Yes'], ["No", "No"]]
+      },
+      {
+        name: I18n.t(:is_ore_reportable, default: "Reportable Risk"),
+        database_field: :is_ore_reportable,
+        access: {
+          bank: "write",
+          law_firm: "not_access"
+        },
+        type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: MANDATORY_FIELDS.include?(:is_ore_reportable) == false,
+        value: self.is_ore_reportable,
+        collection: [['Yes', 'Yes'], ["No", "No"]]
+      }
+    ]
+
+    optional_fields = [
+      {
+        name: I18n.t(:internal_file_number, default: "Internal File Number"),
+        database_field: :internal_file_number,
+        default_name: "Internal File Number",
+        access: {
+          bank: "not_access",
+          law_firm: "not_access"
+        },
+        type: "text", # "dropdown" | "autofill" | "text" 
+        optional: MANDATORY_FIELDS.include?(:internal_file_number) == false,
+        value: self.internal_file_number,
+        collection: [], # Static | From database | prefilled-value
+    
+      },
+      {
+        name: I18n.t(:business_department, default: "Business Department"),
+        database_field: :business_department,
+        default_name: "Business Department",
+        access: {
+          bank: "not_access",
+          law_firm: "not_access"
+        },
+        type: "text", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: MANDATORY_FIELDS.include?(:business_department) == false,
+        value: self.business_department
+      },
+      {
+        name: I18n.t(:business_group, default: "Line of Business/Corporate Group Responsible for Invoice"),
+        database_field: :business_group,
+        default_name: "Line of Business/Corporate Group Responsible for Invoice",
+        access: {
+          bank: "write",
+          law_firm: "not_access"
+        },
+        type: "text", # "dropdown" | "autofill" | "text" | "autocomplete"
+        optional: MANDATORY_FIELDS.include?(:business_group) == false,
+        value: self.business_group
+      }
+    ]
+
+    common_fields + optional_fields.select{|s| current_tenant.matter_optional_fields.include?(s[:default_name])}
+  end
+
   LegalGroupBMOLawyer = [
     "Retail/Commercial",
     "Capital Markets",

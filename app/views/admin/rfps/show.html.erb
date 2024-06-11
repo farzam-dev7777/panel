@@ -41,7 +41,7 @@
           <div class="row form-flex-wrap">
             <% matter_role = @matter_intake.matter_form_role(current_user)%>
             <% invoice_enable = false %>
-            <%@matter_intake.generate_fields(current_user, Tenant.current).each do |obj| %>
+            <%@matter_intake.rfp_generate_fields(current_user, Tenant.current).each do |obj| %>
               <% if obj[:access][matter_role] == 'write' || obj[:access][matter_role] == 'read'%>
                 <% if obj[:database_field] == :invoices%>
                   <% invoice_enable = true %>
