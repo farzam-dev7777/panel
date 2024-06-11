@@ -53,7 +53,7 @@
           <%= f.input :lawyer_ids, label: false, collection: (c_law_firm&.users&.where(role:'user')&.map{|s| [(s.name), s.id]}||[]), selected: @matter_intake.lawyers&.ids, input_html: { multiple: true } %>
         </div>
         <div class="col-xs-12 col-md-3">
-          <label class="label">Expriy Date</label>
+          <label class="label">Expiry Date</label>
           <%= rfp.input :expiry_date, as: :string, input_html: { class: 'rfp_datepicker', value: rfp.object&.expiry_date&.strftime("%d %b %Y %H:%m") }, label: false %>
         </div>
         <div class="col-xs-12 col-md-3">
