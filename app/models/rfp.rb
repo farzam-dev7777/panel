@@ -45,4 +45,8 @@ class Rfp < ApplicationRecord
 			false
 		end
 	end
+
+	def show_status
+		self.status == 'pending' ? 'open' : self.status
+	end
 end

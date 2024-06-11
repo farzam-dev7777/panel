@@ -16,7 +16,9 @@
 					<table id="dt_basic" class="table table-decoration table-bordered"  width="100%">
 						<thead>			                
 							<tr>
-							<th>Title</th>
+							<th>Matter Name</th>
+							<th>Number</th>
+							<th>LawFirm count</th>
 							<th>Date Submitted</th>
 							<th>Status</th>
 							<th>Action</th>
@@ -25,7 +27,9 @@
 						<tbody>
 							<% @rfps.each do |rfp| %>
 								<tr class="lob-rfp-row" data-id="<%= rfp.id %>">
+									<td><%= rfp.matter_intake.name_of_matter_client %></td>
 									<td><%= rfp.matter_intake.matter_number %></td>
+									<td><%= rfp.rfp_invites.count %></td>
 									<td data-order="<%= rfp.created_at.strftime('%Y%m%d%H%M') %>">
 										<%= rfp.created_at.strftime('%d %b %Y') %></td>
 									<td><%= rfp.status %></td>

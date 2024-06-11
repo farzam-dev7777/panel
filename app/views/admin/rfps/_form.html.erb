@@ -8,7 +8,7 @@
       <div class="row form-flex-wrap">
         <%matter_intake.generate_fields(current_user, Tenant.current).each do |obj| %>
           <%= f.input :form_type, as: :hidden, :input_html => { :value => 'rfp'} %>
-          <% if obj[:access][matter_role] == 'write' && obj[:database_field] != :law_firm_id%>
+          <% if obj[:access][matter_role] == 'write' && obj[:database_field] != :law_firm_id && obj[:database_field] != :lawyer_ids %>
             <% f_width = obj[:database_field] == :matter_description ? 12 : 6%>
             <% if obj[:database_field] == :invoices && obj[:access][matter_role] == 'write' %>
               <% invoice_enable = true %>
@@ -46,6 +46,11 @@
         <div class="col-xs-12 col-md-3">
           <label class="label">Law Firm Invites</label>
           <%= rfp.input :invites, label: false, collection: [['Select All', 'select_all']]+Tenant.current.law_firms.select{|s| s.status_show=='On Panel'}.map{ |lf| [lf.name, lf.id] }, selected: @rfp.rfp_invites.map(&:law_firm_id), input_html: { multiple: true } %>
+        </div>
+        <div class="col-xs-12 col-md-3">
+          <label class="label">Assigned Lawyer</label>
+          <% c_law_firm = (@matter_intake.law_firm||current_user.law_firm) %>
+          <%= rfp.input :lawyer_ids, label: false, collection: (c_law_firm&.users&.where(role:'user')&.map{|s| [(s.name), s.id]}||[]), selected: @matter_intake.lawyers&.ids, input_html: { multiple: true } %>
         </div>
         <div class="col-xs-12 col-md-3">
           <label class="label">Expriy Date</label>
