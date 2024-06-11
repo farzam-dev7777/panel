@@ -13,13 +13,15 @@
             <th>Notify</th>
           </tr>
           <tbody>
-            <% @rfp.rfp_lobs.each do |rfp_lob| %>
-              <tr>
-                  <td><%= rfp_lob.user.name%></td>
-                  <td><%= rfp_lob.role %></td>
-                  <td><%= rfp_lob.notify %></td>
-              </tr>
+            <% @rfp.rfp_lobs.joins(:user).each do |rfp_lob| %>
+              <% if rfp_lob.user.present?%>
+                <tr>
+                    <td><%= rfp_lob.user.name%></td>
+                    <td><%= rfp_lob.role %></td>
+                    <td><%= rfp_lob.notify %></td>
+                </tr>
               <% end %>
+            <% end %>
             </tbody>
           </table>
         </div>
