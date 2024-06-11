@@ -13,8 +13,8 @@ class ConflictWaiver < ApplicationRecord
   #validate :confirm_waiver_must_be_true
 
   CONFLICT_WAIVER_STATUS = {
-    "APPROVED": "Approve",
-    "REJECTED": "Reject",
+    "APPROVED": "Approved",
+    "REJECTED": "Rejected",
     "IN_REVIEW": "In Review",
     "ALREADY_COVERED": "Covered under retainer",
     "REQUEST_INFO": "More info required",
