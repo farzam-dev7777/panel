@@ -25,10 +25,10 @@
 							<tr>
 							<th>Matter Name</th>
 							<th>Number</th>
-							<th>LawFirm count</th>
+							<th>Invited law firms</th>
 							<th>Date Submitted</th>
 							<th>Status</th>
-							<th>Action</th>
+							<th>Proposals</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -40,7 +40,7 @@
 									<td data-order="<%= rfp.created_at.strftime('%Y%m%d%H%M') %>">
 										<%= rfp.created_at.strftime('%d %b %Y') %></td>
 									<td><%= rfp.show_status %></td>
-									<td><%= link_to "Proposals",admin_rfp_proposals_path(rfp), class: "btn btn-xs btn-secondary" %></td>
+									<td><%= link_to "Review",admin_rfp_proposals_path(rfp), class: "btn btn-xs btn-secondary" %></td>
 								</tr>
 							<% end %>
 						</tbody>
