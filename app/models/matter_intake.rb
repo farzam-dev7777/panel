@@ -173,7 +173,7 @@ class MatterIntake < ApplicationRecord
     "Christina Harrison"
   ]
 
-  MANDATORY_FIELDS = [:submitter_name, :name_of_matter_client, :matter_number, :requested_by_id, :matter_type_id, :line_of_business_id]
+  MANDATORY_FIELDS = [:description, :submitter_name, :name_of_matter_client, :matter_number, :requested_by_id, :matter_type_id, :line_of_business_id]
 
   def generate_type(type)
     case type
