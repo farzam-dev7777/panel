@@ -107,7 +107,7 @@
                   <a href="/admin/matter_intakes" title="Matters"><i class="fa fa-users" aria-hidden="true"></i> <span class="menu-item-parent">Matters</span></a>
                 </li>
                 <li class=" <%= active_page?(:invoies) %>">
-                  <a href="/admin/invoices" title="Invoices"><i class="fa fa-question-circle" aria-hidden="true"></i> <span class="menu-item-parent">Invoices</span></a>
+                  <a href="/admin/invoices" title="Invoices"><i class="fa fa-folder-open-o" aria-hidden="true"></i> <span class="menu-item-parent">Invoices</span></a>
                 </li>
               <% end %>
               <!-- <li class=" <%= active_page?(:panel_non_law_firms) %>">
@@ -121,12 +121,12 @@
 
               <% if current_user && (  current_user.role == 'lxp' || current_user.role == 'internal_lawyers' ) %>
                 <li class=" <%= active_page?(:conflict_waivers) %>">
-                  <a href="/admin/conflict_waivers" title="Conflict Waiver"><i class="fa fa-question-circle" aria-hidden="true"></i> <span class="menu-item-parent">Conflict Waiver Requests</span></a>
+                  <a href="/admin/conflict_waivers" title="Conflict Waiver"><i class="fa fa-handshake-o" aria-hidden="true"></i> <span class="menu-item-parent">Conflict Waiver Requests</span></a>
                 </li>
               <% end %>
               <% if current_user && current_user.role == 'lxp'%>
                 <li class=" <%= active_page?(:rfp) %>">
-                  <a href="/admin/rfps" title="Conflict Waiver"><i class="fa fa-question-circle" aria-hidden="true"></i> <span class="menu-item-parent">RFP</span></a>
+                  <a href="/admin/rfps" title="Conflict Waiver"><i class="fa fa-envelope-open" aria-hidden="true"></i> <span class="menu-item-parent">RFP</span></a>
                 </li>
               <% end %>
               <!--<% if current_user && ( current_user.role == 'lob' || current_user.role == 'lxp' || current_user.role == 'internal_lawyers' ) %>
