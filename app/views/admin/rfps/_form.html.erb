@@ -49,7 +49,7 @@
         </div>
         <div class="col-xs-12 col-md-3">
           <label class="label">Assigned Lawyer</label>
-          <% c_law_firm = (@matter_intake.law_firm||current_user.law_firm) %>
+          <% c_law_firm = (@matter_intake&.law_firm||current_user&.law_firm) %>
           <%= f.input :lawyer_ids, label: false, collection: (c_law_firm&.users&.where(role:'user')&.map{|s| [(s.name), s.id]}||[]), selected: @matter_intake.lawyers&.ids, input_html: { multiple: true } %>
         </div>
         <div class="col-xs-12 col-md-3">
