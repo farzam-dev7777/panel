@@ -244,6 +244,10 @@ class LawFirm < ApplicationRecord
     end
   end
 
+  def self.on_panel_count
+    self.select{|s| s.status_show=='On Panel'}.count
+  end
+
   def status_show
     law_firm_tenant = self.law_firms_tenants&.where(tenant_id: Tenant&.current&.id)&.first
     if self.deleted_at.present? || self.status == 'Deactivate'
