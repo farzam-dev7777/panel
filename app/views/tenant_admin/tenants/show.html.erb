@@ -97,6 +97,10 @@
                 <div class="field-label">Auto Approval Matter Type</div>
                 <div class="field-data"><%= @tenant&.auto_approve_matter_type.join(', ') %></div>
               </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="field-label">RFP Module Required</div>
+                <div class="field-data"><%= @tenant&.rfp_enable%></div>
+              </div>
               <div class="col-xs-12 col-md-12">
                 <label class="label">Matter Approvals</label>
               </div>

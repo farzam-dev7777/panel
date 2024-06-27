@@ -82,7 +82,7 @@
 								<li class="<%= active_page?(:panel_law_firms) %>">
 									<a href="/lob/law_firms/panel_law_firms" title="Matters"><i class="fa fa-address-card" aria-hidden="true"></i> Panel Law Firms</a>
 								</li>
-	              <% if current_user.rfps.present?%>
+	              <% if current_user.rfps.present? && Tenant.current&.rfp_enable == true%>
 	                <li class=" <%= active_page?(:rfp) %>">
 	                  <a href="/lob/rfps" title="RFP"><i class="fa fa-envelope-open" aria-hidden="true"></i> RFP</a>
 	                </li>

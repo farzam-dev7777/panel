@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_06_08_095225) do
+ActiveRecord::Schema[7.0].define(version: 2024_06_27_055510) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pgcrypto"
@@ -1145,6 +1145,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_08_095225) do
     t.string "internal_lawyer_label"
     t.boolean "allow_panel_consideration_lob_Lawyers"
     t.string "system_score_threshold"
+    t.boolean "rfp_enable"
   end
 
   create_table "third_party_vendors", id: :serial, force: :cascade do |t|

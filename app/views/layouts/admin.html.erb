@@ -124,9 +124,9 @@
                   <a href="/admin/conflict_waivers" title="Conflict Waiver"><i class="fa fa-handshake-o" aria-hidden="true"></i> <span class="menu-item-parent">Conflict Waiver Requests</span></a>
                 </li>
               <% end %>
-              <% if current_user && current_user.role == 'lxp'%>
+              <% if current_user && current_user.role == 'lxp' && Tenant.current&.rfp_enable == true %>
                 <li class=" <%= active_page?(:rfp) %>">
-                  <a href="/admin/rfps" title="Conflict Waiver"><i class="fa fa-envelope-open" aria-hidden="true"></i> <span class="menu-item-parent">RFP</span></a>
+                  <a href="/admin/rfps" title="RFP"><i class="fa fa-envelope-open" aria-hidden="true"></i> <span class="menu-item-parent">RFP</span></a>
                 </li>
               <% end %>
               <!--<% if current_user && ( current_user.role == 'lob' || current_user.role == 'lxp' || current_user.role == 'internal_lawyers' ) %>

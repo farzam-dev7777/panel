@@ -121,6 +121,10 @@
         <label class="label">Auto Approval Matter Type</label>
         <%= f.input :auto_approve_matter_type, label: false, collection: @tenant.within_tenant { MatterType.all.pluck(:matter_type) },  input_html: { multiple: true }%>
       </div>
+      <div class="col-xs-12 col-md-6">
+        <label class="label">RFP Module Required</label>
+        <%= f.input :rfp_enable, label: false, as: :boolean%>
+      </div>
       <% MatterApproval::MATTER_APPROVAL_ROLE.each do |key, value| %>
         <div class="col-xs-12 col-md-12" style="text-align: center;background: lightgray;">
           <hr style="width:100%;text-align:left;margin-left:0">

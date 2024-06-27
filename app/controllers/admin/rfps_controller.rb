@@ -2,6 +2,7 @@ class Admin::RfpsController< Admin::BaseController
   layout 'admin'
 
   add_breadcrumb "Admin", :admin_root_path
+  before_action :check_tenant_rfp
 
   def index
     @rfps = Rfp.all
@@ -85,6 +86,12 @@ class Admin::RfpsController< Admin::BaseController
 
   def proposal
     @rfp = Rfp.find_by_id params[:id]
+  end
+
+  def check_tenant_rfp
+    if Tenant.current&.rfp_enable.blank?
+      redirect_back fallback_location: admin_root_path, alert: "RFP is not enabled"
+    end
   end
 
   def rfp_params

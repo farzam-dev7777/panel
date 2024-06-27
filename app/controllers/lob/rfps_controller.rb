@@ -2,6 +2,7 @@ class Lob::RfpsController< Lob::BaseController
   layout 'lob'
 
   add_breadcrumb "Dashboard", :root_path
+  before_action :check_tenant_rfp
 
   def index
     @rfps = current_user.rfps
@@ -45,6 +46,12 @@ class Lob::RfpsController< Lob::BaseController
 
   def proposal
     @rfp = current_user.rfps.find_by_id params[:id]
+  end
+
+  def check_tenant_rfp
+    if Tenant.current&.rfp_enable.blank?
+      redirect_back fallback_location: admin_root_path, alert: "RFP is not enabled"
+    end
   end
 
   def rfp_params
