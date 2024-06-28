@@ -32,7 +32,8 @@
               <%= image_tag "submitted-icon.svg", alt:"Panel Consideration Requests" %>
             </div>
             <div class="card-details">
-              <div class="total-record"><%= number_to_currency(@invoices_total || 0, unit: "$", strip_insignificant_zeros: true) %></div>
+              <% font_size = @invoices_total.to_s.size > 8 ? 25 : 38%>
+              <div class="total-record" style="font-size: <%=font_size%>px;"><%= number_to_currency(@invoices_total || 0, unit: "$", strip_insignificant_zeros: true) %></div>
               <div class="card-name">FY Invoices</div>
               <div class="card-tag-line">Tag lines goes here</div>
             </div>
