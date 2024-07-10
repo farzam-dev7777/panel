@@ -21,11 +21,9 @@
                   <a class="export-icon right-action-btns add-button" href="<%= new_admin_matter_intake_path(form_type: 'general') %>">
                     <%= image_tag "add.svg", alt:"General Intake" %> <span>New Matter Request</span>
                   </a>
-                </div>
-                <div class="action-buttons-alignment">
-                  <a class="export-icon right-action-btns" href="<%= admin_matter_intakes_path(format: :xlsx) %>">
-                    <%= image_tag "export-excel.png", alt:"Export" %>  <span>Export</span>
-                  </a>
+                  <!--<a class="export-icon right-action-btns add-button" href="<%= new_admin_matter_intake_path(form_type: 'litigation') %>">
+                    <%= image_tag "add.svg", alt:"Litigation Intake" %> <span>Litigation Intake</span>
+                  </a>-->
                 </div>
                 <div class="collapsed filter-title" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                   <%= image_tag "filter-icon.svg", alt:"score" %>
@@ -52,16 +50,6 @@
                         <label label="false" class="label" for="q_name_of_matter_client_cont">Include Archive</label>
                         <br>
                         <%= check_box_tag('q[include_archive][]', ((params[:q]||{})[:include_archive]), ((params[:q]||{})[:include_archive]).present?, style: "margin-top: 18px;") %>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-xs-12 col-md-3">
-                        <%= f.label :line_of_business_id_eq, 'Line of Business', :class => 'label' %>
-                        <%= f.select :line_of_business_id_eq, Tenant.current.line_of_businesses.pluck(:name, :id), :class => 'sp-form-control', :include_blank => true %>
-                      </div>
-                      <div class="col-xs-12 col-md-3">
-                        <%= f.label :law_firm_id_eq, 'LawFirm', :class => 'label' %>
-                        <%= f.select :law_firm_id_eq, Tenant.current.approved_law_firms.pluck(:name, :id), :class => 'sp-form-control', :include_blank => true %>
                       </div>
                       <div class="col-xs-12 text-right">
                         <%= f.submit "Search", class: "btn-type-primary input-btn m-right" %>
