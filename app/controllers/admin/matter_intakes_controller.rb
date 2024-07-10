@@ -31,6 +31,14 @@ class Admin::MatterIntakesController < Admin::BaseController
     else
       @matter_intakes = []
     end
+    respond_to do |format|
+      format.xlsx {
+        response.headers[
+          'Content-Disposition'
+        ] = "attachment; filename=Matter List.xlsx"
+      }
+      format.html { render :index }
+    end
     add_breadcrumb "Matter Intakes", :admin_matter_intakes_path
   end
 

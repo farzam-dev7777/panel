@@ -1,0 +1,41 @@
+wb = xlsx_package.workbook
+
+wb.styles do |style|
+  project_heading = style.add_style(b: true, sz: 14)
+  heading = style.add_style(b: true)
+
+  wb.add_worksheet(name: "matter") do |sheet|
+    # Add a title row
+    #sheet.add_row ["matter List"], style: project_heading
+    # Add the date this was downloaded
+    #sheet.add_row ["Downloaded at", Time.now.strftime("%b %-d, %Y")]
+    # Add a blank row
+    #sheet.add_row []
+    # Create the header row
+    sheet.add_row [
+      "Matter Number",
+      "Date Submitted", 
+      "Submitted By",
+      "Name of Matter",
+      "Status",
+      "LawFirm",
+      "Line of Business",
+      "Fee Estimate / Budget",
+      ], style: heading
+    # Create entries for each item
+     @matter_intakes.each do |matter_intake|
+      sheet.add_row [
+        matter_intake.matter_number,
+        matter_intake.created_at.strftime('%d %b %Y at %I:%M %p'),
+        matter_intake.submitter_name,
+        matter_intake.name_of_matter_client,
+        matter_intake.show_status,
+        matter_intake.law_firm&.name,
+        matter_intake.line_of_business&.name,
+        matter_intake.budget_amount,
+        ]
+    end
+  end
+end
+
+

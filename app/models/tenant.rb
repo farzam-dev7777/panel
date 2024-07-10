@@ -57,6 +57,10 @@ class Tenant < ApplicationRecord
       end
     end
 
+    def approved_law_firms
+      law_firms.select{|s| s.status_show=='On Panel'}.map{ |lf| [lf.name, lf.id] }
+    end
+
     def create_default_matter_approvals
         data = {0 => 'First', 1 => 'Second', 2=> 'Third', 3=> 'Fourth'}
         MatterApproval::MATTER_APPROVAL_ROLE.keys.each do |role, name|
