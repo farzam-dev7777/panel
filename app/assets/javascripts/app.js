@@ -2005,6 +2005,16 @@ $('#reset-activity-log-btn').on('click', function(e){
   e.preventDefault();
 })
 
+$('#reset-matter-filter-btn').on('click', function(e){
+  $("#matter_intake_search").find("#q_matter_description_cont").val("");
+  $("#matter_intake_search").find("#q_invoices_status_cont").val("");
+  $("#matter_intake_search").find("#q_invoices_status_cont").val("");
+  $("#matter_intake_search").find("#q_budget_amount_lt_any").val("");
+  $("#matter_intake_search").find("#q_line_of_business_id_eq").val('').trigger("chosen:updated")
+  $("#matter_intake_search").find("#q_law_firm_id_eq").val('').trigger("chosen:updated")
+  e.preventDefault();
+})
+
 $("#search-activity-log").find("input[type=text], select").on('change keyup paste', function(e){
   e.preventDefault();
   $.ajax({
