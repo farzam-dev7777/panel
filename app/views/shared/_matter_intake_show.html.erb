@@ -125,7 +125,7 @@
                     <% elsif obj[:database_field] == :matter_description %>
                       <div class="field-data" style="height: 85px;"><%= @matter_intake.matter_description %></div>
                     <% elsif obj[:database_field] == :lawyer_ids %>
-                      <div class="field-data" style="height: 85px;"><%= @matter_intake.lawyers&.map(&:name)&.join(', ') %></div>
+                      <div class="field-data" style="height: 85px;"><%= (@matter_intake.lawyers&.map(&:name) + [@matter_intake.assign_lawyer]).compact&.join(', ') %></div>
                     <% else %>
                       <div class="field-data"><%= @matter_intake.send(obj[:database_field]) %></div>
                     <% end %>

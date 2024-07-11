@@ -230,7 +230,7 @@ class Admin::MatterIntakesController < Admin::BaseController
       :branch, :outside_counsel_engaged, :deal_code, :email_notification_to_litigation_specialist_team,
       :requested_by_id, :related_matter_number, :pii_involved, :internal_file_number, :business_department, :business_group, :matter_number,
       :receive_personal_information, :receive_general_business_data, :applicable_technical_specialty_data, :line_of_business_id,
-      :receive_personal_information, :receive_general_business_data, :applicable_technical_specialty_data,
+      :receive_personal_information, :receive_general_business_data, :applicable_technical_specialty_data, :assign_lawyer,
       external_lawyer_ids: [], lawyer_ids: [],
       applicable_technical_specialty_data_type: [], receive_personal_information_data_type: [], receive_general_business_data_type: [],
       invoices_attributes: [:id, :matter_intake_id, :lawyer_name, :rate_type, :description, :hours, :amount, :date, :taxes, :_destroy, invoice_attachments_attributes: [:id, :file]],

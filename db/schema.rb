@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_06_27_055510) do
+ActiveRecord::Schema[7.0].define(version: 2024_07_11_144212) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "pgcrypto"
@@ -849,6 +849,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_27_055510) do
     t.string "business_group"
     t.integer "line_of_business_id"
     t.datetime "deleted_at", precision: nil
+    t.string "assign_lawyer"
   end
 
   create_table "matter_types", id: :serial, force: :cascade do |t|

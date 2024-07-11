@@ -2224,6 +2224,10 @@ $('#matter_intake_law_firm_id').on('change', function(){
   }
 })
 
+$("#add_lawyer_matter").on('click', function(e){
+  $(".matter_intake_assign_lawyer input").toggle();
+});
+
 $(function() {
     $.fn.size = function() {
         return this.length;
