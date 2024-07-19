@@ -23,7 +23,7 @@
                   </a>
                 </div>
                 <div class="action-buttons-alignment">
-                  <a class="export-icon right-action-btns" href="<%= admin_matter_intakes_path(format: :xlsx) %>">
+                  <a class="export-icon right-action-btns" href="<%= admin_matter_intakes_path(format: :xlsx, q: (params[:q]||{}).to_enum.to_h) %>">
                     <%= image_tag "export-excel.png", alt:"Export" %>  <span>Export</span>
                   </a>
                 </div>
@@ -35,6 +35,7 @@
               <div id="collapseThree" class="col-md-12 collapse sp-filter-fields" aria-labelledby="headingThree" data-parent="#sp-filter">
                 <div class="card-body sp-form">
                   <%= search_form_for [:admin, @q] do |f| %>
+                    <input type="hidden" value="html" name="format">
                     <div class="row">
                       <div class="col-xs-12 col-md-3">
                         <%= f.label :matter_description_cont, label: false, :class => 'label' %>
