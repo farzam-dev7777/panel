@@ -9,7 +9,8 @@ class Users::PasswordsController < Devise::PasswordsController
     if self.resource.blank?
       redirect_back fallback_location: root_path, alert: "Email not found"
     else
-      self.resource.send_reset_password_instructions
+      self.resource.reset_password_token = nil
+      self.resource.reset_password_link_url
       if successfully_sent?(resource)
         respond_with({}, location: after_sending_reset_password_instructions_path_for(resource_name))
       else
