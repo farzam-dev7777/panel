@@ -31,10 +31,13 @@ class MatterIntake < ApplicationRecord
   mount_uploader :asset, DocUploader
 
   validate :check_presence_of 
+  validate :check_lawyer_domain
 
   before_save :convert_budget_amount
 
   scope :not_rfp,  -> { where.not(form_type: 'rfp', status: 'pending') }
+
+  attr_accessor :lawyer_first_name, :lawyer_last_name, :lawyer_email
 
   def self.ransackable_associations(auth_object = nil)
     ["lawyer_matter_intakes", "lawyers", "external_lawyer_matter_intakes", "external_lawyers", "invoices", "law_firm", "lawyer", "line_of_business", "matter_approvals", "matter_intake_agreements", "matter_intake_attachments", "matter_type", "requested_by", "reviews", "user", "versions"]
@@ -202,6 +205,44 @@ class MatterIntake < ApplicationRecord
         else
           errors.add(field, "can't be blank")
         end
+      end
+    end
+  end
+
+  def check_lawyer_domain
+    if lawyer_email.present?
+      if self.law_firm.present?
+        if self.law_firm.email.split('@').last != lawyer_email.split('@').last
+          errors.add(:lawyer_email, "is not valid")
+        elsif self.law_firm.users.where(email: lawyer_email).present?
+          errors.add(:lawyer_email, "already available in law_firm")
+        elsif User.where(email: lawyer_email).present?
+          errors.add(:lawyer_email, "already available")
+        end
+      end
+    elsif lawyer_first_name.present? || lawyer_last_name.present?
+      errors.add(:lawyer_first_name, "can't blank") if lawyer_first_name.blank?
+      errors.add(:lawyer_last_name, "can't blank") if lawyer_last_name.blank?
+      errors.add(:lawyer_email, "can't blank") if lawyer_email.blank?
+    end
+  end
+
+  def create_lawyer
+    if self.law_firm.present? && self.lawyer_email.present?
+      user = User.new(email: lawyer_email,
+              username: self.lawyer_email,
+              password: 'LawFirm@123',
+              password_confirmation: 'LawFirm@123',
+              role: 'user',
+              law_firm_id: law_firm.id,
+              tenant_id: (Tenant.current&.id || nil),
+              first_name: self.lawyer_first_name,
+              last_name: self.lawyer_last_name,
+            )
+      if user.save
+        user.set_google_secret
+        user.send_user_info_with_password
+        self.lawyers << user
       end
     end
   end

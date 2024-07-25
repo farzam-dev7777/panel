@@ -2225,7 +2225,12 @@ $('#matter_intake_law_firm_id').on('change', function(){
 })
 
 $("#add_lawyer_matter").on('click', function(e){
-  $(".matter_intake_assign_lawyer input").toggle();
+  $(".matter_intake_lawyer_first_name input").toggle();
+  $(".matter_intake_lawyer_last_name input").toggle();
+  $(".matter_intake_lawyer_email input").toggle();
+  $(".matter_intake_lawyer_email.has-error").toggle();
+  $(".matter_intake_lawyer_first_name.has-error").toggle();
+  $(".matter_intake_lawyer_last_name.has-error").toggle();
 });
 
 $(function() {

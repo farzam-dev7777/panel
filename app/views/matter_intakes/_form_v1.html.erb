@@ -29,10 +29,26 @@
                   <%= f.input obj[:database_field], as: :hidden, :input_html => { :value => obj[:value]} %>
                 <% elsif obj[:database_field] == :lawyer_ids%>
                   <%= f.input obj[:database_field], label: false, collection: obj[:collection], input_html: { multiple: obj[:multiple].present?, class: "matter_intake_#{obj[:database_field]}" } %>
-                  <% if @matter_intake.assign_lawyer.blank? %>
-                    <%= f.input :assign_lawyer, label: false, input_html: {style: "display:none", placeholder: 'New Lawyer'} %>
+                  <% if @matter_intake.lawyer_email.blank? &&  @matter_intake.lawyer_first_name.blank? && @matter_intake.lawyer_last_name.blank?%>
+                    <div class="row form-flex-wrap">
+                      <div class="col-xs-12 col-md-6">
+                        <%= f.input :lawyer_first_name, label: false, input_html: {style: "display:none", placeholder: 'First Name'} %>
+                      </div>
+                      <div class="col-xs-12 col-md-6">
+                        <%= f.input :lawyer_last_name, label: false, input_html: {style: "display:none", placeholder: 'Last Name'} %>
+                      </div>
+                    </div>
+                    <%= f.input :lawyer_email, label: false, input_html: {style: "display:none", placeholder: 'Email'} %>
                   <% else %>
-                    <%= f.input :assign_lawyer, label: false, input_html: {placeholder: 'New Lawyer'} %>
+                    <div class="row form-flex-wrap">
+                      <div class="col-xs-12 col-md-6">
+                        <%= f.input :lawyer_first_name, label: false, input_html: { placeholder: 'First Name'} %>
+                      </div>
+                      <div class="col-xs-12 col-md-6">
+                        <%= f.input :lawyer_last_name, label: false, input_html: { placeholder: 'Last Name'} %>
+                      </div>
+                    </div>
+                    <%= f.input :lawyer_email, label: false, input_html: { placeholder: 'Email'} %>
                   <% end %>
                   <a id='add_lawyer_matter' style="cursor: default;" href="#/">Add lawyer</a>
                 <% else %>

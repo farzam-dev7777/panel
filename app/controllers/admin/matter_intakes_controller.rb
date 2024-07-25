@@ -93,6 +93,9 @@ class Admin::MatterIntakesController < Admin::BaseController
       @matter_intake.status = 'submitted'
       @matter_intake.lawyer_reviewed_at = Time.now
       @matter_intake.save
+      if @matter_intake.lawyer_email.present?
+        @matter_intake.create_lawyer()
+      end
       @matter_intake.auto_approve_matter(current_user)
       @matter_intake.set_default_approval_status(current_user)
       @matter_intake.send_notification_to_lawyer
@@ -132,7 +135,9 @@ class Admin::MatterIntakesController < Admin::BaseController
 
     if @matter_intake.present? && @matter_intake.update(matter_intake_params)
       @matter_intake.auto_approve_matter(current_user)
-      
+      if @matter_intake.lawyer_email.present?
+        @matter_intake.create_lawyer()
+      end
       # @matter_intake.set_default_approval_status
       if current_user.role === "internal_lawyers"
         if params[:matter_intake] && params[:matter_intake][:submit_type] && params[:matter_intake][:submit_type] === "update"
@@ -231,6 +236,7 @@ class Admin::MatterIntakesController < Admin::BaseController
       :requested_by_id, :related_matter_number, :pii_involved, :internal_file_number, :business_department, :business_group, :matter_number,
       :receive_personal_information, :receive_general_business_data, :applicable_technical_specialty_data, :line_of_business_id,
       :receive_personal_information, :receive_general_business_data, :applicable_technical_specialty_data, :assign_lawyer,
+      :lawyer_first_name, :lawyer_last_name, :lawyer_email,
       external_lawyer_ids: [], lawyer_ids: [],
       applicable_technical_specialty_data_type: [], receive_personal_information_data_type: [], receive_general_business_data_type: [],
       invoices_attributes: [:id, :matter_intake_id, :lawyer_name, :rate_type, :description, :hours, :amount, :date, :taxes, :_destroy, invoice_attachments_attributes: [:id, :file]],
