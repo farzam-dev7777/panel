@@ -20,7 +20,8 @@ class Lob::InternalDashboardController < Lob::BaseController
     @panel_requests = PanelRequest.where(user_id: current_user.id).order('created_at DESC').limit(5)
     @matter_intakes = MatterIntake.where("line_of_business_id in (?) OR user_id = ?", current_user.line_of_businesses.pluck(:id), current_user.id).order('updated_at DESC').limit(5)
 
-    @panel_law_firms = LawFirm.where(law_firm_category: "PANEL")
+    law_firm_ids = LawFirmsTenant.where(tenant_id: Tenant.current&.id).pluck(:law_firm_id)
+    @panel_law_firms = LawFirm.where(law_firm_category: "PANEL", id: law_firm_ids).order('created_at DESC')
     @rfps = current_user.rfps
 
   end
