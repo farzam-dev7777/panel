@@ -1,3 +1,13 @@
 <div class="">
-  <p class="user-inner-content"><%= @user.two_fa_key %></p>
-</div>  
+  <p class="user-inner-content">
+    Dear <%= @user.name%><br>
+  </p>
+  <p class="user-inner-content">
+    We received your request for a single-use code to use with your SEAL account.<br>
+    Your single-use code is: <%= @user.two_fa_key %><br>
+    If you didn't request this code, you can safely ignore this email.<br>
+  </p>
+  <p class="user-inner-content">
+     Thanks, SEAL Team
+  </p>
+</div>

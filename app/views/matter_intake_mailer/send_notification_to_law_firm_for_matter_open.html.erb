@@ -1,6 +1,15 @@
 <div class="">
-  <p class="user-inner-content">Matter status has been changed to: <%= MatterIntake::MATTER_STATUS[@matter_intake.status.upcase.to_sym] %></p>
-  <% if @matter_intake.matter_number.present? %>
-    <p class="user-inner-content">Matter has been opened in T360 with matter number: <%= @matter_intake.matter_number %></p>
-  <% end %> 
-</div> 
+  <p class="user-inner-content">
+    Dear <%= @name%><br>
+  </p>
+  <p class="user-inner-content">
+    We are writing to inform you that the matter status has been updated.<br>
+    New Matter Status: <%= MatterIntake::MATTER_STATUS[@matter_intake.status.upcase.to_sym] %> <br>
+    Matter has been opened in T360 with matter number: <%= @matter_intake.matter_number %><br>
+    If you have any questions or need further assistance, feel free to contact us at support@secureengage.com.<br>
+  </p>
+  <p class="user-inner-content">
+    Best regards,<br>
+    The Secure Engage Team<br>
+  </p>
+</div>

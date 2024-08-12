@@ -12,7 +12,9 @@ class MatterIntakeMailer < ApplicationMailer
       to_email = emails
     end
     if to_email.present?
-      mail(to: to_email, subject: "New matter intake form has been submitted")
+      @user = User.find_by_email(to_email)
+      @name = @user.present? ? @user.name : to_email
+      mail(to: to_email, subject: "New Matter Intake Form Submitted")
     end
   end
 
@@ -33,7 +35,9 @@ class MatterIntakeMailer < ApplicationMailer
     @matter_intake = matter_intake
     # Sending email to lawyer
     if @matter_intake.lawyer.present? && @matter_intake.lawyer.email.present?
-      mail(to: @matter_intake.lawyer.email, subject: "Matter intake status changed.")
+      @user = User.find_by_email(@matter_intake.law_firm.email)
+      @name = @user.present? ? @user.name : @matter_intake.law_firm.email
+      mail(to: @matter_intake.law_firm.email, subject: "Matter Intake Form Submitted")
     end
   end
 
@@ -41,7 +45,9 @@ class MatterIntakeMailer < ApplicationMailer
     @matter_intake = matter_intake
     # Sending email to lob
     if @matter_intake.user_id.present? && @matter_intake.user.email.present?
-      mail(to: @matter_intake.user.email, subject: "Matter intake status changed.")
+      @user = @matter_intake.user
+      @name = @user.name
+      mail(to: @user.email, subject: "Matter Intake Form Submitted")
     end
   end
 
@@ -49,14 +55,17 @@ class MatterIntakeMailer < ApplicationMailer
     @matter_intake = matter_intake
 
     if @matter_intake.lawyer.present? && @matter_intake.lawyer.email.present?
-      mail(to: @matter_intake.lawyer.email, subject: "Matter intake form needs an update")
+      @user = @matter_intake.lawyer
+      mail(to: @user.email, subject: "Matter intake form needs an update")
     end
   end
 
   def send_notification_to_law_firm_for_matter_open(matter_intake)
     @matter_intake = matter_intake
     if @matter_intake.law_firm.present? && @matter_intake.law_firm.email.present?
-      mail(to: @matter_intake.law_firm.email, subject: "Matter intake form has been submitted")
+      @user = User.find_by_email(@matter_intake.law_firm.email)
+      @name = @user.present? ? @user.name : @matter_intake.law_firm.email
+      mail(to: @matter_intake.law_firm.email, subject: "Matter Intake Form Submitted")
     end
   end
 end

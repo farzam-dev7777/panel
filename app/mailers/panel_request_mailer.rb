@@ -5,7 +5,7 @@ class PanelRequestMailer < ApplicationMailer
 	def panel_request_notification_to_lxp(panel_request)
 		@panel_request = panel_request
 		@lxpusers = User.where(role: 'lxp')
-		@lxpusers.each do |lxpuser| 
+		@lxpusers.each do |lxpuser|
 			mail(to: lxpuser.email, subject: "A New Panel Request has been submitted.")
 		end
 	end

@@ -23,7 +23,7 @@ class ConflictWaiverMailer < ApplicationMailer
 	def form_submited_notification_to_user(conflict_waiver)
 		@conflict_waiver = conflict_waiver
 		@user = User.find_by_id(conflict_waiver.user_id)
-		mail(to: @user.email, subject: "A New Conflict Waiver #{conflict_waiver.name_of_law_firm} request submitted.")
+		mail(to: @user.email, subject: "New Conflict Waiver Request Submitted")
 	end
 
 	def form_status_notification_to_user(conflict_waiver)

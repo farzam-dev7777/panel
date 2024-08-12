@@ -1,5 +1,16 @@
 <div class="">
-  <p class="user-inner-content">Your Panel Request request was <%= @panel_request.reviews.last.status %>  <br>
-		<%= link_to "Click here", lob_panel_request_url(@panel_request), class: "btn btn-xs btn-secondary" %> to review submission.
-	 to view more information </p>
-</div>	 
+  <p class="user-inner-content">
+    Dear <%= @user.name%><br>
+  </p>
+  <p class="user-inner-content">
+		We are pleased to inform you that your panel request has been successfully processed.<br>
+		Your Panel Request ID: <%= @panel_request.reviews.last.status %><br>
+		Please click the link below to review your submission and view more information:<br>
+		<%= link_to "Click here to review your submission", lob_panel_request_url(@panel_request), class: "btn btn-xs btn-secondary" %><br>
+		If you have any questions or need further assistance, feel free to contact us at support@secureengage.com.<br>
+  </p>
+  <p class="user-inner-content">
+    Best regards,<br>
+    The Secure Engage Team<br>
+  </p>
+</div>
