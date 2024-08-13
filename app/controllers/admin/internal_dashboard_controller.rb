@@ -58,7 +58,7 @@ class Admin::InternalDashboardController < Admin::BaseController
       @exception_requests_submitted = ExceptionRequest.where( lxp_status: [nil, ""]).count()
       @confilictc_requests_submitted = ConflictWaiver.where(lxp_status: [nil, ""]).count()
       @panel_requests_submitted = PanelRequest.where(user_id: current_user.id).count()
-      
+      @invoices =[]
     end
 
  

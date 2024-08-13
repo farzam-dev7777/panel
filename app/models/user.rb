@@ -46,6 +46,10 @@ class User < ApplicationRecord
       :case_sensitive => false
     }
 
+  def self.ransackable_attributes(auth_object = nil)
+    ["created_at", "current_sign_in_at", "current_sign_in_ip", "deactivated_at", "email", "encrypted_password", "first_name", "google_secret", "id", "last_name", "last_sign_in_at", "last_sign_in_ip", "law_firm_id", "line_of_business", "lob_contact_name", "new_password_set", "otp_secret_key", "provider", "provider_group", "provider_uid", "qr_code_confirmed_at", "remember_created_at", "reset_password_sent_at", "reset_password_token", "role", "sign_in_count", "status", "tenant_id", "two_fa_key", "two_fa_key_expires_at", "updated_at", "username"]
+  end
+
   def lowercase_username
     self.username = self&.username&.downcase
   end
