@@ -1,0 +1,36 @@
+<div class="">
+
+	<% if @law_firm.users.count > 0 %>
+		<div class="table-responsive">
+			<table class="table table-decoration table-bordered">
+				<thead>
+					<tr>
+						<th>First Name	</th>
+						<th>Last Name	</th>
+						<th>Email</th>
+						<th>Username</th>
+						<th width="8%">Action</th>
+					</tr>
+				</thead>
+				<% @law_firm.users.each do |user| %>
+					<tr>
+						<td style="width:10%"><%= user.first_name %></td>
+						<td style="width:10%"><%= user.last_name %></td>
+						<td style="width:10%"><%= user.email %></td>
+						<td style="width:10%"><%= user.username %></td>	
+						<td style="width:15%">
+							<a class="btn-type-primary send-user-info-btn" data-id="<%= user.id %>">Send Reset Password Link </a>
+						</td>
+					</tr>
+					
+				<% end %>
+
+			</table>
+			<div class="clearfix"></div>
+		</div>
+	<% else %>
+		<div class="sp-form sp-form-bg text-center">
+			<h4 class="text-center no-submissions">There are no Users</h4>
+		</div>
+	<% end %>
+</div>
