@@ -1230,6 +1230,14 @@ class MatterIntake < ApplicationRecord
     #"LBC Investment Management Inc.",
     #"Laurentian Bank Insurance Inc.",
     #"LBC Tech Inc.",
+    'Laurentian Bank of Canada',
+    'Laurentian Bank Securities Inc.',
+    'LBC Capital Inc.',
+    'Laurentian Trust of Canada Inc.',
+    'LBC Trust',
+    'LBC Investment Management Inc.',
+    'Laurentian Bank Insurance Inc.',
+    'LBC Tech Inc.'
   ]
 
   TypeOfPrice = [
