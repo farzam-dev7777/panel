@@ -39,8 +39,7 @@ class Admin::RfpsController< Admin::BaseController
     @rfp.matter_intake.matter_number = "MT-#{Date.today.month}-#{Date.today.day}-#{MatterIntake.count}"
     @rfp.matter_intake.user_id = current_user.id
     @rfp.matter_intake.status = 'pending'
-
-    if @rfp.save
+    if @rfp.valid? && @rfp.matter_intake.valid?
       (params[:rfp][:invites]||[]).each do |law_firm_id|
         if law_firm_id.present?
           obj = @rfp.rfp_invites.find_or_create_by(law_firm_id: law_firm_id)
@@ -50,10 +49,13 @@ class Admin::RfpsController< Admin::BaseController
           obj.save
         end
       end
+      if @rfp.matter_intake.lawyer_email.present?
+        @rfp.matter_intake.create_lawyer()
+      end
       flash[:notice] = "RFP Form submitted"
       redirect_to admin_rfps_path()
     else
-      flash[:alert] = "There was an error initiating rfp request. #{@rfp.errors.full_messages.join(', ')}" 
+      flash[:alert] = "There was an error initiating rfp request. #{[@rfp.errors.full_messages+@rfp.matter_intake.errors.full_messages].join(', ')}" 
       render :new
     end
   end
@@ -66,7 +68,9 @@ class Admin::RfpsController< Admin::BaseController
       d['message'] = v['message'].last
       rfp_param_obj[:questions_attributes][k]= d
     end
-    if @rfp.update(rfp_param_obj)
+    @rfp.assign_attributes(rfp_param_obj)
+    if @rfp.valid? && @rfp.matter_intake.valid?
+      @rfp.update(rfp_param_obj)
       (params[:rfp][:invites]||[]).each do |law_firm_id|
         if law_firm_id.present?
           obj = @rfp.rfp_invites.find_or_create_by(law_firm_id: law_firm_id)
@@ -76,10 +80,14 @@ class Admin::RfpsController< Admin::BaseController
           obj.save
         end
       end
+      if @rfp.matter_intake.lawyer_email.present?
+        @rfp.matter_intake.create_lawyer()
+      end
       flash[:notice] = "RFP Form submitted"
       redirect_to admin_rfps_path()
     else
-      flash[:alert] = "There was an error initiating rfp request. #{@rfp.errors.full_messages.join(', ')}" 
+      @matter_intake = @rfp.matter_intake
+      flash[:alert] = "There was an error initiating rfp request. #{[@rfp.errors.full_messages+@rfp.matter_intake.errors.full_messages].join(', ')}" 
       render :edit
     end
   end
@@ -118,7 +126,7 @@ class Admin::RfpsController< Admin::BaseController
         :branch, :outside_counsel_engaged, :deal_code, :email_notification_to_litigation_specialist_team,
         :requested_by_id, :related_matter_number, :pii_involved, :internal_file_number, :business_department, :business_group, :matter_number,
         :receive_personal_information, :receive_general_business_data, :applicable_technical_specialty_data, :line_of_business_id,
-        external_lawyer_ids: [],
+        :lawyer_first_name, :lawyer_last_name, :lawyer_email, external_lawyer_ids: [], lawyer_ids: [],
         applicable_technical_specialty_data_type: [], receive_personal_information_data_type: [], receive_general_business_data_type: [],
         matter_intake_attachments_attributes: [:id, :doc_type, :file, :_destroy]
       ]

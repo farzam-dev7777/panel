@@ -7,6 +7,7 @@ class Admin::ProposalsController< Admin::BaseController
 
   def show
     @proposal = Proposal.find_by_id params[:id]
+    @rfp = @proposal.rfp
   end
 
   def add_comment

@@ -44,15 +44,6 @@
           <% end %>
         <% end %>
         <div class="col-xs-12 col-md-3">
-          <label class="label">Law Firm Invites</label>
-          <%= rfp.input :invites, label: false, collection: [['Select All', 'select_all']]+Tenant.current.law_firms.select{|s| s.status_show=='On Panel'}.map{ |lf| [lf.name, lf.id] }, selected: @rfp.rfp_invites.map(&:law_firm_id), input_html: { multiple: true } %>
-        </div>
-        <div class="col-xs-12 col-md-3">
-          <label class="label">Assigned Lawyer</label>
-          <% c_law_firm = (@matter_intake&.law_firm||current_user&.law_firm) %>
-          <%= f.input :lawyer_ids, label: false, collection: (c_law_firm&.users&.where(role:'user')&.map{|s| [(s.name), s.id]}||[]), selected: @matter_intake.lawyers&.ids, input_html: { multiple: true } %>
-        </div>
-        <div class="col-xs-12 col-md-3">
           <label class="label">Expiry Date</label>
           <%= rfp.input :expiry_date, as: :string, input_html: { class: 'rfp_datepicker', value: rfp.object&.expiry_date&.strftime("%d %b %Y %H:%m") }, label: false %>
         </div>
@@ -64,7 +55,49 @@
         <!-- New Lobs start -->
         <div class="col-md-12 col-xs-12">
           <div class="formHeader">
-            <div class="headerTitle">Invite internal stakeholders</div>
+            <div class="headerTitle">Invite Lawyers</div> 
+          </div>
+        </div>
+        <div class="col-md-12 col-xs-12">
+          <div class="col-md-3">
+            <label class="label">Law Firm Invites</label>
+            <%= rfp.input :invites, label: false, collection: [['Select All', 'select_all']]+Tenant.current.law_firms.select{|s| s.status_show=='On Panel'}.map{ |lf| [lf.name, lf.id] }, selected: @rfp.rfp_invites.map(&:law_firm_id), input_html: { multiple: true } %>
+          </div>
+          <div class="col-md-3">
+            <label class="label">Assigned Lawyer</label>
+            <% c_law_firm = (@matter_intake&.law_firm||current_user&.law_firm) %>
+            <%= f.input :lawyer_ids, label: false, collection: (c_law_firm&.users&.where(role:'user')&.map{|s| [(s.name), s.id]}||[]), selected: @matter_intake.lawyers&.ids, input_html: { multiple: true } %>
+          </div>
+        </div>
+        <div class="col-md-12 col-xs-12">
+          <div class="col-xs-12 col-md-12">
+            <a class="btn-type-default" id='rfp_add_lawyer_matter' style="margin:5px; padding: 0px 5px !important;" href="#/">Add lawyer</a>
+          </div>
+          <% display_lawyer = @matter_intake.lawyer_first_name.present? || @matter_intake.lawyer_last_name.present? || @matter_intake.lawyer_email.present?%>
+          <% if display_lawyer.present?%>
+            <div id='rfp_add_lawyer'>
+          <% else %>
+            <div id='rfp_add_lawyer' style="display:none;">
+          <% end %>
+            <div class="col-xs-12 col-md-3">
+              <%= f.input :law_firm_id, label: false, label: false, collection: Tenant.current.law_firms.map{ |lf| [lf.name, lf.id] }, selected: @rfp.matter_intake.law_firm_id,:include_blank => true %>
+            </div>
+            <div class="col-xs-12 col-md-3">
+              <%= f.input :lawyer_first_name, label: false, input_html: { placeholder: 'First Name'} %>
+            </div>
+            <div class="col-xs-12 col-md-3">
+              <%= f.input :lawyer_last_name, label: false, input_html: { placeholder: 'Last Name'} %>
+            </div>
+            <div class="col-xs-12 col-md-3">
+              <%= f.input :lawyer_email, label: false, input_html: { placeholder: 'Email'} %>
+            </div>
+          </div>
+        </div>
+
+        <!-- New Lobs start -->
+        <div class="col-md-12 col-xs-12">
+          <div class="formHeader">
+            <div class="headerTitle">Internal stakeholders</div>
           </div>
         </div>
         <div class="col-md-12 col-xs-12">

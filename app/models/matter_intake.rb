@@ -797,18 +797,6 @@ class MatterIntake < ApplicationRecord
         collection: MatterIntake::LegalEntity
       },
       {
-        name: I18n.t(:other_party, default: "Other Party"),
-        database_field: :other_party,
-        access: {
-          bank: "write",
-          law_firm: "write"
-        },
-        type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
-        optional: MANDATORY_FIELDS.include?(:other_party) == false,
-        value: self.other_party,
-        collection: MatterIntake::OtherParty
-      },
-      {
         name: I18n.t(:stage_of_litigation, default: "Litigation Stage"),
         database_field: :stage_of_litigation,
         access: {
@@ -819,18 +807,6 @@ class MatterIntake < ApplicationRecord
         optional: MANDATORY_FIELDS.include?(:stage_of_litigation) == false,
         value: self.stage_of_litigation,
         collection: MatterIntake::StageOfLitigation
-      },
-      {
-        name: I18n.t(:primary_issue, default: "Issue"),
-        database_field: :primary_issue,
-        access: {
-          bank: "write",
-          law_firm: "write"
-        },
-        type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
-        optional: MANDATORY_FIELDS.include?(:primary_issue) == false,
-        value: self.primary_issue,
-        collection: MatterIntake::PrimaryIssue
       },
       {
         name: I18n.t(:following_matter_involve, default: "Will this matter involve the following"),
@@ -844,18 +820,6 @@ class MatterIntake < ApplicationRecord
         value: self.following_matter_involve,
         collection: MatterIntake::MatterInvolveFollowing,
         multiple: true
-      },
-      {
-        name: I18n.t(:lawyer_id, default: "Internal (Bank) Responsible Lawyer"),
-        database_field: :lawyer_id,
-        access: {
-          bank: "write",
-          law_firm: "read"
-        },
-        type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
-        optional: MANDATORY_FIELDS.include?(:lawyer_id) == false,
-        value: self.lawyer_id,
-        collection: InternalLawyer.where(tenant_id: current_tenant&.id).map {|il| [il.full_name, il.id]}
       },
       {
         name: I18n.t(:additional_comments_for_lrc_lawyer, default: "Additional Comments for Internal Lawyer"),
@@ -919,18 +883,6 @@ class MatterIntake < ApplicationRecord
         collection: []
       },
       {
-        name: I18n.t(:jurisdiction, default: "Jurisdiction"),
-        database_field: :jurisdiction,
-        access: {
-          bank: "write",
-          law_firm: "not_access"
-        },
-        type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
-        optional: MANDATORY_FIELDS.include?(:jurisdiction) == false,
-        value: self.jurisdiction,
-        collection: MatterIntake::Jurisdiction
-      },
-      {
         name: I18n.t(:is_syndicate_matter, default: "Is this a syndicated matter?"),
         database_field: :is_syndicate_matter,
         access: {
@@ -967,18 +919,6 @@ class MatterIntake < ApplicationRecord
         collection: []
       },
       {
-        name: I18n.t(:cost_centre_for_legal_fees, default: "Cost Centre (transit) for legal fees"),
-        database_field: :cost_centre_for_legal_fees,
-        access: {
-          bank: "write",
-          law_firm: "read"
-        },
-        type: "text", # "dropdown" | "autofill" | "text" | "autocomplete"
-        optional: MANDATORY_FIELDS.include?(:cost_centre_for_legal_fees) == false,
-        value: self.cost_centre_for_legal_fees,
-        collection: []
-      },
-      {
         name: I18n.t(:deal_code, default: "Deal Code (Capital Markets Only)"),
         database_field: :deal_code,
         access: {
@@ -989,54 +929,6 @@ class MatterIntake < ApplicationRecord
         optional: MANDATORY_FIELDS.include?(:deal_code) == false,
         value: self.deal_code,
         collection: []
-      },
-      {
-        name: I18n.t(:related_matter_number, default: "Related Matter Number"),
-        database_field: :related_matter_number,
-        access: {
-          bank: "write",
-          law_firm: "write"
-        },
-        type: "text", # "dropdown" | "autofill" | "text" | "autocomplete"
-        optional: MANDATORY_FIELDS.include?(:related_matter_number) == false,
-        value: self.related_matter_number,
-        collection: []
-      },
-      {
-        name: I18n.t(:pii_involved, default: "Any PII involved in this matter?"),
-        database_field: :pii_involved,
-        access: {
-          bank: "write",
-          law_firm: "write"
-        },
-        type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
-        optional: MANDATORY_FIELDS.include?(:pii_involved) == false,
-        value: self.pii_involved,
-        collection: [['Yes', true], ['No', false]]
-      },
-      {
-        name: I18n.t(:can_reimbursed_matter, default: "Could law firm potentially receive sensitive information"),
-        database_field: :can_reimbursed_matter,
-        access: {
-          bank: "write",
-          law_firm: "not_access"
-        },
-        type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
-        optional: MANDATORY_FIELDS.include?(:can_reimbursed_matter) == false,
-        value: self.can_reimbursed_matter,
-        collection: [['Yes', 'Yes'], ["No", "No"]]
-      },
-      {
-        name: I18n.t(:is_ore_reportable, default: "Reportable Risk"),
-        database_field: :is_ore_reportable,
-        access: {
-          bank: "write",
-          law_firm: "not_access"
-        },
-        type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
-        optional: MANDATORY_FIELDS.include?(:is_ore_reportable) == false,
-        value: self.is_ore_reportable,
-        collection: [['Yes', 'Yes'], ["No", "No"]]
       }
     ]
 

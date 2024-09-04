@@ -751,6 +751,14 @@ $(document).ready(function(){
 
   // $('select').select2();
   $("select.message_question").chosen({create_option: true, max_selected_options: 1})
+
+
+  $('#rfp_matter_intake_attributes_law_firm_id').chosen({
+    disable_search_threshold: 5,
+    no_results_text: "Oops, nothing found!",
+    placeholder_text_single: 'Please select an law firm'
+  });
+
   $('select').chosen({
     disable_search_threshold: 5,
     no_results_text: "Oops, nothing found!"
@@ -2232,6 +2240,11 @@ $("#add_lawyer_matter").on('click', function(e){
   $(".matter_intake_lawyer_first_name.has-error").toggle();
   $(".matter_intake_lawyer_last_name.has-error").toggle();
 });
+
+$("#rfp_add_lawyer_matter").on('click', function(e){
+  $("#rfp_add_lawyer").toggle();
+});
+
 
 $(function() {
     $.fn.size = function() {
