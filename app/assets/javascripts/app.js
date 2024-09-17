@@ -2159,6 +2159,10 @@ $('#matter-security-form').on('click', function() {
   $('#matter-back-button').trigger('click');
 })
 
+$(document).on('change', '#matter_intake_afa_details', function() {
+  get_afa_details(this.value)
+});
+
 function setAvailableLawyerOptions(law_firm_id) {
   $.ajax({
     url: "/law_firms/get_external_lawyers?id=" + law_firm_id,
@@ -2200,6 +2204,28 @@ function setRfpAvailableLawyerOptions(law_firm_ids) {
   .fail((error) => {
     $('#rfp_matter_intake_attributes_lawyer_ids').empty();
     var options = "<option value=''> Select option</option>";
+  })
+}
+
+function get_afa_details(afa) {
+  $.ajax({
+    url: "/matter_intakes/get_afa_details?afa=" + afa,
+    method: "get",
+  })
+  .done(( response ) => {
+    if($('#matter_intake_afa_description').size() == 0){
+      $('div.matter_intake_afa_details').append("<div id='matter_intake_afa_description' style='background: lightgray;'></div>");
+      $('div.matter_intake_afa_details').append("<div id='matter_intake_afa_question' style='background: lightgray;'></div>")
+    }else{
+      $('#matter_intake_afa_description').empty();
+      $('#matter_intake_afa_question').empty();
+    }
+    if (response.description) {
+      $('#matter_intake_afa_description').html(response.description)
+    }
+    if (response.question) {
+      $('#matter_intake_afa_question').html(response.question)
+    }
   })
 }
 

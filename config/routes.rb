@@ -406,6 +406,7 @@ Rails.application.routes.draw do
       get ':matter_intake_id/information_security_classification' => 'matter_intakes#information_security_classification', :as => "matter_intakes_information_security_classification"
       post ':matter_intake_id/information_security_classification' => 'matter_intakes#update_information_security_classification', :as => "matter_intakes_update_information_security_classification"
       post 'verify_doc' => 'matter_intakes#verify_doc'
+      get :get_afa_details
     end
   end
   resources :invoices do 

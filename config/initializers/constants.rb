@@ -1,0 +1,17 @@
+MATTER_AFA=[
+	{name: 'Hourly Rate with Caps', description: 'Hourly rate with total cap', question: 'What is the cap amount, and how is it calculated?'},
+	{name: 'Blended Rate', description: 'Single rate for all attorneys', question: 'What are the blended rates for different attorney levels?'},
+	{name: 'Fixed Fee', description: 'Set fee for entire matter', question: 'What is included in the fixed fee, and are there any additional costs?'},
+	{name: 'Retainer with Performance-Based Adjustments', description: 'Upfront retainer with performance adjustments', question: 'What performance metrics will affect the adjustments?'},
+	{name: 'Contingency Fee', description: 'Fee based on recovery percentage', question: 'What percentage will you take, and are there any costs or fees before recovery?'},
+	{name: 'Subscription-Based Fee', description: 'Regular fee for ongoing access', question: 'What services are covered under the subscription fee?'},
+	{name: 'Task-Based Pricing', description: 'Fee per specific task', question: 'Can you provide a detailed list of tasks and their corresponding fees?'},
+	{name: 'Hybrid AFAs', description: 'Combines multiple AFA types', question: 'How does the hybrid arrangement combine different AFA types?'},
+	{name: 'Milestone-Based Pricing', description: 'Fees based on achieving milestones', question: 'What are the specific milestones and associated fees?'},
+	{name: 'Deferment Fee Arrangement', description: 'Fee deferred until later date', 	question: 'What are the terms for deferred payment, and will there be additional fees?'},
+	{name: 'Value-Based Pricing', description: 'Fee based on service value', question: 'How do you determine the value of the services provided?'},
+	{name: 'Cap and Collar', description: 'Fee within a minimum-maximum range', question: 'What are the minimum and maximum fees, and what factors affect them?'},
+	{name: 'Incremental Pricing', description: 'Fees based on project milestones', question: 'What are the project milestones, and how are they priced?'},
+	{name: 'Success-Based Sliding Scale', description: 'Sliding scale based on success', question: 'How does the sliding scale work and what constitutes different levels of success?'},
+	{name: 'Volume-Based Pricing', description: 'Discount based on work volume', question: 'What volume thresholds apply for discounts, and how is the discount structured?'},
+]

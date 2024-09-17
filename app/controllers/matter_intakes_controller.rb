@@ -170,6 +170,11 @@ class MatterIntakesController < BaseController
     redirect_to matter_intake_path(matter_intake), notice: 'Your comment has been added.'
   end
 
+  def get_afa_details
+    data = MATTER_AFA.select{|obj| obj[:name] == params[:afa]}.first||{}
+    render json: data 
+  end
+
   private
   def matter_intake_params
     params.require(:matter_intake).permit(

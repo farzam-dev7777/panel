@@ -562,10 +562,10 @@ class MatterIntake < ApplicationRecord
           bank: "write",
           law_firm: "read"
         },
-        type: "text", # "dropdown" | "autofill" | "text" | "autocomplete"
+        type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
         optional: MANDATORY_FIELDS.include?(:afa_details) == false,
         value: self.afa_details,
-        collection: []
+        collection: MATTER_AFA.map{|s| s[:name]} 
       },
       {
         name: I18n.t(:budget_amount, default: "Fee Estimate / Budget"),
