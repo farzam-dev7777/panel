@@ -2214,14 +2214,14 @@ function get_afa_details(afa) {
   })
   .done(( response ) => {
     if($('#matter_intake_afa_description').size() == 0){
-      $('div.matter_intake_afa_details').append("<div id='matter_intake_afa_description' style='background: lightgray;'></div>");
-      $('div.matter_intake_afa_details').append("<div id='matter_intake_afa_question' style='background: lightgray;'></div>")
+      $('div.matter_intake_afa_details').append("<div id='matter_intake_afa_description' style='margin:5px;'></div>");
+      $('div.matter_intake_afa_details').append("<div id='matter_intake_afa_question' style='border:1px solid #d7dfe9; padding:8px 15px;margin:5px;'></div>")
     }else{
       $('#matter_intake_afa_description').empty();
       $('#matter_intake_afa_question').empty();
     }
     if (response.description) {
-      $('#matter_intake_afa_description').html(response.description)
+      $('#matter_intake_afa_description').html('( ' + response.description + ' )')
     }
     if (response.question) {
       $('#matter_intake_afa_question').html(response.question)
