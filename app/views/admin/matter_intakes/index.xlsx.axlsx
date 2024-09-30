@@ -21,6 +21,7 @@ wb.styles do |style|
       "LawFirm",
       "Line of Business",
       "Fee Estimate / Budget",
+      "Invoice Amount",
       ], style: heading
     # Create entries for each item
      @matter_intakes.each do |matter_intake|
@@ -33,6 +34,7 @@ wb.styles do |style|
         matter_intake.law_firm&.name,
         matter_intake.line_of_business&.name,
         matter_intake.budget_amount,
+        matter_intake.invoices.sum(&:amount),
         ]
     end
   end
