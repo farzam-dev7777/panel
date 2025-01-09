@@ -1,6 +1,7 @@
 <div class="sp-form sp-form-bg">
   <% invoice_enable = false%>
   <% matter_intake = @rfp.matter_intake%>
+  <% @matter_intake = @rfp.matter_intake if @matter_intake.blank?%>
   <% matter_role = matter_intake.matter_form_role(current_user)%>
   <%= simple_form_for [:admin, @rfp], html: { multipart: true } do |rfp| %>
     <%= rfp.simple_fields_for :matter_intake do |f| %>

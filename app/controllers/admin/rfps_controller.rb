@@ -55,6 +55,7 @@ class Admin::RfpsController< Admin::BaseController
       flash[:notice] = "RFP Form submitted"
       redirect_to admin_rfps_path()
     else
+      @matter_intake = @rfp.matter_intake
       flash[:alert] = "There was an error initiating rfp request. #{[@rfp.errors.full_messages+@rfp.matter_intake.errors.full_messages].join(', ')}" 
       render :new
     end
