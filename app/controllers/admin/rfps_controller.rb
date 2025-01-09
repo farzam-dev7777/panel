@@ -40,6 +40,7 @@ class Admin::RfpsController< Admin::BaseController
     @rfp.matter_intake.user_id = current_user.id
     @rfp.matter_intake.status = 'pending'
     if @rfp.valid? && @rfp.matter_intake.valid?
+      @rfp.save
       (params[:rfp][:invites]||[]).each do |law_firm_id|
         if law_firm_id.present?
           obj = @rfp.rfp_invites.find_or_create_by(law_firm_id: law_firm_id)
