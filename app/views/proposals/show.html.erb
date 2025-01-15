@@ -26,7 +26,7 @@
                     <div class="field-label">Fee</div>
                      <div class="field-data"><%= @proposal.amount %></div>
                   </div>
-                  <% @proposal.answers.each do |answer|%>
+                  <% @proposal.answers.order(:question_id).each do |answer|%>
                     <div class="col-xs-12 col-md-6">
                       <div class="field-label"><%= answer.question.message %></div>
                       <% if answer.question.kind == 'File'%>

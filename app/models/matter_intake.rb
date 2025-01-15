@@ -895,30 +895,6 @@ class MatterIntake < ApplicationRecord
         collection: [['Yes, we are the lead organization', 'Yes, we are the lead organization'],["Yes, we are not the lead organization", "Yes, we are not the lead organization"], ["No", "No"]]
       },
       {
-        name: I18n.t(:afa_details, default: "AFA"),
-        database_field: :afa_details,
-        access: {
-          bank: "write",
-          law_firm: "read"
-        },
-        type: "text", # "dropdown" | "autofill" | "text" | "autocomplete"
-        optional: MANDATORY_FIELDS.include?(:afa_details) == false,
-        value: self.afa_details,
-        collection: []
-      },
-      {
-        name: I18n.t(:budget_amount, default: "Fee Estimate / Budget"),
-        database_field: :budget_amount,
-        access: {
-          bank: "write",
-          law_firm: "write"
-        },
-        type: "currency", # "dropdown" | "autofill" | "text" | "autocomplete"
-        optional: MANDATORY_FIELDS.include?(:budget_amount) == false,
-        value: self.budget_amount,
-        collection: []
-      },
-      {
         name: I18n.t(:deal_code, default: "Deal Code (Capital Markets Only)"),
         database_field: :deal_code,
         access: {

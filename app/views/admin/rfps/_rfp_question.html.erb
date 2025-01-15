@@ -12,7 +12,7 @@
             <th>Type</th>
           </tr>
           <tbody>
-            <% @rfp.questions.each do |question| %>
+            <% @rfp.questions.order(:id).each do |question| %>
               <tr>
                   <td><%= question.message%></td>
                   <td><%= question.kind %></td>
