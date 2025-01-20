@@ -5,4 +5,11 @@ class Proposal < ApplicationRecord
 	has_many :answers
 	accepts_nested_attributes_for :answers, reject_if: :all_blank, allow_destroy: true
 
+	def show_status
+		if status == 'pending'
+			'submitted'
+		else
+			status
+		end
+	end
 end

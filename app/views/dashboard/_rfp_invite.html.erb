@@ -24,6 +24,7 @@
                   <th>Date Submitted</th>
                   <th>Date Expiry</th>
                   <th>Submitter By</th>
+                  <th>Law Firm</th>
                   <th>Status</th>
                   <th>Action</th>
                 </tr>
@@ -47,6 +48,7 @@
                           <% end %>
                         </td>
                         <td><%= rfp.status %></td>
+                        <td><%= rfp_invite.law_firm.name %></td>
                         <td>
                           <% if rfp_invite.status == 'pending'%>
                             <%= link_to "Accept Invite", accept_invite_rfps_path(rfp_invite_id:rfp_invite.id), class: "btn btn-xs btn-secondary" %>  

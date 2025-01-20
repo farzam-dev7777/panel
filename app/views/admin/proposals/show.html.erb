@@ -10,14 +10,6 @@
             <!-- widget content -->
               <div class="sp-form-bg show-data-fields">
                 <div class="row form-flex-wrap">
-                  <div class="col-xs-12 col-md-6">
-                    <div class="field-label">Description</div>
-                     <div class="field-data"><%= @proposal.description %></div>
-                  </div>
-                  <div class="col-xs-12 col-md-6">
-                    <div class="field-label">Amount</div>
-                     <div class="field-data"><%= @proposal.amount %></div>
-                  </div>
                   <% @proposal.answers.each do |answer|%>
                     <div class="col-xs-12 col-md-6">
                       <div class="field-label"><%= answer.question.message %></div>

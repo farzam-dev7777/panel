@@ -9,16 +9,6 @@
               <div class="exceptationRequestProcesss">
                 <div class="sp-form sp-form-bg">
                   <%= simple_form_for [@rfp, @proposal], html: { multipart: true } do |f| %>
-                    <div class="row">
-                      <div class="col-xs-12 col-md-6">
-                        <label class="label">Description</label>
-                          <%= f.text_area :description, label: false, size: '50x10'%>
-                      </div>    
-                      <div class="col-xs-12 col-md-6">
-                        <label class="label">Amount</label>
-                        <%= f.input :amount, label: false %>
-                      </div>
-                    </div>
                     <% @proposal.answers.each do |answer| %>
                       <%= f.simple_fields_for :answers, answer do |form| %>
                         <%= render 'answer', af: form, answer: answer, question: answer.question %>

@@ -28,7 +28,7 @@
 									<td><%= proposal.law_firm&.name %></td>
 									<td data-order="<%= proposal.created_at.strftime('%Y%m%d%H%M') %>">
 										<%= proposal.created_at.strftime('%d %b %Y') %></td>
-									<td><%= proposal.status %></td>
+									<td><%= proposal.show_status %></td>
 									<td>
 										<% if proposal.status == 'approved'%>
 											<button type="button" class="btn btn-xs btn-secondary" data-dismiss="modal" disabled='disabled'>Approve</button>
