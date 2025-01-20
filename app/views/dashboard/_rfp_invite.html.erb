@@ -47,8 +47,8 @@
                             -
                           <% end %>
                         </td>
-                        <td><%= rfp.status %></td>
                         <td><%= rfp_invite.law_firm.name %></td>
+                        <td><%= rfp.status %></td>
                         <td>
                           <% if rfp_invite.status == 'pending'%>
                             <%= link_to "Accept Invite", accept_invite_rfps_path(rfp_invite_id:rfp_invite.id), class: "btn btn-xs btn-secondary" %>  
