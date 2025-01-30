@@ -14,7 +14,7 @@
 
       <div class="back-edit-actions">
 		<div>
-      <% if @rfp.status == 'pending'%>
+      <% if @rfp.status == 'pending' || @rfp.status == 'draft' || @rfp.status == 'only_notify' %>
   			<div class="action-buttons-alignment">
   				<a class="export-icon right-action-btns add-button" href="<%= edit_admin_rfp_path(@rfp) %>">
   					<%= image_tag "add.svg", alt:"General Intake" %> <span>Edit</span>

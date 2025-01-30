@@ -38,6 +38,13 @@ class Admin::RfpsController< Admin::BaseController
     @rfp.matter_intake.submitter_name = current_user.full_name
     @rfp.matter_intake.matter_number = "MT-#{Date.today.month}-#{Date.today.day}-#{MatterIntake.count}"
     @rfp.matter_intake.user_id = current_user.id
+    if params[:commit] == 'Save Draft'
+      @rfp.status = 'draft'
+    elsif params[:commit] == 'Save and Notify to Internal Stakeholders'
+      @rfp.status = 'only_notify'
+    else
+      @rfp.status = 'pending'
+    end
     @rfp.matter_intake.status = 'pending'
     if @rfp.valid? && @rfp.matter_intake.valid?
       @rfp.save
@@ -69,6 +76,14 @@ class Admin::RfpsController< Admin::BaseController
       d = v
       d['message'] = v['message'].last
       rfp_param_obj[:questions_attributes][k]= d
+    end
+
+    if params[:commit] == 'Save Draft'
+      rfp_param_obj[:status] = 'draft'
+    elsif params[:commit] == 'Save and Notify to Internal Stakeholders'
+      rfp_param_obj[:status] = 'only_notify'
+    else
+      rfp_param_obj[:status] = 'pending'
     end
     @rfp.assign_attributes(rfp_param_obj)
     if @rfp.valid? && @rfp.matter_intake.valid?
