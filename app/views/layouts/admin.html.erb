@@ -52,7 +52,7 @@
       </div>
       <div class="project-context user-info hide-profile">
         <span class="project-selector dropdown-toggle" data-toggle="dropdown">
-          <%= image_tag get_avatar_image(current_user.full_name), alt:"User", class:"user-image" %>
+          <%= image_tag get_avatar_image(current_user.name), alt:"User", class:"user-image" %>
           <span class="drop-down-icon">
             <%= image_tag "drop-down-icon.svg", alt:"Drop menu" %>
           </span>
@@ -170,9 +170,6 @@
             </ul>
           </nav>
           <div class="bmo-logo">
-            <% if Tenant.current&.logo&.url %>
-              <%= image_tag Tenant.current&.logo&.url, alt:"Logo", style: "width: 100px;" %>
-            <% end %>
           </div>
         </div>
       </div>

@@ -54,7 +54,7 @@
           <div class="project-context user-info sp-user-dropdown-menu">
 
           <div class="project-selector dropdown-toggle sp-user-profile" data-toggle="dropdown">
-            <%= image_tag get_avatar_image(current_user.full_name), alt:"User", class:"user-image" %> 
+            <%= image_tag get_avatar_image(current_user.name), alt:"User", class:"user-image" %> 
             <div class="user-welcome">
               <span class="welcome">Welcome </span>
               <em><%= current_user&.law_firm&.name%></em>
