@@ -26,11 +26,14 @@
                   <th>Date Expiry</th>
                   <th>Submitter By</th>
                   <th>Law Firm</th>
-                  <th>Status</th>
+                  <th>RFP Status</th>
+                  <th>Proposal Status</th>
                   <th>Action</th>
                 </tr>
                 <tbody>
                   <% rfp_invites.each do |rfp_invite| %>
+                      <% rfp = rfp_invite.rfp%>
+                      <% proposal = rfp.proposals.where(law_firm_id: current_user&.law_firm.id ).first%>
                       <tr onClick="window.location.href='rfps/<%= rfp_invite.rfp_id %>'">
                         <% rfp = rfp_invite.rfp%>
                         <% matter_intake =  rfp_invite.rfp.matter_intake%>
@@ -51,11 +54,18 @@
                         <td><%= rfp_invite.law_firm.name %></td>
                         <td><%= rfp.status %></td>
                         <td>
+                          <% if proposal.blank?%>
+                            <%= 'Invitation Pending' %>
+                          <% else %>
+                            <%= proposal.show_status %>
+                          <% end %>
+                        </td>
+                        <td>
                           <% if rfp_invite.status == 'pending'%>
                             <%= link_to "Accept Invite", accept_invite_rfps_path(rfp_invite_id:rfp_invite.id), class: "btn btn-xs btn-secondary" %>  
                           <% else %>
                             <% proposal = rfp.proposals.where(law_firm_id: current_user&.law_firm.id ).first%>
-                            <% if rfp.proposals.where(law_firm_id:current_user&.law_firm.id ).blank? %>
+                            <% if proposal.blank? %>
                               <%= link_to "Create Proposals", new_rfp_proposal_path(rfp), class: "btn btn-xs btn-secondary" %>
                             <% else %>
                               <%= link_to "Proposal", rfp_proposal_path(rfp, proposal), class: "btn btn-xs btn-secondary" %>
