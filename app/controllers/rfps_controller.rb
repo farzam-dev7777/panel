@@ -14,6 +14,7 @@ class RfpsController < BaseController
   def show
     @rfp = Rfp.find_by_id params[:id]
     @matter_intake = @rfp.matter_intake
+    @rfp_invite = @rfp.rfp_invites.find_by_law_firm_id current_user.law_firm.id
   end
 
   def check_tenant_rfp

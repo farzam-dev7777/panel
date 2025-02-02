@@ -3,7 +3,7 @@
   <%= af.input :question_id, as: :hidden, label: false%>
   <label class="label"><%= question.message%></label>
   <% if question.kind == 'Text'%>
-    <%= af.input :response, as: :string, label: false, size: '50x10'%>
+    <%= af.input :response, as: :text, label: false, input_html: {style: "height: 70px !important;"}%>
   <% elsif question.kind == 'File'%>
     </br>
     <div class="uploadFile">

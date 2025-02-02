@@ -11,10 +11,17 @@
          Status: <%= @rfp.status %>
         </span>
       </div>
-
       <div class="back-edit-actions">
-		<div>
-		</div>
+        <% if @rfp_invite.present? && @rfp_invite.status == 'pending'%>
+          <%= link_to "Accept Invite", accept_invite_rfps_path(rfp_invite_id: @rfp_invite.id), class: "btn-type-default" %>
+        <% else%>
+          <% proposal = @rfp.proposals.where(law_firm_id: current_user&.law_firm.id ).first%>
+          <% if proposal.blank? %>
+            <%= link_to "Create Proposals", new_rfp_proposal_path(@rfp), class: "btn-type-default" %>
+          <% else %>
+            <%= link_to "Proposal", rfp_proposal_path(@rfp, proposal), class: "btn-type-default" %>
+          <% end %>
+        <% end %>
         <a class="btn-type-default" href="/">
           <%= image_tag "chevron-back-icon.svg", alt:"Back" %>
         </a>

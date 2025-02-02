@@ -25,6 +25,8 @@ class ProposalsController < BaseController
 		else
 		  	@proposal = @rfp.proposals.new(proprosal_params)
 		  	@proposal.law_firm_id = current_user.law_firm.id
+		  	@proposal.created_by_id = current_user.id
+		  	@proposal.updated_by_id = current_user.id
 		  	@proposal.status = 'pending'
 		  	if @proposal.save
 		      flash[:notice] = "Proposal submitted"
@@ -43,7 +45,7 @@ class ProposalsController < BaseController
 			flash[:alert] = "Proposal can't update after expiry date" 
 			redirect_to root_path()
 		else
-		  	if @proposal.update(proprosal_params)
+		  	if @proposal.update(proprosal_params.merge(updated_by_id: current_user.id))
 		      flash[:notice] = "Proposal updated"
 		      redirect_to root_path()
 		  	else
@@ -65,7 +67,7 @@ class ProposalsController < BaseController
 
 	def proprosal_params
 		params.require(:proposal).permit(
-			:amount, :description, :rfp_id,
+			:amount, :description, :rfp_id, :updated_by,
 			answers_attributes: [:id, :response, :date, :file, :rfp_id, :question_id],
 		)
 	end

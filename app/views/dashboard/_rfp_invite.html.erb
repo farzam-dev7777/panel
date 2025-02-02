@@ -54,10 +54,12 @@
                         <td><%= rfp_invite.law_firm.name %></td>
                         <td><%= rfp.status %></td>
                         <td>
-                          <% if proposal.blank?%>
-                            <%= 'Invitation Pending' %>
-                          <% else %>
+                          <% if proposal.present?%>
                             <%= proposal.show_status %>
+                          <% elsif rfp_invite.status == 'accepted'%>
+                            <%= 'Invitation accepted'%>
+                          <% else %>
+                            <%= 'Acceptance Pending' %>
                           <% end %>
                         </td>
                         <td>

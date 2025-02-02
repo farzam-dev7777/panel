@@ -87,7 +87,7 @@ class Admin::RfpsController< Admin::BaseController
     end
     @rfp.assign_attributes(rfp_param_obj)
     if @rfp.valid? && @rfp.matter_intake.valid?
-      @rfp.update(rfp_param_obj)
+      @rfp.save
       (params[:rfp][:invites]||[]).each do |law_firm_id|
         if law_firm_id.present?
           obj = @rfp.rfp_invites.find_or_create_by(law_firm_id: law_firm_id)

@@ -18,6 +18,7 @@
 							<tr>
 							<th>Law Firm</th>
 							<th>Date Submitted</th>
+							<th>Submitted By</th>
 							<th>Status</th>
 							<th>Action</th>
 							</tr>
@@ -28,6 +29,7 @@
 									<td><%= proposal.law_firm&.name %></td>
 									<td data-order="<%= proposal.created_at.strftime('%Y%m%d%H%M') %>">
 										<%= proposal.created_at.strftime('%d %b %Y') %></td>
+									<td><%= proposal.created_by&.name %></td>
 									<td><%= proposal.show_status %></td>
 									<td>
 										<% if proposal.status == 'approved'%>
