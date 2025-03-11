@@ -3,7 +3,7 @@
 		<div class="formSection row nested-fields"> <!-- this main div will be functional -->
 			<div class="col-xs-12 col-md-2">
 				<label class="label">Date</label>
-				<%= f.input :date, as: :string, input_html: { class: 'invoice_datepicker', value: DateField.stringify_date(f.object.date) }, label: false %>
+				<%= f.input :date, as: :string, input_html: { class: 'invoice_datepicker' }, label: false %>
 			</div>
 			<div class="col-xs-12 col-md-2">
 				<label class="label">Description</label>

@@ -11,7 +11,7 @@
         </div>
         <div class="col-xs-12 col-md-3">
           <div class="field-label">Invoice date</div>
-          <div class="field-data"><%= (invoice.date||invoice.created_at).strftime('%d %b %Y') %></div>
+          <div class="field-data"><%= invoice.date&.strftime('%d %b %Y') %></div>
         </div>
         <div class="col-xs-12 col-md-1" style="padding-left:1px;padding-right:1px;">
           <div class="field-label">Status</div>

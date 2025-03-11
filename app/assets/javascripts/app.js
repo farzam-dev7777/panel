@@ -2136,7 +2136,7 @@ function show_file_name(e){
 
 $('body').on('focus',".invoice_datepicker", function(){
   $(this).datepicker({
-    dateFormat: "yy-mm-dd",
+    format: 'yyyy-mm-dd',
     altField: $(this).next()
   });
 });
