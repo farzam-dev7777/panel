@@ -21,7 +21,7 @@
               </thead>
               <tbody>
                 <% @invoices.each do |invoice| %>
-                  <tr>
+                  <tr onClick="window.location.href='<%=  admin_invoice_path(invoice)%>'">
                     <td><%= invoice&.updated_at&.strftime('%d %b %Y') %></td>
                     <td><%= invoice&.matter_intake&.matter_number %></td>
                     <td><%= invoice&.matter_intake&.name_of_matter_client %></td>

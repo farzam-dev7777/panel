@@ -9,4 +9,9 @@ class Admin::InvoicesController < Admin::BaseController
     @invoices = Invoice.order('updated_at DESC')
   end
 
+  def show
+    @invoice = Invoice.find_by_id params[:id]
+    @matter_intake = @invoice.matter_intake
+  end
+
 end

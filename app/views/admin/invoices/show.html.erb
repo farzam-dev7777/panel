@@ -1,0 +1,48 @@
+  <div class="col-lg-12 col-md-12 col-sm-12">
+    <div class="jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+      <div class="mobile-dashboard-header">
+        <div class="page-title">Invoice</div>
+      </div>
+      <div class="no-padding">
+    <div class="widget-body">
+    <div class="table-responsive">
+      <table id="" class="table table-decoration table-bordered" width="100%">
+        <thead>
+          <tbody>
+              <tr>
+                  <td>Amount</td>
+                  <td><%= @invoice.amount.format %></td>
+              </tr>
+              <tr>
+                  <td>Invoice date</td>
+                  <td><%= (@invoice.date||@invoice.created_at).strftime('%d %b %Y') %></td>
+              </tr>
+              <tr>
+                  <td>Status</td>
+                  <td><%= @invoice.status&.capitalize||'Pending' %></td>
+              </tr>
+              <tr>
+                  <td>Attachments</td>
+                  <td>
+                    <% @invoice.invoice_attachments.each do |attachment| %>
+                      <a href="<%= attachment.file&.url %>" target="_blank" title="<%= attachment.file.identifier %>">
+                        <i class="fa fa-money" aria-hidden="true"></i>
+                      </a>
+                    <% end %>
+                  </td>
+              </tr>
+              <tr>
+                  <td>Actions</td>
+                  <td>
+                    <%= link_to "Approve", approve_invoice_path(@invoice), class: "btn-type-primary" %> 
+                    <%= link_to "Reject", reject_invoice_path(@invoice), class: "btn-type-primary", style: "background-color: #ad0000 !important;" %>
+                  </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+</div>
+
+</dive>

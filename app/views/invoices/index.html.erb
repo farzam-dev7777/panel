@@ -24,7 +24,7 @@
             </thead>
             <tbody>
               <% current_user.law_firm && current_user.law_firm.matter_intakes.map(&:invoices).flatten.each do |invoice| %>
-                <tr>
+                <tr onClick="window.location.href='<%=  admin_invoice_path(invoice)%>'">
                   <td>
                     <%= invoice.id %>
                   </td>
