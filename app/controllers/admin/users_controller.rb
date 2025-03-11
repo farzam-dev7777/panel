@@ -52,8 +52,7 @@ class Admin::UsersController < Admin::BaseController
   def update_profile
     @user = User.find(params[:id])
     if @user.update(users_params)
-      flash[:notice] = "User updated"
-      render :edit_profile, :id => @user.id
+      redirect_to users_edit_profile_admin_users_path(id: @user.id), notice: "User updated"
     else
       flash[:alert] = "There was an error updating the user"
       render :edit_profile, :id => @user.id
