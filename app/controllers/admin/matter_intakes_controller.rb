@@ -99,14 +99,8 @@ class Admin::MatterIntakesController < Admin::BaseController
       @matter_intake.auto_approve_matter(current_user)
       @matter_intake.set_default_approval_status(current_user)
       @matter_intake.send_notification_to_lawyer
-      if params[:commit] === "Next"
-        flash[:alert]=''
-        @show_information_security_form = true
-        redirect_to matter_intakes_update_information_security_classification_admin_matter_intakes_path(@matter_intake)
-      else
-        flash[:notice] = "Matter Intake Form submitted"
-        redirect_to admin_matter_intake_path(@matter_intake)
-      end
+      flash[:notice] = "Matter Intake Form submitted"
+      redirect_to admin_matter_intake_path(@matter_intake)
     else
       flash[:alert] = "There was an error initiating matter intake request. #{@matter_intake.errors.full_messages.join(', ')}" 
       render :new
@@ -156,14 +150,8 @@ class Admin::MatterIntakesController < Admin::BaseController
         # @matter_intake.update_attributes(lxp_reviewed_at: Time.now, status: @matter_intake.status.downcase, lxp_id: current_user.id)
         # @matter_intake.add_log_matter_open_by_lxp(current_user)
         # @matter_intake.send_notification_to_lawyer_and_lxp
-        if params[:commit] === "Next"
-          flash[:alert]=''
-          @show_information_security_form = true
-          redirect_to matter_intakes_update_information_security_classification_admin_matter_intakes_path(@matter_intake)
-        else
-          flash[:notice] = "Matter Intake Form submitted"
-          redirect_to admin_matter_intake_path(@matter_intake)
-        end
+        flash[:notice] = "Matter intake request updated"
+        redirect_to admin_matter_intakes_path
       else
         flash[:notice] = "Matter intake request updated"
         redirect_to admin_matter_intakes_path

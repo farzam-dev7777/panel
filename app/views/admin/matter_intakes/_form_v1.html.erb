@@ -110,18 +110,10 @@
           </div>
         </div>
       </div>
-      <% if @show_information_security_form.present? %>
-        <%= render '/matter_intakes/form_information_security', f: f%>
-        <div class="col-xs-12 col-md-12 text-right">
-          <%=link_to 'Cancel', admin_matter_intakes_path, class: 'btn-type-default' %>
-          <%= f.button :submit, "Submit", class: "btn-type-primary simple_form_edit_matter_intakes" %>
-        </div>
-      <% else %>
-        <div class="col-xs-12 col-md-12 text-right">
-          <%=link_to 'Cancel', admin_matter_intakes_path, class: 'btn-type-default' %>
-          <%= f.button :submit, "Next", class: "btn-type-primary" %>
-        </div>
-      <% end %>
+      <div class="col-xs-12 col-md-12 text-right">
+        <%=link_to 'Cancel', admin_matter_intakes_path, class: 'btn-type-default' %>
+        <%= f.button :submit, "Submit", class: "btn-type-primary simple_form_edit_matter_intakes" %>
+      </div>
     </div>
   <% end %>
 </div>
