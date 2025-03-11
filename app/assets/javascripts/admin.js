@@ -2186,21 +2186,6 @@ $(document).ready(function() {
 	} else {
 		$('.applicable_technical_specialty_data_type_data_list').hide()
 	}
-	if($("select#exception_request_receive_personal_information").val() == "Yes" ) {
-		$('.receive_personal_information_data_type_data_list').show()
-	} else {
-		$('.receive_personal_information_data_type_data_list').hide()
-	}
-	if($("select#exception_request_receive_general_business_data").val() == "Yes" ) {
-		$('.receive_general_business_data_type_data_list').show()
-	} else {
-		$('.receive_general_business_data_type_data_list').hide()
-	}
-	if($("select#exception_request_applicable_technical_specialty_data").val() == "Yes" ) {
-		$('.applicable_technical_specialty_data_type_data_list').show()
-	} else {
-		$('.applicable_technical_specialty_data_type_data_list').hide()
-	}
 });
 
 $('select#matter_intake_receive_personal_information').on('change', function() {
