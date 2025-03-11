@@ -22,7 +22,7 @@ class TenantAdmin::LineOfBusinessesController < TenantAdmin::BaseController
       flash[:notice] = "Lob created successfully"
       redirect_to tenant_admin_line_of_businesses_path
     else
-      flash[:alert] = "There was an error creating new tanant admin user. Errors: #{@user&.errors&.full_messages&.join(', ')}"
+      flash[:alert] = "There was an error creating new tenant admin user. Errors: #{@user&.errors&.full_messages&.join(', ')}"
       render :new
     end
   end

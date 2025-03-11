@@ -19,7 +19,7 @@ class TenantAdmin::TenantsController < TenantAdmin::BaseController
       flash[:notice] = "Tenant created successfully"
       redirect_to tenant_admin_root_path
     else
-      flash[:alert] = "There was an error creating new tanant. Errors: #{@tenant&.errors&.full_messages&.join(', ')}"
+      flash[:alert] = "There was an error creating new tenant. Errors: #{@tenant&.errors&.full_messages&.join(', ')}"
       render :new
     end
   end
