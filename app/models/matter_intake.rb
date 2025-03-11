@@ -602,54 +602,6 @@ class MatterIntake < ApplicationRecord
         optional: MANDATORY_FIELDS.include?(:deal_code) == false,
         value: self.deal_code,
         collection: []
-      },
-      {
-        name: I18n.t(:related_matter_number, default: "Related Matter Number"),
-        database_field: :related_matter_number,
-        access: {
-          bank: "write",
-          law_firm: "write"
-        },
-        type: "text", # "dropdown" | "autofill" | "text" | "autocomplete"
-        optional: MANDATORY_FIELDS.include?(:related_matter_number) == false,
-        value: self.related_matter_number,
-        collection: []
-      },
-      {
-        name: I18n.t(:pii_involved, default: "Any PII involved in this matter?"),
-        database_field: :pii_involved,
-        access: {
-          bank: "write",
-          law_firm: "write"
-        },
-        type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
-        optional: MANDATORY_FIELDS.include?(:pii_involved) == false,
-        value: self.pii_involved,
-        collection: [['Yes', true], ['No', false]]
-      },
-      {
-        name: I18n.t(:can_reimbursed_matter, default: "Could law firm potentially receive sensitive information"),
-        database_field: :can_reimbursed_matter,
-        access: {
-          bank: "write",
-          law_firm: "not_access"
-        },
-        type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
-        optional: MANDATORY_FIELDS.include?(:can_reimbursed_matter) == false,
-        value: self.can_reimbursed_matter,
-        collection: [['Yes', 'Yes'], ["No", "No"]]
-      },
-      {
-        name: I18n.t(:is_ore_reportable, default: "Reportable Risk"),
-        database_field: :is_ore_reportable,
-        access: {
-          bank: "write",
-          law_firm: "not_access"
-        },
-        type: "dropdown", # "dropdown" | "autofill" | "text" | "autocomplete"
-        optional: MANDATORY_FIELDS.include?(:is_ore_reportable) == false,
-        value: self.is_ore_reportable,
-        collection: [['Yes', 'Yes'], ["No", "No"]]
       }
     ]
 
