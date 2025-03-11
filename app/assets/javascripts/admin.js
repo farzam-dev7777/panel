@@ -2170,11 +2170,38 @@ $('select#matter_intake_is_ore_reportable').on('change', function() {
 	}
 })
 
-if($("select#matter_intake_receive_personal_information").val() == "Yes" ) {
-	$('.receive_personal_information_data_type_data_list').show()
-} else {
-	$('.receive_personal_information_data_type_data_list').hide()
-}
+$(document).ready(function() {
+	if($("select#matter_intake_receive_personal_information").val() == "Yes" ) {
+		$('.receive_personal_information_data_type_data_list').show()
+	} else {
+		$('.receive_personal_information_data_type_data_list').hide()
+	}
+	if($("select#matter_intake_receive_general_business_data").val() == "Yes" ) {
+		$('.receive_general_business_data_type_data_list').show()
+	} else {
+		$('.receive_general_business_data_type_data_list').hide()
+	}
+	if($("select#matter_intake_applicable_technical_specialty_data").val() == "Yes" ) {
+		$('.applicable_technical_specialty_data_type_data_list').show()
+	} else {
+		$('.applicable_technical_specialty_data_type_data_list').hide()
+	}
+	if($("select#exception_request_receive_personal_information").val() == "Yes" ) {
+		$('.receive_personal_information_data_type_data_list').show()
+	} else {
+		$('.receive_personal_information_data_type_data_list').hide()
+	}
+	if($("select#exception_request_receive_general_business_data").val() == "Yes" ) {
+		$('.receive_general_business_data_type_data_list').show()
+	} else {
+		$('.receive_general_business_data_type_data_list').hide()
+	}
+	if($("select#exception_request_applicable_technical_specialty_data").val() == "Yes" ) {
+		$('.applicable_technical_specialty_data_type_data_list').show()
+	} else {
+		$('.applicable_technical_specialty_data_type_data_list').hide()
+	}
+});
 
 $('select#matter_intake_receive_personal_information').on('change', function() {
 	if(this.value == "Yes"){
@@ -2184,11 +2211,6 @@ $('select#matter_intake_receive_personal_information').on('change', function() {
 	}
 })
 
-if($("select#matter_intake_receive_general_business_data").val() == "Yes" ) {
-	$('.receive_general_business_data_type_data_list').show()
-} else {
-	$('.receive_general_business_data_type_data_list').hide()
-}
 $('select#matter_intake_receive_general_business_data').on('change', function() {
 	if(this.value == "Yes"){
 		$('.receive_general_business_data_type_data_list').show()
@@ -2197,11 +2219,6 @@ $('select#matter_intake_receive_general_business_data').on('change', function() 
 	}
 })
 
-if($("select#matter_intake_applicable_technical_specialty_data").val() == "Yes" ) {
-	$('.applicable_technical_specialty_data_type_data_list').show()
-} else {
-	$('.applicable_technical_specialty_data_type_data_list').hide()
-}
 $('select#matter_intake_applicable_technical_specialty_data').on('change', function() {
 	if(this.value == "Yes"){
 		$('.applicable_technical_specialty_data_type_data_list').show()
@@ -2211,14 +2228,6 @@ $('select#matter_intake_applicable_technical_specialty_data').on('change', funct
 })
 
 //New Exception Request
-
-
-if($("select#exception_request_receive_personal_information").val() == "Yes" ) {
-	$('.receive_personal_information_data_type_data_list').show()
-} else {
-	$('.receive_personal_information_data_type_data_list').hide()
-}
-
 $('select#exception_request_receive_personal_information').on('change', function() {
 	if(this.value == "Yes"){
 		$('.receive_personal_information_data_type_data_list').show()
@@ -2227,11 +2236,6 @@ $('select#exception_request_receive_personal_information').on('change', function
 	}
 })
 
-if($("select#exception_request_receive_general_business_data").val() == "Yes" ) {
-	$('.receive_general_business_data_type_data_list').show()
-} else {
-	$('.receive_general_business_data_type_data_list').hide()
-}
 $('select#exception_request_receive_general_business_data').on('change', function() {
 	if(this.value == "Yes"){
 		$('.receive_general_business_data_type_data_list').show()
@@ -2240,11 +2244,6 @@ $('select#exception_request_receive_general_business_data').on('change', functio
 	}
 })
 
-if($("select#exception_request_applicable_technical_specialty_data").val() == "Yes" ) {
-	$('.applicable_technical_specialty_data_type_data_list').show()
-} else {
-	$('.applicable_technical_specialty_data_type_data_list').hide()
-}
 $('select#exception_request_applicable_technical_specialty_data').on('change', function() {
 	if(this.value == "Yes"){
 		$('.applicable_technical_specialty_data_type_data_list').show()
