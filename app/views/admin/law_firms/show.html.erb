@@ -20,7 +20,7 @@
         	<% end %>
 		</div>
 		<div class="back-edit-actions">
-			<a class="btn-type-default" href="/admin/law_firms/panel_law_firms">
+			<a class="btn-type-default" href="<%= request.referer%>">
 				<%= image_tag "chevron-back-icon.svg", alt:"Back" %>
 			</a>
 			<%= link_to "Edit".html_safe, edit_admin_law_firm_path, class: "btn-type-primary" %>
