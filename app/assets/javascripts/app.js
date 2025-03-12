@@ -794,9 +794,9 @@ $(document).ready(function(){
 
   $("input.datepicker").each(function(input) {
     $(this).datepicker({
-      dateFormat: "dd M yy",
+      format: 'yyyy-mm-dd',
       altField: $(this).next()
-    })
+    });
   })
 
 

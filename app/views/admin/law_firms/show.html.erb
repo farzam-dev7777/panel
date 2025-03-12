@@ -353,7 +353,7 @@
 														<strong class="<%= activity_source_class(activity) %>"><%= activity.custom_message || activity.event_type.try(:titleize) %></strong>
 													</h2>
 													<em>(<%= activity.source == 'AdminUser' ? 'Bank' : 'Law Firm' %>)</em>
-													<span class="cd-date"><%= activity.created_at.strftime('%d %b at %I:%M %p') %></span>
+													<span class="cd-date"><%= activity.created_at.strftime('%d %b %Y') %></span>
 												</div>
 											</div>
 										<%- end %>
@@ -373,12 +373,12 @@
 												<th>Score</th>
 												<th>Status</th>
 												<th>Approved At</th>
-												<th>Expiry Date</th>
 												<th>Submission</th>
+												<th>Expiry Date</th>
 											</tr>
 										</thead>
 										<% @law_firm.form_submissions.each do |submission| %>
-										<tr onClick="window.location.href='/admin/form_submissions/<%= submission.id %>/conflicts_step'">
+										<tr>
 											<td><%= @law_firm.total_calculated_score(submission) || '-' %></td>
 											<td>
 												<span class="label label-<%= submission_status_class(submission) %>">
@@ -389,25 +389,27 @@
 												<% end %>
 											</td>
 											<td>
-												<%= submission.approved_at %>
+												<%= submission.approved_at&.strftime('%d %b %Y') %>
 											</td>
-											<td class="text-center">
-												<%= submission.expiry_date %>
+											<td>
+												<%= submission.submitted_on&.strftime('%d %b %Y') %>
 											</td>
 											<td>
 												<% if submission.try(:status) == 'approved' %>	
 													<% #link_to "Begin Recertification Process", begin_recertification_process_admin_law_firm_path(submission.law_firm), class: "btn btn-primary btn-xs" %>	
 
-													<%= submission.expiry_date %>
+													<%= submission.expiry_date&.strftime('%d %b %Y') %>
 													<a class="btn btn-default btn-xs extend-expiry">Extend Expiry Date</a>
-													<form id="extend-expiry-form" class="text-center" style="margin-top: 20px; height: 75px;" method="POST" action="">
-														<div class="col-md-offset-3 no-padding col-md-6 text-center">
-															<div class="col-md-9">
-																<label>Expiry Date</label>
+													<form id="extend-expiry-form" class="text-center" method="POST" action="">
+														<div class="no-padding col-md-9 text-center">
+															<div class="col-md-3">
+																<label style="padding-top:12px;">Expiry Date</label>
+															</div>
+															<div class="col-md-4">
 																<input type="hidden" value="<%= submission.id %>" name="id"></input>
 																<input type="text" class="datepicker" name="expiry_date" value="<%= submission.expiry_date %>">
 															</div>
-															<div class="col-md-3" style="line-height: 75px;">
+															<div class="col-md-3" style="padding-top:4px;">
 																<input type="Submit" class="btn btn-sm btn-primary">
 															</div>
 														</div>
