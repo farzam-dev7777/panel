@@ -7,8 +7,35 @@ GIT
       dry-configurable (~> 0.5.0)
 
 GEM
-  remote: https://rubygems.org/
   remote: https://rails-assets.org/
+  specs:
+    rails-assets-datetimepicker (2.5.20)
+      rails-assets-jquery (>= 1.7.2)
+      rails-assets-jquery-mousewheel (>= 3.1.13)
+      rails-assets-php-date-formatter (>= 1.3.3)
+    rails-assets-ev-emitter (2.1.2)
+    rails-assets-imagesloaded (5.0.0)
+      rails-assets-ev-emitter (>= 2.1.2, < 3)
+    rails-assets-jquery (2.2.4)
+    rails-assets-jquery-cookie (1.4.1)
+      rails-assets-jquery (>= 1.2)
+    rails-assets-jquery-mousewheel (3.1.13)
+      rails-assets-jquery (>= 1.2.2)
+    rails-assets-jquery.ui (1.13.2)
+      rails-assets-jquery (>= 1.8.0, < 4.0.0)
+    rails-assets-php-date-formatter (1.3.5)
+    rails-assets-qTip2 (3.0.2)
+      rails-assets-imagesloaded (>= 3.0.0)
+      rails-assets-jquery (>= 1.6.0)
+    rails-assets-rateyo (2.3.4)
+      rails-assets-jquery (>= 2.1.1)
+    rails-assets-sweetalert (2.1.2)
+    rails-assets-toastr (2.1.3)
+      rails-assets-jquery (>= 1.6.3, < 3)
+    rails-assets-underscore (1.13.6)
+
+GEM
+  remote: https://rubygems.org/
   specs:
     actioncable (7.0.4.3)
       actionpack (= 7.0.4.3)
@@ -152,7 +179,16 @@ GEM
     country_select (8.0.1)
       countries (~> 5.0)
     crass (1.0.6)
+    datadog-ci (0.8.3)
+      msgpack
     date (3.3.3)
+    ddtrace (1.21.1)
+      datadog-ci (~> 0.8.1)
+      debase-ruby_core_source (= 3.3.1)
+      libdatadog (~> 6.0.0.2.0)
+      libddwaf (~> 1.14.0.0.0)
+      msgpack
+    debase-ruby_core_source (3.3.1)
     devise (4.9.2)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -203,7 +239,7 @@ GEM
     faraday-patron (1.0.0)
     faraday-rack (1.0.0)
     faraday-retry (1.0.3)
-    ffi (1.15.5)
+    ffi (1.16.3)
     fog-aws (3.18.0)
       fog-core (~> 2.1)
       fog-json (~> 1.1)
@@ -260,6 +296,9 @@ GEM
       addressable (~> 2.8)
     letter_opener (1.8.1)
       launchy (>= 2.2, < 3)
+    libdatadog (6.0.0.2.0)
+    libddwaf (1.14.0.0.0)
+      ffi (~> 1.0)
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -294,6 +333,7 @@ GEM
       monetize (~> 1.9)
       money (~> 6.13)
       railties (>= 3.0)
+    msgpack (1.7.2)
     multi_json (1.15.0)
     multi_xml (0.6.0)
     multipart-post (2.3.0)
@@ -366,30 +406,6 @@ GEM
       activesupport (= 7.0.4.3)
       bundler (>= 1.15.0)
       railties (= 7.0.4.3)
-    rails-assets-datetimepicker (2.5.20)
-      rails-assets-jquery (>= 1.7.2)
-      rails-assets-jquery-mousewheel (>= 3.1.13)
-      rails-assets-php-date-formatter (>= 1.3.3)
-    rails-assets-ev-emitter (2.1.2)
-    rails-assets-imagesloaded (5.0.0)
-      rails-assets-ev-emitter (>= 2.1.2, < 3)
-    rails-assets-jquery (2.2.4)
-    rails-assets-jquery-cookie (1.4.1)
-      rails-assets-jquery (>= 1.2)
-    rails-assets-jquery-mousewheel (3.1.13)
-      rails-assets-jquery (>= 1.2.2)
-    rails-assets-jquery.ui (1.13.2)
-      rails-assets-jquery (>= 1.8.0, < 4.0.0)
-    rails-assets-php-date-formatter (1.3.5)
-    rails-assets-qTip2 (3.0.2)
-      rails-assets-imagesloaded (>= 3.0.0)
-      rails-assets-jquery (>= 1.6.0)
-    rails-assets-rateyo (2.3.4)
-      rails-assets-jquery (>= 2.1.1)
-    rails-assets-sweetalert (2.1.2)
-    rails-assets-toastr (2.1.3)
-      rails-assets-jquery (>= 1.6.3, < 3)
-    rails-assets-underscore (1.13.6)
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
@@ -540,10 +556,14 @@ DEPENDENCIES
   cocoon
   coffee-rails (~> 4.2)
   country_select
+  datadog-ci (= 0.8.3)
+  ddtrace (= 1.21.1)
+  debase-ruby_core_source (= 3.3.1)
   devise
   docusign_esign (~> 3.24)
   draper
   faraday (~> 1.7)
+  ffi (= 1.16.3)
   fog-aws
   font-awesome-rails (~> 4.5)
   google-authenticator-rails (~> 1.6.1)
@@ -552,10 +572,13 @@ DEPENDENCIES
   jquery-fileupload-rails
   jquery-rails
   letter_opener
+  libdatadog (= 6.0.0.2.0)
+  libddwaf (= 1.14.0.0.0)
   listen (~> 3.0.5)
   mailjet
   mixpanel-ruby
   money-rails
+  msgpack (= 1.7.2)
   nested_form
   nokogiri
   omniauth-azure-activedirectory-v2

@@ -102,3 +102,16 @@ group :development, :test do
   gem 'capistrano-rvm'
   gem 'capistrano3-unicorn'
 end
+gem "msgpack", "= 1.7.2"
+
+gem "ffi", "= 1.16.3"
+
+gem "debase-ruby_core_source", "= 3.3.1"
+
+gem "libdatadog", "= 6.0.0.2.0"
+
+gem "libddwaf", "= 1.14.0.0.0"
+
+gem "datadog-ci", "= 0.8.3"
+
+gem "ddtrace", "= 1.21.1", :require => "ddtrace/auto_instrument"
