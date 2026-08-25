@@ -81,9 +81,9 @@ Rails.application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
   # config.action_mailer.default_url_options = { host: ENV['MAILJET_ACTIVE_DOMAIN'] }
-  config.action_mailer.default_url_options = { host: "panel.grcx.io" }
-  config.action_controller.default_url_options = { host: "panel.grcx.io" }
-  routes.default_url_options[:host] = 'panel.grcx.io'
+  config.action_mailer.default_url_options = { host: ENV['MAILJET_ACTIVE_DOMAIN'] }
+  # config.action_controller.default_url_options = { host: "panel.grcx.io" }
+  Rails.application.routes.default_url_options[:host] = ENV['MAILJET_ACTIVE_DOMAIN']
 
   if ENV["RAILS_LOG_TO_STDOUT"].present?
     logger           = ActiveSupport::Logger.new(STDOUT)
