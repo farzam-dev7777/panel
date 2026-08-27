@@ -1,0 +1,26 @@
+# config/secrets.yml is intentionally not in git (it holds credentials).
+# On Cloud 66 the real file lives on the server in the stack's shared folder
+# and is copied into every release before Rails boots (asset compilation,
+# migrations, app start all need it).
+#
+# One-time setup per stack: place the file at
+#   <stack base>/web_head/shared/config/secrets.yml
+# e.g. on staging: /var/deploy/panel_staging/web_head/shared/config/secrets.yml
+staging:
+  after_checkout:
+    - command: cp -f /var/deploy/panel_staging/web_head/shared/config/secrets.yml $STACK_PATH/config/secrets.yml
+      target: rails
+      run_on: all_servers
+      execute: true
+      halt_on_error: true
+
+# NOTE: verify the production stack's deploy path (ls /var/deploy on the
+# production server) and adjust the source path below before deploying
+# production.
+production:
+  after_checkout:
+    - command: cp -f /var/deploy/panel_production/web_head/shared/config/secrets.yml $STACK_PATH/config/secrets.yml
+      target: rails
+      run_on: all_servers
+      execute: true
+      halt_on_error: true
