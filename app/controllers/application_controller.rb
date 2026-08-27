@@ -50,7 +50,7 @@ class ApplicationController < ActionController::Base
     # resource&.send_two_fa
     if Current.user&.role === "tenant_admin"
       Apartment::Tenant.switch!('public')
-      tenant_admin_root_url(subdomain: 'panel')
+      tenant_admin_root_url(tenant_url_options('panel'))
     elsif Current.user&.role === "master_user"
       switch_to_master_user_tenant
       root_path
@@ -59,9 +59,9 @@ class ApplicationController < ActionController::Base
       Apartment::Tenant.switch!(tenant&.subdomain || 'public')
       if ( current_user.role == 'superadmin' || current_user.role == 'admin' || current_user.is_panel_admin_user? )
         if current_user.role == "lob"
-          current_user.tenant.present? ? lob_root_url(subdomain: current_user.tenant&.subdomain) : lob_root_url
+          current_user.tenant.present? ? lob_root_url(tenant_url_options(current_user.tenant&.subdomain)) : lob_root_url
         else
-          current_user.tenant.present? ? admin_root_url(subdomain: current_user.tenant&.subdomain) : admin_root_url
+          current_user.tenant.present? ? admin_root_url(tenant_url_options(current_user.tenant&.subdomain)) : admin_root_url
         end
       else
         root_path
@@ -147,7 +147,19 @@ class ApplicationController < ActionController::Base
   end
 
   def fetch_subdomain
-    request.subdomain
+    if TenantHost.known?(request.host)
+      TenantHost.tenant_for(request.host).to_s
+    else
+      request.subdomain
+    end
+  end
+
+  # URL options that place the given tenant subdomain in front of the
+  # request's configured base domain (Cloud 66 hosts). Falls back to Rails'
+  # subdomain: option for custom domains, preserving existing behaviour.
+  def tenant_url_options(subdomain)
+    host = TenantHost.host_for(subdomain, request.host)
+    host ? { host: host } : { subdomain: subdomain }
   end
 
 end

@@ -1,11 +1,17 @@
 require 'omniauth-okta'
 require 'docusign'
+require 'tenant_host'
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 
 def fetch_subdomain(request)
   return "lb" if Rails.env.development?
-  tenant_subdomain = request.env["HTTP_HOST"].split(".").first
+  host = request.env["HTTP_HOST"].to_s
+  tenant_subdomain = if TenantHost.known?(host)
+    TenantHost.tenant_for(host)
+  else
+    host.split(".").first
+  end
   tenant_subdomain.present? && !["panel", "seal"].include?(tenant_subdomain) ? tenant_subdomain : nil
 end
 
