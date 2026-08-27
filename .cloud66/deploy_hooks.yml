@@ -1,25 +1,26 @@
 # config/secrets.yml is intentionally not in git (it holds credentials).
-# On Cloud 66 the real file lives on the server in the stack's shared folder
-# and is copied into every release before Rails boots (asset compilation,
-# migrations, app start all need it).
+# On Cloud 66 the real file lives on each server in the stack's shared
+# folder and is copied into every release before Rails boots (asset
+# compilation, migrations, and app start all need it).
 #
-# One-time setup per stack: place the file at
-#   <stack base>/web_head/shared/config/secrets.yml
-# e.g. on staging: /var/deploy/panel_staging/web_head/shared/config/secrets.yml
+# One-time setup per server (SSH in once):
+#   mkdir -p <stack>/web_head/shared/config
+#   place secrets.yml there (see releases layout, e.g.
+#   /var/deploy/panel_staging/web_head/shared/config/secrets.yml)
+#
+# $STACK_PATH is the release being deployed (…/web_head/releases/<ts>),
+# so ../../shared resolves to the stack's shared folder on any stack.
 staging:
   after_checkout:
-    - command: cp -f /var/deploy/panel_staging/web_head/shared/config/secrets.yml $STACK_PATH/config/secrets.yml
+    - command: cp -f "$STACK_PATH/../../shared/config/secrets.yml" "$STACK_PATH/config/secrets.yml"
       target: rails
       run_on: all_servers
       execute: true
       halt_on_error: true
 
-# NOTE: verify the production stack's deploy path (ls /var/deploy on the
-# production server) and adjust the source path below before deploying
-# production.
 production:
   after_checkout:
-    - command: cp -f /var/deploy/panel_production/web_head/shared/config/secrets.yml $STACK_PATH/config/secrets.yml
+    - command: cp -f "$STACK_PATH/../../shared/config/secrets.yml" "$STACK_PATH/config/secrets.yml"
       target: rails
       run_on: all_servers
       execute: true
