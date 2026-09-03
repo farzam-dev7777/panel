@@ -1,7 +1,9 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
-  config.action_dispatch.tld_length = 1
+  # Base domain panel.grcx.io has 3 labels -> tld_length 2
+  # (tenant hosts like cwb.panel.grcx.io then yield subdomain "cwb")
+  config.action_dispatch.tld_length = 2
 
   # Code is not reloaded between requests.
   config.cache_classes = true
